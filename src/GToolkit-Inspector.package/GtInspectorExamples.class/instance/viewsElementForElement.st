@@ -4,6 +4,6 @@ viewsElementForElement
 	| tabGroup |
 	tabGroup := (BlElement new
 		size: 1000@1000;
-		background: Color red) gtViewsElementInContext: nil.
+		background: Color red) gtViewsElement.
 	self assert: (tabGroup isKindOf: BlElement).
 	^ tabGroup.
