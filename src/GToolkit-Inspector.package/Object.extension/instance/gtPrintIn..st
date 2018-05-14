@@ -1,5 +1,6 @@
 *GToolkit-Inspector
-gtPrintIn: anElement
-	| textElement |
-	textElement := BlTextElement new text: self printString asRopedText.
-	anElement addChild: textElement.
+gtPrintIn: aModel
+	<gtView: 10>
+	^ aModel 
+		title: 'Print';
+		stencil: [ BlTextElement new text: self printString asRopedText ]
