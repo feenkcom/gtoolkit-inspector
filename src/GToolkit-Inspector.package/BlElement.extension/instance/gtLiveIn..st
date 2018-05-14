@@ -1,3 +1,6 @@
 *GToolkit-Inspector
-gtLiveIn: anElement
-	anElement addChild: self
+gtLiveIn: aView
+	<gtView: 0>
+	^ aView 
+		title: 'Live';
+		stencil: [ self ]
