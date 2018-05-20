@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ProtoObject",
+	"category" : "GToolkit-Inspector",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "GtInspectorSampleA",
+	"type" : "normal"
+}
