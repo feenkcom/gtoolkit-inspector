@@ -1,5 +1,5 @@
 *GToolkit-Inspector
-gtLiveIn: aView
+gtLiveFor: aView
 	<gtView: 0>
 	^ aView 
 		title: 'Live';

@@ -1,5 +1,5 @@
 *GToolkit-Inspector
-gtPrintIn: aModel
+gtPrintFor: aModel
 	<gtView: 10>
 	^ aModel 
 		title: 'Print';
