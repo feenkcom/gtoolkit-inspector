@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "ProtoObject",
-	"category" : "GToolkit-Inspector",
+	"category" : "GToolkit-Inspector-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
