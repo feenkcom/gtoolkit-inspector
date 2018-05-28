@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtItemsFor: aView
-	<gtView: 0>
+	<gtView: 10>
 	^ aView
 		title: 'Items';
 		stencil: [ 
