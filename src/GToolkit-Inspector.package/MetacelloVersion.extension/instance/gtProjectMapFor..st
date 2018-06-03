@@ -14,13 +14,14 @@ gtProjectMapFor: aView
 								copyReplaceAll: 'ConfigurationOf' with: '') asRopedText
 							foreground: Color black ]
 							on: Error do: [:e | e asString asRopedText foreground: Color red ].
-						BlTextElement new text: text ];
+						BlTextElement new text: text; zIndex: 1 ];
 					with: ((self 
 							withDeepCollect: [ :each | each projects collect: #version ] 
 							as: Set) 	reject: #isNil).
 			mondrian edges
 					shape: [ :each |
 						BlParabollaArcElement new 
+							zIndex: 0;
 							border: (BlBorder paint: (Color gray alpha: 0.5) width: 2);
 							curvatureFraction: 0.1;
 							toHead: (BlArrowheadSimpleArrow new
