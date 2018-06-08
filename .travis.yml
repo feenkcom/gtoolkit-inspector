@@ -1,0 +1,43 @@
+language: smalltalk
+
+sudo: false
+
+dist: trusty
+
+os:
+  - linux
+  - osx
+
+smalltalk:
+  - Pharo-stable
+
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export DISPLAY=:99.0;
+      sh -e /etc/init.d/xvfb start;
+    fi
+    
+after_success:
+  - |
+    ls "$SMALLTALK_CI_IMAGE"
+    export PROJECT_NAME="GToolkit-Inspector"
+    # customize the name of the build folder
+    export ARTIFACT_DIR="${PROJECT_NAME}"
+    mkdir "$ARTIFACT_DIR"
+    cp "$SMALLTALK_CI_IMAGE" "${ARTIFACT_DIR}/${PROJECT_NAME}.image"
+    cp "$SMALLTALK_CI_CHANGES" "${ARTIFACT_DIR}/${PROJECT_NAME}.changes"
+    export build_zip="${ARTIFACT_DIR}.zip"
+    zip -qr "$build_zip" "$ARTIFACT_DIR"
+
+before_deploy:
+  - git config --local user.name "George Ganea"
+  - git config --local user.email "georgeganea@gmail.com"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: c2yav0IoO0sJuXdK1FIBmRr3/PGoAQRiGSVTu6e1zjvNOfBCAxiJ88UVW5NMD+kw8YmkAZO/4tQK53kHQLjCFcWIkGD2Q+HEqJOLqb9dn+LyttG7prMJqu5HWFaeQlzGz4Is3oDD73VhYDBxVtwcNklM4/v7x1MrcBftu4RTuWdfxOPDdHQC3SP8cdZndhkRNkV2Rq62QBfgQNYd38gGY5jwxfZB2evqKEslpbiAkHPYqGRggIJO0XrOXtw5c9Kuuz/8x/0Ml8bPe5gFNGKGGM+4LC3G7eKylCg+OOFJXokANYZWc5O5Hq4x14eyf4Hw7i3J9IiXtlI/KkUInYj5PJe3cpd1Eoe7CwTehFKgNhtmU2Uqq34VbPhi7z1grWkcdYW1Yz7sNGtT1SjpqkaLDji2Tne8Rjmt6kTrQmlWWXyQJy6xsEpNqT4VQVkPcXAs0UAsYxFyQMiseTncWdaWp53cyXKKE1EC2mqiaKm16pfb0lWjIqIVuA8FoNbZj+Y9N5zfv31QYCDtwhQ6sEAnI5NX2WKgoatSW6Fle+j/T6kJufb2FAb23ZjQ7IdXWtY3q8GZl8kSitu2qZxPBwJ1+69Hk6nsA14agMURiDgDwIW9nbXVIp0ccTIOnSdYIPniccgFuiT1hxqslWEb2ukHJs1LqzVC1O/8EBmcWVDp1Ms=
+  file: GToolkit-Inspector.zip
+  on:
+    repo: feenkcom/gtoolkit-inspector
