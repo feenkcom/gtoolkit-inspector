@@ -1,23 +1,28 @@
 *GToolkit-Inspector
 gtViewsFromPragmas: aCollection inContext: aContext
-	^ aCollection
-		collect: [ :eachPragma | 
-			| view |
-			view := GtPhlowExplicitView new.
-			eachPragma methodSelector numArgs = 1
-				ifTrue: [ 
-					view := thisContext
-						object: self
-						perform: eachPragma methodSelector
-						withArguments: {view}
-						inClass: self class ].
-			eachPragma methodSelector numArgs = 2
-				ifTrue: [ 
-					view := thisContext
-						object: self
-						perform: eachPragma methodSelector
-						withArguments:
-							{view.
-							aContext}
-						inClass: self class ].
-			view ]
+	^ aCollection collect: [ :eachPragma | 
+		| view |
+		view := GtPhlowExplicitView new.
+		eachPragma methodSelector numArgs = 1
+			ifTrue: [ 
+				view := [ thisContext
+							object: self
+							perform: eachPragma methodSelector
+							withArguments: {view}
+							inClass: self class]
+					on: Error
+					do: [ :error |
+						error freeze.
+						GtPhlowViewWithError new 
+							title: 'Error';
+							error: error ] ].
+		eachPragma methodSelector numArgs = 2
+			ifTrue: [ 
+				view := thisContext
+					object: self
+					perform: eachPragma methodSelector
+					withArguments:
+						{view.
+						aContext}
+					inClass: self class ].
+		view ]
