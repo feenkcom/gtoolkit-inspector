@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "TudorGirba 6/8/2018 22:24",
 	"super" : "Object",
 	"category" : "GToolkit-Inspector-Examples",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "GtInspectorSampleWithExceptionsInExtensions",
+	"name" : "GtInspectorExamplesForSampleWithExceptions",
 	"type" : "normal"
 }
