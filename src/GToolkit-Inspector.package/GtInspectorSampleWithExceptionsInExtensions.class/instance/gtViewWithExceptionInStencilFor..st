@@ -2,7 +2,7 @@ ui
 gtViewWithExceptionInStencilFor: aView
 	<gtView: 0>
 	^ aView
-		title: 'Empty';
+		title: 'With error in stencil';
 		stencil: [ 
 			1/0.
 			BlElement new ]

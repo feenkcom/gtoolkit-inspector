@@ -2,4 +2,4 @@ ui
 gtViewWithExceptionAtCreationFor: aView
 	<gtView: 0>
 	1/0.
-	^ aView
+	^ aView title: 'With error during view creation'
