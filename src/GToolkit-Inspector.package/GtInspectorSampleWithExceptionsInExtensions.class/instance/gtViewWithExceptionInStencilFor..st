@@ -1,8 +1,8 @@
 ui
 gtViewWithExceptionInStencilFor: aView
-"	<gtView: 0>"
+	<gtView: 0>
 	^ aView
 		title: 'Empty';
 		stencil: [ 
-			BlElement new.
-			"1/0" ]
+			1/0.
+			BlElement new ]
