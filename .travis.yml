@@ -28,6 +28,9 @@ after_success:
     cp "$SMALLTALK_CI_CHANGES" "${ARTIFACT_DIR}/${PROJECT_NAME}.changes"
     export build_zip="${ARTIFACT_DIR}.zip"
     zip -qr "$build_zip" "$ARTIFACT_DIR"
+    curl -LO https://raw.github.com/stephanmg/travis-dependent-builds/master/trigger.sh
+    chmod +x trigger.sh
+    ./trigger.sh feenkcom gtoolkit master $TRAVIS_ACCESS_TOKEN
 
 before_deploy:
   - git config --local user.name "George Ganea"
