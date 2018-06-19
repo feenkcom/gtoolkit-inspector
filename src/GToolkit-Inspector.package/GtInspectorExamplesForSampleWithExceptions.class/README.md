@@ -9,3 +9,11 @@ In both cases, the inspector offers a clean way to investigate the error:
 [[[
 GtInspectorSampleWithExceptionsInExtensions new
 ]]]
+
+!Inspecting exceptions
+
+And if we are at it, you can also get an exception as a graphical element that lets you debug the exception:
+
+[[[
+[ 1/0 ] on: Error do: [ :e | e asDebuggableElement ]
+]]]
