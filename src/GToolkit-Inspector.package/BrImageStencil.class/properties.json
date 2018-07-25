@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "GeorgeGanea 7/25/2018 16:33",
+	"super" : "BrStencil",
+	"category" : "GToolkit-Inspector",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"image"
+	],
+	"name" : "BrImageStencil",
+	"type" : "normal"
+}
