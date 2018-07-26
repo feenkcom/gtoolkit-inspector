@@ -5,5 +5,5 @@ gtItemsFor: aView
 		title: 'Items';
 		stencil: [ 
 			BrSimpleList new
-				display: self;
+				display: self asOrderedCollection;
 				stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ] ]
