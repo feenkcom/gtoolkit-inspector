@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtInstanceVariablesFor: aView
-	<gtView: 10>
+	<gtView: 22>
 	^ aView 
 		title: 'InstVars';
 		stencil: [

@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtGTExamplesFor: aView
-	<gtView: 10>
+	<gtView: 40>
 	^ aView 
 		title: 'Examples';
 		stencil: [

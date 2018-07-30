@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtPillarCommentFor: aView
-	<gtView: 10>
+	<gtView: 23>
 	^ aView
-		title: '_Comment';
+		title: 'Pillar Comment';
 		stencil: [ GtDocumenter editorForText: self comment ]

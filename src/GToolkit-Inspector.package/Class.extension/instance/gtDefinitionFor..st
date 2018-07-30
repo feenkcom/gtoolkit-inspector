@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtDefinitionFor: aView
-	<gtView: 10>
+	<gtView: 15>
 	^ aView  
 		title: 'Definition';
 		stencil: [ 

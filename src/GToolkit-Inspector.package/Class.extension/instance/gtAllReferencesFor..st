@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtAllReferencesFor: aView
-	<gtView: 10>
+	<gtView: 19>
 	
 	^ aView 
 		title: 'All Ref';

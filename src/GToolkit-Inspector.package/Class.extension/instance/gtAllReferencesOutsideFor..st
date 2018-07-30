@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtAllReferencesOutsideFor: aView
-	<gtView: 10>
+	<gtView: 20>
 	
 	^ aView 
 		title: 'All Ref Outside';
