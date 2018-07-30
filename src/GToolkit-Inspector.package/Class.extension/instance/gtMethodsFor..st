@@ -1,7 +1,6 @@
 *GToolkit-Inspector
 gtMethodsFor: aView
 	<gtView: 10>
-	
 	^ aView 
 		title: 'Methods' translated;
 		stencil: [
