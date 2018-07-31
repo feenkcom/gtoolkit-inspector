@@ -6,6 +6,5 @@ gtInspectorForGtIn: composite
 		title: '_GT';
 		element: [ 
 			| view |
-			view := GtPhlowExplicitView new.
-			self gtViewsFor: view inContext: nil.
+			view := self gtViewsFor: GtPhlowExplicitView new inContext: nil.
 			view asElementDo: [ :x | x ] ]
