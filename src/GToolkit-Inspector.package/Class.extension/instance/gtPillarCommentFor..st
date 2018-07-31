@@ -2,5 +2,5 @@
 gtPillarCommentFor: aView
 	<gtView: 23>
 	^ aView
-		title: 'Pillar Comment';
+		title: 'Comment';
 		stencil: [ GtDocumenter editorForText: self comment ]
