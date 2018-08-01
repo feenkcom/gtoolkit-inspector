@@ -2,7 +2,7 @@
 gtBlocCodeGraphIn: aView
 	<gtView: 40>
 	^ aView mondrian
-		title: 'Graph';
+		title: 'Code Graph';
 		painting: [ :view |
 			view nodes 
 				shape: [ :each | 
