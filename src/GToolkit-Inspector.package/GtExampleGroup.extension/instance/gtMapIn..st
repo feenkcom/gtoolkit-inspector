@@ -17,7 +17,7 @@ gtMapIn: aView
 								constraints padding: (BlInsets all: 10) ]";
 							 addEventHandlerOn: BlMouseDownEvent do: [ :anEvent | mondrian selection: each ]"	];
 					with: assoc value.
-				view layout tree verticalGap: 100 ].
+				view layout tree levelDistance: 100 ].
 			view edges 
 				fromCenterBottom;
 				toCenterTop;
