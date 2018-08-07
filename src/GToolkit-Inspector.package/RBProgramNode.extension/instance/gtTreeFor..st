@@ -1,30 +1,24 @@
 *GToolkit-Inspector
 gtTreeFor: aView
 	<gtView: 30> 
-	| visitor |
-	^ aView title: 'Grad Tree';
-	 		stencil: [
-						visitor := GtGradASTView new.
-						visitor visitNode: self withParentElement: nil.
-						visitor buildTreeLayout]
-	
-	"^ aView mondrian
+	| visitor wrapperFactory |	
+	wrapperFactory := RBNodeWrapperFactory new. 
+	^ aView mondrian
 		title: 'Tree';
 		painting: [ :view | 
 			view nodes shape: [ :each |
 				| textElement text |
-				text := BlRopedText string: ((each printString) truncateTo:50).
+				text := BlRopedText string: ((each printString) truncateTo:30).
 				textElement := BlTextElement new.
 				textElement text: text.
 				textElement 
 				];	
-			with: (self withDeepCollect: #children).
+			with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
+			"self halt."
 			view edges shape: [ :each | 
 					BlLineElement new
 						border: (BlBorder paint: (Color gray alpha: 0.4) width: 3);
 						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color gray alpha: 0.4); width: 3; build))]; 
-					connectToAll: #children.
-			view layout tree ]."
-		
-		
+							border: (BlBorder builder paint: (Color gray alpha: 0.4); width: 3; build))];
+						connectFrom: #parent.
+			view layout tree ].

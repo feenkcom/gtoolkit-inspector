@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "GeorgeGanea 8/7/2018 15:18",
+	"super" : "Object",
+	"category" : "GToolkit-Inspector",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"nodes"
+	],
+	"name" : "RBNodeWrapperFactory",
+	"type" : "normal"
+}

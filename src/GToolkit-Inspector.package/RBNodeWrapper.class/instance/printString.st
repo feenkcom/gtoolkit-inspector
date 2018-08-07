@@ -1,0 +1,3 @@
+comparing
+printString  
+	^ node printString

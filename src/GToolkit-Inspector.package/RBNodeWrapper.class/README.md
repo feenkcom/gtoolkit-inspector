@@ -1,0 +1,2 @@
+I wrap a RBProgramNode so I can be used by a Mondrian visualization as some of  the RBProgramNode subclasses have  a custom implementation of >>= and it can show two different nodes as being the same node. This in turn will mess up the Mondrian visualization. 
+My responsability is to overwrite >>= so that distinct nodes are seen as distinct by Mondrian.
