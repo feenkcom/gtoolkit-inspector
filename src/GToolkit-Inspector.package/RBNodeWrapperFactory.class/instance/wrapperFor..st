@@ -1,3 +1,3 @@
 as yet unclassified
 wrapperFor: aNode
-	^ nodes at: (aNode identityHash) ifAbsentPut: [ RBNodeWrapper new node:aNode factory:self. ]
+	^ nodes at: aNode ifAbsentPut: [ RBNodeWrapper new node:aNode factory:self. ]

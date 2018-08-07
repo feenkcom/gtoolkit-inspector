@@ -1,3 +1,3 @@
 initialization
 initialize
-	nodes := Dictionary new.
+	nodes := IdentityDictionary new.
