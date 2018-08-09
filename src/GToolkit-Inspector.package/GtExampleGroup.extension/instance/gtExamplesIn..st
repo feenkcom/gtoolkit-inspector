@@ -9,11 +9,9 @@ gtExamplesIn: aView
 			aList column
 				title: 'Icon' translated;
 				stencil: [ :eachExample :anIndex | | anElement |
-					anElement := (BrImageStencil new image: eachExample icon) asElement.
+					anElement := eachExample icon asElement.
 					anElement
 						constraintsDo: [ :c | 
-							c horizontal exact: 15.
-							c vertical exact: 20.
 							c padding: (BlInsets top: 2) ];
 						when: BlClickEvent do: [ :anEvent | 
 							eachExample run.
