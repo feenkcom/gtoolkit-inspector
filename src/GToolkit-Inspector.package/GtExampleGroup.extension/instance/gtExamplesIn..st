@@ -28,7 +28,10 @@ gtExamplesIn: aView
 							c padding: (BlInsets left: 10) ];
 						when: BlClickEvent do: [ :anEvent  |
 							anEvent consumed: true.
-							aList selectOne: anIndex ] ].
+							aList selectOne: anIndex.
+							eachExample hasResult ifTrue: [ 
+								aList fireEvent: (GLMBlocObjectToSelect new 
+									toSelect: eachExample result returnValueOrExampleException) ] ] ].
 			aList column
 				title: 'Selector' translated;
 				stencil: [ :eachExample :anIndex | 
