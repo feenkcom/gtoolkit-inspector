@@ -15,4 +15,9 @@ gtBlocSourceIn: aView
 			editorElement constraintsDo: [ :c |
 			    c horizontal matchParent.
 			    c vertical matchParent ].
-			editorElement editor: editor ]
+			editorElement editor: editor ];
+		actionStencil: [ BrButton new 
+			look: BrMaterialToggleIconifiedLook  ;
+			icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
+			action: [ self method browse ] 
+		]
