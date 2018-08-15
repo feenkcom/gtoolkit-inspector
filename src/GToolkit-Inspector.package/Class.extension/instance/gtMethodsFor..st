@@ -9,9 +9,20 @@ gtMethodsFor: aView
 						sorted: [ :x :y | x selector < y selector ] ].
 			list column 
 				title: 'Selector';
-				stencil: [ :each | BrListLabelStencil matchParent: each selector ].
+				stencil: [ :each :rowIndex | (BrListLabelStencil matchParent: each selector) asElement
+					when: BlClickEvent do: [ :anEvent |
+						anEvent consumed: true.
+						list selectOne: rowIndex ] ].
 			list column 
 				title: 'Class';
-				stencil: [ :each | BrListLabelStencil fitContent: each methodClass name ].
-			list
-			].
+				stencil: [ :each :rowIndex  | (BrListLabelStencil fitContent: each methodClass name) asElement
+					when: BlMouseDownEvent do: [ :anEvent |
+						anEvent consumed: true.
+						list selectOne: rowIndex ] ].
+			list when: BrSelectionChanged do: [ :aSelectionEvent |
+				aSelectionEvent selectedDo: [ :anInterval |
+					| aSelectedObject |
+					aSelectedObject := list viewModel items at: anInterval last.
+					aSelectionEvent currentTarget fireEvent: (GtInspectorObjectToSpawn new
+						object: aSelectedObject;
+						sourceElement: aSelectionEvent currentTarget) ] ] ]

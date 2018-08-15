@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "BlEvent",
+	"category" : "GToolkit-Inspector",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"object",
+		"sourceElement"
+	],
+	"name" : "GtInspectorObjectToSpawn",
+	"type" : "normal"
+}
