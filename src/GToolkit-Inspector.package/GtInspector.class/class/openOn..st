@@ -7,7 +7,7 @@ openOn: anObject
 		c horizontal matchParent.
 		c vertical matchParent ].
 
-	anInspector spawn: Object.
+	anInspector spawn: anObject.
 
 	aSpace := BlSpace new.
 	aSpace title: 'Inspector'.
