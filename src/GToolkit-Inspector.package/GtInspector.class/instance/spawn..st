@@ -4,4 +4,4 @@ spawn: aSelectedObject
 
 	aPageView := aSelectedObject gtViewsFor: GtPhlowExplicitView new.
 	aPageView asElementDo: [ :aPageContentElement |
-		pager addPageWithContent: aPageContentElement ]
+		pager addPage: (self createPageWithContent: aPageContentElement for: aSelectedObject) ]
