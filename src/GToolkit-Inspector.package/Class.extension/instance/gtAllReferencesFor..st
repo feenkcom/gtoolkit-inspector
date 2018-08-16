@@ -2,7 +2,7 @@
 gtAllReferencesFor: aView
 	<gtView: 19>
 	
-	^ aView 
+	^ aView explicit 
 		title: 'All Ref';
 		stencil: [
 			| list |

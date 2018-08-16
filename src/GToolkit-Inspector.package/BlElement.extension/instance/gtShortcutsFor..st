@@ -2,7 +2,7 @@
 gtShortcutsFor: aView
 	<gtView: 10>
 	self shortcuts ifEmpty: [ ^ GtPhlowEmptyView new ].
-	^ aView 
+	^ aView explicit 
 		title: 'Shortcuts' translated;
 		stencil: [
 			| list |

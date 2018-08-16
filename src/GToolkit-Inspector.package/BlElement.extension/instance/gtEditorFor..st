@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtEditorFor: aView
 	<gtView: 0>
-	^ aView 
+	^ aView explicit 
 		title: 'Editor';
 		stencil: [ | theEditors container |
 			theEditors := GtDiagrammerFigureEditor editorsOf: self.

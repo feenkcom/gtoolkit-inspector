@@ -1,7 +1,7 @@
 ui
 gtViewWithExceptionInStencilFor: aView
 	<gtView: 0>
-	^ aView
+	^ aView explicit
 		title: 'With error in stencil';
 		stencil: [ 
 			1/0.

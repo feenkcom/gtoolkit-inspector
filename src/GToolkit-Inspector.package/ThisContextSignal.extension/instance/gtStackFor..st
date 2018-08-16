@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtStackFor: aView
 	<gtView: 0>
-	^ aView 
+	^ aView explicit
 		title: 'Stack';
 		stencil: [ BrSimpleList new display: self stack ]

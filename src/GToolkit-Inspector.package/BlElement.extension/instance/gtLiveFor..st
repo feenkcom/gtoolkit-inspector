@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtLiveFor: aView
 	<gtView: -1>
-	^ aView 
+	^ aView explicit
 		title: 'Live';
 		stencil: [ self ]

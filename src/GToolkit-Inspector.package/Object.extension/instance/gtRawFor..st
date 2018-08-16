@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtRawFor: aView
 	<gtView: 10>
-	^ aView
+	^ aView explicit
 		title: 'Raw';
 		stencil: [ 
 			| variableNodes list |

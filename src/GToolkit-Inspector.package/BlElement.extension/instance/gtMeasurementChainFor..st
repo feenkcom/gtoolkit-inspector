@@ -10,7 +10,7 @@ gtMeasurementChainFor: aView
 			currentElement := currentElement parent.
 			aStream nextPut: currentElement ] ].
 	
-	^ aView 
+	^ aView explicit 
 		title: 'Measurement' translated;
 		stencil: [
 			| list |

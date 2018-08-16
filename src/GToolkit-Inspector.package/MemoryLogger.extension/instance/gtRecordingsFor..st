@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtRecordingsFor: aView
 	<gtView: 0>
-	^ aView
+	^ aView explicit
 		title: 'Recordings';
 		stencil: [ 
 			| list |

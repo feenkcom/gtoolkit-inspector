@@ -2,7 +2,7 @@
 gtViewsFromPragmas: aCollection inContext: aContext
 	^ aCollection collect: [ :eachPragma | 
 		| view |
-		view := GtPhlowExplicitView new.
+		view := GtPhlowEmptyView new.
 		eachPragma methodSelector numArgs = 1
 			ifTrue: [ 
 				view := [ thisContext

@@ -2,7 +2,7 @@
 gtItemsFor: aView
 	<gtView: 0>
 	self isDirectory ifFalse: [ ^ aView empty ].
-	^ aView 
+	^ aView explicit 
 		title: 'Items';
 		stencil: [
 			| list children |

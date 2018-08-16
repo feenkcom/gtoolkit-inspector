@@ -1,10 +1,11 @@
 *GToolkit-Inspector
 gtItemsFor: aView
-	^ aView
+	^ aView explicit
 		title: 'Items';
 		stencil: [ 
 			| list |
 			list := BrColumnedList new display: self.
+			list addEventHandler: GtInspectorListToSpawnHandler new.
 			list column
 				title: 'Index';
 				stencil: [ :aClass :anIndex |

@@ -5,6 +5,7 @@ gtItemsFor: aView
 		stencil: [
 			| list |
 			list := BrColumnedList new display: self associations.
+			list addEventHandler: GtInspectorListToSpawnHandler new.
 			list column 
 				title: 'Key';
 				stencil: [ :each | BrListLabelStencil matchParent: (GTObjectPrinter asTruncatedTextFrom: each key) ].

@@ -2,7 +2,7 @@
 gtContentsFor: aView
 	<gtView: 1>
 	self isFile ifFalse: [ ^ aView empty ].
-	^ aView 
+	^ aView explicit
 		title: 'Contents';
 		stencil: [ 
 			| contents |

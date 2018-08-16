@@ -6,7 +6,7 @@ gtResizersFor: aView
 		aStream nextPut: self.
 		self parentsDo: [ :anElement | aStream nextPut: anElement ] ].
 	
-	^ aView 
+	^ aView explicit
 		title: 'Resizers' translated;
 		stencil: [
 			| list |

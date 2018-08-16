@@ -1,6 +1,6 @@
 *GToolkit-Inspector
-gtPrintFor: aModel
+gtPrintFor: aView
 	<gtView: 100>
-	^ aModel 
+	^ aView explicit
 		title: 'Print';
 		stencil: [ BlTextElement new text: self printString asRopedText ]

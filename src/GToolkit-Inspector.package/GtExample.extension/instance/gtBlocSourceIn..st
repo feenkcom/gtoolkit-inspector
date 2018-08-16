@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtBlocSourceIn: aView
 	<gtView: 40>
-	^ aView
+	^ aView explicit
 		title: 'Source';
 		stencil: [ 
 			| text styler editor editorElement |

@@ -2,7 +2,7 @@
 gtAllReferencesOutsideFor: aView
 	<gtView: 20>
 	
-	^ aView 
+	^ aView explicit 
 		title: 'All Ref Outside';
 		stencil: [
 			| list |

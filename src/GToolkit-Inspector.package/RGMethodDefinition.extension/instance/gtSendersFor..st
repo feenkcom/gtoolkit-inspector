@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtSendersFor: aView
 	<gtView: 4>
-	^ aView
+	^ aView explicit
 		title: 'Senders';
 		stencil: [ 
 			| list |

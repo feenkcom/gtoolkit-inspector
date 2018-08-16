@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtExamplesIn: aView
 	<gtView: 30>
-	^ aView
+	^ aView explicit
 		title: 'Examples';
 		stencil: [ | theExamples aList |
 			theExamples := self examples.

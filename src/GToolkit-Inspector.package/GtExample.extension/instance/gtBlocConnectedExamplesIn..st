@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtBlocConnectedExamplesIn: aView
 	<gtView: 30>
-	^ aView 
+	^ aView explicit 
 		title: 'Connected (Bloc)';
 		stencil: [ 
 			| connector |

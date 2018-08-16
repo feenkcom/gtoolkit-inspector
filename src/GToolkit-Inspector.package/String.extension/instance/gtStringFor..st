@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtStringFor: aView
 	<gtView: 9>
-	^ aView
+	^ aView explicit
 		title: 'String';
 		stencil: [ 
 			| editorElement |

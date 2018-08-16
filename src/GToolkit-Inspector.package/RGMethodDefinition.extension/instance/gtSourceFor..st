@@ -1,7 +1,7 @@
 *GToolkit-Inspector
 gtSourceFor: aView
 	<gtView: 0>
-	^ aView  
+	^ aView explicit
 		title: 'Source';
 		stencil: [ 
 		| text styler editor editorElement |

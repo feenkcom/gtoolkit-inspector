@@ -2,7 +2,7 @@
 gtSubscriptionsFor: aView
 	<gtView: 30>
 	self numberOfSubscriptions isZero ifTrue: [ ^ aView empty ].
-	^ aView 
+	^ aView explicit
 		title: 'Subscriptions';
 		stencil: [
 			| list |
