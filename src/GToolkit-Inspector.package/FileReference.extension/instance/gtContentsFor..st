@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtContentsFor: aView
-	<gtView: 0>
+	<gtView: 1>
 	self isFile ifFalse: [ ^ aView empty ].
 	^ aView 
 		title: 'Contents';

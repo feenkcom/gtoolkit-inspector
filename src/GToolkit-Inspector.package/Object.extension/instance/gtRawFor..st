@@ -15,13 +15,11 @@ gtRawFor: aView
 			list column
 				title: 'Icon';
 				stencil: [ :aNode :index |
-				| icon |
-				icon := BrImageStencil new image: 
-					([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
-						on: Error 
-						do: [ :error | self iconNamed: #smallWarningIcon ]).
-				icon asElement constraintsDo: [ :c | c horizontal exact:16. c vertical exact:16. c padding: (BlInsets top: 2) ]
-					].
+					| icon |
+					icon := ([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
+							on: Error 
+							do: [ :error | self iconNamed: #smallWarningIcon ]).
+					icon asElement].
 			
 			list column
 				title: 'Variable';
