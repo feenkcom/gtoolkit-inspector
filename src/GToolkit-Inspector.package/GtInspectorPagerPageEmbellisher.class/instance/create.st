@@ -1,7 +1,7 @@
 api - instantiation
 create
 	<return: #BlElement>
-	| aPageElement aContentWrapper aResizer  aTriangleElement |
+	| aPageElement aContentWrapper aResizer aTriangleElement |
 
 	self contentElement removeFromParent.
 	

@@ -10,4 +10,4 @@ computePageWidthFor: anObject
 		at: anObject class
 		ifAbsent: [ pager pages
 			ifEmpty: [ self defaultPageWidth ]
-			ifNotEmpty: [ pager pages last decorator width ] ]
+			ifNotEmpty: [ pager pages last embellisher width ] ]

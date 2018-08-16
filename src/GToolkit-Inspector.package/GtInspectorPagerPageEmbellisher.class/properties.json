@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "BrPagerPageDecorator",
+	"super" : "BrPagerPageEmbellisher",
 	"category" : "GToolkit-Inspector",
 	"classinstvars" : [ ],
 	"pools" : [ ],
