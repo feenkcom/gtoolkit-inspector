@@ -33,7 +33,7 @@ gtRawFor: aView
 					| text textElement |
 					text := [ aNode rawValue gtDisplayString asRopedText ] 
 						on: Error 
-						do: [ aNode errorMessage asRopedText foreground: TextColor red ].
+						do: [ aNode errorMessage asRopedText foreground: Color red ].
 					textElement :=  (BrListLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
 			  ].
