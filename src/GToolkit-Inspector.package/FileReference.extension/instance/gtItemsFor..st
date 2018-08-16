@@ -15,7 +15,7 @@ gtItemsFor: aView
 						yourself ].
 
 			list := BrColumnedList new display: children.
-			list addEventHandler: GtInspectorListToSelectHandler new.
+			list addEventHandler: GtInspectorListToSpawnHandler new.
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 			
 			list column

@@ -4,5 +4,6 @@ handleEvent: anEvent
 
 	listElement := anEvent currentTarget.
 
-	listElement fireEvent: (GtInspectorObjectToSelect new object: anEvent rowValue).
-	listElement fireEvent: (GLMBlocObjectToSelect new toSelect: anEvent rowValue)
+	anEvent selectedDo: [ :anInterval |
+		listElement fireEvent: (GtInspectorObjectToSelect new object: (listElement viewModel items at: (listElement selection from))).
+		listElement fireEvent: (GLMBlocObjectToSelect new toSelect: (listElement viewModel items at: (listElement selection from))) ]

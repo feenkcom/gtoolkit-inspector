@@ -1,7 +1,7 @@
 api - instantiation
 create
 	<return: #BlElement>
-	| aPageElement aContentWrapper aResizer aTriangleElement aLineElement |
+	| aPageElement aContentWrapper aResizer aTriangleElement |
 
 	self contentElement removeFromParent.
 	
@@ -13,8 +13,6 @@ create
 			c linear horizontal alignRight.
 			c linear vertical alignCenter ];
 		margin: (BlInsets all: 2).
-	
-	aLineElement := BlLineElement new.
 	
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;
@@ -31,23 +29,10 @@ create
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
-	"aContentWrapper when: GtInspectorObjectToSelect do: [ :anEvent |
-		selectedObject := anEvent object.
-		selectedElement := anEvent sourceElement.
-		
-		aLineElement removeFromParent.
-		aLineElement := BlLineElement new.
-		aLineElement border: (BlBorder paint: Color black width: 2).
-		aLineElement constraintsDo: [ :c | c ignoreByLayout ].
-		
-		aLineElement
-			fromAnchor: (BlElementCenterAnchor element: selectedElement);
-			toAnchor: (BlElementCenterAnchor element: aTriangleElement).
-		
-		self inspector addChild: aLineElement.
-		
+	aContentWrapper when: GtInspectorObjectToSelect do: [ :anEvent |
+		selectedObject := anEvent object.		
 		aTriangleElement hasParent
-			ifFalse: [ aPageElement addChild: aTriangleElement ]. ]."
+			ifFalse: [ aPageElement addChild: aTriangleElement ] ].
 
 	aResizer := BlElement new
 		layout: BlFrameLayout new;

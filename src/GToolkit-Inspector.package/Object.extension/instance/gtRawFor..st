@@ -11,7 +11,7 @@ gtRawFor: aView
 			list := BrColumnedList new display: variableNodes.
 			list addEventHandler: (GtInspectorListToSpawnHandler new transformation: [ :aNode | aNode rawValue ]).
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			
+
 			list column
 				title: 'Icon';
 				stencil: [ :aNode :index |
@@ -20,15 +20,13 @@ gtRawFor: aView
 							on: Error 
 							do: [ :error | self iconNamed: #smallWarningIcon ]).
 					icon asElement].
-			
 			list column
 				title: 'Variable';
 				stencil: [ :aNode :index | 
 					| textElement text |
 					text := aNode label asRopedText.								
 					textElement :=  (BrListLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
-			 ].
+					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Value';
 				stencil: [ :aNode :index |
