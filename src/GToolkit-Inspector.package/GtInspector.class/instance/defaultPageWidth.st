@@ -1,0 +1,3 @@
+initialization
+defaultPageWidth
+	^ 400

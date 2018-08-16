@@ -1,15 +1,14 @@
 {
 	"commentStamp" : "",
-	"super" : "BlElement",
+	"super" : "BrPagerPageDecorator",
 	"category" : "GToolkit-Inspector",
 	"classinstvars" : [ ],
 	"pools" : [ ],
-	"classvars" : [
-		"PageWidthPerClass"
-	],
+	"classvars" : [ ],
 	"instvars" : [
-		"pager"
+		"width",
+		"resizedAction"
 	],
-	"name" : "GtInspector",
+	"name" : "GtInspectorPagerPageDecorator",
 	"type" : "normal"
 }
