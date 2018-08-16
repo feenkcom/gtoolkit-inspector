@@ -5,5 +5,8 @@ handleEvent: anEvent
 	listElement := anEvent currentTarget.
 	
 	anEvent selectedDo: [ :anInterval |
-		listElement fireEvent: (GtInspectorObjectToSpawn new object: (listElement viewModel items at: (listElement selection from)); sourceElement: listElement).
-		listElement fireEvent: (GLMBlocObjectToSelect new toSelect: (listElement viewModel items at: (listElement selection from))) ]
+		listElement fireEvent: (GtInspectorObjectToSpawn new 
+			object: (self transformation value: (listElement viewModel items at: listElement selection from)); 
+			sourceElement: listElement).
+		listElement fireEvent: (GLMBlocObjectToSelect new 
+			toSelect: (self transformation value: (listElement viewModel items at: listElement selection from))) ]
