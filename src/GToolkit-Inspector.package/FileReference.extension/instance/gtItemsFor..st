@@ -60,11 +60,4 @@ gtItemsFor: aView
 			
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10)  ].
 			
-			"list addEventHandler: GtInspectorListToSpawn new."
-			list
-				when: BrSelectionChanged do: [ :anEvent |
-				anEvent selectedDo: [ :anInterval | 
-					list fireEvent: (GtInspectorObjectToSpawn new object: (list viewModel items at: (list selection from)); sourceElement: list).
-					list fireEvent: (GLMBlocObjectToSelect new toSelect: (list viewModel items at: (list selection from)))] ].
-			list 
-			]
+			list addEventHandler: GtInspectorListToSpawnHandler new ]
