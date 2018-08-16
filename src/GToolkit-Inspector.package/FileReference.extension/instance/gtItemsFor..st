@@ -12,21 +12,23 @@ gtItemsFor: aView
 				ifFalse: [ 
 					children asOrderedCollection 
 						addFirst: self parent;
-						yourself ]. 
+						yourself ].
+
 			list := BrColumnedList new display: children.
+			list addEventHandler: GtInspectorListToSpawnHandler new.
+			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 			
 			list column
 				title: 'Icon';
 				stencil: [ :each :index |
-				| icon |
-					each isDirectory 
-				ifTrue: [ icon := BrImageStencil new image: GLMUIThemeExtraIcons glamorousFolder ] 
-				ifFalse: [ icon := BrImageStencil new image: GLMUIThemeExtraIcons glamorousBrowse ].
-				icon asElement constraintsDo: [ :c | c horizontal exact:15. c vertical exact:20. c padding: (BlInsets top: 2) ];
-				when: BlClickEvent do: [ :anEvent  |
-						anEvent consumed: true.
-						list selectOne: index. ].
-					].
+					| icon |
+					icon := BrImageStencil new image: (each isDirectory 
+						ifTrue: [ GLMUIThemeExtraIcons glamorousFolder ] 
+						ifFalse: [ GLMUIThemeExtraIcons glamorousBrowse ]).
+					icon asElement constraintsDo: [ :c |
+						c horizontal exact: 15.
+						c vertical exact: 20.
+						c padding: (BlInsets top: 2) ] ].
 			
 			list column
 				title: 'Name';
@@ -36,11 +38,7 @@ gtItemsFor: aView
 								ifTrue: [ '..' ] ifFalse: [ each basename asString ].
 								
 					textElement :=  (BrListLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
-					textElement when: BlClickEvent do: [ :anEvent  |
-						list selectOne: index.
-						anEvent consumed: true. ]
-					 ].
+					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Size';
 				stencil: [:each |  
@@ -56,8 +54,5 @@ gtItemsFor: aView
 					each creationTime printYMDOn: s.
 					s nextPut: Character space.
 					each creationTime printHMSOn: s ]) ) asElement.
-				 textElement constraintsDo: [ :c |  c padding: (BlInsets left: 10; right: 10)]].
-			
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10)  ].
-			
-			list addEventHandler: GtInspectorListToSpawnHandler new ]
+				 textElement constraintsDo: [ :c |  c padding: (BlInsets left: 10; right: 10) ] ].
+			list ]
