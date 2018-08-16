@@ -8,4 +8,4 @@ initialize
 		c vertical matchParent ].
 	self addChild: pager.
 
-	self when: GtInspectorObjectToSpawn do: [ :anEvent | self spawnDueTo: anEvent ]
+	self when: GtPhlowObjectToSpawn do: [ :anEvent | self spawnDueTo: anEvent ]

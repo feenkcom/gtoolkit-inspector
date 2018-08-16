@@ -29,7 +29,7 @@ create
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
-	aContentWrapper when: GtInspectorObjectToSelect do: [ :anEvent |
+	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
 		aTriangleElement hasParent
 			ifFalse: [ aPageElement addChild: aTriangleElement ] ].

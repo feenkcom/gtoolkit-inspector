@@ -23,6 +23,6 @@ gtMethodsFor: aView
 				aSelectionEvent selectedDo: [ :anInterval |
 					| aSelectedObject |
 					aSelectedObject := list viewModel items at: anInterval last.
-					aSelectionEvent currentTarget fireEvent: (GtInspectorObjectToSpawn new
+					aSelectionEvent currentTarget fireEvent: (GtPhlowObjectToSpawn new
 						object: aSelectedObject;
 						sourceElement: aSelectionEvent currentTarget) ] ] ]
