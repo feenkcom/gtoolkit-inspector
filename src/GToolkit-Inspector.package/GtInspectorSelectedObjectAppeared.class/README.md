@@ -1,0 +1,1 @@
+I am sent when a selected element appears on the screen

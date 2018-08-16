@@ -6,8 +6,11 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
+		"inspector",
 		"width",
-		"resizedAction"
+		"resizedAction",
+		"selectedObject",
+		"selectedElement"
 	],
 	"name" : "GtInspectorPagerPageEmbellisher",
 	"type" : "normal"

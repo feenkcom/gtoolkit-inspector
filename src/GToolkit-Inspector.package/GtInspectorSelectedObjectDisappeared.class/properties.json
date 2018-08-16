@@ -1,13 +1,14 @@
 {
-	"commentStamp" : "AliakseiSyrel 8/16/2018 14:05",
+	"commentStamp" : "AliakseiSyrel 8/16/2018 14:03",
 	"super" : "BlEvent",
 	"category" : "GToolkit-Inspector",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"object"
+		"selectedObject",
+		"selectedElement"
 	],
-	"name" : "GtInspectorObjectToSelect",
+	"name" : "GtInspectorSelectedObjectDisappeared",
 	"type" : "normal"
 }

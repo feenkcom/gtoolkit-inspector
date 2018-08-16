@@ -15,21 +15,16 @@ gtItemsFor: aView
 						yourself ].
 
 			list := BrColumnedList new display: children.
-			list addEventHandler: GtInspectorListToSpawnHandler new.
+			list addEventHandler: GtInspectorListToSelectHandler new.
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 			
 			list column
 				title: 'Icon';
 				stencil: [ :each :index |
-					| icon |
-					icon := BrImageStencil new image: (each isDirectory 
+					BrImageStencil new image: (each isDirectory 
 						ifTrue: [ GLMUIThemeExtraIcons glamorousFolder ] 
-						ifFalse: [ GLMUIThemeExtraIcons glamorousBrowse ]).
-					icon asElement constraintsDo: [ :c |
-						c horizontal exact: 15.
-						c vertical exact: 20.
-						c padding: (BlInsets top: 2) ] ].
-			
+						ifFalse: [ GLMUIThemeExtraIcons glamorousBrowse ]) ].
+
 			list column
 				title: 'Name';
 				stencil: [ :each :index | 

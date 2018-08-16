@@ -1,3 +1,5 @@
 api - instantiation
 create
-	^ BlElement new background: self image.
+	^ BlElement new
+		background: self image;
+		size: self image extent
