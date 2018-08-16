@@ -13,4 +13,7 @@ openOn: anObject
 	aSpace title: 'Inspector'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	aSpace show
+	aSpace root when: BlDblClickEvent do: [ :evt | BlElementSelection on: evt target ].
+	aSpace show.
+	
+	^ anInspector
