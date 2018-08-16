@@ -5,7 +5,7 @@ createPageWithContent: aContentElement for: anObject
 	| aPageModel aPageDecorator aPageElement |
 
 	"width should depend on anObject"
-	aPageDecorator := GtInspectorPagerPageDecorator new width: (self computePageWidthFor: anObject).
+	aPageDecorator := GtInspectorPagerPageEmbellisher new width: (self computePageWidthFor: anObject).
 	aPageDecorator whenResizedDo: [ :anExtent | self recordPageWidth: anExtent x for: anObject ].
 
 	aPageModel := BrPagerPageModel new.

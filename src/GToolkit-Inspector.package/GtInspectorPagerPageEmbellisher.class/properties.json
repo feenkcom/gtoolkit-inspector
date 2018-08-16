@@ -9,6 +9,6 @@
 		"width",
 		"resizedAction"
 	],
-	"name" : "GtInspectorPagerPageDecorator",
+	"name" : "GtInspectorPagerPageEmbellisher",
 	"type" : "normal"
 }

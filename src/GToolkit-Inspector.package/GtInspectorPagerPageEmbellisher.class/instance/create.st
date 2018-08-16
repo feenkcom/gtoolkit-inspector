@@ -1,8 +1,10 @@
 api - instantiation
 create
 	<return: #BlElement>
-	| aPageElement aResizer aContentWrapper |
+	| aPageElement aContentWrapper aResizer  aTriangleElement |
 
+	self contentElement removeFromParent.
+	
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
@@ -23,23 +25,32 @@ create
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c |
 			c vertical matchParent.
-			c horizontal exact: 15.
-			c padding: (BlInsets top: 0 right: 3 bottom: 0 left: 0) ];
+			c horizontal exact: 8.
+			c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
 		addChild: (BlElement new
-			background: (Color gray alpha: 0.4);
+			background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
 			geometry: (BlRectangle cornerRadius: 2);
 			constraintsDo: [ :c |
 				c vertical matchParent.
 				c horizontal exact: 3.
 				c frame vertical weight: 0.2.
-				c frame horizontal alignRight.
+				c frame horizontal alignLeft.
 				c frame vertical alignCenter ]);
 		addEventHandler: (BlResizerRightListener new resizeTarget: aPageElement; minimumExtent: 75@75);
 		when: BlResizerResizedEvent do: [ :anEvent | resizedAction cull: anEvent extent ].
-	
-	self contentElement removeFromParent.
+
+	aTriangleElement := BlElement new
+		size: 16@32;
+    	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
+    	background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+		constraintsDo: [ :c |
+			c linear horizontal alignRight.
+			c linear vertical alignCenter ];
+		margin: (BlInsets all: 2).
+
 	aContentWrapper addChild: self contentElement.
 	aPageElement addChild: aContentWrapper.
 	aPageElement addChild: aResizer.
+	aPageElement addChild: aTriangleElement.
 
 	^ aPageElement
