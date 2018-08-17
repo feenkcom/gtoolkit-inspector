@@ -30,8 +30,9 @@ gtItemsFor: aView
 				stencil: [ :each :index | 
 					| textElement text |
 					text := (self isChildOf: each) 
-								ifTrue: [ '..' ] ifFalse: [ each basename asString ].
-								
+						ifTrue: [ '..' ]
+						ifFalse: [ each basename asString ].
+
 					textElement :=  (BrListLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column

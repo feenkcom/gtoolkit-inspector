@@ -12,7 +12,12 @@ create
 		constraintsDo: [ :c |
 			c linear horizontal alignRight.
 			c linear vertical alignCenter ];
-		margin: (BlInsets all: 2).
+		margin: (BlInsets all: 2);
+		when: BlClickEvent do: [ :anEvent |
+			anEvent consumed: true.
+			self inspector
+				spawn: self selectedObject
+				after: self contentElement ].
 	
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;
@@ -29,6 +34,7 @@ create
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
+
 	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
 		aTriangleElement hasParent
