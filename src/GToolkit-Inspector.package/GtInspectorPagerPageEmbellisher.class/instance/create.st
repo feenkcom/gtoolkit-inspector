@@ -49,8 +49,7 @@ create
 			ifFalse: [ aPageElement addChild: aTriangleElement ].
 		self inspector
 			spawn: self selectedObject
-			after: self contentElement.
-		"self spawnDueTo: anEvent" ].
+			after: self contentElement].
 
 	aResizer := BlElement new
 		layout: BlFrameLayout new;
