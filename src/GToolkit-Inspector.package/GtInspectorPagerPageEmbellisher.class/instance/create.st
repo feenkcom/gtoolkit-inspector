@@ -38,10 +38,10 @@ create
 	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
 		aTriangleElement hasParent
-			ifFalse: [ aPageElement addChild: aTriangleElement ]
-			ifTrue: [ self inspector
-				spawn: self selectedObject
-				after: self contentElement ] ].
+			ifFalse: [ aPageElement addChild: aTriangleElement ].
+		self inspector
+			select: self selectedObject
+			after: self contentElement ].
 
 	aContentWrapper when: GtPhlowObjectToSpawn do: [ :anEvent |
 		selectedObject := anEvent object. 
