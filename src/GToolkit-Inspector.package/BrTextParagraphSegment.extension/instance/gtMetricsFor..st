@@ -1,5 +1,5 @@
 *GToolkit-Inspector
-gtMetricsIn: aView
+gtMetricsFor: aView
 	<gtView: 2>
 
 	^ (self metrics gtItemsFor: aView)
