@@ -11,10 +11,7 @@ gtMethodsFor: aView
 			list addEventHandler: GtInspectorListToSelectHandler new.
 			list column 
 				title: 'Selector' translated;
-				stencil: [ :each :rowIndex | (BrListLabelStencil matchParent: each selector) asElement
-					when: BlClickEvent do: [ :anEvent |
-						anEvent consumed: true.
-						list selectOne: rowIndex ] ].
+				stencil: [ :each :rowIndex | (BrListLabelStencil matchParent: each selector) asElement ].
 			list column 
 				title: 'Class' translated;
 				stencil: [ :each :rowIndex  | (BrListLabelStencil fitContent: each methodClass name) asElement ].

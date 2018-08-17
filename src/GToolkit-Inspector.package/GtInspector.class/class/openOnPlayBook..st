@@ -13,7 +13,7 @@ openOnPlayBook: aPlayBook
 	aSpace title: 'Playground'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	aSpace root when: BlDblClickEvent do: [ :evt | BlElementSelection on: evt target ].
+	"aSpace root when: BlDblClickEvent do: [ :evt | BlElementSelection on: evt target ]."
 	aSpace show.
 	
 	^ anInspector

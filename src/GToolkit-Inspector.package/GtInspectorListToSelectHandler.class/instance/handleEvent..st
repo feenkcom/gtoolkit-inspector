@@ -3,7 +3,7 @@ handleEvent: anEvent
 	| listElement |
 
 	listElement := anEvent currentTarget.
-
+	anEvent asBeaconSignal emit.
 	anEvent selectedDo: [ :anInterval |
 		| selectedObject |
 		selectedObject := listElement viewModel items at: listElement selection from.
