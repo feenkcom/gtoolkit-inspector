@@ -9,7 +9,7 @@ gtRawFor: aView
 			variableNodes add: (GTInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			list := BrColumnedList new display: variableNodes.
-			list addEventHandler: (GtInspectorListToSpawnHandler new transformation: [ :aNode | aNode rawValue ]).
+			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | aNode rawValue ]).
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 
 			list column

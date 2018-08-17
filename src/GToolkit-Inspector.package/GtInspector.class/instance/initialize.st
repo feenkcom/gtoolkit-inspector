@@ -7,5 +7,3 @@ initialize
 		c horizontal matchParent.
 		c vertical matchParent ].
 	self addChild: pager.
-
-	self when: GtPhlowObjectToSpawn do: [ :anEvent | self spawnDueTo: anEvent ]

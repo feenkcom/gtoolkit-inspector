@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "BlEventHandler",
+	"super" : "GtInspectorListHandler",
 	"category" : "GToolkit-Inspector",
 	"classinstvars" : [ ],
 	"pools" : [ ],

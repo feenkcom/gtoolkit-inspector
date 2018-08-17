@@ -1,11 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "GtInspectorListHandler",
+	"super" : "BlEventHandler",
 	"category" : "GToolkit-Inspector",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
-	"name" : "GtInspectorListToSpawnHandler",
+	"instvars" : [
+		"transformation"
+	],
+	"name" : "GtInspectorListHandler",
 	"type" : "normal"
 }

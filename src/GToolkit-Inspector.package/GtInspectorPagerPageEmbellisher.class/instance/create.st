@@ -43,6 +43,15 @@ create
 				spawn: self selectedObject
 				after: self contentElement ] ].
 
+	aContentWrapper when: GtPhlowObjectToSpawn do: [ :anEvent |
+		selectedObject := anEvent object. 
+		aTriangleElement hasParent
+			ifFalse: [ aPageElement addChild: aTriangleElement ].
+		self inspector
+			spawn: self selectedObject
+			after: self contentElement.
+		"self spawnDueTo: anEvent" ].
+
 	aResizer := BlElement new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c |
