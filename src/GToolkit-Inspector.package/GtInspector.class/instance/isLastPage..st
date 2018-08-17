@@ -1,0 +1,2 @@
+private - pages
+isLastPage: aPageContentElement

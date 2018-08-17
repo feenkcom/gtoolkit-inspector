@@ -1,3 +1,3 @@
 accessing
-inspector: anObject
-	inspector := anObject
+inspector: aGtInspector
+	inspector := aGtInspector

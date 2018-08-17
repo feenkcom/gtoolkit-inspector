@@ -4,7 +4,7 @@ create
 	| aPageElement aContentWrapper aResizer aTriangleElement |
 
 	self contentElement removeFromParent.
-	
+
 	aTriangleElement := BlElement new
 		size: 16@32;
     	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
@@ -38,7 +38,10 @@ create
 	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
 		aTriangleElement hasParent
-			ifFalse: [ aPageElement addChild: aTriangleElement ] ].
+			ifFalse: [ aPageElement addChild: aTriangleElement ]
+			ifTrue: [ self inspector
+				spawn: self selectedObject
+				after: self contentElement ] ].
 
 	aResizer := BlElement new
 		layout: BlFrameLayout new;
