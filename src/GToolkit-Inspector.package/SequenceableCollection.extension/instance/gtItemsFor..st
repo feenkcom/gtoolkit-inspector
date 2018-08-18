@@ -5,7 +5,7 @@ gtItemsFor: aView
 		stencil: [ 
 			| list |
 			list := BrColumnedList new display: self.
-			list addEventHandler: GtInspectorListToSpawnHandler new.
+			list addEventHandler: GtInspectorListToSelectHandler new.
 			list column
 				title: 'Index';
 				stencil: [ :aClass :anIndex |

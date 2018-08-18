@@ -5,6 +5,6 @@ gtItemsFor: aView
 		title: 'Items';
 		stencil: [ 
 			BrSimpleList new
-				addEventHandler: GtInspectorListToSpawnHandler new;
+				addEventHandler: GtInspectorListToSelectHandler new;
 				display: self asOrderedCollection;
 				stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ] ]
