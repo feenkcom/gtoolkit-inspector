@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtInstanceVariablesFor: aView
-	<gtView: 22>
+	<gtView>
 	^ aView explicit
 		title: 'InstVars';
+		priority: 22;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ self class allInstVarNames sorted collect: [ :each | each -> (self instVarNamed: each) ] ].

@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtMethodsFor: aView
-	<gtView: 21>
+	<gtView>
 	^ aView explicit 
 		title: 'Methods' translated;
+		priority: 2;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ 

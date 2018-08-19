@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtDefinitionFor: aView
-	<gtView: 15>
+	<gtView>
 	^ aView explicit  
 		title: 'Definition';
+		priority: 1;
 		stencil: [ 
 		| text styler editor editorElement |
 

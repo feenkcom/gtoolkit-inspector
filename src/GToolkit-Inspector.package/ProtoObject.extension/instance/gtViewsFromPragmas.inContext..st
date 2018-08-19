@@ -1,6 +1,7 @@
 *GToolkit-Inspector
 gtViewsFromPragmas: aCollection inContext: aContext
-	^ aCollection collect: [ :eachPragma | 
+	| views |
+	views := aCollection collect: [ :eachPragma | 
 		| view |
 		view := GtPhlowEmptyView new.
 		eachPragma methodSelector numArgs = 1
@@ -25,4 +26,5 @@ gtViewsFromPragmas: aCollection inContext: aContext
 						{view.
 						aContext}
 					inClass: self class ].
-		view ]
+		view ].
+	^ views sorted: [ :a :b | a priority < b priority ]

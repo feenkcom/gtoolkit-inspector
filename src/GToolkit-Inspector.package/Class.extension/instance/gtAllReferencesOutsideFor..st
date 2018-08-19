@@ -1,9 +1,9 @@
 *GToolkit-Inspector
 gtAllReferencesOutsideFor: aView
-	<gtView: 20>
-	
+	<gtView>
 	^ aView explicit 
 		title: 'All Ref Outside';
+		priority: 41;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ ((SystemNavigation default allReferencesTo: self binding) 

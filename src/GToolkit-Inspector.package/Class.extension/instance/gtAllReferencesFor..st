@@ -1,9 +1,10 @@
 *GToolkit-Inspector
 gtAllReferencesFor: aView
-	<gtView: 19>
+	<gtView>
 	
 	^ aView explicit 
 		title: 'All Ref';
+		priority: 19;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ (SystemNavigation default allReferencesTo: self binding) 

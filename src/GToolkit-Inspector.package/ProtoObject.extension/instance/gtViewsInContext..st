@@ -6,10 +6,13 @@ gtViewsInContext: aContext
 	Subclasses might want to override it for more special behavior.
 	aContext holds the context of the inspection session (i.e, the previous steps)"
 	| pragmas |
-	pragmas := Pragma
-		allNamed: #gtView:
-		from: self class
-		to: ProtoObject
-		sortedUsing: [ :x :y | (x argumentAt: 1) < (y argumentAt: 1) ].
+	pragmas := (Pragma
+			allNamed: #gtView
+			from: self class
+			to: ProtoObject) , 
+		(Pragma
+			allNamed: #gtView:
+			from: self class
+			to: ProtoObject).
 	"pragmas select: [ :aPragma | aGTInspector shouldDisplayPresentationCreatedBy: aPragma method ]"
 	^ self gtViewsFromPragmas: pragmas inContext: aContext

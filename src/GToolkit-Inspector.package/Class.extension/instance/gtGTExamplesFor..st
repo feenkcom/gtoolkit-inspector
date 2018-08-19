@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtGTExamplesFor: aView
-	<gtView: 40>
+	<gtView>
 	^ aView explicit 
 		title: 'Examples';
+		priority: 40;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: self gtExamples.	
