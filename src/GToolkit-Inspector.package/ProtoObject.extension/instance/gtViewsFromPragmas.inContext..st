@@ -27,4 +27,7 @@ gtViewsFromPragmas: aCollection inContext: aContext
 						aContext}
 					inClass: self class ].
 		view ].
-	^ views sorted: [ :a :b | a priority < b priority ]
+	^ views sorted: [ :a :b | 
+		[a priority < b priority]
+			on: Error
+			do: [ :error | true ] ]
