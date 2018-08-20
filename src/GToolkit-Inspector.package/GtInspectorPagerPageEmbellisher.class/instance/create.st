@@ -74,6 +74,7 @@ create
 		constraintsDo: [ :c |
 			c vertical matchParent.
 			c horizontal exact: 8.
+			c margin: (BlInsets top: 40).
 			c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
 		addChild: (BlElement new
 			background: ((Color fromHexString: #BDBDBD) alpha: 0.5);

@@ -4,7 +4,7 @@ gtActionInspect
 	| button |
 	button := BrButton new.
 	button
-		look: BrMaterialToggleIconifiedLook;
+		look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
 		icon: GLMUIThemeExtraIcons glamorousInspect asElement;
 		action: [ 
 			button fireEvent: (GtPhlowObjectToSpawn new
