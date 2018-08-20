@@ -6,7 +6,7 @@ gtGtDocumenterParseFor: anAction
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrMaterialToggleIconifiedLook;
+		look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
 		action:  [
 				button fireEvent: (GtPhlowObjectToSpawn new
 				object: self parseWithGtDocumenter ;
