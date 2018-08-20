@@ -31,9 +31,12 @@ create
 			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
 			c ignored horizontal alignRight.
 			c ignored vertical alignTop ];
-		addChild: (BlTextElement new
-			text: ('x' asRopedText foreground: Color gray);
-			look: BrLayoutLook fitContent alignCenter);
+		addChild: ("BlTextElement new
+			text: ('x' asRopedText foreground: Color gray)"
+			GLMUIThemeExtraIcons glamorousClose asElement
+				constraintsDo: [ :c |
+				c frame vertical alignCenter.
+				c frame horizontal alignCenter ]);
 		when: BlMouseDownEvent do: [ :anEvent |
 			anEvent consumed: true.
 			self inspector close: self contentElement ].
