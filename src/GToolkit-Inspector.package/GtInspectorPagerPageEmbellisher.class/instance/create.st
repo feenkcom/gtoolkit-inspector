@@ -1,7 +1,7 @@
 api - instantiation
 create
 	<return: #BlElement>
-	| aPageElement aContentWrapper aResizer aTriangleElement |
+	| aPageElement aContentWrapper aResizer aTriangleElement aCloseButton |
 
 	self contentElement removeFromParent.
 
@@ -9,6 +9,7 @@ create
 		size: 16@32;
     	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
     	background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+		visibility: (BlVisibility hidden);
 		constraintsDo: [ :c |
 			c linear horizontal alignRight.
 			c linear vertical alignCenter ];
@@ -18,7 +19,25 @@ create
 			self inspector
 				spawn: self selectedObject
 				after: self contentElement ].
-	
+
+	aCloseButton := BlElement new
+		background: Color white;
+		look: BrShadowLook new;
+		geometry: BlEllipse new;
+		layout: BlFrameLayout new;
+		size: 20@20;
+		constraintsDo: [ :c |
+			c ignoreByLayout.
+			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
+			c ignored horizontal alignRight.
+			c ignored vertical alignTop ];
+		addChild: (BlTextElement new
+			text: ('x' asRopedText foreground: Color gray);
+			look: BrLayoutLook fitContent alignCenter);
+		when: BlClickEvent do: [ :anEvent |
+			anEvent consumed: true.
+			self inspector close: self contentElement ].
+
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
@@ -27,29 +46,28 @@ create
 			c vertical matchParent ].
 
 	aContentWrapper := BlElement new
+		clipChildren: false;
 		look: BrShadowLook new;
 		background: Color white;
 		layout: BlLinearLayout vertical;
-		margin: (BlInsets top: 10 right: 0 bottom: 10 left: 5);
+		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 5);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
 
 	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
-		aTriangleElement hasParent
-			ifFalse: [ aPageElement addChild: aTriangleElement ].
+		aTriangleElement visibility: (BlVisibility visible).
 		self inspector
 			select: self selectedObject
 			after: self contentElement ].
 
 	aContentWrapper when: GtPhlowObjectToSpawn do: [ :anEvent |
 		selectedObject := anEvent object. 
-		aTriangleElement hasParent
-			ifFalse: [ aPageElement addChild: aTriangleElement ].
+		aTriangleElement visibility: (BlVisibility visible).
 		self inspector
 			spawn: self selectedObject
-			after: self contentElement].
+			after: self contentElement ].
 
 	aResizer := BlElement new
 		layout: BlFrameLayout new;
@@ -70,7 +88,9 @@ create
 		when: BlResizerResizedEvent do: [ :anEvent | resizedAction cull: anEvent extent ].
 
 	aContentWrapper addChild: self contentElement.
+	aContentWrapper addChild: aCloseButton.
 	aPageElement addChild: aContentWrapper.
 	aPageElement addChild: aResizer.
+	aPageElement addChild: aTriangleElement.
 
 	^ aPageElement
