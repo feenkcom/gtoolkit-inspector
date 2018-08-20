@@ -7,6 +7,7 @@ gtGroupedFor: aView
 			| list |
 			list := BrColumnedList new display: (self recordings reverse groupedBy: [ :each | each class ]) associations.
 			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :association | association value ]).
+			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 			list column
 				title: 'Class';
 				stencil: [ :each | BlTextElement new width: 200; text: each key asRopedText ].

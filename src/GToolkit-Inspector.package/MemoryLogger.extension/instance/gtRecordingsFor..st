@@ -6,6 +6,8 @@ gtRecordingsFor: aView
 		stencil: [ 
 			| list |
 			list := BrColumnedList new display: self recordings reverse.
+			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :association | association value ]).
+			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
 			list column
 				title: 'Timestamp';
 				stencil: [ :each | BlTextElement new width: 200; text: each timestamp asString asRopedText ].
