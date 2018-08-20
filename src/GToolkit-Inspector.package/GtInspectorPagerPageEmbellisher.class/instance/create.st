@@ -9,7 +9,7 @@ create
 		size: 16@32;
     	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
     	background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
-		visibility: (BlVisibility hidden);
+		visibility: BlVisibility hidden;
 		constraintsDo: [ :c |
 			c linear horizontal alignRight.
 			c linear vertical alignCenter ];
@@ -34,7 +34,7 @@ create
 		addChild: (BlTextElement new
 			text: ('x' asRopedText foreground: Color gray);
 			look: BrLayoutLook fitContent alignCenter);
-		when: BlClickEvent do: [ :anEvent |
+		when: BlMouseDownEvent do: [ :anEvent |
 			anEvent consumed: true.
 			self inspector close: self contentElement ].
 
@@ -57,7 +57,7 @@ create
 
 	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
 		selectedObject := anEvent object.		
-		aTriangleElement visibility: (BlVisibility visible).
+		aTriangleElement visibility: BlVisibility visible.
 		self inspector
 			select: self selectedObject
 			after: self contentElement ].
@@ -93,4 +93,9 @@ create
 	aPageElement addChild: aResizer.
 	aPageElement addChild: aTriangleElement.
 
+	self inspector pager when: BrPagerPageAddedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self inspector pager when: BrPagerPageRemovedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self inspector pager when: BrPagerPagesChanged do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self updateCloseButtonVisiblity: aCloseButton.
+	
 	^ aPageElement
