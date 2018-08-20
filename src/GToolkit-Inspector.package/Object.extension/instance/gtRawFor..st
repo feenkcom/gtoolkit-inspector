@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtRawFor: aView
-	<gtView: 10>
+	<gtView>
 	^ aView explicit
 		title: 'Raw';
+		priority: 100;
 		stencil: [ 
 			| variableNodes list |
 			variableNodes := OrderedCollection new: self class allSlots size.
