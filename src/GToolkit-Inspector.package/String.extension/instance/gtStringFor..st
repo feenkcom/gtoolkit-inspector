@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtStringFor: aView
-	<gtView: 9>
+	<gtView>
 	^ aView explicit
 		title: 'String';
+		priority: 9;
 		stencil: [ 
 			| editorElement |
 			editorElement := BrEditorElement new editor: (BrTextEditor new text: self asRopedText).
