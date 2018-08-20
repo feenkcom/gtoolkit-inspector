@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtViewsFor: aView inContext: aContext
-	| className title displayText |
+	| className title displayText resultingView |
 	className := self class name.
 	displayText := [ (String streamContents: [ :stream | self gtDisplayOn: stream ]) asRopedText ]
 			on: Error 
@@ -12,7 +12,9 @@ gtViewsFor: aView inContext: aContext
 			nextPutAll: ' (';
 			nextPutAll: displayText;
 			nextPutAll: ')' ].
-	^ (aView composite
+	resultingView := ((aView composite
 		views: (self gtViewsInContext: aContext))
-		labelled: title
-	
+		labelled: title).
+	self gtActions do: [ :action |
+		resultingView actionStencil: action ].
+	^ resultingView

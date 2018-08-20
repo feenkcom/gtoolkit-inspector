@@ -12,4 +12,16 @@ gtActions
 		to: ProtoObject
 		sortedUsing: [ :x :y | (x key) < (y key) ].
 	"pragmas select: [ :aPragma | aGTInspector shouldDisplayPresentationCreatedBy: aPragma method ]"
-	^ self gtActionsFromPragmas: pragmas
+	^ pragmas collect: [ :eachPragma | 
+		[ thisContext
+					object: self
+					perform: eachPragma methodSelector
+					withArguments: {}
+					inClass: self class ]
+			"on: Error
+			do: [ :error |
+				error freeze.
+				GtPhlowViewWithError new 
+					title: 'Error';
+					error: error ]"
+	 ].
