@@ -1,9 +1,10 @@
 *GToolkit-Inspector
 gtContentsFor: aView
-	<gtView: 1>
+	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Contents';
+		priority: 50;
 		stencil: [ 
 			| contents |
 			contents := self readStreamDo: [ :stream | 
