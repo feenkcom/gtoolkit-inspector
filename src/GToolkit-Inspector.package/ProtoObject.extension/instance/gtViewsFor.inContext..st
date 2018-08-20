@@ -16,5 +16,6 @@ gtViewsFor: aView inContext: aContext
 		views: (self gtViewsInContext: aContext))
 		labelled: title).
 	self gtActions do: [ :action |
-		resultingView actionStencil: action ].
+		action asElementDo: [ :element| resultingView actionStencil: action stencilBuilder ]
+		 ].
 	^ resultingView

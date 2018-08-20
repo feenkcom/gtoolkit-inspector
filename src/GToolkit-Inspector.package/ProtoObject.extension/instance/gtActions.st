@@ -13,11 +13,13 @@ gtActions
 		sortedUsing: [ :x :y | (x key) < (y key) ].
 	"pragmas select: [ :aPragma | aGTInspector shouldDisplayPresentationCreatedBy: aPragma method ]"
 	^ pragmas collect: [ :eachPragma | 
-		[ thisContext
+		| action |
+		action := GtPhlowNoAction new.
+		 thisContext
 					object: self
 					perform: eachPragma methodSelector
-					withArguments: {}
-					inClass: self class ]
+					withArguments: {action}
+					inClass: self class 
 			"on: Error
 			do: [ :error |
 				error freeze.
