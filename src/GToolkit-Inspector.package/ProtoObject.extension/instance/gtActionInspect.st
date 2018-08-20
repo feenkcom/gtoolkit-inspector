@@ -1,7 +1,13 @@
 *GToolkit-Inspector
 gtActionInspect
 	<gtAction>
-	^ BrButton new 
+	| button |
+	button := BrButton new.
+	button
 		look: BrMaterialToggleIconifiedLook;
 		icon: GLMUIThemeExtraIcons glamorousInspect asElement;
-		action: [ self inspect ]
+		action: [ 
+			button fireEvent: (GtPhlowObjectToSpawn new
+				object: self;
+				sourceElement: button) ].
+	^ button

@@ -1,11 +1,13 @@
 *GToolkit-Inspector
 gtSendersFor: aView
-	<gtView: 4>
+	<gtView>
 	^ aView explicit
 		title: 'Senders';
+		priority: 10;
 		stencil: [ 
 			| list |
 			list := BrColumnedList new display: self compiledMethod senders.
+			list addEventHandler: GtInspectorListToSelectHandler new.
 			list column
 				title: 'Index';
 				stencil: [ :aClass :anIndex |
