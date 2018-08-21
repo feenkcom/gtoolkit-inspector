@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "GToolkit-Inspector-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"size"
+	],
+	"name" : "GtInspectorRoundButtonStencil",
+	"type" : "normal"
+}

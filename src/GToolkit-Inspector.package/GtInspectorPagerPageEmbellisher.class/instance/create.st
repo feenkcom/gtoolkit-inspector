@@ -20,26 +20,14 @@ create
 				spawn: self selectedObject
 				after: self contentElement ].
 
-	aCloseButton := BlElement new
-		background: Color white;
-		look: BrShadowLook new;
-		geometry: BlEllipse new;
-		layout: BlFrameLayout new;
-		size: 20@20;
+	aCloseButton := GtInspectorRoundButtonStencil normal asElement
+		icon: (GtInspectorPlusIconStencil close asElement);
 		constraintsDo: [ :c |
 			c ignoreByLayout.
 			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
 			c ignored horizontal alignRight.
 			c ignored vertical alignTop ];
-		addChild: (BrGlamorousIcons close asElement
-				constraintsDo: [ :c |
-					c frame vertical alignCenter.
-					c frame horizontal alignCenter ]);
-		when: BlMouseDownEvent do: [ :anEvent |
-			anEvent consumed: true.
-			self inspector close: self contentElement ];
-		when: BlMouseEnterEvent do: [ :anEvent | anEvent currentTarget background: Color veryVeryLightGray lighter ];
-		when: BlMouseLeaveEvent do: [ :anEvent | anEvent currentTarget background: Color white ].
+		action: [ self inspector close: self contentElement ].
 
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;

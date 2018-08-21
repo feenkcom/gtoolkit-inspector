@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "BrStencil",
+	"category" : "GToolkit-Inspector-Stencils",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"radius",
+		"thickness",
+		"angle"
+	],
+	"name" : "GtInspectorPlusIconStencil",
+	"type" : "normal"
+}
