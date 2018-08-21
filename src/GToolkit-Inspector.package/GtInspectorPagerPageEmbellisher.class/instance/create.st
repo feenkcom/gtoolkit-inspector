@@ -37,7 +37,9 @@ create
 					c frame horizontal alignCenter ]);
 		when: BlMouseDownEvent do: [ :anEvent |
 			anEvent consumed: true.
-			self inspector close: self contentElement ].
+			self inspector close: self contentElement ];
+		when: BlMouseEnterEvent do: [ :anEvent | anEvent currentTarget background: Color veryVeryLightGray lighter ];
+		when: BlMouseLeaveEvent do: [ :anEvent | anEvent currentTarget background: Color white ].
 
 	aPageElement := BlElement new
 		layout: BlLinearLayout horizontal;
@@ -98,6 +100,7 @@ create
 	self inspector pager when: BrPagerPageAddedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
 	self inspector pager when: BrPagerPageRemovedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
 	self inspector pager when: BrPagerPagesChanged do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+
 	self updateCloseButtonVisiblity: aCloseButton.
 	
 	^ aPageElement
