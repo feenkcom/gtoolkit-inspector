@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtProblemsFor: aView
-	<gtView: 5>
+	<gtView>
 	self hasProblems ifFalse: [ ^ aView empty ].
 	^ (self problems gtItemsFor: aView)
 			title: 'Problems'

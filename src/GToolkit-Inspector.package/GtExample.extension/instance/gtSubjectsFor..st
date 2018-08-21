@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtSubjectsFor: aView
-	<gtView: 4>
+	<gtView>
 	self hasSubjects ifFalse: [ ^ aView empty ].
 	"^ ((self subjects gtItemsFor: aView)
 		actionStencil: [ BrButton new 

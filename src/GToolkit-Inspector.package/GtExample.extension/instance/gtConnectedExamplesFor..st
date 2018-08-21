@@ -1,6 +1,6 @@
 *GToolkit-Inspector
-gtBlocConnectedExamplesIn: aView
-	<gtView: 30>
+gtConnectedExamplesFor: aView
+	<gtView>
 	^ aView explicit 
 		title: 'Connected (Bloc)';
 		stencil: [ 

@@ -1,5 +1,5 @@
 *GToolkit-Inspector
-gtDependenciesGraphIn: aView
+gtDependenciesGraphFor: aView
 	<gtView: 1>
 	"self flag: 'Temporary solution in case rossal is not present'.
 	(composite class canPerform: #roassal2) ifFalse: [ ^ self ]."

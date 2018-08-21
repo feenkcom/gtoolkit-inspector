@@ -1,8 +1,9 @@
 *GToolkit-Inspector
-gtBlocSourceIn: aView
-	<gtView: 40>
+gtSourceFor: aView
+	<gtView>
 	^ aView explicit
 		title: 'Source';
+		priority: 10;
 		stencil: [ 
 			| text styler editor editorElement |
 			text := self method sourceCode asRopedText.

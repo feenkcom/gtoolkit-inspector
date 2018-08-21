@@ -1,6 +1,6 @@
 *GToolkit-Inspector
-gtBlocCodeGraphIn: aView
-	<gtView: 40>
+gtCodeGraphFor: aView
+	<gtView>
 	^ aView mondrian
 		title: 'Code Graph';
 		painting: [ :view |

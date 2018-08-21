@@ -7,6 +7,10 @@ gtExamplesIn: aView
 		stencil: [ | theExamples aList |
 			theExamples := self examples.
 			aList := BrColumnedList new display: theExamples.
+			aList addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :each | 
+						(each isKindOf: GtExampleWithResult)
+							ifTrue: [ each example ]
+							ifFalse: [ each ] ]).
 			aList column
 				title: 'Icon' translated;
 				stencil: [ :eachExample :anIndex | | anElement |

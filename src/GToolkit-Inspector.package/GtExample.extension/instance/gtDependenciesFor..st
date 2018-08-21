@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtDependenciesFor: aView
-	<gtView: 1>
+	"<gtView>"
 	^ self directDependencies 
 		ifEmpty: [ aView empty ] 
 		ifNotEmpty: [ :aCollection | 
