@@ -15,15 +15,15 @@ gtActions
 	^ pragmas collect: [ :eachPragma | 
 		| action |
 		action := GtPhlowNoAction new.
-		 thisContext
+		 [thisContext
 					object: self
 					perform: eachPragma methodSelector
 					withArguments: {action}
-					inClass: self class 
-			"on: Error
+					inClass: self class ]
+			on: Error
 			do: [ :error |
 				error freeze.
-				GtPhlowViewWithError new 
+				GtPhlowActionWithError new 
 					title: 'Error';
-					error: error ]"
+					error: error ]
 	 ].
