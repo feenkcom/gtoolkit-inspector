@@ -1,0 +1,3 @@
+accessing
+eventClasses
+	^ { BrSelectionChanged . BrSelectionDoubleClicked }
