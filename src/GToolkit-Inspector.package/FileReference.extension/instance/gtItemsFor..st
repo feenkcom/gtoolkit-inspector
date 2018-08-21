@@ -19,8 +19,8 @@ gtItemsFor: aView
 				title: 'Icon';
 				stencil: [ :each :index |
 					BrImageStencil new image: (each isDirectory 
-						ifTrue: [ GLMUIThemeExtraIcons glamorousFolder ] 
-						ifFalse: [ GLMUIThemeExtraIcons glamorousBrowse ]) ].
+						ifTrue: [ BrGlamorousIcons folder ] 
+						ifFalse: [ BrGlamorousIcons file ]) ].
 
 			list column
 				title: 'Name';
