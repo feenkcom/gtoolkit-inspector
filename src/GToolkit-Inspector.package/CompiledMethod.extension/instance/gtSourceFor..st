@@ -5,8 +5,8 @@ gtSourceFor: aView
 		title: 'Source';
 		actionStencil: [ 
 			BrButton new 
-				look: BrMaterialToggleIconifiedLook;
-				icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
 		stencil: [ 
 			| text styler editor editorElement |

@@ -4,6 +4,11 @@ gtSourceFor: aView
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
+		actionStencil: [ 
+			BrButton new 
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons browse asElement;
+				action: [ self browse ] ];
 		stencil: [ 
 		| text styler editor editorElement |
 

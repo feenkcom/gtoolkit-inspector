@@ -31,12 +31,10 @@ create
 			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
 			c ignored horizontal alignRight.
 			c ignored vertical alignTop ];
-		addChild: ("BlTextElement new
-			text: ('x' asRopedText foreground: Color gray)"
-			GLMUIThemeExtraIcons glamorousClose asElement
+		addChild: (BrGlamorousIcons close asElement
 				constraintsDo: [ :c |
-				c frame vertical alignCenter.
-				c frame horizontal alignCenter ]);
+					c frame vertical alignCenter.
+					c frame horizontal alignCenter ]);
 		when: BlMouseDownEvent do: [ :anEvent |
 			anEvent consumed: true.
 			self inspector close: self contentElement ].
@@ -77,7 +75,7 @@ create
 		constraintsDo: [ :c |
 			c vertical matchParent.
 			c horizontal exact: 8.
-			c margin: (BlInsets top: 40).
+			c margin: (BlInsets top: 40 bottom: 40).
 			c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
 		addChild: (BlElement new
 			background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
