@@ -10,10 +10,10 @@ openOn: anObject
 	anInspector spawn: anObject.
 
 	aSpace := BlSpace new.
+	aSpace withHalos.
 	aSpace title: 'Inspector'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	"aSpace root when: BlDblClickEvent do: [ :evt | BlElementSelection on: evt target ]."
 	aSpace show.
 	
 	^ anInspector

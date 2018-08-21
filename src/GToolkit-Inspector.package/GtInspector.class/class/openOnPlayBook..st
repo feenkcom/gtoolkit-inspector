@@ -10,10 +10,10 @@ openOnPlayBook: aPlayBook
 	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
 
 	aSpace := BlSpace new.
+	aSpace withHalos.
 	aSpace title: 'Playground'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	"aSpace root when: BlDblClickEvent do: [ :evt | BlElementSelection on: evt target ]."
 	aSpace show.
 	
 	^ anInspector
