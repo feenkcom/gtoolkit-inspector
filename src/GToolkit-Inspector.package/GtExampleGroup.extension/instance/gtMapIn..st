@@ -1,8 +1,9 @@
 *GToolkit-Inspector
 gtMapIn: aView
-	<gtView: 40>
+	<gtView>
 	^ aView mondrian
 		title: 'Map';
+		priority: 90;
 		painting: [ :view |
 			view nodes
 				umlClassShapeWithName: [ :each | each key name ];
