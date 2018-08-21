@@ -15,7 +15,5 @@ gtViewsFor: aView inContext: aContext
 	resultingView := ((aView composite
 		views: (self gtViewsInContext: aContext))
 		labelled: title).
-	self gtActions do: [ :action |
-		action asElementDo: [ :element| resultingView actionStencil: action stencilBuilder ]
-		 ].
+	self gtActions do: [ :action | resultingView addPhlowAction: action ].
 	^ resultingView
