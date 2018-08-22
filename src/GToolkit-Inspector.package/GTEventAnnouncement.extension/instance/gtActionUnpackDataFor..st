@@ -7,7 +7,7 @@ gtActionUnpackDataFor: anAction
 			| button |
 			button := BrButton new.
 			button
-			look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
+			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 			action: [button fireEvent: (GtPhlowObjectToSpawn new
 				object: self unpackedData;
 				sourceElement: button)];

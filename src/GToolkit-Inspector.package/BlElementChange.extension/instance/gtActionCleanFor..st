@@ -5,7 +5,7 @@ gtActionCleanFor: anAction
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook; 
+		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
 		action:  [  records removeAll. ];
 		icon: GLMUIThemeExtraIcons glamorousTrash asElement;
 		label: 'Clean log'.

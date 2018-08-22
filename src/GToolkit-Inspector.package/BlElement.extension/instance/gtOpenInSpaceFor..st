@@ -6,7 +6,7 @@ gtOpenInSpaceFor: anAction
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook; 
+		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
 		action:  [ self hasParent ifFalse: [ BlSpace new rootDo:[:r| r addChild: self];show ]];
 		icon: GLMUIThemeExtraIcons glamorousPlay asElement;
 		label: 'Open in Space' translated.

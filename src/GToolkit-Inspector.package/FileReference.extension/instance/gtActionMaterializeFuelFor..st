@@ -6,7 +6,7 @@ gtActionMaterializeFuelFor: anAction
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorCircularLook + BrGlamorousButtonIconLook;
+		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 		action:  [
 				button fireEvent: (GtPhlowObjectToSpawn new
 				object: (FLMaterializer materializeFromFileNamed: self fullName);
