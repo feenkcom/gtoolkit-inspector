@@ -8,7 +8,7 @@ gtActionCleanFor: anAction
 		button := BrButton new.
 		button
 		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
-		action:  [  records removeAll. action phlowView asElementDo: [:x | x]];
+		action: [ records removeAll. action targetElement requestLayout  ];
 		icon: GLMUIThemeExtraIcons glamorousTrash asElement;
 		label: 'Clean log'.
 	].
