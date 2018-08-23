@@ -3,5 +3,5 @@ gtPillarCommentFor: aView
 	<gtView>
 	^ aView explicit
 		title: 'Comment';
-		priority: 20;
+		priority: 10;
 		stencil: [ GtDocumenter editorForText: self comment ]

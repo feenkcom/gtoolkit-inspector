@@ -3,7 +3,7 @@ gtInstanceVariablesFor: aView
 	<gtView>
 	^ aView explicit
 		title: 'InstVars';
-		priority: 22;
+		priority: 5;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ self class allInstVarNames sorted collect: [ :each | each -> (self instVarNamed: each) ] ].

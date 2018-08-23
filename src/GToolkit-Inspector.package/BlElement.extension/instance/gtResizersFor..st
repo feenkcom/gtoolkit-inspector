@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtResizersFor: aView
-	<gtView: 10>
+	<gtView>
 	| withAllParents |
 	withAllParents := Array streamContents: [ :aStream |
 		aStream nextPut: self.
@@ -8,6 +8,7 @@ gtResizersFor: aView
 	
 	^ aView explicit
 		title: 'Resizers' translated;
+		priority: 10;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: withAllParents reversed.

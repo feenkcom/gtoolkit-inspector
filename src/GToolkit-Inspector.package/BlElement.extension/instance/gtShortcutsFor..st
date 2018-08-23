@@ -1,9 +1,10 @@
 *GToolkit-Inspector
 gtShortcutsFor: aView
-	<gtView: 10>
+	<gtView>
 	self shortcuts ifEmpty: [ ^ GtPhlowEmptyView new ].
 	^ aView explicit 
 		title: 'Shortcuts' translated;
+		priority: 10;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: self shortcuts.

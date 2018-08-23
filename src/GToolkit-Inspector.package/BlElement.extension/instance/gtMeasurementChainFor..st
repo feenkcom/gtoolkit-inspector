@@ -1,6 +1,6 @@
 *GToolkit-Inspector
 gtMeasurementChainFor: aView
-	<gtView: 0>
+	<gtView>
 	| withAllParents |
 	withAllParents := Array streamContents: [ :aStream |
 		| currentElement |
@@ -12,6 +12,7 @@ gtMeasurementChainFor: aView
 	
 	^ aView explicit 
 		title: 'Measurement' translated;
+		priority: 15;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ withAllParents reversed withIndexCollect: [ :anElement :anIndex |
