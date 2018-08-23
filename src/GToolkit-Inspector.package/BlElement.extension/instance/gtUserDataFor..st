@@ -1,4 +1,6 @@
 *GToolkit-Inspector
 gtUserDataFor: aView
-	<gtView: 0>
-	^ (self userData gtItemsFor: aView) title: 'User data' 
+	<gtView>
+	^ (self userData gtItemsFor: aView) 
+		title: 'User data';
+		priority: 5
