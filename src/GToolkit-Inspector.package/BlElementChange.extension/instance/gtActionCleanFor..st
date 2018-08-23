@@ -3,12 +3,12 @@ gtActionCleanFor: anAction
 	<gtAction>
 	| action |
 	action := anAction explicit.
-	^ action stencil: [
+	^ action stencil: [ :element |
 		| button |
 		button := BrButton new.
 		button
 		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
-		action: [ records removeAll. action targetElement requestLayout  ];
+		action: [ records removeAll. element refresh ];
 		icon: GLMUIThemeExtraIcons glamorousTrash asElement;
 		label: 'Clean log'.
 	].
