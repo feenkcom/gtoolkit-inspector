@@ -8,7 +8,15 @@ gtActionCleanFor: anAction
 		button := BrButton new.
 		button
 		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
-		action: [ records removeAll. element refresh ];
-		icon: GLMUIThemeExtraIcons glamorousTrash asElement;
+		action: [ 
+			| parent refreshedChild |
+			records removeAll.
+			"self halt."
+			parent := element parent.
+			refreshedChild := element phlow entity asElementDo: [ :x | x ].
+			parent removeChild: element.
+			parent addChild: refreshedChild.
+		];
+		icon: BrGlamorousIcons refresh asElement;
 		label: 'Clean log'.
 	].
