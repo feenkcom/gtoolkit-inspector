@@ -1,1 +1,0 @@
-I create a BlElement with the provided image as background.

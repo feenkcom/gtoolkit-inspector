@@ -1,1 +1,0 @@
-I am sent when a selected element disappears from the screen

@@ -1,3 +1,0 @@
-initialization
-defaultPageWidth
-	^ 400

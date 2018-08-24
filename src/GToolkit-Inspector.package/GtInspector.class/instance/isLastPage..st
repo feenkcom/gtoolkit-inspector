@@ -1,2 +1,0 @@
-private - pages
-isLastPage: aPageContentElement
