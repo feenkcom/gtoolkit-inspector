@@ -6,8 +6,12 @@ Collection >> gtItemsFor: aView [
 	^ aView explicit
 		title: 'Items';
 		stencil: [ 
-			BrSimpleList new
+			| list |
+			list := BrColumnedList new
 				addEventHandler: GtInspectorListToSelectHandler new;
-				display: self asOrderedCollection;
-				stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ] ]
+				display: self asOrderedCollection.
+			list column
+				title: 'Item';
+				stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ].
+			list ]
 ]
