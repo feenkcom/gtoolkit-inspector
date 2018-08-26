@@ -14,7 +14,7 @@ Class {
 { #category : #'api - instantiation' }
 GtInspectorPagerPageEmbellisher >> create [
 	<return: #BlElement>
-	| aPageElement aContentWrapper aResizer aTriangleElement aCloseButton |
+	| aPageElement aContentWrapper aPageResizer aTriangleElement aCloseButton aContentToPlaygroundResizer |
 
 	self contentElement removeFromParent.
 
@@ -50,8 +50,8 @@ GtInspectorPagerPageEmbellisher >> create [
 			c vertical matchParent ].
 
 	aContentWrapper := BlElement new
-		clipChildren: false;
 		look: BrShadowLook new;
+		clipChildren: false;
 		background: Color white;
 		layout: BlLinearLayout vertical;
 		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 5);
@@ -73,7 +73,7 @@ GtInspectorPagerPageEmbellisher >> create [
 			spawn: self selectedObject
 			after: self contentElement ].
 
-	aResizer := BlElement new
+	aPageResizer := BlElement new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c |
 			c vertical matchParent.
@@ -94,8 +94,41 @@ GtInspectorPagerPageEmbellisher >> create [
 
 	aContentWrapper addChild: self contentElement.
 	aContentWrapper addChild: aCloseButton.
+	
+	(self contentElement viewModel model isKindOf: GtPlayBook)
+		ifFalse: [ 
+			| aPlayground playbook |
+			playbook := GtPlayPage new.
+			playbook bindings at: #self put: self contentElement viewModel model.
+			aPlayground := playbook asElement.
+			aPlayground constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical exact: 0 ].
+			aContentToPlaygroundResizer := BlElement new
+				layout: BlFrameLayout new;
+				constraintsDo: [ :c |
+					c horizontal matchParent.
+					c vertical exact: 8.
+					c margin: (BlInsets left: 40 right: 40).
+					c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
+				addChild: (BlElement new
+					background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+					geometry: (BlRectangle cornerRadius: 2);
+					constraintsDo: [ :c |
+						c horizontal matchParent.
+						c vertical exact: 3.
+						c frame horizontal weight: 0.2.
+						c frame vertical alignTop.
+						c frame horizontal alignCenter ]);
+				addEventHandler: (BlResizerBottomListener new resizeTarget: self contentElement; minimumExtent: 75@75);
+				addEventHandler: (BlResizerTopListener new resizeTarget: aPlayground; minimumExtent: 75@0);
+				when: BlDoubleClickEvent do: [:e | aPlayground height: 0 ].
+
+			aContentWrapper addChild: aContentToPlaygroundResizer.
+			aContentWrapper addChild: aPlayground ].
+
 	aPageElement addChild: aContentWrapper.
-	aPageElement addChild: aResizer.
+	aPageElement addChild: aPageResizer.
 	aPageElement addChild: aTriangleElement.
 
 	self inspector pager when: BrPagerPageAddedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
