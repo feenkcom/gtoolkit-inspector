@@ -119,7 +119,6 @@ GtInspectorPagerPageEmbellisher >> create [
 						c frame horizontal weight: 0.2.
 						c frame vertical alignTop.
 						c frame horizontal alignCenter ]);
-				addEventHandler: (BlResizerBottomListener new resizeTarget: self contentElement; minimumExtent: 75@75);
 				addEventHandler: (BlResizerTopListener new resizeTarget: aPlayground; minimumExtent: 75@0);
 				when: BlDoubleClickEvent do: [:e | aPlayground height: 0 ].
 
