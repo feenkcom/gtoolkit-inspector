@@ -2,7 +2,7 @@ Extension { #name : #MetacelloVersion }
 
 { #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtPackagesFor: aView [
-	<gtView: 20>
+	<gtView>
 	^ aView explicit
 		title: 'Packages';
 		priority: 50;
@@ -47,7 +47,7 @@ MetacelloVersion >> gtProjectMapFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtProjectsFor: aView [
-	<gtView: 30>
+	<gtView>
 	^ aView explicit
 		title: 'Projects';
 		priority: 60;

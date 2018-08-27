@@ -11,7 +11,7 @@ GtInspectorSampleWithExceptionsInExtensions >> gtDisplayOn: stream [
 
 { #category : #ui }
 GtInspectorSampleWithExceptionsInExtensions >> gtViewWithExceptionAtCreationFor: aView [
-	<gtView: 0>
+	<gtView>
 	1/0.
 	^ aView title: 'With error during view creation'
 ]

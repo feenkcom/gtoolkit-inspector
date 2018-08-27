@@ -6,6 +6,6 @@ Class {
 
 { #category : #ui }
 GtInspectorSampleNotReturningTheView >> gtViewNotReturningFor: aView [
-	<gtView: 0>
+	<gtView>
 	
 ]
