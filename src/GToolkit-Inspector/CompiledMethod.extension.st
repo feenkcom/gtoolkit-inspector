@@ -2,9 +2,10 @@ Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtSourceFor: aView [
-	<gtView: 0>
+	<gtView>
 	^ aView explicit
 		title: 'Source';
+		priority: 10;
 		actionStencil: [ 
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;

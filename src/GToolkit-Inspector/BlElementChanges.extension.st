@@ -2,7 +2,7 @@ Extension { #name : #BlElementChanges }
 
 { #category : #'*GToolkit-Inspector' }
 BlElementChanges >> gtItemsFor: aView [
-	<gtView: 0> 
+	<gtView> 
 	
 	^ (self changes flatCollect:  [ :each | each records ]) gtItemsFor: aView.
 	"	composite tree 

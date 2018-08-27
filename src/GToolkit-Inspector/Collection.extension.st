@@ -2,9 +2,10 @@ Extension { #name : #Collection }
 
 { #category : #'*GToolkit-Inspector' }
 Collection >> gtItemsFor: aView [
-	<gtView: 0>
+	<gtView>
 	^ aView explicit
 		title: 'Items';
+		priority: 50;
 		stencil: [ 
 			| list |
 			list := BrColumnedList new

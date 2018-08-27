@@ -2,10 +2,11 @@ Extension { #name : #Announcer }
 
 { #category : #'*GToolkit-Inspector' }
 Announcer >> gtSubscriptionsFor: aView [
-	<gtView: 30>
+	<gtView>
 	self numberOfSubscriptions isZero ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Subscriptions';
+		priority: 50;
 		stencil: [
 			| list |
 			list := BrColumnedList new display: self subscriptions glmSubscriptions asArray.
