@@ -98,8 +98,7 @@ GtInspectorPagerPageEmbellisher >> create [
 	(self contentElement viewModel model isKindOf: GtPlayBook)
 		ifFalse: [ 
 			| aPlayground playbook |
-			playbook := GtPlayPage new.
-			playbook bindings at: #self put: self contentElement viewModel model.
+			playbook := GtPlayPage forObject: self contentElement viewModel model.
 			aPlayground := playbook asElement.
 			aPlayground constraintsDo: [ :c |
 				c horizontal matchParent.
