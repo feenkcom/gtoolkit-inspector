@@ -13,7 +13,6 @@ BlElementChange >> gtActionCleanFor: anAction [
 		action: [ 
 			| parent refreshedChild |
 			records removeAll.
-			"self halt."
 			parent := element parent.
 			refreshedChild := element phlow entity asElementDo: [ :x | x ].
 			parent removeChild: element.
