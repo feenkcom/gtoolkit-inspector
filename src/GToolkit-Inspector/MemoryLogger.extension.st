@@ -21,9 +21,10 @@ MemoryLogger >> gtGroupedFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtRecordingsFor: aView [
-	<gtView: 0>
+	<gtView>
 	^ aView explicit
 		title: 'Recordings';
+		priority: 50;
 		stencil: [ 
 			| list |
 			list := BrColumnedList new display: self recordings reverse.

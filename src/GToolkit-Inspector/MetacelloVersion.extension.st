@@ -5,14 +5,16 @@ MetacelloVersion >> gtPackagesFor: aView [
 	<gtView: 20>
 	^ aView explicit
 		title: 'Packages';
+		priority: 50;
 		stencil: [ BrSimpleList new display: [ self packages ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtProjectMapFor: aView [
-	<gtView: 40>
+	<gtView>
 	^ aView mondrian
 		title: 'Project map';
+		priority: 70;
 		painting: [ :mondrian |
 			mondrian
 				nodes 
@@ -48,5 +50,6 @@ MetacelloVersion >> gtProjectsFor: aView [
 	<gtView: 30>
 	^ aView explicit
 		title: 'Projects';
+		priority: 60;
 		stencil: [ BrSimpleList new display: [ self projects ] ]
 ]

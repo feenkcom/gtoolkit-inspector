@@ -53,6 +53,6 @@ GLMAnnouncingCollection >> gtRemoveRandomItemAction: anAction [
 			self remove: 'random'.
 		];
 		icon: BrGlamorousIcons remove asElement;
-		label: 'Add random element'.
+		label: 'Remove random element'.
 	].
 ]

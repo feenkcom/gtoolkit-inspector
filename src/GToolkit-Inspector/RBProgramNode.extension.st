@@ -2,11 +2,12 @@ Extension { #name : #RBProgramNode }
 
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
-	<gtView: 30> 
+	<gtView> 
 	| visitor wrapperFactory |	
 	wrapperFactory := RBNodeWrapperFactory new. 
 	^ aView mondrian
 		title: 'Tree';
+		priority: 60;
 		painting: [ :view | 
 			view nodes shape: [ :each |
 				| textElement text |

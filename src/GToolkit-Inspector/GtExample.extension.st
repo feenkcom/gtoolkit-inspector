@@ -76,11 +76,12 @@ GtExample >> gtDependenciesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesGraphFor: aView [
-	<gtView: 1>
+	<gtView>
 	"self flag: 'Temporary solution in case rossal is not present'.
 	(composite class canPerform: #roassal2) ifFalse: [ ^ self ]."
 	^ aView mondrian
 		title: 'Graph';
+		priority: 50;
 		painting: [ :view | 
 			view nodes shape: [ :each |
 				| element |

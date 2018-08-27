@@ -20,7 +20,7 @@ Object >> gtLiveFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 Object >> gtPrintFor: aView [
-	<gtView: 100>
+	<gtView>
 	^ aView explicit
 		title: 'Print';
 		priority: 110;
