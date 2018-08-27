@@ -98,12 +98,12 @@ GtInspectorPagerPageEmbellisher >> create [
 	(self contentElement viewModel model isKindOf: GtPlayBook)
 		ifFalse: [ 
 			| aPlayground playbook |
-			playbook := GtPlayPage new.
-			playbook bindings at: #self put: self contentElement viewModel model.
+			playbook := GtPlayPage forObject: self contentElement viewModel model.
 			aPlayground := playbook asElement.
 			aPlayground constraintsDo: [ :c |
 				c horizontal matchParent.
 				c vertical exact: 0 ].
+			aPlayground clipChildren: true.
 			aContentToPlaygroundResizer := BlElement new
 				layout: BlFrameLayout new;
 				constraintsDo: [ :c |
@@ -120,7 +120,6 @@ GtInspectorPagerPageEmbellisher >> create [
 						c frame horizontal weight: 0.2.
 						c frame vertical alignTop.
 						c frame horizontal alignCenter ]);
-				addEventHandler: (BlResizerBottomListener new resizeTarget: self contentElement; minimumExtent: 75@75);
 				addEventHandler: (BlResizerTopListener new resizeTarget: aPlayground; minimumExtent: 75@0);
 				when: BlDoubleClickEvent do: [:e | aPlayground height: 0 ].
 
