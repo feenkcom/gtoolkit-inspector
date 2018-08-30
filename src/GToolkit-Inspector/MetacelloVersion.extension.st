@@ -6,7 +6,20 @@ MetacelloVersion >> gtPackagesFor: aView [
 	^ aView explicit
 		title: 'Packages';
 		priority: 50;
-		stencil: [ BrSimpleList new display: [ self packages ] ]
+		stencil: [ 
+			| list |
+			list := BrColumnedList new display: [ self packages ].
+			list addEventHandler: GtInspectorListToSelectHandler new.
+			list column
+				title: 'Packages';
+				stencil: [ :aNode :index |
+					| text textElement |
+					text := [ aNode gtDisplayString asRopedText ] 
+						on: Error 
+						do: [ aNode errorMessage asRopedText foreground: Color red ].
+					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
+			list ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -51,5 +64,18 @@ MetacelloVersion >> gtProjectsFor: aView [
 	^ aView explicit
 		title: 'Projects';
 		priority: 60;
-		stencil: [ BrSimpleList new display: [ self projects ] ]
+		stencil: [ 
+			| list |
+			list := BrColumnedList new display: [ self projects ].
+			list addEventHandler: GtInspectorListToSelectHandler new.
+			list column
+				title: 'Project';
+				stencil: [ :aNode :index |
+					| text textElement |
+					text := [ aNode gtDisplayString asRopedText ] 
+						on: Error 
+						do: [ aNode errorMessage asRopedText foreground: Color red ].
+					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
+			list ]
 ]
