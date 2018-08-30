@@ -15,7 +15,7 @@ Class {
 { #category : #ui }
 GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
 	<gtView>
-	^ aView taskItExplicit 
+	^ aView explicit 
 		title: 'Even slooower';
 		priority: 4;
 		stencil: [ 
@@ -30,7 +30,7 @@ GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
 { #category : #ui }
 GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
 	<gtView>
-	^ aView taskItExplicit 
+	^ aView explicit 
 		title: 'Slooow';
 		priority: 3;
 		stencil: [ 
@@ -45,7 +45,7 @@ GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
 { #category : #ui }
 GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
 	<gtView>
-	^ aView taskItExplicit 
+	^ aView explicit 
 		title: 'Fast as well';
 		priority: 2;
 		stencil: [ 
@@ -59,7 +59,7 @@ GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
 { #category : #ui }
 GtInspectorElementWithSlowViews >> gtShortLastingComputacionFor: aView [
 	<gtView>
-	^ aView taskItExplicit 
+	^ aView explicit 
 		title: 'Fast';
 		priority: 1;
 		stencil: [ 

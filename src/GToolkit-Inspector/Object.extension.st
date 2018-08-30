@@ -8,7 +8,7 @@ Object >> gtInspectorForGtIn: composite [
 		title: '_GT';
 		element: [ 
 			| view |
-			view := self gtViewsFor: GtPhlowExplicitView new inContext: nil.
+			view := self gtViewsFor: GtPhlowSequentialExplicitView new inContext: nil.
 			view asElementDo: [ :x | x ] ]
 ]
 

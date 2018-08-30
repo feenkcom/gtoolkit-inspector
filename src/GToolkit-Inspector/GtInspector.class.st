@@ -184,7 +184,7 @@ GtInspector >> selectDueTo: anEvent [
 GtInspector >> spawn: aSelectedObject [
 	| aPageView |
 
-	aPageView := aSelectedObject gtViewsFor: GtPhlowExplicitView new.
+	aPageView := aSelectedObject gtViewsFor: GtPhlowSequentialExplicitView new.
 	aPageView asElementDo: [ :aPageContentElement |
 		pager addPage: (self createPageWithContent: aPageContentElement for: aSelectedObject) ]
 ]

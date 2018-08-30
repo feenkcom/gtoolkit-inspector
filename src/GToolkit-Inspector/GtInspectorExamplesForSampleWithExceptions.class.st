@@ -31,7 +31,7 @@ GtInspectorExamplesForSampleWithExceptions >> containerViewOfSampleWithException
 	<gtExample>
 	| view object |
 	object := GtInspectorSampleWithExceptionsInExtensions new.
-	view := object gtViewsFor: GtPhlowExplicitView new.
+	view := object gtViewsFor: GtPhlowSequentialExplicitView new.
 	view asElementDo: [ :x | self assert: x notNil ].
 	^ object
 ]
