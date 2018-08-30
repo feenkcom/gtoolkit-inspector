@@ -191,7 +191,7 @@ BlElement >> gtResizersFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtShortcutsFor: aView [
 	<gtView>
-	self shortcuts ifEmpty: [ ^ GtPhlowEmptyView new ].
+	self shortcuts ifEmpty: [ ^ aView empty ].
 	^ aView explicit 
 		title: 'Shortcuts' translated;
 		priority: 10;
