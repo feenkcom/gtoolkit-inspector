@@ -9,8 +9,41 @@ GtInspectorElementWithSlowViews new
 Class {
 	#name : #GtInspectorElementWithSlowViews,
 	#superclass : #Object,
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Examples'
 }
+
+{ #category : #'ui - progress' }
+GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Any Progress';
+		priority: 7;
+		stencil: [ 
+			BlTaskProgress signalMessage: 'Obtaining data...'.
+			1 second wait.
+			BlTaskProgress signalMessage: 'Preparing visualization...'.
+			1 second wait.
+			BlTextElement new
+				text: 'The slow rendering is now finished.' asRopedText;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ]
+]
+
+{ #category : #'ui - progress' }
+GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Exact Progress';
+		priority: 5;
+		stencil: [ 
+			BlTaskItDemoCommand new value.
+			BlTextElement new
+				text: 'The slow rendering is now finished.' asRopedText;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ]
+]
 
 { #category : #ui }
 GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
@@ -43,23 +76,6 @@ GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
 ]
 
 { #category : #ui }
-GtInspectorElementWithSlowViews >> gtProgressingComputacionFor: aView [
-	<gtView>
-	^ aView explicit 
-		title: 'Progressing';
-		priority: 5;
-		stencil: [ 
-			BlAnyProgress signal: 'Obtaining data...'.
-			BlTaskItDemoCommand new value.
-			BlAnyProgress signal: 'Preparing visualization...'.
-			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ] ]
-]
-
-{ #category : #ui }
 GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -82,6 +98,24 @@ GtInspectorElementWithSlowViews >> gtShortLastingComputacionFor: aView [
 		stencil: [ 
 			BlTextElement new
 				text: 'I render fast.' asRopedText;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ]
+]
+
+{ #category : #'ui - progress' }
+GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Some Progress';
+		priority: 6;
+		stencil: [ 
+			0.5 second wait.
+			1 to: 20 do: [ :each |
+				BlTaskProgress signal: 'Transferring...' amount: each * 1024.
+				(Delay forMilliseconds: 100) wait ].
+			BlTextElement new
+				text: 'The slow rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
