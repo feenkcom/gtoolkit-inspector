@@ -57,28 +57,37 @@ RGMethodDefinition >> gtSourceFor: aView [
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
+		actionStencil: [ :element | 
+			BrButton new 
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons accept asElement;
+				action: [ 
+					| newSourceCode |
+					newSourceCode := (element deep: #parent select: [ :each | each isKindOf: BrTabGroup ])
+						first children second children first editor text asString.
+					self methodClass compile: newSourceCode ] ];
 		stencil: [ 
-		| text styler editor editorElement |
+			| text styler editor editorElement |
 
-		text := self sourceCode asRopedText" readonly".
+			text := self sourceCode asRopedText" readonly".
 
-		text attributes: {
-		BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
-		(BrFontSizeAttribute size: 14) beNotOverwritableByStyler }.
+			text attributes: {
+			BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
+			(BrFontSizeAttribute size: 14) beNotOverwritableByStyler }.
 
-		styler := BrRBTextStyler new.
-		styler classOrMetaClass: self methodClass.
+			styler := BrRBTextStyler new.
+			styler classOrMetaClass: self methodClass.
 
-		editor := BrTextEditor new.
-		editor styler: styler.
-		editor text: text.
+			editor := BrTextEditor new.
+			editor styler: styler.
+			editor text: text.
 
-		editorElement := BrEditorElement new.
-		editorElement constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent ].
+			editorElement := BrEditorElement new.
+			editorElement constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ].
 
-		editorElement editor: editor.
+			editorElement editor: editor.
 
-		editorElement].
+			editorElement].
 ]
