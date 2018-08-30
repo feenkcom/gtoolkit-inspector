@@ -8,7 +8,7 @@ Class {
 GtInspectorExamples >> viewWithViewsForObject [
 	<gtExample>
 	| view element |
-	view := GtPhlowSequentialExplicitView new.
+	view := GtPhlowView sequentialExplicit.
 	{1 . 2} gtViewsFor: view.
 	element := view asElementDo: [ :x | x ].
 	self assert: element notNil.

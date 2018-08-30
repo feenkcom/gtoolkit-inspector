@@ -40,7 +40,15 @@ BlElement >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 0;
-		stencil: [ self ]
+		stencil: [ 
+			self space
+				ifNotNil: [ BrEditorElement new 
+					editor: (BrTextEditor new
+						text: (self printString, ' element cannot be currently displayed here as it is already displayed in another view') asRopedText readonly);
+					constraintsDo: [ :c | 
+						c horizontal matchParent.
+						c vertical matchParent ] ]
+				ifNil: [ self ]  ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
