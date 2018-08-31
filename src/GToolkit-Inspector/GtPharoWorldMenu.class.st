@@ -76,8 +76,7 @@ GtPharoWorldMenu class >> playgroundMenuOn: aBuilder [
 { #category : #'world menu' }
 GtPharoWorldMenu class >> rootMenuOn: aBuilder [
 	<worldMenu>
-	(aBuilder group: #gtoolkit)
-		order: 0.1;
-		iconName: #smallDoItIcon;
-		withSeparatorAfter
+	(aBuilder item: #gtoolkit)
+		label: 'GToolkit';
+		order: 0.1
 ]
