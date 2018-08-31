@@ -36,7 +36,18 @@ FileReference >> gtContentsFor: aView [
 				editor: (BrTextEditor new text: contents asRopedText);
 				constraintsDo: [ :c |
 				    c horizontal matchParent.
-				    c vertical matchParent ]. ]
+				    c vertical matchParent ] ];
+		actionStencil: [ :element | 
+			BrButton new 
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons accept asElement;
+				action: [ 
+					| newContents |
+					(element deep: #parent select: [ :each | each isKindOf: BrTabGroup ])
+						first allChildrenBreadthFirstDo: [ :el | (el isKindOf: BrEditorElement) ifTrue: [
+							newContents := el editor text asString.
+							self copyTo: (self fullName, '.backup') asFileReference.
+							self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

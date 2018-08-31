@@ -76,6 +76,23 @@ GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
 ]
 
 { #category : #ui }
+GtInspectorElementWithSlowViews >> gtProgressingComputacionFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Progressing';
+		priority: 5;
+		stencil: [ 
+			BlAnyProgress signal: 'Obtaining data...'.
+			BlTaskItDemoCommand new value.
+			BlAnyProgress signal: 'Preparing visualization...'.
+			BlTextElement new
+				text: 'The slow rendering is now finished.' asRopedText;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ]
+]
+
+{ #category : #ui }
 GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
 	<gtView>
 	^ aView explicit 
