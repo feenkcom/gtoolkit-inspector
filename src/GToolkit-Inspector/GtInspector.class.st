@@ -26,7 +26,7 @@ GtInspector class >> openOn: anObject [
 		c horizontal matchParent.
 		c vertical matchParent ].
 
-	anInspector spawn: anObject.
+	anInspector spawnInitial: anObject.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
@@ -66,7 +66,10 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 
 { #category : #private }
 GtInspector >> addPageWithContent: aContentElement for: anObject [
-	pager addPage: (self createPageWithContent: aContentElement for: anObject)
+	| page |
+	page := self createPageWithContent: aContentElement for: anObject.
+	pager addPage: page.
+	^ page
 ]
 
 { #category : #'api - inspector' }
@@ -181,22 +184,13 @@ GtInspector >> selectDueTo: anEvent [
 ]
 
 { #category : #'api - inspector' }
-GtInspector >> spawn: aSelectedObject [
-	| aPageView |
-
-	aPageView := aSelectedObject gtViewsFor: GtPhlowView sequentialExplicit.
-	aPageView asElementDo: [ :aPageContentElement |
-		pager addPage: (self createPageWithContent: aPageContentElement for: aSelectedObject) ]
-]
-
-{ #category : #'api - inspector' }
 GtInspector >> spawn: aSelectedObject after: aPageElement [
 	| aPageView |
 
 	aPageView := aSelectedObject gtViewsFor: GtPhlowEmptyView new.
 	aPageView asElementDo: [ :aPageContentElement |
 		pager removePagesAfter: aPageElement.
-		pager addPage: (self createPageWithContent: aPageContentElement for: aSelectedObject) ]
+		self addPageWithContent: aPageContentElement for: aSelectedObject ]
 ]
 
 { #category : #'api - inspector' }
@@ -206,4 +200,13 @@ GtInspector >> spawnDueTo: anEvent [
 		findPageContaining: anEvent sourceElement
 		ifPresent: [ :aPageElement | self spawn: anEvent object after: aPageElement ]
 		ifAbsent: [ 	]
+]
+
+{ #category : #'api - inspector' }
+GtInspector >> spawnInitial: aSelectedObject [
+	| aPageView |
+
+	aPageView := aSelectedObject gtViewsFor: GtPhlowEmptyView new.
+	aPageView asElementDo: [ :aPageContentElement |
+		self addPageWithContent: aPageContentElement for: aSelectedObject ]
 ]

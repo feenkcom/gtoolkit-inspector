@@ -18,7 +18,7 @@ GtInspectorPagerPageEmbellisher >> create [
 
 	self contentElement removeFromParent.
 
-	aTriangleElement := BlElement new
+	aTriangleElement := BrPagerNextButton new
 		size: 16@32;
     	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
     	background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
@@ -42,14 +42,14 @@ GtInspectorPagerPageEmbellisher >> create [
 			c ignored vertical alignTop ];
 		action: [ self inspector close: self contentElement ].
 
-	aPageElement := BlElement new
+	aPageElement := BrPagerPageElement new
 		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
 		constraintsDo: [ :c |
 			c horizontal exact: self width.
 			c vertical matchParent ].
 
-	aContentWrapper := BlElement new
+	aContentWrapper := BrPagerPageContentElement new
 		look: BrShadowLook new;
 		clipChildren: false;
 		background: Color white;
@@ -73,7 +73,7 @@ GtInspectorPagerPageEmbellisher >> create [
 			spawn: self selectedObject
 			after: self contentElement ].
 
-	aPageResizer := BlElement new
+	aPageResizer := BrPagerPageResizerElement new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c |
 			c vertical matchParent.
