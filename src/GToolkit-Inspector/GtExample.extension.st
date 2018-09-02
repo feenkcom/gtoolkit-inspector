@@ -64,7 +64,7 @@ GtExample >> gtCodeGraphFor: aView [
 						toHead: (BlArrowheadSimpleArrow new
 							border: (BlBorder builder paint: (Color gray alpha: 0.4); width: 10; build))" ];
 				connectToAll: #directDependencies.
-			view layout horizontalTree levelDistance: 200 "layered horizontalGap: 100" ]
+			view layout horizontalTree levelDistance: 200; nodeDistance: 40 ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
