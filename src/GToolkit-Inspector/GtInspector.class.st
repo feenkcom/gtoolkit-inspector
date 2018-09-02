@@ -186,11 +186,32 @@ GtInspector >> selectDueTo: anEvent [
 { #category : #'api - inspector' }
 GtInspector >> spawn: aSelectedObject after: aPageElement [
 	| aPageView |
-
 	aPageView := aSelectedObject gtViewsFor: GtPhlowEmptyView new.
-	aPageView asElementDo: [ :aPageContentElement |
+	aPageView asElementDo: [ :aViewElement |
+		| preferredSelectedTabTitle newPage |
+		preferredSelectedTabTitle := nil.
+		pager 
+			pageAfter: aPageElement
+			ifFound: [ :aNextPageModel |
+				aNextPageModel widget 
+					allChildrenBreadthFirstDetect: [ :each | each phlow isView ]
+					ifFound: [ :first |
+						first parentTabGroup content 
+							allChildrenBreadthFirstDetect: [ :each | each phlow isView ]
+							ifFound: [ :tab | 
+								preferredSelectedTabTitle := tab parentTabGroup viewModel selectedTab widget phlow entity title ] ] ] 
+			ifNone: [ ].
 		pager removePagesAfter: aPageElement.
-		self addPageWithContent: aPageContentElement for: aSelectedObject ]
+		newPage := self addPageWithContent: aViewElement for: aSelectedObject.
+		newPage 
+			allChildrenBreadthFirstDetect: [ :each | each phlow isView ]
+			ifFound: [ :first | 
+				first parentTabGroup content 
+					allChildrenBreadthFirstDetect: [ :each | each phlow isView ]
+					ifFound: [ :tab | 
+						tab parentTabGroup viewModel tabs 
+							detect: [ :tabModel | tabModel widget phlow entity title = preferredSelectedTabTitle ]
+							ifFound: [ :tabModel | tabModel select ] ] ] ]
 ]
 
 { #category : #'api - inspector' }
