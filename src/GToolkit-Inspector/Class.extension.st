@@ -5,12 +5,15 @@ Class >> gtAllReferencesFor: aView [
 	<gtView>
 	
 	^ aView explicit 
-		title: 'All Ref';
+		title: 'Referemces';
 		priority: 19;
 		stencil: [
 			| list |
-			list := BrColumnedList new display: [ (SystemNavigation default allReferencesTo: self binding) 
+			list := BrColumnedList new 
+				display: [ 
+					(SystemNavigation default allReferencesTo: self binding) 
 						sorted: [ :x :y | x name < y name ] ].
+			list addEventHandler: GtInspectorListToSelectHandler new.
 			list column 
 				title: 'Method';
 				stencil: [ :each | BrListLabelStencil matchParent: each name ].
@@ -106,6 +109,7 @@ Class >> gtInstanceVariablesFor: aView [
 		stencil: [
 			| list |
 			list := BrColumnedList new display: [ self class allInstVarNames sorted collect: [ :each | each -> (self instVarNamed: each) ] ].
+			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [:assoc | assoc value ]).
 			list column
 				title: 'Variable';
 				stencil: [ :each | 
@@ -145,5 +149,10 @@ Class >> gtPillarCommentFor: aView [
 	^ aView explicit
 		title: 'Comment';
 		priority: 10;
-		stencil: [ GtDocumenter editorForText: self comment ]
+		stencil: [ GtDocumenter editorForText: self comment ];
+		actionStencil: [ :tab | 
+			BrButton new 
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons accept asElement;
+				action: [ self comment: tab viewContentElement editor text asString ] ]
 ]
