@@ -13,7 +13,7 @@ FileReference >> gtActionMaterializeFuelFor: anAction [
 				button fireEvent: (GtPhlowObjectToSpawn new
 				object: (FLMaterializer materializeFromFileNamed: self fullName);
 				sourceElement: button) ];
-		icon: GLMUIThemeExtraIcons glamorousAdd asElement;
+		icon: BrGlamorousIcons play asElement;
 		label: 'Parse using GToolkit Documenter' translated.
 	]
 ]

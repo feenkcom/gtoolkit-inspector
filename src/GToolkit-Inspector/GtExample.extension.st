@@ -1,6 +1,23 @@
 Extension { #name : #GtExample }
 
 { #category : #'*GToolkit-Inspector' }
+GtExample >> gtActionSpawnReturnValueFor: anAction [
+	<gtAction>
+	|  button |
+	^ anAction explicit stencil: [
+		button := BrButton new.
+		button
+			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+			action:  [
+				button fireEvent: (GtPhlowObjectToSpawn new
+					object: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]);
+					sourceElement: button) ];
+			icon: BrGlamorousIcons play asElement;
+			label: 'Evaluate and inspect return-value' translated.
+	]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtAfterFor: aView [
 	<gtView>
 	self hasAfter ifFalse: [ ^ aView empty ].
