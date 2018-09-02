@@ -37,33 +37,21 @@ GtExampleGroup >> gtExamplesIn: aView [
 							anEvent consumed: true.
 							aList selectOne: anIndex ] ].
 			aList column
-				title: 'Result' translated;
+				title: 'Class' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil fitContent: eachExample resultOrErrorName) asElement
-						constraintsDo: [ :c |  
-							c padding: (BlInsets left: 10) ];
-						when: BlClickEvent do: [ :anEvent  |
-							anEvent consumed: true.
-							aList selectOne: anIndex.
-							eachExample hasResult ifTrue: [ 
-								aList fireEvent: (GLMBlocObjectToSelect new 
-									toSelect: eachExample result returnValueOrExampleException) ] ] ].
+					(BrListLabelStencil matchParent: eachExample example methodClass name) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList column
 				title: 'Selector' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: 
-							eachExample example selector asString, ' (', 
-							eachExample example methodClass name ,')' ) asElement
-						constraintsDo: [ :c |  
-							c padding: (BlInsets left: 10) ];
-						when: BlClickEvent do: [ :anEvent  |
-							anEvent consumed: true.
-							aList selectOne: anIndex ] ].
-			aList 
-				when: BrSelectionChanged do: [ :anEvent | 
-					anEvent selectedDo: [ :anInterval | 
-					aList fireEvent: (GLMBlocObjectToSelect new 
-						toSelect: (aList viewModel items at: (aList selection from))) ] ]
+					(BrListLabelStencil matchParent: eachExample example selector asString) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList column
+				title: 'Result' translated;
+				stencil: [ :eachExample :anIndex | 
+					(BrListLabelStencil matchParent: eachExample resultOrErrorName) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList
 			]
 ]
 
