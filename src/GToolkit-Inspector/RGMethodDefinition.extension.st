@@ -61,11 +61,7 @@ RGMethodDefinition >> gtSourceFor: aView [
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 				icon: BrGlamorousIcons accept asElement;
-				action: [ 
-					tab parentTabGroup
-						allChildrenBreadthFirstDetect: [ :each | each phlow isViewContent ] 
-						ifFound: [ :editorElement | self methodClass compile: editorElement editor text asString ] 
-						ifNone: [ ] ] ];
+				action: [ self methodClass compile: tab viewContentElement editor text asString ] ];
 		stencil: [ 
 			| text styler editor editorElement |
 			text := self sourceCode asRopedText" readonly".
