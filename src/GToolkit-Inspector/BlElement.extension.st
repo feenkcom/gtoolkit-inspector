@@ -149,7 +149,7 @@ BlElement >> gtResizersFor: aView [
 	| withAllParents |
 	withAllParents := Array streamContents: [ :aStream |
 		aStream nextPut: self.
-		self parentsDo: [ :anElement | aStream nextPut: anElement ] ].
+		self allParentsDo: [ :anElement | aStream nextPut: anElement ] ].
 	
 	^ aView explicit
 		title: 'Resizers' translated;

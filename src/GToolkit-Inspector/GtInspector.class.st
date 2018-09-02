@@ -127,7 +127,7 @@ GtInspector >> defaultPageWidth [
 GtInspector >> findPageContaining: anElement ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	<return: #BlElement>
 	
-	anElement withParentsDo: [ :eachParentElement |
+	anElement withAllParentsDo: [ :eachParentElement |
 		(eachParentElement viewModel isNotNil and: [
 			(pager viewModel pages includes: eachParentElement viewModel) ])
 				ifTrue: [ ^ aPresentBlock  value: eachParentElement ] ].

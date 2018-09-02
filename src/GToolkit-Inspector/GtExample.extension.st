@@ -130,8 +130,8 @@ GtExample >> gtSourceFor: aView [
 			    c vertical matchParent ].
 			editorElement editor: editor ];
 		actionStencil: [ BrButton new 
-			look: BrMaterialToggleIconifiedLook  ;
-			icon: GLMUIThemeExtraIcons glamorousBrowse asElement ;
+			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+			icon: BrGlamorousIcons browse asElement ;
 			action: [ self method browse ] 
 		]
 ]

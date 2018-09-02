@@ -6,6 +6,17 @@ GtExampleGroup >> gtExamplesIn: aView [
 	^ aView explicit
 		title: 'Examples';
 		priority: 10;
+		actionStencil: [ :tab |
+			BrButton new 
+				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				icon: BrGlamorousIcons play asElement;
+				action: [
+					self examples do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+						displayingProgress: 'Running examples ...'.
+					tab parentTabGroup 	
+						allChildrenBreadthFirstDetect: [ :aChild | aChild phlow isViewContent ] 
+						ifFound: [ :aList | aList children first dataSource notifyChanged ] 
+						ifNone: [self error: 'I should have found a view content element, but I did not.']  ] ];
 		stencil: [ | theExamples aList |
 			theExamples := self examples.
 			aList := BrColumnedList new display: theExamples.
