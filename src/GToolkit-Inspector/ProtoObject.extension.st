@@ -55,7 +55,6 @@ ProtoObject >> gtActions [
 			do: [ :error |
 				error freeze.
 				GtPhlowActionWithError new 
-					title: 'Error';
 					error: error ]
 	 ].
 ]
