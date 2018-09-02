@@ -10,3 +10,11 @@ BrTextEditor >> gtLiveFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent ] ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BrTextEditor >> gtTextFor: aView [
+	<gtView>
+	^ (self text 
+		gtTextFor: aView)
+		priority: 10
+]
