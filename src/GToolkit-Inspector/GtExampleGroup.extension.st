@@ -1,7 +1,7 @@
 Extension { #name : #GtExampleGroup }
 
 { #category : #'*GToolkit-Inspector' }
-GtExampleGroup >> gtExamplesIn: aView [
+GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Examples';
@@ -11,7 +11,8 @@ GtExampleGroup >> gtExamplesIn: aView [
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 				icon: BrGlamorousIcons play asElement;
 				action: [
-					self examples do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
+					self examples 
+						do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
 						displayingProgress: 'Running examples ...'.
 					tab parentTabGroup 	
 						allChildrenBreadthFirstDetect: [ :aChild | aChild phlow isViewContent ] 
@@ -21,9 +22,9 @@ GtExampleGroup >> gtExamplesIn: aView [
 			theExamples := self examples.
 			aList := BrColumnedList new display: theExamples.
 			aList addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :each | 
-						(each isKindOf: GtExampleWithResult)
-							ifTrue: [ each example ]
-							ifFalse: [ each ] ]).
+				(each isKindOf: GtExampleWithResult)
+					ifTrue: [ each example ]
+					ifFalse: [ each ] ]).
 			aList column
 				title: 'Icon' translated;
 				stencil: [ :eachExample :anIndex | | anElement |
@@ -35,7 +36,7 @@ GtExampleGroup >> gtExamplesIn: aView [
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							aList selectOne: anIndex ] ].
+							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ].
 			aList column
 				title: 'Class' translated;
 				stencil: [ :eachExample :anIndex | 
@@ -56,7 +57,7 @@ GtExampleGroup >> gtExamplesIn: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExampleGroup >> gtMapIn: aView [
+GtExampleGroup >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
 		title: 'Map';

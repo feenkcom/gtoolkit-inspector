@@ -1,0 +1,44 @@
+Extension { #name : #SmalltalkImage }
+
+{ #category : #'*GToolkit-Inspector' }
+SmalltalkImage >> gtExamplesContainedFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Examples';
+		priority: 10;
+		stencil: [ | aList |
+			aList := BrColumnedList new display: (self gtExamplesContained collect: [ :each | each asExampleWithResult ]).
+			aList addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :each | 
+				(each isKindOf: GtExampleWithResult)
+					ifTrue: [ each example ]
+					ifFalse: [ each ] ]).
+			aList column
+				title: 'Icon' translated;
+				stencil: [ :eachExample :anIndex | | anElement |
+					anElement := eachExample icon asElement.
+					anElement
+						constraintsDo: [ :c | 
+							c padding: (BlInsets top: 2) ];
+						when: BlClickEvent do: [ :anEvent | 
+							eachExample run.
+							anElement background: eachExample icon.
+							anEvent consumed: true.
+							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ].
+			aList column
+				title: 'Class' translated;
+				stencil: [ :eachExample :anIndex | 
+					(BrListLabelStencil matchParent: eachExample example methodClass name) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList column
+				title: 'Selector' translated;
+				stencil: [ :eachExample :anIndex | 
+					(BrListLabelStencil matchParent: eachExample example selector asString) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList column
+				title: 'Result' translated;
+				stencil: [ :eachExample :anIndex | 
+					(BrListLabelStencil matchParent: eachExample resultOrErrorName) asElement
+						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList
+			]
+]
