@@ -68,18 +68,6 @@ GtExample >> gtCodeGraphFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExample >> gtConnectedExamplesFor: aView [
-	<gtView>
-	^ aView explicit 
-		title: 'Connected (Bloc)';
-		stencil: [ 
-			| connector |
-			connector := GtConnector new.
-			connector addMethod: self method.
-			connector asScalableElement ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesFor: aView [
 	<gtView>
 	^ self directDependencies 
