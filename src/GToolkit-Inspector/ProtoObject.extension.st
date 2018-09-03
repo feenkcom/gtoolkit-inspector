@@ -3,12 +3,9 @@ Extension { #name : #ProtoObject }
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
-	| button |
 	^ anAction explicit stencil: [
-		button := BrButton new.
-		button
-			look: BrGlamorousButtonExteriorRectangularLook + 
-					BrGlamorousButtonIconLook;
+		BrButton new
+			look: BrGlamorousButtonWithIconLook;
 			icon: BrGlamorousIcons browse asElement;
 			action: [ Smalltalk tools browser openOnClass: self class ] ]
 ]
@@ -20,8 +17,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonExteriorRectangularLook + 
-					BrGlamorousButtonIconLook;
+			look: BrGlamorousButtonWithIconLook;
 			icon: BrGlamorousIcons inspect asElement;
 			action: [ 
 				button fireEvent: (GtPhlowObjectToSpawn new
