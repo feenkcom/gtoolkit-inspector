@@ -117,7 +117,7 @@ GtInspector class >> openOn: anObject [
 
 { #category : #'instance creation' }
 GtInspector class >> openOnPlayBook [
-	^ self openOnPlayBook: GtPlayBook new
+	^ self openOnPlayBook: GtPlayBook newDefault
 ]
 
 { #category : #'instance creation' }
