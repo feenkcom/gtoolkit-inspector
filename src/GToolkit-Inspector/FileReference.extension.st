@@ -65,8 +65,8 @@ FileReference >> gtItemsFor: aView [
 	<gtView>
 	self isDirectory ifFalse: [ ^ aView empty ].
 	^ aView explicit 
-		title: 'Items';
-		priority: 10;
+		title: 'Items 2';
+		priority: 10; 
 		stencil: [
 			| list children |
 			children := self directories, self files.

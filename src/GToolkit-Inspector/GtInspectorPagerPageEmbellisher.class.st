@@ -6,9 +6,10 @@ Class {
 		'width',
 		'resizedAction',
 		'selectedObject',
-		'selectedElement'
+		'selectedElement',
+		'systemChangesHandler'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector'
 }
 
 { #category : #'api - instantiation' }
@@ -136,7 +137,18 @@ GtInspectorPagerPageEmbellisher >> create [
 
 	self updateCloseButtonVisiblity: aCloseButton.
 	
+	"systemChangesHandler subscribe: MethodAdded, MethodModified, MethodRemoved
+		send: #handleMethodAnnouncement:
+		to: self
+		for: aPageElement."
+	
 	^ aPageElement
+]
+
+{ #category : #private }
+GtInspectorPagerPageEmbellisher >> handleMethodAnnouncement: aMethodAnnouncement [
+	(selectedObject isKindOf: aMethodAnnouncement methodClass) 
+		ifTrue: [ self inform: 'refresh'. self create ]
 ]
 
 { #category : #initialization }
@@ -144,7 +156,8 @@ GtInspectorPagerPageEmbellisher >> initialize [
 	super initialize.
 	
 	width := 400.
-	resizedAction := [  ]
+	resizedAction := [  ].
+	systemChangesHandler := GtSystemChangesHandler new.
 ]
 
 { #category : #accessing }

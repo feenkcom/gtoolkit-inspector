@@ -167,11 +167,12 @@ GtInspector >> computePageWidthFor: anObject [
 	or falls back to the default width"
 	<return: #Number>
 
-	^ PageWidthPerClass
+	^ self defaultPageWidth
+	"PageWidthPerClass
 		at: anObject class
 		ifAbsent: [ pager pages
 			ifEmpty: [ self defaultPageWidth ]
-			ifNotEmpty: [ pager pages last embellisher width ] ]
+			ifNotEmpty: [ pager pages last embellisher width ] ]"
 ]
 
 { #category : #private }
