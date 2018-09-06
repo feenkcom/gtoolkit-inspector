@@ -16,18 +16,18 @@ BrEditorElement >> gtEditorElementsFor: aView [
 				self paintEditorElementsWith: mondrian.
 				container removeChildren.
 				container addChild: mondrian asPannableElement ].
-			self editor when: BrTextEditorInsertedEvent do: block.
+			block value.
+"			self editor when: BrTextEditorInsertedEvent do: block.
 			self editor when: BrTextEditorDeletedEvent do: block.
 			self editor when: BrTextEditorCursorMovedEvent do: block.
 			self editor when: BrTextEditorCursorAddedEvent do: block.
 			self editor when: BrTextEditorCursorRemovedEvent do: block.
-			container
+"			container
 			]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 BrEditorElement >> paintEditorElementsWith: mondrian [
-	self forceLayout.
 	mondrian nodes
 		shape: [ :each | 
 			| form content container label labelText |
