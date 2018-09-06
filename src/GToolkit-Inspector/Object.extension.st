@@ -9,7 +9,15 @@ Object >> gtInspectorForGtIn: composite [
 		element: [ 
 			| view |
 			view := self gtViewsFor: GtPhlowView sequentialExplicit inContext: nil.
-			view asElementDo: [ :x | x ] ]
+			view asElementDo: [ :x | 
+				x addEventHandlerOn: GtPhlowObjectToSelect do: [ :anEvent | 
+					x fireEvent: (GLMBlocObjectToSelect new 
+						toSelect: anEvent object; 
+						fromElement: anEvent sourceElement) ].
+				x addEventHandlerOn: GtPhlowObjectToSpawn do: [ :anEvent | 
+					x fireEvent: (GLMBlocObjectToSelect new 
+						toSelect: anEvent object; 
+						fromElement: anEvent sourceElement) ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
