@@ -158,7 +158,7 @@ FileReference >> gtZipItemsFor: aView [
 	<gtView>
 	(self isFile and: [ #('zip' 'jar' 'ear' 'war' 'mcz') includes: self extension ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
-		title: 'Picture';
+		title: 'Archive';
 		priority: 10;
 		stencil: [ 
 			| list children root |
