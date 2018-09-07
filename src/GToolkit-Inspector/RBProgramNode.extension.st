@@ -1,6 +1,19 @@
 Extension { #name : #RBProgramNode }
 
 { #category : #'*GToolkit-Inspector' }
+RBProgramNode >> gtSourceCodeFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Source code';
+		stencil: [ 
+			BrEditorElement new
+				editor: (BrTextEditor new text: self source asRopedText);
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
 	<gtView> 
 	| visitor wrapperFactory |	
