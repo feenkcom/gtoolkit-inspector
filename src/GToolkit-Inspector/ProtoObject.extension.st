@@ -27,32 +27,14 @@ ProtoObject >> gtActionInspectFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActions [
-	"This collects all views for the current object.
-	By default, it simply looks for the #gtView: pragma.
-	The inspector can decice whether or not a presentation should be displayed.
-	Subclasses might want to override it for more special behavior.
-	aContext holds the context of the inspection session (i.e, the previous steps)"
-	| pragmas |
-	pragmas := Pragma
-		allNamed: #gtAction
-		from: self class
-		to: ProtoObject
-		sortedUsing: [ :x :y | (x key) < (y key) ].
-	"pragmas select: [ :aPragma | aGTInspector shouldDisplayPresentationCreatedBy: aPragma method ]"
-	^ pragmas collect: [ :eachPragma | 
-		| action |
-		action := GtPhlowNoAction new.
-		 [thisContext
-					object: self
-					perform: eachPragma methodSelector
-					withArguments: {action}
-					inClass: self class ]
-			on: Error
-			do: [ :error |
-				error freeze.
-				GtPhlowActionWithError new 
-					error: error ]
-	 ].
+	"This collects all view actions for the current object.
+	By default, it simply looks for the #gtAction pragma.
+	Subclasses might want to override it for more special behavior."
+	<return: #Array of: #GtPhlowAction>
+	^ GtPhlowActionsCollectors new
+		pragmaName: #gtAction;
+		fromObject: self;
+		collect
 ]
 
 { #category : #'*GToolkit-Inspector' }
