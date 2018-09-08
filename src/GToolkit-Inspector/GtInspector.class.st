@@ -269,7 +269,7 @@ GtInspector >> selectDueTo: anEvent [
 { #category : #'api - inspector' }
 GtInspector >> spawn: aSelectedObject after: aPageElement [
 	| aPageView |
-	aPageView := aSelectedObject gtViewsFor: GtPhlowEmptyView new.
+	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
 	aPageView asElementDo: [ :aViewElement |
 		| preferredSelectedTabTitle newPage |
 		preferredSelectedTabTitle := nil.
@@ -300,7 +300,7 @@ GtInspector >> spawnDueTo: anEvent [
 GtInspector >> spawnInitial: aSelectedObject [
 	| aPageView |
 
-	aPageView := aSelectedObject gtViewsFor: GtPhlowEmptyView new.
+	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
 	aPageView asElementDo: [ :aPageContentElement |
 		self addPageWithContent: aPageContentElement for: aSelectedObject ]
 ]

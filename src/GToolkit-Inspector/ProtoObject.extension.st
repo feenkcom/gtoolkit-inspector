@@ -31,7 +31,7 @@ ProtoObject >> gtActions [
 	By default, it simply looks for the #gtAction pragma.
 	Subclasses might want to override it for more special behavior."
 	<return: #Array of: #GtPhlowAction>
-	^ GtPhlowActionsCollectors new
+	^ GtPhlowActionsCollector new
 		pragmaName: #gtAction;
 		fromObject: self;
 		collect
@@ -66,56 +66,14 @@ ProtoObject >> gtViewsFor: aView inContext: aContext [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-ProtoObject >> gtViewsFromPragmas: aCollection inContext: aContext [
-	| views |
-	views := aCollection collect: [ :eachPragma | 
-		| view |
-		view := GtPhlowEmptyView new.
-		eachPragma methodSelector numArgs = 1
-			ifTrue: [ 
-				view := [ thisContext
-							object: self
-							perform: eachPragma methodSelector
-							withArguments: {view}
-							inClass: self class]
-					on: Error
-					do: [ :error |
-						error freeze.
-						GtPhlowViewWithError new 
-							title: 'Error';
-							error: error ] ].
-		eachPragma methodSelector numArgs = 2
-			ifTrue: [ 
-				view := thisContext
-					object: self
-					perform: eachPragma methodSelector
-					withArguments:
-						{view.
-						aContext}
-					inClass: self class ].
-		view ].
-	^ views sorted: [ :a :b | 
-		[a priority < b priority]
-			on: Error
-			do: [ :error | true ] ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsInContext: aContext [
 	"This collects all views for the current object.
 	By default, it simply looks for the #gtView: pragma.
 	The inspector can decice whether or not a presentation should be displayed.
 	Subclasses might want to override it for more special behavior.
 	aContext holds the context of the inspection session (i.e, the previous steps)"
-	| pragmas |
-	pragmas := (Pragma
-			allNamed: #gtView
-			from: self class
-			to: ProtoObject) , 
-		(Pragma
-			allNamed: #gtView:
-			from: self class
-			to: ProtoObject).
-	"pragmas select: [ :aPragma | aGTInspector shouldDisplayPresentationCreatedBy: aPragma method ]"
-	^ self gtViewsFromPragmas: pragmas inContext: aContext
+	^ GtPhlowViewsCollector new
+		fromObject: self;
+		context: aContext;
+		collect.
 ]
