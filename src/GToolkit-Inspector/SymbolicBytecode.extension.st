@@ -16,7 +16,7 @@ SymbolicBytecode >> gtSourceFor: aView [
 				
 			(text from: self sourceInterval first to: self sourceInterval last) attributes: { 
 				BrTextUnderlineAttribute new 
-					paint: (Color fromHexString: 'E57373'); 
+					paint: BrGlamorousColors lightBorderColor; 
 					beNotOverwritableByStyler }.
 
 			styler := BrRBTextStyler new.

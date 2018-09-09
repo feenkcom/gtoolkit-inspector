@@ -196,6 +196,7 @@ GtInspector >> createPageWithContent: aContentElement for: anObject [
 
 	aPageElement := BlElement new
 		viewModel: aPageModel;
+		clipChildren: false;
 		addChild: aContentElement;
 		constraintsDo: [ :c |
 			c horizontal matchParent.

@@ -1,7 +1,10 @@
+"
+GtInspector openOn: self new
+"
 Class {
 	#name : #GtInspectorSampleWithExceptionsInExtensions,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #ui }
