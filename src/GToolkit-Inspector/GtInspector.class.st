@@ -1,3 +1,6 @@
+"
+I am the main element that represents an inspection context.
+"
 Class {
 	#name : #GtInspector,
 	#superclass : #BlElement,
@@ -7,7 +10,7 @@ Class {
 	#classVars : [
 		'PageWidthPerClass'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector'
 }
 
 { #category : #ui }

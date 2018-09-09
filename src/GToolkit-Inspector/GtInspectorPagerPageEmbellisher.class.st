@@ -15,133 +15,159 @@ Class {
 { #category : #'api - instantiation' }
 GtInspectorPagerPageEmbellisher >> create [
 	<return: #BlElement>
-	| aPageElement aContentWrapper aPageResizer aTriangleElement aCloseButton aContentToPlaygroundResizer |
-
+	| aPageElement aContentWrapper aPageResizer aTriangleElement aCloseButton aMaximizeButton aContentToPlaygroundResizer |
 	self contentElement removeFromParent.
-
 	aTriangleElement := BrPagerNextButton new
-		size: 16@32;
-    	geometry: (BlPolygon vertices: { 0@0 . 16@16. 0@32 });
-    	background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+		size: 16 @ 32;
+		geometry: (BlPolygon vertices: {(0 @ 0).(16 @ 16).(0 @ 32)});
+		background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
 		visibility: BlVisibility hidden;
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c linear horizontal alignRight.
 			c linear vertical alignCenter ];
 		margin: (BlInsets all: 2);
-		when: BlClickEvent do: [ :anEvent |
+		when: BlClickEvent do: [ :anEvent | 
 			anEvent consumed: true.
 			self inspector
 				spawn: self selectedObject
 				after: self contentElement ].
-
 	aCloseButton := GtInspectorRoundButtonStencil normal asElement
-		icon: (GtInspectorPlusIconStencil close asElement);
-		constraintsDo: [ :c |
+		icon: GtInspectorPlusIconStencil close asElement;
+		constraintsDo: [ :c | 
 			c ignoreByLayout.
 			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
 			c ignored horizontal alignRight.
 			c ignored vertical alignTop ];
 		action: [ self inspector close: self contentElement ].
-
+	aMaximizeButton := GtInspectorRoundButtonStencil normal asElement
+		icon: GtInspectorPlusIconStencil add asElement;
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c margin: (BlInsets top: -10 left: -10 bottom: 0 right: 0).
+			c ignored horizontal alignLeft.
+			c ignored vertical alignTop ];
+		action: [ self maximizeContentElement ].
 	aPageElement := BrPagerPageElement new
 		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c horizontal exact: self width.
 			c vertical matchParent ].
-
 	aContentWrapper := BrPagerPageContentElement new
 		look: BrShadowLook new;
 		clipChildren: false;
 		background: Color white;
 		layout: BlLinearLayout vertical;
 		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 5);
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
-
-	aContentWrapper when: GtPhlowObjectToSelect do: [ :anEvent |
-		selectedObject := anEvent object.		
-		aTriangleElement visibility: BlVisibility visible.
-		self inspector
-			select: self selectedObject
-			after: self contentElement ].
-
-	aContentWrapper when: GtPhlowObjectToSpawn do: [ :anEvent |
-		selectedObject := anEvent object. 
-		aTriangleElement visibility: (BlVisibility visible).
-		self inspector
-			spawn: self selectedObject
-			after: self contentElement ].
-
+	aContentWrapper
+		when: GtPhlowObjectToSelect
+		do: [ :anEvent | 
+			selectedObject := anEvent object.
+			aTriangleElement visibility: BlVisibility visible.
+			self inspector
+				select: self selectedObject
+				after: self contentElement ].
+	aContentWrapper
+		when: GtPhlowObjectToSpawn
+		do: [ :anEvent | 
+			selectedObject := anEvent object.
+			aTriangleElement visibility: BlVisibility visible.
+			self inspector
+				spawn: self selectedObject
+				after: self contentElement ].
 	aPageResizer := BrPagerPageResizerElement new
 		layout: BlFrameLayout new;
-		constraintsDo: [ :c |
+		constraintsDo: [ :c | 
 			c vertical matchParent.
 			c horizontal exact: 8.
 			c margin: (BlInsets top: 40 bottom: 40).
-			c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
-		addChild: (BlElement new
-			background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
-			geometry: (BlRectangle cornerRadius: 2);
-			constraintsDo: [ :c |
-				c vertical matchParent.
-				c horizontal exact: 3.
-				c frame vertical weight: 0.2.
-				c frame horizontal alignLeft.
-				c frame vertical alignCenter ]);
-		addEventHandler: (BlResizerRightListener new resizeTarget: aPageElement; minimumExtent: 75@75);
-		when: BlResizerResizedEvent do: [ :anEvent | resizedAction cull: anEvent extent ].
-
+			c
+				padding:
+					(BlInsets
+						top: 0
+						right: 0
+						bottom: 0
+						left: 0) ];
+		addChild:
+			(BlElement new
+				background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+				geometry: (BlRectangle cornerRadius: 2);
+				constraintsDo: [ :c | 
+					c vertical matchParent.
+					c horizontal exact: 3.
+					c frame vertical weight: 0.2.
+					c frame horizontal alignLeft.
+					c frame vertical alignCenter ]);
+		addEventHandler:
+			(BlResizerRightListener new
+				resizeTarget: aPageElement;
+				minimumExtent: 75 @ 75);
+		when: BlResizerResizedEvent
+			do: [ :anEvent | resizedAction cull: anEvent extent ].
 	aContentWrapper addChild: self contentElement.
 	aContentWrapper addChild: aCloseButton.
-	
+	aContentWrapper addChild: aMaximizeButton.
 	(self contentElement viewModel model isKindOf: GtPlayBook)
-		ifFalse: [ 
-			| aPlayground playbook |
-			playbook := GtPlayPage forObject: self contentElement viewModel model.
+		ifFalse: [ | aPlayground playbook |
+			playbook := GtPlayPage
+				forObject: self contentElement viewModel model.
 			aPlayground := playbook asElement.
-			aPlayground constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical exact: 0 ].
+			aPlayground
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical exact: 0 ].
 			aPlayground clipChildren: true.
 			aContentToPlaygroundResizer := BlElement new
 				layout: BlFrameLayout new;
-				constraintsDo: [ :c |
+				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical exact: 8.
 					c margin: (BlInsets left: 40 right: 40).
-					c padding: (BlInsets top: 0 right: 0 bottom: 0 left: 0) ];
-				addChild: (BlElement new
-					background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
-					geometry: (BlRectangle cornerRadius: 2);
-					constraintsDo: [ :c |
-						c horizontal matchParent.
-						c vertical exact: 3.
-						c frame horizontal weight: 0.2.
-						c frame vertical alignTop.
-						c frame horizontal alignCenter ]);
-				addEventHandler: (BlResizerTopListener new resizeTarget: aPlayground; minimumExtent: 75@0);
-				when: BlDoubleClickEvent do: [:e | aPlayground height: 0 ].
-
+					c
+						padding:
+							(BlInsets
+								top: 0
+								right: 0
+								bottom: 0
+								left: 0) ];
+				addChild:
+					(BlElement new
+						background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+						geometry: (BlRectangle cornerRadius: 2);
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical exact: 3.
+							c frame horizontal weight: 0.2.
+							c frame vertical alignTop.
+							c frame horizontal alignCenter ]);
+				addEventHandler:
+					(BlResizerTopListener new
+						resizeTarget: aPlayground;
+						minimumExtent: 75 @ 0);
+				when: BlDoubleClickEvent do: [ :e | aPlayground height: 0 ].
 			aContentWrapper addChild: aContentToPlaygroundResizer.
 			aContentWrapper addChild: aPlayground ].
-
 	aPageElement addChild: aContentWrapper.
 	aPageElement addChild: aPageResizer.
 	aPageElement addChild: aTriangleElement.
-
-	self inspector pager when: BrPagerPageAddedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
-	self inspector pager when: BrPagerPageRemovedEvent do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
-	self inspector pager when: BrPagerPagesChanged do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
-
+	self inspector pager
+		when: BrPagerPageAddedEvent
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self inspector pager
+		when: BrPagerPageRemovedEvent
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self inspector pager
+		when: BrPagerPagesChanged
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
 	self updateCloseButtonVisiblity: aCloseButton.
-	
+
 	"systemChangesHandler subscribe: MethodAdded, MethodModified, MethodRemoved
 		send: #handleMethodAnnouncement:
 		to: self
 		for: aPageElement."
-	
 	^ aPageElement
 ]
 
@@ -168,6 +194,40 @@ GtInspectorPagerPageEmbellisher >> inspector [
 { #category : #accessing }
 GtInspectorPagerPageEmbellisher >> inspector: aGtInspector [
 	inspector := aGtInspector
+]
+
+{ #category : #'api - instantiation' }
+GtInspectorPagerPageEmbellisher >> maximizeContentElement [
+	| anOverlay aPreviousParent aMinimizeButton anOverlayContent |
+	aPreviousParent := self contentElement parent.
+	self contentElement removeFromParent.
+	anOverlayContent := BlElement new.
+	anOverlay := BlOverlayElement new.
+	anOverlay
+		background: (Color white alpha: 0.8);
+		padding: (BlInsets all: 20);
+		attachTo: self inspector;
+		layout: BlLinearLayout horizontal.
+	anOverlayContent
+		background: (Color white);
+		border: (BlBorder paint: BrGlamorousColors lightBorderColor width: 1);
+		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
+		clipChildren: false;
+		addChild: self contentElement.
+	anOverlay addChild: anOverlayContent.
+	aMinimizeButton := GtInspectorRoundButtonStencil normal asElement
+		icon: GtInspectorMinusIconStencil minus asElement;
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c margin: (BlInsets top: -10 left: -10 bottom: 0 right: 0).
+			c ignored horizontal alignLeft.
+			c ignored vertical alignTop ];
+		action: [ 
+			self contentElement removeFromParent.
+			aPreviousParent addChildFirst: self contentElement.
+			anOverlay removeFromParent ].
+	anOverlayContent addChild: aMinimizeButton.
+	^ self inspector addChild: anOverlay
 ]
 
 { #category : #accessing }
