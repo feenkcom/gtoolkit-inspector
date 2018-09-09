@@ -60,7 +60,7 @@ GtInspectorPagerPageEmbellisher >> create [
 		clipChildren: false;
 		background: Color white;
 		layout: BlLinearLayout vertical;
-		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 5);
+		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 10);
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
@@ -107,7 +107,7 @@ GtInspectorPagerPageEmbellisher >> create [
 			| myPageModel myWidth |
 			anEvent consumed: true.
 			
-			myWidth := self inspector pager width / 1.9.
+			myWidth := (self inspector pager width / 2).
 			
 			myPageModel := self contentElement viewModel.
 			myPageModel embellisher width: myWidth.
