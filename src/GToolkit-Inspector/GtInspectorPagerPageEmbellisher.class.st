@@ -30,7 +30,9 @@ GtInspectorPagerPageEmbellisher >> create [
 			anEvent consumed: true.
 			self inspector
 				spawn: self selectedObject
-				after: self contentElement ].
+				after: self contentElement.
+			anEvent modifiers isShift
+				ifTrue: [ self inspector pager children second smoothScrollToPosition: self inspector pager pages size ]. ].
 	aCloseButton := GtInspectorRoundButtonStencil normal asElement
 		icon: GtInspectorPlusIconStencil close asElement;
 		constraintsDo: [ :c | 
@@ -84,13 +86,7 @@ GtInspectorPagerPageEmbellisher >> create [
 			c vertical matchParent.
 			c horizontal exact: 8.
 			c margin: (BlInsets top: 40 bottom: 40).
-			c
-				padding:
-					(BlInsets
-						top: 0
-						right: 0
-						bottom: 0
-						left: 0) ];
+			c padding: (BlInsets empty) ];
 		addChild:
 			(BlElement new
 				background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
@@ -106,7 +102,17 @@ GtInspectorPagerPageEmbellisher >> create [
 				resizeTarget: aPageElement;
 				minimumExtent: 75 @ 75);
 		when: BlResizerResizedEvent
-			do: [ :anEvent | resizedAction cull: anEvent extent ].
+			do: [ :anEvent | resizedAction cull: anEvent extent ];
+		when: BlDoubleClickEvent do: [ :anEvent |
+			| myPageModel myWidth |
+			anEvent consumed: true.
+			
+			myWidth := self inspector pager width / 1.9.
+			
+			myPageModel := self contentElement viewModel.
+			myPageModel embellisher width: myWidth.
+			aPageElement width: myWidth ].
+
 	aContentWrapper addChild: self contentElement.
 	aContentWrapper addChild: aCloseButton.
 	aContentWrapper addChild: aMaximizeButton.
