@@ -114,6 +114,10 @@ GtInspector class >> openOn: anObject [
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
+		
+	(World submorphs select: [ :each | (each isKindOf: BlMorphicWindow) ]) 
+		do: [ :w | w maximize ].
+
 	
 	^ anInspector
 ]
@@ -140,7 +144,10 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
-	
+		
+	(World submorphs select: [ :each | (each isKindOf: BlMorphicWindow) ]) 
+		do: [ :w | w maximize ].
+
 	^ anInspector
 ]
 
