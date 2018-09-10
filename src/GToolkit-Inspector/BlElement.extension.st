@@ -120,6 +120,45 @@ BlElement >> gtMetricsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtModelLookGraphFor: aView [
+	<gtView>
+	^ aView mondrian 
+		title: 'Widget';
+		priority: 30;
+		painting: [ :view |
+			| nodes |
+			
+			nodes := { self }.
+			self viewModelDo: [ :aViewModel | nodes := nodes, aViewModel withAllChildren ].
+			self lookDo: [ :aLook | nodes := nodes, aLook withAllChildren ].
+			nodes := nodes asSet asArray.
+			
+			view nodes
+				shape: [ :each |
+					BlElement new
+						geometry: BlEllipse new;
+						size: 20@20;
+						layout: BlLinearLayout horizontal alignCenter;
+						border: (BlBorder paint: Color lightGray width: 1);
+						addChild: (BlTextElement new
+							clipChildren: false;
+							text: (((each isKindOf: BlElement)
+								ifTrue: [ 'W' asRopedText ]
+								ifFalse: [ (each isKindOf: BrLook)
+									ifTrue: [ 'L' asRopedText ]
+									ifFalse: [ 'M' asRopedText ] ]) fontSize: 7)) ];
+				with: nodes.
+			
+			view edges 
+				fromCenterBottom;
+				toCenterTop;
+				connectToAll: #actors.
+			
+			view layout tree
+		]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtOpenInSpaceFor: anAction [
 	<gtAction>
 	self hasParent ifTrue: [ ^ anAction noAction].
