@@ -25,7 +25,8 @@ GtPharoWorldMenu class >> documenterFilesMenuOn: aBuilder [
 		target: self;
 		selector: #openAllDocumenterFiles;
 		order: 20;
-		help: 'Open GToolkit Documenter files'
+		help: 'Open GToolkit Documenter files';
+		withSeparatorAfter 
 ]
 
 { #category : #'world menu' }
@@ -74,9 +75,61 @@ GtPharoWorldMenu class >> playgroundMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
+GtPharoWorldMenu class >> registerInspectorMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #registerinspector)
+		parent: #gtoolkit;
+		label: 'Register GToolkit Inspector';
+		target: GtInspectorToolRegistryAdaptor;
+		selector: #register;
+		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered not ];
+		order: 60;
+		help: 'Register GToolkit Inspector'
+]
+
+{ #category : #'world menu' }
+GtPharoWorldMenu class >> registerPlaygroundMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #registerplayground)
+		parent: #gtoolkit;
+		label: 'Register GToolkit Playground';
+		target: GtPlaygroundToolRegistryAdaptor;
+		selector: #register;
+		enabledBlock: [ GtPlaygroundToolRegistryAdaptor isRegistered not ];
+		order: 50;
+		help: 'Register GToolkit Playground'
+]
+
+{ #category : #'world menu' }
 GtPharoWorldMenu class >> rootMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtoolkit)
 		label: 'GToolkit';
 		order: 0.1
+]
+
+{ #category : #'world menu' }
+GtPharoWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #unregisterinspector)
+		parent: #gtoolkit;
+		label: 'Unregister GToolkit Inspector';
+		target: GtInspectorToolRegistryAdaptor;
+		selector: #unregister;
+		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered ];
+		order: 61;
+		help: 'Unregister GToolkit Inspector'
+]
+
+{ #category : #'world menu' }
+GtPharoWorldMenu class >> unregisterPlaygroundMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #unregisterplayground)
+		parent: #gtoolkit;
+		label: 'Unregister GToolkit Playground';
+		target: GtPlaygroundToolRegistryAdaptor;
+		selector: #unregister;
+		enabledBlock: [ GtPlaygroundToolRegistryAdaptor isRegistered ];
+		order: 51;
+		help: 'Unregister GToolkit Playground'
 ]
