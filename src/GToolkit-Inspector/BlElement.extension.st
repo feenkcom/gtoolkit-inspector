@@ -259,3 +259,12 @@ BlElement >> gtUserDataFor: aView [
 		title: 'User data';
 		priority: 5
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BlElement >> gtWidgetGraphFor: aView [
+	<gtView>
+	^ aView mondrian
+		title: 'Widget';
+		priority: 10;
+		painting: [ :view | self gtInspectorPaintModelLookIn: view ]
+]
