@@ -26,7 +26,7 @@ GtInspectorRoundButtonStencil class >> small [
 GtInspectorRoundButtonStencil >> create [
 	^ BrButton new
 		background: Color white;
-		look: BrIconLook + BrShadowLook new;
+		look: BrIconLook + BrGlamorousFocusableShadowLook new;
 		geometry: BlEllipse new;
 		layout: BlLinearLayout horizontal alignCenter;
 		size: self size;

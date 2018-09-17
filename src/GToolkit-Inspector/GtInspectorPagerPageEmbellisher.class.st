@@ -56,9 +56,10 @@ GtInspectorPagerPageEmbellisher >> create [
 			c horizontal exact: self width.
 			c vertical matchParent ].
 	aContentWrapper := BrPagerPageContentElement new
-		look: BrShadowLook new;
 		clipChildren: false;
 		background: Color white;
+		viewModel: (BrInteractiveModel new addState: BrFocusModel new);
+		look: BrGlamorousFocusableShadowLook new;
 		layout: BlLinearLayout vertical;
 		margin: (BlInsets top: 15 right: 0 bottom: 10 left: 10);
 		constraintsDo: [ :c | 
