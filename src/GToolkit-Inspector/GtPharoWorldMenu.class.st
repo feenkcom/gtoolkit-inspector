@@ -61,6 +61,11 @@ GtPharoWorldMenu class >> openAllExamples [
 	GtInspector openOn: (GtExampleGroup new examples: Smalltalk gtExamplesContained)
 ]
 
+{ #category : #'api - actions' }
+GtPharoWorldMenu class >> openTour [
+	GtInspector openOnPlayBook: (GtDocumenter editorForText: BaselineOfGToolkit comment)
+]
+
 { #category : #'world menu' }
 GtPharoWorldMenu class >> playgroundMenuOn: aBuilder [
 	<worldMenu>
@@ -106,6 +111,18 @@ GtPharoWorldMenu class >> rootMenuOn: aBuilder [
 	(aBuilder item: #gtoolkit)
 		label: 'GToolkit';
 		order: 0.1
+]
+
+{ #category : #'world menu' }
+GtPharoWorldMenu class >> tourMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtintroductionmenu)
+		parent: #gtoolkit;
+		label: 'GToolkit Tour';
+		target: self;
+		selector: #openTour;
+		order: 9;
+		help: 'Open the Glamorous Toolkit Tour'
 ]
 
 { #category : #'world menu' }
