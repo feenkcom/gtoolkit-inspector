@@ -1,11 +1,11 @@
 Class {
-	#name : #GtPharoWorldMenu,
+	#name : #GtWorld,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-World Menu'
+	#category : #'GToolkit-Inspector-World Menu'
 }
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
+GtWorld class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
 		parent: #gtoolkit;
@@ -17,7 +17,7 @@ GtPharoWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> documenterFilesMenuOn: aBuilder [
+GtWorld class >> documenterFilesMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterfiles)
 		parent: #gtoolkit;
@@ -30,7 +30,7 @@ GtPharoWorldMenu class >> documenterFilesMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> examplesMenuOn: aBuilder [
+GtWorld class >> examplesMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtallexamples)
 		parent: #gtoolkit;
@@ -42,13 +42,13 @@ GtPharoWorldMenu class >> examplesMenuOn: aBuilder [
 ]
 
 { #category : #'api - actions' }
-GtPharoWorldMenu class >> openAllClassesDocumentedByDocumenter [
+GtWorld class >> openAllClassesDocumentedByDocumenter [
 	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
 		eachClassOrTrait comment includesSubstring: '${' ])
 ]
 
 { #category : #'api - actions' }
-GtPharoWorldMenu class >> openAllDocumenterFiles [
+GtWorld class >> openAllDocumenterFiles [
 	GtInspector openOn: (IceRepository registry 
 		select: [ :eachRepository | 
 			(eachRepository location / 'doc') exists ] 
@@ -57,17 +57,17 @@ GtPharoWorldMenu class >> openAllDocumenterFiles [
 ]
 
 { #category : #'api - actions' }
-GtPharoWorldMenu class >> openAllExamples [
+GtWorld class >> openAllExamples [
 	GtInspector openOn: (GtExampleGroup new examples: Smalltalk gtExamplesContained)
 ]
 
 { #category : #'api - actions' }
-GtPharoWorldMenu class >> openTour [
+GtWorld class >> openTour [
 	GtInspector openOnPlayBook: (GtDocumenter editorForText: BaselineOfGToolkit comment)
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> playgroundMenuOn: aBuilder [
+GtWorld class >> playgroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtplayground)
 		parent: #gtoolkit;
@@ -80,7 +80,7 @@ GtPharoWorldMenu class >> playgroundMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> registerInspectorMenuOn: aBuilder [
+GtWorld class >> registerInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerinspector)
 		parent: #gtoolkit;
@@ -93,7 +93,7 @@ GtPharoWorldMenu class >> registerInspectorMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> registerPlaygroundMenuOn: aBuilder [
+GtWorld class >> registerPlaygroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerplayground)
 		parent: #gtoolkit;
@@ -106,7 +106,7 @@ GtPharoWorldMenu class >> registerPlaygroundMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> rootMenuOn: aBuilder [
+GtWorld class >> rootMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtoolkit)
 		label: 'GToolkit';
@@ -114,7 +114,7 @@ GtPharoWorldMenu class >> rootMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> tourMenuOn: aBuilder [
+GtWorld class >> tourMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtintroductionmenu)
 		parent: #gtoolkit;
@@ -126,7 +126,7 @@ GtPharoWorldMenu class >> tourMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
+GtWorld class >> unregisterInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #unregisterinspector)
 		parent: #gtoolkit;
@@ -139,7 +139,7 @@ GtPharoWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtPharoWorldMenu class >> unregisterPlaygroundMenuOn: aBuilder [
+GtWorld class >> unregisterPlaygroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #unregisterplayground)
 		parent: #gtoolkit;
