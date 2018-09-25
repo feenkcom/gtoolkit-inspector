@@ -9,6 +9,12 @@ BlElement >> gtChangesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtChildrenFor: aView [
+	<gtView>
+	^ self children gtChildrenFor: aView
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtEditorFor: aView [
 	<gtView>
 	^ aView explicit 
