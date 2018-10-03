@@ -49,11 +49,7 @@ GtWorld class >> openAllClassesDocumentedByDocumenter [
 
 { #category : #'api - actions' }
 GtWorld class >> openAllDocumenterFiles [
-	GtInspector openOn: (IceRepository registry 
-		select: [ :eachRepository | 
-			(eachRepository location / 'doc') exists ] 
-		thenCollect: [ :eachRepository | 
-			(eachRepository location / 'doc') allChildrenMatching: '*.pillar' ])
+	GtInspector openOn: GtIcebergUtility pillarDocuments
 ]
 
 { #category : #'api - actions' }
