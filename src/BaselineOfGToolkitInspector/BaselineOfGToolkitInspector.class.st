@@ -7,7 +7,11 @@ The inspector offers several operators that can be combined in many ways to adap
 - Treat code evaluation like navigation.
 - Extend the object while inspecting.
 
-!!Show multiple views for each object.
+!!Show multiple views for each object
+
+Every object is different and should be allowed to look different, too. Here is an inspector example.
+
+${example:BlTransformationExamples>>#reflection}$
 
 
 "
