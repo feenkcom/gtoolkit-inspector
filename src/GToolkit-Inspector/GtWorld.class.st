@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #'world menu' }
+GtWorld class >> allExamplesMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtallexamples)
+		parent: #gtoolkit;
+		label: 'All Examples';
+		target: self;
+		selector: #openAllExamples;
+		order: 10;
+		help: 'Open All Examples'
+]
+
+{ #category : #'world menu' }
 GtWorld class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
@@ -30,15 +42,15 @@ GtWorld class >> documenterFilesMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> examplesMenuOn: aBuilder [
+GtWorld class >> gtExamplesMenuOn: aBuilder [
 	<worldMenu>
-	(aBuilder item: #gtallexamples)
+	(aBuilder item: #gtallgtexamples)
 		parent: #gtoolkit;
-		label: 'GToolkit All Examples';
+		label: 'All GToolkit Examples';
 		target: self;
-		selector: #openAllExamples;
-		order: 10;
-		help: 'Open GToolkit Examples'
+		selector: #openAllGToolkitExamples;
+		order: 11;
+		help: 'Open All GToolkit Examples'
 ]
 
 { #category : #'api - actions' }
@@ -55,6 +67,11 @@ GtWorld class >> openAllDocumenterFiles [
 { #category : #'api - actions' }
 GtWorld class >> openAllExamples [
 	GtInspector openOn: (GtExampleGroup new examples: Smalltalk gtExamplesContained)
+]
+
+{ #category : #'api - actions' }
+GtWorld class >> openAllGToolkitExamples [
+	GtInspector openOn: (GtExampleGroup new examples: (Smalltalk gtExamplesContained select: [:each | each method package name beginsWith: 'GToolkit']))
 ]
 
 { #category : #'api - actions' }
@@ -114,7 +131,7 @@ GtWorld class >> tourMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtintroductionmenu)
 		parent: #gtoolkit;
-		label: 'GToolkit Tour';
+		label: 'Glamorous Toolkit Tour';
 		target: self;
 		selector: #openTour;
 		order: 9;
