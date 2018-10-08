@@ -1,7 +1,20 @@
+"
+!Inspector
+
+The inspector offers several operators that can be combined in many ways to adapt the inspection to the context:
+- Show multiple views for each object.
+- Show connected objects.
+- Treat code evaluation like navigation.
+- Extend the object while inspecting.
+
+!!Show multiple views for each object.
+
+
+"
 Class {
 	#name : #BaselineOfGToolkitInspector,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfGToolkitInspector'
+	#category : #BaselineOfGToolkitInspector
 }
 
 { #category : #baseline }
