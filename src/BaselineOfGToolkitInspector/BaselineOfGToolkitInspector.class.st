@@ -11,7 +11,13 @@ The inspector offers several operators that can be combined in many ways to adap
 
 Every object is different and should be allowed to look different, too. Here is an inspector example.
 
-${example:BlTransformationExamples>>#reflection}$
+${example:CompiledMethod class>>#gtExampleSimple|expandedPreview=}$
+
+!!Show connected objects
+
+Investigating software systems often requires us to drill through objects to find the answer. Once we do find the answer, we also want to be able to go back throughout the tunnel we went through to link the cause with the effect. This 
+
+${example:FileReference class>>#gtExampleWorkingDirectory|expandedPreview=}$
 
 
 "
