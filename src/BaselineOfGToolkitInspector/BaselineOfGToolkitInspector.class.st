@@ -7,17 +7,54 @@ The inspector offers several operators that can be combined in many ways to adap
 - Treat code evaluation like navigation.
 - Extend the object while inspecting.
 
+
+
 !!Show multiple views for each object
 
-Every object is different and should be allowed to look different, too. Here is an inspector example.
+Every object is different and should be allowed to look different, too. Here is an inspector example opened on an instance of ${class:CompiledMethod}$.  Take a moment to play with the different tabs.
 
-${example:CompiledMethod class>>#gtExampleSimple|expandedPreview=}$
+${example:CompiledMethod class>>#gtExampleSimple|expandedPreview|previewHeight=200}$
+
+Classic inspectors are typically defined as tools that show the interior of an object. In contrast, we define the inspector as a tool to understand an object. Let's go back to our example. A ${class:CompiledMethod}$ represents a method, and as we recognize a method by its source code the first view shows exactly that. However, there are other perspectives that are relevant from which to look at such an object, too. For example, when wanting to understand how the internal bytecodes look like we can simply switch to the corresponding view.
+
+This behavior is achieved by asking the object to specify what views make sense for it. This is similar to how objects can print themselves, only we can now define multiple representations that offer interactions. For example, the extension that shows the bytecodes can be seen in ${method:CompiledCode>>#gtBytecodeFor:}$.
+
+The extension is annotated with the ==gtView== pragma and is defined as a Phlow view. More details about how to define these views can be found in ${class:BaselineOfGToolkitPhlow}$.
+
 
 !!Show connected objects
 
-Investigating software systems often requires us to drill through objects to find the answer. Once we do find the answer, we also want to be able to go back throughout the tunnel we went through to link the cause with the effect. This 
+Investigating software systems often requires us to drill through objects to find in the search for an answer. Once we do find the answer, we also want to be able to go back throughout the tunnel we went through to link the cause with the effect. To this end, we want to keep track of the navigation. This is achieved through the pager interface that is a variation of Miller columns interface.
+
+Take a look at the inspector showing the working directory.
 
 ${example:FileReference class>>#gtExampleWorkingDirectory|expandedPreview=}$
+
+As the instance of ${class:FileReference}$ represents a directory, the inspector shows the items of the directory. Clicking on an item selects the corresponding object and prepares it to be shown in a page to the right of the current one. If there does not exist a page to the right before clicking, there will only appear a triangle. Clicking on that triangle spawns the page. Once a page exists to the right, clicking on any other object shows the object. Alternatively, if a page does not yet exist, it can be spawned by double clicking on the list item.
+
+This design keeps track of the last navigation path and allows one to go back through the navigation steps to trace the reasoning.
+
+
+!!Treat code and navigation the same
+
+!!!Bridging navigation through code
+
+@@todo
+
+
+!!!Code querying
+
+@@todo
+
+
+!!!Quick prototyping
+
+@@todo
+
+
+!!Extend the object while inspecting
+
+@@todo
 
 
 "
