@@ -5,5 +5,5 @@ Form >> gtFormFor: aView [
 	<gtView>  
 	^ aView explicit
 		title: 'Form';
-		stencil: [ self asElement asPannableElement ]
+		stencil: [ self asElement asScrollableElement ]
 ]

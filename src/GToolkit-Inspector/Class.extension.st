@@ -5,7 +5,7 @@ Class >> gtAllReferencesFor: aView [
 	<gtView>
 	
 	^ aView explicit 
-		title: 'Referemces';
+		title: 'References';
 		priority: 19;
 		stencil: [
 			| list |
