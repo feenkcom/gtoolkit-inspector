@@ -118,28 +118,29 @@ GtInspectorPagerPageEmbellisher >> create [
 	aContentWrapper addChild: aCloseButton.
 	aContentWrapper addChild: aMaximizeButton.
 	(self contentElement viewModel model isKindOf: GtPlayBook)
-		ifFalse: [ | aPlayground playbook |
+		ifFalse: [ | aPlayground playbook aPlaygroundContainer |
+			aPlaygroundContainer := BlElement new 
+				padding: (BlInsets all: 10);
+				layout: BlLinearLayout new;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical exact: 0 ].
 			playbook := GtPlayPage
 				forObject: self contentElement viewModel model.
 			aPlayground := playbook asElement.
 			aPlayground
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
-					c vertical exact: 0 ].
-			aPlayground clipChildren: true.
+					c vertical matchParent ].
+			aPlayground clipChildren: false.
+			aPlaygroundContainer addChild: aPlayground.
 			aContentToPlaygroundResizer := BlElement new
 				layout: BlFrameLayout new;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical exact: 8.
 					c margin: (BlInsets left: 40 right: 40).
-					c
-						padding:
-							(BlInsets
-								top: 0
-								right: 0
-								bottom: 0
-								left: 0) ];
+					c padding: (BlInsets all: 0) ];
 				addChild:
 					(BlElement new
 						background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
@@ -152,11 +153,11 @@ GtInspectorPagerPageEmbellisher >> create [
 							c frame horizontal alignCenter ]);
 				addEventHandler:
 					(BlResizerTopListener new
-						resizeTarget: aPlayground;
+						resizeTarget: aPlaygroundContainer;
 						minimumExtent: 75 @ 0);
-				when: BlDoubleClickEvent do: [ :e | aPlayground height: 0 ].
+				when: BlDoubleClickEvent do: [ :e | aPlaygroundContainer height: 0 ].
 			aContentWrapper addChild: aContentToPlaygroundResizer.
-			aContentWrapper addChild: aPlayground ].
+			aContentWrapper addChild: aPlaygroundContainer ].
 	aPageElement addChild: aContentWrapper.
 	aPageElement addChild: aPageResizer.
 	aPageElement addChild: aTriangleElement.
