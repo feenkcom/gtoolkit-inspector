@@ -31,12 +31,13 @@ Color >> gtPreviewFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent ];
 				addChild: (BrEditorElement new
-					border: (BlBorder paint: self gtContrastingColor width: 1);
+					look: (BrShadowLook new color: self gtContrastingColor);
+					background: (self);
 					padding: (BlInsets all: 10);
 					constraintsDo: [ :c |
 						c frame horizontal alignCenter.
 						c frame vertical alignCenter.
-						c horizontal exact: 150.
+						c horizontal exact: 200.
 						c vertical fitContent ];
 					editor: (BrTextEditor new
 						text: ((String streamContents: [ :aStream | 
