@@ -190,8 +190,7 @@ GtInspectorPagerPageEmbellisher >> initialize [
 	super initialize.
 	
 	width := 400.
-	resizedAction := [  ].
-	systemChangesHandler := GtSystemChangesHandler new.
+	resizedAction := [  ]
 ]
 
 { #category : #accessing }
