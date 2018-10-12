@@ -37,24 +37,27 @@ This design keeps track of the last navigation path and allows one to go back th
 
 !!Treat code and navigation the same
 
-!!!Bridging navigation through code
+Clicking on an item in the list spawns a new object to the right. Another way to obtain an object is via code. In the inspector, the two interactions are treated the same. This is achieved through the Playground. This simple combination enables an endless set of workflows, such as:
+- brdging navigation through code,
+- code querying, or
+- quick prototyping.
 
-@@todo
-
-
-!!!Code querying
-
-@@todo
-
-
-!!!Quick prototyping
-
-@@todo
+Learn more about it at ${class:BaselineOfGToolkitPlayground}$.
 
 
 !!Extend the object while inspecting
 
-@@todo
+Each class can define object extensions that are meaningful for inspecting instances of that class. One of the extensions that exists for all objects is the Meta one. This one shows a Coder for editing the class of the current object.
+
+For example, take as look at a ${class:Color}$.
+
+${example:Color class>>#gtExampleColorRed|expandedPreview|noCode|previewHeight=300}$
+
+Now, choose the Meta view, select the ${method:Color>>#gtPreviewFor:}$, and change the title to something like =='Color'==. Note how accepting the changed code triggers the inspector to update. Similarly, you can add new extensions from whithin the inspector and this will add new views to the current inspector.
+
+This ability stays at the core of moldable development: Software is highly contextual, and for tools to be effective, they have to take that context into account. Thus, if a tool does not yet exist, it is imperative that developers build one. With the ability of extending the inspector during the inspection process, we can support moldable development without imposing a context switch.
+
+ 
 
 
 "
