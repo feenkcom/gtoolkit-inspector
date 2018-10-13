@@ -25,34 +25,40 @@ Color >> gtPreviewFor: aView [
 		title: 'Preview';
 		stencil: [ 
 			BlElement new
-				background: self;
 				layout: BlFrameLayout new;
 				constraintsDo: [ :c |
 					c horizontal matchParent.
 					c vertical matchParent ];
-				addChild: (BrEditorElement new
-					look: (BrShadowLook new color: self gtContrastingColor);
-					background: (self);
-					padding: (BlInsets all: 10);
-					constraintsDo: [ :c |
-						c frame horizontal alignCenter.
-						c frame vertical alignCenter.
-						c horizontal exact: 200.
-						c vertical fitContent ];
-					editor: (BrTextEditor new
-						text: ((String streamContents: [ :aStream | 
-							aStream 
-								nextPutAll: 'name: '; print: self name; cr;
-		 						nextPutAll: 'RGB red: '; print: self red; cr;
-			 					nextPutAll: 'RGB green: '; print: self green; cr;
-			 					nextPutAll: 'RGB blue: '; print: self blue; cr;
-			 					nextPutAll: 'alpha: '; print: (self alpha * 100) asInteger; nextPut: $%; cr;
-			 					nextPutAll: 'HSL hue: '; print: self hue; cr;
-			 					nextPutAll: 'HSL saturation: '; print: self hslSaturation; cr;
-			 					nextPutAll: 'HSL lightness: '; print: self lightness; cr;
-			 					nextPutAll: 'HSV hue: '; print: self hue; cr;
-			 					nextPutAll: 'HSV saturation: '; print: self hsvSaturation; cr;
-			 					nextPutAll: 'HSV value: '; print: self brightness; cr;
-			 					nextPutAll: 'hex: #'; print: self asHexString ]) asRopedText 
-									foreground: self gtContrastingColor))) ]
+				addChild: (
+					BlElement new
+"						look: (BrShadowLook new);"
+						background: Color white;
+						constraintsDo: [ :c |
+							c frame horizontal alignCenter.
+							c frame vertical alignCenter.
+							c horizontal exact: 300.
+							c vertical fitContent ];
+						layout: BlLinearLayout horizontal;
+						addChild: (BlElement new background: self; constraintsDo: [:c | c vertical matchParent. c horizontal matchParent]);
+						addChild: (BrEditorElement new
+							padding: (BlInsets all: 10);
+							constraintsDo: [ :c |
+								c horizontal exact: 250.
+								c vertical fitContent ];
+							editor: (BrTextEditor new
+								text: ((String streamContents: [ :aStream | 
+									aStream 
+										nextPutAll: 'name: '; print: self name; cr;
+				 						nextPutAll: 'RGB red: '; print: self red; cr;
+					 					nextPutAll: 'RGB green: '; print: self green; cr;
+					 					nextPutAll: 'RGB blue: '; print: self blue; cr;
+					 					nextPutAll: 'alpha: '; print: (self alpha * 100) asInteger; nextPut: $%; cr;
+					 					nextPutAll: 'HSL hue: '; print: self hue; cr;
+					 					nextPutAll: 'HSL saturation: '; print: self hslSaturation; cr;
+					 					nextPutAll: 'HSL lightness: '; print: self lightness; cr;
+					 					nextPutAll: 'HSV hue: '; print: self hue; cr;
+					 					nextPutAll: 'HSV saturation: '; print: self hsvSaturation; cr;
+					 					nextPutAll: 'HSV value: '; print: self brightness; cr;
+					 					nextPutAll: 'hex: #'; print: self asHexString ]) asRopedText 
+											"foreground: self gtContrastingColor")))) ]
 ]
