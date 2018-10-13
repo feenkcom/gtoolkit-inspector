@@ -11,8 +11,7 @@ BlVector >> gtPreviewFor: aView [
 		stencil: [ 
 			| aCanvas aVector scaleFactor aFont aText aMetrics aTextPainter |
 			
-			aCanvas := Bloc preferableSpartaCanvas.
-			aCanvas extent: 1024@1024.
+			aCanvas := Bloc preferableSpartaCanvas extent: 1024@1024.
 			scaleFactor := 200.0 / self length.
 
 			aText := (self length printShowingDecimalPlaces: 3).
