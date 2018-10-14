@@ -13,7 +13,7 @@ The inspector offers several operators that can be combined in many ways to adap
 
 Every object is different and should be allowed to look different, too. Here is an inspector example opened on an instance of ${class:CompiledMethod}$.  Take a moment to play with the different tabs.
 
-${example:CompiledMethod class>>#gtExampleSimple|expandedPreview|previewHeight=200}$
+${example:CompiledMethod class>>#gtExampleSimple|expandedPreview|noCode=|200}$
 
 Classic inspectors are typically defined as tools that show the interior of an object. In contrast, we define the inspector as a tool to understand an object. Let's go back to our example. A ${class:CompiledMethod}$ represents a method, and as we recognize a method by its source code the first view shows exactly that. However, there are other perspectives that are relevant from which to look at such an object, too. For example, when wanting to understand how the internal bytecodes look like we can simply switch to the corresponding view.
 
@@ -32,6 +32,8 @@ ${example:FileReference class>>#gtExampleWorkingDirectory|expandedPreview=}$
 
 As the instance of ${class:FileReference}$ represents a directory, the inspector shows the items of the directory. Clicking on an item selects the corresponding object and prepares it to be shown in a page to the right of the current one. If there does not exist a page to the right before clicking, there will only appear a triangle. Clicking on that triangle spawns the page. Once a page exists to the right, clicking on any other object shows the object. Alternatively, if a page does not yet exist, it can be spawned by double clicking on the list item.
 
+Take a moment to explore your file system. Notice how the exploration does not feel much different from a file navigator. Yet, it happens right in the inspector, the most basic tool we have at our disposal.
+
 This design keeps track of the last navigation path and allows one to go back through the navigation steps to trace the reasoning.
 
 
@@ -42,7 +44,7 @@ Clicking on an item in the list spawns a new object to the right. Another way to
 - code querying, or
 - quick prototyping.
 
-Learn more about it at ${class:BaselineOfGToolkitPlayground}$.
+Learn more about the Playground at ${class:BaselineOfGToolkitPlayground}$.
 
 
 !!Extend the object while inspecting
@@ -51,7 +53,7 @@ Each class can define object extensions that are meaningful for inspecting insta
 
 For example, take as look at a ${class:Color}$.
 
-${example:Color class>>#gtExampleColorRed|expandedPreview|noCode|previewHeight=300}$
+${example:Color class>>#gtExampleColorRed|expandedPreview|noCode|previewHeight=400}$
 
 Now, choose the Meta view, select the ${method:Color>>#gtPreviewFor:}$, and change the title to something like =='Color'==. Note how accepting the changed code triggers the inspector to update. Similarly, you can add new extensions from whithin the inspector and this will add new views to the current inspector.
 
