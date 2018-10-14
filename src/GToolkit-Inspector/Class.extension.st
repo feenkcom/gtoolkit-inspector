@@ -134,7 +134,7 @@ Class >> gtPillarCommentFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Comment';
-		priority: 10;
+		priority: 0;
 		stencil: [ GtDocumenter editorForText: self comment ];
 		actionStencil: [ :tab | 
 			BrButton new 
