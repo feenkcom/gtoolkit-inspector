@@ -12,10 +12,10 @@ RBProgramNode >> gtSourceCodeFor: aView [
 			styler := BrRBTextStyler new.
 			styler classOrMetaClass: self methodNode compiledMethod methodClass.
 			editor styler: styler.
-			text attributes: { BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler }.
+			text attributes: { BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler }.
 			text 
 				attributes: {
-					BrTextUnderlineAttribute new 
+					BlTextUnderlineAttribute new 
 						paint: (BrGlamorousColors lightBorderColor alpha: 0.5); 
 						beNotOverwritableByStyler} 
 				from: self start 

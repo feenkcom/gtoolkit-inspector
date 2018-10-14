@@ -11,11 +11,11 @@ SymbolicBytecode >> gtSourceFor: aView [
 
 			text := self method sourceCode asRopedText" readonly".
 			text attributes: {
-				BrFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
-				(BrFontSizeAttribute size: 14) beNotOverwritableByStyler }.
+				BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
+				(BlFontSizeAttribute size: 14) beNotOverwritableByStyler }.
 				
 			(text from: self sourceInterval first to: self sourceInterval last) attributes: { 
-				BrTextUnderlineAttribute new 
+				BlTextUnderlineAttribute new 
 					paint: BrGlamorousColors lightBorderColor; 
 					beNotOverwritableByStyler }.
 

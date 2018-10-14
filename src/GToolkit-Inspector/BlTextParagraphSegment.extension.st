@@ -1,7 +1,7 @@
-Extension { #name : #BrTextParagraphSegment }
+Extension { #name : #BlTextParagraphSegment }
 
 { #category : #'*GToolkit-Inspector' }
-BrTextParagraphSegment >> gtMetricsFor: aView [
+BlTextParagraphSegment >> gtMetricsFor: aView [
 	<gtView>
 
 	^ (self metrics gtItemsFor: aView)
