@@ -98,8 +98,7 @@ GtInspectorPagerPageEmbellisher >> createMaximizedContentElement [
 	anOverlayContent
 		background: (Color white);
 		look: BrShadowLook new;
-"		border: (BlBorder paint: BrGlamorousColors lightBorderColor width: 1);
-"		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
+		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
 		clipChildren: false;
 		addChild: self contentElement.
 	anOverlay addChild: anOverlayContent.

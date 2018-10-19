@@ -8,7 +8,6 @@ The inspector offers several operators that can be combined in many ways to adap
 - Extend the object while inspecting.
 
 
-
 !!Show multiple views for each object
 
 Every object is different and should be allowed to look different, too. Here is an inspector example opened on an instance of ${class:CompiledMethod}$.  Take a moment to play with the different tabs.
