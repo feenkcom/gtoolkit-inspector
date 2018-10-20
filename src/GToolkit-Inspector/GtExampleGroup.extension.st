@@ -62,30 +62,5 @@ GtExampleGroup >> gtMapFor: aView [
 	^ aView mondrian
 		title: 'Map';
 		priority: 90;
-		painting: [ :view |
-			view nodes
-				umlClassShapeWithName: [ :each | each key name ];
-				with: (self examples groupedBy: #methodClass) associations 
-				forEach: [ :assoc | 
-					view nodes
-						stencil: [ :each |
-							BlElement new
-								geometry: BlEllipse new;
-								border: (BlBorder paint: Color black width: 2);
-								size: 20@20;
-								constraintsDo: [ :constraints | constraints padding: (BlInsets all: 10) ] ];
-						with: assoc value.
-					view layout tree levelDistance: 100 ].
-			view edges 
-				fromCenterBottom;
-				toCenterTop;
-				stencil: [ :each | 
-					BlLineElement new
-						border: (BlBorder paint: (Color gray alpha: 0.2) width: 1) ];
-				connect: self examples 
-				from: #yourself 
-				toAll: [:each | 
-					self select: [:exampleWithResult | 
-						each directDependencies anySatisfy: [ :dependency | exampleWithResult example = dependency ]]].
-			view layout custom: GtGraphGridLayout new ]
+		painting: [ :mondrian | self paintMapWith: mondrian ]
 ]
