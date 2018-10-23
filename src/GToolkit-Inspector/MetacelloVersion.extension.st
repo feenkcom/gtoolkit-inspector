@@ -54,7 +54,7 @@ MetacelloVersion >> gtProjectMapFor: aView [
 				toLeftCenter;
 				connectFrom: #yourself 
 				toAll: [:each | each projects collect: #version].
-			mondrian layout horizontalTree nodeDistance: 10; levelDistance: 10 ]
+			mondrian layout horizontalDominanceTree nodeDistance: 10; levelDistance: 10 ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
