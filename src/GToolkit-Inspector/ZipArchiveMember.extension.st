@@ -5,5 +5,8 @@ ZipArchiveMember >> gtContentsFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Contents';
-		text: [ self contents asString asRopedText ]
+		text: [ 
+			[ self contents asByteArray utf8Decoded asRopedText ]
+				on: Error do: [ :anException |
+					self contents asString asRopedText ] ]
 ]
