@@ -82,7 +82,7 @@ Class >> gtDefinitionFor: aView [
 Class >> gtGTExamplesFor: aView [
 	<gtView>
 	
-	^ (GtExampleGroup new examples: self gtExamples)
+	^ (GtExampleGroup withAll: self gtExamples)
 			gtExamplesFor: aView
 ]
 

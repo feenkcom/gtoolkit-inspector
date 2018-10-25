@@ -66,12 +66,12 @@ GtWorld class >> openAllDocumenterFiles [
 
 { #category : #'api - actions' }
 GtWorld class >> openAllExamples [
-	GtInspector openOn: (GtExampleGroup new examples: Smalltalk gtExamplesContained)
+	GtInspector openOn: (GtExampleGroup withAll: Smalltalk gtExamplesContained)
 ]
 
 { #category : #'api - actions' }
 GtWorld class >> openAllGToolkitExamples [
-	GtInspector openOn: (GtExampleGroup new examples: (Smalltalk gtExamplesContained select: [:each | each method package name beginsWith: 'GToolkit']))
+	GtInspector openOn: (GtExampleGroup withAll: (Smalltalk gtExamplesContained select: [:each | each method package name beginsWith: 'GToolkit']))
 ]
 
 { #category : #'api - actions' }
