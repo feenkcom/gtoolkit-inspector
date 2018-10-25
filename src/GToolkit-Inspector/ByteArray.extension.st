@@ -5,6 +5,7 @@ ByteArray >> gtBytesFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Bytes';
+		send: [ :anAssoc | anAssoc value ];
 		items: [ 
 			| aDisplayedBytes |
 			aDisplayedBytes := self size <= 2048 
