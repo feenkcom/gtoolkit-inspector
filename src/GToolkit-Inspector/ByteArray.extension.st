@@ -40,6 +40,6 @@ ByteArray >> gtHexDumpFor: aView [
 				aDisplayStream := (String new: aMaxBytes * 5) writeStream.
 				self hexDumpOn: aDisplayStream max: aMaxBytes.
 				aDisplayRopeText := aDisplayStream contents asString asRopedText.
-				aDisplayRopeText fontName: 'Source Sans Pro'.
+				aDisplayRopeText fontName: 'Courier'.
 				aDisplayRopeText ]
 ]
