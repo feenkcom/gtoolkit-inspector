@@ -19,6 +19,29 @@ FileReference >> gtActionMaterializeFuelFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+FileReference >> gtActionMaterializeXdFileFor: anAction [
+	<gtAction>
+	|  button |
+	(self exists not or: [ (self extension = 'xdoc') not]) ifTrue: [ ^ anAction noAction].
+	^ anAction explicit stencil: [
+		button := BrButton new.
+		button
+		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+		action:  [
+			| reader xdFile |
+			reader := XdReader new.
+			xdFile := reader
+				streamingStrategy: (XdStreamingStrategy file: self);
+				read.
+			button fireEvent: (GtPhlowObjectToSpawn new
+						object: xdFile;
+						sourceElement: button) ];
+		icon: BrGlamorousIcons play asElement;
+		label: 'Materialize xdoc file' translated.
+	]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 FileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
