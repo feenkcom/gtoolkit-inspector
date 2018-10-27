@@ -63,20 +63,5 @@ RGMethodDefinition >> gtSourceFor: aView [
 				icon: BrGlamorousIcons accept asElement;
 				action: [ self methodClass compile: tab viewContentElement editor text asString ] ];
 		stencil: [ 
-			| text styler editor editorElement |
-			text := self sourceCode asRopedText" readonly".
-			text attributes: {
-				BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
-				(BlFontSizeAttribute size: 14) beNotOverwritableByStyler }.
-			styler := BrRBTextStyler new.
-			styler classOrMetaClass: self methodClass.
-			editor := BrTextEditor new.
-			editor styler: styler.
-			editor text: text.
-			editorElement := BrEditorElement new.
-			editorElement constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ].
-			editorElement editor: editor.
-			editorElement].
+			 (GtMethodCoder forMethod: self) expanded: true; asElement ].
 ]
