@@ -1,5 +1,5 @@
 SmalltalkCISpec {
-  #preLoading : 'scripts/preLoading.st',
+  #preLoading : ['scripts/preLoading.st'],
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'GToolkitInspector',
@@ -7,7 +7,7 @@ SmalltalkCISpec {
       #platforms : [ #pharo ]
     }
   ],
-  #postLoading : [ 'scripts/postLoading.st'],
+  #postLoading : ['scripts/postLoading.st'],
   #testing : {
     #packages : [ 'GToolkit-Inspector.*' ],
     #failOnZeroTests : false
