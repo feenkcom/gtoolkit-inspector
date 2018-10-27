@@ -1,4 +1,4 @@
-# gtoolkit-inspector
+# GToolkit Inspector [![Build Status](https://travis-ci.org/feenkcom/gtoolkit-inspector.svg?branch=master)](https://travis-ci.org/feenkcom/gtoolkit-inspector)
 GT Inspector is the moldable inspector for Pharo. It is part of the [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
 
 ## How to load
