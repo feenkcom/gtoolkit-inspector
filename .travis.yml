@@ -4,6 +4,10 @@ sudo: false
 
 dist: trusty
 
+smalltalk_edge:
+  source: feenkcom/smalltalkCI
+  branch: master
+
 os:
   - linux
   - osx
