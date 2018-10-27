@@ -23,15 +23,14 @@ FileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
 	^ aView explicit
-		title: 'Contents';
+		title: 'Contents' translated;
 		priority: 50;
 		stencil: [ 
 			| contents |
-			contents := self readStreamDo: [ :stream | 
-				| result |
-				result := [stream contents ]
+			contents := self binaryReadStreamDo: [ :stream | 
+				[stream contents ]
 					on: Error 
-					do: [ (stream binary next: 10000) asString ] ].
+					do: [ (stream next: 10000) asString ] ].
 			BrEditorElement new 
 				editor: (BrTextEditor new text: contents asRopedText);
 				constraintsDo: [ :c |
@@ -156,7 +155,7 @@ FileReference >> gtPngFor: aView [
 { #category : #'*GToolkit-Inspector' }
 FileReference >> gtZipItemsFor: aView [
 	<gtView>
-	(self isFile and: [ #('zip' 'jar' 'ear' 'war' 'mcz') includes: self extension ]) ifFalse: [ ^ aView empty ].
+	(self isFile and: [ #('zip' 'jar' 'ear' 'war' 'mcz' 'xdoc') includes: self extension ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Archive';
 		priority: 10;
