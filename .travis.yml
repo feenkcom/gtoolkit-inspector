@@ -13,7 +13,8 @@ os:
   - osx
 
 smalltalk:
-  - Pharo-stable
+  - Pharo-7.0
+  - Pharo64-7.0
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
