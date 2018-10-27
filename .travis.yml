@@ -10,7 +10,6 @@ smalltalk_edge:
 
 os:
   - linux
-  - osx
 
 smalltalk:
   - Pharo-7.0
