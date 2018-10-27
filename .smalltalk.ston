@@ -10,6 +10,9 @@ SmalltalkCISpec {
   #postLoading : ['scripts/postLoading.st'],
   #testing : {
     #packages : [ 'GToolkit-Inspector.*' ],
+    #coverage : {
+      #packages : [ 'GToolkit-Inspector.*' ]
+    },
     #failOnZeroTests : false
   }
 }
