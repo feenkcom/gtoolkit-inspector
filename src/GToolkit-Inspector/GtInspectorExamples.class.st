@@ -6,7 +6,7 @@ Class {
 
 { #category : #examples }
 GtInspectorExamples >> viewWithViewsForObject [
-	<gtExample>
+	<gtExample> <noTest>
 	| view element |
 	view := GtPhlowView sequentialExplicit.
 	{1 . 2} gtViewsFor: view.
