@@ -68,6 +68,15 @@ GtExample >> gtCodeGraphFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+GtExample >> gtCoderSourceFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Source';
+		priority: 0;
+		stencil: [ (GtMethodExampleCoder forExample: self) expanded: true ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesFor: aView [
 	<gtView>
 	^ self directDependencies 
