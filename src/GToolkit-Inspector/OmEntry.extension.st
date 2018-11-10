@@ -1,11 +1,8 @@
 Extension { #name : #OmEntry }
 
 { #category : #'*GToolkit-Inspector' }
-OmEntry >> gtChangesFor: aView [
+OmEntry >> gtDefinitionFor: aView [
 	<gtView>
-	^ aView textEditor 
-		title: 'Changes';
-		text: [ | aNewString |
-			aNewString := self content accept: EpNewStateVisitor new.
-			aNewString asRopedText ]
+	self content ifNil: [ ^ aView empty ].
+	^ self content gtDefinitionFor: aView
 ]
