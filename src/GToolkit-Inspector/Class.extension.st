@@ -116,17 +116,3 @@ Class >> gtMethodsFor: aView [
 		priority: 2;
 		stencil: [ (GtClassMethodsCoder forClass: self) asElement ]
 ]
-
-{ #category : #'*GToolkit-Inspector' }
-Class >> gtPillarCommentFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Comment';
-		priority: 0;
-		stencil: [ GtDocumenter editorForText: self comment ];
-		actionStencil: [ :tab | 
-			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
-				icon: BrGlamorousIcons accept asElement;
-				action: [ self comment: tab viewContentElement editor text asString ] ]
-]

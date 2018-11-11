@@ -57,11 +57,6 @@ RGMethodDefinition >> gtSourceFor: aView [
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
-		actionStencil: [ :tab | 
-			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
-				icon: BrGlamorousIcons accept asElement;
-				action: [ self methodClass compile: tab viewContentElement editor text asString ] ];
 		stencil: [ 
 			 (GtMethodCoder forMethod: self) expanded: true; asElement ].
 ]
