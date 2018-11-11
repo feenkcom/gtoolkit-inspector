@@ -7,9 +7,6 @@ Class {
 	#instVars : [
 		'pager'
 	],
-	#classVars : [
-		'PageWidthPerClass'
-	],
 	#category : #'GToolkit-Inspector'
 }
 
@@ -90,13 +87,6 @@ GtInspector class >> gtExtensionsFor: aView [
 			list]
 ]
 
-{ #category : #initialization }
-GtInspector class >> initialize [
-	super initialize.
-	
-	PageWidthPerClass := Dictionary new
-]
-
 { #category : #'instance creation' }
 GtInspector class >> openOn: anObject [
 	| anInspector aSpace |
@@ -114,11 +104,7 @@ GtInspector class >> openOn: anObject [
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
-		
-	(World submorphs select: [ :each | (each isKindOf: BlMorphicWindow) ]) 
-		do: [ :w | w maximize ].
 
-	
 	^ anInspector
 ]
 
@@ -144,9 +130,6 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
-		
-	(World submorphs select: [ :each | (each isKindOf: BlMorphicWindow) ]) 
-		do: [ :w | w maximize ].
 
 	^ anInspector
 ]
@@ -178,11 +161,6 @@ GtInspector >> computePageWidthFor: anObject [
 	<return: #Number>
 
 	^ self defaultPageWidth
-	"PageWidthPerClass
-		at: anObject class
-		ifAbsent: [ pager pages
-			ifEmpty: [ self defaultPageWidth ]
-			ifNotEmpty: [ pager pages last embellisher width ] ]"
 ]
 
 { #category : #private }
@@ -195,7 +173,6 @@ GtInspector >> createPageWithContent: aContentElement for: anObject [
 	aPageEmbellisher := GtInspectorPagerPageEmbellisher new.
 	aPageEmbellisher inspector: self.
 	aPageEmbellisher width: (self computePageWidthFor: anObject).
-	aPageEmbellisher whenResizedDo: [ :anExtent | self recordPageWidth: anExtent x for: anObject ].
 
 	aPageModel := BrPagerPageModel new.
 	aPageModel model: anObject.
@@ -244,14 +221,16 @@ GtInspector >> initialize [
 GtInspector >> isLastPage: aPageContentElement [
 ]
 
-{ #category : #private }
-GtInspector >> pager [
-	^ pager
+{ #category : #'hooks - geometry' }
+GtInspector >> onExtentChanged [
+	super onExtentChanged.
+	
+	"self pager padding: (BlInsets right: self width / 3.0)"
 ]
 
 { #category : #private }
-GtInspector >> recordPageWidth: aNumber for: anObject [
-	PageWidthPerClass at: anObject class put: aNumber
+GtInspector >> pager [
+	^ pager
 ]
 
 { #category : #'api - inspector' }
