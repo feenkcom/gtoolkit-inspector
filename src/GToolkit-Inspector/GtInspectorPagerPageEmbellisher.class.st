@@ -264,7 +264,7 @@ GtInspectorPagerPageEmbellisher >> createResizerForPage: aPageElement [
 			do: [ :anEvent | 
 			| myPageModel myWidth |
 			anEvent consumed: true.
-			myWidth := self inspector pager width / 2.
+			myWidth := self inspector pager width / 2.0.
 			myPageModel := self contentElement viewModel.
 			myPageModel embellisher width: myWidth.
 			aPageElement width: myWidth ]

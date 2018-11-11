@@ -224,8 +224,8 @@ GtInspector >> isLastPage: aPageContentElement [
 { #category : #'hooks - geometry' }
 GtInspector >> onExtentChanged [
 	super onExtentChanged.
-	
-	"self pager padding: (BlInsets right: self width / 3.0)"
+
+	self pager children second padding: (BlInsets right: self width / 4.0)
 ]
 
 { #category : #private }
