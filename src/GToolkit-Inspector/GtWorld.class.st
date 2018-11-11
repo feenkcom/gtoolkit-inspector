@@ -76,7 +76,7 @@ GtWorld class >> openAllGToolkitExamples [
 
 { #category : #'api - actions' }
 GtWorld class >> openTour [
-	GtInspector openOnPlayBook: (GtDocumenter editorForText: BaselineOfGToolkit comment)
+	GtInspector openOnPlayBook: (Gt2Document forClass: BaselineOfGToolkit)
 ]
 
 { #category : #'world menu' }
