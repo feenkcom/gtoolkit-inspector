@@ -57,14 +57,17 @@ Object >> gtRawFor: aView [
 					icon := ([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
 							on: Error 
 							do: [ :error | self iconNamed: #smallWarningIcon ]).
-					icon asElement].
+					icon asElement
+						constraintsDo: [:c | c 
+							margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ]].
 			list column
 				title: 'Variable';
 				stencil: [ :aNode :index | 
-					| textElement text |
-					text := aNode label asRopedText.								
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
+					BrLabel new 
+						text: aNode label asRopedText;
+						look: BrGlamorousLabelLook + BrLayoutLook linearHorizontal matchParent;
+						constraintsDo: [:c | c 
+								margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ] ].
 			list column
 				title: 'Value';
 				stencil: [ :aNode :index |
@@ -72,8 +75,11 @@ Object >> gtRawFor: aView [
 					text := [ aNode rawValue gtDisplayString asRopedText ] 
 						on: Error 
 						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
+					BrLabel new 
+						text: text;
+						look: BrGlamorousLabelLook + BrLayoutLook linearHorizontal matchParent;
+						constraintsDo: [:c | c 
+							margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
 			  ].
 			
 			list ]
