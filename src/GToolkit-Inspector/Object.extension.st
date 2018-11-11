@@ -71,7 +71,7 @@ Object >> gtRawFor: aView [
 			list column
 				title: 'Value';
 				stencil: [ :aNode :index |
-					| text textElement |
+					| text |
 					text := [ aNode rawValue gtDisplayString asRopedText ] 
 						on: Error 
 						do: [ aNode errorMessage asRopedText foreground: Color red ].
