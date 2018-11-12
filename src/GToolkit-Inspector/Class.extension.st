@@ -79,7 +79,7 @@ Class >> gtDefinitionFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Class >> gtGTExamplesFor: aView [
+Class >> gtExamplesFor: aView [
 	<gtView>
 	
 	^ (GtExampleGroup withAll: self gtExamples)
