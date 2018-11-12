@@ -57,17 +57,15 @@ Object >> gtRawFor: aView [
 					icon := ([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
 							on: Error 
 							do: [ :error | self iconNamed: #smallWarningIcon ]).
-					icon asElement
-						constraintsDo: [:c | c 
-							margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ]].
+					icon asElement margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
 			list column
 				title: 'Variable';
 				stencil: [ :aNode :index | 
 					BrLabel new 
 						text: aNode label asRopedText;
-						look: BrGlamorousLabelLook + BrLayoutLook linearHorizontal matchParent;
-						constraintsDo: [:c | c 
-								margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ] ].
+						look: BrGlamorousLabelLook;
+						hMatchParent;
+						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ].
 			list column
 				title: 'Value';
 				stencil: [ :aNode :index |
@@ -77,10 +75,9 @@ Object >> gtRawFor: aView [
 						do: [ aNode errorMessage asRopedText foreground: Color red ].
 					BrLabel new 
 						text: text;
-						look: BrGlamorousLabelLook + BrLayoutLook linearHorizontal matchParent;
-						constraintsDo: [:c | c 
-							margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
-			  ].
+						look: BrGlamorousLabelLook;
+						hMatchParent;
+						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
 			
 			list ]
 ]
