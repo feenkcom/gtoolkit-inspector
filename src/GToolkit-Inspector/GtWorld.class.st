@@ -127,6 +127,49 @@ GtWorld class >> rootMenuOn: aBuilder [
 		order: 0.1
 ]
 
+{ #category : #'api - actions' }
+GtWorld class >> setGtDesktopLogo [
+	| aLogoFile |
+	aLogoFile := GtIcebergUtility repositoriesLocation / 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png'.
+	aLogoFile exists ifFalse: [ ^ self inform: (aLogoFile fullName asString, ' does not exist') ].
+	PolymorphSystemSettings 
+		showDesktopLogo: true;
+		desktopLogoFileName: nil;
+		desktopLogoFileName: aLogoFile fullName
+]
+
+{ #category : #'world menu' }
+GtWorld class >> setGtDesktopLogoMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #setGtDesktopLogo)
+		parent: #gtoolkit;
+		label: 'Set Gt Desktop Logo';
+		target: self;
+		selector: #setGtDesktopLogo;
+		order: 100;
+		help: 'Set GToolkit Desktop Logo'
+]
+
+{ #category : #'api - actions' }
+GtWorld class >> setPharoDesktopLogo [
+	PolymorphSystemSettings 
+		showDesktopLogo: true;
+		desktopLogoFileName: nil;
+		setDesktopLogoWith: PolymorphSystemSettings pharoLogo
+]
+
+{ #category : #'world menu' }
+GtWorld class >> setPharoDesktopLogoMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #setPharoDesktopLogo)
+		parent: #gtoolkit;
+		label: 'Set Pharo Desktop Logo';
+		target: self;
+		selector: #setPharoDesktopLogo;
+		order: 101;
+		help: 'Set Pharo Desktop Logo'
+]
+
 { #category : #'world menu' }
 GtWorld class >> tourMenuOn: aBuilder [
 	<worldMenu>
@@ -149,7 +192,8 @@ GtWorld class >> unregisterInspectorMenuOn: aBuilder [
 		selector: #unregister;
 		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered ];
 		order: 61;
-		help: 'Unregister GToolkit Inspector'
+		help: 'Unregister GToolkit Inspector';
+		withSeparatorAfter
 ]
 
 { #category : #'world menu' }
