@@ -72,14 +72,21 @@ FileReference >> gtContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-FileReference >> gtGifFor: aView [
+FileReference >> gtFigureFor: aView [
 	<gtView>
-	(self isFile and: [ self mimeTypes notNil and: [ self mimeTypes first matches: ZnMimeType imageGif ] ]) ifFalse: [ ^ aView empty ].
+	(self isFile and: [ self mimeTypes notNil and: [ 
+			self mimeTypes anySatisfy: [ :eachMimeType |  
+				eachMimeType matches: (ZnMimeType main: 'image' sub: '*') ] ] ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
 		stencil: [ 
-			(self binaryReadStreamDo: [ :stream | GIFReadWriter formFromStream: stream ]) asElement asPannableElement ]
+			(ImageReadWriter gtReaderClassFromFileReference: self)
+				ifNil: [ BrEditorElement new 
+					editor: (BrTextEditor new text: ('Unsupported format for ', self fullName asString) asRopedText);
+					constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
+				ifNotNil: [ :aReaderClass | 
+					(aReaderClass gtFormFromFileReference: self) asElement asPannableElement ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -136,17 +143,6 @@ FileReference >> gtItemsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-FileReference >> gtJpgFor: aView [
-	<gtView>
-	(self isFile and: [ self mimeTypes notNil and: [ self mimeTypes first matches: ZnMimeType imageJpeg ] ]) ifFalse: [ ^ aView empty ].
-	^ aView explicit
-		title: 'Picture';
-		priority: 10;
-		stencil: [ 
-			(self binaryReadStreamDo: [ :stream | JPEGReadWriter formFromStream: stream ]) asElement asPannableElement ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 FileReference >> gtPharoScriptFor: aView [
 	<gtView>
 	(self isFile and: [ self extension = 'st' or: [self extension = 'ph'] ]) ifFalse: [ ^ aView empty ].
@@ -162,17 +158,6 @@ FileReference >> gtPharoScriptFor: aView [
 			icon: GLMUIThemeExtraIcons glamorousSave
 			on: $s
 			entitled: 'Save'"
-]
-
-{ #category : #'*GToolkit-Inspector' }
-FileReference >> gtPngFor: aView [
-	<gtView>
-	(self isFile and: [ self mimeTypes notNil and: [ self mimeTypes first matches: ZnMimeType imagePng ] ]) ifFalse: [ ^ aView empty ].
-	^ aView explicit
-		title: 'Picture';
-		priority: 10;
-		stencil: [ 
-			(self binaryReadStreamDo: [ :stream | PNGReadWriter formFromStream: stream ]) asElement asPannableElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
