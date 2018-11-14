@@ -271,7 +271,7 @@ GtInspector >> spawn: aSelectedObject after: aPageElement [
 	aPageView asElementDo: [ :aViewElement |
 		| preferredSelectedTabTitle newPage |
 		preferredSelectedTabTitle := nil.
-		pager 
+		pager
 			pageAfter: aPageElement
 			ifFound: [ :aNextPageModel |
 				aNextPageModel widget phlow	firstChildWithCompositeViewDo: [ :tabGroup |
@@ -282,7 +282,8 @@ GtInspector >> spawn: aSelectedObject after: aPageElement [
 		newPage phlow firstChildWithCompositeViewDo: [ :tabGroup |
 				tabGroup viewModel tabs 
 					detect: [ :tabModel | tabModel widget phlow entity title = preferredSelectedTabTitle ]
-					ifFound: [ :tabModel | tabModel select ] ] ]
+					ifFound: [ :tabModel | tabModel select ] ] ].
+		pager smoothScrollToLast
 ]
 
 { #category : #'api - inspector' }
