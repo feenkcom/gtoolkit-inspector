@@ -153,6 +153,16 @@ GtInspector >> close: aPageElement [
 ]
 
 { #category : #private }
+GtInspector >> computePageWeightFor: anObject [
+	"Compute the proportion of the page within the inspector.
+	The returned number should be a float [0...1].
+	For example 0.5 means that the page will take 50% of the inspector's width"
+	<return: #Number>
+
+	^ self defaultPageWeight
+]
+
+{ #category : #private }
 GtInspector >> computePageWidthFor: anObject [
 	"The width is recorded when user explicitely resizes the page, it is then later
 	used while inspecting an object of that same type.
@@ -172,7 +182,7 @@ GtInspector >> createPageWithContent: aContentElement for: anObject [
 	"width should depend on anObject"
 	aPageEmbellisher := GtInspectorPagerPageEmbellisher new.
 	aPageEmbellisher inspector: self.
-	aPageEmbellisher width: (self computePageWidthFor: anObject).
+	aPageEmbellisher beMatching: (self computePageWeightFor: anObject).
 
 	aPageModel := BrPagerPageModel new.
 	aPageModel model: anObject.
@@ -187,6 +197,11 @@ GtInspector >> createPageWithContent: aContentElement for: anObject [
 			c vertical matchParent ].
 
 	^ aPageElement
+]
+
+{ #category : #initialization }
+GtInspector >> defaultPageWeight [
+	^ 0.5
 ]
 
 { #category : #initialization }

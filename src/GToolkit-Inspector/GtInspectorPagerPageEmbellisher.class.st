@@ -4,13 +4,41 @@ Class {
 	#instVars : [
 		'inspector',
 		'width',
+		'weight',
 		'resizedAction',
 		'selectedObject',
 		'selectedElement',
-		'systemChangesHandler'
+		'systemChangesHandler',
+		'isExact'
 	],
 	#category : #'GToolkit-Inspector'
 }
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> beExact: aNumber [
+	self width: aNumber.
+	isExact := true.
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> beExact: aNumber page: aPageElement [
+
+	aPageElement width: aNumber.
+	self beExact: aNumber.
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> beMatching: aWeight [
+	self weight: aWeight.
+	isExact := false.
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> beMatching: aNumber page: aPageElement [
+	aPageElement weight: aNumber.
+	aPageElement constraintsDo: [ :c | c horizontal matchParent ].
+	self beMatching: aNumber.
+]
 
 { #category : #'api - instantiation' }
 GtInspectorPagerPageEmbellisher >> create [
@@ -190,12 +218,20 @@ GtInspectorPagerPageEmbellisher >> createObjectPlaygroundIn: aContentWrapper [
 
 { #category : #'api - instantiation' }
 GtInspectorPagerPageEmbellisher >> createPage [
-	^ BrPagerPageElement new
+	| aPageElement |
+
+	aPageElement := GtInspectorPageElement new
 		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
-		constraintsDo: [ :c | 
-			c horizontal exact: self width.
-			c vertical matchParent ]
+		constraintsDo: [ :c | c vertical matchParent ].
+		
+	self isExact
+		ifTrue: [ aPageElement width: self width ]
+		ifFalse: [ aPageElement
+				weight: self weight;
+				constraintsDo: [ :c | c horizontal matchParent ] ].
+		
+	^ aPageElement
 ]
 
 { #category : #'api - instantiation' }
@@ -259,15 +295,22 @@ GtInspectorPagerPageEmbellisher >> createResizerForPage: aPageElement [
 				resizeTarget: aPageElement;
 				minimumExtent: 75 @ 75);
 		when: BlResizerResizedEvent
-			do: [ :anEvent | resizedAction cull: anEvent extent ];
+			do: [ :anEvent |
+				| myPageModel |
+				resizedAction cull: anEvent extent.
+				myPageModel := self contentElement viewModel.
+				myPageModel embellisher
+					beExact: anEvent extent x
+					page: aPageElement
+			];
 		when: BlDoubleClickEvent
 			do: [ :anEvent | 
-			| myPageModel myWidth |
+			| myPageModel |
 			anEvent consumed: true.
-			myWidth := self inspector pager width / 2.0.
 			myPageModel := self contentElement viewModel.
-			myPageModel embellisher width: myWidth.
-			aPageElement width: myWidth ]
+			myPageModel embellisher
+				beMatching: (self inspector computePageWeightFor: myPageModel model)
+				page: aPageElement ]
 ]
 
 { #category : #private }
@@ -281,6 +324,9 @@ GtInspectorPagerPageEmbellisher >> initialize [
 	super initialize.
 	
 	width := 400.
+	weight := 0.5.
+	isExact := false.
+	
 	resizedAction := [  ]
 ]
 
@@ -292,6 +338,11 @@ GtInspectorPagerPageEmbellisher >> inspector [
 { #category : #accessing }
 GtInspectorPagerPageEmbellisher >> inspector: aGtInspector [
 	inspector := aGtInspector
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> isExact [
+	^ isExact
 ]
 
 { #category : #accessing }
@@ -310,6 +361,16 @@ GtInspectorPagerPageEmbellisher >> updateCloseButtonVisiblity: aCloseButton [
 		and: [ (self contentElement viewModel ~= self inspector pager pages first) ])
 			ifTrue: [ aCloseButton visibility: BlVisibility visible ]
 			ifFalse: [ aCloseButton visibility: BlVisibility hidden ]
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> weight [
+	^ weight
+]
+
+{ #category : #accessing }
+GtInspectorPagerPageEmbellisher >> weight: aNumber [
+	weight := aNumber
 ]
 
 { #category : #enumerating }
