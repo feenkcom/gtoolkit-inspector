@@ -102,43 +102,54 @@ FileReference >> gtItemsFor: aView [
 			children := self isRoot 
 				ifTrue: [ children ]
 				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ].
+
 			list := BrColumnedList new display: children.
 			list addEventHandler: GtInspectorListToSelectHandler new.
 			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			
+			list rowStencil: (BrListClickableRowStencilBuilder new
+				cellSpacing: 10;
+				padding: (BlInsets top: 4 bottom: 4)).
+
 			list column
 				title: 'Icon';
 				stencil: [ :each :index |
-					BrImageStencil new image: (each isDirectory 
+					(each isDirectory 
 						ifTrue: [ BrGlamorousIcons folder ] 
-						ifFalse: [ BrGlamorousIcons file ]) ].
+						ifFalse: [ BrGlamorousIcons file ]) asElement ].
 
 			list column
 				title: 'Name';
 				stencil: [ :each :index | 
-					| textElement text |
-					text := (self isChildOf: each) 
-						ifTrue: [ '..' ]
-						ifFalse: [ each basename asString ].
-
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
+					BrLabel new
+						look: BrGlamorousLabelLook;
+						text: ((self isChildOf: each) 
+							ifTrue: [ '..' ]
+							ifFalse: [ each basename asString ]);
+						hMatchParent;
+						addChild: (BlElement new
+							background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
+							constraintsDo: [ :c |
+								c ignoreByLayout.
+								c ignored horizontal alignRight.
+								c vertical matchParent.
+								c horizontal exact: 30 ]
+						) ].
 			list column
 				title: 'Size';
-				stencil: [:each |  
-					| textElement |
-					textElement := (BrListLabelStencil fitContent: each humanReadableSize asString) asElement.
-					textElement constraintsDo: [ :c | c padding: (BlInsets right: 10)].].
+				stencil: [:each | 
+					BrLabel new
+						look: BrGlamorousLabelLook;
+						text: each humanReadableSize asString ].
 				
 			list column
 				title: 'Creation';
 				stencil: [ :each | 
-					| textElement |
-					textElement := (BrListLabelStencil fitContent: (String streamContents: [:s | 
-					each creationTime printYMDOn: s.
-					s nextPut: Character space.
-					each creationTime printHMSOn: s ]) ) asElement.
-				 textElement constraintsDo: [ :c |  c padding: (BlInsets left: 10; right: 10) ] ].
+					BrLabel new
+						look: BrGlamorousLabelLook;
+						text: (String streamContents: [:s | 
+							each creationTime printYMDOn: s.
+							s nextPut: Character space.
+							each creationTime printHMSOn: s ]) ].
 			list ]
 ]
 
