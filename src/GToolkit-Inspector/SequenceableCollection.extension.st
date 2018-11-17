@@ -2,21 +2,22 @@ Extension { #name : #SequenceableCollection }
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
-	^ aView explicit
-		title: 'Items';
-		stencil: [ 
-			| list |
-			list := BrColumnedList new display: self.
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list column
-				title: 'Index';
-				stencil: [ :aClass :anIndex |
-					BlTextElement new
-						width: 30;
-						margin: (BlInsets all: 3);
-						text: (anIndex asString asRopedText foreground: Color gray) ].
-			list column
-				title: 'Item';
-				stencil: [ :each :index | BrListLabelStencil new text: each gtDisplayString ].
-			list ]
+	<gtView>
+	| aList |
+
+	aList := aView columnedList
+		title: 'Items' translated;
+		priority: 50;
+		items: [ self asOrderedCollection ].
+
+	aList column
+		title: 'Index' translated;
+		width: 30;
+		evaluated: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray].
+	
+	aList column
+		title: 'Item' translated;
+		evaluated: [ :eachItem :eachIndex | eachItem ].
+	
+	^ aList
 ]

@@ -92,65 +92,49 @@ FileReference >> gtFigureFor: aView [
 { #category : #'*GToolkit-Inspector' }
 FileReference >> gtItemsFor: aView [
 	<gtView>
+	| aList |
 	self isDirectory ifFalse: [ ^ aView empty ].
-	^ aView explicit 
-		title: 'Items';
-		priority: 10; 
-		stencil: [
-			| list children |
+
+	aList := aView columnedList
+		title: 'Items' translated;
+		priority: 10;
+		items: [
+			| children |
 			children := self directories, self files.
 			children := self isRoot 
 				ifTrue: [ children ]
 				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ].
-
-			list := BrColumnedList new display: children.
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list rowStencil: (BrListClickableRowStencilBuilder new
-				cellSpacing: 10;
-				padding: (BlInsets top: 4 bottom: 4)).
-
-			list column
-				title: 'Icon';
-				stencil: [ :each :index |
-					(each isDirectory 
-						ifTrue: [ BrGlamorousIcons folder ] 
-						ifFalse: [ BrGlamorousIcons file ]) asElement ].
-
-			list column
-				title: 'Name';
-				stencil: [ :each :index | 
-					BrLabel new
-						look: BrGlamorousLabelLook;
-						text: ((self isChildOf: each) 
-							ifTrue: [ '..' ]
-							ifFalse: [ each basename asString ]);
-						hMatchParent;
-						addChild: (BlElement new
-							background: (BlLinearGradientPaint horizontal from: (Color white alpha: 0) to: Color white);
-							constraintsDo: [ :c |
-								c ignoreByLayout.
-								c ignored horizontal alignRight.
-								c vertical matchParent.
-								c horizontal exact: 30 ]
-						) ].
-			list column
-				title: 'Size';
-				stencil: [:each | 
-					BrLabel new
-						look: BrGlamorousLabelLook;
-						text: each humanReadableSize asString ].
-				
-			list column
-				title: 'Creation';
-				stencil: [ :each | 
-					BrLabel new
-						look: BrGlamorousLabelLook;
-						text: (String streamContents: [:s | 
-							each creationTime printYMDOn: s.
-							s nextPut: Character space.
-							each creationTime printHMSOn: s ]) ].
-			list ]
+			children ].
+	
+	aList column
+		title: 'Icon' translated;
+		evaluated: [ :each |
+			each isDirectory 
+				ifTrue: [ BrGlamorousIcons folder ] 
+				ifFalse: [ BrGlamorousIcons file ] ];
+		stencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
+		noResize.
+		
+	aList column
+		title: 'Name' translated;
+		evaluated: [ :each |
+			(self isChildOf: each) 
+				ifTrue: [ '..' ]
+				ifFalse: [ each basename asString ] ];
+		matchParent.
+		
+	aList column
+		title: 'Size' translated;
+		evaluated: [ :each | each humanReadableSize asString ].
+		
+	aList column
+		title: 'Creation' translated;
+		evaluated: [ :each |
+			String streamContents: [:s | 
+				each creationTime printYMDOn: s.
+				s nextPut: Character space.
+				each creationTime printHMSOn: s ] ].
+	^ aList
 ]
 
 { #category : #'*GToolkit-Inspector' }

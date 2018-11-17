@@ -3,16 +3,17 @@ Extension { #name : #Collection }
 { #category : #'*GToolkit-Inspector' }
 Collection >> gtItemsFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Items';
+	| aList |
+
+	aList := aView columnedList
+		title: 'Items' translated;
 		priority: 50;
-		stencil: [ 
-			| list |
-			list := BrColumnedList new
-				addEventHandler: GtInspectorListToSelectHandler new;
-				display: self asOrderedCollection.
-			list column
-				title: 'Item';
-				stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ].
-			list ]
+		items: [ self asOrderedCollection ].
+		
+	aList column
+		title: 'Item' translated;
+		matchParent;
+		evaluated: [ :eachItem :eachIndex | eachItem ].
+	
+	^ aList
 ]
