@@ -94,8 +94,7 @@ FileReference >> gtItemsFor: aView [
 	<gtView>
 	| aList |
 	self isDirectory ifFalse: [ ^ aView empty ].
-
-	aList := aView columnedList
+	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
 		items: [
@@ -104,37 +103,29 @@ FileReference >> gtItemsFor: aView [
 			children := self isRoot 
 				ifTrue: [ children ]
 				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ].
-			children ].
-	
-	aList column
-		title: 'Icon' translated;
-		evaluated: [ :each |
-			each isDirectory 
-				ifTrue: [ BrGlamorousIcons folder ] 
-				ifFalse: [ BrGlamorousIcons file ] ];
-		stencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
-		noResize.
-		
-	aList column
-		title: 'Name' translated;
-		evaluated: [ :each |
-			(self isChildOf: each) 
-				ifTrue: [ '..' ]
-				ifFalse: [ each basename asString ] ];
-		matchParent.
-		
-	aList column
-		title: 'Size' translated;
-		evaluated: [ :each | each humanReadableSize asString ].
-		
-	aList column
-		title: 'Creation' translated;
-		evaluated: [ :each |
-			String streamContents: [:s | 
-				each creationTime printYMDOn: s.
-				s nextPut: Character space.
-				each creationTime printHMSOn: s ] ].
-	^ aList
+			children ];
+		column: 'Icon' translated do: [:column |
+			column 
+				evaluated: [ :each |
+					each isDirectory 
+						ifTrue: [ BrGlamorousIcons folder ] 
+						ifFalse: [ BrGlamorousIcons file ] ];
+				stencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
+				noResize ];
+		column: 'Name' translated do: [ :column |
+			column evaluated: [ :each |
+				(self isChildOf: each) 
+					ifTrue: [ '..' ]
+					ifFalse: [ each basename asString ] ];
+			matchParent ];
+		column: 'Size' translated do: [ :column |
+			column evaluated: [ :each | each humanReadableSize asString ] ];
+		column: 'Creation' translated do: [:column |
+			column evaluated: [ :each |
+				String streamContents: [:s | 
+					each creationTime printYMDOn: s.
+					s nextPut: Character space.
+					each creationTime printHMSOn: s ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
