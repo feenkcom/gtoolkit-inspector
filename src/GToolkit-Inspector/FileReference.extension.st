@@ -80,13 +80,7 @@ FileReference >> gtFigureFor: aView [
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
-		stencil: [ 
-			(ImageReadWriter gtReaderClassFromFileReference: self)
-				ifNil: [ BrEditorElement new 
-					editor: (BrTextEditor new text: ('Unsupported format for ', self fullName asString) asRopedText);
-					constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-				ifNotNil: [ :aReaderClass | 
-					(aReaderClass gtFormFromFileReference: self) asElement asPannableElement ] ]
+		stencil: [ GtFileUtility imageElementFromFileReference: self ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
