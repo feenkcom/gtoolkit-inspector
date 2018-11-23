@@ -2,13 +2,12 @@ Extension { #name : #SequenceableCollection }
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
-	<gtView>
 	| aList |
 
 	aList := aView columnedList
 		title: 'Items' translated;
 		priority: 50;
-		items: [ self asOrderedCollection ].
+		items: [ self ].
 
 	aList column
 		title: 'Index' translated;
