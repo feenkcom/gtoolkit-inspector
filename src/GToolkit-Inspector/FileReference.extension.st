@@ -86,7 +86,6 @@ FileReference >> gtFigureFor: aView [
 { #category : #'*GToolkit-Inspector' }
 FileReference >> gtItemsFor: aView [
 	<gtView>
-	| aList |
 	self isDirectory ifFalse: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Items' translated;
