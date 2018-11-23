@@ -106,22 +106,23 @@ FileReference >> gtItemsFor: aView [
 			children ];
 		column: 'Icon' translated do: [:column |
 			column 
-				evaluated: [ :each |
+				item: [ :each |
 					each isDirectory 
 						ifTrue: [ BrGlamorousIcons folder ] 
 						ifFalse: [ BrGlamorousIcons file ] ];
 				stencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
 				noResize ];
 		column: 'Name' translated do: [ :column |
-			column evaluated: [ :each |
-				(self isChildOf: each) 
-					ifTrue: [ '..' ]
-					ifFalse: [ each basename asString ] ];
-			matchParent ];
+			column 
+				item: [ :each |
+					(self isChildOf: each) 
+						ifTrue: [ '..' ]
+						ifFalse: [ each basename asString ] ];
+				matchParent ];
 		column: 'Size' translated do: [ :column |
-			column evaluated: [ :each | each humanReadableSize asString ] ];
+			column item: [ :each | each humanReadableSize asString ] ];
 		column: 'Creation' translated do: [:column |
-			column evaluated: [ :each |
+			column item: [ :each |
 				String streamContents: [:s | 
 					each creationTime printYMDOn: s.
 					s nextPut: Character space.

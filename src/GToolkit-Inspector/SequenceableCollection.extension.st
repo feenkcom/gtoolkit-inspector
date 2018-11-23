@@ -13,11 +13,11 @@ SequenceableCollection >> gtItemsFor: aView [
 	aList column
 		title: 'Index' translated;
 		width: 30;
-		evaluated: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray].
+		item: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray].
 	
 	aList column
 		title: 'Item' translated;
-		evaluated: [ :eachItem :eachIndex | eachItem ].
+		item: [ :eachItem :eachIndex | eachItem ].
 	
 	^ aList
 ]
