@@ -27,7 +27,7 @@ Investigating software systems often requires us to drill through objects to fin
 
 Take a look at the inspector showing the working directory.
 
-${example:FileReference class>>#gtExampleWorkingDirectory|expandedPreview=}$
+${example:FileReference class>>#gtExampleWorkingDirectory|noCode=}$
 
 As the instance of ${class:FileReference}$ represents a directory, the inspector shows the items of the directory. Clicking on an item selects the corresponding object and prepares it to be shown in a page to the right of the current one. If there does not exist a page to the right before clicking, there will only appear a triangle. Clicking on that triangle spawns the page. Once a page exists to the right, clicking on any other object shows the object. Alternatively, if a page does not yet exist, it can be spawned by double clicking on the list item.
 
@@ -52,7 +52,7 @@ Each class can define object extensions that are meaningful for inspecting insta
 
 For example, take as look at a ${class:Color}$.
 
-${example:Color class>>#gtExampleColorRed|expandedPreview|noCode|previewHeight=400}$
+${example:Color class>>#gtExampleColorRed|noCode|previewHeight=400}$
 
 Now, choose the Meta view, select the ${method:Color>>#gtPreviewFor:}$, and change the title to something like =='Color'==. Note how accepting the changed code triggers the inspector to update. Similarly, you can add new extensions from whithin the inspector and this will add new views to the current inspector.
 

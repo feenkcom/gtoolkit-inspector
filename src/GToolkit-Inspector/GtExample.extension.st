@@ -1,6 +1,20 @@
 Extension { #name : #GtExample }
 
 { #category : #'*GToolkit-Inspector' }
+GtExample >> gtActionDebugFor: anAction [
+	<gtAction>
+	|  button |
+	^ anAction explicit stencil: [
+		button := BrButton new.
+		button
+			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+			action:  [ [ self debug ] fork ];
+			icon: BrGlamorousIcons spawn asElement;
+			label: 'Debug example' translated.
+	]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtActionSpawnReturnValueFor: anAction [
 	<gtAction>
 	|  button |
