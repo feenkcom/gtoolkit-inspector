@@ -71,7 +71,8 @@ Class >> gtDefinitionFor: aView [
 		editorElement := BrEditorElement new.
 		editorElement constraintsDo: [ :c |
 			c horizontal matchParent.
-			c vertical matchParent ].
+			c vertical matchParent.
+			c padding: (BlInsets all: 10) ].
 
 		editorElement editor: editor.
 
