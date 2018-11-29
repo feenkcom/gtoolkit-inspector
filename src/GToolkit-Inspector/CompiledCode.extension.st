@@ -11,6 +11,12 @@ CompiledCode >> gtBytecodeFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtBytesFor: aView [
+	<gtView>
+	^ aView empty
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtHeaderFor: aView [
 	<gtView> 
 	^ aView textEditor
