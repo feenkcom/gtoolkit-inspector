@@ -6,7 +6,7 @@ BlMorphicWindow >> gtActionExportAsPNGFor: anAction [
 	^ anAction button
 			icon: BrGlamorousIcons save asElement;
 			action: [ 
-				self exportAsPNGSilently.
+				spaceForm exportAsPNGSilently.
 				UIManager default defer: [ self inform: 'PNG file saved next to the image' ] ]
 ]
 
@@ -15,7 +15,7 @@ BlMorphicWindow >> gtInspectorActionExportAsPNG [
 	<gtInspectorAction>
 	^ GLMGenericAction new
 		action: [ :composite | 
-			self exportAsPNGSilently.
+			spaceForm exportAsPNGSilently.
 			self inform: 'PNG file saved next to the image' ];
 		icon: GLMUIThemeExtraIcons glamorousSave;
 		title: 'Export as PNG'
