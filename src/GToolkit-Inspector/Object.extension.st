@@ -29,10 +29,10 @@ Object >> gtLiveFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Object >> gtPrintFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView textEditor
 		title: 'Print';
 		priority: 110;
-		stencil: [ BlTextElement new text: self printString asRopedText ]
+		text: [ self printString asRopedText monospace ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
