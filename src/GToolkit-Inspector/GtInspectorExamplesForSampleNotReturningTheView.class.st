@@ -9,7 +9,7 @@ GtInspectorExamplesForSampleNotReturningTheView >> viewNotReturning [
 	<gtExample>
 	| view object |
 	object := GtInspectorSampleNotReturningTheView new.
-	view := object gtViewsFor: GtPhlowView explicit.
+	view := object gtViewsFor: GtPhlowView empty.
 	view asElementDo: [ :element | self assert: element notNil ].
 	^ object
 ]
