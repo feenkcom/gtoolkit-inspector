@@ -11,7 +11,7 @@ Class {
 		'systemChangesHandler',
 		'isExact'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Brick'
 }
 
 { #category : #accessing }

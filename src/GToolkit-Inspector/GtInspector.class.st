@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'pager'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Brick'
 }
 
 { #category : #ui }

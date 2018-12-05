@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'nodes'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Utility'
 }
 
 { #category : #initialization }

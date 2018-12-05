@@ -8,7 +8,7 @@ Class {
 		'selectedObject',
 		'selectedElement'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Brick'
 }
 
 { #category : #accessing }

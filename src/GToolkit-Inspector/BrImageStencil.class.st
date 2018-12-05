@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'image'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Stencils'
 }
 
 { #category : #'api - instantiation' }
