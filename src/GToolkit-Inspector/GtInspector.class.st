@@ -232,8 +232,14 @@ GtInspector >> initialize [
 	self addChild: pager.
 ]
 
-{ #category : #'private - pages' }
+{ #category : #private }
 GtInspector >> isLastPage: aPageContentElement [
+]
+
+{ #category : #private }
+GtInspector >> pageViewFor: aSelectedObject [
+	<return: #GtPhlowCompositeView>
+	^ aSelectedObject gtViewsFor: GtPhlowView empty
 ]
 
 { #category : #private }
@@ -264,26 +270,44 @@ GtInspector >> selectDueTo: anEvent [
 		ifAbsent: [ ].
 ]
 
+{ #category : #private }
+GtInspector >> selectTabNamed: aPreferredSelectedTabTitle inPage: newPage [
+	^ newPage phlow
+		firstChildWithCompositeViewDo: [ :tabGroup | 
+			tabGroup viewModel tabs
+				detect:
+					[ :tabModel | tabModel widget phlow entity title = aPreferredSelectedTabTitle ]
+				ifFound: [ :tabModel | tabModel select ] ]
+]
+
+{ #category : #private }
+GtInspector >> selectedTabNameInPageAfter: aPageElement [
+	<return: #String or: nil>
+	| aPreferredSelectedTabTitle |
+	aPreferredSelectedTabTitle := nil.
+	pager
+		pageAfter: aPageElement
+		ifFound: [ :aNextPageModel | 
+			aNextPageModel widget phlow
+				firstChildWithCompositeViewDo: [ :tabGroup | 
+					aPreferredSelectedTabTitle := tabGroup viewModel selectedTab widget
+						phlow entity title ] ]
+		ifNone: [  ].
+	^ aPreferredSelectedTabTitle
+]
+
 { #category : #'api - inspector' }
 GtInspector >> spawn: aSelectedObject after: aPageElement [
 	| aPageView |
-	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
-	aPageView asElementDo: [ :aViewElement |
-		| preferredSelectedTabTitle newPage |
-		preferredSelectedTabTitle := nil.
-		pager
-			pageAfter: aPageElement
-			ifFound: [ :aNextPageModel |
-				aNextPageModel widget phlow	firstChildWithCompositeViewDo: [ :tabGroup |
-						preferredSelectedTabTitle := tabGroup viewModel selectedTab widget phlow entity title ] ]
-			ifNone: [ ].
-		pager removePagesAfter: aPageElement.
-		newPage := self addPageWithContent: aViewElement for: aSelectedObject.
-		newPage phlow firstChildWithCompositeViewDo: [ :tabGroup |
-				tabGroup viewModel tabs 
-					detect: [ :tabModel | tabModel widget phlow entity title = preferredSelectedTabTitle ]
-					ifFound: [ :tabModel | tabModel select ] ] ].
-		pager smoothScrollToLast
+	aPageView := self pageViewFor: aSelectedObject.
+	aPageView
+		asElementDo: [ :aViewElement | 
+			| aPreferredSelectedTabTitle aNewPage |
+			aPreferredSelectedTabTitle := self selectedTabNameInPageAfter: aPageElement.
+			pager removePagesAfter: aPageElement.
+			aNewPage := self addPageWithContent: aViewElement for: aSelectedObject.
+			self selectTabNamed: aPreferredSelectedTabTitle inPage: aNewPage.
+			pager smoothScrollToLast ]
 ]
 
 { #category : #'api - inspector' }
@@ -299,7 +323,7 @@ GtInspector >> spawnDueTo: anEvent [
 GtInspector >> spawnInitial: aSelectedObject [
 	| aPageView |
 
-	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
+	aPageView := self pageViewFor: aSelectedObject.
 	aPageView asElementDo: [ :aPageContentElement |
 		self addPageWithContent: aPageContentElement for: aSelectedObject ]
 ]
