@@ -238,7 +238,7 @@ GtInspector >> isLastPage: aPageContentElement [
 
 { #category : #private }
 GtInspector >> pageViewFor: aSelectedObject [
-	<return: #GtPhlowCompositeView>
+	<return: #GtPhlowLabelledView>
 	^ aSelectedObject gtViewsFor: GtPhlowView empty
 ]
 
