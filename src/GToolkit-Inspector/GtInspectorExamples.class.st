@@ -21,10 +21,10 @@ GtInspectorExamples >> viewsOfSampleA [
 	<gtExample>
 	| views elements |
 	views := GtInspectorSampleA new gtViewsInContext: nil.
-	self assert: (views size = 1).
+	self assert: views size equals: 1.
 	elements := OrderedCollection new.
-	views collect: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
-	self assert: elements size = 1.
+	views do: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
+	self assert: elements size equals: 1.
 	^ views
 ]
 
@@ -33,9 +33,9 @@ GtInspectorExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
 	| views elements |
 	views := GtInspectorSampleSubclassOfA new gtViewsInContext: nil.
-	self assert: (views size = 1).
+	self assert: views size equals: 1.
 	elements := OrderedCollection new.
-	views collect: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
+	views do: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
 	self assert: elements isEmpty.
 	^ views
 ]
