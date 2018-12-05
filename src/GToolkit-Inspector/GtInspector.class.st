@@ -268,7 +268,10 @@ GtInspector >> selectTabNamed: aPreferredSelectedTabTitle inPage: newPage [
 		firstChildWithCompositeViewDo: [ :tabGroup | 
 			tabGroup viewModel tabs
 				detect:
-					[ :tabModel | tabModel widget phlow entity title = aPreferredSelectedTabTitle ]
+					[ :tabModel | 
+						| aTitle |
+						aTitle := tabModel widget phlow entity ifNotNil: #title.
+						aTitle = aPreferredSelectedTabTitle ]
 				ifFound: [ :tabModel | tabModel select ] ]
 ]
 
@@ -283,7 +286,7 @@ GtInspector >> selectedTabNameInPageAfter: aPageElement [
 			aNextPageModel widget phlow
 				firstChildWithCompositeViewDo: [ :tabGroup | 
 					aPreferredSelectedTabTitle := tabGroup viewModel selectedTab widget
-						phlow entity title ] ]
+						phlow entity ifNotNil: #title ] ]
 		ifNone: [  ].
 	^ aPreferredSelectedTabTitle
 ]
