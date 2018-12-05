@@ -255,19 +255,11 @@ GtInspector >> select: aSelectedObject after: aPageElement [
 
 { #category : #'api - inspector' }
 GtInspector >> selectDueTo: anEvent [
-	| aSourceElement |
-	
-	aSourceElement := anEvent sourceElement.
-	
+
 	self
-		findPageContaining: aSourceElement
-		ifPresent: [ :aPageElement |
-			| aSelectedObject |
-			
-			aSelectedObject := anEvent object.
-			
-		]
-		ifAbsent: [ ].
+		findPageContaining: anEvent sourceElement
+		ifPresent: [ :aPageElement | self select: anEvent object after: aPageElement ]
+		ifAbsent: [ ]
 ]
 
 { #category : #private }
