@@ -6,10 +6,9 @@ Class {
 
 { #category : #examples }
 GtInspectorExamples >> viewWithViewsForObject [
-	<gtExample> <noTest>
+	<gtExample>
 	| view element |
-	view := GtPhlowView empty.
-	{1 . 2} gtViewsFor: view.
+	view := {1 . 2} gtViewsFor: GtPhlowView empty.
 	element := view asElementDo: [ :x | x ].
 	self assert: element notNil.
 	self assert: (element isKindOf: BlElement).
