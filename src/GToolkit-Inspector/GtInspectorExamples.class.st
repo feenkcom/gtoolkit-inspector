@@ -1,8 +1,45 @@
 Class {
 	#name : #GtInspectorExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#instVars : [
+		'phlowDemo'
+	],
+	#category : #'GToolkit-Inspector-Examples'
 }
+
+{ #category : #updating }
+GtInspectorExamples >> basicInspector [
+	<gtExample>
+	| anInspector |
+	anInspector := GtInspector new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+	^ anInspector
+]
+
+{ #category : #updating }
+GtInspectorExamples >> changePrintOnMethod [
+	<gtExample>
+	| anInspector aClass anInstance anEvents |
+	anInspector := self basicInspector.
+	aClass := phlowDemo demoClass.
+	anInstance := aClass new.
+	anInspector spawnInitial: anInstance.
+	anEvents := OrderedCollection new.
+	anInspector 
+		when: GtInspectorObservedObjectDefinitionChangedEvent 
+		do: [ :anEvent | anEvents add: anEvent ].
+	"phlowDemo printOnMethodDefinition.
+	self assert: anEvents size equals: 1."
+	^ anInspector
+]
+
+{ #category : #initialization }
+GtInspectorExamples >> initialize [
+	super initialize.
+	phlowDemo := GtPhlowDemoDefinitionsExamples new.
+]
 
 { #category : #examples }
 GtInspectorExamples >> viewWithViewsForObject [
