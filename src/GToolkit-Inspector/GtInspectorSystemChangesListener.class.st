@@ -85,5 +85,6 @@ GtInspectorSystemChangesListener >> unsubscribeFromSystem [
 GtInspectorSystemChangesListener >> updatePagesWithClass: aClass [ 
 	inspector pager pages do: [ :eachPage | 
 		(self doesPage: eachPage displayClass: aClass) 
-			ifTrue: [ inspector updatePageModelWidget: eachPage ] ]
+			ifTrue: [ inspector enqueueTask: (
+				BlTaskAction new action: [ inspector updatePageModelWidget: eachPage ]) ] ]
 ]
