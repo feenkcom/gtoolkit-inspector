@@ -53,7 +53,16 @@ BlElement >> gtLiveFor: aView [
 					constraintsDo: [ :c | 
 						c horizontal matchParent.
 						c vertical matchParent ] ]
-				ifNil: [ self ]  ]
+				ifNil: [ 
+					| container |
+					container := BlElement new
+						layout: BlLinearLayout new;
+						padding: (BlInsets all: 10);
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical matchParent ]. 
+						container addChild: self.
+						container ]  ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

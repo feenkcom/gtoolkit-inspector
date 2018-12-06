@@ -9,7 +9,7 @@ Class {
 		'node',
 		'factory'
 	],
-	#category : 'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Utility'
 }
 
 { #category : #comparing }

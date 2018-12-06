@@ -3,24 +3,21 @@ Extension { #name : #Announcer }
 { #category : #'*GToolkit-Inspector' }
 Announcer >> gtSubscriptionsFor: aView [
 	<gtView>
-	self numberOfSubscriptions isZero
-		ifTrue: [ ^ aView empty ].
-	^ aView explicit
+	self numberOfSubscriptions isZero ifTrue: [ ^ aView empty ].
+	^ aView columnedList
 		title: 'Subscriptions';
 		priority: 50;
-		stencil: [ | list |
-			list := BrColumnedList new
-				display: self subscriptions subscriptions asArray.
-			list column
-				title: 'Subscriber';
-				stencil: [ :each | BrListLabelStencil fitContent: each subscriber printString ].
-			list column
-				title: 'Announcement';
-				stencil:
-						[ :each | BrListLabelStencil fitContent: each announcementClass printString ].
-			list column
-				title: 'Kind';
-				stencil: [ :each | BrListLabelStencil matchParent: each class name ].
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list ]
+		items: [ self subscriptions subscriptions asArray ];
+		column: 'Subscriber' translated do: [ :aColumn | 
+			aColumn 
+				item: [ :aSubscription | aSubscription subscriber ]; 
+				matchParent ];
+		column: 'Announcement' translated do: [ :aColumn |
+			aColumn 
+				item: [ :aSubscription | aSubscription announcementClass ]; 
+				matchParent ];
+		column: 'Kind' translated do: [ :aColumn |
+			aColumn 
+				item: [ :aSubscription | aSubscription class ]; 
+				matchParent ].
 ]

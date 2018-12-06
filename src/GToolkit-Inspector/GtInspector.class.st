@@ -5,14 +5,35 @@ Class {
 	#name : #GtInspector,
 	#superclass : #BlElement,
 	#instVars : [
-		'pager'
+		'pager',
+		'systemListener'
 	],
-	#category : #'GToolkit-Inspector'
+	#classInstVars : [
+		'isAutoUpdateEnabled'
+	],
+	#category : #'GToolkit-Inspector-Brick'
 }
 
 { #category : #ui }
 GtInspector class >> actionExtensionMethods [
 	^ #gtAction pragmas collect: [ :pragma | pragma method asRingDefinition ]
+]
+
+{ #category : #cleanup }
+GtInspector class >> cleanUp [
+	self resetIsAutoUpdateEnabled
+]
+
+{ #category : #settings }
+GtInspector class >> disableAutoUpdate [
+	<script>
+	isAutoUpdateEnabled := false
+]
+
+{ #category : #settings }
+GtInspector class >> enableAutoUpdate [
+	<script>
+	isAutoUpdateEnabled := true
 ]
 
 { #category : #ui }
@@ -87,6 +108,11 @@ GtInspector class >> gtExtensionsFor: aView [
 			list]
 ]
 
+{ #category : #settings }
+GtInspector class >> isAutoUpdateEnabled [
+	^ isAutoUpdateEnabled ifNil: [ isAutoUpdateEnabled := true ]
+]
+
 { #category : #'instance creation' }
 GtInspector class >> openOn: anObject [
 	| anInspector aSpace |
@@ -134,6 +160,11 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 	^ anInspector
 ]
 
+{ #category : #cleanup }
+GtInspector class >> resetIsAutoUpdateEnabled [
+	isAutoUpdateEnabled := nil
+]
+
 { #category : #ui }
 GtInspector class >> viewExtensionMethods [
 	^ #gtView pragmas collect: [ :pragma | pragma method asRingDefinition ]
@@ -143,6 +174,7 @@ GtInspector class >> viewExtensionMethods [
 GtInspector >> addPageWithContent: aContentElement for: anObject [
 	| page |
 	page := self createPageWithContent: aContentElement for: anObject.
+	systemListener addClass: anObject class instanceSide.
 	pager addPage: page.
 	^ page
 ]
@@ -174,6 +206,11 @@ GtInspector >> computePageWidthFor: anObject [
 ]
 
 { #category : #private }
+GtInspector >> contentIdentificator [
+	^ #pageContent
+]
+
+{ #category : #private }
 GtInspector >> createPageWithContent: aContentElement for: anObject [
 	"Create and configure an inspector page for a given object and corresponding content element.
 	My job is to set up the pager page decorator and configure the neccesary event listeners"
@@ -191,7 +228,7 @@ GtInspector >> createPageWithContent: aContentElement for: anObject [
 	aPageElement := BlElement new
 		viewModel: aPageModel;
 		clipChildren: false;
-		addChild: aContentElement;
+		addChild: aContentElement as: self contentIdentificator;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
@@ -230,15 +267,30 @@ GtInspector >> initialize [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	self addChild: pager.
+	systemListener := GtInspectorSystemChangesListener new inspector: self
 ]
 
-{ #category : #'private - pages' }
-GtInspector >> isLastPage: aPageContentElement [
+{ #category : #testing }
+GtInspector >> isAutoUpdateEnabled [
+	^ self class isAutoUpdateEnabled
+]
+
+{ #category : #private }
+GtInspector >> pageViewFor: aSelectedObject [
+	<return: #GtPhlowLabelledView>
+	^ aSelectedObject gtViewsFor: GtPhlowView empty
 ]
 
 { #category : #private }
 GtInspector >> pager [
 	^ pager
+]
+
+{ #category : #private }
+GtInspector >> replaceContent: aBrTabGroup atPage: aBlElement [ 
+	| aCurrentChild |
+	aCurrentChild := aBlElement childNamed: self contentIdentificator ifFound: [ :el | el ] ifNone: [ ^ self ].
+	aBlElement replaceChild: aCurrentChild with: aBrTabGroup as: self contentIdentificator.
 ]
 
 { #category : #'api - inspector' }
@@ -249,41 +301,63 @@ GtInspector >> select: aSelectedObject after: aPageElement [
 
 { #category : #'api - inspector' }
 GtInspector >> selectDueTo: anEvent [
-	| aSourceElement |
-	
-	aSourceElement := anEvent sourceElement.
-	
+
 	self
-		findPageContaining: aSourceElement
-		ifPresent: [ :aPageElement |
-			| aSelectedObject |
-			
-			aSelectedObject := anEvent object.
-			
-		]
-		ifAbsent: [ ].
+		findPageContaining: anEvent sourceElement
+		ifPresent: [ :aPageElement | self select: anEvent object after: aPageElement ]
+		ifAbsent: [ ]
+]
+
+{ #category : #private }
+GtInspector >> selectTabNamed: aPreferredSelectedTabTitle inPage: newPage [
+	^ newPage phlow
+		firstChildWithCompositeViewDo: [ :tabGroup | 
+			tabGroup viewModel tabs
+				detect:
+					[ :tabModel | 
+						| aTitle |
+						aTitle := tabModel widget phlow entity ifNotNil: #title.
+						aTitle = aPreferredSelectedTabTitle ]
+				ifFound: [ :tabModel | tabModel select ] ]
+]
+
+{ #category : #private }
+GtInspector >> selectedTabNameInPage: aPageElement [
+	<return: #String or: nil>
+	| aPreferredSelectedTabTitle |
+	aPreferredSelectedTabTitle := nil.
+	aPageElement phlow
+				firstChildWithCompositeViewDo: [ :tabGroup | 
+					aPreferredSelectedTabTitle := tabGroup viewModel selectedTab widget
+						phlow entity ifNotNil: #title ].
+	^ aPreferredSelectedTabTitle
+]
+
+{ #category : #private }
+GtInspector >> selectedTabNameInPageAfter: aPageElement [
+	<return: #String or: nil>
+	| aPreferredSelectedTabTitle |
+	aPreferredSelectedTabTitle := nil.
+	pager
+		pageAfter: aPageElement
+		ifFound: [ :aNextPageModel | 
+			aPreferredSelectedTabTitle := self selectedTabNameInPage: aNextPageModel widget ]
+		ifNone: [  ].
+	^ aPreferredSelectedTabTitle
 ]
 
 { #category : #'api - inspector' }
 GtInspector >> spawn: aSelectedObject after: aPageElement [
 	| aPageView |
-	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
-	aPageView asElementDo: [ :aViewElement |
-		| preferredSelectedTabTitle newPage |
-		preferredSelectedTabTitle := nil.
-		pager
-			pageAfter: aPageElement
-			ifFound: [ :aNextPageModel |
-				aNextPageModel widget phlow	firstChildWithCompositeViewDo: [ :tabGroup |
-						preferredSelectedTabTitle := tabGroup viewModel selectedTab widget phlow entity title ] ]
-			ifNone: [ ].
-		pager removePagesAfter: aPageElement.
-		newPage := self addPageWithContent: aViewElement for: aSelectedObject.
-		newPage phlow firstChildWithCompositeViewDo: [ :tabGroup |
-				tabGroup viewModel tabs 
-					detect: [ :tabModel | tabModel widget phlow entity title = preferredSelectedTabTitle ]
-					ifFound: [ :tabModel | tabModel select ] ] ].
-		pager smoothScrollToLast
+	aPageView := self pageViewFor: aSelectedObject.
+	aPageView
+		asElementDo: [ :aViewElement | 
+			| aPreferredSelectedTabTitle aNewPage |
+			aPreferredSelectedTabTitle := self selectedTabNameInPageAfter: aPageElement.
+			pager removePagesAfter: aPageElement.
+			aNewPage := self addPageWithContent: aViewElement for: aSelectedObject.
+			self selectTabNamed: aPreferredSelectedTabTitle inPage: aNewPage.
+			pager smoothScrollToLast ]
 ]
 
 { #category : #'api - inspector' }
@@ -299,7 +373,23 @@ GtInspector >> spawnDueTo: anEvent [
 GtInspector >> spawnInitial: aSelectedObject [
 	| aPageView |
 
-	aPageView := aSelectedObject gtViewsFor: GtPhlowView empty.
+	aPageView := self pageViewFor: aSelectedObject.
 	aPageView asElementDo: [ :aPageContentElement |
 		self addPageWithContent: aPageContentElement for: aSelectedObject ]
+]
+
+{ #category : #private }
+GtInspector >> updatePageModelWidget: aBrPagerPageModel [ 
+	| aSelectedObject aPageView |
+	self 
+		assert: [ aBrPagerPageModel widget notNil ]
+		description: [ 'I believe that aBrPagerPageModel widget must be non-nil :-)' ].
+	self isAutoUpdateEnabled ifFalse: [ ^ self ].
+	aSelectedObject := aBrPagerPageModel model.
+	aPageView := self pageViewFor: aSelectedObject.
+	aPageView asElementDo: [ :aViewElement | 
+			| aPreferredSelectedTabTitle |
+			aPreferredSelectedTabTitle := self selectedTabNameInPage: aBrPagerPageModel widget.
+			self selectTabNamed: aPreferredSelectedTabTitle inPage: aViewElement.
+			self replaceContent: aViewElement atPage: aBrPagerPageModel widget ]
 ]

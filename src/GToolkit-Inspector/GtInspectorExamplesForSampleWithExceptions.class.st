@@ -37,6 +37,21 @@ GtInspectorExamplesForSampleWithExceptions >> containerViewOfSampleWithException
 ]
 
 { #category : #examples }
+GtInspectorExamplesForSampleWithExceptions >> exceptionAtCreation [
+	<gtExample>
+	| aView |
+	aView := GtPhlowView empty 
+		on: GtInspectorSampleWithExceptionsInExtensions new
+		perform: #gtViewWithExceptionAtCreationFor:.
+	self assert: aView notNil.
+	self 
+		assert: aView definingMethod 
+		equals: (GtInspectorSampleWithExceptionsInExtensions 
+			>> #gtViewWithExceptionAtCreationFor:) asRingDefinition.
+	^ aView
+]
+
+{ #category : #examples }
 GtInspectorExamplesForSampleWithExceptions >> sampleWithExceptions [
 	<gtExample>
 	^ GtInspectorSampleWithExceptionsInExtensions new

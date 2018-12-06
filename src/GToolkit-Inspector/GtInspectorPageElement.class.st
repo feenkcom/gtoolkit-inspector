@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'weight'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Brick'
 }
 
 { #category : #initialization }
