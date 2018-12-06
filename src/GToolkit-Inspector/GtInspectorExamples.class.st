@@ -21,17 +21,21 @@ GtInspectorExamples >> basicInspector [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethod [
 	<gtExample>
-	| anInspector aClass anInstance anEvents |
+	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement |
+	phlowDemo ensurePrintOnRemoved.
 	anInspector := self basicInspector.
 	aClass := phlowDemo demoClass.
 	anInstance := aClass new.
 	anInspector spawnInitial: anInstance.
-	anEvents := OrderedCollection new.
-	anInspector 
-		when: GtInspectorObservedObjectDefinitionChangedEvent 
-		do: [ :anEvent | anEvents add: anEvent ].
-	"phlowDemo printOnMethodDefinition.
-	self assert: anEvents size equals: 1."
+	aFirstPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	self assert: anInspector taskQueue tasks size equals: 0.
+	"System change that should reflected in the Inspector"
+	phlowDemo printOnMethodDefinition.
+	aSecondPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	"There is a change ready to do."
+	self assert: anInspector taskQueue tasks size equals: 1.
+	"The updated is not done yet. It will happen when the Inspector appears in a Space"
+	self assert: aFirstPageContentElement equals: aSecondPageContentElement.
 	^ anInspector
 ]
 
