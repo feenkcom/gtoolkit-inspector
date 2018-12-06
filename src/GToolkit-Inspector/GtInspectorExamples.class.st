@@ -21,8 +21,8 @@ GtInspectorExamples >> basicInspector [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethod [
 	<gtExample>
-	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement |
-	phlowDemo ensurePrintOnRemoved.
+	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aSpace aTask |
+	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
 	aClass := phlowDemo demoSubClass.
 	anInstance := aClass new.
@@ -36,6 +36,16 @@ GtInspectorExamples >> changePrintOnMethod [
 	self assert: anInspector taskQueue tasks size equals: 1.
 	"The updated is not done yet. It will happen when the Inspector appears in a Space"
 	self assert: aFirstPageContentElement equals: aSecondPageContentElement.
+	
+	"Let's reinforce the changes"
+	aTask := anInspector taskQueue tasks first.
+	aTask action value.
+	aSecondPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	self assert: aFirstPageContentElement ~= aSecondPageContentElement.
+	"And let's remove the task"
+	anInspector dequeueTask: aTask.
+	self assert: anInspector taskQueue tasks size equals: 0.
+	
 	^ anInspector
 ]
 
