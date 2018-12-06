@@ -26,19 +26,31 @@ GtInspectorSystemChangesListener >> classes [
 ]
 
 { #category : #testing }
+GtInspectorSystemChangesListener >> doesClass: anAffectedClass inheritsFrom: aClass [
+	<return: #Boolean>
+	^ anAffectedClass inheritsFrom: aClass
+]
+
+{ #category : #testing }
 GtInspectorSystemChangesListener >> doesPage: aBrPagerPageModel displayClass: aClass [ 
-	^ (aBrPagerPageModel model isKindOf: aClass)
+	^ self 
+		doesClass: aBrPagerPageModel model class instanceSide
+		inheritsFrom: aClass
 ]
 
 { #category : #'announcement handling' }
 GtInspectorSystemChangesListener >> handleClassAnnouncement: aClassAnnouncement [ 
-	(self classes anySatisfy: [ :eachClass | eachClass = aClassAnnouncement classAffected ]) ifFalse: [ ^ self ].
+	(self classes anySatisfy: [ :eachClass |
+		self doesClass: eachClass inheritsFrom: aClassAnnouncement classAffected ]) 
+			ifFalse: [ ^ self ].
 	self updatePagesWithClass: aClassAnnouncement classAffected.
 ]
 
 { #category : #'announcement handling' }
 GtInspectorSystemChangesListener >> handleMethodAnnouncement: aMethodModified [ 
-	(self classes anySatisfy: [ :eachClass | eachClass = aMethodModified classAffected ]) ifFalse: [ ^ self ].
+	(self classes anySatisfy: [ :eachClass | 
+		self doesClass: eachClass inheritsFrom: aMethodModified classAffected ]) 
+			ifFalse: [ ^ self ].
 	self updatePagesWithClass: aMethodModified classAffected.
 ]
 

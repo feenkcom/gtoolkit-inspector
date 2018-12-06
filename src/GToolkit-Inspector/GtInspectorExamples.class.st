@@ -24,7 +24,7 @@ GtInspectorExamples >> changePrintOnMethod [
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement |
 	phlowDemo ensurePrintOnRemoved.
 	anInspector := self basicInspector.
-	aClass := phlowDemo demoClass.
+	aClass := phlowDemo demoSubClass.
 	anInstance := aClass new.
 	anInspector spawnInitial: anInstance.
 	aFirstPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
