@@ -21,7 +21,38 @@ GtInspectorExamples >> basicInspector [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethod [
 	<gtExample>
-	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aSpace aTask |
+	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
+	phlowDemo ensurePrintOnMethodRemoved.
+	anInspector := self basicInspector.
+	aClass := phlowDemo demoClass.
+	anInstance := aClass new.
+	anInspector spawnInitial: anInstance.
+	aFirstPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	self assert: anInspector taskQueue tasks size equals: 0.
+	"System change that should reflected in the Inspector"
+	phlowDemo printOnMethodDefinition.
+	aSecondPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	"There is a change ready to do."
+	self assert: anInspector taskQueue tasks size equals: 1.
+	"The updated is not done yet. It will happen when the Inspector appears in a Space"
+	self assert: aFirstPageContentElement equals: aSecondPageContentElement.
+	
+	"Let's reinforce the changes"
+	aTask := anInspector taskQueue tasks first.
+	aTask action value.
+	aSecondPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	self assert: aFirstPageContentElement ~= aSecondPageContentElement.
+	"And let's remove the task"
+	anInspector dequeueTask: aTask.
+	self assert: anInspector taskQueue tasks size equals: 0.
+	
+	^ anInspector
+]
+
+{ #category : #updating }
+GtInspectorExamples >> changePrintOnMethodInSuperclass [
+	<gtExample>
+	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
 	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
 	aClass := phlowDemo demoSubClass.
