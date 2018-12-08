@@ -2,18 +2,12 @@ Extension { #name : #Dictionary }
 
 { #category : #'*GToolkit-Inspector' }
 Dictionary >> gtItemsFor: aView [
-	^ aView explicit
+	^ aView columnedList
 		title: 'Items';
-		stencil: [
-			| list |
-			list := BrColumnedList new display: self associations.
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list column 
-				title: 'Key';
-				stencil: [ :each | BrListLabelStencil matchParent: (GTObjectPrinter asTruncatedTextFrom: each key) ].
-			list column 
-				title: 'Value';
-				stencil: [ :each | BrListLabelStencil matchParent: (GTObjectPrinter asTruncatedTextFrom: each value) ].
-			list
-			].
+		items: [ self associations ];
+		column: 'Key' do: [ :column |
+			column item: [ :assoc | assoc key ]; matchParent ];
+		column: 'Value' do: [ :column |
+			column item: [:assoc | assoc value ]; matchParent ];
+		send: [ :assoc | assoc value ]
 ]
