@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'inspectorWidget',
 		'pagerPageModel',
-		'viewMethodDefinition'
+		'viewMethodDefinition',
+		'isSelected'
 	],
 	#category : #'GToolkit-Inspector-Utility'
 }
@@ -27,6 +28,7 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView at: anInteger toTabGroup: aB
 					element phlow beViewContent; entity: aGtPhlowView.
 					element asScrollableElement ] ];
 		actionsStencil: (aGtPhlowView actionsToolbarForElement: aBrTab).
+	isSelected ifNotNil: [ aBrTab viewModel selected: isSelected ].
 	aBrTabGroup addTab: aBrTab at: anInteger
 ]
 
@@ -49,14 +51,15 @@ GtInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompo
 
 { #category : #private }
 GtInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [ 
-	| aPhlowView |
-	aPhlowView := GtPhlowView empty on: self pagerPageModel model perform: self viewMethodDefinition selector.
-	aPhlowView ifItHasContent: [
-		| anIndex |
-		anIndex := self addView: aPhlowView toCompositeView: aBrTabGroup phlow entity.
-		aBrTabGroup enqueueTask: (BlTaskAction new action:
-			[ self addView: aPhlowView at: anIndex toTabGroup: aBrTabGroup ]).
-	]
+	aBrTabGroup enqueueTask: (BlTaskAction new action: [ 
+		| aPhlowView |
+		aPhlowView := GtPhlowView empty 
+			on: self pagerPageModel model 
+			perform: self viewMethodDefinition selector.
+		aPhlowView ifItHasContent: [
+			| anIndex |
+			anIndex := self addView: aPhlowView toCompositeView: aBrTabGroup phlow entity.	
+			self addView: aPhlowView at: anIndex toTabGroup: aBrTabGroup ] ])
 ]
 
 { #category : #private }
@@ -99,9 +102,35 @@ GtInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
 								sourceElement: tab) ] ]
 ]
 
+{ #category : #private }
+GtInspectorPageViewUpdater >> removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup [ 
+	aBrTabGroup viewModel tabs 
+		detect: [ :eachTabModel | eachTabModel widget phlow entity = aGtPhlowView ]
+		ifFound: [ :aTabModel | 
+			isSelected := aTabModel isSelected.
+			aBrTabGroup viewModel removeTab: aTabModel ]
+		ifNone: [ self error: 'Trying to remove a tab that does not exist' ].
+	
+]
+
+{ #category : #private }
+GtInspectorPageViewUpdater >> removeView: aGtPhlowView fromCompositeView: aGtPhlowCompositeView [ 
+	aGtPhlowCompositeView views 
+		remove: aGtPhlowView 
+		ifAbsent: [ self error: 'Trying to remove a Phlow view from a compisite view that does not include it' ].
+	
+]
+
+{ #category : #private }
+GtInspectorPageViewUpdater >> removeView: aGtPhlowView inTabGroup: aBrTabGroup [ 
+	aBrTabGroup enqueueTask: (BlTaskAction new action: [ 
+		self removeView: aGtPhlowView fromCompositeView: aBrTabGroup phlow entity.
+		self removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup ]).
+]
+
 { #category : #actions }
 GtInspectorPageViewUpdater >> update [
-	| aTabGroup aRing |
+	| aTabGroup |
 	"Find a composite element"
 	aTabGroup := self compositeViewElement.
 	"Find existing view (that should be updated, if any)"
@@ -113,10 +142,10 @@ GtInspectorPageViewUpdater >> update [
 
 { #category : #private }
 GtInspectorPageViewUpdater >> updateView: aGtPhlowView inTabGroup: aBrTabGroup [ 
-	self flag: 'TODO: Now it updates whole page'.
-	self inspectorWidget enqueueTask: (
-		BlTaskAction new action: [ self inspectorWidget 
-			updatePageModelWidget: self pagerPageModel ])
+	aGtPhlowView ifItHasContent: [
+		self removeView: aGtPhlowView inTabGroup: aBrTabGroup.
+		self addViewInTabGroup: aBrTabGroup.
+	]
 ]
 
 { #category : #accessing }

@@ -143,6 +143,59 @@ GtInspectorExamples >> initialize [
 	phlowDemo := GtPhlowDemoDefinitionsExamples new.
 ]
 
+{ #category : #updating }
+GtInspectorExamples >> updateFooViewMethod [
+	<gtExample>
+	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTaskOne aTaskTwo aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
+	phlowDemo ensureFooMethodRemoved.
+	phlowDemo ensureBazMethodRemoved.
+	anInspector := self addFooViewMethod.
+	aClass := phlowDemo demoSubClass.
+	anInstance := aClass new.
+	anInspector spawnInitial: anInstance.
+	aFirstPagerPageModel := anInspector pager pages first.
+	aFirstPageContentElement := aFirstPagerPageModel widget childNamed: anInspector contentIdentificator.
+	aFirstBrTabGroup := self utility compositeViewElementInPagerPageModel: aFirstPagerPageModel.
+	aFirstTabbar := aFirstBrTabGroup childNamed: #tabbar.
+	aFirstTabs := aFirstTabbar children asArray.
+	self assert: anInspector taskQueue tasks size equals: 0.
+	self assert: aFirstBrTabGroup taskQueue tasks size equals: 0.
+	"System change that should reflected in the Inspector"
+	phlowDemo compileFooMethodVersionTwo.
+	aSecondPagerPageModel := anInspector pager pages first.
+	aSecondPageContentElement := aSecondPagerPageModel widget childNamed: anInspector contentIdentificator.
+	aSecondBrTabGroup := self utility compositeViewElementInPagerPageModel: aSecondPagerPageModel.
+	"There is a change ready to do."
+	self assert: anInspector taskQueue tasks size equals: 0.
+	self assert: aSecondBrTabGroup taskQueue tasks size equals: 2.
+	"The updated is not done yet. It will happen when the Inspector appears in a Space"
+	self assert: aFirstPageContentElement equals: aSecondPageContentElement.
+	self assert: aFirstPagerPageModel widget equals: aSecondPagerPageModel widget.
+	self assert: aFirstBrTabGroup equals: aSecondBrTabGroup.
+
+	"Let's reinforce the changes"
+	aTaskOne := aSecondBrTabGroup taskQueue tasks first.
+	aTaskOne action value.
+	aTaskTwo := aSecondBrTabGroup taskQueue tasks second.
+	aTaskTwo action value.
+	"And let's remove the task"
+	aSecondBrTabGroup dequeueTask: aTaskOne.
+	aSecondBrTabGroup dequeueTask: aTaskTwo.
+	self assert: aSecondBrTabGroup taskQueue tasks size equals: 0.
+	aSecondPageContentElement := anInspector pager pages first widget childNamed: anInspector contentIdentificator.
+	self assert: aFirstPageContentElement equals: aSecondPageContentElement.
+	self assert: aFirstBrTabGroup equals: aSecondBrTabGroup.
+	"Let's check the first extension (tab)"
+	aSecondTabbar := aSecondBrTabGroup childNamed: #tabbar.
+	aSecondTabs := aSecondTabbar children asArray.
+	self assert: aFirstTabbar equals: aSecondTabbar.
+	self assert: aFirstTabs size equals: aSecondTabs size.
+	self assert: aFirstTabs first ~= aSecondTabs first.
+	self assert: aFirstTabs second equals: aSecondTabs second.
+
+	^ anInspector
+]
+
 { #category : #examples }
 GtInspectorExamples >> viewWithViewsForObject [
 	<gtExample>
