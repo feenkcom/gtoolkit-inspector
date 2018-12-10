@@ -109,22 +109,37 @@ GtInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
 								sourceElement: tab) ] ]
 ]
 
+{ #category : #actions }
+GtInspectorPageViewUpdater >> remove [
+	| aBrTabGroup |
+	"Find a composite element"
+	aBrTabGroup := self compositeViewElement.
+	"Find existing view (that should be updated, if any)"
+	aBrTabGroup phlow entity views 
+		detect: [ :eachView | eachView definingMethod = self viewMethodDefinition ] 
+		ifFound: [ :aGtPhlowView | self removeView: aGtPhlowView inTabGroup: aBrTabGroup ] 
+		ifNone: [ "ignore" ]
+]
+
 { #category : #private }
 GtInspectorPageViewUpdater >> removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup [ 
 	aBrTabGroup viewModel tabs 
-		detect: [ :eachTabModel | eachTabModel widget phlow entity = aGtPhlowView ]
+		detect: [ :eachTabModel | (eachTabModel widget phlow entity = aGtPhlowView)
+			or: [ eachTabModel widget phlow entity definingMethod = aGtPhlowView definingMethod ] ]
 		ifFound: [ :aTabModel | 
 			isSelected := aTabModel isSelected.
 			aBrTabGroup viewModel removeTab: aTabModel ]
-		ifNone: [ self error: 'Trying to remove a tab that does not exist' ].
-	
+		ifNone: [ self flag: 'Trying to remove a tab that does not exist' ].
 ]
 
 { #category : #private }
 GtInspectorPageViewUpdater >> removeView: aGtPhlowView fromCompositeView: aGtPhlowCompositeView [ 
 	aGtPhlowCompositeView views 
 		remove: aGtPhlowView 
-		ifAbsent: [ self error: 'Trying to remove a Phlow view from a compisite view that does not include it' ].
+		ifAbsent: [ aGtPhlowCompositeView views 
+			detect: [ :eachPhlow | eachPhlow definingMethod = aGtPhlowView definingMethod ] 
+			ifFound: [ :aPhlow | aGtPhlowCompositeView views remove: aPhlow ] 
+			ifNone: [ self error: 'Trying to remove a Phlow view that does not exist in a composite view' ] ].
 	
 ]
 

@@ -64,10 +64,9 @@ GtInspectorSystemChangesHandler >> handleMethodRemovedAnnouncement: aMethodRemov
 		self doesClass: eachClass isOrInheritsFrom: aMethodRemoved classAffected ]) 
 			ifFalse: [ ^ self ].
 	(self isPhlowView: aMethodRemoved methodAffected) ifTrue: [ 
-		self flag: #todo
-		"^ self 
-			updatePageViewForClass: aMethodModified classAffected
-			andMethod: aMethodModified methodAffected" ].
+		^ self 
+			removePageViewForClass: aMethodRemoved classAffected
+			andMethod: aMethodRemoved methodAffected ].
 	self updatePagesWithClass: aMethodRemoved classAffected.
 ]
 
@@ -94,6 +93,17 @@ GtInspectorSystemChangesHandler >> isPhlowView: aCompiledMethod [
 { #category : #testing }
 GtInspectorSystemChangesHandler >> isSubscribedToSystem [
 	^ isSubscribedToSystem
+]
+
+{ #category : #updating }
+GtInspectorSystemChangesHandler >> removePageViewForClass: aClass andMethod: aCompiledMethod [ 
+	inspector pager pages do: [ :eachPage | 
+		(self doesPage: eachPage displayClass: aClass) ifTrue: [ 
+			GtInspectorPageViewUpdater new
+				inspectorWidget: inspector;
+				pagerPageModel: eachPage;
+				viewMethodDefinition: aCompiledMethod asRingDefinition;
+				remove ] ]
 ]
 
 { #category : #subscriptions }
