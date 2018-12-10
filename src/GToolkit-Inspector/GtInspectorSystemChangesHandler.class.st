@@ -1,5 +1,5 @@
 Class {
-	#name : #GtInspectorSystemChangesListener,
+	#name : #GtInspectorSystemChangesHandler,
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #adding }
-GtInspectorSystemChangesListener >> addClass: aClass [
+GtInspectorSystemChangesHandler >> addClass: aClass [
 	self 
 		assert: [ aClass notNil ]
 		description: [ 'Observed class must be non-nil' ].
@@ -21,25 +21,25 @@ GtInspectorSystemChangesListener >> addClass: aClass [
 ]
 
 { #category : #accessing }
-GtInspectorSystemChangesListener >> classes [
+GtInspectorSystemChangesHandler >> classes [
 	^ classes
 ]
 
 { #category : #testing }
-GtInspectorSystemChangesListener >> doesClass: anAffectedClass isOrInheritsFrom: aClass [
+GtInspectorSystemChangesHandler >> doesClass: anAffectedClass isOrInheritsFrom: aClass [
 	<return: #Boolean>
 	^ anAffectedClass = aClass or: [ anAffectedClass inheritsFrom: aClass ]
 ]
 
 { #category : #testing }
-GtInspectorSystemChangesListener >> doesPage: aBrPagerPageModel displayClass: aClass [ 
+GtInspectorSystemChangesHandler >> doesPage: aBrPagerPageModel displayClass: aClass [ 
 	^ self 
 		doesClass: aBrPagerPageModel model class instanceSide
 		isOrInheritsFrom: aClass
 ]
 
 { #category : #'announcement handling' }
-GtInspectorSystemChangesListener >> handleClassAnnouncement: aClassAnnouncement [ 
+GtInspectorSystemChangesHandler >> handleClassAnnouncement: aClassAnnouncement [ 
 	(self classes anySatisfy: [ :eachClass |
 		self doesClass: eachClass isOrInheritsFrom: aClassAnnouncement classAffected ]) 
 			ifFalse: [ ^ self ].
@@ -47,15 +47,19 @@ GtInspectorSystemChangesListener >> handleClassAnnouncement: aClassAnnouncement 
 ]
 
 { #category : #'announcement handling' }
-GtInspectorSystemChangesListener >> handleMethodAnnouncement: aMethodModified [ 
+GtInspectorSystemChangesHandler >> handleMethodAnnouncement: aMethodModified [ 
 	(self classes anySatisfy: [ :eachClass | 
 		self doesClass: eachClass isOrInheritsFrom: aMethodModified classAffected ]) 
 			ifFalse: [ ^ self ].
+	(self isPhlowView: aMethodModified methodAffected) ifTrue: [ 
+		^ self 
+			updatePageViewForClass: aMethodModified classAffected
+			andMethod: aMethodModified methodAffected ].
 	self updatePagesWithClass: aMethodModified classAffected.
 ]
 
 { #category : #initialization }
-GtInspectorSystemChangesListener >> initialize [
+GtInspectorSystemChangesHandler >> initialize [
 	super initialize.
 	classes := OrderedCollection new.
 	isSubscribedToSystem := false.
@@ -63,17 +67,24 @@ GtInspectorSystemChangesListener >> initialize [
 ]
 
 { #category : #accessing }
-GtInspectorSystemChangesListener >> inspector: anObject [
+GtInspectorSystemChangesHandler >> inspector: anObject [
 	inspector := anObject
 ]
 
 { #category : #testing }
-GtInspectorSystemChangesListener >> isSubscribedToSystem [
+GtInspectorSystemChangesHandler >> isPhlowView: aCompiledMethod [ 
+	<return: #Boolean>
+	^ aCompiledMethod pragmas anySatisfy: [ :eachPragma | 
+		GtPhlowViewsCollector defaultViewPragmaNames includes: eachPragma selector ]
+]
+
+{ #category : #testing }
+GtInspectorSystemChangesHandler >> isSubscribedToSystem [
 	^ isSubscribedToSystem
 ]
 
 { #category : #subscriptions }
-GtInspectorSystemChangesListener >> subscribeToSystem [
+GtInspectorSystemChangesHandler >> subscribeToSystem [
 	self isSubscribedToSystem ifTrue: [ ^ self ].
 	SystemAnnouncer uniqueInstance weak 
 		subscribe: ClassAnnouncement 
@@ -87,14 +98,25 @@ GtInspectorSystemChangesListener >> subscribeToSystem [
 ]
 
 { #category : #subscriptions }
-GtInspectorSystemChangesListener >> unsubscribeFromSystem [
+GtInspectorSystemChangesHandler >> unsubscribeFromSystem [
 	self isSubscribedToSystem ifFalse: [ ^ self ].
 	SystemAnnouncer uniqueInstance unsubscribe: self.
 	isSubscribedToSystem := false.
 ]
 
 { #category : #updating }
-GtInspectorSystemChangesListener >> updatePagesWithClass: aClass [ 
+GtInspectorSystemChangesHandler >> updatePageViewForClass: aClass andMethod: aCompiledMethod [ 
+	inspector pager pages do: [ :eachPage | 
+		(self doesPage: eachPage displayClass: aClass) ifTrue: [ 
+			GtInspectorPageViewUpdater new
+				inspectorWidget: inspector;
+				pagerPageModel: eachPage;
+				viewMethodDefinition: aCompiledMethod asRingDefinition;
+				update ] ]
+]
+
+{ #category : #updating }
+GtInspectorSystemChangesHandler >> updatePagesWithClass: aClass [ 
 	inspector pager pages do: [ :eachPage | 
 		(self doesPage: eachPage displayClass: aClass) 
 			ifTrue: [ inspector enqueueTask: (
