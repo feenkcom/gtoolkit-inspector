@@ -58,6 +58,19 @@ GtInspectorSystemChangesHandler >> handleMethodAnnouncement: aMethodModified [
 	self updatePagesWithClass: aMethodModified classAffected.
 ]
 
+{ #category : #'announcement handling' }
+GtInspectorSystemChangesHandler >> handleMethodRemovedAnnouncement: aMethodRemoved [ 
+	(self classes anySatisfy: [ :eachClass | 
+		self doesClass: eachClass isOrInheritsFrom: aMethodRemoved classAffected ]) 
+			ifFalse: [ ^ self ].
+	(self isPhlowView: aMethodRemoved methodAffected) ifTrue: [ 
+		self flag: #todo
+		"^ self 
+			updatePageViewForClass: aMethodModified classAffected
+			andMethod: aMethodModified methodAffected" ].
+	self updatePagesWithClass: aMethodRemoved classAffected.
+]
+
 { #category : #initialization }
 GtInspectorSystemChangesHandler >> initialize [
 	super initialize.
@@ -91,8 +104,12 @@ GtInspectorSystemChangesHandler >> subscribeToSystem [
 		send: #handleClassAnnouncement:
 		to: self.
 	SystemAnnouncer uniqueInstance weak 
-		subscribe: MethodAnnouncement 
+		subscribe: MethodAnnouncement - MethodRemoved
 		send: #handleMethodAnnouncement:
+		to: self.
+	SystemAnnouncer uniqueInstance weak 
+		subscribe: MethodRemoved
+		send: #handleMethodRemovedAnnouncement:
 		to: self.
 	isSubscribedToSystem := true.
 ]
