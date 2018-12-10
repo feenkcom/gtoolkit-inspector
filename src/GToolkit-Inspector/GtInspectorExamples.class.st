@@ -14,6 +14,7 @@ GtInspectorExamples >> addFooViewMethod [
 	<gtExample>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
 	phlowDemo ensureFooMethodRemoved.
+	phlowDemo emptyViewMethodDefinition.
 	anInspector := self basicInspector.
 	aClass := phlowDemo demoSubClass.
 	anInstance := aClass new.

@@ -13,9 +13,27 @@ Class {
 }
 
 { #category : #private }
-GtInspectorPageViewUpdater >> addView: aGtPhlowView at: anInteger toTabGroup: aBrTabGroup [ 
-	| aBrTab |
+GtInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompositeView [ 
+	| aHigherViewIndexOrNil |
+	aHigherViewIndexOrNil := aGtPhlowCompositeView views 
+		detectIndex: [ :existingView | existingView priority > aPhlowView priority ]
+		ifNone: [ nil ].
+	aHigherViewIndexOrNil 
+		ifNil: [ 
+			aGtPhlowCompositeView views addLast: aPhlowView ]
+		ifNotNil: [ 
+			aGtPhlowCompositeView views add: aPhlowView beforeIndex: aHigherViewIndexOrNil ].
+]
+
+{ #category : #private }
+GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
+	| aBrTab anIndex aTabViews |
 	aBrTab := BrTab new.
+	aTabViews := aBrTabGroup phlow allChildrenWithView
+		collect: [ :eachTab | eachTab phlow entity ].
+	anIndex := self utility
+		detectPhlowIndex: aGtPhlowView
+		byPriorityIn: aTabViews.
 	self registerShowDefinitionEventOn: aBrTab forView: aGtPhlowView.
 	aBrTab phlow
 		beView;
@@ -25,41 +43,30 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView at: anInteger toTabGroup: aB
 		label: aGtPhlowView title;
 		stencil: [ aGtPhlowView asTaskItView
 				asElementDo: [ :element | 
-					element phlow beViewContent; entity: aGtPhlowView.
+					element phlow
+						beViewContent;
+						entity: aGtPhlowView.
 					element asScrollableElement ] ];
 		actionsStencil: (aGtPhlowView actionsToolbarForElement: aBrTab).
 	isSelected ifNotNil: [ aBrTab viewModel selected: isSelected ].
-	aBrTabGroup addTab: aBrTab at: anInteger
+	aBrTabGroup addTab: aBrTab at: anIndex
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompositeView [ 
-	<return: #Integer>
-	"Return a view position in composite view"
-	| aHigherViewIndexOrNil |
-	aHigherViewIndexOrNil := aGtPhlowCompositeView views 
-		detectIndex: [ :existingView | existingView priority > aPhlowView priority ]
-		ifNone: [ nil ].
-	^ aHigherViewIndexOrNil 
-		ifNil: [ 
-			aGtPhlowCompositeView views addLast: aPhlowView.
-			aGtPhlowCompositeView views size ]
-		ifNotNil: [ 
-			aGtPhlowCompositeView views add: aPhlowView beforeIndex: aHigherViewIndexOrNil.
-			aHigherViewIndexOrNil ].
-]
-
-{ #category : #private }
-GtInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [ 
-	aBrTabGroup enqueueTask: (BlTaskAction new action: [ 
-		| aPhlowView |
-		aPhlowView := GtPhlowView empty 
-			on: self pagerPageModel model 
-			perform: self viewMethodDefinition selector.
-		aPhlowView ifItHasContent: [
-			| anIndex |
-			anIndex := self addView: aPhlowView toCompositeView: aBrTabGroup phlow entity.	
-			self addView: aPhlowView at: anIndex toTabGroup: aBrTabGroup ] ])
+GtInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [
+	aBrTabGroup
+		enqueueTask:
+			(BlTaskAction new
+				action: [ | aPhlowView |
+					aPhlowView := GtPhlowView empty
+						on: self pagerPageModel model
+						perform: self viewMethodDefinition selector.
+					aPhlowView
+						ifItHasContent: [ 
+							self
+								addView: aPhlowView
+								toCompositeView: aBrTabGroup phlow entity.
+							self addView: aPhlowView toTabGroup: aBrTabGroup ] ])
 ]
 
 { #category : #private }
