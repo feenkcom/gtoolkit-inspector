@@ -87,7 +87,9 @@ GtExample >> gtCoderSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		stencil: [ (GtMethodCoder forExample: self) expanded: true ]
+		stencil: [ (GtMethodCoder forExample: self) expanded: true ];
+		actionButtonIcon: BrGlamorousIcons browse 
+			action: [ self method browse ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -131,32 +133,6 @@ GtExample >> gtProblemsFor: aView [
 	self hasProblems ifFalse: [ ^ aView empty ].
 	^ (self problems gtItemsFor: aView)
 			title: 'Problems'
-]
-
-{ #category : #'*GToolkit-Inspector' }
-GtExample >> gtSourceFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Source';
-		priority: 10;
-		stencil: [ 
-			| text styler editor editorElement |
-			text := self method sourceCode asRopedText.
-			text attributes: { BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler . (BlFontSizeAttribute new size: 14) beNotOverwritableByStyler}.
-			styler := GtExamplesStyler new classOrMetaClass: self methodClass.
-			editor := BrTextEditor new.
-			editor styler: styler.
-			editor text: text.
-			editorElement := BrEditorElement new.
-			editorElement constraintsDo: [ :c |
-			    c horizontal matchParent.
-			    c vertical matchParent ].
-			editorElement editor: editor ];
-		actionStencil: [ BrButton new 
-			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
-			icon: BrGlamorousIcons browse asElement ;
-			action: [ self method browse ] 
-		]
 ]
 
 { #category : #'*GToolkit-Inspector' }
