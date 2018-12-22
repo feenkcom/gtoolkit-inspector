@@ -19,7 +19,7 @@ ZipFileMember >> gtFigureFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-ZipFileMember >> gtRawJsonFor: aView [
+ZipFileMember >> gtJsonFor: aView [
 	<gtView>
 	( self fileName endsWith: '.json' ) ifFalse:  [ ^ aView empty ].
 	^ aView textEditor
