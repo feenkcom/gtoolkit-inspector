@@ -86,40 +86,48 @@ FileReference >> gtFigureFor: aView [
 { #category : #'*GToolkit-Inspector' }
 FileReference >> gtItemsFor: aView [
 	<gtView>
-	self isDirectory ifFalse: [ ^ aView empty ].
+	self isDirectory
+		ifFalse: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
-		items: [
-			| children |
-			children := self directories, self files.
-			children := self isRoot 
+		items: [ | children |
+			children := self directories , self files.
+			children := self isRoot
 				ifTrue: [ children ]
-				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ].
+				ifFalse: [ children asOrderedCollection
+						addFirst: self parent;
+						yourself ].
 			children ];
-		column: 'Icon' translated do: [:column |
-			column 
-				item: [ :each |
-					each isDirectory 
-						ifTrue: [ BrGlamorousIcons folder ] 
+		column: 'Icon' translated
+			do: [ :column | 
+			column
+				item: [ :each | 
+					each isDirectory
+						ifTrue: [ BrGlamorousIcons folder ]
 						ifFalse: [ BrGlamorousIcons file ] ];
-				stencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
+				rowStencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
 				noResize ];
-		column: 'Name' translated do: [ :column |
-			column 
-				item: [ :each |
-					(self isChildOf: each) 
+		column: 'Name' translated
+			do: [ :column | 
+			column
+				item: [ :each | 
+					(self isChildOf: each)
 						ifTrue: [ '..' ]
 						ifFalse: [ each basename asString ] ];
 				matchParent ];
-		column: 'Size' translated do: [ :column |
-			column item: [ :each | each humanReadableSize asString ] ];
-		column: 'Creation' translated do: [:column |
-			column item: [ :each |
-				String streamContents: [:s | 
-					each creationTime printYMDOn: s.
-					s nextPut: Character space.
-					each creationTime printHMSOn: s ] ] ]
+		column: 'Size' translated
+			do:
+				[ :column | column item: [ :each | each humanReadableSize asString ] ];
+		column: 'Creation' translated
+			do: [ :column | 
+			column
+				item: [ :each | 
+					String
+						streamContents: [ :s | 
+							each creationTime printYMDOn: s.
+							s nextPut: Character space.
+							each creationTime printHMSOn: s ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
