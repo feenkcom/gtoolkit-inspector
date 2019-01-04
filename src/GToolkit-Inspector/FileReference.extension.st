@@ -138,14 +138,9 @@ FileReference >> gtPharoScriptFor: aView [
 		title: 'Script';
 		priority: 10;
 		stencil: [ 
-			GtPharoSnippet new 
+			GtCoderSnippet new 
 				sourceCode: (self readStreamDo: [ :s | s contents ]);
 				asElement ]
-		"act: [ :text |
-			self ensureDelete; writeStreamDo: [ :s | s nextPutAll: text text asString ] ]
-			icon: GLMUIThemeExtraIcons glamorousSave
-			on: $s
-			entitled: 'Save'"
 ]
 
 { #category : #'*GToolkit-Inspector' }
