@@ -55,7 +55,7 @@ Object >> gtRawFor: aView [
 						on: Error 
 						do: [ :error | self iconNamed: #smallWarningIcon ]).
 					icon asElement 
-						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ];
+						margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0 ) ];
 				noResize ];
 		column: 'Variable' do: [:aColumn |
 			aColumn 
