@@ -55,9 +55,8 @@ Object >> gtRawFor: aView [
 						on: Error 
 						do: [ :error | self iconNamed: #smallWarningIcon ]).
 					icon asElement 
-						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 );
-						constraintsDo: [:c | c vertical fitContent. c horizontal fitContent ] ];
-				fitContent ];
+						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ];
+				noResize ];
 		column: 'Variable' do: [:aColumn |
 			aColumn 
 				itemFormat: [ :aNode | aNode label asRopedText ];
