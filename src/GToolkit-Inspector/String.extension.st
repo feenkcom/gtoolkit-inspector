@@ -6,5 +6,9 @@ String >> gtStringFor: aView [
 	^ aView textEditor
 		title: 'String';
 		priority: 9;
-		text: [ self asRopedText ]
+		text: [ 
+			self asRopedText 
+				weight: 400;
+				fontName: 'Source Sans Pro';
+				fontSize: 14 ]
 ]
