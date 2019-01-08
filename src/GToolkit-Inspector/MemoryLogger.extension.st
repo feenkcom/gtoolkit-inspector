@@ -8,11 +8,11 @@ MemoryLogger >> gtGroupedFor: aView [
 		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
 		column: 'Class' do: [ :aColumn |
 			aColumn
-				item: [ :each | BlTextElement new width: 200; text: each key asRopedText ];
+				item: [ :each | each key asString ];
 				matchParent ];
 		column: 'Instances' do: [ :aColumn |
 			aColumn
-				item: [ :each | BlTextElement new width: 200; text: each value size asString asRopedText ];
+				item: [ :each | each value size asString  ];
 				matchParent ]
 ]
 
