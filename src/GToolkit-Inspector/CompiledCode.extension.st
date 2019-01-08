@@ -6,7 +6,7 @@ CompiledCode >> gtBytecodeFor: aView [
 	^ aView list
 		title: 'Bytecode' translated;
 		items: [ self symbolicBytecodes ];
-		itemElement: [ :each | 
+		itemStencil: [ :each | 
 			(BrListLabelStencil matchParent: each printString asRopedText) asElement ]
 ]
 

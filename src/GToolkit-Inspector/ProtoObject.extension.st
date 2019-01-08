@@ -61,7 +61,9 @@ ProtoObject >> gtViewsFor: aView inContext: aContext [
 	resultingView := ((aView composite
 		views: (self gtViewsInContext: aContext))
 		labelled: title).
-	self gtActions do: [ :action | resultingView addPhlowAction: action. ].
+	self gtActions do: [ :action | 
+		action isDefaultTarget ifTrue: [ 
+			resultingView addPhlowAction: action ] ].
 	^ resultingView
 ]
 
