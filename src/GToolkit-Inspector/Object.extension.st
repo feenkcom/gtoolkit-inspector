@@ -67,5 +67,6 @@ Object >> gtRawFor: aView [
 					[ aNode rawValue gtDisplayString asRopedText ] 
 						on: Error 
 						do: [ aNode errorMessage asRopedText foreground: Color red ] ];
-			matchParent ]
+			matchParent ];
+		send: #value
 ]
