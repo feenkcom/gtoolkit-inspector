@@ -155,11 +155,12 @@ GtInspectorPageViewUpdater >> update [
 	| aTabGroup |
 	"Find a composite element"
 	aTabGroup := self compositeViewElement.
+	aTabGroup ifNil: [ ^ self ].
 	"Find existing view (that should be updated, if any)"
 	aTabGroup phlow entity views 
 		detect: [ :eachView | eachView definingMethod = self viewMethodDefinition ] 
 		ifFound: [ :aView | self updateView: aView inTabGroup: aTabGroup ] 
-		ifNone: [ self addViewInTabGroup: aTabGroup ]
+		ifNone: [ self addViewInTabGroup: aTabGroup ] 
 ]
 
 { #category : #private }
