@@ -28,6 +28,7 @@ GtInspectorSystemChangesHandler >> classes [
 { #category : #testing }
 GtInspectorSystemChangesHandler >> doesClass: anAffectedClass isOrInheritsFrom: aClass [
 	<return: #Boolean>
+	(aClass = Object or: [ aClass = ProtoObject ]) ifTrue: [ ^ false ].
 	^ anAffectedClass = aClass or: [ anAffectedClass inheritsFrom: aClass ]
 ]
 
