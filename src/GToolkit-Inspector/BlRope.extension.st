@@ -3,11 +3,7 @@ Extension { #name : #BlRope }
 { #category : #'*GToolkit-Inspector' }
 BlRope >> gtTreeFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView mondrian
 		title: 'Tree';
-		stencil: [ 
-			| mondrian |
-			mondrian := GtMondrian new.
-			self paintTreeWith: mondrian.
-			mondrian asPannableElement ]
+		painting: [ :mondrian| self paintTreeWith: mondrian ]
 ]

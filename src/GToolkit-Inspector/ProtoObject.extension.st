@@ -46,18 +46,22 @@ ProtoObject >> gtViewsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView inContext: aContext [
-	| className title displayText resultingView |
+	| className title displayText resultingView header |
 	className := self class name.
+	header := (className first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]), className.
 	displayText := [ (String streamContents: [ :stream | self gtDisplayOn: stream ]) asRopedText ]
 			on: Error 
 			do: [ :e | 'Error printing' asRopedText foreground: Color red ].
-	title := String streamContents: [ :stream |
-		stream
-			nextPutAll: (className first isVowel ifTrue: ['an '] ifFalse: ['a ']);
-			nextPutAll: className;
-			nextPutAll: ' (';
-			nextPutAll: displayText;
-			nextPutAll: ')' ].
+	title := (displayText asString beginsWith: header) 
+		ifTrue: [ displayText ]
+		ifFalse: [ 
+			String streamContents: [ :stream |
+				stream
+					nextPutAll: (className first isVowel ifTrue: ['an '] ifFalse: ['a ']);
+					nextPutAll: className;
+					nextPutAll: ' (';
+					nextPutAll: displayText;
+					nextPutAll: ')' ] ].
 	resultingView := ((aView composite
 		views: (self gtViewsInContext: aContext))
 		labelled: title).
