@@ -241,8 +241,11 @@ GtInspectorExamples >> viewsOfSampleA [
 { #category : #examples }
 GtInspectorExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
-	| inspector compositeViewElement |
-	inspector := GtInspector on: self class.
-	inspector phlow firstChildWithCompositeViewDo: [ :c |
-		c halt ]
+	| views elements |
+	views := GtInspectorSampleSubclassOfA new gtViewsInContext: nil.
+	self assert: views size equals: 1.
+	elements := OrderedCollection new.
+	views do: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
+	self assert: elements isEmpty.
+	^ views
 ]
