@@ -144,6 +144,24 @@ GtInspectorExamples >> initialize [
 	phlowDemo := GtPhlowDemoDefinitionsExamples new.
 ]
 
+{ #category : #examples }
+GtInspectorExamples >> labelViewOfSampleA [
+	<gtExample>
+	| labelView |
+	labelView := self gtViewsFor: GtPhlowEmptyView new..
+	self assert: labelView label asString = self printString.
+	^ labelView 
+]
+
+{ #category : #examples }
+GtInspectorExamples >> labelViewOfSmallInteger [
+	<gtExample>
+	| labelView |
+	labelView := 42 gtViewsFor: GtPhlowEmptyView new..
+	self assert: labelView label asString = 'a SmallInteger (42)'.
+	^ labelView 
+]
+
 { #category : #updating }
 GtInspectorExamples >> updateFooViewMethod [
 	<gtExample>
