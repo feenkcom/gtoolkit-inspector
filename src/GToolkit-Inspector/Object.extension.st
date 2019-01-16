@@ -23,7 +23,7 @@ Object >> gtInspectorForGtIn: composite [
 { #category : #'*GToolkit-Inspector' }
 Object >> gtLiveFor: aView [
 	"I am a utility method that can be useful for polymorphic purposes"
-	self gtPrintFor: aView
+	^ self gtPrintFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
