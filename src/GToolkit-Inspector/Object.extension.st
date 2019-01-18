@@ -65,7 +65,7 @@ Object >> gtRawFor: aView [
 			aColumn 
 				itemFormat: [ :aNode |
 					[ aNode rawValue gtDisplayString asRopedText ] 
-						on: Error 
+						on: Error, Halt
 						do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 			matchParent ];
 		send: #value

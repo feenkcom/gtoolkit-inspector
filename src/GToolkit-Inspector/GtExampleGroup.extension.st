@@ -3,9 +3,10 @@ Extension { #name : #GtExampleGroup }
 { #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Examples';
 		priority: 10;
+		items: [ self examples ];
 		actionStencil: [ :tab |
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
@@ -18,17 +19,10 @@ GtExampleGroup >> gtExamplesFor: aView [
 						allChildrenBreadthFirstDetect: [ :aChild | aChild phlow isViewContent ] 
 						ifFound: [ :aList | aList children first dataSource notifyChanged ] 
 						ifNone: [self error: 'I should have found a view content element, but I did not.']  ] ];
-		stencil: [ | theExamples aList |
-			theExamples := self examples.
-			aList := BrColumnedList new display: theExamples.
-			aList padding: (BlInsets all: 10).
-			aList addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :each | 
-				(each isKindOf: GtExampleWithResult)
-					ifTrue: [ each example ]
-					ifFalse: [ each ] ]).
-			aList column
-				title: 'Icon' translated;
-				stencil: [ :eachExample :anIndex | | anElement |
+		column: 'Icon' translated do: [:aColumn |
+			aColumn
+				itemStencil: [ :eachExample :anIndex | 
+					| anElement |
 					anElement := eachExample icon asElement.
 					anElement
 						constraintsDo: [ :c | 
@@ -37,24 +31,20 @@ GtExampleGroup >> gtExamplesFor: aView [
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ].
-			aList column
-				title: 'Class' translated;
-				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample example methodClass name) asElement
-						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
-			aList column
-				title: 'Selector' translated;
-				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample example selector asString) asElement
-						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
-			aList column
-				title: 'Result' translated;
-				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample resultOrErrorName) asElement
-						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
-			aList
-			]
+							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ] ;
+				noResize];
+		column: 'Class' translated do: [:aColumn | 
+			aColumn 
+				item: [ :eachExample :anIndex |  eachExample example methodClass name ];
+				matchParent];
+		column: 'Selector' translated do: [ :aColumn |
+			aColumn 
+				item: [ :eachExample :anIndex | eachExample example selector asString ];
+				matchParent ];
+		column: 'Result' translated do: [:aColumn |
+			aColumn 
+				item: [ :eachExample :anIndex | eachExample resultOrErrorName ];
+				matchParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
