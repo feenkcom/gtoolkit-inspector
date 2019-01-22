@@ -6,3 +6,11 @@ Context >> gtSourceFor: aView [
 	self method ifNil: [ ^ aView empty ].
 	^ self method gtSourceFor: aView
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Context >> gtStackFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Stack';
+		items: [self stack]
+]
