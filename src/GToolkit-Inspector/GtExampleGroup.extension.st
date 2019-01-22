@@ -26,12 +26,13 @@ GtExampleGroup >> gtExamplesFor: aView [
 					anElement := eachExample icon asElement.
 					anElement
 						constraintsDo: [ :c | 
-							c padding: (BlInsets top: 2) ];
+							c padding: (BlInsets top: 3 bottom: 3).
+							c margin: (BlInsets top: 3 bottom: 3) ];
 						when: BlClickEvent do: [ :anEvent | 
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ] ;
+							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ];
 				noResize];
 		column: 'Class' translated do: [:aColumn | 
 			aColumn 
