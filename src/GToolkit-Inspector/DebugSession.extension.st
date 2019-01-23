@@ -22,22 +22,52 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-DebugSession >> gtViewSuspendedContextFor: aView [
+DebugSession >> gtViewInterruptedStackFor: aView [
+	<gtView>
+	(self interruptedProcess isNil or: [ 
+		self interruptedProcess isSuspended not or: [ 
+			self interruptedContext isNil ] ]) ifTrue: [ ^ aView ].
+	^ aView explicit
+		title: 'Interrupted stack' translated;
+		priority: 108;
+		stencil: [ 
+			| stack methodCodersStencil |
+			self flag: 'Replace me with an implementation for a group of contexts!'.
+			stack := self interruptedContext stack.
+			methodCodersStencil := GtMethodsCoder forMethods: (stack collect: #method).
+			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
+				|  pcRange |
+				pcRange := self pcRangeForContext: (stack at: index).
+				methodCoder ensureBuilt.
+				(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
+					BlTextUnderlineAttribute new
+						paint: BrGlamorousColors errorBackgroundColor;
+						beNotOverwritableByStyler } ].
+			methodCodersStencil coders first expanded: true.
+			methodCodersStencil ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+DebugSession >> gtViewSuspendedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil or: [ 
 		self interruptedProcess isSuspended not ]) ifTrue: [ ^ aView ].
 	^ aView explicit
-		title: 'Suspended context';
-		priority: 106;
+		title: 'Suspended stack' translated;
+		priority: 108;
 		stencil: [ 
-			| methodCoder pcRange |
-			methodCoder := (GtMethodCoder forMethod: self interruptedProcess suspendedContext method) 
-				expanded: true;
-				ensureBuilt.
-			pcRange := self pcRangeForContext: self interruptedProcess suspendedContext.
-			(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
-				BlTextUnderlineAttribute new
-					paint: BrGlamorousColors errorBackgroundColor;
-					beNotOverwritableByStyler }.
-			methodCoder asElement ]
+			| stack methodCodersStencil |
+			self flag: 'Replace me with an implementation for a group of contexts!'.
+			stack := self interruptedProcess suspendedContext stack.
+			methodCodersStencil := GtMethodsCoder forMethods: (stack collect: #method).
+			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
+				|  pcRange |
+				pcRange := self pcRangeForContext: (stack at: index).
+				methodCoder ensureBuilt.
+				(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
+					BlTextUnderlineAttribute new
+						paint: BrGlamorousColors errorBackgroundColor;
+						beNotOverwritableByStyler } ].
+			methodCodersStencil coders first expanded: true.
+			methodCodersStencil ]
 ]
