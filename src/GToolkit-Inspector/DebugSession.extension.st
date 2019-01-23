@@ -48,6 +48,25 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+DebugSession >> gtViewLiveDebuggerFor: aView [
+	<gtView>
+	(self interruptedProcess isNil or: [ 
+		self interruptedProcess isSuspended not or: [ 
+			self interruptedContext isNil ] ]) ifTrue: [ ^ aView ].
+	^ aView explicit
+		title: 'Live debugger' translated;
+		priority: 150;
+		stencil: [ 
+			| debuggerElement |
+			debuggerElement := GtExpandableDebuggerElement new.
+			debuggerElement constraintsDo: [ :c |
+				c horizontal matchParent.
+				c vertical matchParent ].
+			debuggerElement session: self.
+			debuggerElement ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 DebugSession >> gtViewSuspendedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil or: [ 
