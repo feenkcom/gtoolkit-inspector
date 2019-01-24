@@ -27,5 +27,5 @@ ZipFileMember >> gtJsonFor: aView [
 		priority: 10;
 		text: [ 
 			STONJSON toStringPretty: (
-				STONJSON fromString: self contents). ]
+				STONJSON fromString: self gtContents). ]
 ]

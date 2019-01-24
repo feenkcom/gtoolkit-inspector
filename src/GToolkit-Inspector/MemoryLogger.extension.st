@@ -3,45 +3,40 @@ Extension { #name : #MemoryLogger }
 { #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtGroupedFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Grouped';
-		stencil: [ 
-			| list |
-			list := BrColumnedList new display: (self recordings reverse groupedBy: [ :each | each class ]) associations.
-			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :association | association value ]).
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list column
-				title: 'Class';
-				stencil: [ :each | BlTextElement new width: 200; text: each key asRopedText ].
-			list column 
-				title: 'Instances';
-				stencil: [ :each | BlTextElement new width: 200; text: each value size asString asRopedText ].
-			list ]
+		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
+		column: 'Class' do: [ :aColumn |
+			aColumn
+				item: [ :each | each key asString ];
+				matchParent ];
+		column: 'Instances' do: [ :aColumn |
+			aColumn
+				item: [ :each | each value size asString  ];
+				matchParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtRecordingsFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Recordings';
+	^ aView columnedList
+		title: 'Recordings' translated;
 		priority: 50;
-		stencil: [ 
-			| list |
-			list := BrColumnedList new display: self recordings reverse.
-			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :association | association value ]).
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list column
-				title: 'Timestamp';
-				stencil: [ :each | BlTextElement new width: 200; text: each timestamp asString asRopedText ].
-			list column 
-				title: 'Process';
-				stencil: [ :each | BlTextElement new width: 200; text: each processId asString asRopedText ].
-			list column
-				title: 'Type';
-				stencil: [ :each | BlTextElement new width: 200; text: each name asRopedText ].
-			list column
-				title: 'Contents';
-				stencil: [ :each | 
-					BlTextElement new text: (String streamContents: [ :s | each printOneLineContentsOn: s ]) asRopedText ].
-			list ]
+		items: [ self recordings reverse ];
+		column: 'Timestamp' translated do: [ :aColumn | 
+			aColumn 
+				item: [ :each | each timestamp asString ]; 
+				matchParent ];
+		column: 'Process' translated do: [ :aColumn | 
+			aColumn 
+				item: [ :each | each processId asString ]; 
+				matchParent ];
+		column: 'Type' translated do: [ :aColumn | 
+			aColumn 
+				item: [ :each | each name ]; 
+				matchParent ];
+		column: 'Contents' translated do: [ :aColumn | 
+			aColumn 
+				item: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]; 
+				matchParent ]
 ]

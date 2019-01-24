@@ -212,20 +212,14 @@ BlElement >> gtResizersFor: aView [
 BlElement >> gtShortcutsFor: aView [
 	<gtView>
 	self shortcuts ifEmpty: [ ^ aView empty ].
-	^ aView explicit 
+	^ aView columnedList 
 		title: 'Shortcuts' translated;
 		priority: 10;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: self shortcuts.
-			list column 
-				title: 'Key';
-				stencil: [ :each | BrListLabelStencil matchParent: each combination gtDisplayString ].
-			list column 
-				title: 'Action';
-				stencil: [ :each | BrListLabelStencil matchParent: each action asString ].
-			list
-			].
+		items: [ self shortcuts ];
+		column: 'Key' do: [:aColumn | 
+			aColumn item: [ :each | each combination gtDisplayString ]; matchParent ];
+		column: 'Action' do: [:aColumn |
+			aColumn item: [ :each | each action asString ]; matchParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

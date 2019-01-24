@@ -45,20 +45,14 @@ FileReference >> gtActionMaterializeXdFileFor: anAction [
 FileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
-	^ aView explicit
+	^ aView textEditor
 		title: 'Contents' translated;
 		priority: 50;
-		stencil: [ 
-			| contents |
-			contents := self binaryReadStreamDo: [ :stream | 
+		text: [ 
+			self binaryReadStreamDo: [ :stream | 
 				[stream contents ]
 					on: Error 
-					do: [ (stream next: 10000) asString ] ].
-			BrEditorElement new 
-				editor: (BrTextEditor new text: contents asRopedText);
-				constraintsDo: [ :c |
-				    c horizontal matchParent.
-				    c vertical matchParent ] ];
+					do: [ (stream next: 10000) asString ] ] ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
@@ -138,14 +132,9 @@ FileReference >> gtPharoScriptFor: aView [
 		title: 'Script';
 		priority: 10;
 		stencil: [ 
-			GtPharoSnippet new 
+			GtCoderSnippet new 
 				sourceCode: (self readStreamDo: [ :s | s contents ]);
 				asElement ]
-		"act: [ :text |
-			self ensureDelete; writeStreamDo: [ :s | s nextPutAll: text text asString ] ]
-			icon: GLMUIThemeExtraIcons glamorousSave
-			on: $s
-			entitled: 'Save'"
 ]
 
 { #category : #'*GToolkit-Inspector' }

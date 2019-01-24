@@ -5,18 +5,6 @@ Class {
 }
 
 { #category : #'world menu' }
-GtWorld class >> allExamplesMenuOn: aBuilder [
-	<worldMenu>
-	(aBuilder item: #gtallexamples)
-		parent: #gtoolkit;
-		label: 'All Examples';
-		target: self;
-		selector: #openAllExamples;
-		order: 10;
-		help: 'Open All Examples'
-]
-
-{ #category : #'world menu' }
 GtWorld class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
@@ -42,15 +30,15 @@ GtWorld class >> documenterFilesMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> gtExamplesMenuOn: aBuilder [
+GtWorld class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
-	(aBuilder item: #gtallgtexamples)
+	(aBuilder item: #gtexamplesexplorer)
 		parent: #gtoolkit;
-		label: 'All GToolkit Examples';
+		label: 'Examples Explorer';
 		target: self;
-		selector: #openAllGToolkitExamples;
-		order: 11;
-		help: 'Open All GToolkit Examples'
+		selector: #openGToolkitExamplesExplorer;
+		order: 10;
+		help: 'Open GToolkit Examples Explorer'
 ]
 
 { #category : #'api - actions' }
@@ -65,13 +53,13 @@ GtWorld class >> openAllDocumenterFiles [
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openAllExamples [
-	GtInspector openOn: (GtExampleGroup withAll: Smalltalk gtExamplesContained)
+GtWorld class >> openGToolkitExamplesExplorer [
+	GtInspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openAllGToolkitExamples [
-	GtInspector openOn: (GtExampleGroup withAll: (Smalltalk gtExamplesContained select: [:each | each method package name beginsWith: 'GToolkit']))
+GtWorld class >> openGToolkitRepositoriesExplorer [
+	GtInspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
@@ -116,6 +104,18 @@ GtWorld class >> registerPlaygroundMenuOn: aBuilder [
 		enabledBlock: [ GtPlaygroundToolRegistryAdaptor isRegistered not ];
 		order: 50;
 		help: 'Register GToolkit Playground'
+]
+
+{ #category : #'world menu' }
+GtWorld class >> repositoriesExplorerMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtrepositoriesexplorer)
+		parent: #gtoolkit;
+		label: 'Repositories Explorer';
+		target: self;
+		selector: #openGToolkitRepositoriesExplorer;
+		order: 11;
+		help: 'Open the GToolkit Repositories Explorer'
 ]
 
 { #category : #'world menu' }

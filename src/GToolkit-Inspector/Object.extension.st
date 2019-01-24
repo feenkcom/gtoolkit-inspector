@@ -23,7 +23,7 @@ Object >> gtInspectorForGtIn: composite [
 { #category : #'*GToolkit-Inspector' }
 Object >> gtLiveFor: aView [
 	"I am a utility method that can be useful for polymorphic purposes"
-	self gtPrintFor: aView
+	^ self gtPrintFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -38,46 +38,35 @@ Object >> gtPrintFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Object >> gtRawFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Raw';
 		priority: 100;
-		stencil: [ 
-			| variableNodes list |
+		items: [ 
+			| variableNodes |
 			variableNodes := OrderedCollection new: self class allSlots size.
 			variableNodes add: (GTInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
-			list := BrColumnedList new display: variableNodes.
-			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :aNode | aNode rawValue ]).
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-
-			list column
-				title: 'Icon';
-				stencil: [ :aNode :index |
+			variableNodes ];
+		column: 'Icon' do: [:aColumn | 
+			aColumn 
+				itemStencil: [ :aNode |
 					| icon |
 					icon := ([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
-							on: Error 
-							do: [ :error | self iconNamed: #smallWarningIcon ]).
-					icon asElement margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
-			list column
-				title: 'Variable';
-				stencil: [ :aNode :index | 
-					BrLabel new 
-						text: aNode label asRopedText;
-						look: BrGlamorousLabelLook;
-						hMatchParent;
-						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0) ].
-			list column
-				title: 'Value';
-				stencil: [ :aNode :index |
-					| text |
-					text := [ aNode rawValue gtDisplayString asRopedText ] 
 						on: Error 
-						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					BrLabel new 
-						text: text;
-						look: BrGlamorousLabelLook;
-						hMatchParent;
-						margin: (BlInsets top: 3 left: 10 bottom: 3 right: 0 ) ].
-			
-			list ]
+						do: [ :error | self iconNamed: #smallWarningIcon ]).
+					icon asElement 
+						margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0 ) ];
+				noResize ];
+		column: 'Variable' do: [:aColumn |
+			aColumn 
+				itemFormat: [ :aNode | aNode label asRopedText ];
+				matchParent ];
+		column: 'Value' do: [ :aColumn |
+			aColumn 
+				itemFormat: [ :aNode |
+					[ aNode rawValue gtDisplayString asRopedText ] 
+						on: Error, Halt
+						do: [ aNode errorMessage asRopedText foreground: Color red ] ];
+			matchParent ];
+		send: #value
 ]
