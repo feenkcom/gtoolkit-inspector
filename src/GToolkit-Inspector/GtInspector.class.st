@@ -39,6 +39,20 @@ GtInspector class >> createOn: anObject [
 	^ anInspector
 ]
 
+{ #category : #'instance creation' }
+GtInspector class >> createOnPlayBook: aPlayBook [
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+
+	^ anInspector
+]
+
 { #category : #settings }
 GtInspector class >> disableAutoUpdate [
 	<script>
@@ -153,12 +167,7 @@ GtInspector class >> openOnPlayBook [
 GtInspector class >> openOnPlayBook: aPlayBook [
 	| anInspector aSpace |
 
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+	anInspector := self createOnPlayBook: aPlayBook.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
