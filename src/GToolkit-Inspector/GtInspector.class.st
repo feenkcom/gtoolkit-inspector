@@ -24,6 +24,35 @@ GtInspector class >> cleanUp [
 	self resetIsAutoUpdateEnabled
 ]
 
+{ #category : #'instance creation' }
+GtInspector class >> createOn: anObject [
+	"create an inspector element on a given object"
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector spawnInitial: anObject.
+
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> createOnPlayBook: aPlayBook [
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+
+	^ anInspector
+]
+
 { #category : #settings }
 GtInspector class >> disableAutoUpdate [
 	<script>
@@ -117,12 +146,7 @@ GtInspector class >> isAutoUpdateEnabled [
 GtInspector class >> openOn: anObject [
 	| anInspector aSpace |
 
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector spawnInitial: anObject.
+	anInspector :=  self createOn: anObject.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
@@ -162,7 +186,18 @@ GtInspector class >> openOnPlayBook [
 
 { #category : #'instance creation' }
 GtInspector class >> openOnPlayBook: aPlayBook [
-	^ self openOn: aPlayBook title: 'Playground'.
+	| anInspector aSpace |
+
+	anInspector := self createOnPlayBook: aPlayBook.
+
+	aSpace := BlSpace new.
+	aSpace withHalos.
+	aSpace title: 'Playground'.
+	aSpace extent: 1200@600.
+	aSpace root addChild: anInspector.
+	aSpace show.
+
+	^ anInspector
 ]
 
 { #category : #cleanup }

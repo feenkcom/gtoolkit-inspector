@@ -1,11 +1,11 @@
 Class {
-	#name : #GtWorld,
+	#name : #GtWorldMenu,
 	#superclass : #Object,
 	#category : #'GToolkit-Inspector-World Menu'
 }
 
 { #category : #'world menu' }
-GtWorld class >> documenterClassCommentsMenuOn: aBuilder [
+GtWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
 		parent: #gtoolkit;
@@ -17,7 +17,7 @@ GtWorld class >> documenterClassCommentsMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> documenterFilesMenuOn: aBuilder [
+GtWorldMenu class >> documenterFilesMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterfiles)
 		parent: #gtoolkit;
@@ -30,7 +30,7 @@ GtWorld class >> documenterFilesMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> examplesExplorerMenuOn: aBuilder [
+GtWorldMenu class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtexamplesexplorer)
 		parent: #gtoolkit;
@@ -42,33 +42,33 @@ GtWorld class >> examplesExplorerMenuOn: aBuilder [
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openAllClassesDocumentedByDocumenter [
+GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
 	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
 		eachClassOrTrait comment includesSubstring: '${' ])
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openAllDocumenterFiles [
+GtWorldMenu class >> openAllDocumenterFiles [
 	GtInspector openOn: GtIcebergUtility pillarDocuments
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openGToolkitExamplesExplorer [
+GtWorldMenu class >> openGToolkitExamplesExplorer [
 	GtInspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openGToolkitRepositoriesExplorer [
+GtWorldMenu class >> openGToolkitRepositoriesExplorer [
 	GtInspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> openTour [
+GtWorldMenu class >> openTour [
 	GtInspector openOnPlayBook: (Gt2Document forClass: BaselineOfGToolkit)
 ]
 
 { #category : #'world menu' }
-GtWorld class >> playgroundMenuOn: aBuilder [
+GtWorldMenu class >> playgroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtplayground)
 		parent: #gtoolkit;
@@ -81,7 +81,7 @@ GtWorld class >> playgroundMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> registerInspectorMenuOn: aBuilder [
+GtWorldMenu class >> registerInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerinspector)
 		parent: #gtoolkit;
@@ -94,7 +94,7 @@ GtWorld class >> registerInspectorMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> registerPlaygroundMenuOn: aBuilder [
+GtWorldMenu class >> registerPlaygroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerplayground)
 		parent: #gtoolkit;
@@ -107,7 +107,7 @@ GtWorld class >> registerPlaygroundMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> repositoriesExplorerMenuOn: aBuilder [
+GtWorldMenu class >> repositoriesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtrepositoriesexplorer)
 		parent: #gtoolkit;
@@ -119,7 +119,7 @@ GtWorld class >> repositoriesExplorerMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> rootMenuOn: aBuilder [
+GtWorldMenu class >> rootMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtoolkit)
 		label: 'GToolkit';
@@ -128,7 +128,7 @@ GtWorld class >> rootMenuOn: aBuilder [
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> setGtDesktopLogo [
+GtWorldMenu class >> setGtDesktopLogo [
 	| aLogoFile |
 	aLogoFile := GtIcebergUtility repositoriesLocation / 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png'.
 	aLogoFile exists ifFalse: [ ^ self inform: (aLogoFile fullName asString, ' does not exist') ].
@@ -139,7 +139,7 @@ GtWorld class >> setGtDesktopLogo [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> setGtDesktopLogoMenuOn: aBuilder [
+GtWorldMenu class >> setGtDesktopLogoMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #setGtDesktopLogo)
 		parent: #gtoolkit;
@@ -151,7 +151,7 @@ GtWorld class >> setGtDesktopLogoMenuOn: aBuilder [
 ]
 
 { #category : #'api - actions' }
-GtWorld class >> setPharoDesktopLogo [
+GtWorldMenu class >> setPharoDesktopLogo [
 	PolymorphSystemSettings 
 		showDesktopLogo: true;
 		desktopLogoFileName: nil;
@@ -159,7 +159,7 @@ GtWorld class >> setPharoDesktopLogo [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> setPharoDesktopLogoMenuOn: aBuilder [
+GtWorldMenu class >> setPharoDesktopLogoMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #setPharoDesktopLogo)
 		parent: #gtoolkit;
@@ -171,7 +171,7 @@ GtWorld class >> setPharoDesktopLogoMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> tourMenuOn: aBuilder [
+GtWorldMenu class >> tourMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtintroductionmenu)
 		parent: #gtoolkit;
@@ -183,7 +183,7 @@ GtWorld class >> tourMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> unregisterInspectorMenuOn: aBuilder [
+GtWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #unregisterinspector)
 		parent: #gtoolkit;
@@ -197,7 +197,7 @@ GtWorld class >> unregisterInspectorMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorld class >> unregisterPlaygroundMenuOn: aBuilder [
+GtWorldMenu class >> unregisterPlaygroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #unregisterplayground)
 		parent: #gtoolkit;
