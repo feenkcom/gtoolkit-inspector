@@ -24,6 +24,21 @@ GtInspector class >> cleanUp [
 	self resetIsAutoUpdateEnabled
 ]
 
+{ #category : #'instance creation' }
+GtInspector class >> createOn: anObject [
+	"create an inspector element on a given object"
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector spawnInitial: anObject.
+
+	^ anInspector
+]
+
 { #category : #settings }
 GtInspector class >> disableAutoUpdate [
 	<script>
@@ -117,12 +132,7 @@ GtInspector class >> isAutoUpdateEnabled [
 GtInspector class >> openOn: anObject [
 	| anInspector aSpace |
 
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector spawnInitial: anObject.
+	anInspector :=  self createOn: anObject.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
