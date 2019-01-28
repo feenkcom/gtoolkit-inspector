@@ -135,12 +135,7 @@ GtInspector class >> openOn: anObject [
 ]
 
 { #category : #'instance creation' }
-GtInspector class >> openOnPlayBook [
-	^ self openOnPlayBook: GtPlayBook newDefault
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOnPlayBook: aPlayBook [
+GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
 	| anInspector aSpace |
 
 	anInspector := self new.
@@ -148,16 +143,26 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 		c horizontal matchParent.
 		c vertical matchParent ].
 
-	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+	anInspector addPageWithContent: anAsElementObject asElement for: anAsElementObject.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
-	aSpace title: 'Playground'.
+	aSpace title: aWindowTitle.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
 
 	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openOnPlayBook [
+	^ self openOnPlayBook: GtPlayBook newDefault
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openOnPlayBook: aPlayBook [
+	^ self openOn: aPlayBook title: 'Playground'.
 ]
 
 { #category : #cleanup }
