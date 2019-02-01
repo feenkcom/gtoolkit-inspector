@@ -49,7 +49,7 @@ GtExample >> gtCodeGraphFor: aView [
 				shape: [ :each | 
 					| text styler editor editorElement |
 					text := each method sourceCode asRopedText.
-					styler := GtExamplesStyler new classOrMetaClass: each methodClass.
+					styler := BlTextNullStyler new.
 					editor := BrTextEditor new.
 					editor styler: styler.
 					editor text: text.
