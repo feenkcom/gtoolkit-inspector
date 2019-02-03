@@ -62,6 +62,7 @@ BlElement >> gtLiveFor: aView [
 							c horizontal matchParent.
 							c vertical matchParent ]. 
 						container addChild: self.
+						container when: BlClickEvent do: [:event | self requestFocus].
 						container ]  ]
 ]
 
