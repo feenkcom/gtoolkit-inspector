@@ -24,6 +24,35 @@ GtInspector class >> cleanUp [
 	self resetIsAutoUpdateEnabled
 ]
 
+{ #category : #'instance creation' }
+GtInspector class >> createOn: anObject [
+	"create an inspector element on a given object"
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector spawnInitial: anObject.
+
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> createOnPlayBook: aPlayBook [
+	| anInspector |
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+
+	^ anInspector
+]
+
 { #category : #settings }
 GtInspector class >> disableAutoUpdate [
 	<script>
@@ -117,16 +146,32 @@ GtInspector class >> isAutoUpdateEnabled [
 GtInspector class >> openOn: anObject [
 	| anInspector aSpace |
 
+	anInspector :=  self createOn: anObject.
+
+	aSpace := BlSpace new.
+	aSpace withHalos.
+	aSpace title: 'Inspector'.
+	aSpace extent: 1200@600.
+	aSpace root addChild: anInspector.
+	aSpace show.
+
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
+	| anInspector aSpace |
+
 	anInspector := self new.
 	anInspector constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
 
-	anInspector spawnInitial: anObject.
+	anInspector addPageWithContent: anAsElementObject asElement for: anAsElementObject.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.
-	aSpace title: 'Inspector'.
+	aSpace title: aWindowTitle.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
 	aSpace show.
@@ -143,12 +188,7 @@ GtInspector class >> openOnPlayBook [
 GtInspector class >> openOnPlayBook: aPlayBook [
 	| anInspector aSpace |
 
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
+	anInspector := self createOnPlayBook: aPlayBook.
 
 	aSpace := BlSpace new.
 	aSpace withHalos.

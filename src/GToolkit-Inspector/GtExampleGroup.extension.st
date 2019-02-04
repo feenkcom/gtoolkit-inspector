@@ -17,7 +17,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 						displayingProgress: 'Running examples ...'.
 					tab parentTabGroup 	
 						allChildrenBreadthFirstDetect: [ :aChild | aChild phlow isViewContent ] 
-						ifFound: [ :aList | aList children first dataSource notifyChanged ] 
+						ifFound: [ :aList | aList children second children first dataSource notifyChanged ] 
 						ifNone: [self error: 'I should have found a view content element, but I did not.']  ] ];
 		column: 'Icon' translated do: [:aColumn |
 			aColumn

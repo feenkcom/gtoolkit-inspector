@@ -5,5 +5,10 @@ AbstractFileReference >> gtJsonFor: aView [
 	<gtView>
 	(self isFile and: [ (GtFileUtility mimeTypeOfExtension: self extension) 
 		= ZnMimeType applicationJson ]) ifFalse: [ ^ aView empty ].
-	^ self gtRawJsonFor: aView
+	^ aView textEditor
+		title: 'JSON';
+		priority: 10;
+		text: [ 
+			STONJSON toStringPretty: (
+				STONJSON fromString: self contents). ]
 ]

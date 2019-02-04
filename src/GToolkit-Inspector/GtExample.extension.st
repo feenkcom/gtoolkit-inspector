@@ -26,7 +26,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 				button fireEvent: (GtPhlowObjectToSpawn new
 					object: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]);
 					sourceElement: button) ];
-			icon: BrGlamorousIcons play asElement;
+			icon: BrGlamorousIcons playinspect asElement;
 			label: 'Evaluate and inspect return-value' translated.
 	]
 ]
@@ -49,7 +49,7 @@ GtExample >> gtCodeGraphFor: aView [
 				shape: [ :each | 
 					| text styler editor editorElement |
 					text := each method sourceCode asRopedText.
-					styler := GtExamplesStyler new classOrMetaClass: each methodClass.
+					styler := BlTextNullStyler new.
 					editor := BrTextEditor new.
 					editor styler: styler.
 					editor text: text.
