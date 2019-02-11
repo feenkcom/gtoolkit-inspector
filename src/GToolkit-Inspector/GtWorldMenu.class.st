@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #'world menu' }
+GtWorldMenu class >> documentationExplorerOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtintroductionmenu)
+		parent: #gtoolkit;
+		label: 'GToolkit Documentation Explorer';
+		target: self;
+		selector: #openGToolkitDocumentationExplorer;
+		order: 10;
+		help: 'Open the Glamorous Toolkit Documentation'
+]
+
+{ #category : #'world menu' }
 GtWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
@@ -34,7 +46,7 @@ GtWorldMenu class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtexamplesexplorer)
 		parent: #gtoolkit;
-		label: 'Examples Explorer';
+		label: 'GToolkit Examples Explorer';
 		target: self;
 		selector: #openGToolkitExamplesExplorer;
 		order: 10;
@@ -50,6 +62,11 @@ GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllDocumenterFiles [
 	GtInspector openOn: GtIcebergUtility pillarDocuments
+]
+
+{ #category : #'api - actions' }
+GtWorldMenu class >> openGToolkitDocumentationExplorer [
+	GtInspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
@@ -111,7 +128,7 @@ GtWorldMenu class >> repositoriesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtrepositoriesexplorer)
 		parent: #gtoolkit;
-		label: 'Repositories Explorer';
+		label: 'GToolkit Repositories Explorer';
 		target: self;
 		selector: #openGToolkitRepositoriesExplorer;
 		order: 11;
