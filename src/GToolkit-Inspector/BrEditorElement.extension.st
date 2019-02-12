@@ -3,27 +3,10 @@ Extension { #name : #BrEditorElement }
 { #category : #'*GToolkit-Inspector' }
 BrEditorElement >> gtEditorElementsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView mondrian
 		title: 'Elements';
 		priority: 1;
-		stencil: [ 
-			| container block |
-			container := BlElement new.
-			container constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ].
-			block := [ 
-				| mondrian |
-				mondrian := GtMondrian new.
-				self paintEditorElementsWith: mondrian.
-				container removeChildren.
-				container addChild: mondrian asPannableElement ].
-			block value.
-"			self editor when: BrTextEditorInsertedEvent do: block.
-			self editor when: BrTextEditorDeletedEvent do: block.
-			self editor when: BrTextEditorCursorMovedEvent do: block.
-			self editor when: BrTextEditorCursorAddedEvent do: block.
-			self editor when: BrTextEditorCursorRemovedEvent do: block.
-"			container
-			]
+		painting: [ :mondrian | self paintEditorElementsWith: mondrian ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
