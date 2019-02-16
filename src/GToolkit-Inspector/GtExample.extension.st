@@ -89,7 +89,9 @@ GtExample >> gtCoderSourceFor: aView [
 		priority: 0;
 		stencil: [ (GtMethodCoder forExample: self) expanded: true ];
 		actionButtonIcon: BrGlamorousIcons browse 
-			action: [ self method browse ]
+			action: [ self method browse ];
+		actionButtonIcon: BrGlamorousIcons playinspect
+			action: [ :aButton | aButton phlow spawnObject: self returnValue ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
