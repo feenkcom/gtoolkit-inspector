@@ -81,7 +81,7 @@ GtWorldMenu class >> openGToolkitRepositoriesExplorer [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openTour [
-	GtInspector openOnPlayBook: (Gt2Document forClass: BaselineOfGToolkit)
+	GtInspector openOnPlayBook: (GtDocument forClass: BaselineOfGToolkit)
 ]
 
 { #category : #'world menu' }
