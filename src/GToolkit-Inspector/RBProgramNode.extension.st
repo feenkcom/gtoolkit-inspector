@@ -5,6 +5,8 @@ RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Source code';
+		actionButtonIcon: BrGlamorousIcons browse 
+			action: [ self methodNode compiledMethod browse ];
 		stencil: [ 
 			| editor text styler |
 			text := self source asRopedText.
