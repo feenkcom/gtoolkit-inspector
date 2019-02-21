@@ -7,7 +7,6 @@ AbstractFileReference >> gtJsonFor: aView [
 		= ZnMimeType applicationJson ]) ifFalse: [ ^ aView empty ].
 	^ aView textEditor
 		title: 'JSON';
-		priority: 10;
 		text: [ 
 			STONJSON toStringPretty: (
 				STONJSON fromString: self contents). ]
