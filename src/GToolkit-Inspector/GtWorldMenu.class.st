@@ -81,7 +81,7 @@ GtWorldMenu class >> openGToolkitRepositoriesExplorer [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openTour [
-	GtInspector openOnPlayBook: (Gt2Document forClass: BaselineOfGToolkit)
+	GtInspector openOnPlayBook: (GtDocument forClass: BaselineOfGToolkit)
 ]
 
 { #category : #'world menu' }
@@ -147,7 +147,7 @@ GtWorldMenu class >> rootMenuOn: aBuilder [
 { #category : #'api - actions' }
 GtWorldMenu class >> setGtDesktopLogo [
 	| aLogoFile |
-	aLogoFile := GtIcebergUtility repositoriesLocation / 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png'.
+	aLogoFile := GtIcebergUtility documentAtPath: (Path * 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png').
 	aLogoFile exists ifFalse: [ ^ self inform: (aLogoFile fullName asString, ' does not exist') ].
 	PolymorphSystemSettings 
 		showDesktopLogo: true;
@@ -224,4 +224,67 @@ GtWorldMenu class >> unregisterPlaygroundMenuOn: aBuilder [
 		enabledBlock: [ GtPlaygroundToolRegistryAdaptor isRegistered ];
 		order: 51;
 		help: 'Unregister GToolkit Playground'
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> useBlocHostsDescriptionMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #useblochosts)
+		parent: #gtoolkit;
+		label: 'Experimental features:';
+		target: self;
+		selector: #yourself;
+		enabled: false;
+		order: 71;
+		help: 'All Bloc windows must be closed before switching.'
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> useBlocHostsDescriptionTwoMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #useblochoststwo)
+		parent: #gtoolkit;
+		label: '  ... close all Bloc windows before switching';
+		target: self;
+		selector: #yourself;
+		enabled: false;
+		order: 71.5;
+		help: 'All Bloc windows must be closed before switching.'
+]
+
+{ #category : #'api - actions' }
+GtWorldMenu class >> useMorphicWindows [
+	Bloc preferableHostClass: BlMorphicWindowHost
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> useNativeMorphicMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #usemorphicwindows)
+		parent: #gtoolkit;
+		label: '  Use Morphic Windows';
+		target: self;
+		selector: #useMorphicWindows;
+		enabled: [ Bloc preferableHostClass ~= BlMorphicWindowHost ];
+		order: 73;
+		help: 'All Bloc windows must be closed in advance.';
+		withSeparatorAfter
+]
+
+{ #category : #'api - actions' }
+GtWorldMenu class >> useNativeWindows [
+	Bloc preferableHostClass: BlOSWindowHost
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> useNativeWindowsMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #usenativewindows)
+		parent: #gtoolkit;
+		label: '  Use Native Windows';
+		target: self;
+		selector: #useNativeWindows;
+		enabled: [ Bloc preferableHostClass ~= BlOSWindowHost ];
+		order: 72;
+		help: 'All Bloc windows must be closed in advance.'
 ]
