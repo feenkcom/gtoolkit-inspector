@@ -1,7 +1,7 @@
 Extension { #name : #BrStencil }
 
 { #category : #'*GToolkit-Inspector' }
-BrStencil classSide >> gtLiveFor: aView [
+BrStencil class >> gtLiveFor: aView [
 	<gtView>
 	self isAbstract ifTrue: [ ^ aView empty ].
 	^ aView explicit

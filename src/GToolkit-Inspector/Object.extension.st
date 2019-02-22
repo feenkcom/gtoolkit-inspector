@@ -32,7 +32,8 @@ Object >> gtPrintFor: aView [
 	^ aView textEditor
 		title: 'Print';
 		priority: 110;
-		text: [ self printString asRopedText monospace ]
+		look: BrGlamorousCodeEditorLook new;
+		text: [ self printString asRopedText ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
