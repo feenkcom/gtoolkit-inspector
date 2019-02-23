@@ -66,6 +66,16 @@ FileReference >> gtContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+FileReference >> gtExistingParentFrom: aButton [
+	| aParent anIndex |
+	aParent := self parent.
+	anIndex := 1.
+	[ (aParent ~= aParent parent) and: [ aParent exists not ] ] 
+		whileTrue: [ aParent := aParent parent. anIndex := anIndex + 1 ].
+	aButton phlow spawnObject: aParent.
+]
+
+{ #category : #'*GToolkit-Inspector' }
 FileReference >> gtFigureFor: aView [
 	<gtView>
 	(self isFile and: [ self mimeTypes notNil and: [ 
@@ -122,6 +132,44 @@ FileReference >> gtItemsFor: aView [
 							each creationTime printYMDOn: s.
 							s nextPut: Character space.
 							each creationTime printHMSOn: s ] ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+FileReference >> gtLiveFor: aView [
+	<gtView>
+	self exists ifTrue: [ ^ aView empty ].
+	^ aView explicit
+		title: 'Live';
+		priority: 1;
+		actionButtonIcon: BrGlamorousIcons inspect 
+			label: 'Existing Parent' 
+			action: [ :aButton | self gtExistingParentFrom: aButton ];
+		stencil: [ 
+			BlElement new
+				layout: BlFrameLayout new;
+				constraintsDo: [ :c |
+					c horizontal matchParent.
+					c vertical matchParent ];
+				addChild: (
+					BlElement new
+						look: BrShadowLook new;
+						background: Color white;
+						constraintsDo: [ :c |
+							c frame horizontal alignCenter.
+							c frame vertical alignCenter.
+							c horizontal fitContent.
+							c vertical fitContent ];
+						layout: BlLinearLayout horizontal;
+						addChild: (BlElement new 
+							background: BrGlamorousColors errorBackgroundColor; 
+							constraintsDo: [:c | 
+								c vertical matchParent. 
+								c horizontal exact: 30 ]);
+						addChild: (BrLabel new
+							text: 'File does not exist';
+							look: BrGlamorousLabelLook;
+							layout: BlLinearLayout vertical alignCenter;
+							padding: (BlInsets all: 10))) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
