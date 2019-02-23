@@ -254,6 +254,7 @@ GtWorldMenu class >> useBlocHostsDescriptionTwoMenuOn: aBuilder [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> useMorphicWindows [
+	BlUniverse reset.
 	Bloc preferableHostClass: BlMorphicWindowHost
 ]
 
@@ -273,6 +274,8 @@ GtWorldMenu class >> useNativeMorphicMenuOn: aBuilder [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> useNativeWindows [
+	World closeAllWindowsDiscardingChanges.
+	BlUniverse reset.
 	Bloc preferableHostClass: BlOSWindowHost
 ]
 
