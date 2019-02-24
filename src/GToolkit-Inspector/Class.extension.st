@@ -90,23 +90,15 @@ Class >> gtExamplesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtInstanceVariablesFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'InstVars';
 		priority: 5;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: [ self class allInstVarNames sorted collect: [ :each | each -> (self instVarNamed: each) ] ].
-			list addEventHandler: (GtInspectorListToSelectHandler new transformation: [:assoc | assoc value ]).
-			list column
-				title: 'Variable';
-				stencil: [ :each | 
-					| label |
-					label := BrListLabelStencil fitContent: each key.
-					label constraintsDo: [ :c | c horizontal exact:200 ] ].
-			list column
-				title: 'Value';
-				stencil: [ :each | BrListLabelStencil matchParent: each value ].
-			list ]
+		items: [ self class allInstVarNames sorted
+				collect: [ :each | each -> (self instVarNamed: each) ] ];
+		column: 'Variable'
+			do: [ :aColumn | aColumn item: [ :each | each key ] ];
+		column: 'Value'
+			do: [ :aColumn | aColumn item: [ :each | each value ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
