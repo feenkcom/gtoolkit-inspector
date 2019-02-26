@@ -135,15 +135,12 @@ BlElement >> gtResizersFor: aView [
 		aStream nextPut: self.
 		self allParentsDo: [ :anElement | aStream nextPut: anElement ] ].
 	
-	^ aView explicit
+	^ aView columnedList
 		title: 'Resizers' translated;
 		priority: 10;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: withAllParents reversed.
-			list column 
-				title: 'Icon';
-				stencil: [ :each |
+		items: [ withAllParents reversed];
+		column: 'Icon' do: [:aColumn |
+			aColumn item: [ :each |
 					| icon element |
 					icon := each asSpartaForm scaledToSize: 16@16.
 					element := BlElement new.
@@ -151,33 +148,23 @@ BlElement >> gtResizersFor: aView [
 					element height: 16.
 					element margin: (BlInsets all: 3).
 					element background: icon.
-					element ].
-			list column 
-				title: 'Width';
-				stencil: [ :each | 
-					| widthElement |
-					widthElement := (BrListLabelStencil matchParent: each constraints horizontal resizer gtDisplayString) asElement.
-					widthElement constraintsDo: [ :c | c horizontal exact: 150].
-					widthElement ].
-			list column 
-				title: 'Height';
-				stencil: [ :each | 
-					| widthElement |
-					widthElement := (BrListLabelStencil matchParent: each constraints vertical resizer gtDisplayString) asElement.
-					widthElement constraintsDo: [ :c | c horizontal exact: 100].
-					widthElement ].
-			list column 
-				title: 'Layout';
-				stencil: [ :each | 
-					| widthElement |
-					widthElement := (BrListLabelStencil matchParent: each layout gtDisplayString) asElement.
-					widthElement constraintsDo: [ :c | c horizontal exact: 150].
-					widthElement ].		
-			list column 
-				title: 'Element';
-				stencil: [ :each | (BrListLabelStencil matchParent: each gtDisplayString) ].			
-			list
-			].
+					element ];
+				noResize ];
+		column: 'Width' do: [:aColumn |
+			aColumn 
+				item: [ :each | each constraints horizontal resizer gtDisplayString ];
+				 width: 100];
+		column: 'Height' do: [:aColumn |
+			aColumn 
+				item: [ :each | each constraints vertical resizer gtDisplayString ];
+				width: 100 ];
+		column: 'Layout' do: [ :aColumn |
+			aColumn 
+				item: [ :each | each layout gtDisplayString ];
+				width: 100 ];	
+		column: 'Element' do: [:aColumn |
+			aColumn item: [ :each | each gtDisplayString ]
+			]
 ]
 
 { #category : #'*GToolkit-Inspector' }
