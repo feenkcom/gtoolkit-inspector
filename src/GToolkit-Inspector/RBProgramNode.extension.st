@@ -3,18 +3,15 @@ Extension { #name : #RBProgramNode }
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView textEditor
 		title: 'Source code';
 		actionButtonIcon: BrGlamorousIcons browse 
 			action: [ self methodNode compiledMethod browse ];
-		stencil: [ 
-			| editor text styler |
+		look: BrGlamorousCodeEditorLook new;
+		styler: (BrRBTextStyler new classOrMetaClass: self methodNode compiledMethod methodClass);
+		text: [ 
+			| text |
 			text := self source asRopedText.
-			editor := BrTextEditor new text: text.
-			styler := BrRBTextStyler new.
-			styler classOrMetaClass: self methodNode compiledMethod methodClass.
-			editor styler: styler.
-			text attributes: { BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler }.
 			text 
 				attributes: {
 					BlTextUnderlineAttribute new 
@@ -22,11 +19,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 						beNotOverwritableByStyler} 
 				from: self start 
 				to: self stop.
-			BrEditorElement new
-				editor: editor;
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ] ]
+		]
 ]
 
 { #category : #'*GToolkit-Inspector' }
