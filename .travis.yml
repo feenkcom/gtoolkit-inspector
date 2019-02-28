@@ -10,6 +10,10 @@ smalltalk_edge:
 
 os:
   - linux
+  
+branches:
+  only:
+    - master
 
 smalltalk:
   - Pharo64-7.0
