@@ -46,14 +46,24 @@ BlElement >> gtLiveFor: aView [
 		title: 'Live';
 		priority: 0;
 		stencil: [ 
-			self space
-				ifNotNil: [ BrEditorElement new 
-					editor: (BrTextEditor new
-						text: (self printString, ' element cannot be currently displayed here as it is already displayed in another view') asRopedText readonly);
-					constraintsDo: [ :c | 
+			self hasParent
+				ifTrue: [ 
+					| container label |
+					container := BlElement new constraintsDo: [ :c | 
 						c horizontal matchParent.
-						c vertical matchParent ] ]
-				ifNil: [ 
+						c vertical matchParent ];
+						layout: BlLinearLayout vertical;
+						padding: (BlInsets all: 10).
+					label := BrEditor new 
+						look: BrGlamorousRegularEditorLook new;
+						text: ('This element cannot be embedded here as it already has a parent. In the meantime, here is its static preview:') asRopedText readonly;
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical fitContent ].
+					container addChild: label.
+					container addChild: (self asSpartaForm asElement look: BrShadowLook) asScrollableElement.
+					container ]
+				ifFalse: [ 
 					| container |
 					container := BlElement new
 						layout: BlLinearLayout new;
@@ -122,9 +132,8 @@ BlElement >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit 
 		title: 'Preview';
-		priority: (((self space ifNil: [ 1 ] ifNotNil: [ -1 ])));
-		stencil: [ (BlElement new background: self asSpartaForm;
-size: self extent) ]
+		priority: 1;
+		stencil: [ self asSpartaForm asElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
