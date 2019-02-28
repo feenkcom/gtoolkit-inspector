@@ -139,41 +139,25 @@ BlElement >> gtPreviewFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtResizersFor: aView [
 	<gtView>
-	| withAllParents |
-	withAllParents := Array streamContents: [ :aStream |
-		aStream nextPut: self.
-		self allParentsDo: [ :anElement | aStream nextPut: anElement ] ].
-	
 	^ aView columnedList
 		title: 'Resizers' translated;
 		priority: 10;
-		items: [ withAllParents reversed];
-		column: 'Icon' do: [:aColumn |
-			aColumn item: [ :each |
-					| icon element |
-					icon := each asSpartaForm scaledToSize: 16@16.
-					element := BlElement new.
-					element width: 16.
-					element height: 16.
-					element margin: (BlInsets all: 3).
-					element background: icon.
-					element ];
+		items: [ self withAllParents reversed ];
+		column: 'Icon' do: [ :aColumn |
+			aColumn itemStencil: [ :each |
+					(each asSpartaForm scaledToSize: 16@16) asElement
+						margin: (BlInsets all: 3) ];
 				noResize ];
-		column: 'Width' do: [:aColumn |
-			aColumn 
-				item: [ :each | each constraints horizontal resizer gtDisplayString ];
-				 width: 100];
-		column: 'Height' do: [:aColumn |
-			aColumn 
-				item: [ :each | each constraints vertical resizer gtDisplayString ];
-				width: 100 ];
-		column: 'Layout' do: [ :aColumn |
-			aColumn 
-				item: [ :each | each layout gtDisplayString ];
-				width: 100 ];	
-		column: 'Element' do: [:aColumn |
-			aColumn item: [ :each | each gtDisplayString ]
-			]
+		column: 'Width' 
+			item: [ :anElement | anElement constraints horizontal resizer ]
+			width: 100;
+		column: 'Height' 
+			item: [ :anElement | anElement constraints vertical resizer ]
+			width: 100;
+		column: 'Layout' 
+			item: [ :anElement | anElement layout ]
+			width: 100;
+		column: 'Element' item: [ :anElement | anElement layout ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
