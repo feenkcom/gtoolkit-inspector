@@ -10,9 +10,12 @@ smalltalk_edge:
 
 os:
   - linux
+  
+branches:
+  only:
+    - master
 
 smalltalk:
-  - Pharo-7.0
   - Pharo64-7.0
 
 before_script:
