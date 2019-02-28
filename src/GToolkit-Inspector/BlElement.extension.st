@@ -61,7 +61,13 @@ BlElement >> gtLiveFor: aView [
 							c horizontal matchParent.
 							c vertical fitContent ].
 					container addChild: label.
-					container addChild: (self asSpartaForm asElement look: BrShadowLook) asScrollableElement.
+					container addChild: (BlElement new
+						look: BrShadowLook;
+						layout: BlLinearLayout new;
+						background: Color white;
+						constraintsDo: [:c | c horizontal fitContent. c vertical fitContent ];
+						addChild: self asSpartaForm asElement)
+						.
 					container ]
 				ifFalse: [ 
 					| container |
