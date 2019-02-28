@@ -133,7 +133,8 @@ BlElement >> gtPreviewFor: aView [
 	^ aView explicit 
 		title: 'Preview';
 		priority: 1;
-		stencil: [ self asSpartaForm asElement ]
+		stencil: [ self asSpartaForm asElement 
+			margin: (BlInsets all: 10) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
