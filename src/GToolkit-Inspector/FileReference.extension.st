@@ -135,25 +135,26 @@ FileReference >> gtItemsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-FileReference >> gtLiveFor: aView [
+FileReference >> gtPathFor: aView [
 	<gtView>
-	self exists ifTrue: [ ^ aView empty ].
 	^ aView explicit
-		title: 'Live';
-		priority: 1;
-		actionButtonIcon: BrGlamorousIcons inspect 
-			label: 'Existing Parent' 
-			action: [ :aButton | self gtExistingParentFrom: aButton ];
+		title: 'Path';
+		priority: 20;
 		stencil: [ 
-			BlElement new
-				layout: BlFrameLayout new;
+			| all container |
+			all := self fullPath withParents collect: #asFileReference.
+			container := BlElement new
+				layout: BlLinearLayout vertical;
 				constraintsDo: [ :c |
 					c horizontal matchParent.
-					c vertical matchParent ];
-				addChild: (
+					c vertical matchParent ].
+			all doWithIndex: [ :aFileReference :index |
+				container addChild: (
 					BlElement new
-						look: BrShadowLook new;
+						"look: BrShadowLook new;"
+						when: BlClickEvent do: [:event | event target phlow spawnObject: aFileReference ];
 						background: Color white;
+						margin: (BlInsets all: 10);
 						constraintsDo: [ :c |
 							c frame horizontal alignCenter.
 							c frame vertical alignCenter.
@@ -161,15 +162,16 @@ FileReference >> gtLiveFor: aView [
 							c vertical fitContent ];
 						layout: BlLinearLayout horizontal;
 						addChild: (BlElement new 
-							background: BrGlamorousColors errorBackgroundColor; 
+							background: (aFileReference exists ifTrue: [ BrGlamorousColors successBackgroundColor ] ifFalse: [ BrGlamorousColors errorBackgroundColor ]); 
 							constraintsDo: [:c | 
 								c vertical matchParent. 
 								c horizontal exact: 30 ]);
 						addChild: (BrLabel new
-							text: 'File does not exist';
+							text: (aFileReference basename, (all size > index ifTrue: ['/'] ifFalse: ['']));
 							look: BrGlamorousLabelLook;
 							layout: BlLinearLayout vertical alignCenter;
-							padding: (BlInsets all: 10))) ]
+							margin: (BlInsets all: 10))) ].
+			container ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
