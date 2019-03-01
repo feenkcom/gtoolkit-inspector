@@ -149,28 +149,30 @@ FileReference >> gtPathFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent ].
 			all doWithIndex: [ :aFileReference :index |
+				| icon |
+				icon := aFileReference exists 
+					ifTrue: [ 
+						(GtInspectorAcceptIconStencil new radius: 8; thickness: 2) asElement background: 
+						BrGlamorousColors successBackgroundColor ] 
+					ifFalse: [ 
+						(GtInspectorPlusIconStencil close radius: 8; thickness: 2) asElement background: BrGlamorousColors errorBackgroundColor].
 				container addChild: (
 					BlElement new
-						"look: BrShadowLook new;"
 						when: BlClickEvent do: [:event | event target phlow spawnObject: aFileReference ];
-						background: Color white;
-						margin: (BlInsets all: 10);
 						constraintsDo: [ :c |
 							c frame horizontal alignCenter.
 							c frame vertical alignCenter.
 							c horizontal fitContent.
 							c vertical fitContent ];
 						layout: BlLinearLayout horizontal;
-						addChild: (BlElement new 
-							background: (aFileReference exists ifTrue: [ BrGlamorousColors successBackgroundColor ] ifFalse: [ BrGlamorousColors errorBackgroundColor ]); 
-							constraintsDo: [:c | 
-								c vertical matchParent. 
-								c horizontal exact: 30 ]);
+						addChild: (icon
+							constraintsDo: [ :c | c frame vertical alignCenter];
+							margin: (BlInsets top: 20 left: 20 bottom: 0 right: 0));
 						addChild: (BrLabel new
+							constraintsDo: [ :c | c frame vertical alignCenter];
 							text: (aFileReference basename, (all size > index ifTrue: ['/'] ifFalse: ['']));
 							look: BrGlamorousLabelLook;
-							layout: BlLinearLayout vertical alignCenter;
-							margin: (BlInsets all: 10))) ].
+							margin: (BlInsets top: 20 left: 10 bottom: 0 right: 0))) ].
 			container ]
 ]
 
