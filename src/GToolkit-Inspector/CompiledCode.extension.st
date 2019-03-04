@@ -6,8 +6,7 @@ CompiledCode >> gtBytecodeFor: aView [
 	^ aView list
 		title: 'Bytecode' translated;
 		items: [ self symbolicBytecodes ];
-		itemStencil: [ :each | 
-			(BrListLabelStencil matchParent: each printString asRopedText) asElement ]
+		itemFormat: [ :each | each printString ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
