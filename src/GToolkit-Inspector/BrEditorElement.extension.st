@@ -11,6 +11,7 @@ BrEditorElement >> gtEditorElementsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BrEditorElement >> paintEditorElementsWith: mondrian [
+	self forceLayout.
 	mondrian nodes
 		shape: [ :each | 
 			| form content container label labelText |
