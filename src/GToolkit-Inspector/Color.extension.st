@@ -20,10 +20,27 @@ Color >> gtLuminanceValue [
 { #category : #'*GToolkit-Inspector' }
 Color >> gtPreviewFor: aView [
 	<gtView>
-
 	^ aView explicit
 		title: 'Preview';
 		stencil: [ 
+			| list |
+			list := BrColumnedList new.
+			list margin: (BlInsets all: 10).
+			list items: { 
+				'name:' -> self name .
+				'RGB red:' -> self red .
+				'RGB green:' -> self green .
+				'RGB blue:' -> self blue .
+				'alpha:' -> (self alpha * 100) asInteger .
+				'HSL hue:' -> self hue .
+				'HSL saturation:' -> self hslSaturation .
+				'HSL lightness: ' -> self lightness .
+				'HSV hue:' -> self hue .
+				'HSV saturation:' -> self hsvSaturation .
+				'HSV value:' -> self brightness .
+				'hex:' -> ('#', self asHexString) }.
+			list column title: 'Property'; stencil: [ :assoc | BrListLabelStencil new text: assoc key asRopedText glamorousRegularFont ].
+			list column title: 'Value'; stencil: [ :assoc | BrListLabelStencil new text: assoc value asRopedText glamorousRegularFont].
 			BlElement new
 				layout: BlFrameLayout new;
 				constraintsDo: [ :c |
@@ -39,26 +56,6 @@ Color >> gtPreviewFor: aView [
 							c horizontal exact: 300.
 							c vertical fitContent ];
 						layout: BlLinearLayout horizontal;
-						addChild: (BlElement new background: self; constraintsDo: [:c | c vertical matchParent. c horizontal matchParent]);
-						addChild: (BrEditorElement new
-							padding: (BlInsets all: 10);
-							constraintsDo: [ :c |
-								c horizontal exact: 250.
-								c vertical fitContent ];
-							editor: (BrTextEditor new
-								text: ((String streamContents: [ :aStream | 
-									aStream 
-										nextPutAll: 'name: '; print: self name; cr;
-				 						nextPutAll: 'RGB red: '; print: self red; cr;
-					 					nextPutAll: 'RGB green: '; print: self green; cr;
-					 					nextPutAll: 'RGB blue: '; print: self blue; cr;
-					 					nextPutAll: 'alpha: '; print: (self alpha * 100) asInteger; nextPut: $%; cr;
-					 					nextPutAll: 'HSL hue: '; print: self hue; cr;
-					 					nextPutAll: 'HSL saturation: '; print: self hslSaturation; cr;
-					 					nextPutAll: 'HSL lightness: '; print: self lightness; cr;
-					 					nextPutAll: 'HSV hue: '; print: self hue; cr;
-					 					nextPutAll: 'HSV saturation: '; print: self hsvSaturation; cr;
-					 					nextPutAll: 'HSV value: '; print: self brightness; cr;
-					 					nextPutAll: 'hex: #'; print: self asHexString ]) asRopedText 
-											"foreground: self gtContrastingColor")))) ]
+						addChild: (BlElement new background: self; constraintsDo: [:c | c vertical matchParent. c horizontal exact: 70 ]);
+						addChild: list) ]
 ]
