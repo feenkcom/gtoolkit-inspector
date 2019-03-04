@@ -18,7 +18,7 @@ Classic inspectors are typically defined as tools that show the interior of an o
 
 This behavior is achieved by asking the object to specify what views make sense for it. This is similar to how objects can print themselves, only we can now define multiple representations that offer interactions. For example, the extension that shows the bytecodes can be seen in ${method:CompiledCode>>#gtBytecodeFor:}$.
 
-The extension is annotated with the ==gtView== pragma and is defined as a Phlow view. More details about how to define these views can be found in ${class:BaselineOfGToolkitPhlow}$.
+The extension is annotated with the ==<gtView>== pragma and is defined as a Phlow view. More details about how to define these views can be found in ${class:BaselineOfGToolkitPhlow}$.
 
 
 !!Show connected objects

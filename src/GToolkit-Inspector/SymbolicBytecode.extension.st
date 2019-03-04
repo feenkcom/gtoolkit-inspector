@@ -3,34 +3,17 @@ Extension { #name : #SymbolicBytecode }
 { #category : #'*GToolkit-Inspector' }
 SymbolicBytecode >> gtSourceFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView textEditor
 		title: 'Source';
+		look: BrGlamorousCodeEditorLook new;
+		styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
 		priority: 10;
-		stencil: [ 
-			| text styler editor editorElement |
-
-			text := self method sourceCode asRopedText" readonly".
-			text attributes: {
-				BlFontGenericFamilyAttribute monospace beNotOverwritableByStyler.
-				(BlFontSizeAttribute size: 14) beNotOverwritableByStyler }.
-				
+		text: [ 
+			| text |
+			text := self method sourceCode asRopedText.
 			(text from: self sourceInterval first to: self sourceInterval last) attributes: { 
 				BlTextUnderlineAttribute new 
 					paint: BrGlamorousColors lightBorderColor; 
 					beNotOverwritableByStyler }.
-
-			styler := BrRBTextStyler new.
-			styler classOrMetaClass: self method methodClass.
-
-			editor := BrTextEditor new.
-			editor styler: styler.
-			editor text: text.
-
-			editorElement := BrEditorElement new.
-			editorElement constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ].
-
-			editorElement editor: editor.
-			editorElement ]
+			text ]
 ]
