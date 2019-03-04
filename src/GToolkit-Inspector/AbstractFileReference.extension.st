@@ -5,9 +5,23 @@ AbstractFileReference >> gtJsonFor: aView [
 	<gtView>
 	(self isFile and: [ (GtFileUtility mimeTypeOfExtension: self extension) 
 		= ZnMimeType applicationJson ]) ifFalse: [ ^ aView empty ].
-	^ aView textEditor
+	^ aView explicit
 		title: 'JSON';
-		text: [ 
-			STONJSON toStringPretty: (
-				STONJSON fromString: self contents). ]
+		priority: 1;
+		actionButtonIcon: BrGlamorousIcons tree asElement 
+			action: [ :aButton | aButton phlow spawnObject: (STONJSON fromString: self contents) ];
+		stencil: [ | editorElement textEditor text |
+			textEditor := BrTextEditor new.
+			textEditor styler: JSONParser gtStyler.
+			editorElement := BrEditorElement new.
+			editorElement editor: textEditor.
+			text := (STONJSON toStringPretty: (STONJSON fromString: self contents)) asRopedText.
+			text glamorousCodeFontDo: #beNotOverwritableByStyler; glamorousCodeSizeDo: #beNotOverwritableByStyler.
+			textEditor text: text.
+			editorElement
+				padding: (BlInsets all: 10);
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ].
+			editorElement ]
 ]
