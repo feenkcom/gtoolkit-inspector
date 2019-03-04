@@ -108,7 +108,7 @@ BlElement >> gtMeasurementChainFor: aView [
 				anElement layout previousMeasurementSpec 
 					ifNotNil: #heightSpec ] 
 			width: 100;
-		column: 'Layout' item: [ :anElement :anIndex | anElement layout ] width: 100;
+		column: 'Layout' item: [ :anElement :anIndex | anElement layout ];
 		column: 'Element' item: [ :anElement :anIndex | anElement ]
 ]
 
@@ -152,18 +152,15 @@ BlElement >> gtResizersFor: aView [
 		items: [ self withAllParents reversed ];
 		column: 'Icon' do: [ :aColumn |
 			aColumn itemStencil: [ :each |
-					(each asSpartaForm scaledToSize: 16@16) asElement
-						margin: (BlInsets all: 3) ];
-				noResize ];
+				(each asSpartaForm scaledToSize: 16@16) asElement
+					margin: (BlInsets all: 3) ];
+				width: 19 ];
 		column: 'Width' 
-			item: [ :anElement | anElement constraints horizontal resizer ]
-			width: 100;
+			item: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height' 
-			item: [ :anElement | anElement constraints vertical resizer ]
-			width: 100;
+			item: [ :anElement | anElement constraints vertical resizer ];
 		column: 'Layout' 
-			item: [ :anElement | anElement layout ]
-			width: 100;
+			item: [ :anElement | anElement layout ];
 		column: 'Element' item: [ :anElement | anElement layout ]
 ]
 
