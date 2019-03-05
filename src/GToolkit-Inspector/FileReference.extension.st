@@ -66,16 +66,6 @@ FileReference >> gtContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-FileReference >> gtExistingParentFrom: aButton [
-	| aParent anIndex |
-	aParent := self parent.
-	anIndex := 1.
-	[ (aParent ~= aParent parent) and: [ aParent exists not ] ] 
-		whileTrue: [ aParent := aParent parent. anIndex := anIndex + 1 ].
-	aButton phlow spawnObject: aParent.
-]
-
-{ #category : #'*GToolkit-Inspector' }
 FileReference >> gtFigureFor: aView [
 	<gtView>
 	(self isFile and: [ self mimeTypes notNil and: [ 
