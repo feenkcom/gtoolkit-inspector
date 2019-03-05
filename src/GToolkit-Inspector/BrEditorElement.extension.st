@@ -16,11 +16,13 @@ BrEditorElement >> paintEditorElementsWith: mondrian [
 		shape: [ :each | 
 			| form content container label labelText |
 			container := BlElement new 
+				look: BrShadowLook new;
+				background: Color white;
 				constraintsDo: [:c | 
 					c vertical fitContent. 
 					c horizontal fitContent.
 					c padding: (BlInsets top: 5 bottom: 5)];
-				layout: (BlGridLayout vertical cellSpacing: 1).
+				layout: (BlGridLayout vertical cellSpacing: 10).
 			container when: BlClickEvent do: [ :event | container fireEvent: (GtPhlowObjectToSelect new object: container; sourceElement: container) ].
 			labelText := (((each class name withoutPrefix: 'Br') withoutPrefix: 'Bl') withoutSuffix: 'Element').
 			labelText ifEmpty: [ labelText := 'Element' ].
@@ -28,7 +30,8 @@ BrEditorElement >> paintEditorElementsWith: mondrian [
 			labelText fontSize: 9.
 			labelText foreground: Color lightGray.
 			label := BlTextElement new text: labelText. 
-			label constraintsDo: [ :c | c grid horizontal alignCenter ].
+			label 
+				constraintsDo: [ :c | c grid horizontal alignCenter ].
 			container addChild: label.
 			form := each asSpartaForm.
 			content := BlElement new
@@ -41,7 +44,7 @@ BrEditorElement >> paintEditorElementsWith: mondrian [
 	mondrian edges 
 		fromCenterBottom;
 		toCenterTop;
-		shape: [ :each | BlLineElement new border: (BlBorder paint: (Color gray alpha: 0.3) width: 2) ];
+		shape: [ :each | BlLineElement new zIndex: -1; border: (BlBorder paint: (Color gray alpha: 0.3) width: 5) ];
 		connectFrom: #parent.
 	mondrian layout tree nodeDistance: 10; levelDistance: 40.
 ]
