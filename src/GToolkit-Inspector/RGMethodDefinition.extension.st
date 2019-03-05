@@ -54,9 +54,12 @@ RGMethodDefinition >> gtSourceFor: aView [
 		priority: 0;
 		actionStencil: [ 
 			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				look: BrGlamorousButtonExteriorRectangularLook +
+					BrGlamorousButtonIconLook;
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
 		stencil: [ 
-			 (GtMethodCoder forMethod: self) expanded: true; asElement ].
+			 (GtMethodCoder forMethod: self) 
+				expanded: true; 
+				asElement ].
 ]
