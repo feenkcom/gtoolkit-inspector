@@ -10,6 +10,12 @@ BrEditorElement >> gtEditorElementsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BrEditorElement >> gtTextTreeFor: aView [
+	<gtView>
+	^ (self editor gtTextTreeFor: aView) priority: 3 
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BrEditorElement >> paintEditorElementsWith: mondrian [
 	self forceLayout.
 	mondrian nodes
