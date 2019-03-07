@@ -11,7 +11,13 @@ BlElement >> gtChangesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtChildrenFor: aView [
 	<gtView>
-	^ self children gtChildrenFor: aView
+	
+	^ aView explicit
+		title: 'Children';
+		stencil: [ BrSimpleTree new
+			matchParent;
+			root: self computed: #children;
+			addEventHandler: (GtInspectorListToSelectHandler new transformation: #value) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

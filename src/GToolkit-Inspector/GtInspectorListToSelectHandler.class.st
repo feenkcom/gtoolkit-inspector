@@ -5,11 +5,6 @@ Class {
 }
 
 { #category : #accessing }
-GtInspectorListToSelectHandler >> eventClass [
-	^ BrSelectionChanged
-]
-
-{ #category : #accessing }
 GtInspectorListToSelectHandler >> eventClasses [
 	^ { BrSelectionChanged . BrSelectionDoubleClicked }
 ]
@@ -21,31 +16,32 @@ GtInspectorListToSelectHandler >> handleEvent: anEvent [
 
 { #category : #'api - event managing' }
 GtInspectorListToSelectHandler >> selectionChangedEvent: anEvent [
-	| listElement |
+	| aWidgetElement |
 
-	listElement := anEvent currentTarget.
+	aWidgetElement := anEvent currentTarget.
 	anEvent asBeaconSignal emit.
 
 	anEvent selectedDo: [ :anInterval |
 		| selectedObject |
-		selectedObject := listElement viewModel items at: listElement selection from.
-		listElement fireEvent: (GtPhlowObjectToSelect new 
+
+		selectedObject := aWidgetElement viewModel itemAt: anInterval first.
+		aWidgetElement fireEvent: (GtPhlowObjectToSelect new 
 			object: (self transformedValueFrom: selectedObject);
-			sourceElement: listElement).
-		listElement fireEvent: (GLMBlocObjectToSelect new toSelect: (self transformedValueFrom: selectedObject)) ]
+			sourceElement: aWidgetElement).
+		aWidgetElement fireEvent: (GLMBlocObjectToSelect new toSelect: (self transformedValueFrom: selectedObject)) ]
 ]
 
 { #category : #'api - event managing' }
 GtInspectorListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
-	| listElement selectedObject |
+	| aWidgetElement selectedObject |
 	
-	listElement := anEvent currentTarget.
+	aWidgetElement := anEvent currentTarget.
 	
-	selectedObject := listElement viewModel items at: listElement selection from.
-	listElement fireEvent: (GtPhlowObjectToSpawn new 
+	selectedObject := aWidgetElement viewModel itemAt: anEvent selection from.
+	aWidgetElement fireEvent: (GtPhlowObjectToSpawn new 
 		object: (self transformedValueFrom: selectedObject);
-		sourceElement: listElement).
-	listElement fireEvent: (GLMBlocObjectToSelect new 
+		sourceElement: aWidgetElement).
+	aWidgetElement fireEvent: (GLMBlocObjectToSelect new 
 		toSelect: (self transformedValueFrom: selectedObject))
 ]
 
