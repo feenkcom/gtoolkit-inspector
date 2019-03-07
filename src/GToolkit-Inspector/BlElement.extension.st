@@ -124,7 +124,9 @@ BlElement >> gtMetricsFor: aView [
 	^ aView explicit
 		title: 'Metrics';
 		priority: 20;
-		stencil: [ BlMetricsInspector new relocate:25@25; for: self ]
+		stencil: [ BlMetricsInspector new
+			padding: (BlInsets all: 10); 
+			for: self ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
