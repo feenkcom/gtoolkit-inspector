@@ -1,6 +1,6 @@
 Class {
 	#name : #GtInspectorListHandler,
-	#superclass : #BlEventHandler,
+	#superclass : #BlBasicEventHandler,
 	#instVars : [
 		'transformation'
 	],

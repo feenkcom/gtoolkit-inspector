@@ -11,16 +11,16 @@ GtInspectorListToSpawnHandler >> eventClass [
 
 { #category : #'api - event managing' }
 GtInspectorListToSpawnHandler >> handleEvent: anEvent [
-	| listElement |
+	| aWidgetElement |
 	
-	listElement := anEvent currentTarget.
+	aWidgetElement := anEvent currentTarget.
 	
 	anEvent selectedDo: [ :anInterval |
 		| selectedObject |
-		selectedObject := listElement viewModel items at: listElement selection from.
-		listElement fireEvent: (GtPhlowObjectToSpawn new 
+		selectedObject := aWidgetElement viewModel itemAt: anInterval first.
+		aWidgetElement fireEvent: (GtPhlowObjectToSpawn new 
 			object: (self transformedValueFrom: selectedObject);
-			sourceElement: listElement).
-		listElement fireEvent: (GLMBlocObjectToSelect new 
+			sourceElement: aWidgetElement).
+		aWidgetElement fireEvent: (GLMBlocObjectToSelect new 
 			toSelect: (self transformedValueFrom: selectedObject)) ]
 ]
