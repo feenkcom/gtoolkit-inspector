@@ -129,7 +129,7 @@ FileReference >> gtPathFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Path';
-		priority: 20;
+		priority: 55;
 		stencil: [ 
 			| all container |
 			all := self fullPath withParents collect: #asFileReference.
