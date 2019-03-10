@@ -16,10 +16,10 @@ Class >> gtAllReferencesFor: aView [
 			list addEventHandler: GtInspectorListToSelectHandler new.
 			list column 
 				title: 'Method';
-				stencil: [ :each | BrListLabelStencil matchParent: each name ].
+				stencil: [ :each | BrColumnCellLabelStencil matchParent: each name ].
 			list column 
 				title: 'Package';
-				stencil: [ :each | BrListLabelStencil matchParent: each package name ].
+				stencil: [ :each | BrColumnCellLabelStencil matchParent: each package name ].
 			list
 			].
 		
@@ -38,10 +38,10 @@ Class >> gtAllReferencesOutsideFor: aView [
 						sorted: [ :x :y | x name < y name ] ].
 			list column 
 				title: 'Method';
-				stencil: [ :each | BrListLabelStencil matchParent: each name ].
+				stencil: [ :each | BrColumnCellLabelStencil matchParent: each name ].
 			list column 
 				title: 'Package';
-				stencil: [ :each | BrListLabelStencil matchParent: each package name ].
+				stencil: [ :each | BrColumnCellLabelStencil matchParent: each package name ].
 			list
 			].
 		

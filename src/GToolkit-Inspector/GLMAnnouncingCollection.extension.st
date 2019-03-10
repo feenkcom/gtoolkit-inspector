@@ -35,7 +35,7 @@ GLMAnnouncingCollection >> gtItemsFor: aView [
 				self when: GLMItemRemoved do: refreshBlock.
             list column
                 title: 'Item';
-                stencil: [ :each :anIndex | BrListLabelStencil new text: each gtDisplayString ].
+                stencil: [ :each :anIndex | BrColumnCellLabelStencil new text: each gtDisplayString ].
             list ]
 ]
 

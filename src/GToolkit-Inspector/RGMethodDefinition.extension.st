@@ -19,7 +19,7 @@ RGMethodDefinition >> gtImplementorsFor: aView [
 						text: (anIndex asString asRopedText foreground: Color gray) ].
 			list column
 				title: 'Method';
-				stencil: [ :each :index | BrListLabelStencil new text: each gtDisplayString ].
+				stencil: [ :each :index | BrColumnCellLabelStencil new text: each gtDisplayString ].
 			list ]
 ]
 
@@ -42,7 +42,7 @@ RGMethodDefinition >> gtSendersFor: aView [
 						text: (anIndex asString asRopedText foreground: Color gray) ].
 			list column
 				title: 'Method';
-				stencil: [ :each :index | BrListLabelStencil new text: each gtDisplayString ].
+				stencil: [ :each :index | BrColumnCellLabelStencil new text: each gtDisplayString ].
 			list ]
 ]
 

@@ -42,10 +42,10 @@ String >> gtLiveFor: aView [
 					editor editor updateAll; invalidateAll ] ].
 		list column 
 			title: 'Index';
-			stencil: [ :assoc | BrListLabelStencil new text: (assoc value asString asRopedText glamorousRegularFont; foreground: Color gray; fontSize: 11)].
+			stencil: [ :assoc | BrColumnCellLabelStencil new text: (assoc value asString asRopedText glamorousRegularFont; foreground: Color gray; fontSize: 11)].
 		list column 
 			title: 'Char';
-			stencil: [ :assoc | BrListLabelStencil new text: ((assoc key printString gtRemovePrefix: 'Character ') asRopedText glamorousRegularFont; fontSize: 11)].
+			stencil: [ :assoc | BrColumnCellLabelStencil new text: ((assoc key printString gtRemovePrefix: 'Character ') asRopedText glamorousRegularFont; fontSize: 11)].
 		container addChild: list.
 		
 		container 
