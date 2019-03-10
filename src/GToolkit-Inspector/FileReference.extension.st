@@ -212,20 +212,20 @@ FileReference >> gtZipItemsFor: aView [
 						ifTrue: [ '..' ]
 						ifFalse: [ each basename asString ].
 
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
+					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Size';
 				stencil: [:each |  
 					| textElement |
-					textElement := (BrListLabelStencil fitContent: each humanReadableSize asString) asElement.
+					textElement := (BrColumnCellLabelStencil fitContent: each humanReadableSize asString) asElement.
 					textElement constraintsDo: [ :c | c padding: (BlInsets right: 10)].].
 				
 			list column
 				title: 'Creation';
 				stencil: [ :each | 
 					| textElement |
-					textElement := (BrListLabelStencil fitContent: (String streamContents: [:s | 
+					textElement := (BrColumnCellLabelStencil fitContent: (String streamContents: [:s | 
 					each creationTime printYMDOn: s.
 					s nextPut: Character space.
 					each creationTime printHMSOn: s ]) ) asElement.

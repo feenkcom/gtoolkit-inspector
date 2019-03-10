@@ -27,17 +27,17 @@ SmalltalkImage >> gtExamplesContainedFor: aView [
 			aList column
 				title: 'Class' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample example methodClass name) asElement
+					(BrColumnCellLabelStencil matchParent: eachExample example methodClass name) asElement
 						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList column
 				title: 'Selector' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample example selector asString) asElement
+					(BrColumnCellLabelStencil matchParent: eachExample example selector asString) asElement
 						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList column
 				title: 'Result' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrListLabelStencil matchParent: eachExample resultOrErrorName) asElement
+					(BrColumnCellLabelStencil matchParent: eachExample resultOrErrorName) asElement
 						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList
 			]

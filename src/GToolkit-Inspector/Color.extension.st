@@ -39,8 +39,8 @@ Color >> gtPreviewFor: aView [
 				'HSV saturation:' -> self hsvSaturation .
 				'HSV value:' -> self brightness .
 				'hex:' -> ('#', self asHexString) }.
-			list column title: 'Property'; stencil: [ :assoc | BrListLabelStencil new text: assoc key asRopedText glamorousRegularFont ].
-			list column title: 'Value'; stencil: [ :assoc | BrListLabelStencil new text: assoc value asRopedText glamorousRegularFont].
+			list column title: 'Property'; stencil: [ :assoc | BrColumnCellLabelStencil new text: assoc key asRopedText glamorousRegularFont ].
+			list column title: 'Value'; stencil: [ :assoc | BrColumnCellLabelStencil new text: assoc value asRopedText glamorousRegularFont].
 			BlElement new
 				layout: BlFrameLayout new;
 				constraintsDo: [ :c |

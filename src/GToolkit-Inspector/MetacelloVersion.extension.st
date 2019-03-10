@@ -17,7 +17,7 @@ MetacelloVersion >> gtPackagesFor: aView [
 					text := [ aNode gtDisplayString asRopedText ] 
 						on: Error 
 						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list ]
 ]
@@ -74,7 +74,7 @@ MetacelloVersion >> gtProjectsFor: aView [
 					text := [ aNode gtDisplayString asRopedText ] 
 						on: Error 
 						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list ]
 ]

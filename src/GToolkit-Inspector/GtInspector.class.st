@@ -81,21 +81,21 @@ GtInspector class >> gtActionsFor: aView [
 				stencil: [ :aMethod :index | 
 					| textElement text |
 					text := aMethod method package name asRopedText.								
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
+					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Class';
 				stencil: [ :aMethod :index | 
 					| textElement text |
 					text := aMethod methodClass name asRopedText.								
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
+					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Selector';
 				stencil: [ :aMethod :index |
 					| text textElement |
 					text := aMethod selector asRopedText.
-					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
 			  ].
 			list]
@@ -117,21 +117,21 @@ GtInspector class >> gtExtensionsFor: aView [
 				stencil: [ :aMethod :index | 
 					| textElement text |
 					text := aMethod method package name asRopedText.								
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
+					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Class';
 				stencil: [ :aMethod :index | 
 					| textElement text |
 					text := aMethod methodClass name asRopedText.								
-					textElement :=  (BrListLabelStencil matchParent: text) asElement.
+					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
 			list column
 				title: 'Selector';
 				stencil: [ :aMethod :index |
 					| text textElement |
 					text := aMethod selector asRopedText.
-					textElement := (BrListLabelStencil matchParent: text) asElement.
+					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
 					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
 			  ].
 			list]
