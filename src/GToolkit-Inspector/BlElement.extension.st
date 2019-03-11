@@ -13,7 +13,7 @@ BlElement >> gtChildrenFor: aView [
 	<gtView>
 	^ aView tree
 		title: 'Children';
-		items: [ self children];
+		items: [ {self} ];
 		children: #children
 ]
 
