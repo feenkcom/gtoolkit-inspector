@@ -16,7 +16,7 @@ BlElement >> gtChildrenFor: aView [
 		title: 'Children';
 		stencil: [ BrSimpleTree new
 			matchParent;
-			root: self computed: #children;
+			items: self children children: #children;
 			addEventHandler: (GtInspectorListToSelectHandler new transformation: #value) ]
 ]
 
