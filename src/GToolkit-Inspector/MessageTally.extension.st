@@ -5,20 +5,18 @@ MessageTally >> gtMessagesTreeIn: aView [
 	<gtView>
 	| methods normalizer |
 	methods := self withDeepCollect: #children.
-	"normalizer := RTNColorLinearNormalizer 
+	normalizer := BrColorLinearNormalizer 
 						inContext: methods 
 						withCommand: #tally 
 						lowColor: Color gray 
-						highColor: Color red."
+						highColor: Color red.
 	^ (aView tree)
 		title: 'Tree';
 		priority: 10;
 		items: [ { self } ];
-		children: [ :each | each children ]";
-		format: [ :each | 
-			Text 
-				string: each gtDisplayString
-				attributes: { TextColor color: (normalizer rtValue: each)}]		"
+		children: [ :each | each children ];
+		itemFormat: [ :each | 
+			each gtDisplayString asRopedText foreground: (normalizer value: each)]		
 ]
 
 { #category : #'*GToolkit-Inspector' }
