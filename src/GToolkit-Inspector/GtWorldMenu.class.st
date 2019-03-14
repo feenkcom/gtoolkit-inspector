@@ -4,6 +4,15 @@ Class {
 	#category : #'GToolkit-Inspector-World Menu'
 }
 
+{ #category : #'api - profiling' }
+GtWorldMenu class >> createDefaultMessageTally [
+	^ MessageTally new
+		reportOtherProcesses: false;
+		maxClassNameSize: 1000;
+		maxClassPlusSelectorSize: 1000;
+		maxTabs: 100
+]
+
 { #category : #'world menu' }
 GtWorldMenu class >> documentationExplorerOn: aBuilder [
 	<worldMenu>
@@ -97,6 +106,101 @@ GtWorldMenu class >> playgroundMenuOn: aBuilder [
 		iconName: #workspace
 ]
 
+{ #category : #'api - profiling' }
+GtWorldMenu class >> profileAllProcessesUndefinitely [
+	(self confirm: 'MessageTally on all processes will start now,
+and stop when the cursor goes
+to the top of the screen')
+		ifTrue: [ BlUniverse defer: [
+			| rootMessageTally |
+			rootMessageTally := self createDefaultMessageTally.
+			rootMessageTally
+				reportOtherProcesses: true.
+			rootMessageTally 
+				spyAllEvery: MessageTally defaultPollPeriod 
+				on: [ [ World activeHand position y > 0 ] 
+					whileTrue: [ BlUniverse default pulseLoop firePulse ] ].
+			GtInspector openOn: rootMessageTally ] ]
+]
+
+{ #category : #'world menu - profiling' }
+GtWorldMenu class >> profileAllProcessesUndefinitelyMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtprofile)
+		parent: #gtoolkit;
+		label: 'Profile all processes';
+		target: self;
+		selector: #profileAllProcessesUndefinitely;
+		order: 150;
+		help: 'Profile all procesess until the user stops the profiling'
+]
+
+{ #category : #'api - profiling' }
+GtWorldMenu class >> profileBlocUIProcessForFixedTime [
+	| secString secs |
+	secString := UIManager default request: 'Profile for how many seconds?' initialAnswer: '4'.
+	secString ifNil: [secString := String new].
+	secs := secString asNumber asInteger.
+	(secs isNil
+			or: [secs isZero])
+		ifTrue: [^ self].
+
+	[ | rootMessageTally |
+		rootMessageTally := self createDefaultMessageTally.
+		rootMessageTally 
+			spyEvery: MessageTally defaultPollPeriod
+			onProcess: BlUniverse default pulseLoop loopProcess
+			forMilliseconds: secs * 1000.
+		GtInspector openOn: (GtBlocUIProcessTally new
+			initializeForRootTally: rootMessageTally). 
+			
+		"Profiling a single process leave the Timer variable initialized, which prevents any other profiling to take place.
+		So once the profilinf is dine clear the profiling process."
+		MessageTally terminateTimerProcess. 
+	] forkAt: BlUniverse default pulseLoop loopProcess priority + 1.
+]
+
+{ #category : #'world menu - profiling' }
+GtWorldMenu class >> profileBlocUIProcessForFixedTimeMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtprofile)
+		parent: #gtoolkit;
+		label: 'Profile Bloc UI process for fixed time';
+		target: self;
+		selector: #profileBlocUIProcessForFixedTime;
+		order: 160;
+		help: 'Profile the Bloc UI process for a given time'
+]
+
+{ #category : #'api - profiling' }
+GtWorldMenu class >> profileBlocUIUndefinitely [
+	(self confirm: 'MessageTally the Bloc UI until the
+mouse pointer goes to the top of the screen')
+		ifTrue: [
+			BlUniverse defer: [ 
+				| rootMessageTally |
+				rootMessageTally := self createDefaultMessageTally.
+				rootMessageTally
+					reportOtherProcesses: true.
+				rootMessageTally 
+					spyEvery: MessageTally defaultPollPeriod 
+					on: [ [World activeHand position y > 10]
+						whileTrue: [BlUniverse default pulseLoop firePulse ] ].
+				GtInspector openOn: rootMessageTally ] ]
+]
+
+{ #category : #'world menu - profiling' }
+GtWorldMenu class >> profileBlocUIUndefinitelyMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtprofile)
+		parent: #gtoolkit;
+		label: 'Profile the Bloc UI';
+		target: self;
+		selector: #profileBlocUIUndefinitely;
+		order: 160;
+		help: 'Profile the Bloc UI until the user stops the profiling'
+]
+
 { #category : #'world menu' }
 GtWorldMenu class >> registerInspectorMenuOn: aBuilder [
 	<worldMenu>
@@ -184,7 +288,8 @@ GtWorldMenu class >> setPharoDesktopLogoMenuOn: aBuilder [
 		target: self;
 		selector: #setPharoDesktopLogo;
 		order: 101;
-		help: 'Set Pharo Desktop Logo'
+		help: 'Set Pharo Desktop Logo';
+		withSeparatorAfter
 ]
 
 { #category : #'world menu' }
