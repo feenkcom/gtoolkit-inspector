@@ -45,14 +45,20 @@ FileReference >> gtActionMaterializeXdFileFor: anAction [
 FileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
-	^ aView textEditor
+	^ aView explicit
 		title: 'Contents' translated;
 		priority: 50;
-		text: [ 
-			self binaryReadStreamDo: [ :stream | 
-				[stream contents ]
-					on: Error 
-					do: [ (stream next: 10000) asString ] ] ];
+		stencil: [ 
+			BrEditorElement new 
+				padding: (BlInsets all: 10);
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ];
+				editor: (BrTextEditor new 
+					text: (self binaryReadStreamDo: [ :stream | 
+						[stream contents ]
+							on: Error 
+							do: [ (stream next: 10000) asString ] ]) asRopedText) ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
