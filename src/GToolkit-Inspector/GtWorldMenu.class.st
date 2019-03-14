@@ -151,8 +151,7 @@ GtWorldMenu class >> profileBlocUIProcessForFixedTime [
 			spyEvery: MessageTally defaultPollPeriod
 			onProcess: BlUniverse default pulseLoop loopProcess
 			forMilliseconds: secs * 1000.
-		GtInspector openOn: (GtBlocUIProcessTally new
-			initializeForRootTally: rootMessageTally). 
+		GtBlocUIProcessTally inspectTally: rootMessageTally.
 			
 		"Profiling a single process leave the Timer variable initialized, which prevents any other profiling to take place.
 		So once the profilinf is dine clear the profiling process."
