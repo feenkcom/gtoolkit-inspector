@@ -92,7 +92,7 @@ FileReference >> gtItemsFor: aView [
 		title: 'Items' translated;
 		priority: 10;
 		items: [ | children |
-			children := self directories , self files.
+			children := (self directories sorted: [:a :b | a basename < b basename ]) , (self files sorted: [:a :b | a basename < b basename ]).
 			children := self isRoot
 				ifTrue: [ children ]
 				ifFalse: [ children asOrderedCollection
