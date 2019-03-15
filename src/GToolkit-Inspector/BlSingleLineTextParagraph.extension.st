@@ -23,7 +23,7 @@ BlSingleLineTextParagraph >> gtMetricsFor: aView [
 								nextPutAll: 'tight bounds: '; print: self tightBounds; cr;
 								nextPutAll: 'loose bounds: '; print: self looseBounds; cr;
 								nextPutAll: 'width: '; print: self width; cr;
-								nextPutAll: 'advance: '; print: self line advance ]) asRopedText monospace;
+								nextPutAll: 'advance: '; print: self line advance ]) asRopedText;
 						look: BrGlamorousCodeEditorLook) ];
 		rendering: [ :aCanvas :anElement |
 			aCanvas transform
