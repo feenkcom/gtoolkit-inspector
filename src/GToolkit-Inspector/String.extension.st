@@ -60,10 +60,11 @@ String >> gtStringFor: aView [
 		priority: 9;
 		stencil: [
 			BrEditorElement new
+				margin: (BlInsets all: 10);
 				constraintsDo: [ :c | 
 					c vertical matchParent. 
 					c horizontal matchParent ];
 				editor: (BrTextEditor new
 					text: ( self asRopedText
-						glamorousCodeFontAndSize) ) ]
+						glamorousRegularFontAndSize) ) ]
 ]
