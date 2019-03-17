@@ -58,7 +58,7 @@ FileReference >> gtContentsFor: aView [
 					text: (self binaryReadStreamDo: [ :stream | 
 						[stream contents ]
 							on: Error 
-							do: [ (stream next: 10000) asString ] ]) asRopedText) ];
+							do: [ (stream next: 10000) asString ] ]) asRopedText glamorousRegularFont) ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
