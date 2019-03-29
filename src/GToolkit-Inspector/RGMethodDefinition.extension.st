@@ -59,12 +59,8 @@ RGMethodDefinition >> gtSourceFor: aView [
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
 		stencil: [ 
-			| filter methods methodsCoders |
-			filter := GtSearchIFixedMethodsFilter new.
-			filter methods add: self compiledMethod.
-			methods := (GtSearchMethodGroupResult forFilter: filter).
-
-			methodsCoders := GtMethodsCoder forMethods: methods.
-			methodsCoders coders first expanded: true.
-			methodsCoders asElement ].
+			 (GtMethodCoder forMethod: self) 
+				expanded: true; 
+				subscribeToSystem;
+				asElement].
 ]

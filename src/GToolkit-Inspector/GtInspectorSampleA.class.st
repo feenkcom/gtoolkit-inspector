@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorSampleA,
 	#superclass : #ProtoObject,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #ui }
