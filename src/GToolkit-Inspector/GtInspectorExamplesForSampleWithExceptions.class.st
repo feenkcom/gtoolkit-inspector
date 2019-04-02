@@ -23,7 +23,7 @@ And if we are at it, you can also get an exception as a graphical element that l
 Class {
 	#name : #GtInspectorExamplesForSampleWithExceptions,
 	#superclass : #Object,
-	#category : #'GToolkit-Inspector-Examples'
+	#category : 'GToolkit-Inspector-Examples'
 }
 
 { #category : #examples }
