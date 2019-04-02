@@ -68,73 +68,17 @@ GtInspector class >> enableAutoUpdate [
 { #category : #ui }
 GtInspector class >> gtActionsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ (#gtAction gtPragmas gtItemsFor: aView)
 		title: 'Actions';
-		priority: 30;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: self actionExtensionMethods.
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list column
-				title: 'Package';
-				stencil: [ :aMethod :index | 
-					| textElement text |
-					text := aMethod method package name asRopedText.								
-					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list column
-				title: 'Class';
-				stencil: [ :aMethod :index | 
-					| textElement text |
-					text := aMethod methodClass name asRopedText.								
-					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list column
-				title: 'Selector';
-				stencil: [ :aMethod :index |
-					| text textElement |
-					text := aMethod selector asRopedText.
-					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
-			  ].
-			list]
+		priority: 1
 ]
 
 { #category : #ui }
 GtInspector class >> gtExtensionsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ (#gtView gtPragmas gtItemsFor: aView)
 		title: 'Extensions';
-		priority: 20;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: self viewExtensionMethods.
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			list column
-				title: 'Package';
-				stencil: [ :aMethod :index | 
-					| textElement text |
-					text := aMethod method package name asRopedText.								
-					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list column
-				title: 'Class';
-				stencil: [ :aMethod :index | 
-					| textElement text |
-					text := aMethod methodClass name asRopedText.								
-					textElement :=  (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list column
-				title: 'Selector';
-				stencil: [ :aMethod :index |
-					| text textElement |
-					text := aMethod selector asRopedText.
-					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ].
-			  ].
-			list]
+		priority: 0
 ]
 
 { #category : #settings }
