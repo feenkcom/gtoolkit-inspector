@@ -4,6 +4,19 @@ Class {
 	#category : #'GToolkit-Inspector-World Menu'
 }
 
+{ #category : #'world menu' }
+GtWorldMenu class >> coderMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtcoder)
+		parent: #gtoolkit;
+		label: 'GToolkit Coder';
+		target: self;
+		selector: #openCoder;
+		order: 6;
+		help: 'Open GToolkit Coer'";
+		iconName: #workspace"
+]
+
 { #category : #'api - profiling' }
 GtWorldMenu class >> createDefaultMessageTally [
 	^ MessageTally new
@@ -71,6 +84,11 @@ GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllDocumenterFiles [
 	GtInspector openOn: GtIcebergUtility pillarDocuments
+]
+
+{ #category : #'api - actions' }
+GtWorldMenu class >> openCoder [
+	GtInspector openOnPlayBook: (GtClassCoder new)
 ]
 
 { #category : #'api - actions' }
