@@ -9,7 +9,7 @@ GtWorldMenu class >> coderMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtcoder)
 		parent: #gtoolkit;
-		label: 'GToolkit Coder';
+		label: 'gt Coder';
 		target: self;
 		selector: #openCoder;
 		order: 6;
@@ -31,7 +31,7 @@ GtWorldMenu class >> documentationExplorerOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtintroductionmenu)
 		parent: #gtoolkit;
-		label: 'GToolkit Documentation Explorer';
+		label: 'gt Documentation Explorer';
 		target: self;
 		selector: #openGToolkitDocumentationExplorer;
 		order: 10;
@@ -43,7 +43,7 @@ GtWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterclasses)
 		parent: #gtoolkit;
-		label: 'GToolkit Documenter class comments';
+		label: 'gt Documenter class comments';
 		target: self;
 		selector: #openAllClassesDocumentedByDocumenter;
 		order: 15;
@@ -55,7 +55,7 @@ GtWorldMenu class >> documenterFilesMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtdocumenterfiles)
 		parent: #gtoolkit;
-		label: 'GToolkit Documenter files';
+		label: 'gt Documenter files';
 		target: self;
 		selector: #openAllDocumenterFiles;
 		order: 20;
@@ -68,11 +68,23 @@ GtWorldMenu class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtexamplesexplorer)
 		parent: #gtoolkit;
-		label: 'GToolkit Examples Explorer';
+		label: 'gt Examples Explorer';
 		target: self;
 		selector: #openGToolkitExamplesExplorer;
 		order: 10;
 		help: 'Open GToolkit Examples Explorer'
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> gtWorldMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtworld)
+		parent: #gtoolkit;
+		label: 'gt World';
+		target: self;
+		selector: #openWorld;
+		order: 1;
+		help: 'Open the GToolkit World'
 ]
 
 { #category : #'api - actions' }
@@ -111,12 +123,17 @@ GtWorldMenu class >> openTour [
 	GtInspector openOnPlayBook: (GtDocument forClass: BaselineOfGToolkit)
 ]
 
+{ #category : #'api - actions' }
+GtWorldMenu class >> openWorld [
+	GtWorld open
+]
+
 { #category : #'world menu' }
 GtWorldMenu class >> playgroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtplayground)
 		parent: #gtoolkit;
-		label: 'GToolkit Playground';
+		label: 'gt Playground';
 		target: GtInspector;
 		selector: #openOnPlayBook;
 		order: 5;
@@ -249,7 +266,7 @@ GtWorldMenu class >> repositoriesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtrepositoriesexplorer)
 		parent: #gtoolkit;
-		label: 'GToolkit Repositories Explorer';
+		label: 'gt Repositories Explorer';
 		target: self;
 		selector: #openGToolkitRepositoriesExplorer;
 		order: 11;
@@ -314,7 +331,7 @@ GtWorldMenu class >> tourMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtintroductionmenu)
 		parent: #gtoolkit;
-		label: 'Glamorous Toolkit Tour';
+		label: 'gt Tour';
 		target: self;
 		selector: #openTour;
 		order: 9;
