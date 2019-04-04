@@ -1,11 +1,12 @@
 Class {
 	#name : #GtInspectorSystemChangesHandler,
 	#superclass : #Object,
-	#traits : 'TBlDebug',
-	#classTraits : 'TBlDebug classTrait',
+	#traits : 'TBlDebug + TGtInspectorPageModelChecker',
+	#classTraits : 'TBlDebug classTrait + TGtInspectorPageModelChecker classTrait',
 	#instVars : [
 		'inspector',
 		'classes',
+		'tasker',
 		'isSubscribedToSystem'
 	],
 	#category : #'GToolkit-Inspector-Utility'
@@ -23,20 +24,6 @@ GtInspectorSystemChangesHandler >> addClass: aClass [
 { #category : #accessing }
 GtInspectorSystemChangesHandler >> classes [
 	^ classes
-]
-
-{ #category : #testing }
-GtInspectorSystemChangesHandler >> doesClass: anAffectedClass isOrInheritsFrom: aClass [
-	<return: #Boolean>
-	(aClass = Object or: [ aClass = ProtoObject ]) ifTrue: [ ^ false ].
-	^ anAffectedClass = aClass or: [ anAffectedClass inheritsFrom: aClass ]
-]
-
-{ #category : #testing }
-GtInspectorSystemChangesHandler >> doesPage: aBrPagerPageModel displayClass: aClass [ 
-	^ self 
-		doesClass: aBrPagerPageModel model class instanceSide
-		isOrInheritsFrom: aClass
 ]
 
 { #category : #'announcement handling' }
@@ -75,6 +62,7 @@ GtInspectorSystemChangesHandler >> handleMethodRemovedAnnouncement: aMethodRemov
 GtInspectorSystemChangesHandler >> initialize [
 	super initialize.
 	classes := OrderedCollection new.
+	tasker := GtTasker orderedNonRepetitive asPostponingTasker.
 	isSubscribedToSystem := false.
 	
 ]
@@ -98,13 +86,10 @@ GtInspectorSystemChangesHandler >> isSubscribedToSystem [
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> removePageViewForClass: aClass andMethod: aCompiledMethod [ 
-	inspector pager pages do: [ :eachPage | 
-		(self doesPage: eachPage displayClass: aClass) ifTrue: [ 
-			GtInspectorPageViewUpdater new
-				inspectorWidget: inspector;
-				pagerPageModel: eachPage;
-				viewMethodDefinition: aCompiledMethod asRingDefinition;
-				remove ] ]
+	tasker addTask: (GtInspectorRemovePageViewWithMethod new
+		inspectorInstance: inspector;
+		affectedClass: aClass;
+		compiledMethod: aCompiledMethod)
 ]
 
 { #category : #subscriptions }
@@ -134,19 +119,15 @@ GtInspectorSystemChangesHandler >> unsubscribeFromSystem [
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> updatePageViewForClass: aClass andMethod: aCompiledMethod [ 
-	inspector pager pages do: [ :eachPage | 
-		(self doesPage: eachPage displayClass: aClass) ifTrue: [ 
-			GtInspectorPageViewUpdater new
-				inspectorWidget: inspector;
-				pagerPageModel: eachPage;
-				viewMethodDefinition: aCompiledMethod asRingDefinition;
-				update ] ]
+	tasker addTask: (GtInspectorUpdatePageViewWithMethod new
+		inspectorInstance: inspector;
+		affectedClass: aClass;
+		compiledMethod: aCompiledMethod)
 ]
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> updatePagesWithClass: aClass [ 
-	inspector pager pages do: [ :eachPage | 
-		(self doesPage: eachPage displayClass: aClass) 
-			ifTrue: [ inspector enqueueTask: (
-				BlTaskAction new action: [ inspector updatePageModelWidget: eachPage ]) ] ]
+	tasker addTask: (GtInspectorUpdatePagesWithClassTask new
+		inspectorInstance: inspector;
+		affectedClass: aClass)
 ]
