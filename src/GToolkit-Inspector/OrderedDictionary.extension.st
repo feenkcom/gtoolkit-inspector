@@ -9,3 +9,13 @@ OrderedDictionary >> gtItemsFor: aView [
 		column: 'Value' do: [:aColumn | aColumn item: [:each | each value ] ];
 		send: #value
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+OrderedDictionary >> gtKeysFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Keys';
+		items: [ self keys ];
+		column: 'Key' do: [ :column |
+			column item: [ :aKey | aKey ]; matchParent ]
+]
