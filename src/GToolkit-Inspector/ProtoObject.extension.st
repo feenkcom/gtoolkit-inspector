@@ -38,6 +38,16 @@ ProtoObject >> gtActions [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject class >> gtSubclassesFor: aView [
+	<gtView>
+	self subclasses ifNil: [ ^ aView empty ].
+	^ aView tree
+		title: 'Subclasses';
+		items: [ { self } ];
+		children: #subclasses
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView [
 	"this is the default entry method for retrieving the wrapper view containing all views"
 	^ self gtViewsFor: aView inContext: nil
