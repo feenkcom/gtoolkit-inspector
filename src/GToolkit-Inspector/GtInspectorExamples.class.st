@@ -12,6 +12,7 @@ Class {
 { #category : #updating }
 GtInspectorExamples >> addFooViewMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
 	phlowDemo ensureFooMethodRemoved.
 	phlowDemo emptyViewMethodDefinition.
@@ -73,6 +74,7 @@ GtInspectorExamples >> basicInspector [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
 	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
@@ -104,6 +106,7 @@ GtInspectorExamples >> changePrintOnMethod [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethodInSuperclass [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
 	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
@@ -165,6 +168,7 @@ GtInspectorExamples >> labelViewOfSmallInteger [
 { #category : #updating }
 GtInspectorExamples >> updateFooViewMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTaskOne aTaskTwo aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
 	phlowDemo ensureFooMethodRemoved.
 	phlowDemo ensureBazMethodRemoved.
