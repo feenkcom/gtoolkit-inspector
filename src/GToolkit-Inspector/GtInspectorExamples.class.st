@@ -4,7 +4,8 @@ Class {
 	#traits : 'TBlDebug + TGtInspectorUtility',
 	#classTraits : 'TBlDebug classTrait + TGtInspectorUtility classTrait',
 	#instVars : [
-		'phlowDemo'
+		'phlowDemo',
+		'inspectors'
 	],
 	#category : #'GToolkit-Inspector-Examples'
 }
@@ -12,6 +13,7 @@ Class {
 { #category : #updating }
 GtInspectorExamples >> addFooViewMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
 	phlowDemo ensureFooMethodRemoved.
 	phlowDemo emptyViewMethodDefinition.
@@ -59,20 +61,30 @@ GtInspectorExamples >> addFooViewMethod [
 	^ anInspector
 ]
 
+{ #category : #private }
+GtInspectorExamples >> addInspector: anInspector [
+	inspectors ifNil: [ inspectors := OrderedCollection new ].
+	inspectors add: anInspector.
+]
+
 { #category : #updating }
 GtInspectorExamples >> basicInspector [
 	<gtExample>
+	<after: #unsubscribeInspectors>
 	| anInspector |
 	anInspector := GtInspector new.
 	anInspector constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
+	"We do this to explicitly unsubscribe from system"
+	self addInspector: anInspector.
 	^ anInspector
 ]
 
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
 	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
@@ -104,6 +116,7 @@ GtInspectorExamples >> changePrintOnMethod [
 { #category : #updating }
 GtInspectorExamples >> changePrintOnMethodInSuperclass [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTask |
 	phlowDemo ensurePrintOnMethodRemoved.
 	anInspector := self basicInspector.
@@ -162,9 +175,16 @@ GtInspectorExamples >> labelViewOfSmallInteger [
 	^ labelView 
 ]
 
+{ #category : #private }
+GtInspectorExamples >> unsubscribeInspectors [
+	inspectors ifNil: [ ^ self ].
+	inspectors do: [ :eachInspector | eachInspector unsubscribeFromSystem ].
+]
+
 { #category : #updating }
 GtInspectorExamples >> updateFooViewMethod [
 	<gtExample>
+	<noTest>
 	| anInspector aClass anInstance aFirstPageContentElement aSecondPageContentElement aTaskOne aTaskTwo aFirstPagerPageModel aFirstBrTabGroup aSecondPagerPageModel aSecondBrTabGroup aFirstTabbar aFirstTabs aSecondTabbar aSecondTabs |
 	phlowDemo ensureFooMethodRemoved.
 	phlowDemo ensureBazMethodRemoved.

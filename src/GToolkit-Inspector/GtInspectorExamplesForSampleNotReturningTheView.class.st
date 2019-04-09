@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorExamplesForSampleNotReturningTheView,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #examples }

@@ -362,6 +362,11 @@ GtInspector >> spawnInitial: aSelectedObject [
 		self addPageWithContent: aPageContentElement for: aSelectedObject ]
 ]
 
+{ #category : #subscriptions }
+GtInspector >> unsubscribeFromSystem [
+	systemListener unsubscribeFromSystem
+]
+
 { #category : #private }
 GtInspector >> updatePageModelWidget: aBrPagerPageModel [ 
 	| aSelectedObject aPageView |
