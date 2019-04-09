@@ -4,7 +4,8 @@ Class {
 	#traits : 'TBlDebug + TGtInspectorUtility',
 	#classTraits : 'TBlDebug classTrait + TGtInspectorUtility classTrait',
 	#instVars : [
-		'phlowDemo'
+		'phlowDemo',
+		'inspectors'
 	],
 	#category : #'GToolkit-Inspector-Examples'
 }
@@ -60,14 +61,23 @@ GtInspectorExamples >> addFooViewMethod [
 	^ anInspector
 ]
 
+{ #category : #private }
+GtInspectorExamples >> addInspector: anInspector [
+	inspectors ifNil: [ inspectors := OrderedCollection new ].
+	inspectors add: anInspector.
+]
+
 { #category : #updating }
 GtInspectorExamples >> basicInspector [
 	<gtExample>
+	<after: #unsubscribeInspectors>
 	| anInspector |
 	anInspector := GtInspector new.
 	anInspector constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
+	"We do this to explicitly unsubscribe from system"
+	self addInspector: anInspector.
 	^ anInspector
 ]
 
@@ -163,6 +173,12 @@ GtInspectorExamples >> labelViewOfSmallInteger [
 	labelView := 42 gtViewsFor: GtPhlowEmptyView new..
 	self assert: labelView label asString = 'a SmallInteger (42)'.
 	^ labelView 
+]
+
+{ #category : #private }
+GtInspectorExamples >> unsubscribeInspectors [
+	inspectors ifNil: [ ^ self ].
+	inspectors do: [ :eachInspector | eachInspector unsubscribeFromSystem ].
 ]
 
 { #category : #updating }
