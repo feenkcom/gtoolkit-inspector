@@ -52,12 +52,12 @@ RGMethodDefinition >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		actionStencil: [ 
-			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook +
-					BrGlamorousButtonIconLook;
-				icon: BrGlamorousIcons browse asElement;
-				action: [ self browse ] ];
+		actionButtonIcon: BrGlamorousIcons browse 
+			action: [ :aButton | self browse ];
+		actionButtonIcon: BrGlamorousIcons inspect 
+			action: [ :aButton | 
+				aButton phlow spawnObject: 
+					(GtClassCoder forClass: self methodClass) ];
 		stencil: [ 
 			 (GtMethodCoder forMethod: self) 
 				expanded: true; 
