@@ -36,7 +36,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 				noResize];
 		column: 'Class' translated do: [:aColumn | 
 			aColumn 
-				item: [ :eachExample :anIndex |  eachExample example methodClass name ];
+				item: [ :eachExample :anIndex |  eachExample example classLabel ];
 				matchParent];
 		column: 'Selector' translated do: [ :aColumn |
 			aColumn 
