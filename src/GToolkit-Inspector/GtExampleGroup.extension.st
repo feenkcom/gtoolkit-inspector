@@ -7,18 +7,8 @@ GtExampleGroup >> gtExamplesFor: aView [
 		title: 'Examples';
 		priority: 10;
 		items: [ self examples ];
-		actionStencil: [ :tab |
-			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
-				icon: BrGlamorousIcons play asElement;
-				action: [
-					self examples 
-						do: [ :each | each ignoreTest ifFalse: [ each run ] ] 
-						displayingProgress: 'Running examples ...'.
-					tab parentTabGroup 	
-						allChildrenBreadthFirstDetect: [ :aChild | aChild phlow isViewContent ] 
-						ifFound: [ :aList | aList children second children first dataSource notifyChanged ] 
-						ifNone: [self error: 'I should have found a view content element, but I did not.']  ] ];
+		actionButtonIcon: BrGlamorousIcons play 
+			action: [ :aButton | self runAllExamplesFrom: aButton ];
 		column: 'Icon' translated do: [:aColumn |
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
@@ -55,4 +45,16 @@ GtExampleGroup >> gtMapFor: aView [
 		title: 'Map';
 		priority: 90;
 		painting: [ :mondrian | self paintMapWith: mondrian ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+GtExampleGroup >> runAllExamplesFrom: aBrTab [
+	self runAll.
+	aBrTab phlow viewContent 	
+		allChildrenBreadthFirstDetect: [ :aChild | 
+			aChild phlow isViewContent ] 
+		ifFound: [ :aList | 
+			aList children second children first dataSource notifyChanged ] 
+		ifNone: [ 
+			self error: 'I should have found a view content element, but I did not.' ]
 ]
