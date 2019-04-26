@@ -11,27 +11,22 @@ GtExampleGroup >> gtExamplesFor: aView [
 				self runAllExamplesFrom: aButton.
 				aTab viewContentElement phlow update ];
 		stencil: [
-	| aContainer aText aSummary aListView |
+	| aContainer aButtonsContainer aListView |
 	aContainer := BlElement new 
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c | 
 			c padding: (BlInsets all: 3).
 			c horizontal matchParent.
 			c vertical matchParent. ].
-	aText := String streamContents: [ :aStream | 
-		aStream 
-			print: self numberOfExamples; nextPutAll: ' examples, ';
-			print: self numberOfSuccesses; nextPutAll: ' sucesses, ';
-			print: self numberOfFailures; nextPutAll: ' failures, ';
-			print: self numberOfErrors; nextPutAll: ' errors'
-	].
-	aSummary := BlTextElement new 
-		text: aText asRopedText glamorousRegularFontAndSize;
+	aButtonsContainer := BlElement new 
+		layout: (BlLinearLayout horizontal cellSpacing: 3);
 		constraintsDo: [ :c | 
+			c padding: (BlInsets all: 3).
 			c horizontal fitContent.
 			c vertical fitContent.
 			c linear horizontal alignCenter ].
-	aContainer addChild: aSummary.
+	aContainer addChild: aButtonsContainer.
+
 	aListView := aView columnedList
 		title: 'Examples List';
 		priority: 11;
@@ -63,7 +58,33 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aColumn 
 				item: [ :eachExample :anIndex | eachExample resultOrErrorName ];
 				matchParent ].
-	aListView asElementDo: [ :anElement | aContainer addChild: anElement ].
+	aListView asElementDo: [ :anElement | 
+		aContainer addChild: anElement.
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: self numberOfExamples asString, ' examples ';
+			action: [ anElement children second items: (self examples) ]).
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: self numberOfResults asString, ' executed ';
+			action: [ anElement children second items: (self examples select: #hasResult) ]).
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: self numberOfSuccesses asString, ' sucesses ';
+			action: [ anElement children second items: (self examples select: #isSuccess) ]).
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: self numberOfFailures asString, ' failures ';
+			action: [ anElement children second items: (self examples select: #isFailure) ]).
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: self numberOfErrors asString, ' errors ';
+			action: [ anElement children second items: (self examples select: #isError) ]).
+		aButtonsContainer addChild: (BrButton new 
+			look: BrGlamorousButtonWithLabelLook; beSmall; 
+			label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
+			action: [ anElement children second items: (self examples select: [ :e | e hasResult not ]) ]).
+		 ].
 	aContainer ]
 ]
 
