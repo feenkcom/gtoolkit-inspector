@@ -3,12 +3,39 @@ Extension { #name : #GtExampleGroup }
 { #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView explicit 
 		title: 'Examples';
-		priority: 10;
-		items: [ self examples ];
+		priority: 11;
 		actionButtonIcon: BrGlamorousIcons play 
-			action: [ :aButton | self runAllExamplesFrom: aButton ];
+			action: [ :aButton :aTab | 
+				self runAllExamplesFrom: aButton.
+				aTab viewContentElement phlow update ];
+		stencil: [
+	| aContainer aText aSummary aListView |
+	aContainer := BlElement new 
+		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | 
+			c padding: (BlInsets all: 3).
+			c horizontal matchParent.
+			c vertical matchParent. ].
+	aText := String streamContents: [ :aStream | 
+		aStream 
+			print: self numberOfExamples; nextPutAll: ' examples, ';
+			print: self numberOfSuccesses; nextPutAll: ' sucesses, ';
+			print: self numberOfFailures; nextPutAll: ' failures, ';
+			print: self numberOfErrors; nextPutAll: ' errors'
+	].
+	aSummary := BlTextElement new 
+		text: aText asRopedText glamorousRegularFontAndSize;
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical fitContent.
+			c linear horizontal alignCenter ].
+	aContainer addChild: aSummary.
+	aListView := aView columnedList
+		title: 'Examples List';
+		priority: 11;
+		items: [ self examples ];
 		column: 'Icon' translated do: [:aColumn |
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
@@ -35,7 +62,9 @@ GtExampleGroup >> gtExamplesFor: aView [
 		column: 'Result' translated do: [:aColumn |
 			aColumn 
 				item: [ :eachExample :anIndex | eachExample resultOrErrorName ];
-				matchParent ]
+				matchParent ].
+	aListView asElementDo: [ :anElement | aContainer addChild: anElement ].
+	aContainer ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -52,9 +81,9 @@ GtExampleGroup >> runAllExamplesFrom: aBrTab [
 	self runAll.
 	aBrTab phlow viewContent 	
 		allChildrenBreadthFirstDetect: [ :aChild | 
-			aChild phlow isViewContent ] 
+			aChild isKindOf: BrList ] 
 		ifFound: [ :aList | 
-			aList children second children first dataSource notifyChanged ] 
+			aList children first dataSource notifyChanged ] 
 		ifNone: [ 
 			self error: 'I should have found a view content element, but I did not.' ]
 ]
