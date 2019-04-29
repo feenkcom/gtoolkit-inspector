@@ -1,6 +1,13 @@
 Extension { #name : #Object }
 
 { #category : #'*GToolkit-Inspector' }
+Object >> gtDisplayText [
+	^ [ self gtDisplayString asRopedText ]
+		on: Error 
+		do: [ :e | e printString asRopedText foreground: Color red ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Object >> gtInspectorForGtIn: composite [
 	"this is a bridge solution to embed all views into the existing inspector"
 	<gtInspectorPresentationOrder: 10>
