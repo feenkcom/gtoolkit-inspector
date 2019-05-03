@@ -1,6 +1,35 @@
 Extension { #name : #GtExampleGroup }
 
 { #category : #'*GToolkit-Inspector' }
+GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
+	aButtonsContainer removeChildren.
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: self numberOfExamples asString, ' examples ';
+		action: [ anElement children second items: (self examples) ]).
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: self numberOfResults asString, ' executed ';
+		action: [ anElement children second items: (self examples select: #hasResult) ]).
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: self numberOfSuccesses asString, ' sucesses ';
+		action: [ anElement children second items: (self examples select: #isSuccess) ]).
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: self numberOfFailures asString, ' failures ';
+		action: [ anElement children second items: (self examples select: #isFailure) ]).
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: self numberOfErrors asString, ' errors ';
+		action: [ anElement children second items: (self examples select: #isError) ]).
+	aButtonsContainer addChild: (BrButton new 
+		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
+		action: [ anElement children second items: (self examples reject: [ :e | e hasResult ]) ]).
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -36,6 +65,11 @@ GtExampleGroup >> gtExamplesFor: aView [
 				itemStencil: [ :eachExample :anIndex | 
 					| anElement |
 					anElement := eachExample icon asElement.
+					eachExample announcer weak  
+						subscribe: GtExampleExecuted 
+						do: [ :anAnnouncement | 
+							eachExample result: anAnnouncement result.
+							anElement background: anAnnouncement result icon ].
 					anElement
 						constraintsDo: [ :c | 
 							c padding: (BlInsets top: 3 bottom: 3).
@@ -44,7 +78,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ];
+							anElement phlow spawnObject: eachExample result returnValue ] ];
 				noResize];
 		column: 'Class' translated do: [:aColumn | 
 			aColumn 
@@ -58,33 +92,12 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aColumn 
 				item: [ :eachExample :anIndex | eachExample resultOrErrorName ];
 				matchParent ].
-	aListView asElementDo: [ :anElement | 
+	aListView asElementDo: [ :anElement |
+		self announcer weak 
+			subscribe: GtExamplesExecuted, GtExampleExecuted
+			do: [ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
 		aContainer addChild: anElement.
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: self numberOfExamples asString, ' examples ';
-			action: [ anElement children second items: (self examples) ]).
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: self numberOfResults asString, ' executed ';
-			action: [ anElement children second items: (self examples select: #hasResult) ]).
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: self numberOfSuccesses asString, ' sucesses ';
-			action: [ anElement children second items: (self examples select: #isSuccess) ]).
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: self numberOfFailures asString, ' failures ';
-			action: [ anElement children second items: (self examples select: #isFailure) ]).
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: self numberOfErrors asString, ' errors ';
-			action: [ anElement children second items: (self examples select: #isError) ]).
-		aButtonsContainer addChild: (BrButton new 
-			look: BrGlamorousButtonWithLabelLook; beSmall; 
-			label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
-			action: [ anElement children second items: (self examples select: [ :e | e hasResult not ]) ]).
-		 ].
+		self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
 	aContainer ]
 ]
 
@@ -100,11 +113,11 @@ GtExampleGroup >> gtMapFor: aView [
 { #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> runAllExamplesFrom: aBrTab [
 	self runAll.
-	aBrTab phlow viewContent 	
+	"aBrTab phlow viewContent 	
 		allChildrenBreadthFirstDetect: [ :aChild | 
 			aChild isKindOf: BrList ] 
 		ifFound: [ :aList | 
 			aList children first dataSource notifyChanged ] 
 		ifNone: [ 
-			self error: 'I should have found a view content element, but I did not.' ]
+			self error: 'I should have found a view content element, but I did not.' ]"
 ]
