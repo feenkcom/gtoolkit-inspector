@@ -30,43 +30,19 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExampleGroup >> gtExamplesFor: aView [
-	<gtView>
-	^ aView explicit 
-		title: 'Examples';
-		priority: 11;
-		actionButtonIcon: BrGlamorousIcons play 
-			action: [ :aButton :aTab | 
-				self runAllExamplesFrom: aButton.
-				aTab viewContentElement phlow update ];
-		stencil: [
-	| aContainer aButtonsContainer aListView |
-	aContainer := BlElement new 
-		layout: BlLinearLayout vertical;
-		constraintsDo: [ :c | 
-			c padding: (BlInsets all: 3).
-			c horizontal matchParent.
-			c vertical matchParent. ].
-	aButtonsContainer := BlElement new 
-		layout: (BlLinearLayout horizontal cellSpacing: 3);
-		constraintsDo: [ :c | 
-			c padding: (BlInsets all: 3).
-			c horizontal fitContent.
-			c vertical fitContent.
-			c linear horizontal alignCenter ].
-	aContainer addChild: aButtonsContainer.
-
+GtExampleGroup >> buildListViewFor: aView [
+	| aListView |
 	aListView := aView columnedList
 		title: 'Examples List';
 		priority: 11;
 		items: [ self examples ];
-		column: 'Icon' translated do: [:aColumn |
+		column: 'Icon' translated do: [ :aColumn | 
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
 					| anElement |
 					anElement := eachExample icon asElement.
-					eachExample announcer weak  
-						subscribe: GtExampleExecuted 
+					eachExample announcer weak
+						subscribe: GtExampleExecuted
 						do: [ :anAnnouncement | 
 							eachExample result: anAnnouncement result.
 							anElement background: anAnnouncement result icon ].
@@ -74,31 +50,80 @@ GtExampleGroup >> gtExamplesFor: aView [
 						constraintsDo: [ :c | 
 							c padding: (BlInsets top: 3 bottom: 3).
 							c margin: (BlInsets top: 3 bottom: 3) ];
-						when: BlClickEvent do: [ :anEvent | 
+						when: BlClickEvent
+							do: [ :anEvent | 
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
 							anElement phlow spawnObject: eachExample result returnValue ] ];
-				noResize];
-		column: 'Class' translated do: [:aColumn | 
-			aColumn 
-				item: [ :eachExample :anIndex |  eachExample example classLabel ];
-				matchParent];
-		column: 'Selector' translated do: [ :aColumn |
-			aColumn 
+				noResize ];
+		column: 'Class' translated do: [ :aColumn | 
+			aColumn
+				item: [ :eachExample :anIndex | eachExample example classLabel ];
+				matchParent ];
+		column: 'Selector' translated do: [ :aColumn | 
+			aColumn
 				item: [ :eachExample :anIndex | eachExample example selector asString ];
 				matchParent ];
-		column: 'Result' translated do: [:aColumn |
-			aColumn 
-				item: [ :eachExample :anIndex | eachExample resultOrErrorName ];
+		column: 'Result' translated do: [ :aColumn | 
+			aColumn
+				itemStencil: [ :eachExample :anIndex | 
+					| aTextElement |
+					aTextElement := BrLabel new.
+					aTextElement
+						look: BrGlamorousListLabelLook;
+						constraintsDo: [ :c | c horizontal matchParent. c vertical fitContent ];
+						when: BlClickEvent do: [ :anEvent | 
+							eachExample hasResult ifTrue: [ 
+								aTextElement phlow spawnObject: eachExample result returnValue.
+								anEvent consumed: true ] ].
+					eachExample announcer weak
+						subscribe: GtExampleExecuted
+						do: [ :anAnnouncement | 
+							eachExample result: anAnnouncement result.
+							aTextElement text: eachExample resultOrErrorName asRopedText ].
+					aTextElement text: eachExample resultOrErrorName asRopedText ];
 				matchParent ].
-	aListView asElementDo: [ :anElement |
-		self announcer weak 
-			subscribe: GtExamplesExecuted, GtExampleExecuted
-			do: [ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
-		aContainer addChild: anElement.
-		self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
-	aContainer ]
+	^ aListView
+]
+
+{ #category : #'*GToolkit-Inspector' }
+GtExampleGroup >> gtExamplesFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Examples';
+		priority: 11;
+		actionButtonIcon: BrGlamorousIcons play
+			action: [ :aButton :aTab | 
+			self runAllExamplesFrom: aButton.
+			aTab viewContentElement phlow update ];
+		stencil: [ | aContainer aButtonsContainer aListView |
+			aContainer := BlElement new
+				layout: BlLinearLayout vertical;
+				constraintsDo: [ :c | 
+					c padding: (BlInsets all: 3).
+					c horizontal matchParent.
+					c vertical matchParent ].
+			aButtonsContainer := BlElement new
+				layout: (BlLinearLayout horizontal cellSpacing: 3);
+				constraintsDo: [ :c | 
+					c padding: (BlInsets all: 3).
+					c horizontal fitContent.
+					c vertical fitContent.
+					c linear horizontal alignCenter ].
+			aContainer addChild: aButtonsContainer.
+			aListView := self buildListViewFor: aView.
+			aListView asElementDo: [ :anElement | 
+				self announcer weak
+					subscribe: GtExamplesExecuted , GtExampleExecuted
+					do: [ :anAnnouncement | self 
+							buildButtonsContainer: aButtonsContainer 
+							listWidget: anElement ].
+				aContainer addChild: anElement.
+				self
+					buildButtonsContainer: aButtonsContainer
+					listWidget: anElement ].
+			aContainer ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
