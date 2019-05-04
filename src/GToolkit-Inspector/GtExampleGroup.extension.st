@@ -55,7 +55,7 @@ GtExampleGroup >> buildListViewFor: aView [
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							anElement phlow spawnObject: eachExample result returnValue ] ];
+							anElement phlow selectObject: eachExample result returnValue ] ];
 				noResize ];
 		column: 'Class' translated do: [ :aColumn | 
 			aColumn
