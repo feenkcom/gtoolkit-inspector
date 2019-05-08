@@ -13,7 +13,7 @@ Collection >> gtItemsFor: aView [
 	aList column
 		title: 'Item' translated;
 		matchParent;
-		item: [ :eachItem :eachIndex | eachItem ].
+		itemFormat: [ :eachItem | eachItem gtDisplayText ].
 	
 	^ aList
 ]
