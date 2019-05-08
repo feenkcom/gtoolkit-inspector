@@ -50,11 +50,18 @@ Class >> gtAllReferencesOutsideFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtConfluenceFor: aView [
 	<gtView>
+	| confluence |
 	^ aView textEditor
 		title: 'Confluence';
 		priority: 50;
 		look: BrGlamorousCodeEditorLook new;
-		text: [ self name ]
+		text: [
+			confluence := Gt4ConfluenceAPI new 
+				url: 'https://wiki.we-are-you.de';
+				username: '';
+				password: ''.
+			confluence findPageWithTitle: (self name) inSpaceWithContentID: 'P'.
+		]
 ]
 
 { #category : #'*GToolkit-Inspector' }
