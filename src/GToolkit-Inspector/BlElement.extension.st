@@ -86,6 +86,24 @@ BlElement >> gtLiveFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtLookChangesFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Look changes';
+		priority: 10;
+		stencil: [ self look
+				ifNil: [ BlElement new ]
+				ifNotNil: [ :e | 
+					BlElement new
+						layout: BlLinearLayout vertical;
+						constraintsDo: [ :c | 
+							c horizontal fitContent.
+							c vertical fitContent ];
+						addChildren: (e allChildren collect: [ :f | f changes asElementFor: f ]);
+						yourself ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
