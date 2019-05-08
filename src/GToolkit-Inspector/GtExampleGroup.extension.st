@@ -44,7 +44,6 @@ GtExampleGroup >> buildListViewFor: aView [
 					eachExample announcer weak
 						subscribe: GtExampleExecuted
 						do: [ :anAnnouncement | 
-							eachExample result: anAnnouncement result.
 							anElement background: anAnnouncement result icon ].
 					anElement
 						constraintsDo: [ :c | 
@@ -80,7 +79,6 @@ GtExampleGroup >> buildListViewFor: aView [
 					eachExample announcer weak
 						subscribe: GtExampleExecuted
 						do: [ :anAnnouncement | 
-							eachExample result: anAnnouncement result.
 							aTextElement text: eachExample resultOrErrorName asRopedText ].
 					aTextElement text: eachExample resultOrErrorName asRopedText ];
 				matchParent ].
