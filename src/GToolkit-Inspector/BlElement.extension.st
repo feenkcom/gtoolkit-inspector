@@ -86,6 +86,68 @@ BlElement >> gtLiveFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtLookChangesFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Look changes';
+		priority: 10;
+		stencil: [ self look
+				ifNil: [ BlElement new ]
+				ifNotNil: [ :e | 
+					| tree |
+					tree := BrColumnedTree new.
+					tree
+						items: {e}
+						children: [ :f | 
+							(f isKindOf: BrLook)
+								ifTrue: [ f children , f changes changes ]
+								ifFalse: [ #() ] ].
+					tree column
+						title: 'Name';
+						width: 350;
+						stencil: [ :f | 
+							BrColumnCellLabelStencil new
+								text:
+									((f value isKindOf: BrLook)
+										ifTrue: [ f value class name ]
+										ifFalse: [ f value printString ]) asRopedText glamorousRegularFont ].
+					tree column
+						title: 'Toogle';
+						width: 32;
+						stencil: [ :f | 
+							(f value isKindOf: BrLookChange)
+								ifTrue: [ BrToggle new
+										look: BrHydraSwitchWithoutTrackLook new;
+										margin: (BlInsets all: 3);
+										activated: f value initialized;
+										when: BrToggleActivatedEvent
+											do: [ :g | f value upOn: f parent value ];
+										when: BrToggleDeactivatedEvent
+											do: [ :g | f value downOn: f parent value ];
+										yourself ]
+								ifFalse: [ BlElement new size: 0 @ 0 ] ].
+					tree column
+						title: 'Source';
+						width: 32;
+						stencil: [ :f | 
+							(f value isKindOf: BrLookChange)
+								ifTrue: [ BrButton new
+										look: BrGlamorousButtonWithIconLook;
+										margin: (BlInsets all: 3);
+										icon: BrGlamorousIcons inspect asElement;
+										label: 'Source' translated;
+										action: [ :g | 
+											g
+												fireEvent:
+													(GtPhlowObjectToSpawn new
+														object: f value source;
+														sourceElement: g) ];
+										yourself ]
+								ifFalse: [ BlElement new size: 0 @ 0 ] ].
+					tree ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
