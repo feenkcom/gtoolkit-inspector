@@ -104,13 +104,13 @@ BlElement >> gtLookChangesFor: aView [
 								ifFalse: [ #() ] ].
 					tree column
 						title: 'Name';
-						width: 300;
+						width: 350;
 						stencil: [ :f | 
 							BrColumnCellLabelStencil new
 								text:
 									((f value isKindOf: BrLook)
 										ifTrue: [ f value class name ]
-										ifFalse: [ f value printString ]) ].
+										ifFalse: [ f value printString ]) asRopedText glamorousRegularFont ].
 					tree column
 						title: 'Toogle';
 						width: 32;
