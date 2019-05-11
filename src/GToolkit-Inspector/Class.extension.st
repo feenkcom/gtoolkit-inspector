@@ -48,16 +48,6 @@ Class >> gtAllReferencesOutsideFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Class >> gtConfluenceFor: aView [
-	<gtView>
-	^ aView textEditor
-		title: 'Confluence';
-		priority: 50;
-		look: BrGlamorousCodeEditorLook new;
-		text: [ self name ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 Class >> gtDefinitionFor: aView [
 	<gtView>
 	^ aView textEditor  
