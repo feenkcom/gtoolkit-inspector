@@ -3,9 +3,9 @@ Extension { #name : #BlText }
 { #category : #'*GToolkit-Inspector' }
 BlText >> gtStringFor: aView [
 	<gtView>
-	^ aView textEditor 
-		title: 'String';
-		text: [ self asString ]
+	^ self asString 
+			ifEmpty: [ aView empty ]
+			ifNotEmpty: [ :aString | (aString gtLiveFor: aView) title: 'String' ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
