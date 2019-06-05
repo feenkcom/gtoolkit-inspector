@@ -49,12 +49,17 @@ GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Even slooower';
+		title: 'Even slooower' translated;
 		priority: 4;
-		stencil: [ 
-			6 seconds wait.
+		stencil: [ | text bench |
+			bench := [ 10000 factorial ] benchFor: 30 seconds.
+			text := String streamContents: [ :s |
+				s
+					<< 'The slower rendering is now finished (10000 factorial @ ';
+					<< bench shortPrintString;
+					<< ')' ].
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: text asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
@@ -64,12 +69,17 @@ GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
 GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Slooow';
+		title: 'Slooow' translated;
 		priority: 3;
-		stencil: [ 
-			3 seconds wait.
+		stencil: [ | text bench |
+			bench := [ 10000 factorial ] benchFor: 3 seconds.
+			text := String streamContents: [ :s |
+				s
+					<< 'The slow rendering is now finished (10000 factorial @ ';
+					<< bench shortPrintString;
+					<< ')' ].
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: text asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
