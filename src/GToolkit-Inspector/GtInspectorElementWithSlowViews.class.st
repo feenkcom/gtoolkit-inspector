@@ -24,7 +24,7 @@ GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 			BlTaskProgress signalMessage: 'Preparing visualization...'.
 			1 second wait.
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: 'The Any Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
@@ -39,61 +39,71 @@ GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 		stencil: [ 
 			BlTaskItDemoCommand new value.
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: 'The Exact Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
 ]
 
 { #category : #'gt-extension' }
-GtInspectorElementWithSlowViews >> gtLong2LastingComputacionFor: aView [
+GtInspectorElementWithSlowViews >> gtLongLastingComputation2For: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Even slooower';
+		title: 'Even slooower' translated;
 		priority: 4;
-		stencil: [ 
-			6 seconds wait.
+		stencil: [ | text bench |
+			bench := [ 10000 factorial ] benchFor: 15 seconds.
+			text := String streamContents: [ :s |
+				s
+					<< 'The Even Slower rendering is now finished (10000 factorial @ ';
+					<< bench shortPrintString;
+					<< ')' ].
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: text asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
 ]
 
 { #category : #'gt-extension' }
-GtInspectorElementWithSlowViews >> gtLongLastingComputacionFor: aView [
+GtInspectorElementWithSlowViews >> gtLongLastingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Slooow';
+		title: 'Slooow' translated;
 		priority: 3;
-		stencil: [ 
-			3 seconds wait.
+		stencil: [ | text bench |
+			bench := [ 10000 factorial ] benchFor: 3 seconds.
+			text := String streamContents: [ :s |
+				s
+					<< 'The Slow rendering is now finished (10000 factorial @ ';
+					<< bench shortPrintString;
+					<< ')' ].
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: text asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
 ]
 
 { #category : #'gt-extension' }
-GtInspectorElementWithSlowViews >> gtProgressingComputacionFor: aView [
+GtInspectorElementWithSlowViews >> gtProgressingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Progressing';
+		title: 'Progressing' translated;
 		priority: 5;
 		stencil: [ 
 			BlAnyProgress signal: 'Obtaining data...'.
 			BlTaskItDemoCommand new value.
 			BlAnyProgress signal: 'Preparing visualization...'.
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: 'The Progressing rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
 ]
 
 { #category : #'gt-extension' }
-GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
+GtInspectorElementWithSlowViews >> gtShortLastingComputation2For: aView [
 	<gtView>
 	^ aView explicit 
 		title: 'Fast as well';
@@ -107,7 +117,7 @@ GtInspectorElementWithSlowViews >> gtShort2LastingComputacionFor: aView [
 ]
 
 { #category : #'gt-extension' }
-GtInspectorElementWithSlowViews >> gtShortLastingComputacionFor: aView [
+GtInspectorElementWithSlowViews >> gtShortLastingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
 		title: 'Fast';
@@ -132,7 +142,7 @@ GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 				BlTaskProgress signal: 'Transferring...' amount: each * 1024.
 				(Delay forMilliseconds: 100) wait ].
 			BlTextElement new
-				text: 'The slow rendering is now finished.' asRopedText;
+				text: 'The Some Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]
