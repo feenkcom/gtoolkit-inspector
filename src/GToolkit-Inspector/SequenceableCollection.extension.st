@@ -17,7 +17,7 @@ SequenceableCollection >> gtItemsFor: aView [
 	aList column
 		title: 'Item' translated;
 		item: [ :eachItem :eachIndex | eachItem ];
-		itemFormat: [ :eachItem | eachItem gtDisplayString ].
+		itemFormat: [ :eachItem | eachItem gtDisplayText ].
 	
 	^ aList
 ]
