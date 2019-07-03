@@ -244,7 +244,7 @@ BlElement >> gtShortcutsFor: aView [
 	^ aView columnedList 
 		title: 'Shortcuts' translated;
 		priority: 10;
-		items: [ self shortcuts ];
+		items: [ self shortcuts asArray ];
 		column: 'Key' do: [:aColumn | 
 			aColumn item: [ :each | each combination gtDisplayString ]; matchParent ];
 		column: 'Action' do: [:aColumn |
