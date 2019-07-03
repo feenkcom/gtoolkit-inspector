@@ -8,3 +8,11 @@ Exception >> gtDebugActionFor: anAction [
 		icon: BrGlamorousIcons debug;
 		action: [ [ self debug ] fork ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Exception >> gtMessageTextFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Message';
+		text: [ self messageText ]
+]
