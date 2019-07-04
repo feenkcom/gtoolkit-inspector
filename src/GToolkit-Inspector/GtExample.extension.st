@@ -7,7 +7,7 @@ GtExample >> gtActionDebugFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+			look: BrGlamorousButtonWithIconLook;
 			action:  [ [ self debug ] fork ];
 			icon: BrGlamorousIcons spawn asElement;
 			label: 'Debug example' translated.
@@ -21,7 +21,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+			look: BrGlamorousButtonWithIconLook;
 			action:  [
 				button fireEvent: (GtPhlowObjectToSpawn new
 					object: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]);

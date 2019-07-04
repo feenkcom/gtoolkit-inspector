@@ -8,7 +8,7 @@ FileReference >> gtActionMaterializeFuelFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+		look: BrGlamorousButtonWithIconLook;
 		action:  [
 				button fireEvent: (GtPhlowObjectToSpawn new
 				object: (FLMaterializer materializeFromFileNamed: self fullName);
@@ -26,7 +26,7 @@ FileReference >> gtActionMaterializeXdFileFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+		look: BrGlamorousButtonWithIconLook;
 		action:  [
 			| reader xdFile |
 			reader := XdReader new.
@@ -61,7 +61,7 @@ FileReference >> gtContentsFor: aView [
 							do: [ (stream next: 10000) asString ] ]) asRopedText glamorousRegularFont) ];
 		actionStencil: [ :tab | 
 			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons accept asElement;
 				action: [ 
 					| newContents | 
