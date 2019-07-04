@@ -8,7 +8,7 @@ CompiledMethod >> gtSourceFor: aView [
 		priority: 10;
 		actionStencil: [ 
 			BrButton new 
-				look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook;
+				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
 		stencil: [ (GtMethodCoder forMethod: self) expanded: true; asElement ]

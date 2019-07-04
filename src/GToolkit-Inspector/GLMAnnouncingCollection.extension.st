@@ -9,7 +9,7 @@ GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
+		look: BrGlamorousButtonWithIconLook; 
 		action: [ 
 			self add:'random'.
 		];
@@ -48,7 +48,7 @@ GLMAnnouncingCollection >> gtRemoveRandomItemAction: anAction [
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
+		look: BrGlamorousButtonWithIconLook; 
 		action: [ 
 			self remove: 'random'.
 		];
