@@ -29,6 +29,6 @@ GtInspectorListHandler >> transformedValueFrom: anObject [
 ]
 
 { #category : #accessing }
-GtInspectorListHandler >> transformedValueFrom: anObject event: anEvent [
-	^ self transformation cull: anObject cull: anEvent
+GtInspectorListHandler >> transformedValueFrom: anObject selection: aSelection [
+	^ self transformation cull: anObject cull: aSelection
 ]

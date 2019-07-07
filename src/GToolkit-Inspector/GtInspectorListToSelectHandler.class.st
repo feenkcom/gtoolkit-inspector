@@ -26,9 +26,9 @@ GtInspectorListToSelectHandler >> selectionChangedEvent: anEvent [
 
 		selectedObject := aWidgetElement viewModel itemAt: anInterval first.
 		aWidgetElement fireEvent: (GtPhlowObjectToSelect new 
-			object: (self transformedValueFrom: selectedObject event: anEvent);
+			object: (self transformedValueFrom: selectedObject selection: anEvent selection);
 			sourceElement: aWidgetElement).
-		aWidgetElement fireEvent: (GLMBlocObjectToSelect new toSelect: (self transformedValueFrom: selectedObject event: anEvent)) ]
+		aWidgetElement fireEvent: (GLMBlocObjectToSelect new toSelect: (self transformedValueFrom: selectedObject selection: anEvent selection)) ]
 ]
 
 { #category : #'api - event managing' }
@@ -39,10 +39,10 @@ GtInspectorListToSelectHandler >> selectionDoubleClickedEvent: anEvent [
 	
 	selectedObject := aWidgetElement viewModel itemAt: anEvent selection from.
 	aWidgetElement fireEvent: (GtPhlowObjectToSpawn new 
-		object: (self transformedValueFrom: selectedObject event: anEvent);
+		object: (self transformedValueFrom: selectedObject selection: anEvent selection);
 		sourceElement: aWidgetElement).
 	aWidgetElement fireEvent: (GLMBlocObjectToSelect new 
-		toSelect: (self transformedValueFrom: selectedObject event: anEvent))
+		toSelect: (self transformedValueFrom: selectedObject selection: anEvent selection))
 ]
 
 { #category : #'api - event managing' }
