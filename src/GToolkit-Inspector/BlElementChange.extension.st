@@ -9,7 +9,7 @@ BlElementChange >> gtActionCleanFor: anAction [
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonExteriorRectangularLook + BrGlamorousButtonIconLook; 
+		look: BrGlamorousButtonWithIconLook; 
 		action: [ 
 			| parent refreshedChild |
 			records removeAll.

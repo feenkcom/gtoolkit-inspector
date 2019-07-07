@@ -16,6 +16,11 @@ RPackage >> gtDefinedClassesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RPackage >> gtDisplayOn: stream [
+	stream nextPutAll: self name
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtTagsFor: aView [
 	<gtView>
 	self classTags ifEmpty: [ ^ aView empty ].

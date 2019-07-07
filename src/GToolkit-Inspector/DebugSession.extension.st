@@ -34,7 +34,7 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 			| stack methodCodersStencil |
 			self flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedContext stack.
-			methodCodersStencil := GtMethodsCoder forMethods: (stack collect: #method).
+			methodCodersStencil := GtMethodsCoder forItems: (stack collect: #method).
 			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
 				|  pcRange |
 				pcRange := self pcRangeForContext: (stack at: index).
@@ -78,7 +78,7 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 			| stack methodCodersStencil |
 			self flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedProcess suspendedContext stack.
-			methodCodersStencil := GtMethodsCoder forMethods: (stack collect: #method).
+			methodCodersStencil := GtMethodsCoder forItems: (stack collect: #method).
 			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
 				|  pcRange |
 				pcRange := self pcRangeForContext: (stack at: index).
