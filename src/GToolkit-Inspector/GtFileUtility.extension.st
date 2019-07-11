@@ -4,7 +4,7 @@ Extension { #name : #GtFileUtility }
 GtFileUtility class >> imageElementFromFileReference: aFileReference [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
-
+	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
 	^ (ImageReadWriter gtReaderClassFromFileReference: aFileReference)
 		ifNil: [ BrEditorElement new 
 			editor: (BrTextEditor new 
