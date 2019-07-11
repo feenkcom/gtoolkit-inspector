@@ -36,15 +36,15 @@ GtExampleGroup >> buildListViewFor: aView [
 		title: 'Examples List';
 		priority: 11;
 		items: [ self examples ];
-		column: 'Icon' translated do: [ :aColumn | 
+		column: 'Icon' translated
+			do: [ :aColumn | 
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
 					| anElement |
 					anElement := eachExample icon asElement.
-					eachExample announcer weak
-						subscribe: GtExampleExecuted
-						do: [ :anAnnouncement | 
-							anElement background: anAnnouncement result icon ].
+					eachExample announcer
+						when: GtExampleExecuted
+						do: [ :anAnnouncement | anElement background: anAnnouncement result icon ].
 					anElement
 						constraintsDo: [ :c | 
 							c padding: (BlInsets top: 3 bottom: 3).
@@ -56,30 +56,36 @@ GtExampleGroup >> buildListViewFor: aView [
 							anEvent consumed: true.
 							anElement phlow selectObject: eachExample result returnValue ] ];
 				noResize ];
-		column: 'Class' translated do: [ :aColumn | 
+		column: 'Class' translated
+			do: [ :aColumn | 
 			aColumn
 				item: [ :eachExample :anIndex | eachExample example classLabel ];
 				matchParent ];
-		column: 'Selector' translated do: [ :aColumn | 
+		column: 'Selector' translated
+			do: [ :aColumn | 
 			aColumn
 				item: [ :eachExample :anIndex | eachExample example selector asString ];
 				matchParent ];
-		column: 'Result' translated do: [ :aColumn | 
+		column: 'Result' translated
+			do: [ :aColumn | 
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
 					| aTextElement |
 					aTextElement := BrLabel new.
 					aTextElement
 						look: BrGlamorousListLabelLook;
-						constraintsDo: [ :c | c horizontal matchParent. c vertical fitContent ];
-						when: BlClickEvent do: [ :anEvent | 
-							eachExample hasResult ifTrue: [ 
-								aTextElement phlow spawnObject: eachExample result returnValue.
-								anEvent consumed: true ] ].
-					eachExample announcer weak
-						subscribe: GtExampleExecuted
-						do: [ :anAnnouncement | 
-							aTextElement text: eachExample resultOrErrorName asRopedText ].
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical fitContent ];
+						when: BlClickEvent
+							do: [ :anEvent | 
+							eachExample hasResult
+								ifTrue: [ aTextElement phlow spawnObject: eachExample result returnValue.
+									anEvent consumed: true ] ].
+					eachExample announcer
+						when: GtExampleExecuted
+						do:
+							[ :anAnnouncement | aTextElement text: eachExample resultOrErrorName asRopedText ].
 					aTextElement text: eachExample resultOrErrorName asRopedText ];
 				matchParent ].
 	^ aListView
@@ -111,16 +117,16 @@ GtExampleGroup >> gtExamplesFor: aView [
 					c linear horizontal alignCenter ].
 			aContainer addChild: aButtonsContainer.
 			aListView := self buildListViewFor: aView.
-			aListView asElementDo: [ :anElement | 
-				self announcer weak
-					subscribe: GtExamplesExecuted , GtExampleExecuted
-					do: [ :anAnnouncement | self 
-							buildButtonsContainer: aButtonsContainer 
-							listWidget: anElement ].
-				aContainer addChild: anElement.
-				self
-					buildButtonsContainer: aButtonsContainer
-					listWidget: anElement ].
+			aListView
+				asElementDo: [ :anElement | 
+					self announcer
+						when: GtExamplesExecuted , GtExampleExecuted
+						do:
+							[ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
+					aContainer addChild: anElement.
+					self
+						buildButtonsContainer: aButtonsContainer
+						listWidget: anElement ].
 			aContainer ]
 ]
 
