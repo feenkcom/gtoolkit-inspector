@@ -94,20 +94,21 @@ GtInspectorSystemChangesHandler >> removePageViewForClass: aClass andMethod: aCo
 
 { #category : #subscriptions }
 GtInspectorSystemChangesHandler >> subscribeToSystem [
-	self isSubscribedToSystem ifTrue: [ ^ self ].
-	SystemAnnouncer uniqueInstance weak 
-		subscribe: ClassAnnouncement 
+	self isSubscribedToSystem
+		ifTrue: [ ^ self ].
+	SystemAnnouncer uniqueInstance weak
+		when: ClassAnnouncement
 		send: #handleClassAnnouncement:
 		to: self.
-	SystemAnnouncer uniqueInstance weak 
-		subscribe: MethodAnnouncement - MethodRemoved
+	SystemAnnouncer uniqueInstance weak
+		when: MethodAnnouncement - MethodRemoved
 		send: #handleMethodAnnouncement:
 		to: self.
-	SystemAnnouncer uniqueInstance weak 
-		subscribe: MethodRemoved
+	SystemAnnouncer uniqueInstance weak
+		when: MethodRemoved
 		send: #handleMethodRemovedAnnouncement:
 		to: self.
-	isSubscribedToSystem := true.
+	isSubscribedToSystem := true
 ]
 
 { #category : #subscriptions }
