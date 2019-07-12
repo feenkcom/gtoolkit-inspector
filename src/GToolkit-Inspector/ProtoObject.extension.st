@@ -43,6 +43,11 @@ ProtoObject >> gtIcon [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtInspect [ 
+	^ GtInspector openOn: self
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject class >> gtSubclassesFor: aView [
 	<gtView>
 	self subclasses ifNil: [ ^ aView empty ].
