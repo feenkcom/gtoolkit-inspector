@@ -25,7 +25,10 @@ Fraction >> gtPreviewFor: aView [
 				padding: (BlInsets all: 10);
 				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
-					c vertical exact: 100. c horizontal fitContent ];
+					c vertical exact: 100.
+					c horizontal fitContent.
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ];
 				addChild: fractionElement;
 				addChild: (BlTextElement new 
 					margin: (BlInsets left: 5 right: 5); 
@@ -34,5 +37,10 @@ Fraction >> gtPreviewFor: aView [
 				addChild: (BlTextElement new 
 					text: self asFloat asString asRopedText;
 					constraintsDo: [:c | c linear vertical alignCenter ]).
-			overallElement ]
+			BlElement new 
+				constraintsDo: [:c | 
+					c vertical matchParent.
+					c horizontal matchParent];
+				layout: BlFrameLayout new;
+				addChild: overallElement ]
 ]
