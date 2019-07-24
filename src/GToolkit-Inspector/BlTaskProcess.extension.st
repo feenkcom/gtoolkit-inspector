@@ -1,7 +1,7 @@
-Extension { #name : #BlProcess }
+Extension { #name : #BlTaskProcess }
 
 { #category : #'*GToolkit-Inspector' }
-BlProcess >> gtInvocatedByElementPreviewFor: aView [
+BlTaskProcess >> gtInvocatedByElementPreviewFor: aView [
 	<gtView>
 	^ self invocatedByElement 
 		ifNil: [ ^ aView empty ]
