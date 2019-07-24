@@ -7,6 +7,11 @@ Process >> gtId [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Process >> gtInvocatedByElementPreviewFor: aView [
+	^ aView empty
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Process >> gtName [
 	<return: #String>
 	^ name ifNil: [ '' ] ifNotNil: #asString
