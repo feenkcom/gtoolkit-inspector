@@ -13,3 +13,9 @@ CompiledMethod >> gtSourceFor: aView [
 				action: [ self browse ] ];
 		stencil: [ (GtMethodCoder forMethod: self) expanded: true; asElement ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtTreeFor: aView [
+	<gtView>
+	^ self parseTree gtTreeFor: aView
+]
