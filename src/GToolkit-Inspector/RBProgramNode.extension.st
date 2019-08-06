@@ -25,10 +25,20 @@ RBProgramNode >> gtSourceCodeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
 	<gtView> 
+	^ aView tree
+		title: 'Tree';
+		priority: 60;
+		items: [ { self } ];
+		children: #children
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RBProgramNode >> gtVisualTreeFor: aView [
+	<gtView> 
 	| wrapperFactory |	
 	wrapperFactory := RBNodeWrapperFactory new. 
 	^ aView mondrian
-		title: 'Tree';
+		title: 'Map';
 		priority: 60;
 		painting: [ :view | 
 			view nodes 
