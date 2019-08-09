@@ -37,7 +37,7 @@ GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 		title: 'Exact Progress';
 		priority: 5;
 		stencil: [ 
-			BlTaskItDemoCommand new value.
+			BlTktDemoResponsiveCommand new value.
 			BlTextElement new
 				text: 'The Exact Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
@@ -93,7 +93,7 @@ GtInspectorElementWithSlowViews >> gtProgressingComputationFor: aView [
 		priority: 5;
 		stencil: [ 
 			BlAnyProgress signal: 'Obtaining data...'.
-			BlTaskItDemoCommand new value.
+			BlTktDemoResponsiveCommand new value.
 			BlAnyProgress signal: 'Preparing visualization...'.
 			BlTextElement new
 				text: 'The Progressing rendering is now finished.' asRopedText;
