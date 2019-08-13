@@ -24,7 +24,7 @@ AtomicSharedPriorityQueue >> gtItemsFor: aView [
 	aList column
 		title: 'Priority' translated;
 		item: [ :eachItem :eachIndex | 
-			eachItem object == dummy ifTrue: [ '<Zombie>' ] ifFalse: [ eachItem object taskPriority ] ].
+			eachItem object == dummy ifTrue: [ '<Zombie>' ] ifFalse: [ eachItem object entryPriority ] ].
 
 	^ aList
 ]
