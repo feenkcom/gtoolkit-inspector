@@ -85,7 +85,7 @@ BlElement >> gtLiveFor: aView [
 						container ]  ];
 		actionStencil: [ 
 			BrToggle new 
-				look: BrMaterialToggleBackgroundLook + BrGlamorousButtonWithIconLook;
+				look: BrGlamorousButtonWithIconLook + BrGlamorousToggleBackgroundLook;
 				icon: BrGlamorousIcons help asElement;
 				when: BrToggleActivatedEvent do: [ BlDevResizer on: self ];
 				when: BrToggleDeactivatedEvent do: [ BlDevResizer removeFrom: self ] ]
