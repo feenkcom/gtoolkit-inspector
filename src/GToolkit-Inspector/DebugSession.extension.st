@@ -58,11 +58,10 @@ DebugSession >> gtViewLiveDebuggerFor: aView [
 		priority: 150;
 		stencil: [ 
 			| debuggerElement |
-			debuggerElement := GtExpandableDebuggerElement new.
+			debuggerElement := GtExpandableDebuggerElement on: self.
 			debuggerElement constraintsDo: [ :c |
 				c horizontal matchParent.
 				c vertical matchParent ].
-			debuggerElement session: self.
 			debuggerElement ]
 ]
 
