@@ -21,6 +21,14 @@ RPackage >> gtDisplayOn: stream [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RPackage >> gtExamplesFor: aView [
+	<gtView>
+	
+	^ (GtExampleGroup withAll: self gtExamplesAllContained)
+			gtExamplesFor: aView
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtTagsFor: aView [
 	<gtView>
 	self classTags ifEmpty: [ ^ aView empty ].
