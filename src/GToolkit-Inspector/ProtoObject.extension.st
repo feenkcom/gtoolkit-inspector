@@ -26,67 +26,6 @@ ProtoObject >> gtActionInspectFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-ProtoObject >> gtActionSearchFor: anAction [
-	<gtAction>
-	^ anAction explicit stencil: [
-	| dropdown |
-	dropdown := BrDropdown new.
-	dropdown
-		look:
-			(BrGlamorousDropdownLook new
-				outskirtsEmbellisher: [ :e | 
-					e
-						background: BrGlamorousColors lightBorderColor;
-						yourself ];
-				yourself);
-		layout: BlLinearLayout horizontal;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		toggle: [ BrButton new
-				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons search asElement;
-				when: BlElementBackgroundChangedEvent
-					do: [ :e | 
-					(dropdown isExpanded
-						and: [ e target background paint color
-								~= BrGlamorousColors lightBorderColor ])
-						ifTrue: [ e target background: BrGlamorousColors lightBorderColor ] ];
-				yourself ];
-		popup: [ | model |
-			model := GtSpotter new initializeWith: self.
-			model announcer
-				when: GtSpotterActOn
-				do: [ :e | 
-					| item |
-					item := e element.
-					e actedUpon: true.
-					self flag: 'FIXME candidates may be wrapped for some reason'.
-					[ (item isKindOf: GtSpotterCandidate) and: [ item item ~~ item ] ]
-						whileTrue: [ item := item item ].
-					dropdown phlow spawnObject: item ].
-			GtSpotterElement new
-				spotterModel: model;
-				constraintsDo: [ :c | 
-					c horizontal exact: 600.
-					c vertical exact: 400 ];
-				margin: (BlInsets all: 1);
-				geometry: (BlRectangle cornerRadius: 4);
-				in: [ :e | 
-					self
-						flag: 'FIXME need to remove original listener to avoid phlow inspect'.
-					model announcer subscriptions subscriptions
-						detect: [ :g | 
-							g announcementClass == GtSpotterSelectedCandidateChanged
-								and: [ g action isMessageSend
-										and: [ g action selector = #onCandidateSelected:
-												and: [ g action receiver == e ] ] ] ]
-						ifFound: [ :g | g announcer subscriptions remove: g ] ];
-				yourself ];
-		yourself ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActions [
 	"This collects all view actions for the current object.
 	By default, it simply looks for the #gtAction pragma.
