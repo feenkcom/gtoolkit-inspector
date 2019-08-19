@@ -56,27 +56,31 @@ BlElement >> gtLiveFor: aView [
 						c horizontal matchParent.
 						c vertical matchParent ];
 						layout: BlLinearLayout vertical;
-						padding: (BlInsets all: 10).
-					label := BrEditor new 
-						look: BrGlamorousRegularEditorLook new;
-						text: ('This element cannot be embedded here as it already has a parent. In the meantime, here is its static preview:') asRopedText readonly;
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical fitContent ].
-					container addChild: label.
+						padding: (BlInsets all: 10);
+						margin: (BlInsets all: 10).
 					container addChild: (BlElement new
 						look: BrShadowLook;
 						layout: BlLinearLayout new;
 						background: Color white;
-						constraintsDo: [:c | c horizontal fitContent. c vertical fitContent ];
-						addChild: self asSpartaForm asElement)
-						.
+						constraintsDo: [:c | 
+							c horizontal matchParent. 
+							c vertical matchParent ];
+						addChild: self asSpartaForm asElement asPannableElement).
+					label := BrLabel new 
+						look: (BrGlamorousLabelLook new foreground: Color gray);
+						text: (('You see a static preview because this element already has a parent.') asRopedText glamorousRegularFont readonly);
+						alignCenter;
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical fitContent.
+							c linear horizontal alignCenter].
+					container addChild: label.
 					container ]
 				ifFalse: [ 
 					| container |
 					container := BlElement new
 						layout: BlLinearLayout new;
-						padding: (BlInsets all: 10);
+						padding: (BlInsets all: 20);
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent ]. 
