@@ -47,7 +47,7 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 						beViewContent;
 						entity: aGtPhlowView.
 					element asScrollableElement ] ];
-		actionsStencil: (aGtPhlowView actionsToolbarForElement: aBrTab).
+		toolbarStencil: (aGtPhlowView actionsToolbarForElement: aBrTab).
 	isSelected ifNotNil: [ aBrTab viewModel selected: isSelected ].
 	aBrTabGroup addTab: aBrTab at: anIndex
 ]
