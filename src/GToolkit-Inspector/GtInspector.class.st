@@ -104,6 +104,24 @@ GtInspector class >> openOn: anObject [
 ]
 
 { #category : #'instance creation' }
+GtInspector class >> openOn: anObject from: anElement [
+	| anInspector aSpace |
+
+	anInspector :=  self createOn: anObject.
+
+	aSpace := BlSpace new.
+	aSpace withHalos.
+	aSpace title: 'Inspector'.
+	aSpace extent: 1200@600.
+	aSpace root addChild: anInspector.
+	aSpace withSpotter.
+	
+	anElement showSpace: aSpace.
+
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
 GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
 	| anInspector aSpace |
 
