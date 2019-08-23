@@ -97,8 +97,24 @@ GtInspector class >> openOn: anObject [
 	aSpace title: 'Inspector'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	aSpace withSpotter.
 	aSpace show.
+
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openOn: anObject from: anElement [
+	| anInspector aSpace |
+
+	anInspector :=  self createOn: anObject.
+
+	aSpace := BlSpace new.
+	aSpace withHalos.
+	aSpace title: 'Inspector'.
+	aSpace extent: 1200@600.
+	aSpace root addChild: anInspector.
+	
+	anElement showSpace: aSpace.
 
 	^ anInspector
 ]
@@ -119,7 +135,6 @@ GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
 	aSpace title: aWindowTitle.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	aSpace withSpotter.
 	aSpace show.
 
 	^ anInspector
@@ -141,7 +156,6 @@ GtInspector class >> openOnPlayBook: aPlayBook [
 	aSpace title: 'Playground'.
 	aSpace extent: 1200@600.
 	aSpace root addChild: anInspector.
-	aSpace withSpotter.
 	aSpace show.
 
 	^ anInspector
