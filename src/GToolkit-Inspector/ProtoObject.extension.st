@@ -7,7 +7,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 		BrButton new
 			look: BrGlamorousButtonWithIconLook;
 			icon: BrGlamorousIcons browse asElement;
-			action: [ Smalltalk tools browser openOnClass: self class ] ]
+			action: [ :button | self class gtBrowseFrom: button ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
