@@ -2,10 +2,14 @@ Extension { #name : #TKTCommonQueueWorkerPool }
 
 { #category : #'*GToolkit-Inspector' }
 TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
-	failedTasks ifNil: [ ^ aView empty ].
+	<gtView>
+	failedTasks isEmptyOrNil ifTrue: [ ^ aView empty ].
 	^ aView list
 		title: 'Failed Tasks';
-		items: [ failedTasks ]
+		items: [ self failedTasks ];
+		itemFormat: [ :anExecution | anExecution name ];
+		actionButtonIcon: BrGlamorousIcons trash action: [ :aButton | 
+			failedTasks := OrderedCollection new. ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
