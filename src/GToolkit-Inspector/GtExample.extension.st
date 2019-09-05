@@ -57,7 +57,7 @@ GtExample >> gtCodeGraphFor: aView [
 					editorElement
 						zIndex: 10;
 						background: Color white;
-						effect: (BlDropShadowEffect color: (Color gray alpha: 0.5) width: 5 offset: 5@5).
+						effect: (BlGaussianShadowEffect color: (Color gray alpha: 0.5) width: 5 offset: 5@5).
 					editorElement constraintsDo: [ :c |
 					    c horizontal exact: 300.
 					    c vertical exact: 200 ].
