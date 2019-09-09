@@ -1,6 +1,11 @@
 Extension { #name : #String }
 
 { #category : #'*GToolkit-Inspector' }
+String >> gtDisplayOn: aStream [
+	aStream nextPutAll: self
+]
+
+{ #category : #'*GToolkit-Inspector' }
 String >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
