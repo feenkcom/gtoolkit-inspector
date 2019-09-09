@@ -1,6 +1,11 @@
 Extension { #name : #BlRopedText }
 
 { #category : #'*GToolkit-Inspector' }
+BlRopedText >> gtDisplayText [
+	^ self
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlRopedText >> gtTextAttributesFor: aView [
 	<gtView>
 	(self attributesBuilder respondsTo: #attributes)
