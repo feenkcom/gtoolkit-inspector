@@ -53,6 +53,17 @@ GtInspector class >> createOnPlayBook: aPlayBook [
 	^ anInspector
 ]
 
+{ #category : #private }
+GtInspector class >> createSpaceWith: anElement title: aTitleString [
+	| aSpace |
+	aSpace := BlSpace new.
+	aSpace withHalos.
+	aSpace title: aTitleString.
+	aSpace extent: 1200 @ 600.
+	aSpace root addChild: anElement.
+	^ aSpace
+]
+
 { #category : #settings }
 GtInspector class >> disableAutoUpdate [
 	<script>
@@ -107,13 +118,7 @@ GtInspector class >> openOn: anObject from: anElement [
 	| anInspector aSpace |
 
 	anInspector :=  self createOn: anObject.
-
-	aSpace := BlSpace new.
-	aSpace withHalos.
-	aSpace title: 'Inspector'.
-	aSpace extent: 1200@600.
-	aSpace root addChild: anInspector.
-	
+	aSpace := self createSpaceWith: anInspector title: 'Inspector'.	
 	anElement showSpace: aSpace.
 
 	^ anInspector
@@ -130,11 +135,7 @@ GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
 
 	anInspector addPageWithContent: anAsElementObject asElement for: anAsElementObject.
 
-	aSpace := BlSpace new.
-	aSpace withHalos.
-	aSpace title: aWindowTitle.
-	aSpace extent: 1200@600.
-	aSpace root addChild: anInspector.
+	aSpace := self createSpaceWith: anInspector title: aWindowTitle.
 	aSpace show.
 
 	^ anInspector
@@ -148,16 +149,19 @@ GtInspector class >> openOnPlayBook [
 { #category : #'instance creation' }
 GtInspector class >> openOnPlayBook: aPlayBook [
 	| anInspector aSpace |
-
 	anInspector := self createOnPlayBook: aPlayBook.
-
-	aSpace := BlSpace new.
-	aSpace withHalos.
-	aSpace title: 'Playground'.
-	aSpace extent: 1200@600.
-	aSpace root addChild: anInspector.
+	aSpace := self createSpaceWith: anInspector title: 'Playground'.
 	aSpace show.
 
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openOnPlayBook: aPlayBook from: anElement [
+	| anInspector aSpace |
+	anInspector := self createOnPlayBook: aPlayBook.
+	aSpace := self createSpaceWith: anInspector title: 'Playground'.
+	anElement showSpace: aSpace.
 	^ anInspector
 ]
 
