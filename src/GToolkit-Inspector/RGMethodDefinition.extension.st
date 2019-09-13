@@ -59,8 +59,8 @@ RGMethodDefinition >> gtSourceFor: aView [
 				aButton phlow spawnObject: 
 					(GtClassCoder forClass: self methodClass) ];
 		stencil: [ 
-			 (GtMethodCoder forMethod: self) 
+			 ((GtMethodCoder forMethod: self) 
 				expanded: true; 
 				subscribeToSystem;
-				asElement].
+				asElement) asScrollableElement ].
 ]

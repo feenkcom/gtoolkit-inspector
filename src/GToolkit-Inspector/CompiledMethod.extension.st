@@ -11,7 +11,7 @@ CompiledMethod >> gtSourceFor: aView [
 				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons browse asElement;
 				action: [ self browse ] ];
-		stencil: [ (GtMethodCoder forMethod: self) expanded: true; asElement ]
+		stencil: [ ((GtMethodCoder forMethod: self) expanded: true; asElement) asScrollableElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
