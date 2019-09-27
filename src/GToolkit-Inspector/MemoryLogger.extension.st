@@ -13,7 +13,8 @@ MemoryLogger >> gtGroupedFor: aView [
 		column: 'Instances' do: [ :aColumn |
 			aColumn
 				item: [ :each | each value size asString  ];
-				matchParent ]
+				matchParent ];
+		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
