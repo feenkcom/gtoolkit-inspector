@@ -11,8 +11,8 @@ ThisContextSignal class >> gtExampleMethodStackSignal [
 { #category : #'*GToolkit-Inspector' }
 ThisContextSignal >> gtStackFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView list
 		title: 'Stack';
 		priority: 50;
-		stencil: [ BrSimpleList new display: self stack ]
+		items: [  self stack ]
 ]
