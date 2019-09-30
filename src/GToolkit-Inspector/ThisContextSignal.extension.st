@@ -16,3 +16,12 @@ ThisContextSignal >> gtStackFor: aView [
 		priority: 50;
 		items: [  self stack ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+ThisContextSignal >> gtViewTopMethodFor: aView [
+	<gtView>
+	^ self stack 
+		ifEmpty: [ aView empty  ]
+		ifNotEmpty: [ :aStack |
+			aStack first gtSourceFor: aView ]
+]
