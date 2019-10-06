@@ -189,7 +189,7 @@ GtInspectorPagerPageEmbellisher >> createObjectPlaygroundIn: aContentWrapper [
 			c vertical matchParent ].
 	aPlayground clipChildren: false.
 	aPlaygroundContainer addChild: aPlayground.
-	aContentToPlaygroundResizer := BlElement new
+	aContentToPlaygroundResizer := GtInspectorPagePlaygroundResizer new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
