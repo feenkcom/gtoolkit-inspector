@@ -54,6 +54,7 @@ ProtoObject class >> gtSubclassesFor: aView [
 	^ aView tree
 		title: 'Subclasses';
 		items: [ { self } ];
+		expandOneLevel;
 		children: #subclasses
 ]
 
