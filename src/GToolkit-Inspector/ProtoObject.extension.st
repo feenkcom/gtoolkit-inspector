@@ -81,7 +81,7 @@ ProtoObject >> gtViewsFor: aView inContext: aContext [
 					nextPutAll: (className first isVowel ifTrue: ['an '] ifFalse: ['a ']);
 					nextPutAll: className;
 					nextPutAll: ' (';
-					nextPutAll: displayText;
+					nextPutAll: displayText characters;
 					nextPutAll: ')' ] ].
 	resultingView := ((aView composite
 		views: (self gtViewsInContext: aContext))
