@@ -41,16 +41,10 @@ GtInspector class >> createOn: anObject [
 
 { #category : #'instance creation' }
 GtInspector class >> createOnPlayBook: aPlayBook [
-	| anInspector |
-
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector addPageWithContent: aPlayBook asElement for: aPlayBook.
-
-	^ anInspector
+	self 
+		deprecated: 'Please use #withToolOn: instead.'
+		transformWith: '`@receiver createOnPlayBook: `@statements' -> '`@receiver withToolOn: `@statements'.
+	^ self withToolOn: aPlayBook
 ]
 
 { #category : #private }
@@ -148,19 +142,28 @@ GtInspector class >> openOnPlayBook [
 
 { #category : #'instance creation' }
 GtInspector class >> openOnPlayBook: aPlayBook [
-	| anInspector aSpace |
-	anInspector := self createOnPlayBook: aPlayBook.
-	aSpace := self createSpaceWith: anInspector title: 'Playground'.
-	aSpace show.
-
-	^ anInspector
+	^ self openToolOn: aPlayBook named: 'Playground'
 ]
 
 { #category : #'instance creation' }
 GtInspector class >> openOnPlayBook: aPlayBook from: anElement [
+	^ self openToolOn: aPlayBook named: 'Playground' from: anElement
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openToolOn: anObject named: aString [
 	| anInspector aSpace |
-	anInspector := self createOnPlayBook: aPlayBook.
-	aSpace := self createSpaceWith: anInspector title: 'Playground'.
+	anInspector := self withToolOn: anObject.
+	aSpace := self createSpaceWith: anInspector title: aString.
+	aSpace show.
+	^ anInspector
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> openToolOn: anObject named: aString from: anElement [
+	| anInspector aSpace |
+	anInspector := self withToolOn: anObject.
+	aSpace := self createSpaceWith: anInspector title: aString.
 	anElement showSpace: aSpace.
 	^ anInspector
 ]
@@ -173,6 +176,26 @@ GtInspector class >> resetIsAutoUpdateEnabled [
 { #category : #ui }
 GtInspector class >> viewExtensionMethods [
 	^ #gtView pragmas collect: [ :pragma | pragma method asRingDefinition ]
+]
+
+{ #category : #'instance creation' }
+GtInspector class >> withToolOn: anObject [
+	"It receives an object that understands #asElement"
+	<return: #GtInspector>
+	| anInspector |
+
+	self 
+		assert: [ anObject respondsTo: #asElement ]
+		description: [ 'Object must responds to #asElement' ].
+
+	anInspector := self new.
+	anInspector constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+
+	anInspector addPageWithContent: anObject asElement for: anObject.
+
+	^ anInspector
 ]
 
 { #category : #private }
