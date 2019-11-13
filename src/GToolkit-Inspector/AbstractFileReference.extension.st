@@ -74,9 +74,8 @@ AbstractFileReference >> gtContentsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtFigureFor: aView [
 	<gtView>
-	(self isFile and: [ self mimeTypes notNil and: [ 
-			self mimeTypes anySatisfy: [ :eachMimeType |  
-				eachMimeType matches: (ZnMimeType main: 'image' sub: '*') ] ] ]) ifFalse: [ ^ aView empty ].
+	(self isFile and: [ 
+		(ImageReadWriter allTypicalFileExtensions includes: self extension) ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
