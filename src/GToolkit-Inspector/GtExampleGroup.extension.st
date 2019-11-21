@@ -80,7 +80,10 @@ GtExampleGroup >> buildListViewFor: aView [
 						when: BlClickEvent
 							do: [ :anEvent | 
 							eachExample hasResult
-								ifTrue: [ aTextElement phlow spawnObject: eachExample result returnValue.
+								ifTrue: [ | aResult |
+									aResult := eachExample result returnValue.
+									(aResult isKindOf: BlElement) ifTrue: [ aResult removeFromParent ].
+									aTextElement phlow spawnObject: aResult.
 									anEvent consumed: true ] ].
 					eachExample announcer
 						when: GtExampleExecuted
