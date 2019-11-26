@@ -10,13 +10,15 @@ Fraction >> gtPreviewFor: aView [
 			fractionElement := BlElement new 
 				layout: BlLinearLayout vertical;
 				constraintsDo: [ :c | c linear vertical alignCenter. c vertical fitContent ];
-				addChild: (BlTextElement new 
-					text: self numerator asString asRopedText;
+				addChild: (BrLabel new 
+					look: BrGlamorousLabelLook;
+					text: self numerator asString;
 					constraintsDo: [:c | 
 						c linear horizontal alignCenter]);
 				addChild: (BlElement new height: 2; background: Color black; margin: (BlInsets top: 5 bottom: 5) );
-				addChild: (BlTextElement new 
-					text: self denominator asString asRopedText;
+				addChild: (BrLabel new 
+					look: BrGlamorousLabelLook; 
+					text: self denominator asString;
 					constraintsDo: [:c | c linear horizontal alignCenter]).
 			overallElement := BlElement new
 				look: BrShadowLook new;
@@ -30,12 +32,14 @@ Fraction >> gtPreviewFor: aView [
 					c frame horizontal alignCenter.
 					c frame vertical alignCenter ];
 				addChild: fractionElement;
-				addChild: (BlTextElement new 
+				addChild: (BrLabel new 
+					look: BrGlamorousLabelLook;
 					margin: (BlInsets left: 5 right: 5); 
-					text: '=' asRopedText;
+					text: '=';
 					constraintsDo: [:c | c linear vertical alignCenter ]);
-				addChild: (BlTextElement new 
-					text: self asFloat asString asRopedText;
+				addChild: (BrLabel new 
+					look: BrGlamorousLabelLook;
+					text: self asFloat asString;
 					constraintsDo: [:c | c linear vertical alignCenter ]).
 			BlElement new 
 				constraintsDo: [:c | 
