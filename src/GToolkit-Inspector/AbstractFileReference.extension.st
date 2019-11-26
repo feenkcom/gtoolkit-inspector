@@ -83,6 +83,33 @@ AbstractFileReference >> gtFigureFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtHexContentsFor: aView [
+	<gtView>
+	self isFile ifFalse: [ ^ aView empty ].
+	^ aView explicit
+		title: 'Hex' translated;
+		priority: 90;
+		stencil: [ 
+			| displayString  |
+			displayString := ''.
+			(self binaryReadStreamDo: [ :stream | 
+				| displayStream maxBytes buffer |
+				maxBytes := 10000.
+				buffer := stream next: maxBytes.
+				displayStream := (String new: maxBytes * 5) writeStream.
+				buffer hexDumpOn: displayStream max: maxBytes.
+				displayString := displayStream contents asText ]).
+			
+			BrEditorElement new 
+				padding: (BlInsets all: 10);
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ];
+				editor: (BrTextEditor new 
+					text: displayString asRopedText glamorousMonospace) ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
 	self isDirectory
