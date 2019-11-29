@@ -4,18 +4,19 @@ Extension { #name : #ZipFileMember }
 ZipFileMember >> gtFigureFor: aView [
 	<gtView>
 		
-	| tmpDir tmpFile |
-	tmpDir := FileLocator temp asFileReference.
-	self extractInDirectory: tmpDir.
-	tmpFile := tmpDir / self localFileName.
-	
-	(tmpFile isFile and: [ tmpFile mimeTypes notNil and: [ 
-			tmpFile mimeTypes anySatisfy: [ :eachMimeType |  
-				eachMimeType matches: (ZnMimeType main: 'image' sub: '*') ] ] ]) ifFalse: [ ^ aView empty ].
+	| anExtension aMimeType |
+	anExtension := ($. split: self localFileName) last.
+	aMimeType := ZnMimeType forFilenameExtension: anExtension.
+	(aMimeType matches: (ZnMimeType main: 'image' sub: '*')) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
-		stencil: [ GtFileUtility imageElementFromFileReference: tmpFile ]
+		stencil: [ 
+			| tmpDir tmpFile |
+			tmpDir := FileLocator temp asFileReference.
+			self extractInDirectory: tmpDir.
+			tmpFile := tmpDir / self localFileName.
+			GtFileUtility imageElementFromFileReference: tmpFile ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
