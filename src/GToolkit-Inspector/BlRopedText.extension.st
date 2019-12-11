@@ -6,6 +6,16 @@ BlRopedText >> gtDisplayText [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlRopedText >> gtStoreStringFor: aView [
+	<gtView>
+	
+	^ aView explicit
+		title: 'Serialized';
+		priority: 30;
+		stencil: [ (GtPharoSnippetCoder new source: self storeString) asElement matchParent ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlRopedText >> gtTextAttributesFor: aView [
 	<gtView>
 	(self attributesBuilder respondsTo: #attributes)
