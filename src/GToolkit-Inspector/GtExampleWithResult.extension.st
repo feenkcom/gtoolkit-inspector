@@ -7,7 +7,7 @@ GtExampleWithResult >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		stencil: [ (GtMethodCoder forExample: self) expanded: true ];
+		stencil: [ ((GtMethodCoder forExample: self) expanded: true) asElement matchParent ];
 		actionButtonIcon: BrGlamorousIcons browse 
 			action: [ self method browse ]
 ]
