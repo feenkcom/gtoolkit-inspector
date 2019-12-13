@@ -5,5 +5,5 @@ BrTextEditor >> gtTextTreeFor: aView [
 	<gtView>
 	^ (self text gtTreeFor: aView) 
 		title: 'Text tree';
-		priority: 3 
+		priority: 4
 ]
