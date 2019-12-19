@@ -229,16 +229,19 @@ BlElement >> gtResizersFor: aView [
 		items: [ self withAllParents reversed ];
 		column: 'Icon' do: [ :aColumn |
 			aColumn itemStencil: [ :each |
-				(each asSpartaForm scaledToSize: 16@16) asElement
-					margin: (BlInsets all: 3) ];
-				width: 19 ];
+				BlLazyElement new 
+					elementBuilder: [
+						(each asSpartaForm scaledToSize: 16@16) asElement
+							margin: (BlInsets all: 3) ];
+					size: 16@16 ];
+				width: 16 ];
 		column: 'Width' 
 			item: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height' 
 			item: [ :anElement | anElement constraints vertical resizer ];
 		column: 'Layout' 
 			item: [ :anElement | anElement layout ];
-		column: 'Element' item: [ :anElement | anElement layout ]
+		column: 'Element' item: [ :anElement | anElement  ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
