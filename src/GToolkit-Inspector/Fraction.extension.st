@@ -2,7 +2,6 @@ Extension { #name : #Fraction }
 
 { #category : #'*GToolkit-Inspector' }
 Fraction >> gtPreviewFor: aView [
-	<gtView>
 	^ aView explicit
 		title: 'Preview';
 		stencil: [ 
