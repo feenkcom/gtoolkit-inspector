@@ -95,7 +95,7 @@ GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllDocumenterFiles [
-	GtInspector openOn: GtIcebergUtility pillarDocuments
+	GtInspector openOn: GtResourcesUtility default pillarDocuments
 ]
 
 { #category : #'api - actions' }
@@ -285,7 +285,7 @@ GtWorldMenu class >> rootMenuOn: aBuilder [
 { #category : #'api - actions' }
 GtWorldMenu class >> setGtDesktopLogo [
 	| aLogoFile |
-	aLogoFile := GtIcebergUtility resourceAtPath: (Path * 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png').
+	aLogoFile := GtResourcesUtility resourceAtPath: (Path * 'feenkcom' / 'gtoolkit-inspector' / 'doc' / 'gt.png').
 	aLogoFile exists ifFalse: [ ^ self inform: (aLogoFile fullName asString, ' does not exist') ].
 	PolymorphSystemSettings 
 		showDesktopLogo: true;
