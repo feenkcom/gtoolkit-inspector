@@ -4,7 +4,13 @@ Extension { #name : #GtResourcesUtility }
 GtResourcesUtility >> gtLocationsFor: aView [
 	<gtView>
 	self locations ifNil: [ ^ aView empty ].
-	^ aView list
+	^ aView columnedList
 		title: 'Locations';
-		items: [ self locations ]
+		items: [ self locations ];
+		column: 'Name' item: [ :aLocation | aLocation printString ];
+		column: 'Exists' 
+			item: [ :aLocation | aLocation exists 
+				ifTrue: [ 'available' asRopedText foreground: BrGlamorousColors successBackgroundColor ] 
+				ifFalse: [ 'unavailable' asRopedText foreground: BrGlamorousColors errorBackgroundColor ] ] 
+			width: 100
 ]
