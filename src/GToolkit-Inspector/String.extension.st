@@ -44,7 +44,7 @@ String >> gtLiveFor: aView [
 					editor editor text clearAttributes: [ :each | each isKindOf: GtPlaygroundEvaluatedCodeButtonAttribute ].
 					(editor editor text from: event selectedInterval first to: event selectedInterval last) attribute: (GtPlaygroundEvaluatedCodeButtonAttribute new paint: (BrGlamorousColors primaryBorderColor); beAppend).
 					"(editor scrollToPosition: event selectedInterval first)."
-					editor editor updateAll; invalidateAll ] ].
+					editor editor updater all update ] ].
 		list column 
 			title: 'Index';
 			stencil: [ :assoc | BrColumnCellLabelStencil new text: (assoc value asString asRopedText glamorousRegularFont; foreground: Color gray; fontSize: 11)].
