@@ -47,7 +47,7 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 						beViewContent;
 						entity: aGtPhlowView.
 					element asScrollableElement ] ];
-		toolbarStencil: (aGtPhlowView actionsToolbarForElement: aBrTab).
+		toolbarStencil: [ aGtPhlowView actionsToolbarForElement: aBrTab ].
 	isSelected ifNotNil: [ aBrTab selected: isSelected ].
 	aBrTabGroup addTab: aBrTab at: anIndex
 ]
@@ -105,7 +105,7 @@ GtInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
 					tab
 						fireEvent:
 							(GtPhlowObjectToSpawn new
-								object: view definingMethod;
+								object: view allDefiningMethods;
 								sourceElement: tab) ] ]
 ]
 
