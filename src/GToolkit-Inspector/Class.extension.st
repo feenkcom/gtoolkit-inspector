@@ -88,3 +88,11 @@ Class >> gtMethodsFor: aView [
 		priority: 2;
 		stencil: [ (GtClassMethodsCoder forClass: self) asElement ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Class >> itOrItsSuperclassesDefineGTViews [
+	"Says whether this class or its superclasses define a dedicated gtView.
+	ProtoObject and Object are excluded because they are too generic"
+	^ self withAllSuperclasses \ { ProtoObject . Object } anySatisfy: [ :c | 
+		(Pragma allNamed: #gtView in: c) notEmpty ]
+]
