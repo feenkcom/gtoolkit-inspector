@@ -3,9 +3,11 @@ Extension { #name : #BlElement }
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtChangesFor: aView [
 	<gtView>
-	^ (self changes gtItemsFor: aView) 
+	^ aView forward 
 		title: 'Changes';
-		priority: 30
+		priority: 30;
+		object: [ self changes ];
+		view: #gtItemsFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -13,6 +15,7 @@ BlElement >> gtChildrenFor: aView [
 	<gtView>
 	^ aView tree
 		title: 'Children';
+		priority: 35;
 		items: [ {self} ];
 		children: #children
 ]
@@ -22,7 +25,7 @@ BlElement >> gtEditorFor: aView [
 	<gtView>
 	^ aView explicit 
 		title: 'Editor';
-		priority: 13;
+		priority: 40;
 		stencil: [ | theEditors container |
 			theEditors := GtDiagrammerFigureEditor editorsOf: self.
 			
@@ -162,7 +165,7 @@ BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Measurement' translated;
-		priority: 15;
+		priority: 11;
 		items: [ 
 			| withAllParents |
 			withAllParents := (Array streamContents: [ :aStream |
