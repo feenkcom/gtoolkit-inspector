@@ -9,3 +9,14 @@ BrStencil class >> gtLiveFor: aView [
 		priority: -5;
 		stencil: [ self new ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BrStencil >> gtPreviewFor: aView [
+	<gtView>
+
+	^ aView forward
+		title: 'Preview';
+		priority: 0;
+		object: [ self create ];
+		view: #gtLiveFor:
+]

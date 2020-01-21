@@ -6,6 +6,11 @@ BlRopedText >> gtDisplayText [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlRopedText >> gtLiveFor: aView [
+	^ self gtTreeFor: aView
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlRopedText >> gtStoreStringFor: aView [
 	<gtView>
 	
