@@ -2,9 +2,9 @@ Extension { #name : #BrProgress }
 
 { #category : #'*GToolkit-Inspector' }
 BrProgress >> decreaseByTenPercent [
-	| anAmount anIncrease |
-	anIncrease := self total * (10 / self total).
-	anAmount := (self amount - anIncrease) max: 0. 
+	| anAmount aDecrease |
+	aDecrease := self total * 10 / 100.
+	anAmount := (self amount - aDecrease) max: 0. 
 	self amount: anAmount total: self total.
 ]
 
@@ -20,7 +20,7 @@ BrProgress >> gtLiveFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BrProgress >> increatesByTenPercent [
 	| anAmount anIncrease |
-	anIncrease := self total * (10 / self total).
+	anIncrease := self total * 10 / 100.
 	anAmount := (self amount + anIncrease) min: self total. 
 	self amount: anAmount total: self total.
 ]
