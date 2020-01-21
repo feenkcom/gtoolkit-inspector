@@ -16,6 +16,7 @@ BlElement >> gtChildrenFor: aView [
 	^ aView tree
 		title: 'Children';
 		priority: 35;
+		expandUpTo: 2;
 		items: [ {self} ];
 		children: #children
 ]
@@ -234,8 +235,12 @@ BlElement >> gtResizersFor: aView [
 			aColumn itemStencil: [ :each |
 				BlLazyElement new 
 					elementBuilder: [
-						(each asSpartaForm scaledToSize: 16@16) asElement
-							margin: (BlInsets all: 3) ];
+						| aForm |
+						aForm := each asSpartaForm.
+						(aForm width isZero or: [ aForm height isZero ])
+							ifFalse: [ (aForm scaledToSize: 16@16) asElement
+								margin: (BlInsets all: 3) ]
+							ifTrue: [ BlElement new size: 16@16 ] ];
 					size: 16@16 ];
 				width: 16 ];
 		column: 'Width' 
