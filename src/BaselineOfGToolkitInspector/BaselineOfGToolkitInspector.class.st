@@ -73,7 +73,7 @@ BaselineOfGToolkitInspector >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'GToolkitPlayground' with: [
-				spec repository: 'github://feenkcom/gtoolkit-playground:v0.7.362/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-playground:v0.7.363/src' ].
 		spec package: 'GToolkit-Inspector' with: [
 				spec requires: #(#GToolkitPlayground ). ]. ].
 
