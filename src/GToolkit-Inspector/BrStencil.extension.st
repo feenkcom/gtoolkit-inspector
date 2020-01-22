@@ -1,22 +1,23 @@
 Extension { #name : #BrStencil }
 
 { #category : #'*GToolkit-Inspector' }
-BrStencil class >> gtLiveFor: aView [
+BrStencil >> gtLiveFor: aView [
 	<gtView>
-	self isAbstract ifTrue: [ ^ aView empty ].
-	^ aView explicit
+	self class isAbstract ifTrue: [ ^ aView empty ].
+	^ aView forward
 		title: 'Live';
-		priority: -5;
-		stencil: [ self new ]
+		priority: 0;
+		object: [ self create ];
+		view: #gtLiveFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BrStencil >> gtPreviewFor: aView [
+BrStencil class >> gtLiveFor: aView [
 	<gtView>
-
+	self isAbstract ifTrue: [ ^ aView empty ].
 	^ aView forward
-		title: 'Preview';
-		priority: 0;
-		object: [ self create ];
+		title: 'Live';
+		priority: -5;
+		object: [ self new ];
 		view: #gtLiveFor:
 ]
