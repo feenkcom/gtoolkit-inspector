@@ -8,7 +8,9 @@ BrStencil >> gtLiveFor: aView [
 		title: 'Live';
 		priority: 0;
 		object: [ self create ];
-		view: #gtLiveFor:
+		view: #gtLiveFor:;
+		actionButtonIcon: BrGlamorousIcons inspect action: [ :aBrButton | 
+			aBrButton phlow spawnObject: self create ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
