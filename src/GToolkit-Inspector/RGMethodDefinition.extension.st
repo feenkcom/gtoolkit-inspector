@@ -1,6 +1,24 @@
 Extension { #name : #RGMethodDefinition }
 
 { #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> gtBasicSourceFor: aView [
+	^ aView explicit
+		title: 'Source';
+		priority: 0;
+		actionButtonIcon: BrGlamorousIcons browse 
+			action: [ :aButton | self browse ];
+		actionButtonIcon: BrGlamorousIcons inspect 
+			action: [ :aButton | 
+				aButton phlow spawnObject: 
+					(GtClassCoder forClass: self methodClass) ];
+		stencil: [ 
+			 ((GtMethodCoder forMethod: self) 
+				expanded: true; 
+				subscribeToSystem;
+				asElement) ].
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtImplementorsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -49,18 +67,10 @@ RGMethodDefinition >> gtSendersFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSourceFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView forward
 		title: 'Source';
 		priority: 0;
-		actionButtonIcon: BrGlamorousIcons browse 
-			action: [ :aButton | self browse ];
-		actionButtonIcon: BrGlamorousIcons inspect 
-			action: [ :aButton | 
-				aButton phlow spawnObject: 
-					(GtClassCoder forClass: self methodClass) ];
-		stencil: [ 
-			 ((GtMethodCoder forMethod: self) 
-				expanded: true; 
-				subscribeToSystem;
-				asElement) asScrollableElement ].
+		object: [ self ];
+		view: #gtBasicSourceFor:;
+		transformed: #asScrollableElement
 ]
