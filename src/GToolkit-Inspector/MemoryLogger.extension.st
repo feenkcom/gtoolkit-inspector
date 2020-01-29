@@ -6,6 +6,7 @@ MemoryLogger >> gtGroupedFor: aView [
 	^ aView columnedList
 		title: 'Grouped';
 		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
+		updateWhen: Announcement in: [ self announcer ];
 		column: 'Class' do: [ :aColumn |
 			aColumn
 				item: [ :each | each key asString ];
@@ -24,6 +25,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 		title: 'Recordings' translated;
 		priority: 50;
 		items: [ self recordings reverse ];
+		updateWhen: Announcement in: [ self announcer ];
 		column: 'Timestamp' translated do: [ :aColumn | 
 			aColumn 
 				item: [ :each | each timestamp asString ]; 
