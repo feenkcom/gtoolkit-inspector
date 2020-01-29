@@ -45,6 +45,33 @@ MemoryLogger >> gtRecordingsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MemoryLogger >> gtResetActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons trash;
+		priority: 3;
+		action: [ :aButton | self reset ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MemoryLogger >> gtStartActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons play;
+		priority: 1;
+		action: [ :aButton | self start ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MemoryLogger >> gtStopActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons cancel;
+		priority: 2;
+		action: [ :aButton | self stop ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger class >> saveBlocGlobalLogger [
 	"Collect detailed events for 10 seconds and then save the file"
 
