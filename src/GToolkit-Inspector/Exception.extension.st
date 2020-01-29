@@ -12,10 +12,11 @@ Exception >> gtDebugActionFor: anAction [
 { #category : #'*GToolkit-Inspector' }
 Exception >> gtLiveFor: aView [
 	<gtView>
-	^ aView explicit
-		title: 'Live';
+	^ aView forward
+		title: 'Stack';
 		priority: 1;
-		stencil: [ self asDebuggableElement ]
+		object: [ self signalerContext ];
+		view: #gtStackFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
