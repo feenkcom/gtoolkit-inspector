@@ -24,6 +24,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 		title: 'Recordings' translated;
 		priority: 50;
 		items: [ self recordings reverse ];
+		updateWhen: Announcement in: [ self announcer ];
 		column: 'Timestamp' translated do: [ :aColumn | 
 			aColumn 
 				item: [ :each | each timestamp asString ]; 
