@@ -13,12 +13,18 @@ BlElement >> gtChangesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtChildrenFor: aView [
 	<gtView>
-	^ aView tree
+	^ aView columnedTree
 		title: 'Children';
 		priority: 35;
 		expandUpTo: 2;
 		items: [ {self} ];
-		children: #children
+		children: #children;
+		column: 'Type' format: [ :eachElement | eachElement class ];
+		column: 'Drawing cache' item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
+			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
+				ifTrue: [ 'Enabled' ]
+				ifFalse: [ 'Disabled' ] ]
+			ifFalse: [ '' ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
