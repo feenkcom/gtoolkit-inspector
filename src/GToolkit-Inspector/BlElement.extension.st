@@ -19,6 +19,14 @@ BlElement >> gtChildrenFor: aView [
 		expandUpTo: 2;
 		items: [ {self} ];
 		children: #children;
+		column: 'Preview' do: [ :aColumn |
+			aColumn
+				noResize;
+				rowStencil: [ :eachElement |
+					BlElement new
+						size: 50@30;
+						margin: (BlInsets top: 2 bottom: 2);
+						addChild: (eachElement asSpartaForm asElement asScalableElement) ] ];
 		column: 'Type' format: [ :eachElement | eachElement class ];
 		column: 'Drawing cache' item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
 			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
