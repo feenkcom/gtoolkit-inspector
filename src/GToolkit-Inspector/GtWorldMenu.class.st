@@ -172,26 +172,31 @@ GtWorldMenu class >> profileAllProcessesUndefinitelyMenuOn: aBuilder [
 
 { #category : #'api - profiling' }
 GtWorldMenu class >> profileBlocUIProcessForFixedTime [
-	| secString secs |
+	| secString secs aMorphicUIProcess |
 	secString := UIManager default request: 'Profile for how many seconds?' initialAnswer: '4'.
 	secString ifNil: [secString := String new].
 	secs := secString asNumber asInteger.
 	(secs isNil
 			or: [secs isZero])
 		ifTrue: [^ self].
+	
+	aMorphicUIProcess := nil.
+	BlParallelUniverse morphic uiProcessDo: [ :aProcess | aMorphicUIProcess := aProcess ].
+	aMorphicUIProcess
+		ifNil: [ ^ self ].
 
 	[ | rootMessageTally |
 		rootMessageTally := self createDefaultMessageTally.
 		rootMessageTally 
 			spyEvery: MessageTally defaultPollPeriod
-			onProcess: BlUniverse default pulseLoop loopProcess
+			onProcess: aMorphicUIProcess
 			forMilliseconds: secs * 1000.
 		GtBlocUIProcessTally inspectTally: rootMessageTally.
 			
 		"Profiling a single process leave the Timer variable initialized, which prevents any other profiling to take place.
 		So once the profilinf is dine clear the profiling process."
 		MessageTally terminateTimerProcess. 
-	] forkAt: BlUniverse default pulseLoop loopProcess priority + 1.
+	] forkAt: aMorphicUIProcess priority + 1.
 ]
 
 { #category : #'world menu - profiling' }
