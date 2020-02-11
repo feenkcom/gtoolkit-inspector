@@ -22,17 +22,20 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Preview' do: [ :aColumn |
 			aColumn
 				noResize;
+				width: 50;
 				rowStencil: [ :eachElement |
 					BlElement new
-						size: 50@30;
+						size: 50@20;
 						margin: (BlInsets top: 2 bottom: 2);
 						addChild: (eachElement asSpartaForm asElement asScalableElement) ] ];
 		column: 'Type' format: [ :eachElement | eachElement class ];
-		column: 'Drawing cache' item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
+		column: 'Drawing cache' 
+		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
 			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
 				ifTrue: [ 'Enabled' ]
 				ifFalse: [ 'Disabled' ] ]
 			ifFalse: [ '' ] ]
+		width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }
