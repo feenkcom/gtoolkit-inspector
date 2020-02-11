@@ -22,12 +22,32 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Preview' do: [ :aColumn |
 			aColumn
 				noResize;
-				width: 50;
+				width: 70;
 				rowStencil: [ :eachElement |
-					BlElement new
-						size: 50@20;
-						margin: (BlInsets top: 2 bottom: 2);
-						addChild: (eachElement asSpartaForm asElement asScalableElement) ] ];
+					| form |
+					form := eachElement asSpartaForm.
+					BrButton new 
+						margin: (BlInsets all: 10);
+						icon: (BlElement new
+							size: 50@20;
+							"margin: (BlInsets top: 2 bottom: 2);"
+							addChild: (form asElement asScalableElement));
+						label: 'Slides';
+						look: 
+							BrGlamorousButtonWithIconLook
+							- BrGlamorousWithLabelTooltipLook
+							+ (BrGlamorousWithDropdownLook
+								handle: [ BrButton new
+									look: BrGlamorousButtonWithIconLook 
+										- BrGlamorousWithLabelTooltipLook
+										- BrGlamorousButtonExteriorLook;
+									icon: (BlElement new
+										size: 50@20;
+										"margin: (BlInsets top: 2 bottom: 2);"
+										addChild: (form asElement asScalableElement)) ]
+				content: [ form asElement ]);
+				constraintsDo: [ :c | c linear horizontal alignRight ]
+				"padding: (BlInsets all: 10) "]];
 		column: 'Type' format: [ :eachElement | eachElement class ];
 		column: 'Drawing cache' 
 		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
