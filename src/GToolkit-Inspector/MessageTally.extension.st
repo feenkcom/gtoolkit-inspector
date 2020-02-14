@@ -1,6 +1,39 @@
 Extension { #name : #MessageTally }
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> gtGroupedByMethodFor: aView [
+	<gtView>
+	| grouped aPlotter barChart |
+	^ aView explicit
+		title: 'By method';
+		stencil: [
+grouped := (self deepCollect: #children) groupedBy: #method.
+
+aPlotter := GtPlotter new.
+
+	barChart := aPlotter horizontalBarChart.
+	barChart barStencil: [
+		BlElement new
+			geometry: BlStadium new;
+			margin: (BlInsets top: 4 bottom: 4);
+			background: (Color red alpha: 0.5)
+	].
+	barChart barWidthScale: (GtPlotterLinearScale new
+		domainFrom: 0 to: (grouped associations max: [ :assoc | assoc value sum: #tally ])).
+	barChart barHeightScale: (GtPlotterLinearScale new
+		domainFrom: 0 to: (grouped associations max: [ :assoc | assoc value size ]);
+		rangeFrom: 10 to: 50).
+	barChart ticks: 2.
+	barChart barLabelFormat: [ :assoc | assoc key gtDisplayString asRopedText glamorousRegularFont fontSize: 10].
+	barChart barWidthData: [ :assoc | assoc value sum: #tally ].
+	barChart barHeightData: [ :assoc | assoc value size ].
+	barChart with: (grouped associations sorted: [:a :b | (a value sum: #tally) > (b value sum: #tally ) ]).
+
+aPlotter root ]
+
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtMessagesTreeIn: aView [
 	<gtView>
 	| methods normalizer |
