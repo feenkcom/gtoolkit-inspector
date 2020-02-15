@@ -6,6 +6,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 	| grouped aPlotter barChart |
 	^ aView explicit
 		title: 'By method';
+		priority: 10;
 		stencil: [
 grouped := (self deepCollect: #children) groupedBy: #method.
 
@@ -46,6 +47,7 @@ MessageTally >> gtMessagesTreeIn: aView [
 	^ (aView tree)
 		title: 'Tree';
 		priority: 10;
+		expandUpTo: 3;
 		items: [ { self } ];
 		children: [ :each | each children ];
 		itemFormat: [ :each | 
