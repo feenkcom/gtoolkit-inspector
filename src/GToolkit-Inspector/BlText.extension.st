@@ -14,5 +14,6 @@ BlText >> gtTextFor: aView [
 	^ aView textEditor
 		title: 'Text';
 		text: self;
+		priority: 10;
 		withoutLook
 ]
