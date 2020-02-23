@@ -40,48 +40,6 @@ GtExample >> gtAfterFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExample >> gtCodeGraphFor: aView [
-	<gtView>
-	^ aView mondrian
-		title: 'Code Graph';
-		painting: [ :view |
-			view nodes 
-				shape: [ :each | 
-					| text styler editor editorElement |
-					text := each method sourceCode asRopedText.
-					styler := BlTextNullStyler new.
-					editor := BrTextEditor new.
-					editor styler: styler.
-					editor text: text.
-					editorElement := BrEditorElement new.
-					editorElement
-						zIndex: 10;
-						background: Color white;
-						effect: (BlGaussianShadowEffect color: (Color gray alpha: 0.5) width: 5 offset: 5@5).
-					editorElement constraintsDo: [ :c |
-					    c horizontal exact: 300.
-					    c vertical exact: 200 ].
-					editorElement editor: editor.
-					editorElement ];
-				with: (self withDeepCollect: #directDependencies) asSet.
-			view edges 
-				fromNearestCircle;
-				toNearestCircle;
-				shape: [ :each | 
-					BlLineElement new
-						border: (BlBorder paint: (Color gray alpha: 0.4) width: 3);
-						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color gray alpha: 0.4); width: 3; build))
-					"BlParabollaArcElement new 
-						border: (BlBorder paint: (Color gray alpha: 0.4) width: 10);
-						curvatureFraction: 0.9;
-						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color gray alpha: 0.4); width: 10; build))" ];
-				connectToAll: #directDependencies.
-			view layout horizontalDominanceTree levelDistance: 200; nodeDistance: 40 ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtCoderSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -110,21 +68,33 @@ GtExample >> gtDependenciesGraphFor: aView [
 	^ aView mondrian
 		title: 'Graph';
 		priority: 50;
-		painting: [ :view | 
-			view nodes 
+		painting: [ :m | 
+			m nodes 
 				stencil: [ :each |
 					| element |
-					element := BlElement new.
-					element 	
+					element := BlElement new
 						geometry: BlEllipse new;
 						border: (BlBorder paint: Color black width: 2);
 						size: 20@20;
-						constraintsDo: [ :constraints | constraints padding: (BlInsets all: 10).
-					each = self ifTrue: [element background: Color gray] ifFalse: [element background:  Color white]  ].
+						look: (BrWithTooltipLook2 new
+							preferredExtent: 200@200;
+							showDelay: 100 milliSeconds;
+							hideDelay: 100 milliSeconds;
+							stencil: [ 
+								BlElement new look: (BrTooltipLook2 new content: ((GtMethodCoder forExample: each) expanded: true) asElement)]).
+					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.
-			view edges connectToAll: #directDependencies.
-			view layout tree ]
+			m edges 
+				fromNearestTightCircle;
+				toNearestTightCircle;
+				stencil: [ :each | 
+					BlParabollaArcElement new curvatureFraction: 0.2;
+						border: (BlBorder paint: (Color gray alpha: 0.2) width: 2);
+						toHead: (BlArrowheadSimpleArrow new
+							border: (BlBorder builder paint: (Color gray alpha: 0.2); width: 2; build))];
+				connectToAll: #directDependencies.
+			m layout horizontalTree. ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
