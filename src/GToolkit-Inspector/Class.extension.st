@@ -61,9 +61,21 @@ Class >> gtDefinitionFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesFor: aView [
 	<gtView>
-	
-	^ (GtExampleGroup withAll: self gtExamplesAll)
-			gtExamplesFor: aView
+	^ aView forward
+		title: 'Examples';
+		priority: 12;
+		object: [ GtExampleGroup withAll: self gtExamplesAll ];
+		view: #gtExamplesFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Class >> gtExamplesMapFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Examples map';
+		priority: 12;
+		object: [ GtExampleGroup withAll: self gtExamplesAll ];
+		view: #gtMapFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
