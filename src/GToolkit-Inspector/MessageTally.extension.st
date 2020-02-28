@@ -44,15 +44,17 @@ MessageTally >> gtMessagesTreeIn: aView [
 						inContext: methods 
 						withCommand: #tally 
 						lowColor: Color gray 
-						highColor: Color red.
-	^ (aView tree)
+						highColor: (Color r: 216 g: 55 b: 62 range: 255).
+	^ aView columnedTree
 		title: 'Tree';
 		priority: 10;
 		expandUpTo: 3;
 		items: [ { self } ];
 		children: [ :each | each children ];
-		itemFormat: [ :each | 
-			each gtDisplayString asRopedText foreground: (normalizer value: each)]		
+		column: 'Method' format: [ :each | 
+			each method gtDisplayString asRopedText glamorousRegularFont foreground: (normalizer value: each)];
+		column: 'Percent' format: [:each | ((each tally / self tally asFloat * 100 printShowingDecimalPlaces: 1), '%') asRopedText glamorousRegularFont foreground: (normalizer value: each) ] width: 100;
+		column: 'Tally' format: [ :each | each tally asString asRopedText glamorousRegularFont foreground: (normalizer value: each)] width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }
