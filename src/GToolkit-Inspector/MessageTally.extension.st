@@ -3,7 +3,7 @@ Extension { #name : #MessageTally }
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
-	| grouped barChart tallies data maxTally aBarWidthScale |
+	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
 	^ aView explicit
 		title: 'By method';
 		priority: 10;
@@ -18,13 +18,18 @@ MessageTally >> gtGroupedByMethodFor: aView [
 					GtPlotterDataGroupWithColor new color: (Color r: 216 g: 55 b: 62 range: 255)} ].
 			maxTally := data inject: 0 intoValues: [ :anAmount :eachValue | anAmount max: (eachValue tally) ].
 			aBarWidthScale := GtPlotterLinearScale new domainFrom: 0 to: maxTally.
+			aBarHeightScale := GtPlotterLinearScale new
+		domainFrom: 0 to: (grouped entities max: #size);
+		rangeFrom: 5 to: 100.
 			barChart := GtPlotterHorizontalBarChart new.
 			barChart withAdjacentBars.
-			barChart groupSpacing: 5.
-			barChart barLabelWidth: 250.
+			barChart groupSpacing: 10.
+			barChart barLabelWidth: 300.
+			barChart barLabelLookStencil: [ BrGlamorousLabelLook new glamorousRegularFont; fontSize: 10 ].
 			barChart barWidthScale: aBarWidthScale.
 			barChart barWidthData: [ :eachValue | eachValue tally ].
-			barChart barHeightData: [ :eachGroup | 3].
+			barChart barHeightScale: aBarHeightScale.
+			barChart barHeightData: [ :eachGroup | eachGroup size * 5 ].
 			barChart amountOfTicks: 4.
 			barChart with: grouped.
 			barChart asElement	 ]
