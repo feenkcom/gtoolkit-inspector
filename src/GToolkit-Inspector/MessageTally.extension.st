@@ -5,7 +5,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
 	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
 	^ aView explicit
-		title: 'By method';
+		title: 'Top local tallies';
 		priority: 11;
 		stencil: [ 
 			tallies := self deepCollect: #children.
@@ -20,7 +20,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			aBarWidthScale := GtPlotterLinearScale new domainFrom: 0 to: maxTally.
 			aBarHeightScale := GtPlotterLinearScale new
 		domainFrom: 0 to: (grouped entities max: #size);
-		rangeFrom: 5 to: 100.
+		rangeFrom: 5 to: 50.
 			barChart := GtPlotterHorizontalBarChart new.
 			barChart withAdjacentBars.
 			barChart groupSpacing: 10.
