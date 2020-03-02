@@ -6,17 +6,17 @@ MessageTally >> gtGroupedByMethodFor: aView [
 	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
 	^ aView explicit
 		title: 'By method';
-		priority: 10;
+		priority: 11;
 		stencil: [ 
 			tallies := self deepCollect: #children.
 			data := GtPlotterDataGroup new values: tallies.
 			grouped := data 
 				groupedBy: #method 
-				sorted: [:a :b | (a value sumNumbers: #tally) > (b value sumNumbers: #tally)] 
+				sorted: [:a :b | (a value sumNumbers: #localTally) > (b value sumNumbers: #localTally)] 
 				decorated: [ :each |  {
 					GtPlotterDataGroupWithLabel new label: (each gtDisplayString).
 					GtPlotterDataGroupWithColor new color: (Color r: 216 g: 55 b: 62 range: 255)} ].
-			maxTally := data inject: 0 intoValues: [ :anAmount :eachValue | anAmount max: (eachValue tally) ].
+			maxTally := data inject: 0 intoValues: [ :anAmount :eachValue | anAmount max: (eachValue localTally) ].
 			aBarWidthScale := GtPlotterLinearScale new domainFrom: 0 to: maxTally.
 			aBarHeightScale := GtPlotterLinearScale new
 		domainFrom: 0 to: (grouped entities max: #size);
@@ -27,7 +27,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			barChart barLabelWidth: 300.
 			barChart barLabelLookStencil: [ BrGlamorousLabelLook new glamorousRegularFont; fontSize: 10 ].
 			barChart barWidthScale: aBarWidthScale.
-			barChart barWidthData: [ :eachValue | eachValue tally ].
+			barChart barWidthData: [ :eachValue | eachValue localTally ].
 			barChart barHeightScale: aBarHeightScale.
 			barChart barHeightData: [ :eachGroup | eachGroup size * 5 ].
 			barChart amountOfTicks: 4.
