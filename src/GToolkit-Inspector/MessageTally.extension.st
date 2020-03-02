@@ -3,35 +3,36 @@ Extension { #name : #MessageTally }
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
-	| grouped aPlotter barChart |
+	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
 	^ aView explicit
 		title: 'By method';
 		priority: 10;
-		stencil: [
-grouped := (self deepCollect: #children) groupedBy: #method.
-
-aPlotter := GtPlotter new.
-
-	barChart := aPlotter horizontalBarChart.
-	barChart barStencil: [
-		BlElement new
-			geometry: BlStadium new;
-			margin: (BlInsets top: 4 bottom: 4);
-			background: (Color red alpha: 0.5)
-	].
-	barChart barWidthScale: (GtPlotterLinearScale new
-		domainFrom: 0 to: (grouped associations max: [ :assoc | assoc value sum: #tally ])).
-	barChart barHeightScale: (GtPlotterLinearScale new
-		domainFrom: 0 to: (grouped associations max: [ :assoc | assoc value size ]);
-		rangeFrom: 10 to: 50).
-	barChart ticks: 2.
-	barChart barLabelFormat: [ :assoc | assoc key gtDisplayString asRopedText glamorousRegularFont fontSize: 10].
-	barChart barWidthData: [ :assoc | assoc value sum: #tally ].
-	barChart barHeightData: [ :assoc | assoc value size ].
-	barChart with: (grouped associations sorted: [:a :b | (a value sum: #tally) > (b value sum: #tally ) ]).
-
-aPlotter root ]
-
+		stencil: [ 
+			tallies := self deepCollect: #children.
+			data := GtPlotterDataGroup new values: tallies.
+			grouped := data 
+				groupedBy: #method 
+				sorted: [:a :b | (a value sumNumbers: #tally) > (b value sumNumbers: #tally)] 
+				decorated: [ :each |  {
+					GtPlotterDataGroupWithLabel new label: (each gtDisplayString).
+					GtPlotterDataGroupWithColor new color: (Color r: 216 g: 55 b: 62 range: 255)} ].
+			maxTally := data inject: 0 intoValues: [ :anAmount :eachValue | anAmount max: (eachValue tally) ].
+			aBarWidthScale := GtPlotterLinearScale new domainFrom: 0 to: maxTally.
+			aBarHeightScale := GtPlotterLinearScale new
+		domainFrom: 0 to: (grouped entities max: #size);
+		rangeFrom: 5 to: 100.
+			barChart := GtPlotterHorizontalBarChart new.
+			barChart withAdjacentBars.
+			barChart groupSpacing: 10.
+			barChart barLabelWidth: 300.
+			barChart barLabelLookStencil: [ BrGlamorousLabelLook new glamorousRegularFont; fontSize: 10 ].
+			barChart barWidthScale: aBarWidthScale.
+			barChart barWidthData: [ :eachValue | eachValue tally ].
+			barChart barHeightScale: aBarHeightScale.
+			barChart barHeightData: [ :eachGroup | eachGroup size * 5 ].
+			barChart amountOfTicks: 4.
+			barChart with: grouped.
+			barChart asElement	 ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -43,15 +44,17 @@ MessageTally >> gtMessagesTreeIn: aView [
 						inContext: methods 
 						withCommand: #tally 
 						lowColor: Color gray 
-						highColor: Color red.
-	^ (aView tree)
+						highColor: (Color r: 216 g: 55 b: 62 range: 255).
+	^ aView columnedTree
 		title: 'Tree';
 		priority: 10;
 		expandUpTo: 3;
 		items: [ { self } ];
 		children: [ :each | each children ];
-		itemFormat: [ :each | 
-			each gtDisplayString asRopedText foreground: (normalizer value: each)]		
+		column: 'Method' format: [ :each | 
+			each method gtDisplayString asRopedText glamorousRegularFont foreground: (normalizer value: each)];
+		column: 'Percent' format: [:each | ((each tally / self tally asFloat * 100 printShowingDecimalPlaces: 1), '%') asRopedText glamorousRegularFont foreground: (normalizer value: each) ] width: 100;
+		column: 'Tally' format: [ :each | each tally asString asRopedText glamorousRegularFont foreground: (normalizer value: each)] width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }
