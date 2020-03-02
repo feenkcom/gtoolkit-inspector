@@ -20,7 +20,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			aBarWidthScale := GtPlotterLinearScale new domainFrom: 0 to: maxTally.
 			aBarHeightScale := GtPlotterLinearScale new
 		domainFrom: 0 to: (grouped entities max: #size);
-		rangeFrom: 5 to: 50.
+		rangeFrom: 2 to: 50.
 			barChart := GtPlotterHorizontalBarChart new.
 			barChart withAdjacentBars.
 			barChart groupSpacing: 10.
@@ -29,7 +29,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			barChart barWidthScale: aBarWidthScale.
 			barChart barWidthData: [ :eachValue | eachValue localTally ].
 			barChart barHeightScale: aBarHeightScale.
-			barChart barHeightData: [ :eachGroup | eachGroup size * 5 ].
+			barChart barHeightData: [ :eachGroup | eachGroup size * 2 ].
 			barChart amountOfTicks: 4.
 			barChart with: grouped.
 			barChart asElement	 ]
