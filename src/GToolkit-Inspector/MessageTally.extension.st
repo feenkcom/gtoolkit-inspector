@@ -53,7 +53,7 @@ MessageTally >> gtMessagesTreeIn: aView [
 		children: [ :each | each children ];
 		column: 'Method' format: [ :each | 
 			each method gtDisplayString asRopedText glamorousRegularFont foreground: (normalizer value: each)];
-		column: 'Percent' format: [:each | ((each tally / self tally asFloat * 100 printShowingDecimalPlaces: 1), '%') asRopedText glamorousRegularFont foreground: (normalizer value: each) ] width: 100;
+		column: 'Percent' format: [:each | ((each tally / (self tally max: 0.1) asFloat * 100 printShowingDecimalPlaces: 1), '%') asRopedText glamorousRegularFont foreground: (normalizer value: each) ] width: 100;
 		column: 'Tally' format: [ :each | each tally asString asRopedText glamorousRegularFont foreground: (normalizer value: each)] width: 100
 ]
 
