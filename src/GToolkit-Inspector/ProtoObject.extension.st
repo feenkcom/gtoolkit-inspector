@@ -3,26 +3,19 @@ Extension { #name : #ProtoObject }
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
-	^ anAction explicit stencil: [
-		BrButton new
-			look: BrGlamorousButtonWithIconLook;
-			icon: BrGlamorousIcons browse asElement;
-			action: [ :button | self class gtBrowseFrom: button ] ]
+	^ anAction button
+		label: 'Browse';
+		icon: BrGlamorousIcons browse asElement;
+		action: [ :button | self class gtBrowseFrom: button ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
-	| button |
-	^ anAction explicit stencil: [
-		button := BrButton new.
-		button
-			look: BrGlamorousButtonWithIconLook;
-			icon: BrGlamorousIcons inspect asElement;
-			action: [ 
-				button fireEvent: (GtPhlowObjectToSpawn new
-					object: self;
-					sourceElement: button) ] ]
+	^ anAction button
+		icon: BrGlamorousIcons inspect asElement;
+		label: 'Inspect';
+		action: [ :button | button phlow spawnObject: self]
 ]
 
 { #category : #'*GToolkit-Inspector' }
