@@ -13,6 +13,11 @@ CompiledMethod >> astNodesList [
 			c padding: (BlInsets all: 10)];
 		layout: BlLinearLayout vertical.
 		
+	verticalContainer addChild: (BrLabel new
+		text: ('Syntactical constructs:' asRopedText fontSize: 25);
+		look: BrGlamorousLabelLook;
+		margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+		
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
 		ifTrue: [ verticalContainer addChild: (self explanationLabelFor: #ReturnNode) ]
 		ifFalse: [ verticalContainer addChild: (self regularLabelFor: #ReturnNode) ].
@@ -62,7 +67,8 @@ CompiledMethod >> astNodesList [
 		ifTrue: [ verticalContainer addChild: (self explanationLabelFor: #LiteralArrayNode) ]
 		ifFalse: [ verticalContainer addChild: (self regularLabelFor: #LiteralArrayNode) ].
 
-	^ verticalContainer.
+	^ verticalContainer
+		width: 250.
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -72,12 +78,12 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	lines := OrderedCollection new.
 	
-	label := BrButton new
+	label := BrLabel new
 		clipChildren: false;
 		layout: BlLinearLayout vertical;
 		geometry: (BlRectangle cornerRadius: 4);
-		padding: (BlInsets left: 4 right: 4);
-		margin: (BlInsets all: 0);
+		padding: (BlInsets all: 5);
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5);
 		look: (BrInteractiveCommonLook new 
 			default: [ :aWidget |
 				lines do: [ :each | each removeFromParent ].
@@ -116,12 +122,7 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 		model: aNodeNameSymbol.
 	label addChildren: { BlTextElement new text: nodeName asRopedText }.
 	
-	^ label
-		padding: (BlInsets all: 5);
-		margin: (BlInsets all: 5);
-		constraintsDo: [ :c |
-			c linear horizontal alignCenter.
-			c linear vertical alignCenter ].
+	^ label.
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -182,12 +183,9 @@ CompiledMethod >> regularLabelFor: aNodeNameSymbol [
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	
 	^ BrLabel new
-		text: nodeName;
+		text: (nodeName asRopedText italic; foreground: Color gray);
 		look: BrGlamorousLabelLook;
 		padding: (BlInsets all: 5);
-		margin: (BlInsets all: 5);
-		constraintsDo: [ :c |
-			c linear horizontal alignCenter.
-			c linear vertical alignCenter ].
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5).
 		
 ]
