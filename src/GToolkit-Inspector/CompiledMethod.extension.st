@@ -72,6 +72,119 @@ CompiledMethod >> astNodesList [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> compositeExplanationLinkStylerRules [
+	| compositeExplanationLinkStylerRules |
+	
+	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
+		{
+			GtASTNodeStylerRule new
+				nodeClassName: #RBPragmaNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
+			"GtASTNodeStylerRule new
+				nodeClassName: #RBValueNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ValueNode } ]."
+			GtASTNodeStylerRule new
+				nodeClassName: #RBReturnNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
+			"GtASTNodeStylerRule new
+				nodeClassName: #RBMethodNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #MethodNode } ]."
+			"GtASTNodeStylerRule new
+				nodeClassName: #RBLiteralNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralNode } ]."
+			GtASTNodeStylerRule new
+				nodeClassName: #RBCascadeNode;
+				styleBlock: [ :aNode :aText |
+					aNode semicolons do: [ :each |
+						(aText
+							from: each - 1
+							to: each - 1)
+							attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #CascadeNode } ] ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBArrayNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode left - 1
+						to: aNode left - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBMessageNode;
+				styleBlock: [ :aNode :aText |
+					| identifier |
+					(aNode isBinary) ifTrue: [ identifier := #BinaryNode ].
+					(aNode isUnary) ifTrue: [ identifier := #UnaryNode ].
+					(aNode isKeyword) ifTrue: [ identifier := #KeywordNode ].
+					(aText
+						from: aNode keywordsPositions first - 1
+						to: aNode keywordsPositions first - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBBlockNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode left - 1
+						to: aNode left - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBAssignmentNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode assignment - 1
+						to: aNode assignment - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBVariableNode;
+				styleBlock: [ :aNode :aText |
+					| identifier |
+					(aNode isTemp) ifTrue: [ identifier := #TemporaryNode ].
+					(aNode isArg) ifTrue: [ identifier := #ArgumentNode ].
+					(aNode isGlobal) ifTrue: [ identifier := #GlobalNode ].
+					(aNode isSelf) ifTrue: [ identifier := #SelfNode ].
+					(aNode isSuper) ifTrue: [ identifier := #SuperNode ].
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBLiteralValueNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralValueNode } ].
+			GtASTNodeStylerRule new
+				nodeClassName: #RBLiteralArrayNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode } ].
+		}.
+	
+	^ compositeExplanationLinkStylerRules.
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label |
 	
