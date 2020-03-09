@@ -6,6 +6,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 	^ aView textEditor
 		title: 'Source code';
 		actionButtonIcon: BrGlamorousIcons browse 
+			label: 'Browse'
 			action: [ self methodNode compiledMethod browse ];
 		look: BrGlamorousCodeEditorLook new;
 		styler: (BrRBTextStyler new classOrMetaClass: self methodNode compiledMethod methodClass);

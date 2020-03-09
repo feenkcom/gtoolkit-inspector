@@ -252,6 +252,54 @@ BlElement >> gtOpenInSpaceFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtParentsFor: aView [
+	<gtView>
+	^ aView columnedTree
+		title: 'Parents';
+		priority: 36;
+		expandUpTo: 2;
+		items: [ { self } ];
+		children: [ :each | each hasParent ifTrue: [ { each parent } ] ifFalse: [ {  } ] ];
+		column: 'Preview' do: [ :aColumn |
+			aColumn
+				noResize;
+				width: 70;
+				rowStencil: [ :eachElement |
+					| form |
+					form := eachElement asSpartaForm.
+					BrButton new 
+						margin: (BlInsets all: 10);
+						icon: (BlElement new
+							size: 50@20;
+							"margin: (BlInsets top: 2 bottom: 2);"
+							addChild: (form asElement asScalableElement));
+						label: 'Slides';
+						look: 
+							BrGlamorousButtonWithIconLook
+							- BrGlamorousWithLabelTooltipLook
+							+ (BrGlamorousWithDropdownLook
+								handle: [ BrButton new
+									look: BrGlamorousButtonWithIconLook 
+										- BrGlamorousWithLabelTooltipLook
+										- BrGlamorousButtonExteriorLook;
+									icon: (BlElement new
+										size: 50@20;
+										"margin: (BlInsets top: 2 bottom: 2);"
+										addChild: (form asElement asScalableElement)) ]
+				content: [ form asElement ]);
+				constraintsDo: [ :c | c linear horizontal alignRight ]
+				"padding: (BlInsets all: 10) "]];
+		column: 'Type' format: [ :eachElement | eachElement class ];
+		column: 'Drawing cache' 
+		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
+			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
+				ifTrue: [ 'Enabled' ]
+				ifFalse: [ 'Disabled' ] ]
+			ifFalse: [ '' ] ]
+		width: 100
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit 

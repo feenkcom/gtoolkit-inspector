@@ -9,12 +9,7 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 		children: #gtChildren;
 		itemStencil: [ :each | 
 			| element executeButton |
-			element := BlElement new.
-			element
-				look:
-					(BrLayoutLook frame
-						hMatchParent;
-						vFitContent).
+			element := BrHorizontalPane new vFitContent hMatchParent.
 			element
 				addChild:
 					(BrLabel new
