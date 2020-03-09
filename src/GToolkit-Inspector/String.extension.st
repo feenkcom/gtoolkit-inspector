@@ -50,7 +50,10 @@ String >> gtLiveFor: aView [
 			stencil: [ :assoc | BrColumnCellLabelStencil new text: (assoc value asString asRopedText glamorousRegularFont; foreground: Color gray; fontSize: 11)].
 		list column 
 			title: 'Char';
-			stencil: [ :assoc | BrColumnCellLabelStencil new text: ((assoc key printString gtRemovePrefix: 'Character ') asRopedText glamorousRegularFont; fontSize: 11)].
+			stencil: [ :assoc | BrColumnCellLabelStencil new text: ((assoc key gtDisplayString gtRemovePrefix: 'Character ') asRopedText glamorousRegularFont; fontSize: 11)].
+		list column 
+			title: 'ASCII';
+			stencil: [ :assoc | BrColumnCellLabelStencil new text: ((assoc key asciiValue asString) asRopedText glamorousRegularFont; fontSize: 11)].
 		container addChild: list.
 		
 		container 
