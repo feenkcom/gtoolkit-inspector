@@ -80,21 +80,14 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBValueNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ValueNode } ]."
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBReturnNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
 			"GtASTNodeStylerRule new
 				nodeClassName: #RBMethodNode;
 				styleBlock: [ :aNode :aText |
@@ -102,13 +95,6 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 						from: aNode start - 1
 						to: aNode start - 1)
 						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #MethodNode } ]."
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBLiteralNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralNode } ]."
 			GtASTNodeStylerRule new
 				nodeClassName: #RBCascadeNode;
 				styleBlock: [ :aNode :aText |
@@ -116,14 +102,14 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 						(aText
 							from: each - 1
 							to: each - 1)
-							attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #CascadeNode } ] ].
+							attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #CascadeNode}] ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBMessageNode;
 				styleBlock: [ :aNode :aText |
@@ -134,21 +120,21 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode keywordsPositions first - 1
 						to: aNode keywordsPositions first - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBAssignmentNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode assignment - 1
 						to: aNode assignment - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBVariableNode;
 				styleBlock: [ :aNode :aText |
@@ -161,21 +147,21 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralValueNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralValueNode } ].
+						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralValueNode} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode } ].
+						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode} ].
 		}.
 	
 	^ compositeExplanationLinkStylerRules.
