@@ -11,12 +11,9 @@ CompiledMethod >> astNodesList [
 			c horizontal matchParent.
 			c vertical matchParent.
 			c padding: (BlInsets all: 10)];
-		layout: BlLinearLayout vertical.
-		
-	verticalContainer addChild: (BrLabel new
-		text: ('Syntactical constructs:' asRopedText fontSize: 25);
-		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+		layout: BlLinearLayout vertical;
+		background: Color white;
+		look: BrShadowLook.
 		
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
 		ifTrue: [ verticalContainer addChild: (self explanationLabelFor: #ReturnNode) ]
@@ -196,7 +193,7 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 		layout: BlLinearLayout vertical;
 		geometry: (BlRectangle cornerRadius: 4);
 		padding: (BlInsets all: 5);
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5);
+		margin: (BlInsets top: 5 right: 0 bottom: 5 left: 5);
 		look: (BrInteractiveCommonLook new 
 			default: [ :aWidget |
 				lines do: [ :each | each removeFromParent ].
@@ -265,7 +262,7 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	^ aView explicit
 		title: 'Syntax Explanation' translated;
 		stencil: [ 
-			| mainContainer verticalContainer coder coderElement |
+			| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 			
 			mainContainer := BlElement new
 				constraintsDo: [ :c | 
@@ -274,7 +271,32 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 					c padding: (BlInsets all: 5)];
 				layout: BlLinearLayout horizontal. 
 			mainContainer explainer isExplanationHolder: true.
-			verticalContainer := self astNodesList.
+			
+			leftContainer := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c padding: (BlInsets all: 5)];
+				layout: BlLinearLayout vertical;
+				width: 260.
+			
+			rightContainer := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c padding: (BlInsets all: 5)];
+				layout: BlLinearLayout vertical.
+				
+			nodesListContainer := self astNodesList.
+			
+			leftContainerLabel := (BrLabel new
+				text: ('Syntactical constructs' asRopedText fontSize: 25);
+				look: BrGlamorousLabelLook;
+				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+			rightContainerLabel := (BrLabel new
+				text: ('Method Source Code' asRopedText fontSize: 25);
+				look: BrGlamorousLabelLook;
+				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
 				
 			coder := GtMethodCoder new forMethod: self.
 			coder explanationLink: (self compositeExplanationLinkStylerRules).
@@ -282,8 +304,14 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 			coderElement forceLayout.
 			coderElement vMatchParent.
 			
-			mainContainer addChild: verticalContainer.
-			mainContainer addChild: coderElement.
+			leftContainer addChild: leftContainerLabel.
+			leftContainer addChild: nodesListContainer.
+			
+			rightContainer addChild: rightContainerLabel.
+			rightContainer addChild: coderElement.
+			
+			mainContainer addChild: leftContainer.
+			mainContainer addChild: rightContainer.
 			
 			mainContainer.
 			]
@@ -296,7 +324,7 @@ CompiledMethod >> regularLabelFor: aNodeNameSymbol [
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	
 	^ BrLabel new
-		text: (nodeName asRopedText italic; foreground: Color gray);
+		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
 		padding: (BlInsets all: 5);
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5).
