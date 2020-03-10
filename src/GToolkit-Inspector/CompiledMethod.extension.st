@@ -216,7 +216,7 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 	label explainer
 		isExplanation: true;
 		model: aNodeNameSymbol.
-	label addChildren: { BlTextElement new text: nodeName asRopedText }.
+	label addChildren: { BlTextElement new text: nodeName asRopedText glamorousRegularFont }.
 	
 	^ label.
 ]
@@ -260,11 +260,10 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 			
 			leftContainer := BlElement new
 				constraintsDo: [ :c | 
-					c horizontal matchParent.
+					c horizontal fitContent.
 					c vertical matchParent.
 					c padding: (BlInsets all: 5)];
-				layout: BlLinearLayout vertical;
-				width: 260.
+				layout: BlLinearLayout vertical.
 			
 			rightContainer := BlElement new
 				constraintsDo: [ :c | 
@@ -276,17 +275,23 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 			nodesListContainer := self astNodesList.
 			
 			leftContainerLabel := (BrLabel new
-				text: ('Syntactical constructs' asRopedText fontSize: 25);
+				text: ('Syntactical constructs:' asRopedText 
+					glamorousRegularFont; 
+					foreground: Color gray;
+					fontSize: 25);
 				look: BrGlamorousLabelLook;
-				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 0)).
 			rightContainerLabel := (BrLabel new
-				text: ('Method Source Code' asRopedText fontSize: 25);
+				text: ('Method Source Code:' asRopedText
+					glamorousRegularFont; 
+					foreground: Color gray;
+					fontSize: 25);
 				look: BrGlamorousLabelLook;
 				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
 				
 			coder := GtMethodCoder new forMethod: self.
 			coder explanationLink: (self compositeExplanationLinkStylerRules).
-			coderElement := (coder expanded: true) asElement margin: (BlInsets all: 10).
+			coderElement := (coder expanded: true) asElement margin: (BlInsets all: 0).
 			coderElement forceLayout.
 			coderElement vMatchParent.
 			
