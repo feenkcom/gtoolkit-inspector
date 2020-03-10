@@ -42,7 +42,8 @@ String >> gtLiveFor: aView [
 			when: BrSelectionChanged do: [ :event | 
 				event selectedInterval ifNotNil: [ 
 					editor editor text clearAttributes: [ :each | each isKindOf: GtPlaygroundEvaluatedCodeButtonAttribute ].
-					(editor editor text from: event selectedInterval first to: event selectedInterval last) attribute: (GtPlaygroundEvaluatedCodeButtonAttribute new paint: (BrGlamorousColors primaryBorderColor); beAppend).
+					(editor editor text from: event selectedInterval first to: event selectedInterval last)
+						attribute: (GtPlaygroundEvaluatedCodeButtonAttribute new beAppend result: (editor editor text at: event selectedInterval first)).
 					"(editor scrollToPosition: event selectedInterval first)."
 					editor editor updater all update ] ].
 		list column 
