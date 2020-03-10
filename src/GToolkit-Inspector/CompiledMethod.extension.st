@@ -11,12 +11,9 @@ CompiledMethod >> astNodesList [
 			c horizontal matchParent.
 			c vertical matchParent.
 			c padding: (BlInsets all: 10)];
-		layout: BlLinearLayout vertical.
-		
-	verticalContainer addChild: (BrLabel new
-		text: ('Syntactical constructs:' asRopedText fontSize: 25);
-		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+		layout: BlLinearLayout vertical;
+		background: Color white;
+		look: BrShadowLook.
 		
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
 		ifTrue: [ verticalContainer addChild: (self explanationLabelFor: #ReturnNode) ]
@@ -83,21 +80,14 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBValueNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ValueNode } ]."
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBReturnNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
 			"GtASTNodeStylerRule new
 				nodeClassName: #RBMethodNode;
 				styleBlock: [ :aNode :aText |
@@ -105,13 +95,6 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 						from: aNode start - 1
 						to: aNode start - 1)
 						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #MethodNode } ]."
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBLiteralNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralNode } ]."
 			GtASTNodeStylerRule new
 				nodeClassName: #RBCascadeNode;
 				styleBlock: [ :aNode :aText |
@@ -119,14 +102,14 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 						(aText
 							from: each - 1
 							to: each - 1)
-							attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #CascadeNode } ] ].
+							attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #CascadeNode}] ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBMessageNode;
 				styleBlock: [ :aNode :aText |
@@ -137,21 +120,21 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode keywordsPositions first - 1
 						to: aNode keywordsPositions first - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBAssignmentNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode assignment - 1
 						to: aNode assignment - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBVariableNode;
 				styleBlock: [ :aNode :aText |
@@ -164,21 +147,21 @@ CompiledMethod >> compositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralValueNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralValueNode } ].
+						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralValueNode} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode } ].
+						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode} ].
 		}.
 	
 	^ compositeExplanationLinkStylerRules.
@@ -196,7 +179,7 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 		layout: BlLinearLayout vertical;
 		geometry: (BlRectangle cornerRadius: 4);
 		padding: (BlInsets all: 5);
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5);
+		margin: (BlInsets top: 5 right: 0 bottom: 5 left: 5);
 		look: (BrInteractiveCommonLook new 
 			default: [ :aWidget |
 				lines do: [ :each | each removeFromParent ].
@@ -233,7 +216,7 @@ CompiledMethod >> explanationLabelFor: aNodeNameSymbol [
 	label explainer
 		isExplanation: true;
 		model: aNodeNameSymbol.
-	label addChildren: { BlTextElement new text: nodeName asRopedText }.
+	label addChildren: { BlTextElement new text: nodeName asRopedText glamorousRegularFont }.
 	
 	^ label.
 ]
@@ -265,7 +248,7 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	^ aView explicit
 		title: 'Syntax Explanation' translated;
 		stencil: [ 
-			| mainContainer verticalContainer coder coderElement |
+			| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 			
 			mainContainer := BlElement new
 				constraintsDo: [ :c | 
@@ -274,16 +257,52 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 					c padding: (BlInsets all: 5)];
 				layout: BlLinearLayout horizontal. 
 			mainContainer explainer isExplanationHolder: true.
-			verticalContainer := self astNodesList.
+			
+			leftContainer := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal fitContent.
+					c vertical matchParent.
+					c padding: (BlInsets all: 5)];
+				layout: BlLinearLayout vertical.
+			
+			rightContainer := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c padding: (BlInsets all: 5)];
+				layout: BlLinearLayout vertical.
+				
+			nodesListContainer := self astNodesList.
+			
+			leftContainerLabel := (BrLabel new
+				text: ('Syntactical constructs:' asRopedText 
+					glamorousRegularFont; 
+					foreground: Color gray;
+					fontSize: 25);
+				look: BrGlamorousLabelLook;
+				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 0)).
+			rightContainerLabel := (BrLabel new
+				text: ('Method Source Code:' asRopedText
+					glamorousRegularFont; 
+					foreground: Color gray;
+					fontSize: 25);
+				look: BrGlamorousLabelLook;
+				margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
 				
 			coder := GtMethodCoder new forMethod: self.
 			coder explanationLink: (self compositeExplanationLinkStylerRules).
-			coderElement := (coder expanded: true) asElement margin: (BlInsets all: 10).
+			coderElement := (coder expanded: true) asElement margin: (BlInsets all: 0).
 			coderElement forceLayout.
 			coderElement vMatchParent.
 			
-			mainContainer addChild: verticalContainer.
-			mainContainer addChild: coderElement.
+			leftContainer addChild: leftContainerLabel.
+			leftContainer addChild: nodesListContainer.
+			
+			rightContainer addChild: rightContainerLabel.
+			rightContainer addChild: coderElement.
+			
+			mainContainer addChild: leftContainer.
+			mainContainer addChild: rightContainer.
 			
 			mainContainer.
 			]
@@ -296,7 +315,7 @@ CompiledMethod >> regularLabelFor: aNodeNameSymbol [
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	
 	^ BrLabel new
-		text: (nodeName asRopedText italic; foreground: Color gray);
+		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
 		padding: (BlInsets all: 5);
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5).
