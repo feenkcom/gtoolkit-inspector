@@ -72,70 +72,125 @@ GtSyntaxExplanationViewUtility class >> forMethod: aMethod [
 
 { #category : #'*GToolkit-Inspector' }
 GtSyntaxExplanationViewUtility class >> gtAstNodesList [
-	| verticalContainer nodesCollection |
+	| verticalContainer nodesCollection pragmaNodeGroup returnNodeGroup messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup assignmentNodeGroup blockNodeGroup cascadeNodeGroup |
 	
 	nodesCollection := method ast doSemanticAnalysis allChildren.
 	 
 	verticalContainer := BlElement new
 		constraintsDo: [ :c | 
-			c horizontal matchParent.
+			c horizontal fitContent.
 			c vertical matchParent.
 			c padding: (BlInsets all: 10)];
 		layout: BlLinearLayout vertical;
 		background: Color white;
 		look: BrShadowLook.
-		
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #ReturnNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #ReturnNode) ].
+	
+	pragmaNodeGroup := self gtVerticalGroupElement.
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBPragmaNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #PragmaNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #PragmaNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBArrayNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #ArrayNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #ArrayNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBCascadeNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #CascadeNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #CascadeNode) ].
+		ifTrue: [ pragmaNodeGroup addChild: (self gtExplanationLabelFor: #PragmaNode) ]
+		ifFalse: [ pragmaNodeGroup addChild: (self gtRegularLabelFor: #PragmaNode) ].
+	
+	returnNodeGroup := self gtVerticalGroupElement.	
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
+		ifTrue: [ returnNodeGroup addChild: (self gtExplanationLabelFor: #ReturnNode) ]
+		ifFalse: [ returnNodeGroup addChild: (self gtRegularLabelFor: #ReturnNode) ].
+	
+	messageNodesGroup := self gtVerticalGroupElement.
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isUnary ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #UnaryNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #UnaryNode) ].
+		ifTrue: [ messageNodesGroup addChild: (self gtExplanationLabelFor: #UnaryNode) ]
+		ifFalse: [ messageNodesGroup addChild: (self gtRegularLabelFor: #UnaryNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isBinary ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #BinaryNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #BinaryNode) ].
+		ifTrue: [ messageNodesGroup addChild: (self gtExplanationLabelFor: #BinaryNode) ]
+		ifFalse: [ messageNodesGroup addChild: (self gtRegularLabelFor: #BinaryNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isKeyword ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #KeywordNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #KeywordNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBBlockNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #BlockNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #BlockNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBAssignmentNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #AssignmentNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #AssignmentNode) ].
-	(nodesCollection anySatisfy: [ :aNode | ((aNode isKindOf: RBVariableNode) and: [ aNode isTemp ]) and: [ aNode isArg not ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #TemporaryNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #TemporaryNode) ].
+		ifTrue: [ messageNodesGroup addChild: (self gtExplanationLabelFor: #KeywordNode) ]
+		ifFalse: [ messageNodesGroup addChild: (self gtRegularLabelFor: #KeywordNode) ].
+	
+	variableNodesGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isTemp and: [ aNode isArg not ] ] ])
+		ifTrue: [ variableNodesGroup addChild: (self gtExplanationLabelFor: #TemporaryNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self gtRegularLabelFor: #TemporaryNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isArg ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #ArgumentNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #ArgumentNode) ].
+		ifTrue: [ variableNodesGroup addChild: (self gtExplanationLabelFor: #ArgumentNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self gtRegularLabelFor: #ArgumentNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isGlobal ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #GlobalNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #GlobalNode) ].
+		ifTrue: [ variableNodesGroup addChild: (self gtExplanationLabelFor: #GlobalNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self gtRegularLabelFor: #GlobalNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isSelf ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #SelfNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #SelfNode) ].
+		ifTrue: [ variableNodesGroup addChild: (self gtExplanationLabelFor: #SelfNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self gtRegularLabelFor: #SelfNode) ].
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isSuper ] ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #SuperNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #SuperNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBLiteralValueNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #LiteralValueNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #LiteralValueNode) ].
+		ifTrue: [ variableNodesGroup addChild: (self gtExplanationLabelFor: #SuperNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self gtRegularLabelFor: #SuperNode) ].
+	
+	arrayNodesGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBArrayNode ])
+		ifTrue: [ arrayNodesGroup addChild: (self gtExplanationLabelFor: #ArrayNode) ]
+		ifFalse: [ arrayNodesGroup addChild: (self gtRegularLabelFor: #ArrayNode) ].
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBLiteralArrayNode ])
-		ifTrue: [ verticalContainer addChild: (self gtExplanationLabelFor: #LiteralArrayNode) ]
-		ifFalse: [ verticalContainer addChild: (self gtRegularLabelFor: #LiteralArrayNode) ].
+		ifTrue: [ arrayNodesGroup addChild: (self gtExplanationLabelFor: #LiteralArrayNode) ]
+		ifFalse: [ arrayNodesGroup addChild: (self gtRegularLabelFor: #LiteralArrayNode) ].
+	
+	literalValueNodesGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBLiteralValueNode ])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #LiteralValueNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #LiteralValueNode) ].
+	
+	blockNodeGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBBlockNode ])
+		ifTrue: [ blockNodeGroup addChild: (self gtExplanationLabelFor: #BlockNode) ]
+		ifFalse: [ blockNodeGroup addChild: (self gtRegularLabelFor: #BlockNode) ].
+	
+	assignmentNodeGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBAssignmentNode ])
+		ifTrue: [ assignmentNodeGroup addChild: (self gtExplanationLabelFor: #AssignmentNode) ]
+		ifFalse: [ assignmentNodeGroup addChild: (self gtRegularLabelFor: #AssignmentNode) ].
+	
+	cascadeNodeGroup := self gtVerticalGroupElement.
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBCascadeNode ])
+		ifTrue: [ cascadeNodeGroup addChild: (self gtExplanationLabelFor: #CascadeNode) ]
+		ifFalse: [ cascadeNodeGroup addChild: (self gtRegularLabelFor: #CascadeNode) ].
+	
+	verticalContainer addChildren: { 
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Pragma Nodes'.
+			self gtDividerBarElement.
+			pragmaNodeGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Return Nodes'.
+			self gtDividerBarElement.
+			returnNodeGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Message Nodes'.
+			self gtDividerBarElement.
+			messageNodesGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Variable Nodes'.
+			self gtDividerBarElement.
+			variableNodesGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Array Nodes'.
+			self gtDividerBarElement.
+			arrayNodesGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'LiteralValue Nodes'.
+			self gtDividerBarElement.
+			literalValueNodesGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Block Nodes'.
+			self gtDividerBarElement.
+			blockNodeGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Assignment Nodes'.
+			self gtDividerBarElement.
+			assignmentNodeGroup}.
+		self gtHorizontalGroupElement addChildren: {
+			self gtGroupLabelWithText: 'Cascade Nodes'.
+			self gtDividerBarElement.
+			cascadeNodeGroup}}.
 
 	^ verticalContainer
-		width: 250.
+"		width: 270."
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -237,6 +292,20 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 	^ compositeExplanationLinkStylerRules.
 ]
 
+{ #category : #'as yet unclassified' }
+GtSyntaxExplanationViewUtility class >> gtDividerBarElement [
+	| barElement |
+	
+	barElement := BlElement new
+		geometry: BlRectangle new;
+		constraintsDo: [ :c |
+			c vertical matchParent ];
+		width: 5;
+		background: Color green.
+	
+	^ barElement.
+]
+
 { #category : #'*GToolkit-Inspector' }
 GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label button container |
@@ -312,6 +381,25 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 	^ container.
 ]
 
+{ #category : #'as yet unclassified' }
+GtSyntaxExplanationViewUtility class >> gtGroupLabelWithText: aText [
+	^ BrLabel new
+		look: BrGlamorousLabelLook new;
+		text: (aText asRopedText glamorousRegularFont; fontSize: 20);
+		padding: (BlInsets top: 0 right: 5 bottom: 0 left: 0);
+		hMatchParent.
+]
+
+{ #category : #'as yet unclassified' }
+GtSyntaxExplanationViewUtility class >> gtHorizontalGroupElement [
+	^ BlElement new
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent.
+			c padding: (BlInsets all: 5)];
+		layout: BlLinearLayout horizontal.
+]
+
 { #category : #'*GToolkit-Inspector' }
 GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 	| nodeName |
@@ -324,4 +412,14 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 		padding: (BlInsets all: 5);
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5).
 		
+]
+
+{ #category : #'as yet unclassified' }
+GtSyntaxExplanationViewUtility class >> gtVerticalGroupElement [
+	^ BlElement new
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical fitContent.
+			c padding: (BlInsets all: 10)];
+		layout: BlLinearLayout vertical.
 ]
