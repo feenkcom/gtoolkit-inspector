@@ -61,9 +61,21 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 		ifFalse: [ arrayNodesGroup addChild: (self gtRegularLabelFor: #LiteralArrayNode) ].
 	
 	literalValueNodesGroup := self gtVerticalGroupElement.
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBLiteralValueNode ])
-		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #LiteralValueNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #LiteralValueNode) ].
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [aNode value isInteger]])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #IntegerNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #IntegerNode) ].
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isFloat]])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #FloatNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #FloatNode) ].
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isCharacter]])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #CharacterNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #CharacterNode) ].
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isSymbol]])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #SymbolNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #SymbolNode) ].
+	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isString and: [ aNode value isSymbol not]]])
+		ifTrue: [ literalValueNodesGroup addChild: (self gtExplanationLabelFor: #StringNode) ]
+		ifFalse: [ literalValueNodesGroup addChild: (self gtRegularLabelFor: #StringNode) ].
 	
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBBlockNode ])
 		ifTrue: [ otherNodesGroup addChild: (self gtExplanationLabelFor: #BlockNode) ]
@@ -79,23 +91,23 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 	
 	verticalContainer addChildren: { 
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'Message Nodes'.
+			self gtGroupLabelWithText: 'Messages'.
 			self gtDividerBarElement.
 			messageNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'Variable Nodes'.
+			self gtGroupLabelWithText: 'Variables'.
 			self gtDividerBarElement.
 			variableNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'Array Nodes'.
+			self gtGroupLabelWithText: 'Arrays'.
 			self gtDividerBarElement.
 			arrayNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'LiteralValue Nodes'.
+			self gtGroupLabelWithText: 'LiteralValues'.
 			self gtDividerBarElement.
 			literalValueNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'Other Nodes'.
+			self gtGroupLabelWithText: 'Others'.
 			self gtDividerBarElement.
 			otherNodesGroup}}.
 
@@ -186,10 +198,16 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralValueNode;
 				styleBlock: [ :aNode :aText |
+					| identifier |
+					(aNode value isInteger) ifTrue: [ identifier := #IntegerNode ].
+					(aNode value isFloat) ifTrue: [ identifier := #FloatNode ].
+					(aNode value isCharacter) ifTrue: [ identifier := #CharacterNode ].
+					(aNode value isSymbol) ifTrue: [ identifier := #SymbolNode ].
+					(aNode value isString and: [aNode value isSymbol not]) ifTrue: [ identifier := #StringNode ].
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralValueNode withSize: 0} ].
+						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralArrayNode;
 				styleBlock: [ :aNode :aText |
@@ -227,11 +245,8 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 			lines do: [ :each | each removeFromParent ].
 			lines removeAll.
 			aWidget
-				border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
-				background: Color transparent.
-			aWidget
-				border: (BlBorder paint: Color transparent);
-				background: Color transparent ];
+				border: (BlBorder paint: Color transparent width: 2);
+				background: Color transparent];
 		hovered: [ :aWidget |
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
 			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
@@ -269,6 +284,6 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0).
+		margin: (BlInsets top: 0 right: 2 bottom: 5 left: 2).
 		
 ]
