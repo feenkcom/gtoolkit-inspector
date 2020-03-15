@@ -135,14 +135,14 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #PragmaNode } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBReturnNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ReturnNode } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ReturnNode withSize: 0} ].
 			"GtASTNodeStylerRule new
 				nodeClassName: #RBMethodNode;
 				styleBlock: [ :aNode :aText |
@@ -157,14 +157,14 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 						(aText
 							from: each - 1
 							to: each - 1)
-							attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #CascadeNode}] ].
+							attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #CascadeNode withSize: 0}] ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #ArrayNode } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ArrayNode withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBMessageNode;
 				styleBlock: [ :aNode :aText |
@@ -175,21 +175,21 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 					(aText
 						from: aNode keywordsPositions first - 1
 						to: aNode keywordsPositions first - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #BlockNode } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #BlockNode withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBAssignmentNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode assignment - 1
 						to: aNode assignment - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: #AssignmentNode } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #AssignmentNode withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBVariableNode;
 				styleBlock: [ :aNode :aText |
@@ -202,21 +202,21 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtZeroSizeCircleExplanationTextAdornment forIdentifier: identifier } ].
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralValueNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralValueNode} ].
+						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralValueNode withSize: 0} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: {GtZeroSizeCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode} ].
+						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode withSize: 0} ].
 		}.
 	
 	^ compositeExplanationLinkStylerRules.
@@ -224,55 +224,37 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 
 { #category : #'*GToolkit-Inspector' }
 GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
-	| lines nodeName label button container |
+	| lines nodeName label |
 	
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	lines := OrderedCollection new.
-	
-	container := BlElement new
-		layout: BlLinearLayout horizontal;
-		padding: (BlInsets top: 0 right: 0 bottom: 5 left: 0);
-		constraintsDo: [ :c |
-			c vertical fitContent.
-			c horizontal matchParent ].
 		
 	label := BrLabel new
 		look: BrGlamorousLabelLook new;
-		text: nodeName asRopedText glamorousRegularFont;
-		padding: (BlInsets top: 0 right: 0 bottom: 0 left: 5);
+		geometry: (BlRectangle cornerRadius: 4);
+		padding: (BlInsets all: 5);
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0);
 		constraintsDo: [ :c |
 			c vertical matchParent.
 			c horizontal matchParent ].
 	
-	button := BrButton new
-		clipChildren: false;
-		layout: BlLinearLayout vertical;
-		geometry: (BlRectangle cornerRadius: 4);
-		padding: (BlInsets all: 5);
-		margin: (BlInsets top: 5 right: 0 bottom: 5 left: 5);
-		constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical fitContent ].
-	button explainer
+	label explainer
 		isExplanation: true;
 		model: aNodeNameSymbol.
-		
-	container addChild: button.
-	container addChild: label.
 	
-	button look: (BrInteractiveCommonLook new 
+	label look: (BrInteractiveCommonLook new 
 		default: [ :aWidget |
 			lines do: [ :each | each removeFromParent ].
 			lines removeAll.
 			aWidget
 				border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
 				background: Color transparent.
-			aWidget parent
+			aWidget
 				border: (BlBorder paint: Color transparent);
 				background: Color transparent ];
 		hovered: [ :aWidget |
-			aWidget parent border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
-			aWidget parent background: (BrGlamorousColors textHighlightColor alpha: 0.5).
+			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
+			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
 			aWidget explainer firstExplanationHolderParent explainer
 				allTargetChildrenWithModel: aWidget explainer model
 				do: [ :explanationTargetElement | 
@@ -293,8 +275,9 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
 						ifNone: [  ] ]  ] ).
+	label addChildren: { BlTextElement new text: nodeName asRopedText glamorousRegularFont }.
 	
-	^ container.
+	^ label.
 ]
 
 { #category : #'*GToolkit-Inspector' }
