@@ -276,12 +276,7 @@ GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 						firstCommonParent: explanationTargetElement
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ]  ] ) 
-		+ ((BrGlamorousWithTooltipLook2 content: [
-			BrEditor new 
-				text: 'Something';
-				look: BrGlamorousRegularEditorLook.
-			] ) showDelay: 100 milliSeconds).
+						ifNone: [  ] ]  ] ).
 	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
