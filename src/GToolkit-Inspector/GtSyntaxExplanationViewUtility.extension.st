@@ -253,8 +253,14 @@ GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 			lines removeAll.
 			aWidget
 				border: (BlBorder paint: Color transparent width: 2);
-				background: Color transparent];
+				background: Color transparent.
+			tooltipsContainer
+				text: '' asRopedText;
+				visibility: BlVisibility gone ];
 		hovered: [ :aWidget |
+			tooltipsContainer
+				text: (tooltips at: aNodeNameSymbol);
+				visibility: BlVisibility visible.
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
 			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
 			aWidget explainer firstExplanationHolderParent explainer

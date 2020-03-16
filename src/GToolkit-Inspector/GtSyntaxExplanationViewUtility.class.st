@@ -2,7 +2,9 @@ Class {
 	#name : #GtSyntaxExplanationViewUtility,
 	#superclass : #BrStencil,
 	#instVars : [
-		'method'
+		'method',
+		'tooltips',
+		'tooltipsContainer'
 	],
 	#classInstVars : [
 		'method'
@@ -54,6 +56,18 @@ GtSyntaxExplanationViewUtility >> create [
 			fontSize: 25);
 		look: BrGlamorousLabelLook;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
+	
+	tooltipsContainer
+		text: '' asRopedText;
+		padding: (BlInsets all: 10);
+		margin: (BlInsets top: 10 right: 0 bottom: 0 left: 0);
+		constraintsDo: [ :c |
+			c vertical fitContent.
+			c horizontal matchParent ];
+		visibility: BlVisibility gone;
+		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
+		look: BrShadowLook + BrGlamorousEditorLook;
+		background: (Color white).
 				
 	coder := GtMethodCoder new forMethod: method.
 	coder explanationLink: (self gtCompositeExplanationLinkStylerRules).
@@ -66,6 +80,7 @@ GtSyntaxExplanationViewUtility >> create [
 			
 	rightContainer addChild: rightContainerLabel.
 	rightContainer addChild: coderElement.
+	rightContainer addChild: tooltipsContainer.
 			
 	mainContainer addChild: leftContainer.
 	mainContainer addChild: rightContainer.
@@ -341,8 +356,14 @@ GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 			lines removeAll.
 			aWidget
 				border: (BlBorder paint: Color transparent width: 2);
-				background: Color transparent];
+				background: Color transparent.
+			tooltipsContainer
+				text: '' asRopedText;
+				visibility: BlVisibility gone ];
 		hovered: [ :aWidget |
+			tooltipsContainer
+				text: (tooltips at: aNodeNameSymbol);
+				visibility: BlVisibility visible.
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
 			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
 			aWidget explainer firstExplanationHolderParent explainer
@@ -413,5 +434,36 @@ GtSyntaxExplanationViewUtility >> gtVerticalGroupElement [
 
 { #category : #initialization }
 GtSyntaxExplanationViewUtility >> initialize [
+	| associationsCollection |
 	super initialize.
+	
+	associationsCollection := OrderedCollection new.
+	tooltips := Dictionary new.
+	tooltipsContainer := BrEditor new.
+	
+	associationsCollection addAll: { 
+		#PragmaNode -> 'I am a special annotation for methods.'.
+		#ReturnNode -> 'I return a value from a method.'.
+		#UnaryNode -> 'I am a message node with the following form: anObject aMessage.'.
+		#BinaryNode -> 'I am a binary message with the following form: anObject aMessage anotherObject.'.
+		#KeywordNode -> 'I am a keyword message. I can have parameteres and i have the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
+		#TemporaryNode -> 'I am a variable declared in this method and only visible here.'.
+		#ArgumentNode -> 'I am a variable received as a pramatere in this method and only visible in this method.'.
+		#GlobalNode -> 'I am a global variable declared in another class but i can be used anywhere else.'.
+		#SelfNode -> 'I represent the current object.'.
+		#SuperNode -> 'I represent the parent class for the class we are in.'.
+		#ArrayNode -> 'I am an array of objects.'. 
+		#LiteralArrayNode -> 'i am an array of literals.'. 
+		#IntegerNode -> 'I am an integer value.'.
+		#FloatNode -> 'I am an float value.'.
+		#StringNode -> 'I am an string value.'.
+		#CharacterNode -> 'I am an character value.'.
+		#SymbolNode -> 'I am an symbol value.'.
+		#BlockNode -> 'I am a block containing multiple instructions to be executed.'.
+		#AssignmentNode -> 'I assign values to objects.'.
+		#CascadeNode -> 'I let multiple messages be applied to the same object.'.
+		#CommentNode -> 'I am a comment for the code. I have no functionality.' }.
+	
+	associationsCollection do: [ :each |
+		tooltips at: each key put: (each value asRopedText glamorousRegularFont; fontSize: 15) ].
 ]
