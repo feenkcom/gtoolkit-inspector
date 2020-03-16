@@ -87,6 +87,11 @@ GtSyntaxExplanationViewUtility >> gtAstNodesList [
 		ifTrue: [ otherNodesGroup addChild: (self gtExplanationLabelFor: #CascadeNode) ]
 		ifFalse: [ otherNodesGroup addChild: (self gtRegularLabelFor: #CascadeNode) ].
 	
+	(nodesCollection anySatisfy: [ :aNode | aNode comments notEmpty ])
+		ifTrue: [ otherNodesGroup addChild: (self gtExplanationLabelFor: #CommentNode) ]
+		ifFalse: [ otherNodesGroup addChild: (self gtRegularLabelFor: #CommentNode) ].
+	
+	
 	verticalContainer addChildren: { 
 		self gtHorizontalGroupElement addChildren: {
 			self gtGroupLabelWithText: 'Messages'.
@@ -122,6 +127,14 @@ GtSyntaxExplanationViewUtility >> gtCompositeExplanationLinkStylerRules [
 	
 	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
 		{
+			GtASTNodeStylerRule new
+				nodeClassName: #RBProgramNode;
+				styleBlock: [ :aNode :aText |
+					aNode comments do: [:aCommentNode | 
+					(aText
+						from: aCommentNode start - 1
+						to: aCommentNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #CommentNode withSize: 0} ] ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBPragmaNode;
 				styleBlock: [ :aNode :aText |
@@ -263,12 +276,7 @@ GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 						firstCommonParent: explanationTargetElement
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ]  ] ) 
-		+ ((BrGlamorousWithTooltipLook2 content: [
-			BrEditor new 
-				text: 'Something';
-				look: BrGlamorousRegularEditorLook.
-			] ) showDelay: 100 milliSeconds).
+						ifNone: [  ] ]  ] ).
 	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
