@@ -1,7 +1,7 @@
 Extension { #name : #GtSyntaxExplanationViewUtility }
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtAstNodesList [
+GtSyntaxExplanationViewUtility >> gtAstNodesList [
 	| verticalContainer nodesCollection messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup |
 	
 	nodesCollection := method ast doSemanticAnalysis allChildren.
@@ -117,7 +117,7 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
+GtSyntaxExplanationViewUtility >> gtCompositeExplanationLinkStylerRules [
 	| compositeExplanationLinkStylerRules |
 	
 	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
@@ -222,7 +222,7 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
+GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label |
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	lines := OrderedCollection new.
@@ -263,13 +263,18 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 						firstCommonParent: explanationTargetElement
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ]  ] ).
+						ifNone: [  ] ]  ] ) 
+		+ ((BrGlamorousWithTooltipLook2 content: [
+			BrEditor new 
+				text: 'Something';
+				look: BrGlamorousRegularEditorLook.
+			] ) showDelay: 100 milliSeconds).
 	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
+GtSyntaxExplanationViewUtility >> gtRegularLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
