@@ -1,6 +1,9 @@
 Class {
 	#name : #GtSyntaxExplanationViewUtility,
 	#superclass : #Object,
+	#instVars : [
+		'method'
+	],
 	#classInstVars : [
 		'method'
 	],
@@ -8,72 +11,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtSyntaxExplanationViewUtility class >> forMethod: aMethod [
-	| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
-	
+GtSyntaxExplanationViewUtility >> forMethod: aMethod [
 	method := aMethod.
-	
-	mainContainer := BlElement new
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent.
-					c padding: (BlInsets all: 5)];
-				layout: BlLinearLayout horizontal. 
-	mainContainer explainer isExplanationHolder: true.
-			
-	leftContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical matchParent. ];
-		padding: (BlInsets all: 5);
-		margin: (BlInsets right: 20);
-		layout: BlLinearLayout vertical.
-			
-	rightContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent.
-			c padding: (BlInsets all: 5)];
-		layout: BlLinearLayout vertical.
-				
-	nodesListContainer := self gtAstNodesList.
-			
-	leftContainerLabel := (BrLabel new
-		text: ('Syntactical constructs:' asRopedText 
-			glamorousRegularFont; 
-			foreground: Color gray;
-			fontSize: 25);
-		look: BrGlamorousLabelLook;
-		hFitContent;
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
-	rightContainerLabel := (BrLabel new
-		text: ('Method source code:' asRopedText
-			glamorousRegularFont; 
-			foreground: Color gray;
-			fontSize: 25);
-		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
-				
-	coder := GtMethodCoder new forMethod: method.
-	coder explanationLink: (self gtCompositeExplanationLinkStylerRules).
-	coderElement := (coder expanded: true) asElement margin: (BlInsets all: 0).
-	coderElement forceLayout.
-	coderElement vMatchParent.
-			
-	leftContainer addChild: leftContainerLabel.
-	leftContainer addChild: nodesListContainer.
-			
-	rightContainer addChild: rightContainerLabel.
-	rightContainer addChild: coderElement.
-			
-	mainContainer addChild: leftContainer.
-	mainContainer addChild: rightContainer.
-			
-	^ mainContainer.
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtAstNodesList [
+GtSyntaxExplanationViewUtility >> gtAstNodesList [
 	| verticalContainer nodesCollection messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup |
 	
 	nodesCollection := method ast doSemanticAnalysis allChildren.
@@ -189,7 +132,7 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
+GtSyntaxExplanationViewUtility >> gtCompositeExplanationLinkStylerRules [
 	| compositeExplanationLinkStylerRules |
 	
 	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
@@ -294,7 +237,7 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility class >> gtDividerBarElement [
+GtSyntaxExplanationViewUtility >> gtDividerBarElement [
 	^ BlElement new
 		geometry: BlRectangle new;
 		constraintsDo: [ :c |
@@ -304,7 +247,7 @@ GtSyntaxExplanationViewUtility class >> gtDividerBarElement [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
+GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label |
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	lines := OrderedCollection new.
@@ -345,13 +288,18 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 						firstCommonParent: explanationTargetElement
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ]  ] ).
+						ifNone: [  ] ]  ] ) 
+		+ ((BrGlamorousWithTooltipLook2 content: [
+			BrEditor new 
+				text: 'Something';
+				look: BrGlamorousRegularEditorLook.
+			] ) showDelay: 100 milliSeconds).
 	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility class >> gtGroupLabelWithText: aText [
+GtSyntaxExplanationViewUtility >> gtGroupLabelWithText: aText [
 	^ BrLabel new
 		look: BrGlamorousLabelLook new;
 		text: ((aText asRopedText) glamorousRegularFont; fontSize: 5; foreground: Color gray);
@@ -360,7 +308,7 @@ GtSyntaxExplanationViewUtility class >> gtGroupLabelWithText: aText [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility class >> gtHorizontalGroupElement [
+GtSyntaxExplanationViewUtility >> gtHorizontalGroupElement [
 	^ BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
@@ -370,7 +318,7 @@ GtSyntaxExplanationViewUtility class >> gtHorizontalGroupElement [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
+GtSyntaxExplanationViewUtility >> gtRegularLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
@@ -384,10 +332,78 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility class >> gtVerticalGroupElement [
+GtSyntaxExplanationViewUtility >> gtVerticalGroupElement [
 	^ BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
 			c vertical fitContent];
 		layout: BlLinearLayout vertical.
+]
+
+{ #category : #'as yet unclassified' }
+GtSyntaxExplanationViewUtility >> gtViewElement [
+	| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
+	
+	mainContainer := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent.
+					c padding: (BlInsets all: 5)];
+				layout: BlLinearLayout horizontal. 
+	mainContainer explainer isExplanationHolder: true.
+			
+	leftContainer := BlElement new
+		constraintsDo: [ :c | 
+			c horizontal fitContent.
+			c vertical matchParent. ];
+		padding: (BlInsets all: 5);
+		margin: (BlInsets right: 20);
+		layout: BlLinearLayout vertical.
+			
+	rightContainer := BlElement new
+		constraintsDo: [ :c | 
+			c horizontal matchParent.
+			c vertical matchParent.
+			c padding: (BlInsets all: 5)];
+		layout: BlLinearLayout vertical.
+				
+	nodesListContainer := self gtAstNodesList.
+			
+	leftContainerLabel := (BrLabel new
+		text: ('Syntactical constructs:' asRopedText 
+			glamorousRegularFont; 
+			foreground: Color gray;
+			fontSize: 25);
+		look: BrGlamorousLabelLook;
+		hFitContent;
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
+	rightContainerLabel := (BrLabel new
+		text: ('Method source code:' asRopedText
+			glamorousRegularFont; 
+			foreground: Color gray;
+			fontSize: 25);
+		look: BrGlamorousLabelLook;
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
+				
+	coder := GtMethodCoder new forMethod: method.
+	coder explanationLink: (self gtCompositeExplanationLinkStylerRules).
+	coderElement := (coder expanded: true) asElement margin: (BlInsets all: 0).
+	coderElement forceLayout.
+	coderElement vMatchParent.
+			
+	leftContainer addChild: leftContainerLabel.
+	leftContainer addChild: nodesListContainer.
+			
+	rightContainer addChild: rightContainerLabel.
+	rightContainer addChild: coderElement.
+			
+	mainContainer addChild: leftContainer.
+	mainContainer addChild: rightContainer.
+			
+	^ mainContainer.
+]
+
+{ #category : #initialization }
+GtSyntaxExplanationViewUtility >> initialize [
+	super initialize.
 ]
