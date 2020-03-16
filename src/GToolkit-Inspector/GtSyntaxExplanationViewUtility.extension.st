@@ -284,6 +284,6 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 0 right: 2 bottom: 5 left: 2).
+		margin: (BlInsets top: 0 right: 4 bottom: 5 left: 4).
 		
 ]

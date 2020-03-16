@@ -24,8 +24,9 @@ GtSyntaxExplanationViewUtility class >> forMethod: aMethod [
 	leftContainer := BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
-			c vertical matchParent.
-			c padding: (BlInsets all: 5)];
+			c vertical matchParent.];
+		padding: (BlInsets all: 5);
+		margin: (BlInsets right: 20);
 		layout: BlLinearLayout vertical.
 			
 	rightContainer := BlElement new
@@ -43,14 +44,14 @@ GtSyntaxExplanationViewUtility class >> forMethod: aMethod [
 			foreground: Color gray;
 			fontSize: 25);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 10 right: 0 bottom: 15 left: 0)).
+		margin: (BlInsets top: 10 right: 0 bottom: 5 left: 0)).
 	rightContainerLabel := (BrLabel new
 		text: ('Method Source Code:' asRopedText
 			glamorousRegularFont; 
 			foreground: Color gray;
 			fontSize: 25);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 10 right: 0 bottom: 15 left: 5)).
+		margin: (BlInsets top: 10 right: 0 bottom: 5 left: 5)).
 				
 	coder := GtMethodCoder new forMethod: method.
 	coder explanationLink: (self gtCompositeExplanationLinkStylerRules).
@@ -290,7 +291,7 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 	^ compositeExplanationLinkStylerRules.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtSyntaxExplanationViewUtility class >> gtDividerBarElement [
 	| barElement |
 	
@@ -299,8 +300,8 @@ GtSyntaxExplanationViewUtility class >> gtDividerBarElement [
 		constraintsDo: [ :c |
 			c vertical matchParent ];
 		width: 1;
-		margin: (BlInsets all: 5);
-		background: Color gray.
+		"margin: (BlInsets all: 5);"
+		background: BrGlamorousColors lightBorderColor.
 	
 	^ barElement.
 ]
@@ -389,7 +390,7 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 0 right: 2 bottom: 5 left: 2).
+		margin: (BlInsets top: 0 right: 4 bottom: 5 left: 4).
 		
 ]
 
