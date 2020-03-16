@@ -12,6 +12,8 @@ Exception >> gtDebugActionFor: anAction [
 { #category : #'*GToolkit-Inspector' }
 Exception >> gtLiveFor: aView [
 	<gtView>
+	
+	signalContext ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Stack';
 		priority: 1;
