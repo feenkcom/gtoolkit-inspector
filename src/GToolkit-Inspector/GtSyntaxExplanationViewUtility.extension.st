@@ -9,11 +9,9 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 	verticalContainer := BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
-			c vertical fitContent.
-			c padding: (BlInsets all: 10)];
+			c vertical fitContent ];
 		layout: BlLinearLayout vertical;
-		background: Color white;
-		look: BrShadowLook.
+		padding: (BlInsets all: 10).
 	
 	otherNodesGroup := self gtVerticalGroupElement.
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBPragmaNode ])
@@ -111,7 +109,11 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 			self gtDividerBarElement.
 			otherNodesGroup}}.
 
-	^ verticalContainer
+	^ verticalContainer asScrollableElement 
+		constraintsDo: [:c | c horizontal fitContent. c vertical matchParent.];
+		background: Color white;
+		look: BrShadowLook";
+		margin: (BlInsets all: 10)"
 ]
 
 { #category : #'*GToolkit-Inspector' }
