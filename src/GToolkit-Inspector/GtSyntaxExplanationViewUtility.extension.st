@@ -9,7 +9,7 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 	verticalContainer := BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
-			c vertical matchParent.
+			c vertical fitContent.
 			c padding: (BlInsets all: 10)];
 		layout: BlLinearLayout vertical;
 		background: Color white;
@@ -103,7 +103,7 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 			self gtDividerBarElement.
 			arrayNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
-			self gtGroupLabelWithText: 'LiteralValues'.
+			self gtGroupLabelWithText: 'Literals'.
 			self gtDividerBarElement.
 			literalValueNodesGroup}.
 		self gtHorizontalGroupElement addChildren: {
@@ -112,7 +112,6 @@ GtSyntaxExplanationViewUtility class >> gtAstNodesList [
 			otherNodesGroup}}.
 
 	^ verticalContainer
-"		width: 270."
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -223,23 +222,16 @@ GtSyntaxExplanationViewUtility class >> gtCompositeExplanationLinkStylerRules [
 { #category : #'*GToolkit-Inspector' }
 GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label |
-	
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
 	lines := OrderedCollection new.
-		
 	label := BrLabel new
 		look: BrGlamorousLabelLook new;
 		geometry: (BlRectangle cornerRadius: 4);
 		padding: (BlInsets all: 5);
-		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0);
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal matchParent ].
-	
+		hExact: 80.
 	label explainer
 		isExplanation: true;
 		model: aNodeNameSymbol.
-	
 	label look: (BrInteractiveCommonLook new 
 		default: [ :aWidget |
 			lines do: [ :each | each removeFromParent ].
@@ -270,8 +262,7 @@ GtSyntaxExplanationViewUtility class >> gtExplanationLabelFor: aNodeNameSymbol [
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
 						ifNone: [  ] ]  ] ).
-	label addChildren: { BlTextElement new text: nodeName asRopedText glamorousRegularFont }.
-	
+	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
 
@@ -284,6 +275,7 @@ GtSyntaxExplanationViewUtility class >> gtRegularLabelFor: aNodeNameSymbol [
 	^ BrLabel new
 		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
 		look: BrGlamorousLabelLook;
-		margin: (BlInsets top: 0 right: 4 bottom: 5 left: 4).
+		padding: (BlInsets all: 5);
+		hExact: 80.
 		
 ]
