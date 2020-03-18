@@ -134,7 +134,7 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 		margin: (BlInsets all: 10)"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtSyntaxExplanationViewUtility >> create [
 	| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
@@ -171,7 +171,7 @@ GtSyntaxExplanationViewUtility >> create [
 		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
 		look: BrShadowLook + BrGlamorousEditorLook;
 		vFitContent;
-		background: (Color white).
+		background: BrGlamorousColors textHighlightColor.
 	
 	tooltipsTarget := BrButton new
 		constraintsDo: [ :c | c ignoreByLayout ];
@@ -254,7 +254,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 				text: (tooltips at: aNodeNameSymbol);
 				visibility: BlVisibility visible.
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
-			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
+			aWidget background: (BrGlamorousColors textHighlightColor).
 			aWidget explainer firstExplanationHolderParent explainer
 				allTargetChildrenWithModel: aWidget explainer model
 				do: [ :explanationTargetElement | 
