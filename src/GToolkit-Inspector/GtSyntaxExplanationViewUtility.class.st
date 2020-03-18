@@ -12,7 +12,7 @@ Class {
 	#category : #'GToolkit-Inspector'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtSyntaxExplanationViewUtility >> create [
 	| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
@@ -64,10 +64,11 @@ GtSyntaxExplanationViewUtility >> create [
 		constraintsDo: [ :c |
 			c horizontal matchParent ];
 		visibility: BlVisibility gone;
+		background: BrGlamorousColors textHighlightColor;
 		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
 		look: BrShadowLook + BrGlamorousEditorLook;
-		vFitContent;
-		background: (Color white).
+		vFitContent";
+		background: (Color white)".
 				
 	coder := GtMethodCoder new forMethod: method.
 	coder explanationLink: (self gtCompositeExplanationLinkStylerRules).
@@ -365,7 +366,7 @@ GtSyntaxExplanationViewUtility >> gtExplanationLabelFor: aNodeNameSymbol [
 				text: (tooltips at: aNodeNameSymbol);
 				visibility: BlVisibility visible.
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
-			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
+			aWidget background: (BrGlamorousColors textHighlightColor "alpha: 0.5").
 			aWidget explainer firstExplanationHolderParent explainer
 				allTargetChildrenWithModel: aWidget explainer model
 				do: [ :explanationTargetElement | 
