@@ -149,7 +149,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 				text: (tooltips at: aNodeNameSymbol);
 				visibility: BlVisibility visible.
 			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
-			aWidget background: (BrGlamorousColors textHighlightColor alpha: 0.5).
+			aWidget background: (BrGlamorousColors textHighlightColor).
 			aWidget explainer firstExplanationHolderParent explainer
 				allTargetChildrenWithModel: aWidget explainer model
 				do: [ :explanationTargetElement | 
