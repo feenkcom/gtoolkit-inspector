@@ -425,27 +425,27 @@ GtSyntaxExplanationViewUtility >> initialize [
 	tooltips := Dictionary new.
 	
 	associationsCollection addAll: { 
-		#PragmaNode -> 'I am a special annotation for methods.'.
-		#ReturnNode -> 'I return a value from a method.'.
-		#UnaryNode -> 'I am a message node with the following form: anObject aMessage.'.
-		#BinaryNode -> 'I am a binary message with the following form: anObject aMessage anotherObject.'.
-		#KeywordNode -> 'I am a keyword message. I can have parameteres and i have the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
-		#TemporaryNode -> 'I am a variable declared in this method and only visible here.'.
-		#ArgumentNode -> 'I am a variable received as a pramatere in this method and only visible in this method.'.
-		#GlobalNode -> 'I am a global variable declared in another class but i can be used anywhere else.'.
-		#SelfNode -> 'I represent the current object.'.
-		#SuperNode -> 'I represent the parent class for the class we are in.'.
-		#ArrayNode -> 'I am an array of objects.'. 
-		#LiteralArrayNode -> 'i am an array of literals.'. 
-		#IntegerNode -> 'I am an integer value.'.
-		#FloatNode -> 'I am an float value.'.
-		#StringNode -> 'I am an string value.'.
-		#CharacterNode -> 'I am an character value.'.
-		#SymbolNode -> 'I am an symbol value.'.
-		#BlockNode -> 'I am a block containing multiple instructions to be executed.'.
-		#AssignmentNode -> 'I assign values to objects.'.
-		#CascadeNode -> 'I let multiple messages be applied to the same object.'.
-		#CommentNode -> 'I am a comment for the code. I have no functionality.' }.
+		#PragmaNode -> 'A pragma is a special annotation for methods.'.
+		#ReturnNode -> 'A return node returns an object from a method.'.
+		#UnaryNode -> 'A unary message has the following form: anObject aMessage.'.
+		#BinaryNode -> 'A binary message has the following form: anObject aMessage anotherObject.'.
+		#KeywordNode -> 'A keyword message has parameteres with the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
+		#TemporaryNode -> 'A temporary is a variable declared in this method and it is only visible here.'.
+		#ArgumentNode -> 'An argument is a variable received as a pramatere in the current method and it is only visible there.'.
+		#GlobalNode -> 'A global is a variable declared in another class that can be used anywhere else.'.
+		#SelfNode -> 'Self represents the current object.'.
+		#SuperNode -> 'Super represents the parent class for the current class.'.
+		#ArrayNode -> 'An array is a collection of objects.'. 
+		#LiteralArrayNode -> 'A literal array is a collection of literals.'. 
+		#IntegerNode -> 'An integer is a value without a fractional component.'.
+		#FloatNode -> 'A float is a value that can have a fractional component.'.
+		#StringNode -> 'A string is an array of characters.'.
+		#CharacterNode -> 'A character is a representation of a unicode value.'.
+		#SymbolNode -> 'A symbol is a uniquely created string.'.
+		#BlockNode -> 'A block contains multiple instructions to be executed.'.
+		#AssignmentNode -> 'An assignment node assgines values to objects.'.
+		#CascadeNode -> 'A cascade chains multiple messages, all applied to the same object.'.
+		#CommentNode -> 'A comment is a description for a piece of code. It has no functionalty.' }.
 	
 	associationsCollection do: [ :each |
 		tooltips at: each key put: (each value asRopedText glamorousRegularFont; fontSize: 15) ].
