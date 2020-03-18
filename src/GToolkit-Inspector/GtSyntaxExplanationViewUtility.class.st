@@ -62,11 +62,11 @@ GtSyntaxExplanationViewUtility >> create [
 		padding: (BlInsets all: 10);
 		margin: (BlInsets top: 10 right: 0 bottom: 0 left: 0);
 		constraintsDo: [ :c |
-			c vertical fitContent.
 			c horizontal matchParent ];
 		visibility: BlVisibility gone;
 		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
 		look: BrShadowLook + BrGlamorousEditorLook;
+		vFitContent;
 		background: (Color white).
 				
 	coder := GtMethodCoder new forMethod: method.
