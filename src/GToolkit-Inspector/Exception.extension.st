@@ -13,7 +13,7 @@ Exception >> gtDebugActionFor: anAction [
 Exception >> gtLiveFor: aView [
 	<gtView>
 	
-	signalContext ifNil: [ ^ aView empty ].
+	(signalContext isNil or: [ self signalerContext isNil ]) ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Stack';
 		priority: 1;
