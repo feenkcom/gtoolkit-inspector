@@ -5,7 +5,8 @@ Class {
 		'method',
 		'tooltips',
 		'tooltipsContainer',
-		'tooltipsTarget'
+		'tooltipsTarget',
+		'coder'
 	],
 	#classInstVars : [
 		'method'
@@ -136,7 +137,7 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 
 { #category : #accessing }
 GtSyntaxExplanationViewUtility >> create [
-	| mainContainer nodesListContainer coder coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
+	| mainContainer nodesListContainer "coder" coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
 	mainContainer := BlElement new
 				constraintsDo: [ :c | 
@@ -241,7 +242,9 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 		model: aNodeNameSymbol.
 	label look: (BrInteractiveCommonLook new 
 		default: [ :aWidget |
-			lines do: [ :each | each removeFromParent ].
+			lines do: [ :each | 
+				each toAnchor referenceElement fireEvent: GtExplanationLinkDisconnectedEvent new.
+				each removeFromParent ].
 			lines removeAll.
 			aWidget
 				border: (BlBorder paint: Color transparent width: 2);
@@ -258,6 +261,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 			aWidget explainer firstExplanationHolderParent explainer
 				allTargetChildrenWithModel: aWidget explainer model
 				do: [ :explanationTargetElement | 
+					explanationTargetElement fireEvent: GtExplanationLinkConnectedEvent new.
 					lines add: (BlLineElement new
 						fromAnchor:
 							(BlNearestPositionTightCircleAnchor
@@ -274,7 +278,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 						firstCommonParent: explanationTargetElement
 						ifFound: [ :aCommonParent |
 							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ]  ] ).
+						ifNone: [  ] ] ] ).
 	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
 	^ label.
 ]
@@ -292,28 +296,28 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aText
 						from: aCommentNode start - 1
 						to: aCommentNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #CommentNode withSize: 0} ] ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #CommentNode; size: 0; coder: coder; node: aNode; start: aCommentNode start; stop: aCommentNode stop} ] ].
+			"GtASTNodeStylerRule new
+				nodeClassName: #RBPragmaNode;
+				styleBlock: [ :aNode :aText |
+					(aText
+						from: aNode start - 1
+						to: aNode start - 1)
+						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode withSize: 0} ]."
 			GtASTNodeStylerRule new
 				nodeClassName: #RBPragmaNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #PragmaNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBReturnNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ReturnNode withSize: 0} ].
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBMethodNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #MethodNode } ]."
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ReturnNode; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode start} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBCascadeNode;
 				styleBlock: [ :aNode :aText |
@@ -321,14 +325,14 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 						(aText
 							from: each - 1
 							to: each - 1)
-							attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #CascadeNode withSize: 0}] ].
+							attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #CascadeNode; size: 0; coder: coder; node: aNode; start: each; stop: each}] ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #ArrayNode withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ArrayNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBMessageNode;
 				styleBlock: [ :aNode :aText |
@@ -339,21 +343,21 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aText
 						from: aNode keywordsPositions first - 1
 						to: aNode keywordsPositions first - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (aNode keywordsPositions first); stop: (aNode selector byteSize + aNode keywordsPositions first - 1)} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #BlockNode withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #BlockNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBAssignmentNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode assignment - 1
 						to: aNode assignment - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #AssignmentNode withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #AssignmentNode; size: 0; coder: coder; node: aNode; start: aNode assignment; stop: aNode assignment + 1} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBVariableNode;
 				styleBlock: [ :aNode :aText |
@@ -366,7 +370,7 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode start + aNode name byteSize - 1} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralValueNode;
 				styleBlock: [ :aNode :aText |
@@ -379,14 +383,14 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: identifier withSize: 0} ].
+						attributes: {GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode stop} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBLiteralArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: {GtYellowCircleExplanationTextAdornment forIdentifier: #LiteralArrayNode withSize: 0} ].
+						attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #LiteralArrayNode; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode stop} ].
 		}.
 	
 	^ compositeExplanationLinkStylerRules.
