@@ -297,13 +297,6 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 						from: aCommentNode start - 1
 						to: aCommentNode start - 1)
 						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #CommentNode; size: 0; coder: coder; node: aNode; start: aCommentNode start; stop: aCommentNode stop} ] ].
-			"GtASTNodeStylerRule new
-				nodeClassName: #RBPragmaNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtYellowCircleExplanationTextAdornment forIdentifier: #PragmaNode withSize: 0} ]."
 			GtASTNodeStylerRule new
 				nodeClassName: #RBPragmaNode;
 				styleBlock: [ :aNode :aText |
@@ -340,10 +333,11 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aNode isBinary) ifTrue: [ identifier := #BinaryNode ].
 					(aNode isUnary) ifTrue: [ identifier := #UnaryNode ].
 					(aNode isKeyword) ifTrue: [ identifier := #KeywordNode ].
-					(aText
-						from: aNode keywordsPositions first - 1
-						to: aNode keywordsPositions first - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (aNode keywordsPositions first); stop: (aNode selector byteSize + aNode keywordsPositions first - 1)} ].
+					aNode keywordsIntervals do: [ :each |
+						(aText
+							from: each first - 1
+							to: each first - 1)
+							attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (each first); stop: (each last)} ]].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |
