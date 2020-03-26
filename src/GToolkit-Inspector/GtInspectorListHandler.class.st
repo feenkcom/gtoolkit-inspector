@@ -10,7 +10,7 @@ Class {
 { #category : #initialization }
 GtInspectorListHandler >> initialize [
 	super initialize.
-	transformation := [ :x | "by default there is no transformation" x ]
+	transformation := [ :x : indices | "by default there is no transformation" x ]
 ]
 
 { #category : #accessing }
@@ -19,16 +19,11 @@ GtInspectorListHandler >> transformation [
 ]
 
 { #category : #accessing }
-GtInspectorListHandler >> transformation: anObject [
+GtInspectorListHandler >> transformation: anObject [	
 	transformation := anObject
 ]
 
 { #category : #accessing }
-GtInspectorListHandler >> transformedValueFrom: anObject [
-	^ self transformation value: anObject
-]
-
-{ #category : #accessing }
-GtInspectorListHandler >> transformedValueFrom: anObject selection: aSelection [
-	^ self transformation cull: anObject cull: aSelection
+GtInspectorListHandler >> transformedValueFrom: anObject selection: aSelectionIndices [
+	^ self transformation cull: anObject cull: aSelectionIndices
 ]
