@@ -6,7 +6,7 @@ RPackage >> gtDefinedClassesFor: aView [
 	^ aView columnedList
 		title: 'Classes';
 		priority: 1;
-		items: [ self classes collect: #asRingDefinition as: OrderedCollection ];
+		items: [ (self classes sorted: [ :a :b | a name < b name ]) collect: #asRingDefinition as: OrderedCollection ];
 		column: 'Name' do: [ :aColumn |  aColumn
 			item: [ :aRing | aRing name ];
 			matchParent ];
