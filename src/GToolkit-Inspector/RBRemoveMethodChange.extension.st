@@ -8,13 +8,3 @@ RBRemoveMethodChange >> gtChangesFor: aView [
 		priority: 10;
 		stencil: [ self gtDiff asElement ]
 ]
-
-{ #category : #'*GToolkit-Inspector' }
-RBRemoveMethodChange >> gtDiff [
-	| oldSource |
-	oldSource := (self methodSourceFor: self selector) ifNil: [ '' ].
-	^ PrettyTextDiffBuilder
-		from: oldSource
-		to: ''
-		inClass: self changeClass
-]
