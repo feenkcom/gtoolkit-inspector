@@ -18,6 +18,31 @@ Color >> gtLuminanceValue [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Color >> gtOpaqueColorOn: aBackgroundColor [
+	| a1 r1 g1 b1 r2 g2 b2 |
+	(self alpha closeTo: 1)
+		ifTrue: [ ^ self ].
+		
+	(self alpha closeTo: 0)
+		ifTrue: [ ^ aBackgroundColor ].
+		
+	a1 := self alpha.
+	r1 := self red. r2 := aBackgroundColor red.
+	g1 := self green. g2 := aBackgroundColor green.
+	b1 := self blue. b2 := aBackgroundColor blue.
+		
+	^ Color
+		r: r2 + ((r1 - r2) * a1)
+		g: g2 + ((g1 - g2) * a1)
+		b: b2 + ((b1 - b2) * a1)
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Color >> gtOpaqueColorOnWhite [
+	^ self gtOpaqueColorOn: Color white
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit
