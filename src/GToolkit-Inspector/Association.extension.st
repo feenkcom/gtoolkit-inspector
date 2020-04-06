@@ -23,7 +23,7 @@ Association >> gtPreviewFor: aView [
 					c margin: (BlInsets left: 5 right: 5).
 					c linear horizontal alignCenter ].
 			aContainer := BlElement new 
-				layout: BlLinearLayout horizontal;
+				layout: BlLinearLayout horizontal alignCenter;
 				look: BrShadowLook;
 				background: Color white;
 				margin: (BlInsets all: 20);
