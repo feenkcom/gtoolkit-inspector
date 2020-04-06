@@ -296,7 +296,10 @@ BlElement >> gtParentsFor: aView [
 				ifTrue: [ 'Enabled' ]
 				ifFalse: [ 'Disabled' ] ]
 			ifFalse: [ '' ] ]
-		width: 100
+			width: 100;
+		column: 'Clip children'
+			item: [ :eachElement | eachElement clipChildren asString ]
+			width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }
