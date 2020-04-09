@@ -9,7 +9,7 @@ BrStencil >> gtLiveFor: aView [
 		priority: 0;
 		object: [ self create ];
 		view: #gtLiveFor:;
-		actionButtonIcon: BrGlamorousIcons inspect action: [ :aBrButton | 
+		actionButtonIcon: BrGlamorousVectorIcons inspect action: [ :aBrButton | 
 			aBrButton phlow spawnObject: self create ]
 ]
 

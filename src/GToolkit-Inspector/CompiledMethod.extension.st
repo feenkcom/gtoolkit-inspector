@@ -9,7 +9,7 @@ CompiledMethod >> gtSourceFor: aView [
 		actionStencil: [ 
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons browse asElement;
+				icon: BrGlamorousVectorIcons browse;
 				action: [ self browse ] ];
 		stencil: [ ((GtMethodCoder forMethod: self) expanded: true; asElement) asScrollableElement ]
 ]

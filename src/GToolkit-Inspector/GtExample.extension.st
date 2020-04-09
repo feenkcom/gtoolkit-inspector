@@ -26,7 +26,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 				button fireEvent: (GtPhlowObjectToSpawn new
 					object: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]);
 					sourceElement: button) ];
-			icon: BrGlamorousIcons playinspect asElement;
+			icon: BrGlamorousVectorIcons playinspect;
 			label: 'Evaluate and inspect return-value' translated.
 	]
 ]
@@ -46,7 +46,7 @@ GtExample >> gtCoderSourceFor: aView [
 		title: 'Source';
 		priority: 0;
 		stencil: [ ((GtMethodCoder forExample: self) expanded: true) asElement asScrollableElement ];
-		actionButtonIcon: BrGlamorousIcons browse 
+		actionButtonIcon: BrGlamorousVectorIcons browse 
 			action: [ self method browse ]
 ]
 

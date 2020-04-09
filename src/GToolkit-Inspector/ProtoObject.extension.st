@@ -5,7 +5,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
 		label: 'Browse';
-		icon: BrGlamorousIcons browse asElement;
+		icon: BrGlamorousVectorIcons browse;
 		action: [ :button | self class gtBrowseFrom: button ]
 ]
 
@@ -13,7 +13,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons inspect asElement;
+		icon: BrGlamorousVectorIcons inspect;
 		label: 'Inspect';
 		action: [ :button | button phlow spawnObject: self]
 ]

@@ -18,7 +18,7 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 			executeButton := BrButton new.
 			executeButton
 				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons accept asElement;
+				icon: BrGlamorousVectorIcons accept;
 				constraintsDo: [ :c | c frame horizontal alignRight ];
 				action: [ each execute ].
 			element addChild: executeButton.

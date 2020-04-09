@@ -185,7 +185,7 @@ BlElement >> gtLookChangesFor: aView [
 								ifTrue: [ BrButton new
 										look: BrGlamorousButtonWithIconLook;
 										margin: (BlInsets all: 3);
-										icon: BrGlamorousIcons inspect asElement;
+										icon: BrGlamorousVectorIcons inspect;
 										label: 'Source' translated;
 										action: [ :g | 
 											g
@@ -247,7 +247,7 @@ BlElement >> gtOpenInSpaceFor: anAction [
 		BrButton new
 			look: BrGlamorousButtonWithIconLook; 
 			action:  [ self hasParent ifFalse: [ BlSpace new rootDo:[:r| r addChild: self];show ]];
-			icon: BrGlamorousIcons play asElement;
+			icon: BrGlamorousVectorIcons play;
 			label: 'Open in Space' translated ]
 ]
 
