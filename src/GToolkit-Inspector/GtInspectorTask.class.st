@@ -1,13 +1,28 @@
 Class {
 	#name : #GtInspectorTask,
-	#superclass : #GtTaskerTask,
-	#traits : 'TGtInspectorPageModelChecker',
-	#classTraits : 'TGtInspectorPageModelChecker classTrait',
+	#superclass : #Object,
+	#traits : 'TBlDebug + TGtInspectorPageModelChecker',
+	#classTraits : 'TBlDebug classTrait + TGtInspectorPageModelChecker classTrait',
 	#instVars : [
 		'inspectorInstance'
 	],
 	#category : #'GToolkit-Inspector-Utility'
 }
+
+{ #category : #testing }
+GtInspectorTask class >> isAbstract [
+	^ self name = #GtInspectorTask 
+]
+
+{ #category : #accessing }
+GtInspectorTask >> entryIdentifier [
+	^ self
+]
+
+{ #category : #execution }
+GtInspectorTask >> execute [
+	self subclassResponsibility
+]
 
 { #category : #accessing }
 GtInspectorTask >> inspectorInstance [
