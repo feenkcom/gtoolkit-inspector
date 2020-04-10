@@ -13,7 +13,7 @@ GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 		action: [ 
 			self add:'random'.
 		];
-		icon: BrGlamorousIcons add asElement;
+		icon: BrGlamorousVectorIcons add;
 		label: 'Add random element'.
 	].
 ]
@@ -52,7 +52,7 @@ GLMAnnouncingCollection >> gtRemoveRandomItemAction: anAction [
 		action: [ 
 			self remove: 'random'.
 		];
-		icon: BrGlamorousIcons remove asElement;
+		icon: BrGlamorousVectorIcons remove;
 		label: 'Remove random element'.
 	].
 ]

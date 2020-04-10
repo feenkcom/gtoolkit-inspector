@@ -5,7 +5,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Source code';
-		actionButtonIcon: BrGlamorousIcons browse 
+		actionButtonIcon: BrGlamorousVectorIcons browse 
 			label: 'Browse'
 			action: [ self methodNode compiledMethod browse ];
 		look: BrGlamorousCodeEditorLook new;

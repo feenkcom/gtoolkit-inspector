@@ -5,9 +5,9 @@ RGMethodDefinition >> gtBasicSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		actionButtonIcon: BrGlamorousIcons browse 
+		actionButtonIcon: BrGlamorousVectorIcons browse 
 			action: [ :aButton | self browse ];
-		actionButtonIcon: BrGlamorousIcons inspect 
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			action: [ :aButton | 
 				aButton phlow spawnObject: 
 					(GtClassCoder forClass: self methodClass) ];

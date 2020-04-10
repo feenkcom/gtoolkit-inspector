@@ -5,7 +5,7 @@ Exception >> gtDebugActionFor: anAction [
 	<gtAction>
 	signalContext ifNil: [ ^ anAction noAction ].
 	^ anAction button 
-		icon: BrGlamorousIcons debug;
+		icon: BrGlamorousVectorIcons debug;
 		action: [ [ self debug ] fork ]
 ]
 

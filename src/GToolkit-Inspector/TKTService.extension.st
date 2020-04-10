@@ -7,7 +7,7 @@ TKTService >> gtActionStartFor: anAction [
 	^ anAction button
 		priority: 4;
 		label: 'Start';
-		icon: BrGlamorousIcons play;
+		icon: BrGlamorousVectorIcons play;
 		action: [ self launch ]
 ]
 
@@ -18,6 +18,6 @@ TKTService >> gtActionStopFor: anAction [
 	^ anAction button
 		priority: 5;
 		label: 'Stop';
-		icon: BrGlamorousIcons cancel;
+		icon: BrGlamorousVectorIcons cancel;
 		action: [ self stop ]
 ]

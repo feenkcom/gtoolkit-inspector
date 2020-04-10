@@ -13,7 +13,7 @@ AbstractFileReference >> gtActionMaterializeFuelFor: anAction [
 				button fireEvent: (GtPhlowObjectToSpawn new
 				object: (FLMaterializer materializeFromFileNamed: self fullName);
 				sourceElement: button) ];
-		icon: BrGlamorousIcons play asElement;
+		icon: BrGlamorousVectorIcons play;
 		label: 'Parse using GToolkit Documenter' translated.
 	]
 ]
@@ -36,7 +36,7 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 			button fireEvent: (GtPhlowObjectToSpawn new
 						object: xdFile;
 						sourceElement: button) ];
-		icon: BrGlamorousIcons play asElement;
+		icon: BrGlamorousVectorIcons play;
 		label: 'Materialize xdoc file' translated.
 	]
 ]
@@ -62,7 +62,7 @@ AbstractFileReference >> gtContentsFor: aView [
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousIcons accept asElement;
+				icon: BrGlamorousVectorIcons accept;
 				action: [ 
 					| newContents | 
 					newContents := tab viewContentElement editor text asString.

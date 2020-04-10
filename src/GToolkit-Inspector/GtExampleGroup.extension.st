@@ -100,7 +100,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 	^ aView explicit
 		title: 'Examples';
 		priority: 11;
-		actionButtonIcon: BrGlamorousIcons play
+		actionButtonIcon: BrGlamorousVectorIcons play
 			action: [ :aButton :aTab | 
 			self runAllExamplesFrom: aButton.
 			aTab viewContentElement phlow update ];

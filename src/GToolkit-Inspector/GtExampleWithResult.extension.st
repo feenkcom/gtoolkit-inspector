@@ -8,6 +8,6 @@ GtExampleWithResult >> gtSourceFor: aView [
 		title: 'Source';
 		priority: 0;
 		stencil: [ ((GtMethodCoder forExample: self) expanded: true) asElement hMatchParent; vFitContent ];
-		actionButtonIcon: BrGlamorousIcons browse 
+		actionButtonIcon: BrGlamorousVectorIcons browse 
 			action: [ self method browse ]
 ]

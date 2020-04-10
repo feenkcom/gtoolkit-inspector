@@ -57,7 +57,7 @@ MemoryLogger >> gtResetActionFor: anAction [
 MemoryLogger >> gtStartActionFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons play;
+		icon: BrGlamorousVectorIcons play;
 		priority: 1;
 		action: [ :aButton | self start ]
 ]
@@ -66,7 +66,7 @@ MemoryLogger >> gtStartActionFor: anAction [
 MemoryLogger >> gtStopActionFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons cancel;
+		icon: BrGlamorousVectorIcons cancel;
 		priority: 2;
 		action: [ :aButton | self stop ]
 ]

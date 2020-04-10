@@ -6,7 +6,6 @@ Class {
 	#instVars : [
 		'inspector',
 		'classes',
-		'tasker',
 		'isSubscribedToSystem'
 	],
 	#category : #'GToolkit-Inspector-Utility'
@@ -62,7 +61,6 @@ GtInspectorSystemChangesHandler >> handleMethodRemovedAnnouncement: aMethodRemov
 GtInspectorSystemChangesHandler >> initialize [
 	super initialize.
 	classes := OrderedCollection new.
-	tasker := GtTasker orderedNonRepetitive asPostponingTasker.
 	isSubscribedToSystem := false.
 	
 ]
@@ -86,10 +84,20 @@ GtInspectorSystemChangesHandler >> isSubscribedToSystem [
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> removePageViewForClass: aClass andMethod: aCompiledMethod [ 
-	tasker addTask: (GtInspectorRemovePageViewWithMethod new
+	self scheduleTask: (GtInspectorRemovePageViewWithMethod new
 		inspectorInstance: inspector;
 		affectedClass: aClass;
 		compiledMethod: aCompiledMethod)
+]
+
+{ #category : #schedulling }
+GtInspectorSystemChangesHandler >> scheduleTask: aTask [
+	| aCommand |
+	aCommand := BlTaskAtPostponedTerminableTask new
+		command: aTask;
+		beShiftingNotScheduledHandler;
+		scheduledTime: BlTime real now + 200 milliSeconds.
+	BlTaskAtQueue default schedule: aCommand
 ]
 
 { #category : #subscriptions }
@@ -120,7 +128,7 @@ GtInspectorSystemChangesHandler >> unsubscribeFromSystem [
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> updatePageViewForClass: aClass andMethod: aCompiledMethod [ 
-	tasker addTask: (GtInspectorUpdatePageViewWithMethod new
+	self scheduleTask: (GtInspectorUpdatePageViewWithMethod new
 		inspectorInstance: inspector;
 		affectedClass: aClass;
 		compiledMethod: aCompiledMethod)
@@ -128,7 +136,7 @@ GtInspectorSystemChangesHandler >> updatePageViewForClass: aClass andMethod: aCo
 
 { #category : #updating }
 GtInspectorSystemChangesHandler >> updatePagesWithClass: aClass [ 
-	tasker addTask: (GtInspectorUpdatePagesWithClassTask new
+	self scheduleTask: (GtInspectorUpdatePagesWithClassTask new
 		inspectorInstance: inspector;
 		affectedClass: aClass)
 ]
