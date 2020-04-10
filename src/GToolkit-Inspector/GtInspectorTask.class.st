@@ -14,6 +14,11 @@ GtInspectorTask class >> isAbstract [
 	^ self name = #GtInspectorTask 
 ]
 
+{ #category : #converting }
+GtInspectorTask >> asBlTktCommand [ 
+	^ BlTktWrapperCommand new command: self
+]
+
 { #category : #accessing }
 GtInspectorTask >> entryIdentifier [
 	^ self
