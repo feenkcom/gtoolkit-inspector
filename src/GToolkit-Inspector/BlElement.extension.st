@@ -252,6 +252,17 @@ BlElement >> gtOpenInSpaceFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtOverviewFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Overview';
+		priority: 1;
+		stencil: [ GtInspectorElementOverview new
+			margin: (BlInsets all: 5);	
+			element: self ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtParentsFor: aView [
 	<gtView>
 	^ aView columnedTree
