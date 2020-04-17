@@ -100,7 +100,7 @@ GtWorldMenu class >> openAllDocumenterFiles [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
-	GtInspector openOnPlayBook: (GtPackagesCoder new)
+	GtInspector openOnPlayBook: (GtCoder new)
 ]
 
 { #category : #'api - actions' }
