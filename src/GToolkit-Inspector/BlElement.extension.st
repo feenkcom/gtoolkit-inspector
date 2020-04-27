@@ -132,6 +132,7 @@ BlElement >> gtLiveFor: aView [
 			BrToggle new 
 				look: BrGlamorousButtonWithIconLook + BrGlamorousToggleBackgroundLook;
 				icon: BrGlamorousIcons help asElement;
+				label: 'Help' asRopedText;
 				when: BrToggleActivatedEvent do: [ BlDevResizer on: self ];
 				when: BrToggleDeactivatedEvent do: [ BlDevResizer removeFrom: self ] ]
 ]
