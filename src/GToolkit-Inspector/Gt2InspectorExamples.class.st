@@ -4,7 +4,7 @@ Class {
 	#category : #'GToolkit-Inspector-! New - Examples'
 }
 
-{ #category : #'examples - ui without look' }
+{ #category : #'examples - ui' }
 Gt2InspectorExamples >> basicInspector [
 	<gtExample>
 	| anInspector |
@@ -13,7 +13,7 @@ Gt2InspectorExamples >> basicInspector [
 	^ anInspector
 ]
 
-{ #category : #'examples - ui without look' }
+{ #category : #'examples - ui' }
 Gt2InspectorExamples >> basicInspectorClass [
 	<gtExample>
 	^ Gt2Inspector
@@ -44,26 +44,6 @@ Gt2InspectorExamples >> configureInspector: anInspector [
 			c vertical matchParent ]
 ]
 
-{ #category : #'examples - ui' }
-Gt2InspectorExamples >> defaultInspector [
-	<gtExample>
-	| anInspector |
-	anInspector := self basicInspectorClass default.
-	self configureInspector: anInspector.
-	^ anInspector
-]
-
-{ #category : #'examples - ui' }
-Gt2InspectorExamples >> defaultInspectorWithExampleObject [
-	<gtExample>
-	| anInspector aModel |
-	anInspector := self defaultInspector.
-	aModel := self objectHolderWithExampleObject.
-	anInspector viewModel objectHolder: aModel.
-	self assert: anInspector viewModel objectHolder equals: aModel.
-	^ anInspector
-]
-
 { #category : #'examples - inspected objects' }
 Gt2InspectorExamples >> inspectedObject [
 	<gtExample>
@@ -76,14 +56,14 @@ Gt2InspectorExamples >> inspectedObjectClass [
 	^ Gt2InspectorExampleObject
 ]
 
-{ #category : #'examples - ui without look' }
+{ #category : #'examples - ui' }
 Gt2InspectorExamples >> inspectorWithExampleObject [
 	<gtExample>
-	| anInspector aModel |
+	| anInspector anObject |
 	anInspector := self basicInspector.
-	aModel := self objectHolderWithExampleObject.
-	anInspector viewModel objectHolder: aModel.
-	self assert: anInspector viewModel objectHolder equals: aModel.
+	anObject := self inspectedObject.
+	anInspector object: anObject.
+	self assert: anInspector model objectHolder object equals: anObject.
 	^ anInspector
 ]
 

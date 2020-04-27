@@ -1,26 +1,24 @@
 Class {
 	#name : #Gt2InspectorModel,
-	#superclass : #BrWidgetModel,
+	#superclass : #Gt2InspectorProtoModel,
 	#traits : 'TGt2InspectorObjectHolderAccess',
 	#classTraits : 'TGt2InspectorObjectHolderAccess classTrait',
 	#category : #'GToolkit-Inspector-! New - Model'
 }
 
+{ #category : #factory }
+Gt2InspectorModel class >> null [ 
+	^ Gt2InspectorNullModel default
+]
+
+{ #category : #converting }
+Gt2InspectorModel >> asElementDo: aOneArgBlock [
+	"Create an element representing an object and execute the block"
+	self objectHolder asElementDo: aOneArgBlock
+]
+
 { #category : #initialization }
 Gt2InspectorModel >> initialize [
 	super initialize.
 	self initializeObjectHolder.
-]
-
-{ #category : #initialization }
-Gt2InspectorModel >> initializeListeners [
-	super initializeListeners.
-	self 
-		when: Gt2InspectorObjectHolderRequest 
-		reply: [ :aResponse | aResponse objectHolder: self objectHolder ]
-]
-
-{ #category : #notifying }
-Gt2InspectorModel >> notifyObjectHolderChanged [
-	self dispatchEvent: (Gt2InspectorObjectHolderChanged new objectHolder: self objectHolder)
 ]
