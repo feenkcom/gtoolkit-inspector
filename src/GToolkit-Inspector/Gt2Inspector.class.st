@@ -7,6 +7,62 @@ Class {
 	#category : #'GToolkit-Inspector-! New - UI'
 }
 
+{ #category : #'instance creation' }
+Gt2Inspector class >> createOn: anObject [
+	| aWrapper |
+	aWrapper := self newWrapperOn: anObject.
+	^ GtPager createOn: aWrapper.
+]
+
+{ #category : #'private - instance creation' }
+Gt2Inspector class >> newEmbelisher [
+	^ GtInspectorPagerPageEmbellisher new
+		inspector: self;
+		beMatching: 0.5.
+]
+
+{ #category : #'instance creation' }
+Gt2Inspector class >> newOn: anObject [
+	"create an inspector element on a given object"
+	^ self new 
+		object: anObject;
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent ].
+]
+
+{ #category : #'instance creation' }
+Gt2Inspector class >> newTitleFrom: anObject [
+	^ 'Inspector on ' , anObject printString
+]
+
+{ #category : #'private - instance creation' }
+Gt2Inspector class >> newWrapperOn: anObject [
+	^ GtPagerPageWrapperStencil new
+		stencil: [ self newOn: anObject ];
+		model: anObject";
+		embellisher: self newEmbelisher".
+]
+
+{ #category : #'instance creation' }
+Gt2Inspector class >> openOn: anObject [
+	| anInspector |
+	anInspector := self newWrapperOn: anObject.
+	^ GtPager 
+		openOn: anInspector 
+		title: (self newTitleFrom: anObject)
+]
+
+{ #category : #'instance creation' }
+Gt2Inspector class >> openOn: anObject from: aSourceElement [
+	| anInspector |
+	anInspector :=  self newOn: anObject.
+	^ GtPager 
+		openOn: anInspector 
+		title: (self newTitleFrom: anObject)
+		from: aSourceElement.
+]
+
 { #category : #private }
 Gt2Inspector >> defaultModel [
 	^ Gt2InspectorModel new

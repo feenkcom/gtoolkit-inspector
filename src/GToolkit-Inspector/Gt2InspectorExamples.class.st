@@ -4,7 +4,7 @@ Class {
 	#category : #'GToolkit-Inspector-! New - Examples'
 }
 
-{ #category : #'examples - ui' }
+{ #category : #'examples - inspector' }
 Gt2InspectorExamples >> basicInspector [
 	<gtExample>
 	| anInspector |
@@ -13,7 +13,7 @@ Gt2InspectorExamples >> basicInspector [
 	^ anInspector
 ]
 
-{ #category : #'examples - ui' }
+{ #category : #'examples - inspector' }
 Gt2InspectorExamples >> basicInspectorClass [
 	<gtExample>
 	^ Gt2Inspector
@@ -56,7 +56,17 @@ Gt2InspectorExamples >> inspectedObjectClass [
 	^ Gt2InspectorExampleObject
 ]
 
-{ #category : #'examples - ui' }
+{ #category : #'examples - inspector in pager' }
+Gt2InspectorExamples >> inspectorInPagerWithExampleObject [
+	<gtExample>
+	| aPager anObject |
+	anObject := self inspectedObject.
+	aPager := self basicInspectorClass createOn: anObject.
+	self assert: aPager pages size equals: 1.
+	^ aPager
+]
+
+{ #category : #'examples - inspector' }
 Gt2InspectorExamples >> inspectorWithExampleObject [
 	<gtExample>
 	| anInspector anObject |

@@ -3,6 +3,9 @@ Class {
 	#superclass : #Gt2InspectorProtoModel,
 	#traits : 'TGt2InspectorObjectHolderAccess',
 	#classTraits : 'TGt2InspectorObjectHolderAccess classTrait',
+	#instVars : [
+		'viewSelector'
+	],
 	#category : #'GToolkit-Inspector-! New - Model'
 }
 
@@ -17,8 +20,19 @@ Gt2InspectorModel >> asElementDo: aOneArgBlock [
 	self objectHolder asElementDo: aOneArgBlock
 ]
 
+{ #category : #defaults }
+Gt2InspectorModel >> defaultViewSelector [
+	^ Gt2InspectorViewSelector last
+]
+
 { #category : #initialization }
 Gt2InspectorModel >> initialize [
 	super initialize.
 	self initializeObjectHolder.
+	self initializeViewSelector.
+]
+
+{ #category : #initialization }
+Gt2InspectorModel >> initializeViewSelector [
+	viewSelector := self defaultViewSelector.
 ]

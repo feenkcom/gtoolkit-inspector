@@ -254,6 +254,19 @@ GtWorldMenu class >> registerInspectorMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
+GtWorldMenu class >> registerNewInspectorMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #registernewinspector)
+		parent: #gtoolkit;
+		label: 'Register GToolkit New Inspector';
+		target: Gt2InspectorToolRegistryAdaptor;
+		selector: #register;
+		enabledBlock: [ Gt2InspectorToolRegistryAdaptor isRegistered not ];
+		order: 60;
+		help: 'Register GToolkit New Inspector (work in progress)'
+]
+
+{ #category : #'world menu' }
 GtWorldMenu class >> registerPlaygroundMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerplayground)
@@ -353,7 +366,20 @@ GtWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
 		selector: #unregister;
 		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered ];
 		order: 61;
-		help: 'Unregister GToolkit Inspector';
+		help: 'Unregister GToolkit Inspector'
+]
+
+{ #category : #'world menu' }
+GtWorldMenu class >> unregisterNewInspectorMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #unregisternewinspector)
+		parent: #gtoolkit;
+		label: 'Unregister GToolkit New Inspector';
+		target: Gt2InspectorToolRegistryAdaptor;
+		selector: #unregister;
+		enabledBlock: [ Gt2InspectorToolRegistryAdaptor isRegistered ];
+		order: 62;
+		help: 'Unregister GToolkit New Inspector (work in progress)';
 		withSeparatorAfter
 ]
 
