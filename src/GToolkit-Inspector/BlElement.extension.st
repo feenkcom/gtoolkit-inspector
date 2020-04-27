@@ -127,14 +127,7 @@ BlElement >> gtLiveFor: aView [
 							c vertical matchParent ]. 
 						container addChild: self.
 						container when: BlClickEvent do: [:event | self requestFocus].
-						container ]  ];
-		actionStencil: [ 
-			BrToggle new 
-				look: BrGlamorousButtonWithIconLook + BrGlamorousToggleBackgroundLook;
-				icon: BrGlamorousIcons help asElement;
-				label: 'Help' asRopedText;
-				when: BrToggleActivatedEvent do: [ BlDevResizer on: self ];
-				when: BrToggleDeactivatedEvent do: [ BlDevResizer removeFrom: self ] ]
+						container ]  ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
