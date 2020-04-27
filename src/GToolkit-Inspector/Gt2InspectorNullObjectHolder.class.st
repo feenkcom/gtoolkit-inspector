@@ -3,8 +3,28 @@ Class {
 	#superclass : #Gt2InspectorProtoObjectHolder,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'GToolkit-Inspector-! New - Object Holder'
+	#category : #'GToolkit-Inspector-! New - Model'
 }
+
+{ #category : #converting }
+Gt2InspectorNullObjectHolder >> asElementDo: aOneArgBlock [
+	"do nothing"
+	aOneArgBlock cull: self newEmptyElement.
+]
+
+{ #category : #'instance creation' }
+Gt2InspectorNullObjectHolder >> newEmptyElement [
+	^ BrLabel new
+		matchParent;
+		alignCenter;
+		look: BrLabelLook;
+		text: self newText.
+]
+
+{ #category : #'instance creation' }
+Gt2InspectorNullObjectHolder >> newText [
+	^ 'Nothing inspected' asRopedText foreground: BrGlamorousColors disabledButtonTextColor
+]
 
 { #category : #accessing }
 Gt2InspectorNullObjectHolder >> object [
