@@ -3,10 +3,34 @@ Class {
 	#superclass : #BrPagerPageEmbellisher,
 	#instVars : [
 		'pageWidth',
-		'pagerHolder'
+		'pagerHolder',
+		'selectedObject'
 	],
 	#category : #'GToolkit-Pager-Stencils'
 }
+
+{ #category : #'private - widget creation' }
+GtPagerPageEmbellisher >> addNextPageButtonInto: aContentWrapper [
+	| aTriangleElement |
+	aTriangleElement := self newNextPageButton.
+	aContentWrapper addChild: aTriangleElement.
+	aContentWrapper
+		when: GtPhlowObjectToSelect
+		do: [ :anEvent | 
+			self selectedObject: anEvent object.
+			aTriangleElement visibility: BlVisibility visible.
+			self pagerHolder
+				select: self selectedObject
+				after: self contentElement ].
+	aContentWrapper
+		when: GtPhlowObjectToSpawn
+		do: [ :anEvent | 
+			self selectedObject: anEvent object.
+			aTriangleElement visibility: BlVisibility visible.
+			self pagerHolder
+				spawn: self selectedObject
+				after: self contentElement ].
+]
 
 { #category : #'api - instantiation' }
 GtPagerPageEmbellisher >> create [
@@ -17,12 +41,13 @@ GtPagerPageEmbellisher >> create [
 	^ aPageElement
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'private - widget creation' }
 GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
 	| aContentWrapper aCloseButton aMaximizeButton |
 	aCloseButton := self newPageCloseButton.
 	aMaximizeButton := self newMaximizeButton.
 	aContentWrapper := self newPageContentWrapper.
+	self addNextPageButtonInto: aContentWrapper.
 	aContentWrapper addChild: self contentElement.
 	aContentWrapper addChild: aCloseButton.
 	aContentWrapper addChild: aMaximizeButton.
@@ -61,6 +86,33 @@ GtPagerPageEmbellisher >> newMaximizeButton [
 			c ignored horizontal alignLeft.
 			c ignored vertical alignTop ];
 		action: [ self pagerHolder maximizePageContent: self contentElement ]
+]
+
+{ #category : #'instance creation' }
+GtPagerPageEmbellisher >> newNextPageButton [
+	^ BrPagerNextButton new
+		size: 16 @ 32;
+		geometry:
+			(BlPolygon
+				vertices:
+					{(0 @ 0).
+					(16 @ 16).
+					(0 @ 32)});
+		background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+		visibility: BlVisibility hidden;
+		constraintsDo: [ :c | 
+			c linear horizontal alignRight.
+			c linear vertical alignCenter ];
+		margin: (BlInsets all: 2);
+		when: BlClickEvent
+			do: [ :anEvent | 
+			anEvent consumed: true.
+			self inspector
+				spawn: self selectedObject
+				after: self contentElement.
+			anEvent modifiers isShift
+				ifTrue: [ self inspector pager children second
+						smoothScrollToPosition: self inspector pager pages size ] ]
 ]
 
 { #category : #'instance creation' }
@@ -128,18 +180,28 @@ GtPagerPageEmbellisher >> pageWidth: aGtPagerPageWidth [
 	pageWidth := aGtPagerPageWidth
 ]
 
-{ #category : #configuration }
+{ #category : #'api - configuration' }
 GtPagerPageEmbellisher >> pager: aGtPager [
 	pagerHolder := GtPagerHolder new pager: aGtPager.
 ]
 
-{ #category : #configuration }
+{ #category : #accessing }
 GtPagerPageEmbellisher >> pagerHolder [
 	<return: #GtPagerHolder>
 	^ pagerHolder
 ]
 
-{ #category : #configuration }
+{ #category : #'api - configuration' }
 GtPagerPageEmbellisher >> removePager: aGtPager [
 	pagerHolder := GtPagerHolder null.
+]
+
+{ #category : #accessing }
+GtPagerPageEmbellisher >> selectedObject [
+	^ selectedObject
+]
+
+{ #category : #accessing }
+GtPagerPageEmbellisher >> selectedObject: anObject [
+	selectedObject := anObject
 ]
