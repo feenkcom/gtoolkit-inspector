@@ -19,6 +19,18 @@ GtPagerHolder >> close: aPageElement [
 ]
 
 { #category : #'api - actions' }
+GtPagerHolder >> isFirstPageEqualTo: aPageElement [
+	<return: #Boolean>
+	^ aPageElement viewModel = self pager pages first
+]
+
+{ #category : #'api - actions' }
+GtPagerHolder >> isLastPageEqualTo: aPageElement [
+	<return: #Boolean>
+	^ aPageElement viewModel = self pager pages last
+]
+
+{ #category : #'api - actions' }
 GtPagerHolder >> maximizePageContent: aContentElement [
 	| anOverlay aPreviousParent aMinimizeButton anOverlayContent |
 	aPreviousParent := aContentElement parent.
@@ -77,4 +89,10 @@ GtPagerHolder >> smoothScrollToLast [
 GtPagerHolder >> spawn: aGtPagerPageSelectionContext [
 	"Spawn a new page in a pager"
 	self pager spawn: aGtPagerPageSelectionContext
+]
+
+{ #category : #'announcer - subscription' }
+GtPagerHolder >> when: anEvent do: aBlock [
+	"Register an event handler"
+	self pager when: anEvent do: aBlock
 ]

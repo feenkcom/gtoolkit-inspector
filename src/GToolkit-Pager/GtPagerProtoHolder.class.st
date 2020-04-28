@@ -10,6 +10,18 @@ GtPagerProtoHolder >> close: aPageElement [
 	self subclassResponsibility
 ]
 
+{ #category : #testing }
+GtPagerProtoHolder >> isFirstPageEqualTo: aPageElement [
+	<return: #Boolean>
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+GtPagerProtoHolder >> isLastPageEqualTo: aPageElement [
+	<return: #Boolean>
+	^ self subclassResponsibility
+]
+
 { #category : #'api - actions' }
 GtPagerProtoHolder >> maximizePageContent: aContentElement [
 	"maximize a page"
@@ -32,4 +44,10 @@ GtPagerProtoHolder >> smoothScrollToLast [
 GtPagerProtoHolder >> spawn: aGtPagerPageSelectionContext [
 	"Spawn a new page in a pager"
 	self subclassResponsibility
+]
+
+{ #category : #'announcer - subscription' }
+GtPagerProtoHolder >> when: anEvent do: aBlock [
+	"Register an event handler"
+	^ self subclassResponsibility
 ]

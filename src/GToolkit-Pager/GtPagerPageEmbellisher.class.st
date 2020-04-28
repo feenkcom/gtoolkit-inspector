@@ -49,7 +49,7 @@ GtPagerPageEmbellisher >> create [
 { #category : #'widget configuration' }
 GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
 	| aContentWrapper aCloseButton aMaximizeButton |
-	aCloseButton := self newPageCloseButton.
+	aCloseButton := self createPageCloseButton.
 	aMaximizeButton := self newMaximizeButton.
 	aContentWrapper := self newPageContentWrapper.
 	aContentWrapper addChild: self contentElement.
@@ -73,6 +73,22 @@ GtPagerPageEmbellisher >> createNextPageButtonOnContentWrapper: aContentWrapper 
 			aTriangleElement visibility: BlVisibility visible.
 			self pagerHolder spawn: (self createSelectionContextFromEvent: anEvent). ].
 	^ aTriangleElement
+]
+
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> createPageCloseButton [
+	| aCloseButton |
+	aCloseButton := self newPageCloseButton.
+	self pagerHolder
+		when: BrPagerPageAddedEvent
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self pagerHolder
+		when: BrPagerPageRemovedEvent
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self pagerHolder
+		when: BrPagerPagesChanged
+		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	^ aCloseButton
 ]
 
 { #category : #'widget configuration' }
@@ -274,4 +290,12 @@ GtPagerPageEmbellisher >> pagerHolder [
 { #category : #'api - configuration' }
 GtPagerPageEmbellisher >> removePager: aGtPager [
 	pagerHolder := GtPagerHolder null.
+]
+
+{ #category : #updating }
+GtPagerPageEmbellisher >> updateCloseButtonVisiblity: aCloseButton [
+	((self pagerHolder isLastPageEqualTo: self contentElement)
+		and: [ (self pagerHolder isFirstPageEqualTo: self contentElement) not ])
+			ifTrue: [ aCloseButton visibility: BlVisibility visible ]
+			ifFalse: [ aCloseButton visibility: BlVisibility hidden ]
 ]
