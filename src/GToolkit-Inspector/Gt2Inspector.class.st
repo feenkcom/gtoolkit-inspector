@@ -16,7 +16,7 @@ Gt2Inspector class >> createOn: anObject [
 
 { #category : #'private - instance creation' }
 Gt2Inspector class >> newEmbelisher [
-	^ GtPagerPageEmbellisher new
+	^ Gt2InspectorEmbellisher new
 ]
 
 { #category : #'instance creation' }
