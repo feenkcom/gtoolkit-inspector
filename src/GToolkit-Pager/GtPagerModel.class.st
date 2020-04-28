@@ -13,9 +13,9 @@ GtPagerModel >> onInstalledIn: anElement [
 
 { #category : #hooks }
 GtPagerModel >> onPageAdded: aPageModel [
-	super onPageAdded: aPageModel.
 	self widgetDo: [ :aWidget |
 		aPageModel pager: aWidget ].
+	super onPageAdded: aPageModel.
 ]
 
 { #category : #hooks }

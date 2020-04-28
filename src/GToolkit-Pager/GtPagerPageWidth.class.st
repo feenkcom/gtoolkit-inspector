@@ -4,9 +4,14 @@ Class {
 	#category : #'GToolkit-Pager-Strategies'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 GtPagerPageWidth class >> exact [
 	^ GtPagerPageExactWidth new
+]
+
+{ #category : #'instance creation' }
+GtPagerPageWidth class >> exact: aNumber [
+	^ self exact width: aNumber
 ]
 
 { #category : #testing }
@@ -14,7 +19,12 @@ GtPagerPageWidth class >> isAbstract [
 	^ self name = #GtPagerPageWidth 
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
+GtPagerPageWidth class >> weight: aNumber [
+	^ self weighted weight: aNumber
+]
+
+{ #category : #'instance creation' }
 GtPagerPageWidth class >> weighted [
 	^ GtPagerPageWeightedWidth new
 ]

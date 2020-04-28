@@ -41,7 +41,7 @@ GtInspectorPagerPageEmbellisher >> beMatching: aNumber page: aPageElement [
 ]
 
 { #category : #'api - instantiation' }
-GtInspectorPagerPageEmbellisher >> create [
+GtInspectorPagerPageEmbellisher >> create [ 
 	<return: #BlElement>
 	| aPageElement aContentWrapper aPageResizer aTriangleElement aCloseButton aMaximizeButton |
 	self contentElement removeFromParent.

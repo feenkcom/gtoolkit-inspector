@@ -16,9 +16,7 @@ Gt2Inspector class >> createOn: anObject [
 
 { #category : #'private - instance creation' }
 Gt2Inspector class >> newEmbelisher [
-	^ GtInspectorPagerPageEmbellisher new
-		inspector: self;
-		beMatching: 0.5.
+	^ GtPagerPageEmbellisher new
 ]
 
 { #category : #'instance creation' }
@@ -40,8 +38,9 @@ Gt2Inspector class >> newTitleFrom: anObject [
 Gt2Inspector class >> newWrapperOn: anObject [
 	^ GtPagerPageWrapperStencil new
 		stencil: [ self newOn: anObject ];
-		model: anObject";
-		embellisher: self newEmbelisher".
+		model: anObject;
+		embellisher: self newEmbelisher;
+		asElement
 ]
 
 { #category : #'instance creation' }

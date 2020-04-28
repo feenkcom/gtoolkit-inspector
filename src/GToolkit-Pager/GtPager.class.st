@@ -71,7 +71,36 @@ GtPager class >> openSpaceWith: anElement title: aTitle from: aSourceElement [
 	^ aSpace
 ]
 
-{ #category : #initialization }
+{ #category : #asserting }
+GtPager >> assertToolElement: aToolElement [
+	self 
+		assert: [ aToolElement isKindOf: BlElement ] 
+		description: [ 'Tool element must be kind of ', BlElement name ].
+	self 
+		assert: [ aToolElement viewModel isKindOf: BrPagerPageModel ] 
+		description: [ 'Tool element view model must be kind of ', BrPagerPageModel name ].
+	
+]
+
+{ #category : #'instance creation' }
 GtPager >> newPagerModel [
 	^ GtPagerModel new
+]
+
+{ #category : #'api - scrolling' }
+GtPager >> select: aGtPagerPageSelectionContext [
+	self assertToolElement: aGtPagerPageSelectionContext afterPage.
+	(self hasPageAfter: aGtPagerPageSelectionContext afterPage) ifTrue: [
+		self spawn: aGtPagerPageSelectionContext ]
+]
+
+{ #category : #'api - scrolling' }
+GtPager >> spawn: aGtPagerPageSelectionContext [
+	aGtPagerPageSelectionContext asElementDo: [ :aToolElement | 
+		self assertToolElement: aToolElement.
+		self assertToolElement: aGtPagerPageSelectionContext afterPage.
+		self removePagesAfter: aGtPagerPageSelectionContext afterPage.
+		self addPage: aToolElement.
+		self smoothScrollToLast
+	] 
 ]
