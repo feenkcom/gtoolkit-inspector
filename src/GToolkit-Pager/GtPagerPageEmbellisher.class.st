@@ -1,15 +1,15 @@
 Class {
 	#name : #GtPagerPageEmbellisher,
 	#superclass : #BrPagerPageEmbellisher,
+	#traits : 'TGtPagerSelectionContextAccessor + TGtPagerHolderAccessors',
+	#classTraits : 'TGtPagerSelectionContextAccessor classTrait + TGtPagerHolderAccessors classTrait',
 	#instVars : [
-		'pageWidth',
-		'pagerHolder',
-		'selectedObject'
+		'pageWidth'
 	],
 	#category : #'GToolkit-Pager-Stencils'
 }
 
-{ #category : #'private - widget creation' }
+{ #category : #'widget configuration' }
 GtPagerPageEmbellisher >> addNextPageButtonInto: aContentWrapper [
 	| aTriangleElement |
 	aTriangleElement := self newNextPageButton.
@@ -17,19 +17,13 @@ GtPagerPageEmbellisher >> addNextPageButtonInto: aContentWrapper [
 	aContentWrapper
 		when: GtPhlowObjectToSelect
 		do: [ :anEvent | 
-			self selectedObject: anEvent object.
 			aTriangleElement visibility: BlVisibility visible.
-			self pagerHolder
-				select: self selectedObject
-				after: self contentElement ].
+			self pagerHolder select: (self createSelectionContextFromEvent: anEvent) ].
 	aContentWrapper
 		when: GtPhlowObjectToSpawn
 		do: [ :anEvent | 
-			self selectedObject: anEvent object.
 			aTriangleElement visibility: BlVisibility visible.
-			self pagerHolder
-				spawn: self selectedObject
-				after: self contentElement ].
+			self pagerHolder spawn: (self createSelectionContextFromEvent: anEvent). ].
 ]
 
 { #category : #'api - instantiation' }
@@ -41,7 +35,7 @@ GtPagerPageEmbellisher >> create [
 	^ aPageElement
 ]
 
-{ #category : #'private - widget creation' }
+{ #category : #'widget configuration' }
 GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
 	| aContentWrapper aCloseButton aMaximizeButton |
 	aCloseButton := self newPageCloseButton.
@@ -54,9 +48,15 @@ GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
 	aPageElement addChild: aContentWrapper.
 ]
 
-{ #category : #initialization }
-GtPagerPageEmbellisher >> defaultPageHolder [
-	^ GtPagerHolder null
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> createSelectionContextFromEvent: anEvent [
+	| aContext |
+	aContext := self newSelectionContext
+		object: anEvent object;
+		tool: anEvent tool;
+		afterPage: self contentElement.
+	self selectionContext: aContext.
+	^ aContext
 ]
 
 { #category : #initialization }
@@ -68,7 +68,8 @@ GtPagerPageEmbellisher >> defaultPageWidth [
 GtPagerPageEmbellisher >> initialize [
 	super initialize.
 	pageWidth := self defaultPageWidth.
-	pagerHolder := self defaultPageHolder.
+	self initializePagerHolder.
+	self initializeSelectionContext.
 ]
 
 { #category : #'instance creation' }
@@ -106,13 +107,10 @@ GtPagerPageEmbellisher >> newNextPageButton [
 		margin: (BlInsets all: 2);
 		when: BlClickEvent
 			do: [ :anEvent | 
-			anEvent consumed: true.
-			self inspector
-				spawn: self selectedObject
-				after: self contentElement.
-			anEvent modifiers isShift
-				ifTrue: [ self inspector pager children second
-						smoothScrollToPosition: self inspector pager pages size ] ]
+				anEvent consumed: true.
+				self pagerHolder spawn: self selectionContext.
+				anEvent modifiers isShift
+					ifTrue: [ self pagerHolder smoothScrollToLast ] ]
 ]
 
 { #category : #'instance creation' }
@@ -157,13 +155,18 @@ GtPagerPageEmbellisher >> newPageElement [
 	| aPageElement |
 
 	aPageElement := BrPagerPageElement new
-		layout: BlLinearLayout vertical;
+		layout: BlLinearLayout horizontal;
 		margin: (BlInsets all: 0);
 		constraintsDo: [ :c | c vertical matchParent ].		
 
 	self pageWidth embellishPage: aPageElement.
 	
 	^ aPageElement
+]
+
+{ #category : #'instance creation' }
+GtPagerPageEmbellisher >> newSelectionContext [
+	^ GtPagerPageSelectionContext new
 ]
 
 { #category : #accessing }
@@ -194,14 +197,4 @@ GtPagerPageEmbellisher >> pagerHolder [
 { #category : #'api - configuration' }
 GtPagerPageEmbellisher >> removePager: aGtPager [
 	pagerHolder := GtPagerHolder null.
-]
-
-{ #category : #accessing }
-GtPagerPageEmbellisher >> selectedObject [
-	^ selectedObject
-]
-
-{ #category : #accessing }
-GtPagerPageEmbellisher >> selectedObject: anObject [
-	selectedObject := anObject
 ]

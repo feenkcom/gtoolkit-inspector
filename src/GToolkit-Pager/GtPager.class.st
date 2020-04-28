@@ -1,6 +1,9 @@
 Class {
 	#name : #GtPager,
 	#superclass : #BrPager,
+	#instVars : [
+		'selector'
+	],
 	#category : #'GToolkit-Pager-UI'
 }
 
@@ -71,7 +74,28 @@ GtPager class >> openSpaceWith: anElement title: aTitle from: aSourceElement [
 	^ aSpace
 ]
 
+{ #category : #defaults }
+GtPager >> defaultSelector [
+	^ GtPagerSelector new
+]
+
 { #category : #initialization }
+GtPager >> initialize [
+	super initialize.
+	selector := self defaultSelector.
+]
+
+{ #category : #'instance creation' }
 GtPager >> newPagerModel [
 	^ GtPagerModel new
+]
+
+{ #category : #'api - scrolling' }
+GtPager >> select: aSelectedObject with: aPhlowTool after: aPageElement [
+	selector select: aSelectedObject with: aPhlowTool after: aPageElement
+]
+
+{ #category : #'api - scrolling' }
+GtPager >> spawn: aSelectedObject with: aPhlowTool after: aPageElement [
+	selector spawn: aSelectedObject with: aPhlowTool after: aPageElement
 ]
