@@ -70,3 +70,8 @@ GtPager class >> openSpaceWith: anElement title: aTitle from: aSourceElement [
 	aSourceElement showSpace: aSpace.
 	^ aSpace
 ]
+
+{ #category : #initialization }
+GtPager >> newPagerModel [
+	^ GtPagerModel new
+]
