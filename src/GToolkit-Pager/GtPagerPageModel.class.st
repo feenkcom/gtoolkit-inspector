@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPagerPageModel,
-	#superclass : #BrPagerPageModel,
+	#superclass : #GtPagerPageProtoModel,
 	#category : #'GToolkit-Pager-View Model'
 }
 
