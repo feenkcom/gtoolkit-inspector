@@ -9,11 +9,59 @@ Class {
 	#category : #'GToolkit-Pager-Stencils'
 }
 
+{ #category : #'api - configuration' }
+GtPagerPageEmbellisher >> beExact: aNumber [
+	self pageWidth: (GtPagerPageWidth exact: aNumber)
+]
+
+{ #category : #'api - configuration' }
+GtPagerPageEmbellisher >> beExact: aNumber page: aPageElement [
+	aPageElement width: aNumber.
+	self beExact: aNumber.
+]
+
+{ #category : #'api - configuration' }
+GtPagerPageEmbellisher >> beMatching: aNumber [
+	self pageWidth: (GtPagerPageWidth weight: aNumber)
+]
+
+{ #category : #'api - configuration' }
+GtPagerPageEmbellisher >> beMatching: aNumber page: aPageElement [
+	aPageElement weight: aNumber.
+	aPageElement constraintsDo: [ :c | c horizontal matchParent ].
+	self beMatching: aNumber.
+]
+
+{ #category : #'api - instantiation' }
+GtPagerPageEmbellisher >> create [
+	<return: #BlElement>
+	| aPageElement aContentWrapper aTriangleElement aPageResizer |
+	aPageElement := self newPageElement.
+	aContentWrapper := self createContentWrapperOn: aPageElement.
+	aTriangleElement := self createNextPageButtonOnContentWrapper: aContentWrapper.
+	aPageResizer := self createResizerForPage: aPageElement.
+	aPageElement addChild: aContentWrapper.
+	aPageElement addChild: aPageResizer.
+	aPageElement addChild: aTriangleElement.
+	^ aPageElement
+]
+
 { #category : #'widget configuration' }
-GtPagerPageEmbellisher >> addNextPageButtonInto: aContentWrapper [
+GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
+	| aContentWrapper aCloseButton aMaximizeButton |
+	aCloseButton := self newPageCloseButton.
+	aMaximizeButton := self newMaximizeButton.
+	aContentWrapper := self newPageContentWrapper.
+	aContentWrapper addChild: self contentElement.
+	aContentWrapper addChild: aCloseButton.
+	aContentWrapper addChild: aMaximizeButton.
+	^ aContentWrapper.
+]
+
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> createNextPageButtonOnContentWrapper: aContentWrapper [
 	| aTriangleElement |
 	aTriangleElement := self newNextPageButton.
-	aContentWrapper addChild: aTriangleElement.
 	aContentWrapper
 		when: GtPhlowObjectToSelect
 		do: [ :anEvent | 
@@ -24,28 +72,28 @@ GtPagerPageEmbellisher >> addNextPageButtonInto: aContentWrapper [
 		do: [ :anEvent | 
 			aTriangleElement visibility: BlVisibility visible.
 			self pagerHolder spawn: (self createSelectionContextFromEvent: anEvent). ].
-]
-
-{ #category : #'api - instantiation' }
-GtPagerPageEmbellisher >> create [
-	<return: #BlElement>
-	| aPageElement |
-	aPageElement := self newPageElement.
-	self createContentWrapperOn: aPageElement.
-	^ aPageElement
+	^ aTriangleElement
 ]
 
 { #category : #'widget configuration' }
-GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
-	| aContentWrapper aCloseButton aMaximizeButton |
-	aCloseButton := self newPageCloseButton.
-	aMaximizeButton := self newMaximizeButton.
-	aContentWrapper := self newPageContentWrapper.
-	self addNextPageButtonInto: aContentWrapper.
-	aContentWrapper addChild: self contentElement.
-	aContentWrapper addChild: aCloseButton.
-	aContentWrapper addChild: aMaximizeButton.
-	aPageElement addChild: aContentWrapper.
+GtPagerPageEmbellisher >> createResizerForPage: aPageElement [
+	^ self newResizer
+		addChild: self newResizerHandrail;
+		addEventHandler:
+			(BlResizerRightListener new
+				resizeTarget: aPageElement;
+				minimumExtent: 75 @ 75);
+		when: BlResizerResizedEvent
+			do: [ :anEvent |
+				self
+					beExact: anEvent extent x
+					page: aPageElement ];
+		when: BlDoubleClickEvent
+			do: [ :anEvent | 
+				anEvent consumed: true.
+				self
+					beMatching: (self defaultPageWidthNumber)
+					page: aPageElement ]
 ]
 
 { #category : #'widget configuration' }
@@ -62,6 +110,11 @@ GtPagerPageEmbellisher >> createSelectionContextFromEvent: anEvent [
 { #category : #initialization }
 GtPagerPageEmbellisher >> defaultPageWidth [
 	^ GtPagerPageWidth weighted
+]
+
+{ #category : #defaults }
+GtPagerPageEmbellisher >> defaultPageWidthNumber [
+	^ 0.5
 ]
 
 { #category : #initialization }
@@ -162,6 +215,30 @@ GtPagerPageEmbellisher >> newPageElement [
 	self pageWidth embellishPage: aPageElement.
 	
 	^ aPageElement
+]
+
+{ #category : #'instance creation' }
+GtPagerPageEmbellisher >> newResizer [
+	^ BrPagerPageResizerElement new
+		layout: BlFrameLayout new;
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal exact: 8.
+			c margin: (BlInsets top: 40 bottom: 40).
+			c padding: BlInsets empty ]
+]
+
+{ #category : #'instance creation' }
+GtPagerPageEmbellisher >> newResizerHandrail [
+	^ BlElement new
+		background: ((Color fromHexString: #BDBDBD) alpha: 0.5);
+		geometry: (BlRectangle cornerRadius: 2);
+		constraintsDo: [ :c | 
+			c vertical matchParent.
+			c horizontal exact: 3.
+			c frame vertical weight: 0.2.
+			c frame horizontal alignLeft.
+			c frame vertical alignCenter ]
 ]
 
 { #category : #'instance creation' }
