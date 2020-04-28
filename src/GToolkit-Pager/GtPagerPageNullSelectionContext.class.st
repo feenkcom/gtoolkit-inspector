@@ -5,3 +5,8 @@ Class {
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : #'GToolkit-Pager-Contexts'
 }
+
+{ #category : #converting }
+GtPagerPageNullSelectionContext >> asElementDo: aOneArgBlock [
+	"do nothing"
+]

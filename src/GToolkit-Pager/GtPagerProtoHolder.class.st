@@ -18,7 +18,7 @@ GtPagerProtoHolder >> maximizePageContent: aContentElement [
 
 { #category : #'api - actions' }
 GtPagerProtoHolder >> select: aGtPagerPageSelectionContext [
-	"Spawn a new page in a pager"
+	"Select a new page in a pager"
 	self subclassResponsibility
 ]
 

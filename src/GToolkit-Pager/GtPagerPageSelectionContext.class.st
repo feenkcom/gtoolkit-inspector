@@ -29,6 +29,12 @@ GtPagerPageSelectionContext >> afterPage: anElement [
 	afterPage := anElement
 ]
 
+{ #category : #converting }
+GtPagerPageSelectionContext >> asElementDo: aOneArgBlock [
+	"Create a tool element and execute the block"
+	self tool asElementDo: aOneArgBlock context: self.
+]
+
 { #category : #initialization }
 GtPagerPageSelectionContext >> initialize [
 	super initialize.

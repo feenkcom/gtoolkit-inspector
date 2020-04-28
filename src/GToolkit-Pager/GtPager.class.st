@@ -1,9 +1,6 @@
 Class {
 	#name : #GtPager,
 	#superclass : #BrPager,
-	#instVars : [
-		'selector'
-	],
 	#category : #'GToolkit-Pager-UI'
 }
 
@@ -74,15 +71,15 @@ GtPager class >> openSpaceWith: anElement title: aTitle from: aSourceElement [
 	^ aSpace
 ]
 
-{ #category : #defaults }
-GtPager >> defaultSelector [
-	^ GtPagerSelector new
-]
-
-{ #category : #initialization }
-GtPager >> initialize [
-	super initialize.
-	selector := self defaultSelector.
+{ #category : #asserting }
+GtPager >> assertToolElement: aToolElement [
+	self 
+		assert: [ aToolElement isKindOf: BlElement ] 
+		description: [ 'Tool element must be kind of ', BlElement name ].
+	self 
+		assert: [ aToolElement viewModel isKindOf: BrPagerPageModel ] 
+		description: [ 'Tool element view model must be kind of ', BrPagerPageModel name ].
+	
 ]
 
 { #category : #'instance creation' }
@@ -91,11 +88,19 @@ GtPager >> newPagerModel [
 ]
 
 { #category : #'api - scrolling' }
-GtPager >> select: aSelectedObject with: aPhlowTool after: aPageElement [
-	selector select: aSelectedObject with: aPhlowTool after: aPageElement
+GtPager >> select: aGtPagerPageSelectionContext [
+	self assertToolElement: aGtPagerPageSelectionContext afterPage.
+	(self hasPageAfter: aGtPagerPageSelectionContext afterPage) ifTrue: [
+		self spawn: aGtPagerPageSelectionContext ]
 ]
 
 { #category : #'api - scrolling' }
-GtPager >> spawn: aSelectedObject with: aPhlowTool after: aPageElement [
-	selector spawn: aSelectedObject with: aPhlowTool after: aPageElement
+GtPager >> spawn: aGtPagerPageSelectionContext [
+	aGtPagerPageSelectionContext asElementDo: [ :aToolElement | 
+		self assertToolElement: aToolElement.
+		self assertToolElement: aGtPagerPageSelectionContext afterPage.
+		self removePagesAfter: aGtPagerPageSelectionContext afterPage.
+		self addPage: aToolElement.
+		self smoothScrollToLast
+	] 
 ]

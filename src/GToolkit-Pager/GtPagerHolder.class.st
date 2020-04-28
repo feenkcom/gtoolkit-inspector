@@ -64,8 +64,8 @@ GtPagerHolder >> pager: anObject [
 
 { #category : #'api - actions' }
 GtPagerHolder >> select: aGtPagerPageSelectionContext [
-	"Spawn a new page in a pager"
-	
+	"Select a new page in a pager"
+	self pager select: aGtPagerPageSelectionContext
 ]
 
 { #category : #'api - actions' }
@@ -76,5 +76,5 @@ GtPagerHolder >> smoothScrollToLast [
 { #category : #'api - actions' }
 GtPagerHolder >> spawn: aGtPagerPageSelectionContext [
 	"Spawn a new page in a pager"
-	
+	self pager spawn: aGtPagerPageSelectionContext
 ]
