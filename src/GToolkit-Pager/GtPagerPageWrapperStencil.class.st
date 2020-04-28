@@ -19,9 +19,9 @@ GtPagerPageWrapperStencil >> create [
 	<return: #BlElement>
 	| anElement aPageModel |
 
-	aPageModel := BrPagerPageModel new.
+	aPageModel := GtPagerPageModel new.
 	aPageModel model: self model.
-	self embellisher ifNotNil: [ 
+	self embellisher ifNotNil: [  
 		aPageModel embellisher: self embellisher ].
 
 	anElement := BlElement new
