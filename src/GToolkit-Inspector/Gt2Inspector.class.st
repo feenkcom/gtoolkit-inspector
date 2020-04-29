@@ -36,7 +36,7 @@ Gt2Inspector class >> newTitleFrom: anObject [
 
 { #category : #'private - instance creation' }
 Gt2Inspector class >> newWrapperOn: anObject [
-	^ GtPagerPageWrapperStencil new
+	^ Gt2InspectorWrapperStencil new
 		stencil: [ self newOn: anObject ];
 		model: anObject;
 		embellisher: self newEmbelisher;
@@ -72,6 +72,15 @@ Gt2Inspector >> initialize [
 	super initialize.
 	self initializeModel.
 	self initializeWidget.
+	self initializeListeners.
+]
+
+{ #category : #initialization }
+Gt2Inspector >> initializeListeners [
+	self when: GtPagerPageAddedEvent do: [ :anEvent | 
+		self onAddedToPager: anEvent pager ].
+	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
+		self onRemovedFromPager: anEvent pager ].
 ]
 
 { #category : #initialization }
@@ -101,11 +110,35 @@ Gt2Inspector >> model: aGtInspectorModel [
 ]
 
 { #category : #convenience }
+Gt2Inspector >> object [
+	self model object
+]
+
+{ #category : #convenience }
 Gt2Inspector >> object: anObject [
 	| anObjectHolder |
 	anObjectHolder := Gt2InspectorObjectHolder new object: anObject.
 	self model objectHolder: anObjectHolder.
 	self updateView.
+]
+
+{ #category : #hooks }
+Gt2Inspector >> onAddedToPager: aGtPager [
+	"Inspector was added to a pager"
+	self phlow
+		firstChildWithCompositeViewDo: [ :aTabGroup | 
+			aGtPager context inspectorTabSelector
+				selectTabIn: aTabGroup on: self object ].
+]
+
+{ #category : #hooks }
+Gt2Inspector >> onRemovedFromPager: aGtPager [
+	"Inspector was removed from a pager"
+	| aInspectorTabName |
+	aInspectorTabName := Gt2InspectorSelectedTabExtractor new 
+		inspectorElement: self;
+		extract.
+	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
 ]
 
 { #category : #'updating ui' }
