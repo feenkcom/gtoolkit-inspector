@@ -24,13 +24,14 @@ GtPagerPageWrapperStencil >> create [
 	self embellisher ifNotNil: [  
 		aPageModel embellisher: self embellisher ].
 
-	anElement := BlElement new
+	anElement := GtPagerWrapperElement new
 		viewModel: aPageModel;
 		clipChildren: false;
 		addChild: self stencil asElement as: self contentIdentificator;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
+	
 	^ anElement
 ]
 

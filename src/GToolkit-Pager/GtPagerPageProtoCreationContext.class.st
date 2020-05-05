@@ -1,7 +1,7 @@
 Class {
-	#name : #Gt2InspectorProtoViewSelector,
+	#name : #GtPagerPageProtoCreationContext,
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Pager-Contexts'
 }

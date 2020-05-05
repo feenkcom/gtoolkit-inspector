@@ -1,6 +1,9 @@
 Class {
 	#name : #GtPager,
 	#superclass : #BrPager,
+	#instVars : [
+		'context'
+	],
 	#category : #'GToolkit-Pager-UI'
 }
 
@@ -80,6 +83,23 @@ GtPager >> assertToolElement: aToolElement [
 		assert: [ aToolElement viewModel isKindOf: BrPagerPageModel ] 
 		description: [ 'Tool element view model must be kind of ', BrPagerPageModel name ].
 	
+]
+
+{ #category : #accessing }
+GtPager >> context [
+	<return: #GtPagerToolContext>
+	^ context
+]
+
+{ #category : #defaults }
+GtPager >> defaultContext [
+	^ GtPagerToolContext new
+]
+
+{ #category : #initialization }
+GtPager >> initialize [
+	super initialize.
+	context := self defaultContext.
 ]
 
 { #category : #'instance creation' }

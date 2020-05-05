@@ -35,27 +35,14 @@ GtPagerPageEmbellisher >> beMatching: aNumber page: aPageElement [
 { #category : #'api - instantiation' }
 GtPagerPageEmbellisher >> create [
 	<return: #BlElement>
-	| aPageElement aContentWrapper aTriangleElement aPageResizer |
-	aPageElement := self newPageElement.
-	aContentWrapper := self createContentWrapperOn: aPageElement.
-	aTriangleElement := self createNextPageButtonOnContentWrapper: aContentWrapper.
-	aPageResizer := self createResizerForPage: aPageElement.
-	aPageElement addChild: aContentWrapper.
-	aPageElement addChild: aPageResizer.
-	aPageElement addChild: aTriangleElement.
-	^ aPageElement
-]
-
-{ #category : #'widget configuration' }
-GtPagerPageEmbellisher >> createContentWrapperOn: aPageElement [
-	| aContentWrapper aCloseButton aMaximizeButton |
-	aCloseButton := self createPageCloseButton.
-	aMaximizeButton := self newMaximizeButton.
-	aContentWrapper := self newPageContentWrapper.
-	aContentWrapper addChild: self contentElement.
-	aContentWrapper addChild: aCloseButton.
-	aContentWrapper addChild: aMaximizeButton.
-	^ aContentWrapper.
+	| aCreationContext |
+	aCreationContext := self newCreationContext
+		pageElement: self newPageElement;
+		wrapperElement: self newPageContentWrapper;
+		contentElement: self contentElement.
+	self fillContentWrapperIn: aCreationContext.
+	self fillPageElementIn: aCreationContext.
+	^ aCreationContext pageElement
 ]
 
 { #category : #'widget configuration' }
@@ -133,12 +120,36 @@ GtPagerPageEmbellisher >> defaultPageWidthNumber [
 	^ 0.5
 ]
 
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> fillContentWrapperIn: aCreationContext [
+	aCreationContext wrapperElement
+		addChild: self contentElement;
+		addChild: self createPageCloseButton;
+		addChild: self newMaximizeButton.
+]
+
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> fillPageElementIn: aCreationContext [
+	| aTriangleElement aPageResizer |
+	aTriangleElement := self createNextPageButtonOnContentWrapper: aCreationContext wrapperElement.
+	aPageResizer := self createResizerForPage: aCreationContext pageElement.
+	aCreationContext pageElement 
+		addChild: aCreationContext wrapperElement;
+		addChild: aPageResizer;
+		addChild: aTriangleElement.
+]
+
 { #category : #initialization }
 GtPagerPageEmbellisher >> initialize [
 	super initialize.
 	pageWidth := self defaultPageWidth.
 	self initializePagerHolder.
 	self initializeSelectionContext.
+]
+
+{ #category : #'instance creation' }
+GtPagerPageEmbellisher >> newCreationContext [
+	^ GtPagerPageCreationContext new
 ]
 
 { #category : #'instance creation' }

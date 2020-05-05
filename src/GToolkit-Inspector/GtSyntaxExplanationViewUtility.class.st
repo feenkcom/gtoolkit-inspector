@@ -333,11 +333,10 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 					(aNode isBinary) ifTrue: [ identifier := #BinaryNode ].
 					(aNode isUnary) ifTrue: [ identifier := #UnaryNode ].
 					(aNode isKeyword) ifTrue: [ identifier := #KeywordNode ].
-					aNode keywordsIntervals do: [ :each |
-						(aText
-							from: each first - 1
-							to: each first - 1)
-							attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (each first); stop: (each last)} ]].
+					(aText
+							from: aNode keywordsIntervals first first - 1
+							to: aNode keywordsIntervals first first - 1)
+							attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (aNode start); stop: (aNode stop)} ].
 			GtASTNodeStylerRule new
 				nodeClassName: #RBBlockNode;
 				styleBlock: [ :aNode :aText |

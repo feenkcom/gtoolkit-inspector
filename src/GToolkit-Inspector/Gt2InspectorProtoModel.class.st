@@ -1,6 +1,8 @@
 Class {
 	#name : #Gt2InspectorProtoModel,
 	#superclass : #Object,
+	#traits : 'TBlDebug',
+	#classTraits : 'TBlDebug classTrait',
 	#category : #'GToolkit-Inspector-! New - Model'
 }
 
