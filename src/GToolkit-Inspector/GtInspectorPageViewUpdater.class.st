@@ -41,11 +41,13 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 	aBrTab
 		look: BrGlamorousTabLook;
 		label: aGtPhlowView title;
-		stencil: [ aGtPhlowView asTaskItView
-				asElementDo: [ :element | 
+		stencil: [ 
+			| aTaskItView |
+			aTaskItView := aGtPhlowView asTaskItView.
+			aTaskItView asElementDo: [ :element | 
 					element phlow
 						beViewContent;
-						entity: aGtPhlowView.
+						entity: aTaskItView.
 					element asScrollableElement ] ];
 		toolbarStencil: [ aGtPhlowView actionsToolbarForElement: aBrTab ].
 	isSelected ifNotNil: [ aBrTab selected: isSelected ].
