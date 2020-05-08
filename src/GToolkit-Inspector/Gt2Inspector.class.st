@@ -81,6 +81,10 @@ Gt2Inspector >> initializeListeners [
 		self onAddedToPager: anEvent pager ].
 	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
 		self onRemovedFromPager: anEvent pager ].
+	self when: GtPagerPageMaximizedEvent do: [ :anEvent | 
+		self onMaximizedInPager: anEvent pager ].
+	self when: GtPagerPageMinimizedEvent do: [ :anEvent | 
+		self onMinimizedInPager: anEvent pager ].
 ]
 
 { #category : #initialization }
@@ -129,6 +133,16 @@ Gt2Inspector >> onAddedToPager: aGtPager [
 		firstChildWithCompositeViewDo: [ :aTabGroup | 
 			aGtPager context inspectorTabSelector
 				selectTabIn: aTabGroup on: self object ].
+]
+
+{ #category : #hooks }
+Gt2Inspector >> onMaximizedInPager: aGtPager [
+	"Inspector was maximized int the pager"
+]
+
+{ #category : #hooks }
+Gt2Inspector >> onMinimizedInPager: aGtPager [
+	"Inspector was minimized int the pager"
 ]
 
 { #category : #hooks }
