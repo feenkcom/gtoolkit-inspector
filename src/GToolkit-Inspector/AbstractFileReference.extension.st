@@ -234,7 +234,9 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 		stencil: [ 
 			GtCoderSnippet new 
 				sourceCode: (self readStreamDo: [ :s | s contents ]);
-				asElement ]
+				asElement ];
+		actionButtonLabel: 'File In' 
+			action: [ :aButton :aTab | self asFileReference fileIn ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
