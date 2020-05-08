@@ -1,8 +1,9 @@
 Class {
 	#name : #GtPagerPageEvent,
 	#superclass : #BlEvent,
+	#traits : 'TGtPagerAccessors',
+	#classTraits : 'TGtPagerAccessors classTrait',
 	#instVars : [
-		'pager',
 		'page'
 	],
 	#category : #'GToolkit-Pager-Events'
@@ -16,14 +17,4 @@ GtPagerPageEvent >> page [
 { #category : #accessing }
 GtPagerPageEvent >> page: anObject [
 	page := anObject
-]
-
-{ #category : #accessing }
-GtPagerPageEvent >> pager [
-	^ pager
-]
-
-{ #category : #accessing }
-GtPagerPageEvent >> pager: anObject [
-	pager := anObject
 ]

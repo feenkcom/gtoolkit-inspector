@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPagerToolContext,
-	#superclass : #GtPagerProtoToolContext,
+	#name : #GtPagerContext,
+	#superclass : #GtPagerProtoContext,
 	#traits : 'TGtOptions',
 	#classTraits : 'TGtOptions classTrait',
 	#category : #'GToolkit-Pager-Contexts'

@@ -18,9 +18,11 @@ GtPagerMaximizer >> maximize [
 		action: [ 
 			self contentElement removeFromParent.
 			aPreviousParent addChildFirst: self contentElement.
-			anOverlay removeFromParent ].
+			anOverlay removeFromParent.
+			self notifyMinimized ].
 	anOverlayContent addChild: aMinimizeButton.
-	self pager addChild: anOverlay
+	self pager addChild: anOverlay.
+	self notifyMaximized.
 ]
 
 { #category : #'instance creation' }
@@ -51,4 +53,20 @@ GtPagerMaximizer >> newOverlayContent [
 		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
 		clipChildren: false;
 		addChild: self contentElement.
+]
+
+{ #category : #notifying }
+GtPagerMaximizer >> notifyMaximized [
+	self contentElement tool 
+		dispatchEvent: (GtPagerPageMaximizedEvent new
+			pager: self pager;
+			page: self contentElement viewModel)
+]
+
+{ #category : #notifying }
+GtPagerMaximizer >> notifyMinimized [
+	self contentElement tool 
+		dispatchEvent: (GtPagerPageMinimizedEvent new
+			pager: self pager;
+			page: self contentElement viewModel)
 ]

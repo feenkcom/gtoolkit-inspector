@@ -312,7 +312,7 @@ GtPagerPageEmbellisher >> removePager: aGtPager [
 { #category : #updating }
 GtPagerPageEmbellisher >> updateCloseButtonVisiblity: aCloseButton [
 	((self pagerHolder isLastPageEqualTo: self contentElement)
-		and: [ (self pagerHolder isFirstPageEqualTo: self contentElement) not ])
+		and: [ (pagerHolder isFirstPageEqualTo: self contentElement) not ])
 			ifTrue: [ aCloseButton visibility: BlVisibility visible ]
 			ifFalse: [ aCloseButton visibility: BlVisibility hidden ]
 ]
