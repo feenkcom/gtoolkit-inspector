@@ -82,6 +82,7 @@ GtPagerPageEmbellisher >> createPageCloseButton [
 	self pagerHolder
 		when: BrPagerPagesChanged
 		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self updateCloseButtonVisiblity: aCloseButton.
 	^ aCloseButton
 ]
 
