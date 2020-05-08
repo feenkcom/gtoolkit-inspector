@@ -102,6 +102,14 @@ GtPager >> initialize [
 	context := self defaultContext.
 ]
 
+{ #category : #'api - requests' }
+GtPager >> maximizePageContentIn: anElement [
+	GtPagerMaximizer new 
+		pager: self;
+		contentElement: anElement;
+		maximize
+]
+
 { #category : #'instance creation' }
 GtPager >> newPagerModel [
 	^ GtPagerModel new

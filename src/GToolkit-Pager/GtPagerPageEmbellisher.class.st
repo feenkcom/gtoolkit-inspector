@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'pageWidth'
 	],
-	#category : #'GToolkit-Pager-Stencils'
+	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
 { #category : #'api - configuration' }
@@ -37,12 +37,19 @@ GtPagerPageEmbellisher >> create [
 	<return: #BlElement>
 	| aCreationContext |
 	aCreationContext := self newCreationContext
+		embellisher: self;
 		pageElement: self newPageElement;
 		wrapperElement: self newPageContentWrapper;
 		contentElement: self contentElement.
 	self fillContentWrapperIn: aCreationContext.
 	self fillPageElementIn: aCreationContext.
 	^ aCreationContext pageElement
+]
+
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> createMaximizeButtonIn: aCreationContext [
+	^ self newMaximizeButton
+		action: [ self pagerHolder maximizeIn: aCreationContext ]
 ]
 
 { #category : #'widget configuration' }
@@ -125,7 +132,7 @@ GtPagerPageEmbellisher >> fillContentWrapperIn: aCreationContext [
 	aCreationContext wrapperElement
 		addChild: self contentElement;
 		addChild: self createPageCloseButton;
-		addChild: self newMaximizeButton.
+		addChild: (self createMaximizeButtonIn: aCreationContext).
 ]
 
 { #category : #'widget configuration' }
@@ -147,6 +154,42 @@ GtPagerPageEmbellisher >> initialize [
 	self initializeSelectionContext.
 ]
 
+{ #category : #requests }
+GtPagerPageEmbellisher >> maximizePageContentIn: aCreationContext pager: aGtPager [
+	| anOverlay aPreviousParent aMinimizeButton anOverlayContent aContentElement |
+	aContentElement := aCreationContext contentElement.
+	aPreviousParent := aContentElement parent.
+	aContentElement removeFromParent.
+	anOverlayContent := BlElement new.
+	anOverlay := BlOverlayElement new.
+	anOverlay
+		background: (Color white alpha: 0.8);
+		padding: (BlInsets all: 20);
+		attachTo: aGtPager;
+		layout: BlLinearLayout horizontal.
+	anOverlayContent
+		background: (Color white);
+		look: BrShadowLook new;
+		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
+		clipChildren: false;
+		addChild: aContentElement.
+	anOverlay addChild: anOverlayContent.
+	aMinimizeButton := GtInspectorRoundButtonStencil normal asElement
+		icon: GtInspectorMinusIconStencil minus asElement;
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c margin: (BlInsets top: -10 left: -10 bottom: 0 right: 0).
+			c ignored horizontal alignLeft.
+			c ignored vertical alignTop ];
+		action: [ 
+			aContentElement removeFromParent.
+			aPreviousParent addChildFirst: aContentElement.
+			anOverlay removeFromParent ].
+	anOverlayContent addChild: aMinimizeButton.
+	aGtPager addChild: anOverlay
+	
+]
+
 { #category : #'instance creation' }
 GtPagerPageEmbellisher >> newCreationContext [
 	^ GtPagerPageCreationContext new
@@ -165,8 +208,7 @@ GtPagerPageEmbellisher >> newMaximizeButton [
 						bottom: 0
 						right: 0).
 			c ignored horizontal alignLeft.
-			c ignored vertical alignTop ];
-		action: [ self pagerHolder maximizePageContent: self contentElement ]
+			c ignored vertical alignTop ]
 ]
 
 { #category : #'instance creation' }

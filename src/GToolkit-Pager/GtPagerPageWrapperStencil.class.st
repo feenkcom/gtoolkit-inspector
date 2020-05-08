@@ -6,7 +6,7 @@ Class {
 		'stencil',
 		'embellisher'
 	],
-	#category : #'GToolkit-Pager-Stencils'
+	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
 { #category : #private }

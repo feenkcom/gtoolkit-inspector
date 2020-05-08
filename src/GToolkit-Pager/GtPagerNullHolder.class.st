@@ -22,7 +22,7 @@ GtPagerNullHolder >> isLastPageEqualTo: aPageElement [
 ]
 
 { #category : #'api - actions' }
-GtPagerNullHolder >> maximizePageContent: aContentElement [
+GtPagerNullHolder >> maximizeIn: aCreationContext [
 	"do nothing"
 ]
 
