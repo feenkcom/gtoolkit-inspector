@@ -87,19 +87,27 @@ GtPager >> assertToolElement: aToolElement [
 
 { #category : #accessing }
 GtPager >> context [
-	<return: #GtPagerToolContext>
+	<return: #GtPagerContext>
 	^ context
 ]
 
 { #category : #defaults }
 GtPager >> defaultContext [
-	^ GtPagerToolContext new
+	^ GtPagerContext new
 ]
 
 { #category : #initialization }
 GtPager >> initialize [
 	super initialize.
 	context := self defaultContext.
+]
+
+{ #category : #'api - requests' }
+GtPager >> maximizePageContentIn: anElement [
+	GtPagerEventPassingMaximizer new 
+		pager: self;
+		contentElement: anElement;
+		maximize
 ]
 
 { #category : #'instance creation' }

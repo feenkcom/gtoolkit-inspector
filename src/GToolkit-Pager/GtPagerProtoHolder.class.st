@@ -23,7 +23,7 @@ GtPagerProtoHolder >> isLastPageEqualTo: aPageElement [
 ]
 
 { #category : #'api - actions' }
-GtPagerProtoHolder >> maximizePageContent: aContentElement [
+GtPagerProtoHolder >> maximizeIn: aCreationContext [
 	"maximize a page"
 	self subclassResponsibility
 ]

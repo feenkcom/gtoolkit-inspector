@@ -61,9 +61,11 @@ Class >> gtDefinitionFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesFor: aView [
 	<gtView>
+	<gtClassView>
+	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Examples';
-		priority: 12;
+		priority: 20;
 		object: [ GtExampleGroup withAll: self gtExamplesAll ];
 		view: #gtExamplesFor:
 ]
@@ -71,6 +73,7 @@ Class >> gtExamplesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesMapFor: aView [
 	<gtView>
+	<gtClassView>
 	^ aView forward
 		title: 'Examples map';
 		priority: 12;

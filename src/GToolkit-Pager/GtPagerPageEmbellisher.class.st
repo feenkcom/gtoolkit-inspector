@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'pageWidth'
 	],
-	#category : #'GToolkit-Pager-Stencils'
+	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
 { #category : #'api - configuration' }
@@ -37,12 +37,19 @@ GtPagerPageEmbellisher >> create [
 	<return: #BlElement>
 	| aCreationContext |
 	aCreationContext := self newCreationContext
+		embellisher: self;
 		pageElement: self newPageElement;
 		wrapperElement: self newPageContentWrapper;
 		contentElement: self contentElement.
 	self fillContentWrapperIn: aCreationContext.
 	self fillPageElementIn: aCreationContext.
 	^ aCreationContext pageElement
+]
+
+{ #category : #'widget configuration' }
+GtPagerPageEmbellisher >> createMaximizeButtonIn: aCreationContext [
+	^ self newMaximizeButton
+		action: [ self pagerHolder maximizeIn: aCreationContext ]
 ]
 
 { #category : #'widget configuration' }
@@ -75,6 +82,7 @@ GtPagerPageEmbellisher >> createPageCloseButton [
 	self pagerHolder
 		when: BrPagerPagesChanged
 		do: [ :anEvent | self updateCloseButtonVisiblity: aCloseButton ].
+	self updateCloseButtonVisiblity: aCloseButton.
 	^ aCloseButton
 ]
 
@@ -125,7 +133,7 @@ GtPagerPageEmbellisher >> fillContentWrapperIn: aCreationContext [
 	aCreationContext wrapperElement
 		addChild: self contentElement;
 		addChild: self createPageCloseButton;
-		addChild: self newMaximizeButton.
+		addChild: (self createMaximizeButtonIn: aCreationContext).
 ]
 
 { #category : #'widget configuration' }
@@ -165,8 +173,7 @@ GtPagerPageEmbellisher >> newMaximizeButton [
 						bottom: 0
 						right: 0).
 			c ignored horizontal alignLeft.
-			c ignored vertical alignTop ];
-		action: [ self pagerHolder maximizePageContent: self contentElement ]
+			c ignored vertical alignTop ]
 ]
 
 { #category : #'instance creation' }
@@ -306,7 +313,7 @@ GtPagerPageEmbellisher >> removePager: aGtPager [
 { #category : #updating }
 GtPagerPageEmbellisher >> updateCloseButtonVisiblity: aCloseButton [
 	((self pagerHolder isLastPageEqualTo: self contentElement)
-		and: [ (self pagerHolder isFirstPageEqualTo: self contentElement) not ])
+		and: [ (pagerHolder isFirstPageEqualTo: self contentElement) not ])
 			ifTrue: [ aCloseButton visibility: BlVisibility visible ]
 			ifFalse: [ aCloseButton visibility: BlVisibility hidden ]
 ]
