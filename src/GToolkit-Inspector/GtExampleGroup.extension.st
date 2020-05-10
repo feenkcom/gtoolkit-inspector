@@ -36,7 +36,7 @@ GtExampleGroup >> buildListViewFor: aView [
 		title: 'Examples List';
 		priority: 11;
 		items: [ self examples ];
-		column: 'Icon' translated
+		column: 'Status' translated
 			do: [ :aColumn | 
 			aColumn
 				itemStencil: [ :eachExample :anIndex | 
