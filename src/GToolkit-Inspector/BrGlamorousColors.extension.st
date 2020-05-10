@@ -19,6 +19,7 @@ BrGlamorousColors class >> gtClassVariablesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BrGlamorousColors class >> gtColorsFor: aView [
 	<gtView>
+	<gtClassView>
 	^ aView columnedList
 		title: 'Colors';
 		priority: 0.5;
@@ -27,8 +28,8 @@ BrGlamorousColors class >> gtColorsFor: aView [
 		column: 'Icon'
 			do: [ :aColumn | 
 			aColumn
-				itemStencil: [ :aSymbol | (self perform: aSymbol) gtInspectorIcon asElement ];
-				width: 16 ];
+				itemStencil: [ :aSymbol | (self perform: aSymbol) gtInspectorIcon asElement asScalableElement ];
+				width: 32 ];
 		column: 'Selector' item: [ :aSymbol | aSymbol asString ];
 		send: [ :aSymbol | self perform: aSymbol ]
 ]
