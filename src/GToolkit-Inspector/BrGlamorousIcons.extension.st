@@ -3,6 +3,7 @@ Extension { #name : #BrGlamorousIcons }
 { #category : #'*GToolkit-Inspector' }
 BrGlamorousIcons class >> gtIconsFor: aView [
 	<gtView>
+	<gtClassView>
 	^ aView list
 			title: 'Icons';
 			priority: -10;

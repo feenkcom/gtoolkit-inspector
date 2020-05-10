@@ -74,6 +74,7 @@ Class >> gtExamplesFor: aView [
 Class >> gtExamplesMapFor: aView [
 	<gtView>
 	<gtClassView>
+	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Examples map';
 		priority: 12;
