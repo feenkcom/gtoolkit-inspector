@@ -250,7 +250,7 @@ GtInspectorExamples >> viewWithViewsForObject [
 GtInspectorExamples >> viewsOfSampleA [
 	<gtExample>
 	| views elements |
-	views := GtInspectorSampleA new gtViewsInContext: nil.
+	views := GtInspectorSampleA new gtViewsInContext: GtPhlowContext null.
 	self assert: views size equals: 1.
 	elements := OrderedCollection new.
 	views do: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
@@ -262,7 +262,7 @@ GtInspectorExamples >> viewsOfSampleA [
 GtInspectorExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
 	| views elements |
-	views := GtInspectorSampleSubclassOfA new gtViewsInContext: nil.
+	views := GtInspectorSampleSubclassOfA new gtViewsInContext: GtPhlowContext null.
 	self assert: views size equals: 1.
 	elements := OrderedCollection new.
 	views do: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
