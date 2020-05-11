@@ -15,7 +15,7 @@ Object >> gtInspectorForGtIn: composite [
 		title: '_GT';
 		element: [ 
 			| view |
-			view := self gtViewsFor: GtPhlowView empty inContext: nil.
+			view := self gtViewsFor: GtPhlowView empty.
 			view asElementDo: [ :x | 
 				x addEventHandlerOn: GtPhlowObjectToSelect do: [ :anEvent | 
 					x fireEvent: (GLMBlocObjectToSelect new 
