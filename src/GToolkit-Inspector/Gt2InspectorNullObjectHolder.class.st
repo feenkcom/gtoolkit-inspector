@@ -26,6 +26,11 @@ Gt2InspectorNullObjectHolder >> newText [
 	^ 'Nothing inspected' asRopedText foreground: BrGlamorousColors disabledButtonTextColor
 ]
 
+{ #category : #notifying }
+Gt2InspectorNullObjectHolder >> notifyObjectChangedIn: aModel [
+	aModel notifyObjectRemoved.
+]
+
 { #category : #accessing }
 Gt2InspectorNullObjectHolder >> object [
 	"Return an inspecting object"

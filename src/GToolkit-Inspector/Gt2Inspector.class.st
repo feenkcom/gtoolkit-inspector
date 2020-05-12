@@ -1,18 +1,13 @@
 Class {
 	#name : #Gt2Inspector,
 	#superclass : #BlElement,
+	#traits : 'TGtPagerWindowOpener',
+	#classTraits : 'TGtPagerWindowOpener classTrait',
 	#instVars : [
 		'model'
 	],
 	#category : #'GToolkit-Inspector-! New - UI'
 }
-
-{ #category : #'instance creation' }
-Gt2Inspector class >> createOn: anObject [
-	| aWrapper |
-	aWrapper := self newWrapperOn: anObject.
-	^ GtPager createOn: aWrapper.
-]
 
 { #category : #'private - instance creation' }
 Gt2Inspector class >> newEmbelisher [
@@ -29,37 +24,9 @@ Gt2Inspector class >> newOn: anObject [
 			c vertical matchParent ].
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'private - instance creation' }
 Gt2Inspector class >> newTitleFrom: anObject [
 	^ 'Inspector on ' , anObject printString
-]
-
-{ #category : #'private - instance creation' }
-Gt2Inspector class >> newWrapperOn: anObject [
-	^ Gt2InspectorWrapperStencil new
-		stencil: [ self newOn: anObject ];
-		model: anObject;
-		embellisher: self newEmbelisher;
-		asElement
-]
-
-{ #category : #'instance creation' }
-Gt2Inspector class >> openOn: anObject [
-	| anInspector |
-	anInspector := self newWrapperOn: anObject.
-	^ GtPager 
-		openOn: anInspector 
-		title: (self newTitleFrom: anObject)
-]
-
-{ #category : #'instance creation' }
-Gt2Inspector class >> openOn: anObject from: aSourceElement [
-	| anInspector |
-	anInspector :=  self newOn: anObject.
-	^ GtPager 
-		openOn: anInspector 
-		title: (self newTitleFrom: anObject)
-		from: aSourceElement.
 ]
 
 { #category : #private }

@@ -2,7 +2,8 @@ Class {
 	#name : #Gt2InspectorObjectHolder,
 	#superclass : #Gt2InspectorProtoObjectHolder,
 	#instVars : [
-		'object'
+		'object',
+		'hasObject'
 	],
 	#category : #'GToolkit-Inspector-! New - Model'
 }
@@ -18,6 +19,24 @@ Gt2InspectorObjectHolder >> asElementDo: aOneArgBlock [
 	self view asElementDo: aOneArgBlock
 ]
 
+{ #category : #asserting }
+Gt2InspectorObjectHolder >> assertImmutability [
+	self 
+		assert: [ hasObject not ]
+		description: [ 'Object holder is immutable.' ].
+]
+
+{ #category : #initialization }
+Gt2InspectorObjectHolder >> initialize [
+	super initialize.
+	hasObject := false.
+]
+
+{ #category : #notifying }
+Gt2InspectorObjectHolder >> notifyObjectChangedIn: aModel [
+	aModel notifyObjectChangedTo: self object.
+]
+
 { #category : #accessing }
 Gt2InspectorObjectHolder >> object [
 	^ object
@@ -25,7 +44,9 @@ Gt2InspectorObjectHolder >> object [
 
 { #category : #accessing }
 Gt2InspectorObjectHolder >> object: anObject [
-	object := anObject
+	self assertImmutability.
+	object := anObject.
+	hasObject := true.
 ]
 
 { #category : #printing }

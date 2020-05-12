@@ -17,6 +17,12 @@ Gt2InspectorProtoObjectHolder >> asElementDo: aOneArgBlock [
 	self subclassResponsibility
 ]
 
+{ #category : #notifying }
+Gt2InspectorProtoObjectHolder >> notifyObjectChangedIn: aModel [
+	"Notify about object changes"
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 Gt2InspectorProtoObjectHolder >> object [
 	"Return an inspecting object"
