@@ -54,35 +54,18 @@ ProtoObject class >> gtSubclassesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView [
 	"this is the default entry method for retrieving the wrapper view containing all views"
-	^ self gtViewsFor: aView inContext: nil
+	^ self gtViewsFor: aView inContext: GtPhlowContext null
 		
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView inContext: aContext [
-	| className title displayText resultingView header |
-	className := self class name.
-	header := (className first isVowel ifTrue: [ 'an ' ] ifFalse: [ 'a ' ]), className.
-	displayText := [ (String streamContents: [ :stream | self gtDisplayOn: stream ]) asRopedText ]
-			on: Error 
-			do: [ :e | 'Error printing' asRopedText foreground: Color red ].
-	title := (displayText asString beginsWith: header) 
-		ifTrue: [ displayText ]
-		ifFalse: [ 
-			String streamContents: [ :stream |
-				stream
-					nextPutAll: (className first isVowel ifTrue: ['an '] ifFalse: ['a ']);
-					nextPutAll: className;
-					nextPutAll: ' (';
-					nextPutAll: displayText characters;
-					nextPutAll: ')' ] ].
-	resultingView := ((aView composite
-		views: (self gtViewsInContext: aContext))
-		labelled: title).
-	self gtActions do: [ :action | 
-		action isDefaultTarget ifTrue: [ 
-			resultingView addPhlowAction: action ] ].
-	^ resultingView
+	<return: #GtPhlowLabelledView>
+	^ GtPhlowLabelledViewBuilder new
+		object: self;
+		view: aView;
+		context: aContext;
+		build
 ]
 
 { #category : #'*GToolkit-Inspector' }

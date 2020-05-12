@@ -61,7 +61,7 @@ GtInspectorExamplesForSampleWithExceptions >> sampleWithExceptions [
 GtInspectorExamplesForSampleWithExceptions >> viewsOfSampleWithExceptions [
 	<gtExample>
 	| allViews elements viewsNotDefinedInObject |
-	allViews := GtInspectorSampleWithExceptionsInExtensions new gtViewsInContext: nil.
+	allViews := GtInspectorSampleWithExceptionsInExtensions new gtViewsInContext: GtPhlowContext null.
 	viewsNotDefinedInObject := allViews select: [ :each | each definingMethod methodClass ~= ProtoObject and: [ each definingMethod methodClass ~= Object ] ].
 	self assert: viewsNotDefinedInObject size = 2.
 	elements := OrderedCollection new.
