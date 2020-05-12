@@ -21,6 +21,11 @@ GtPager class >> createOn: anElement [
 	^ aPager
 ]
 
+{ #category : #'instance creation' }
+GtPager class >> createWrappedOn: anElement [
+	^ self createOn: (self wrapped: anElement)
+]
+
 { #category : #defaults }
 GtPager class >> defaultExtent [
 	^ 1200@600
@@ -72,6 +77,30 @@ GtPager class >> openSpaceWith: anElement title: aTitle from: aSourceElement [
 	aSpace := self newSpaceWith: anElement title: aTitle.
 	aSourceElement showSpace: aSpace.
 	^ aSpace
+]
+
+{ #category : #'instance creation' }
+GtPager class >> openWrappedOn: anElement [
+	^ self openOn: (self wrapped: anElement)
+]
+
+{ #category : #'instance creation' }
+GtPager class >> openWrappedOn: anElement title: aTitle [
+	^ self openOn: (self wrapped: anElement) title: aTitle
+]
+
+{ #category : #'instance creation' }
+GtPager class >> openWrappedOn: anElement title: aTitle from: aSourceElement [
+	^ self 
+		openOn: (self wrapped: anElement) 
+		title: aTitle 
+		from: aSourceElement
+]
+
+{ #category : #utility }
+GtPager class >> wrapped: anElement [
+	^ GtPagerWrapperElement new
+		stencil: anElement
 ]
 
 { #category : #asserting }

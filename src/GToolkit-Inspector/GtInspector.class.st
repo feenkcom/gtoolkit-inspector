@@ -136,11 +136,6 @@ GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
 ]
 
 { #category : #'instance creation' }
-GtInspector class >> openOnPlayBook [
-	^ self openOnPlayBook: GtPlayBook newDefault
-]
-
-{ #category : #'instance creation' }
 GtInspector class >> openOnPlayBook: aPlayBook [
 	^ self openToolOn: aPlayBook named: 'Playground'
 ]

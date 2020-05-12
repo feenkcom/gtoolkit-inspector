@@ -37,7 +37,7 @@ ProtoObject >> gtIcon [
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtInspect [ 
-	^ GtInspector openOn: self
+	^ Gt2Inspector openOn: self
 ]
 
 { #category : #'*GToolkit-Inspector' }

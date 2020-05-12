@@ -28,28 +28,40 @@ TGtPagerWindowOpener classSide >> newTitleFrom: anObject [
 
 { #category : #'private - instance creation' }
 TGtPagerWindowOpener classSide >> newWrapperOn: anObject [
-	^ GtPagerPageWrapperStencil new
-		stencil: [ self newOn: anObject ];
+	^ GtPagerWrapperElement new
+		tool: (self newOn: anObject);
 		model: anObject;
-		embellisher: self newEmbelisher;
-		asElement
+		embellisher: self newEmbelisher
 ]
 
 { #category : #'window creation' }
 TGtPagerWindowOpener classSide >> openOn: anObject [
-	| aTool |
-	aTool := self newWrapperOn: anObject.
-	^ GtPager 
-		openOn: aTool 
-		title: (self newTitleFrom: anObject)
+	^ self openOn: anObject title: (self newTitleFrom: anObject).
 ]
 
 { #category : #'window creation' }
 TGtPagerWindowOpener classSide >> openOn: anObject from: aSourceElement [
+	^ self 
+		openOn: anObject 
+		title: (self newTitleFrom: anObject) 
+		from: aSourceElement
+]
+
+{ #category : #'window creation' }
+TGtPagerWindowOpener classSide >> openOn: anObject title: aTitle [
 	| aTool |
-	aTool :=  self newOn: anObject.
+	aTool := self newWrapperOn: anObject.
 	^ GtPager 
 		openOn: aTool 
-		title: (self newTitleFrom: anObject)
+		title: aTitle
+]
+
+{ #category : #'window creation' }
+TGtPagerWindowOpener classSide >> openOn: anObject title: aTitle from: aSourceElement [
+	| aTool |
+	aTool :=  self newWrapperOn: anObject.
+	^ GtPager 
+		openOn: aTool 
+		title: aTitle
 		from: aSourceElement.
 ]

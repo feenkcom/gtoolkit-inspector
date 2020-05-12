@@ -89,38 +89,40 @@ GtWorldMenu class >> gtWorldMenuOn: aBuilder [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
-	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
+	Gt2Inspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
 		eachClassOrTrait comment includesSubstring: '${' ])
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllDocumenterFiles [
-	GtInspector openOn: GtResourcesUtility default pillarDocuments
+	Gt2Inspector openOn: GtResourcesUtility default pillarDocuments
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
-	GtInspector openOnPlayBook: (GtCoder new)
+	GtPager openWrappedOn: (GtCoder new) title: 'Coder'
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitDocumentationExplorer [
-	GtInspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
+	Gt2Inspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitExamplesExplorer [
-	GtInspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
+	Gt2Inspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitRepositoriesExplorer [
-	GtInspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
+	Gt2Inspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openTour [
-	GtInspector openOnPlayBook: (GtDocument forClass: BaselineOfGToolkit)
+	GtPager 
+		openWrappedOn: (GtDocument forClass: BaselineOfGToolkit) 
+		title: 'GToolkit Tour'
 ]
 
 { #category : #'api - actions' }
@@ -134,8 +136,8 @@ GtWorldMenu class >> playgroundMenuOn: aBuilder [
 	(aBuilder item: #gtplayground)
 		parent: #gtoolkit;
 		label: 'gt Playground';
-		target: GtInspector;
-		selector: #openOnPlayBook;
+		target: GtPlaygroundToolRegistryAdaptor;
+		selector: #open;
 		order: 5;
 		help: 'Open GToolkit Playground';
 		iconName: #workspace
@@ -155,7 +157,7 @@ to the top of the screen')
 				spyAllEvery: MessageTally defaultPollPeriod 
 				on: [ [ World activeHand position y > 0 ] 
 					whileTrue: [ BlUniverse default pulseLoop firePulse ] ].
-			GtInspector openOn: rootMessageTally ] ]
+			Gt2Inspector openOn: rootMessageTally ] ]
 ]
 
 { #category : #'world menu - profiling' }
@@ -225,7 +227,7 @@ mouse pointer goes to the top of the screen')
 					spyEvery: MessageTally defaultPollPeriod 
 					on: [ [World activeHand position y > 10]
 						whileTrue: [BlUniverse default pulseLoop firePulse ] ].
-				GtInspector openOn: rootMessageTally ] ]
+				Gt2Inspector openOn: rootMessageTally ] ]
 ]
 
 { #category : #'world menu - profiling' }
