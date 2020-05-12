@@ -4,6 +4,11 @@ Class {
 	#category : #'GToolkit-Pager-View Model'
 }
 
+{ #category : #accessing }
+GtPagerPageModel >> contentElement [
+	^ self embellisher contentElement
+]
+
 { #category : #defaults }
 GtPagerPageModel >> defaultEmbellisher [
 	^ GtPagerPageEmbellisher new

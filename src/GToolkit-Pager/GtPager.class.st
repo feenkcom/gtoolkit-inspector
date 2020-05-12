@@ -139,6 +139,13 @@ GtPager >> maximizePageContentIn: anElement [
 		maximize
 ]
 
+{ #category : #'api - requests' }
+GtPager >> maximized [
+	"Maximize the last page"
+	self pages ifEmpty: [ ^ self ].
+	self maximizePageContentIn: self pages last contentElement.
+]
+
 { #category : #'instance creation' }
 GtPager >> newPagerModel [
 	^ GtPagerModel new
