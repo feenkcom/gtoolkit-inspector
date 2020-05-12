@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'size'
 	],
-	#category : #'GToolkit-Inspector-Stencils'
+	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
 { #category : #'instance creation' }

@@ -6,7 +6,7 @@ Class {
 		'thickness',
 		'angle'
 	],
-	#category : #'GToolkit-Inspector-Stencils'
+	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
 { #category : #'instance creation' }
