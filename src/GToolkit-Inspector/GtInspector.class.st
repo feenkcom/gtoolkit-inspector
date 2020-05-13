@@ -1,3 +1,6 @@
+"
+I am the main element that represents an Inspector.
+"
 Class {
 	#name : #GtInspector,
 	#superclass : #BlElement,
@@ -8,6 +11,24 @@ Class {
 	],
 	#category : #'GToolkit-Inspector-! New - UI'
 }
+
+{ #category : #'gt-extensions' }
+GtInspector class >> gtActionsFor: aView [
+	<gtView>
+	<gtClassView>
+	^ (#gtAction gtPragmas gtItemsFor: aView)
+		title: 'Actions';
+		priority: 35
+]
+
+{ #category : #'gt-extensions' }
+GtInspector class >> gtExtensionsFor: aView [
+	<gtView>
+	<gtClassView>
+	^ (#gtView gtPragmas gtItemsFor: aView)
+		title: 'Extensions';
+		priority: 34
+]
 
 { #category : #'private - instance creation' }
 GtInspector class >> newEmbelisher [
