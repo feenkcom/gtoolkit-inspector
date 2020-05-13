@@ -16,7 +16,7 @@ Gt2InspectorExamples >> basicInspector [
 { #category : #'examples - inspector' }
 Gt2InspectorExamples >> basicInspectorClass [
 	<gtExample>
-	^ Gt2Inspector
+	^ GtInspector
 ]
 
 { #category : #'examples - object holder' }

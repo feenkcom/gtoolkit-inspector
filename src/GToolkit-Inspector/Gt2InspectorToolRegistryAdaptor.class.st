@@ -6,7 +6,7 @@ Class {
 
 { #category : #actions }
 Gt2InspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	^ Gt2Inspector openOn: anObject
+	^ GtInspector openOn: anObject
 ]
 
 { #category : #testing }

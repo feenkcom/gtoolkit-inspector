@@ -72,7 +72,7 @@ GtInspectorExamples >> basicInspector [
 	<gtExample>
 	<after: #unsubscribeInspectors>
 	| anInspector |
-	anInspector := GtInspector new.
+	anInspector := GtOldInspector new.
 	anInspector constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].

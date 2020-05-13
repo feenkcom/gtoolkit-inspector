@@ -89,13 +89,13 @@ GtWorldMenu class >> gtWorldMenuOn: aBuilder [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
-	Gt2Inspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
+	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
 		eachClassOrTrait comment includesSubstring: '${' ])
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openAllDocumenterFiles [
-	Gt2Inspector openOn: GtResourcesUtility default pillarDocuments
+	GtInspector openOn: GtResourcesUtility default pillarDocuments
 ]
 
 { #category : #'api - actions' }
@@ -105,17 +105,17 @@ GtWorldMenu class >> openCoder [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitDocumentationExplorer [
-	Gt2Inspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
+	GtInspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitExamplesExplorer [
-	Gt2Inspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
+	GtInspector openOn: GtRlGToolkitExamplesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openGToolkitRepositoriesExplorer [
-	Gt2Inspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
+	GtInspector openOn: GtRlGToolkitRepositoriesExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
@@ -157,7 +157,7 @@ to the top of the screen')
 				spyAllEvery: MessageTally defaultPollPeriod 
 				on: [ [ World activeHand position y > 0 ] 
 					whileTrue: [ BlUniverse default pulseLoop firePulse ] ].
-			Gt2Inspector openOn: rootMessageTally ] ]
+			GtInspector openOn: rootMessageTally ] ]
 ]
 
 { #category : #'world menu - profiling' }
@@ -227,7 +227,7 @@ mouse pointer goes to the top of the screen')
 					spyEvery: MessageTally defaultPollPeriod 
 					on: [ [World activeHand position y > 10]
 						whileTrue: [BlUniverse default pulseLoop firePulse ] ].
-				Gt2Inspector openOn: rootMessageTally ] ]
+				GtInspector openOn: rootMessageTally ] ]
 ]
 
 { #category : #'world menu - profiling' }
@@ -247,10 +247,10 @@ GtWorldMenu class >> registerInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registerinspector)
 		parent: #gtoolkit;
-		label: 'Register GToolkit Inspector';
-		target: GtInspectorToolRegistryAdaptor;
+		label: 'Register Old GToolkit Inspector';
+		target: GtOldInspectorToolRegistryAdaptor;
 		selector: #register;
-		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered not ];
+		enabledBlock: [ GtOldInspectorToolRegistryAdaptor isRegistered not ];
 		order: 60;
 		help: 'Register GToolkit Inspector'
 ]
@@ -363,10 +363,10 @@ GtWorldMenu class >> unregisterInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #unregisterinspector)
 		parent: #gtoolkit;
-		label: 'Unregister GToolkit Inspector';
-		target: GtInspectorToolRegistryAdaptor;
+		label: 'Unregister Old GToolkit Inspector';
+		target: GtOldInspectorToolRegistryAdaptor;
 		selector: #unregister;
-		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered ];
+		enabledBlock: [ GtOldInspectorToolRegistryAdaptor isRegistered ];
 		order: 61;
 		help: 'Unregister GToolkit Inspector'
 ]

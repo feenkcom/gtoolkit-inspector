@@ -22,7 +22,7 @@ Gt2InspectorSelectedTabExtractor >> extract [
 
 { #category : #accessing }
 Gt2InspectorSelectedTabExtractor >> inspectorElement [
-	<return: #Gt2Inspector>
+	<return: #GtInspector>
 	^ inspectorElement
 ]
 

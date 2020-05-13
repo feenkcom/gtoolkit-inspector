@@ -1,34 +1,34 @@
 Class {
-	#name : #GtInspectorToolRegistryAdaptor,
+	#name : #GtOldInspectorToolRegistryAdaptor,
 	#superclass : #Object,
 	#category : #'GToolkit-Inspector-ToolRegistry'
 }
 
 { #category : #actions }
-GtInspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	^ GtInspector openOn: anObject
+GtOldInspectorToolRegistryAdaptor class >> inspect: anObject [ 
+	^ GtOldInspector openOn: anObject
 ]
 
 { #category : #testing }
-GtInspectorToolRegistryAdaptor class >> isRegistered [
+GtOldInspectorToolRegistryAdaptor class >> isRegistered [
 	<return: #Boolean>
 	^ Smalltalk tools inspector = self 
 
 ]
 
 { #category : #'tools registry' }
-GtInspectorToolRegistryAdaptor class >> register [
+GtOldInspectorToolRegistryAdaptor class >> register [
 	<script>
 	self registerToolsOn: Smalltalk tools
 ]
 
 { #category : #'tools registry' }
-GtInspectorToolRegistryAdaptor class >> registerToolsOn: aToolRegistry [
+GtOldInspectorToolRegistryAdaptor class >> registerToolsOn: aToolRegistry [
 	aToolRegistry register: self as: #inspector
 ]
 
 { #category : #'tools registry' }
-GtInspectorToolRegistryAdaptor class >> unregister [
+GtOldInspectorToolRegistryAdaptor class >> unregister [
 	<script>
 	GTInspector register
 ]

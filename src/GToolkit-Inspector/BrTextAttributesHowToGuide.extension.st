@@ -10,6 +10,6 @@ BrTextAttributesHowToGuide >> linkInText [
 		BrTextHoverStylableAttribute new 
 			attribute: (BlTextUnderlineAttribute new paint: Color blue).
 		BrTextClickAttribute new 
-			action: [ :aTBrTextEditorTextualPiece :aTarget :aTextEditor :anEvent | Gt2Inspector openOn: aTBrTextEditorTextualPiece text ] }.
+			action: [ :aTBrTextEditorTextualPiece :aTarget :aTextEditor :anEvent | GtInspector openOn: aTBrTextEditorTextualPiece text ] }.
 	^ text 
 ]
