@@ -48,8 +48,9 @@ GtPagerWrapperElement >> tool [
 
 { #category : #accessing }
 GtPagerWrapperElement >> tool: anElement [
-	<return: #BlElement>
-	^ self addChild: anElement as: self toolIdentificator.
+	self 
+		addChild: anElement asElement 
+		as: self toolIdentificator.
 ]
 
 { #category : #accessing }
