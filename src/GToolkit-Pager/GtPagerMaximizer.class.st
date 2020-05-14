@@ -10,8 +10,23 @@ Class {
 	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
+{ #category : #asserting }
+GtPagerMaximizer >> assertPreMximizeConditions [
+	self 
+		assert: [ self contentElement hasParent ]
+		description: [ 'Content element must have a parent' ].
+	self 
+		assert: [ originalParent isNil ] 
+		description: [ 'Original parent must be nil. I should be used only once.' ].
+	self 
+		assert: [ overlayElement isNil ] 
+		description: [ 'Overlay element must be nil. I should be used only once.' ].
+	
+]
+
 { #category : #'api - actions' }
 GtPagerMaximizer >> maximize [
+	self assertPreMximizeConditions.
 	originalParent := self contentElement parent.
 	self contentElement removeFromParent.
 	overlayElement := self newOverlay.

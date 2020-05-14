@@ -4,14 +4,19 @@ Class {
 	#category : #'GToolkit-Pager-Stencils and Builders'
 }
 
+{ #category : #private }
+GtPagerEventPassingMaximizer >> minimizeDueTo: anEvent [
+	originalParent dispatchEvent: anEvent.
+	self minimize.
+]
+
 { #category : #'instance creation' }
 GtPagerEventPassingMaximizer >> newOverlayContent [
 	^ super newOverlayContent
 		when: GtPhlowObjectToSelect
 		do: [ :anEvent | 
-			originalParent dispatchEvent: anEvent copy ];
+			originalParent dispatchEvent: anEvent ];
 		when: GtPhlowObjectToSpawn
 		do: [ :anEvent | 
-			originalParent dispatchEvent: anEvent copy.
-			self minimize. ].
+			self minimizeDueTo: anEvent ].
 ]
