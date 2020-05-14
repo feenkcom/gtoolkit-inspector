@@ -1,19 +1,18 @@
 Class {
-	#name : #Gt2InspectorNullObjectHolder,
-	#superclass : #Gt2InspectorProtoObjectHolder,
+	#name : #GtInspectorNullObject,
+	#superclass : #GtInspectorAbstractObject,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : #'GToolkit-Inspector-! New - Model'
 }
 
 { #category : #converting }
-Gt2InspectorNullObjectHolder >> asElementDo: aOneArgBlock [
-	"do nothing"
+GtInspectorNullObject >> asElementDo: aOneArgBlock [
 	aOneArgBlock cull: self newEmptyElement.
 ]
 
 { #category : #'instance creation' }
-Gt2InspectorNullObjectHolder >> newEmptyElement [
+GtInspectorNullObject >> newEmptyElement [
 	^ BrLabel new
 		matchParent;
 		alignCenter;
@@ -22,22 +21,22 @@ Gt2InspectorNullObjectHolder >> newEmptyElement [
 ]
 
 { #category : #'instance creation' }
-Gt2InspectorNullObjectHolder >> newText [
+GtInspectorNullObject >> newText [
 	^ 'Nothing inspected' asRopedText foreground: BrGlamorousColors disabledButtonTextColor
 ]
 
 { #category : #notifying }
-Gt2InspectorNullObjectHolder >> notifyObjectChangedIn: aModel [
-	aModel notifyObjectRemoved.
+GtInspectorNullObject >> notifyObjectChangedIn: anInspector [
+	anInspector notifyObjectRemoved.
 ]
 
 { #category : #accessing }
-Gt2InspectorNullObjectHolder >> object [
+GtInspectorNullObject >> object [
 	"Return an inspecting object"
 	^ nil
 ]
 
 { #category : #printing }
-Gt2InspectorNullObjectHolder >> printOn: aStream [ 
+GtInspectorNullObject >> printOn: aStream [ 
 	aStream nextPutAll: 'Null Object Holder'
 ]

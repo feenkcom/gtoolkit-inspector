@@ -1,5 +1,5 @@
 Class {
-	#name : #GtInspectorPageViewUpdater,
+	#name : #GtOldInspectorPageViewUpdater,
 	#superclass : #Object,
 	#traits : 'TBlDebug + TGtInspectorUtility',
 	#classTraits : 'TBlDebug classTrait + TGtInspectorUtility classTrait',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #private }
-GtInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompositeView [ 
+GtOldInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompositeView [ 
 	| aHigherViewIndexOrNil |
 	aHigherViewIndexOrNil := aGtPhlowCompositeView views 
 		detectIndex: [ :existingView | existingView priority > aPhlowView priority ]
@@ -26,7 +26,7 @@ GtInspectorPageViewUpdater >> addView: aPhlowView toCompositeView: aGtPhlowCompo
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
+GtOldInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 	| aBrTab anIndex aTabViews |
 	aBrTab := BrTab new.
 	aTabViews := aBrTabGroup phlow allChildrenWithView
@@ -55,7 +55,7 @@ GtInspectorPageViewUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [
+GtOldInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [
 	aBrTabGroup
 		enqueueTask:
 			(BlTaskAction new
@@ -72,33 +72,33 @@ GtInspectorPageViewUpdater >> addViewInTabGroup: aBrTabGroup [
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> compositeViewElement [
+GtOldInspectorPageViewUpdater >> compositeViewElement [
 	<return: #BrTabGroup>
 	^ self utility compositeViewElementInPagerPageModel: self pagerPageModel
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> inspectorWidget [
+GtOldInspectorPageViewUpdater >> inspectorWidget [
 	^ inspectorWidget
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> inspectorWidget: anObject [
+GtOldInspectorPageViewUpdater >> inspectorWidget: anObject [
 	inspectorWidget := anObject
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> pagerPageModel [
+GtOldInspectorPageViewUpdater >> pagerPageModel [
 	^ pagerPageModel
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> pagerPageModel: anObject [
+GtOldInspectorPageViewUpdater >> pagerPageModel: anObject [
 	pagerPageModel := anObject
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
+GtOldInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
 	tab
 		when: BlMouseDownEvent
 		do: [ :event | 
@@ -112,7 +112,7 @@ GtInspectorPageViewUpdater >> registerShowDefinitionEventOn: tab forView: view [
 ]
 
 { #category : #actions }
-GtInspectorPageViewUpdater >> remove [
+GtOldInspectorPageViewUpdater >> remove [
 	| aBrTabGroup |
 	"Find a composite element"
 	aBrTabGroup := self compositeViewElement.
@@ -124,7 +124,7 @@ GtInspectorPageViewUpdater >> remove [
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup [ 
+GtOldInspectorPageViewUpdater >> removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup [ 
 	aBrTabGroup viewModel tabs 
 		detect: [ :eachTabModel | (eachTabModel widget phlow entity = aGtPhlowView)
 			or: [ eachTabModel widget phlow entity definingMethod = aGtPhlowView definingMethod ] ]
@@ -135,7 +135,7 @@ GtInspectorPageViewUpdater >> removeTabOfView: aGtPhlowView fromTabGroup: aBrTab
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> removeView: aGtPhlowView fromCompositeView: aGtPhlowCompositeView [ 
+GtOldInspectorPageViewUpdater >> removeView: aGtPhlowView fromCompositeView: aGtPhlowCompositeView [ 
 	aGtPhlowCompositeView views 
 		remove: aGtPhlowView 
 		ifAbsent: [ aGtPhlowCompositeView views 
@@ -146,14 +146,14 @@ GtInspectorPageViewUpdater >> removeView: aGtPhlowView fromCompositeView: aGtPhl
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> removeView: aGtPhlowView inTabGroup: aBrTabGroup [ 
+GtOldInspectorPageViewUpdater >> removeView: aGtPhlowView inTabGroup: aBrTabGroup [ 
 	aBrTabGroup enqueueTask: (BlTaskAction new action: [ 
 		self removeView: aGtPhlowView fromCompositeView: aBrTabGroup phlow entity.
 		self removeTabOfView: aGtPhlowView fromTabGroup: aBrTabGroup ]).
 ]
 
 { #category : #actions }
-GtInspectorPageViewUpdater >> update [
+GtOldInspectorPageViewUpdater >> update [
 	| aTabGroup |
 	"Find a composite element"
 	aTabGroup := self compositeViewElement.
@@ -166,7 +166,7 @@ GtInspectorPageViewUpdater >> update [
 ]
 
 { #category : #private }
-GtInspectorPageViewUpdater >> updateView: aGtPhlowView inTabGroup: aBrTabGroup [ 
+GtOldInspectorPageViewUpdater >> updateView: aGtPhlowView inTabGroup: aBrTabGroup [ 
 	aGtPhlowView ifItHasContent: [
 		self removeView: aGtPhlowView inTabGroup: aBrTabGroup.
 		self addViewInTabGroup: aBrTabGroup.
@@ -174,11 +174,11 @@ GtInspectorPageViewUpdater >> updateView: aGtPhlowView inTabGroup: aBrTabGroup [
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> viewMethodDefinition [
+GtOldInspectorPageViewUpdater >> viewMethodDefinition [
 	^ viewMethodDefinition
 ]
 
 { #category : #accessing }
-GtInspectorPageViewUpdater >> viewMethodDefinition: anObject [
+GtOldInspectorPageViewUpdater >> viewMethodDefinition: anObject [
 	viewMethodDefinition := anObject
 ]

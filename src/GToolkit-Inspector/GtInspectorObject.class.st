@@ -1,6 +1,6 @@
 Class {
-	#name : #Gt2InspectorObjectHolder,
-	#superclass : #Gt2InspectorProtoObjectHolder,
+	#name : #GtInspectorObject,
+	#superclass : #GtInspectorAbstractObject,
 	#instVars : [
 		'object',
 		'hasObject'
@@ -9,55 +9,55 @@ Class {
 }
 
 { #category : #factory }
-Gt2InspectorObjectHolder class >> null [ 
-	^ Gt2InspectorNullObjectHolder default
+GtInspectorObject class >> null [ 
+	^ GtInspectorNullObject default
 ]
 
 { #category : #converting }
-Gt2InspectorObjectHolder >> asElementDo: aOneArgBlock [
+GtInspectorObject >> asElementDo: aOneArgBlock [
 	"Create an element representing an object and execute the block"
 	self view asElementDo: aOneArgBlock
 ]
 
 { #category : #asserting }
-Gt2InspectorObjectHolder >> assertImmutability [
+GtInspectorObject >> assertImmutability [
 	self 
 		assert: [ hasObject not ]
 		description: [ 'Object holder is immutable.' ].
 ]
 
 { #category : #initialization }
-Gt2InspectorObjectHolder >> initialize [
+GtInspectorObject >> initialize [
 	super initialize.
 	hasObject := false.
 ]
 
 { #category : #notifying }
-Gt2InspectorObjectHolder >> notifyObjectChangedIn: aModel [
-	aModel notifyObjectChangedTo: self object.
+GtInspectorObject >> notifyObjectChangedIn: anInspector [
+	anInspector notifyObjectChangedTo: self object.
 ]
 
 { #category : #accessing }
-Gt2InspectorObjectHolder >> object [
+GtInspectorObject >> object [
 	^ object
 ]
 
 { #category : #accessing }
-Gt2InspectorObjectHolder >> object: anObject [
+GtInspectorObject >> object: anObject [
 	self assertImmutability.
 	object := anObject.
 	hasObject := true.
 ]
 
 { #category : #printing }
-Gt2InspectorObjectHolder >> printOn: aStream [
+GtInspectorObject >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Holder of ';
 		print: self object
 ]
 
 { #category : #accessing }
-Gt2InspectorObjectHolder >> view [
+GtInspectorObject >> view [
 	<return: #GtPhlowLabelledView>
 	^ self object gtViewsFor: GtPhlowView empty
 ]

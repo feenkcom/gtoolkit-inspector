@@ -1,5 +1,5 @@
 Class {
-	#name : #Gt2InspectorProtoObjectHolder,
+	#name : #GtInspectorAbstractObject,
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
@@ -7,24 +7,24 @@ Class {
 }
 
 { #category : #testing }
-Gt2InspectorProtoObjectHolder class >> isAbstract [ 
-	^ self name = #Gt2InspectorProtoObjectHolder
+GtInspectorAbstractObject class >> isAbstract [ 
+	^ self name = #GtInspectorAbstractObject
 ]
 
 { #category : #converting }
-Gt2InspectorProtoObjectHolder >> asElementDo: aOneArgBlock [
+GtInspectorAbstractObject >> asElementDo: aOneArgBlock [
 	"Create an element representing an object and execute the block"
 	self subclassResponsibility
 ]
 
 { #category : #notifying }
-Gt2InspectorProtoObjectHolder >> notifyObjectChangedIn: aModel [
+GtInspectorAbstractObject >> notifyObjectChangedIn: anInspector [
 	"Notify about object changes"
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-Gt2InspectorProtoObjectHolder >> object [
+GtInspectorAbstractObject >> object [
 	"Return an inspecting object"
 	^ self subclassResponsibility
 ]

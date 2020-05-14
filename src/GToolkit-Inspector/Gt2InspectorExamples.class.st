@@ -30,7 +30,7 @@ Gt2InspectorExamples >> basicObjectHolder [
 { #category : #'examples - object holder' }
 Gt2InspectorExamples >> basicObjectHolderClass [
 	<gtExample>
-	^ Gt2InspectorObjectHolder
+	^ GtInspectorObject
 ]
 
 { #category : #configuration }

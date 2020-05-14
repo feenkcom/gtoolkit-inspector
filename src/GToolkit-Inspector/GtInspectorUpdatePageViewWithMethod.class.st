@@ -1,6 +1,6 @@
 Class {
 	#name : #GtInspectorUpdatePageViewWithMethod,
-	#superclass : #GtInspectorTask,
+	#superclass : #GtOldInspectorTask,
 	#instVars : [
 		'compiledMethod',
 		'affectedClass'
@@ -45,7 +45,7 @@ GtInspectorUpdatePageViewWithMethod >> compiledMethod: anObject [
 GtInspectorUpdatePageViewWithMethod >> execute [
 	inspectorInstance pager pages do: [ :eachPage | 
 		(self doesPage: eachPage displayClass: self affectedClass) ifTrue: [ 
-			GtInspectorPageViewUpdater new
+			GtOldInspectorPageViewUpdater new
 				inspectorWidget: inspectorInstance;
 				pagerPageModel: eachPage;
 				viewMethodDefinition: self compiledMethod asRingDefinition;

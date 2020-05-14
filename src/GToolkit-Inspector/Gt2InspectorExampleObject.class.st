@@ -14,6 +14,7 @@ Gt2InspectorExampleObject >> gtViewOneFor: aView [
 	<gtView>
 	^ aView list
 		title: 'One';
+		priority: 3;
 		items: [ 1 to: 50 ]
 ]
 

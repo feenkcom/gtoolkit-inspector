@@ -1,13 +1,13 @@
 Class {
-	#name : #Gt2InspectorAutoInitializedExtensions,
-	#superclass : #Gt2InspectorExtensions,
+	#name : #GtInspectorAutoInitializedExtensions,
+	#superclass : #GtInspectorExtensions,
 	#category : #'GToolkit-Inspector-! New - Model'
 }
 
 { #category : #defaults }
-Gt2InspectorAutoInitializedExtensions >> defaultCollection [
+GtInspectorAutoInitializedExtensions >> defaultCollection [
 	^ Array streamContents: [ :aStream | 
-		Gt2InspectorExtension allSubclassesDo: [ :eachSubclass |
+		GtInspectorExtension allSubclassesDo: [ :eachSubclass |
 			eachSubclass isAbstract ifFalse: [ 
 				aStream nextPut: eachSubclass newExtension ] ] ]
 ]

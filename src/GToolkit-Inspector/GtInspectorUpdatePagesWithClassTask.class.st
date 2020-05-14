@@ -1,6 +1,6 @@
 Class {
 	#name : #GtInspectorUpdatePagesWithClassTask,
-	#superclass : #GtInspectorTask,
+	#superclass : #GtOldInspectorTask,
 	#instVars : [
 		'affectedClass'
 	],

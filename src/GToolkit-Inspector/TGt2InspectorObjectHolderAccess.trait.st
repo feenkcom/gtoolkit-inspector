@@ -8,7 +8,7 @@ Trait {
 
 { #category : #defaults }
 TGt2InspectorObjectHolderAccess >> defaultObjectHolder [
-	^ Gt2InspectorObjectHolder null
+	^ GtInspectorObject null
 ]
 
 { #category : #initialization }
@@ -23,7 +23,7 @@ TGt2InspectorObjectHolderAccess >> notifyObjectHolderChanged [
 
 { #category : #accessing }
 TGt2InspectorObjectHolderAccess >> objectHolder [
-	<return: #Gt2InspectorObjectHolder>
+	<return: #GtInspectorObject>
 	^ objectHolder
 ]
 

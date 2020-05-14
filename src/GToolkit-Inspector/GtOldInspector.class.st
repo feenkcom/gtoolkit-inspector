@@ -295,7 +295,7 @@ GtOldInspector >> initialize [
 		c horizontal matchParent.
 		c vertical matchParent ].
 	self addChild: pager.
-	systemListener := GtInspectorSystemChangesHandler new inspector: self
+	systemListener := GtOldInspectorSystemChangesHandler new inspector: self
 ]
 
 { #category : #testing }

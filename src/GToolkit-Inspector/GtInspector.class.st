@@ -7,7 +7,8 @@ Class {
 	#traits : 'TGtPagerWindowOpener',
 	#classTraits : 'TGtPagerWindowOpener classTrait',
 	#instVars : [
-		'model'
+		'objectHolder',
+		'extensions'
 	],
 	#category : #'GToolkit-Inspector-! New - UI'
 }
@@ -50,17 +51,45 @@ GtInspector class >> newTitleFrom: anObject [
 	^ 'Inspector on ' , anObject printString
 ]
 
-{ #category : #private }
-GtInspector >> defaultModel [
-	^ Gt2InspectorModel new
+{ #category : #defaults }
+GtInspector >> defaultExtensions [
+	^ GtInspectorExtensions default inspectorInstance: self
+]
+
+{ #category : #defaults }
+GtInspector >> defaultObjectHolder [
+	^ GtInspectorObject null
+]
+
+{ #category : #accessing }
+GtInspector >> extensions [
+	<return: #GtInspectorExtensions>
+	^ extensions
+]
+
+{ #category : #'gt-extensions' }
+GtInspector >> gtExtensionsFor: aView [
+	<gtView>
+	self extensions ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Extensions';
+		priority: 4;
+		object: [ self extensions ];
+		view: #gtExtensionsFor:
 ]
 
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
-	self initializeModel.
+	self initializeObjectHolder.
+	self initializeExtensions.
 	self initializeWidget.
 	self initializeListeners.
+]
+
+{ #category : #initialization }
+GtInspector >> initializeExtensions [
+	extensions := self defaultExtensions.
 ]
 
 { #category : #initialization }
@@ -76,45 +105,73 @@ GtInspector >> initializeListeners [
 ]
 
 { #category : #initialization }
-GtInspector >> initializeModel [
-	model := self defaultModel
+GtInspector >> initializeObjectHolder [
+	objectHolder := self defaultObjectHolder
 ]
 
 { #category : #initialization }
 GtInspector >> initializeWidget [
+	self constraintsDo: [ :c | 
+		c horizontal matchParent.
+		c vertical matchParent ].
 	self updateView.
 ]
 
-{ #category : #accessing }
-GtInspector >> model [
-	<return: #Gt2InspectorModel>
-	^ model
+{ #category : #'updating ui' }
+GtInspector >> mayUpdateView [
+	self isAttachedToSceneGraph ifFalse: [ ^ self ].
+	self updateView.
 ]
 
-{ #category : #accessing }
-GtInspector >> model: aGtInspectorModel [
-	self 
-		assert: [ aGtInspectorModel isNotNil ] 
-		description: [ 'Inspector model must be non-nil' ].
-	aGtInspectorModel = self model ifTrue: [ ^ self ].
-	model := aGtInspectorModel.
-	self updateView.
+{ #category : #notifying }
+GtInspector >> notifyAddedToSceneGraph [
+	self extensions addedToSceneGraph
+]
+
+{ #category : #notifying }
+GtInspector >> notifyObjectChangedTo: anObject [
+	self extensions objectChangedTo: anObject.
+]
+
+{ #category : #notifying }
+GtInspector >> notifyObjectRemoved [
+	self extensions objectRemoved
+]
+
+{ #category : #notifying }
+GtInspector >> notifyRemovedFromSceneGraph [
+	self extensions removedFromSceneGraph
 ]
 
 { #category : #convenience }
 GtInspector >> object [
-	self model object
+	^ self objectHolder object
 ]
 
 { #category : #convenience }
 GtInspector >> object: anObject [
 	| anObjectHolder |
-	anObjectHolder := Gt2InspectorObjectHolder new object: anObject.
-	self model objectHolder: anObjectHolder.
-	self updateView.
+	anObjectHolder := GtInspectorObject new object: anObject.
+	self objectHolder: anObjectHolder.
 ]
 
-{ #category : #hooks }
+{ #category : #accessing }
+GtInspector >> objectHolder [
+	<return: #GtInspectorObject>
+	^ objectHolder
+]
+
+{ #category : #accessing }
+GtInspector >> objectHolder: anObjectHolder [
+	self 
+		assert: [ anObjectHolder isNotNil ]
+		description: [ 'Object holder must be non-nil' ].
+	objectHolder = anObjectHolder ifTrue: [ ^ self ].
+	objectHolder := anObjectHolder.
+	self onObjectHolderChanged.
+]
+
+{ #category : #'hooks - pager' }
 GtInspector >> onAddedToPager: aGtPager [
 	"Inspector was added to a pager"
 	self phlow
@@ -123,17 +180,29 @@ GtInspector >> onAddedToPager: aGtPager [
 				selectTabIn: aTabGroup on: self object ].
 ]
 
-{ #category : #hooks }
+{ #category : #'hooks - children' }
+GtInspector >> onAddedToSceneGraph [
+	super onAddedToSceneGraph.
+	self notifyAddedToSceneGraph.
+]
+
+{ #category : #'hooks - pager' }
 GtInspector >> onMaximizedInPager: aGtPager [
 	"Inspector was maximized int the pager"
 ]
 
-{ #category : #hooks }
+{ #category : #'hooks - pager' }
 GtInspector >> onMinimizedInPager: aGtPager [
 	"Inspector was minimized int the pager"
 ]
 
-{ #category : #hooks }
+{ #category : #'hooks - object' }
+GtInspector >> onObjectHolderChanged [
+	self updateView.
+	self objectHolder notifyObjectChangedIn: self.
+]
+
+{ #category : #'hooks - pager' }
 GtInspector >> onRemovedFromPager: aGtPager [
 	"Inspector was removed from a pager"
 	| aInspectorTabName |
@@ -141,6 +210,12 @@ GtInspector >> onRemovedFromPager: aGtPager [
 		inspectorElement: self;
 		extract.
 	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
+]
+
+{ #category : #'hooks - children' }
+GtInspector >> onRemovedFromSceneGraph [
+	super onRemovedFromSceneGraph.
+	self notifyRemovedFromSceneGraph.
 ]
 
 { #category : #'updating ui' }
@@ -155,6 +230,6 @@ GtInspector >> updateContentWith: aContentElement [
 
 { #category : #'updating ui' }
 GtInspector >> updateView [
-	self model asElementDo: [ :aPageContentElement |
+	self objectHolder asElementDo: [ :aPageContentElement |
 		self updateContentWith: aPageContentElement ]
 ]

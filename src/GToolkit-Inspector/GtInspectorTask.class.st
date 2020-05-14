@@ -1,17 +1,31 @@
 Class {
 	#name : #GtInspectorTask,
 	#superclass : #Object,
-	#traits : 'TBlDebug + TGtInspectorPageModelChecker',
-	#classTraits : 'TBlDebug classTrait + TGtInspectorPageModelChecker classTrait',
+	#traits : 'TBlDebug',
+	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
-		'inspectorInstance'
+		'inspectorInstance',
+		'affectedClass'
 	],
-	#category : #'GToolkit-Inspector-Utility'
+	#category : #'GToolkit-Inspector-! New - System Observer'
 }
 
-{ #category : #testing }
-GtInspectorTask class >> isAbstract [
-	^ self name = #GtInspectorTask 
+{ #category : #comparing }
+GtInspectorTask >> = anObject [
+	self == anObject ifTrue: [ ^ true ].
+	^ self class = anObject class and: [ 
+		self affectedClass = anObject affectedClass and: [ 
+			self inspectorInstance = anObject inspectorInstance ] ]
+]
+
+{ #category : #accessing }
+GtInspectorTask >> affectedClass [
+	^ affectedClass
+]
+
+{ #category : #accessing }
+GtInspectorTask >> affectedClass: anObject [
+	affectedClass := anObject
 ]
 
 { #category : #converting }
@@ -29,12 +43,20 @@ GtInspectorTask >> execute [
 	self subclassResponsibility
 ]
 
+{ #category : #comparing }
+GtInspectorTask >> hash [
+	^ (self class hash 
+		bitXor: self affectedClass hash)
+			bitXor: self inspectorInstance
+]
+
 { #category : #accessing }
 GtInspectorTask >> inspectorInstance [
+	<return: #GtInspecto>
 	^ inspectorInstance
 ]
 
 { #category : #accessing }
-GtInspectorTask >> inspectorInstance: anObject [
-	inspectorInstance := anObject
+GtInspectorTask >> inspectorInstance: aGtInspector [
+	inspectorInstance := aGtInspector
 ]

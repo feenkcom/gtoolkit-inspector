@@ -7,6 +7,15 @@ Class {
 }
 
 { #category : #ui }
+GtInspectorUtility class >> compositeViewElementIn: anElement [
+	"Return a composite view element that was constructed using GtPhlowCompositeView."
+	<return: #BrTabGroup or: nil>
+	anElement phlow 
+		firstChildWithCompositeViewDo: [ :aBrTabGroup | ^ aBrTabGroup ].
+	^ nil
+]
+
+{ #category : #ui }
 GtInspectorUtility class >> compositeViewElementInPagerPageModel: aBrPagerPageModel [
 	"Return a composite view element that was constructed using GtPhlowCompositeView."
 	<return: #BrTabGroup or: nil>
