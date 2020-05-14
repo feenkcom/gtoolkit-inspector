@@ -4,13 +4,13 @@ The purpose it to exemplify ${class:Gt2Inspector}$ and ${class:Gt2InspectorModel
 
 "
 Class {
-	#name : #Gt2InspectorExampleObject,
+	#name : #GtInspectorExampleObject,
 	#superclass : #Object,
-	#category : #'GToolkit-Inspector-! New - Examples'
+	#category : #'GToolkit-Inspector-Example Samples'
 }
 
 { #category : #'gt-extension' }
-Gt2InspectorExampleObject >> gtViewOneFor: aView [
+GtInspectorExampleObject >> gtViewOneFor: aView [
 	<gtView>
 	^ aView list
 		title: 'One';
@@ -19,7 +19,7 @@ Gt2InspectorExampleObject >> gtViewOneFor: aView [
 ]
 
 { #category : #'gt-extension' }
-Gt2InspectorExampleObject >> gtViewTwoFor: aView [
+GtInspectorExampleObject >> gtViewTwoFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Two';

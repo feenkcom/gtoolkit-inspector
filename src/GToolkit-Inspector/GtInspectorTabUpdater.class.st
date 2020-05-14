@@ -6,7 +6,7 @@ Class {
 		'viewMethodDefinition',
 		'isSelected'
 	],
-	#category : #'GToolkit-Inspector-! New - System Observer'
+	#category : #'GToolkit-Inspector-System Observer'
 }
 
 { #category : #'private - updating' }

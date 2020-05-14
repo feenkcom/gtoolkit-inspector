@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'collection'
 	],
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #factory }

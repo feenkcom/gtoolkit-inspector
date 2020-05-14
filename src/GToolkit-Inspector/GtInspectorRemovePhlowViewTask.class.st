@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorRemovePhlowViewTask,
 	#superclass : #GtInspectorUpdatePhlowViewTask,
-	#category : #'GToolkit-Inspector-! New - System Observer'
+	#category : #'GToolkit-Inspector-System Observer'
 }
 
 { #category : #execution }

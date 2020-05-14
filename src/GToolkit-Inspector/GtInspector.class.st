@@ -10,7 +10,7 @@ Class {
 		'objectHolder',
 		'extensions'
 	],
-	#category : #'GToolkit-Inspector-! New - UI'
+	#category : #'GToolkit-Inspector-UI'
 }
 
 { #category : #'gt-extensions' }
@@ -33,7 +33,7 @@ GtInspector class >> gtExtensionsFor: aView [
 
 { #category : #'private - instance creation' }
 GtInspector class >> newEmbelisher [
-	^ Gt2InspectorEmbellisher new
+	^ GtInspectorEmbellisher new
 ]
 
 { #category : #'instance creation' }
@@ -206,7 +206,7 @@ GtInspector >> onObjectHolderChanged [
 GtInspector >> onRemovedFromPager: aGtPager [
 	"Inspector was removed from a pager"
 	| aInspectorTabName |
-	aInspectorTabName := Gt2InspectorSelectedTabExtractor new 
+	aInspectorTabName := GtInspectorSelectedTabExtractor new 
 		inspectorElement: self;
 		extract.
 	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.

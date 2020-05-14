@@ -7,7 +7,7 @@ Class {
 		'hasObservedClass',
 		'inspector'
 	],
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #notifications }

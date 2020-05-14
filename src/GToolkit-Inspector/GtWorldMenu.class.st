@@ -100,7 +100,7 @@ GtWorldMenu class >> openAllDocumenterFiles [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
-	GtPager openWrappedOn: (GtCoder new) title: 'Coder'
+	GtPager openWrappedOn: GtCoder new title: 'Coder'
 ]
 
 { #category : #'api - actions' }
@@ -243,27 +243,14 @@ GtWorldMenu class >> profileBlocUIUndefinitelyMenuOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorldMenu class >> registerInspectorMenuOn: aBuilder [
-	<worldMenu>
-	(aBuilder item: #registerinspector)
-		parent: #gtoolkit;
-		label: 'Register Old GToolkit Inspector';
-		target: GtOldInspectorToolRegistryAdaptor;
-		selector: #register;
-		enabledBlock: [ GtOldInspectorToolRegistryAdaptor isRegistered not ];
-		order: 60;
-		help: 'Register Old GToolkit Inspector'
-]
-
-{ #category : #'world menu' }
 GtWorldMenu class >> registerNewInspectorMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #registernewinspector)
 		parent: #gtoolkit;
 		label: 'Register GToolkit Inspector';
-		target: Gt2InspectorToolRegistryAdaptor;
+		target: GtInspectorToolRegistryAdaptor;
 		selector: #register;
-		enabledBlock: [ Gt2InspectorToolRegistryAdaptor isRegistered not ];
+		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered not ];
 		order: 60;
 		help: 'Register GToolkit Inspector'
 ]
@@ -364,9 +351,9 @@ GtWorldMenu class >> unregisterNewInspectorMenuOn: aBuilder [
 	(aBuilder item: #unregisternewinspector)
 		parent: #gtoolkit;
 		label: 'Unregister GToolkit Inspector';
-		target: Gt2InspectorToolRegistryAdaptor;
+		target: GtInspectorToolRegistryAdaptor;
 		selector: #unregister;
-		enabledBlock: [ Gt2InspectorToolRegistryAdaptor isRegistered ];
+		enabledBlock: [ GtInspectorToolRegistryAdaptor isRegistered ];
 		order: 62;
 		help: 'Unregister GToolkit Inspector';
 		withSeparatorAfter

@@ -1,17 +1,17 @@
 Class {
-	#name : #Gt2InspectorTool,
+	#name : #GtInspectorTool,
 	#superclass : #GtPhlowTool,
-	#category : #'GToolkit-Inspector-! New - Tool'
+	#category : #'GToolkit-Inspector-Phlow Tool'
 }
 
 { #category : #accessing }
-Gt2InspectorTool class >> priority [
+GtInspectorTool class >> priority [
 	<return: #Number>
 	^ 1
 ]
 
 { #category : #converting }
-Gt2InspectorTool >> asElementDo: aOneArgBlock context: aContext [
+GtInspectorTool >> asElementDo: aOneArgBlock context: aContext [
 	"Create a tool element and execute the block"
 	| anInspector |
 	anInspector := GtInspector newWrapperOn: aContext object.

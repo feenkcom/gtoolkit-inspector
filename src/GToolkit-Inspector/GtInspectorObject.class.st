@@ -5,7 +5,7 @@ Class {
 		'object',
 		'hasObject'
 	],
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #factory }

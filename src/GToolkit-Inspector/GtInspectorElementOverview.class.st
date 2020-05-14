@@ -5,7 +5,7 @@ Class {
 		'inspectedElement',
 		'properties'
 	],
-	#category : #'GToolkit-Inspector-Utility'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'private - properties' }

@@ -11,10 +11,10 @@ Class {
 	#classInstVars : [
 		'method'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'as yet unclassified' }
 GtSyntaxExplanationViewUtility >> astNodesList [
 	| verticalContainer nodesCollection messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup |
 	
@@ -227,7 +227,7 @@ GtSyntaxExplanationViewUtility >> dividerBarElement [
 		background: BrGlamorousColors lightBorderColor
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'as yet unclassified' }
 GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 	| lines nodeName label |
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
@@ -283,7 +283,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 	^ label.
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'as yet unclassified' }
 GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 	| compositeExplanationLinkStylerRules |
 	
@@ -448,7 +448,7 @@ GtSyntaxExplanationViewUtility >> initialize [
 		tooltips at: each key put: (each value asRopedText glamorousRegularFont; fontSize: 15) ].
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'as yet unclassified' }
 GtSyntaxExplanationViewUtility >> regularLabelFor: aNodeNameSymbol [
 	| nodeName |
 	

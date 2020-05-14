@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'signals'
 	],
-	#category : #'GToolkit-Inspector-Beacon'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'instance creation' }

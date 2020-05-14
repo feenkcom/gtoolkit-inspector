@@ -1,11 +1,11 @@
 Class {
-	#name : #Gt2InspectorEmbellisher,
+	#name : #GtInspectorEmbellisher,
 	#superclass : #GtPagerPageEmbellisher,
-	#category : #'GToolkit-Inspector-! New - Stencils'
+	#category : #'GToolkit-Inspector-Stencils'
 }
 
 { #category : #'widget configuration' }
-Gt2InspectorEmbellisher >> addPlaygroundIn: aCreationContext [
+GtInspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 	| aPlaygroundContainer aContentToPlaygroundResizer aPlayground aPlayBook |
 	aPlaygroundContainer := BlElement new
 		padding: (BlInsets all: 10);
@@ -50,7 +50,7 @@ Gt2InspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 ]
 
 { #category : #'widget configuration' }
-Gt2InspectorEmbellisher >> fillContentWrapperIn: aCreationContext [
+GtInspectorEmbellisher >> fillContentWrapperIn: aCreationContext [
 	super fillContentWrapperIn: aCreationContext.
 	self addPlaygroundIn: aCreationContext.
 ]

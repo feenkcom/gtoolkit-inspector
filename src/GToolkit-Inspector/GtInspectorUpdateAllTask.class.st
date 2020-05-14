@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorUpdateAllTask,
 	#superclass : #GtInspectorTask,
-	#category : #'GToolkit-Inspector-! New - System Observer'
+	#category : #'GToolkit-Inspector-System Observer'
 }
 
 { #category : #execution }

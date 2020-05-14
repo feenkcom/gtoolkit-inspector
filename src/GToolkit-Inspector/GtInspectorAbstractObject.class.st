@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #testing }

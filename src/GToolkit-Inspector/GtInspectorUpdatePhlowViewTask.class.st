@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'compiledMethod'
 	],
-	#category : #'GToolkit-Inspector-! New - System Observer'
+	#category : #'GToolkit-Inspector-System Observer'
 }
 
 { #category : #comparing }

@@ -7,7 +7,7 @@ Class {
 		'inspectorInstance',
 		'affectedClass'
 	],
-	#category : #'GToolkit-Inspector-! New - System Observer'
+	#category : #'GToolkit-Inspector-System Observer'
 }
 
 { #category : #comparing }

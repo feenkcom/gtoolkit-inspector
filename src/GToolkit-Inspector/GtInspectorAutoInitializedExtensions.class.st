@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorAutoInitializedExtensions,
 	#superclass : #GtInspectorExtensions,
-	#category : #'GToolkit-Inspector-! New - Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #defaults }

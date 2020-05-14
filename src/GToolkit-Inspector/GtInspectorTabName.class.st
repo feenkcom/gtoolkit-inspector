@@ -1,37 +1,37 @@
 Class {
-	#name : #Gt2InspectorTabName,
-	#superclass : #Gt2InspectorProtoTabName,
+	#name : #GtInspectorTabName,
+	#superclass : #GtInspectorAbstractTabName,
 	#instVars : [
 		'string'
 	],
-	#category : #'GToolkit-Inspector-! New - Tab Selector'
+	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
 { #category : #factory }
-Gt2InspectorTabName class >> null [ 
-	^ Gt2InspectorNullTabName default
+GtInspectorTabName class >> null [ 
+	^ GtInspectorNullTabName default
 ]
 
 { #category : #testing }
-Gt2InspectorTabName >> isEqualToString: aString [
+GtInspectorTabName >> isEqualToString: aString [
 	^ self string = aString
 ]
 
 { #category : #printing }
-Gt2InspectorTabName >> printOn: aStream [
+GtInspectorTabName >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Tab name: ';
 		print: self string
 ]
 
 { #category : #accessing }
-Gt2InspectorTabName >> string [
+GtInspectorTabName >> string [
 	<return: #String>
 	^ string
 ]
 
 { #category : #accessing }
-Gt2InspectorTabName >> string: aString [
+GtInspectorTabName >> string: aString [
 	self 
 		assert: [ aString isString ] 
 		description: [ 'Tab name must be a string' ].

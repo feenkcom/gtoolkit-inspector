@@ -1,7 +1,7 @@
 Class {
 	#name : #Gt2Inspector,
 	#superclass : #GtInspector,
-	#category : #'GToolkit-Inspector-! New - UI'
+	#category : #'GToolkit-Inspector-UI'
 }
 
 { #category : #testing }
