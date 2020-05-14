@@ -6,7 +6,7 @@ Class {
 
 { #category : #actions }
 Gt2InspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	^ GtInspector openOn: anObject
+	^ (GtInspector openOn: anObject) maximized
 ]
 
 { #category : #testing }
