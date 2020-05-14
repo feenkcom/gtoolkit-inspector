@@ -34,7 +34,9 @@ GtInspectorTabUpdater >> addView: aGtPhlowView toTabGroup: aBrTabGroup [
 	GtPhlowUtility 
 		createTabElementFor: aGtPhlowView 
 		andDo: [ :aBrTab |
-			isSelected ifNotNil: [ aBrTab selected: isSelected ].
+			isSelected ifNotNil: [ 
+				isSelected ifTrue: [ aBrTabGroup viewModel deselectAll ].
+				aBrTab selected: isSelected ].
 			aBrTabGroup addTab: aBrTab at: anIndex. ]
 ]
 
