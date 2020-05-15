@@ -10,9 +10,7 @@ AbstractFileReference >> gtActionMaterializeFuelFor: anAction [
 		button
 		look: BrGlamorousButtonWithIconLook;
 		action:  [
-				button fireEvent: (GtPhlowObjectToSpawn new
-				object: (FLMaterializer materializeFromFileNamed: self fullName);
-				sourceElement: button) ];
+			button phlow spawnObject: (FLMaterializer materializeFromFileNamed: self fullName) ];
 		icon: BrGlamorousVectorIcons play;
 		label: 'Parse using GToolkit Documenter' translated.
 	]
@@ -33,9 +31,7 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 			xdFile := reader
 				streamingStrategy: (XdStreamingStrategy file: self);
 				read.
-			button fireEvent: (GtPhlowObjectToSpawn new
-						object: xdFile;
-						sourceElement: button) ];
+			button phlow spawnObject: xdFile ];
 		icon: BrGlamorousVectorIcons play;
 		label: 'Materialize xdoc file' translated.
 	]

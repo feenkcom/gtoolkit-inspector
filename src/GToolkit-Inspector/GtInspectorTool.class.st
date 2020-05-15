@@ -13,12 +13,18 @@ GtInspectorTool class >> priority [
 ]
 
 { #category : #converting }
-GtInspectorTool >> asElementDo: aOneArgBlock context: aContext [
+GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
 	anInspector := GtInspector new 
 		objectHolder: self objectHolder.
 	aOneArgBlock cull: anInspector asPagerPageElement.
+]
+
+{ #category : #accessing }
+GtInspectorTool >> object [
+	"compatibility method for ${GLMBlocObjectToSelect}$"
+	^ self object
 ]
 
 { #category : #accessing }

@@ -182,11 +182,7 @@ BlElement >> gtLookChangesFor: aView [
 										icon: BrGlamorousVectorIcons inspect;
 										label: 'Source' translated;
 										action: [ :g | 
-											g
-												fireEvent:
-													(GtPhlowObjectToSpawn new
-														object: f value source;
-														sourceElement: g) ];
+											g phlow spawnObject: f value source ];
 										yourself ]
 								ifFalse: [ BlElement new size: 0 @ 0 ] ].
 					tree ] ]

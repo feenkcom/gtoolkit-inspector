@@ -13,7 +13,7 @@ GtInspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 0 ].
-	aPlayBook := GtPlayPage forObject: aCreationContext model.
+	aPlayBook := GtPlayPage forObject: aCreationContext object.
 	aPlayground := aPlayBook asElement.
 	aPlayground
 		constraintsDo: [ :c | 

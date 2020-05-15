@@ -30,7 +30,7 @@ BrEditorElement >> paintEditorElementsWith: mondrian [
 					c horizontal fitContent.
 					c padding: (BlInsets top: 5 bottom: 5)];
 				layout: (BlGridLayout vertical cellSpacing: 10).
-			container when: BlClickEvent do: [ :event | container fireEvent: (GtPhlowObjectToSelect new object: container; sourceElement: container) ].
+			container when: BlClickEvent do: [ :event | container phlow selectObject: container ].
 			labelText := (((each class name withoutPrefix: 'Br') withoutPrefix: 'Bl') withoutSuffix: 'Element').
 			labelText ifEmpty: [ labelText := 'Element' ].
 			labelText := labelText asRopedText.
