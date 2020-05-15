@@ -52,7 +52,7 @@ GtInspectorTask >> hash [
 
 { #category : #accessing }
 GtInspectorTask >> inspectorInstance [
-	<return: #GtInspecto>
+	<return: #GtInspector>
 	^ inspectorInstance
 ]
 
