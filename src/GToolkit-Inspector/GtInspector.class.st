@@ -1,428 +1,235 @@
 "
-I am the main element that represents an inspection context.
+I am the main element that represents an Inspector.
 "
 Class {
 	#name : #GtInspector,
 	#superclass : #BlElement,
+	#traits : 'TGtPagerWindowOpener',
+	#classTraits : 'TGtPagerWindowOpener classTrait',
 	#instVars : [
-		'pager',
-		'systemListener'
+		'objectHolder',
+		'extensions'
 	],
-	#classInstVars : [
-		'isAutoUpdateEnabled'
-	],
-	#category : #'GToolkit-Inspector-Brick'
+	#category : #'GToolkit-Inspector-UI'
 }
 
-{ #category : #ui }
-GtInspector class >> actionExtensionMethods [
-	^ #gtAction pragmas collect: [ :pragma | pragma method asRingDefinition ]
-]
-
-{ #category : #cleanup }
-GtInspector class >> cleanUp [
-	self resetIsAutoUpdateEnabled
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> createOn: anObject [
-	"create an inspector element on a given object"
-	| anInspector |
-
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector spawnInitial: anObject.
-
-	^ anInspector
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> createOnPlayBook: aPlayBook [
-	self 
-		deprecated: 'Please use #withToolOn: instead.'
-		transformWith: '`@receiver createOnPlayBook: `@statements' -> '`@receiver withToolOn: `@statements'.
-	^ self withToolOn: aPlayBook
-]
-
-{ #category : #private }
-GtInspector class >> createSpaceWith: anElement title: aTitleString [
-	| aSpace |
-	aSpace := BlSpace new.
-	aSpace withHalos.
-	aSpace title: aTitleString.
-	aSpace extent: 1200 @ 600.
-	aSpace root addChild: anElement.
-	^ aSpace
-]
-
-{ #category : #settings }
-GtInspector class >> disableAutoUpdate [
-	<script>
-	isAutoUpdateEnabled := false
-]
-
-{ #category : #settings }
-GtInspector class >> enableAutoUpdate [
-	<script>
-	isAutoUpdateEnabled := true
-]
-
-{ #category : #ui }
+{ #category : #'gt-extensions' }
 GtInspector class >> gtActionsFor: aView [
 	<gtView>
+	<gtClassView>
 	^ (#gtAction gtPragmas gtItemsFor: aView)
 		title: 'Actions';
-		priority: 1
+		priority: 35
 ]
 
-{ #category : #ui }
+{ #category : #'gt-extensions' }
 GtInspector class >> gtExtensionsFor: aView [
 	<gtView>
+	<gtClassView>
 	^ (#gtView gtPragmas gtItemsFor: aView)
 		title: 'Extensions';
-		priority: 0
+		priority: 34
 ]
 
-{ #category : #settings }
-GtInspector class >> isAutoUpdateEnabled [
-	^ isAutoUpdateEnabled ifNil: [ isAutoUpdateEnabled := true ]
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOn: anObject [
-	| anInspector aSpace |
-
-	anInspector :=  self createOn: anObject.
-
-	aSpace := BlSpace new.
-	aSpace withHalos.
-	aSpace title: 'Inspector'.
-	aSpace extent: 1200@600.
-	aSpace root addChild: anInspector.
-	aSpace show.
-
-	^ anInspector
+{ #category : #'private - instance creation' }
+GtInspector class >> newEmbelisher [
+	^ GtInspectorEmbellisher new
 ]
 
 { #category : #'instance creation' }
-GtInspector class >> openOn: anObject from: anElement [
-	| anInspector aSpace |
-
-	anInspector :=  self createOn: anObject.
-	aSpace := self createSpaceWith: anInspector title: 'Inspector'.	
-	anElement showSpace: aSpace.
-
-	^ anInspector
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOn: anAsElementObject title: aWindowTitle [
-	| anInspector aSpace |
-
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector addPageWithContent: anAsElementObject asElement for: anAsElementObject.
-
-	aSpace := self createSpaceWith: anInspector title: aWindowTitle.
-	aSpace show.
-
-	^ anInspector
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOnPlayBook [
-	^ self openOnPlayBook: GtPlayBook newDefault
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOnPlayBook: aPlayBook [
-	^ self openToolOn: aPlayBook named: 'Playground'
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openOnPlayBook: aPlayBook from: anElement [
-	^ self openToolOn: aPlayBook named: 'Playground' from: anElement
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openToolOn: anObject named: aString [
-	| anInspector aSpace |
-	anInspector := self withToolOn: anObject.
-	aSpace := self createSpaceWith: anInspector title: aString.
-	aSpace show.
-	^ anInspector
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> openToolOn: anObject named: aString from: anElement [
-	| anInspector aSpace |
-	anInspector := self withToolOn: anObject.
-	aSpace := self createSpaceWith: anInspector title: aString.
-	anElement showSpace: aSpace.
-	^ anInspector
-]
-
-{ #category : #cleanup }
-GtInspector class >> resetIsAutoUpdateEnabled [
-	isAutoUpdateEnabled := nil
-]
-
-{ #category : #ui }
-GtInspector class >> viewExtensionMethods [
-	^ #gtView pragmas collect: [ :pragma | pragma method asRingDefinition ]
-]
-
-{ #category : #'instance creation' }
-GtInspector class >> withToolOn: anObject [
-	"It receives an object that understands #asElement"
-	<return: #GtInspector>
-	| anInspector |
-
-	self 
-		assert: [ anObject respondsTo: #asElement ]
-		description: [ 'Object must responds to #asElement' ].
-
-	anInspector := self new.
-	anInspector constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent ].
-
-	anInspector addPageWithContent: anObject asElement for: anObject.
-
-	^ anInspector
-]
-
-{ #category : #private }
-GtInspector >> addPageWithContent: aContentElement for: anObject [
-	| page |
-	page := self createPageWithContent: aContentElement for: anObject.
-	systemListener addClass: anObject class instanceSide.
-	pager addPage: page.
-	^ page
-]
-
-{ #category : #'api - inspector' }
-GtInspector >> close: aPageElement [
-	pager removePage: aPageElement
-]
-
-{ #category : #private }
-GtInspector >> computePageWeightFor: anObject [
-	"Compute the proportion of the page within the inspector.
-	The returned number should be a float [0...1].
-	For example 0.5 means that the page will take 50% of the inspector's width"
-	<return: #Number>
-
-	^ self defaultPageWeight
-]
-
-{ #category : #private }
-GtInspector >> computePageWidthFor: anObject [
-	"The width is recorded when user explicitely resizes the page, it is then later
-	used while inspecting an object of that same type.
-	If there is no recorded width, inspector takes the width of a previous page if one exists
-	or falls back to the default width"
-	<return: #Number>
-
-	^ self defaultPageWidth
-]
-
-{ #category : #private }
-GtInspector >> contentIdentificator [
-	^ #pageContent
-]
-
-{ #category : #private }
-GtInspector >> createPageWithContent: aContentElement for: anObject [
-	"Create and configure an inspector page for a given object and corresponding content element.
-	My job is to set up the pager page decorator and configure the neccesary event listeners"
-	| aPageModel aPageEmbellisher aPageElement |
-
-	"width should depend on anObject"
-	aPageEmbellisher := GtInspectorPagerPageEmbellisher new.
-	aPageEmbellisher inspector: self.
-	aPageEmbellisher beMatching: (self computePageWeightFor: anObject).
-
-	aPageModel := BrPagerPageModel new.
-	aPageModel model: anObject.
-	aPageModel embellisher: aPageEmbellisher.
-
-	aPageElement := BlElement new
-		viewModel: aPageModel;
-		clipChildren: false;
-		addChild: aContentElement as: self contentIdentificator;
+GtInspector class >> newOn: anObject [
+	"create an inspector element on a given object"
+	^ self new 
+		object: anObject;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ].
-
-	^ aPageElement
 ]
 
-{ #category : #initialization }
-GtInspector >> defaultPageWeight [
-	^ 0.5
+{ #category : #'private - instance creation' }
+GtInspector class >> newTitleFrom: anObject [
+	^ 'Inspector on ' , anObject printString
 ]
 
-{ #category : #initialization }
-GtInspector >> defaultPageWidth [
-	^ 400
+{ #category : #defaults }
+GtInspector >> defaultExtensions [
+	^ GtInspectorExtensions default inspectorInstance: self
 ]
 
-{ #category : #private }
-GtInspector >> findPageContaining: anElement ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
-	<return: #BlElement>
-	
-	anElement withAllParentsDo: [ :eachParentElement |
-		(eachParentElement viewModel isNotNil and: [
-			(pager viewModel pages includes: eachParentElement viewModel) ])
-				ifTrue: [ ^ aPresentBlock  value: eachParentElement ] ].
-			
-	^ anAbsentBlock value
+{ #category : #defaults }
+GtInspector >> defaultObjectHolder [
+	^ GtInspectorObject null
+]
+
+{ #category : #accessing }
+GtInspector >> extensions [
+	<return: #GtInspectorExtensions>
+	^ extensions
+]
+
+{ #category : #'gt-extensions' }
+GtInspector >> gtExtensionsFor: aView [
+	<gtView>
+	self extensions ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Extensions';
+		priority: 4;
+		object: [ self extensions ];
+		view: #gtExtensionsFor:
 ]
 
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
+	self initializeObjectHolder.
+	self initializeExtensions.
+	self initializeWidget.
+	self initializeListeners.
+]
 
-	pager := BrPager new.
-	pager constraintsDo: [ :c |
+{ #category : #initialization }
+GtInspector >> initializeExtensions [
+	extensions := self defaultExtensions.
+]
+
+{ #category : #initialization }
+GtInspector >> initializeListeners [
+	self when: GtPagerPageAddedEvent do: [ :anEvent | 
+		self onAddedToPager: anEvent pager ].
+	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
+		self onRemovedFromPager: anEvent pager ].
+	self when: GtPagerPageMaximizedEvent do: [ :anEvent | 
+		self onMaximizedInPager: anEvent pager ].
+	self when: GtPagerPageMinimizedEvent do: [ :anEvent | 
+		self onMinimizedInPager: anEvent pager ].
+]
+
+{ #category : #initialization }
+GtInspector >> initializeObjectHolder [
+	objectHolder := self defaultObjectHolder
+]
+
+{ #category : #initialization }
+GtInspector >> initializeWidget [
+	self constraintsDo: [ :c | 
 		c horizontal matchParent.
 		c vertical matchParent ].
-	self addChild: pager.
-	systemListener := GtInspectorSystemChangesHandler new inspector: self
+	self updateView.
 ]
 
-{ #category : #testing }
-GtInspector >> isAutoUpdateEnabled [
-	^ self class isAutoUpdateEnabled
+{ #category : #'updating ui' }
+GtInspector >> mayUpdateView [
+	self isAttachedToSceneGraph ifFalse: [ ^ self ].
+	self updateView.
 ]
 
-{ #category : #private }
-GtInspector >> pageViewFor: aSelectedObject [
-	<return: #GtPhlowLabelledView>
-	^ aSelectedObject gtViewsFor: GtPhlowView empty
+{ #category : #notifying }
+GtInspector >> notifyAddedToSceneGraph [
+	self extensions addedToSceneGraph
 ]
 
-{ #category : #private }
-GtInspector >> pager [
-	^ pager
+{ #category : #notifying }
+GtInspector >> notifyObjectChangedTo: anObject [
+	self extensions objectChangedTo: anObject.
 ]
 
-{ #category : #private }
-GtInspector >> replaceContent: aBrTabGroup atPage: aBlElement [ 
-	| aCurrentChild |
-	aCurrentChild := aBlElement childNamed: self contentIdentificator ifFound: [ :el | el ] ifNone: [ ^ self ].
-	aBlElement replaceChild: aCurrentChild with: aBrTabGroup as: self contentIdentificator.
+{ #category : #notifying }
+GtInspector >> notifyObjectRemoved [
+	self extensions objectRemoved
 ]
 
-{ #category : #'api - inspector' }
-GtInspector >> select: aSelectedObject after: aPageElement [
-	(pager hasPageAfter: aPageElement) ifTrue: [
-		self spawn: aSelectedObject after: aPageElement ]
+{ #category : #notifying }
+GtInspector >> notifyRemovedFromSceneGraph [
+	self extensions removedFromSceneGraph
 ]
 
-{ #category : #'api - inspector' }
-GtInspector >> selectDueTo: anEvent [
-
-	self
-		findPageContaining: anEvent sourceElement
-		ifPresent: [ :aPageElement | self select: anEvent object after: aPageElement ]
-		ifAbsent: [ ]
+{ #category : #convenience }
+GtInspector >> object [
+	^ self objectHolder object
 ]
 
-{ #category : #private }
-GtInspector >> selectTabNamed: aPreferredSelectedTabTitle inPage: newPage [
-	^ newPage phlow
-		firstChildWithCompositeViewDo: [ :tabGroup | 
-			tabGroup viewModel tabs
-				detect:
-					[ :tabModel | 
-						| aTitle |
-						aTitle := tabModel widget phlow entity ifNotNil: #title.
-						aTitle = aPreferredSelectedTabTitle ]
-				ifFound: [ :tabModel | tabModel select ] ]
+{ #category : #convenience }
+GtInspector >> object: anObject [
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new object: anObject.
+	self objectHolder: anObjectHolder.
 ]
 
-{ #category : #private }
-GtInspector >> selectedTabNameInPage: aPageElement [
-	<return: #String or: nil>
-	| aPreferredSelectedTabTitle |
-	aPreferredSelectedTabTitle := nil.
-	aPageElement phlow
-				firstChildWithCompositeViewDo: [ :tabGroup | 
-					aPreferredSelectedTabTitle := tabGroup viewModel selectedTab widget
-						phlow entity ifNotNil: #title ].
-	^ aPreferredSelectedTabTitle
+{ #category : #accessing }
+GtInspector >> objectHolder [
+	<return: #GtInspectorObject>
+	^ objectHolder
 ]
 
-{ #category : #private }
-GtInspector >> selectedTabNameInPageAfter: aPageElement [
-	<return: #String or: nil>
-	| aPreferredSelectedTabTitle |
-	aPreferredSelectedTabTitle := nil.
-	pager
-		pageAfter: aPageElement
-		ifFound: [ :aNextPageModel | 
-			aPreferredSelectedTabTitle := self selectedTabNameInPage: aNextPageModel widget ]
-		ifNone: [  ].
-	^ aPreferredSelectedTabTitle
-]
-
-{ #category : #'api - inspector' }
-GtInspector >> spawn: aSelectedObject after: aPageElement [
-	| aPageView |
-	aPageView := self pageViewFor: aSelectedObject.
-	aPageView
-		asElementDo: [ :aViewElement | 
-			| aPreferredSelectedTabTitle aNewPage |
-			aPreferredSelectedTabTitle := self selectedTabNameInPageAfter: aPageElement.
-			pager removePagesAfter: aPageElement.
-			aNewPage := self addPageWithContent: aViewElement for: aSelectedObject.
-			self selectTabNamed: aPreferredSelectedTabTitle inPage: aNewPage.
-			pager smoothScrollToLast ]
-]
-
-{ #category : #'api - inspector' }
-GtInspector >> spawnDueTo: anEvent [
-
-	self
-		findPageContaining: anEvent sourceElement
-		ifPresent: [ :aPageElement | self spawn: anEvent object after: aPageElement ]
-		ifAbsent: [ 	]
-]
-
-{ #category : #'api - inspector' }
-GtInspector >> spawnInitial: aSelectedObject [
-	| aPageView |
-
-	aPageView := self pageViewFor: aSelectedObject.
-	aPageView asElementDo: [ :aPageContentElement |
-		self addPageWithContent: aPageContentElement for: aSelectedObject ]
-]
-
-{ #category : #subscriptions }
-GtInspector >> unsubscribeFromSystem [
-	systemListener unsubscribeFromSystem
-]
-
-{ #category : #private }
-GtInspector >> updatePageModelWidget: aBrPagerPageModel [ 
-	| aSelectedObject aPageView |
+{ #category : #accessing }
+GtInspector >> objectHolder: anObjectHolder [
 	self 
-		assert: [ aBrPagerPageModel widget notNil ]
-		description: [ 'I believe that aBrPagerPageModel widget must be non-nil :-)' ].
-	self isAutoUpdateEnabled ifFalse: [ ^ self ].
-	aSelectedObject := aBrPagerPageModel model.
-	aPageView := self pageViewFor: aSelectedObject.
-	aPageView asElementDo: [ :aViewElement | 
-			| aPreferredSelectedTabTitle |
-			aPreferredSelectedTabTitle := self selectedTabNameInPage: aBrPagerPageModel widget.
-			self selectTabNamed: aPreferredSelectedTabTitle inPage: aViewElement.
-			self replaceContent: aViewElement atPage: aBrPagerPageModel widget ]
+		assert: [ anObjectHolder isNotNil ]
+		description: [ 'Object holder must be non-nil' ].
+	objectHolder = anObjectHolder ifTrue: [ ^ self ].
+	objectHolder := anObjectHolder.
+	self onObjectHolderChanged.
+]
+
+{ #category : #'hooks - pager' }
+GtInspector >> onAddedToPager: aGtPager [
+	"Inspector was added to a pager"
+	self phlow
+		firstChildWithCompositeViewDo: [ :aTabGroup | 
+			aGtPager context inspectorTabSelector
+				selectTabIn: aTabGroup on: self object ].
+]
+
+{ #category : #'hooks - children' }
+GtInspector >> onAddedToSceneGraph [
+	super onAddedToSceneGraph.
+	self notifyAddedToSceneGraph.
+]
+
+{ #category : #'hooks - pager' }
+GtInspector >> onMaximizedInPager: aGtPager [
+	"Inspector was maximized int the pager"
+]
+
+{ #category : #'hooks - pager' }
+GtInspector >> onMinimizedInPager: aGtPager [
+	"Inspector was minimized int the pager"
+]
+
+{ #category : #'hooks - object' }
+GtInspector >> onObjectHolderChanged [
+	self updateView.
+	self objectHolder notifyObjectChangedIn: self.
+]
+
+{ #category : #'hooks - pager' }
+GtInspector >> onRemovedFromPager: aGtPager [
+	"Inspector was removed from a pager"
+	| aInspectorTabName |
+	aInspectorTabName := GtInspectorSelectedTabExtractor new 
+		inspectorElement: self;
+		extract.
+	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
+]
+
+{ #category : #'hooks - children' }
+GtInspector >> onRemovedFromSceneGraph [
+	super onRemovedFromSceneGraph.
+	self notifyRemovedFromSceneGraph.
+]
+
+{ #category : #'updating ui' }
+GtInspector >> updateContentWith: aContentElement [
+	"Create and configure an inspector page for a given object and corresponding content element.
+	My job is to set up the pager page decorator and configure the neccesary event listeners"
+
+	self 
+		removeChildren;
+		addChild: aContentElement
+]
+
+{ #category : #'updating ui' }
+GtInspector >> updateView [
+	self objectHolder asElementDo: [ :aPageContentElement |
+		self updateContentWith: aPageContentElement ]
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'transformation'
 	],
-	#category : #'GToolkit-Inspector-Brick'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #initialization }

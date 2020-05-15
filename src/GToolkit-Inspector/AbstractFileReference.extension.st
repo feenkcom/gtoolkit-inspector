@@ -255,11 +255,9 @@ AbstractFileReference >> gtZipItemsFor: aView [
 				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ] ];
 		column: 'Icon' do: [ :aColumn | 
 				aColumn itemStencil: [ :each :index |
-					(BrImageStencil new 
-						image: (each isDirectory 
-							ifTrue: [ BrGlamorousIcons folder ]
-							ifFalse: [ BrGlamorousIcons file ]);
-						asElement)
+					(each isDirectory 
+						ifTrue: [ BrGlamorousIcons folder asElement ]
+						ifFalse: [ BrGlamorousIcons file asElement ])
 						margin: (BlInsets left: 5 right: 5) ];
 					noResize ];
 		column: 'Name' do: [:aColumn | 

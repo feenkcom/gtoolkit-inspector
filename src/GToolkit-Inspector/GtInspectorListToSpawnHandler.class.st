@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorListToSpawnHandler,
 	#superclass : #GtInspectorListHandler,
-	#category : #'GToolkit-Inspector-Brick'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #accessing }

@@ -1,12 +1,12 @@
 Class {
 	#name : #GtInspectorToolRegistryAdaptor,
 	#superclass : #Object,
-	#category : #'GToolkit-Inspector-ToolRegistry'
+	#category : #'GToolkit-Inspector-Tool Registry'
 }
 
 { #category : #actions }
 GtInspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	^ GtInspector openOn: anObject
+	^ (GtInspector openOn: anObject) maximized
 ]
 
 { #category : #testing }

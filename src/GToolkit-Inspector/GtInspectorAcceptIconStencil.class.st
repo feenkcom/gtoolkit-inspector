@@ -7,7 +7,7 @@ Class {
 		'angle',
 		'color'
 	],
-	#category : #'GToolkit-Inspector-Stencils'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'instance creation' }

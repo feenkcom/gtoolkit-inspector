@@ -9,7 +9,8 @@ TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
 		items: [ self failedTasks ];
 		itemFormat: [ :anExecution | anExecution name ];
 		actionButtonIcon: BrGlamorousIcons trash action: [ :aButton | 
-			failedTasks := OrderedCollection new. ]
+			failedTasks := OrderedCollection new. ];
+		addUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'directory'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #accessing }

@@ -2,8 +2,8 @@ Extension { #name : #GtPagerContext }
 
 { #category : #'*GToolkit-Inspector' }
 GtPagerContext >> inspectorTabSelector [
-	<return: #Gt2InspectorTabSelector>
+	<return: #GtInspectorTabSelector>
 	^ self 
 		optionAt: #inspectorTabSelector 
-		ifAbsentPut: [ Gt2InspectorTabSelector simple ]
+		ifAbsentPut: [ GtInspectorTabSelector simple ]
 ]
