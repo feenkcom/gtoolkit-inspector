@@ -73,7 +73,7 @@ GtInspectorExamples >> inspectorWithExampleObject [
 	anInspector := self basicInspector.
 	anObject := self inspectedObject.
 	anInspector object: anObject.
-	self assert: anInspector model objectHolder object equals: anObject.
+	self assert: anInspector objectHolder object equals: anObject.
 	^ anInspector
 ]
 
