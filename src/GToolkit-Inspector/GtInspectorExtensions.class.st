@@ -62,6 +62,13 @@ GtInspectorExtensions >> defaultCollection [
 	^ Array empty
 ]
 
+{ #category : #'widget configuration' }
+GtInspectorExtensions >> fillToolWidgetIn: aCreationContext [
+	"polymorhipc to ${method:GtPagerPageEmbellisherExtension>>#fillToolWidgetIn:}$"
+	self collection do: [ :eachExtension | 
+		eachExtension fillToolWidgetIn: aCreationContext ]
+]
+
 { #category : #'gt-extensions' }
 GtInspectorExtensions >> gtExtensionsFor: aView [
 	<gtView>

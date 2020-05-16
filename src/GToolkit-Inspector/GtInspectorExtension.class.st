@@ -23,6 +23,11 @@ GtInspectorExtension >> addedToSceneGraph [
 	self subclassResponsibility
 ]
 
+{ #category : #'widget configuration' }
+GtInspectorExtension >> fillToolWidgetIn: aCreationContext [
+	"polymorhipc to ${method:GtPagerPageEmbellisherExtension>>#fillToolWidgetIn:}$."
+]
+
 { #category : #accessing }
 GtInspectorExtension >> inspectorInstance: anInspector [
 	"Set the attached inspector instance"
