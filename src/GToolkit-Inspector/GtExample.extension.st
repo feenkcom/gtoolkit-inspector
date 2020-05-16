@@ -23,9 +23,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 		button
 			look: BrGlamorousButtonWithIconLook;
 			action:  [
-				button fireEvent: (GtPhlowObjectToSpawn new
-					object: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]);
-					sourceElement: button) ];
+				button phlow spawnObject: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]) ];
 			icon: BrGlamorousVectorIcons playinspect;
 			label: 'Evaluate and inspect return-value' translated.
 	]

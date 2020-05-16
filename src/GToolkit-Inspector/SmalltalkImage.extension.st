@@ -23,7 +23,7 @@ SmalltalkImage >> gtExamplesContainedFor: aView [
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
-							anElement fireEvent: (GtPhlowObjectToSpawn new object: eachExample result returnValue; sourceElement: anElement) ] ].
+							anElement phlow spawnObject: eachExample result returnValue ] ].
 			aList column
 				title: 'Class' translated;
 				stencil: [ :eachExample :anIndex | 

@@ -4,10 +4,9 @@ I am the main element that represents an Inspector.
 Class {
 	#name : #GtInspector,
 	#superclass : #BlElement,
-	#traits : 'TGtPagerWindowOpener',
-	#classTraits : 'TGtPagerWindowOpener classTrait',
+	#traits : 'TGtInspectorObjectAccess + TGtPagerWindowOpener',
+	#classTraits : 'TGtInspectorObjectAccess classTrait + TGtPagerWindowOpener classTrait',
 	#instVars : [
-		'objectHolder',
 		'extensions'
 	],
 	#category : #'GToolkit-Inspector-UI'
@@ -31,11 +30,6 @@ GtInspector class >> gtExtensionsFor: aView [
 		priority: 34
 ]
 
-{ #category : #'private - instance creation' }
-GtInspector class >> newEmbelisher [
-	^ GtInspectorEmbellisher new
-]
-
 { #category : #'instance creation' }
 GtInspector class >> newOn: anObject [
 	"create an inspector element on a given object"
@@ -54,11 +48,6 @@ GtInspector class >> newTitleFrom: anObject [
 { #category : #defaults }
 GtInspector >> defaultExtensions [
 	^ GtInspectorExtensions default inspectorInstance: self
-]
-
-{ #category : #defaults }
-GtInspector >> defaultObjectHolder [
-	^ GtInspectorObject null
 ]
 
 { #category : #accessing }
@@ -105,11 +94,6 @@ GtInspector >> initializeListeners [
 ]
 
 { #category : #initialization }
-GtInspector >> initializeObjectHolder [
-	objectHolder := self defaultObjectHolder
-]
-
-{ #category : #initialization }
 GtInspector >> initializeWidget [
 	self constraintsDo: [ :c | 
 		c horizontal matchParent.
@@ -121,6 +105,12 @@ GtInspector >> initializeWidget [
 GtInspector >> mayUpdateView [
 	self isAttachedToSceneGraph ifFalse: [ ^ self ].
 	self updateView.
+]
+
+{ #category : #'instance creation' }
+GtInspector >> newEmbelisher [
+	^ GtInspectorEmbellisher new
+		object: self object
 ]
 
 { #category : #notifying }
@@ -153,22 +143,6 @@ GtInspector >> object: anObject [
 	| anObjectHolder |
 	anObjectHolder := GtInspectorObject new object: anObject.
 	self objectHolder: anObjectHolder.
-]
-
-{ #category : #accessing }
-GtInspector >> objectHolder [
-	<return: #GtInspectorObject>
-	^ objectHolder
-]
-
-{ #category : #accessing }
-GtInspector >> objectHolder: anObjectHolder [
-	self 
-		assert: [ anObjectHolder isNotNil ]
-		description: [ 'Object holder must be non-nil' ].
-	objectHolder = anObjectHolder ifTrue: [ ^ self ].
-	objectHolder := anObjectHolder.
-	self onObjectHolderChanged.
 ]
 
 { #category : #'hooks - pager' }

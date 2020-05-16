@@ -1,6 +1,8 @@
 Class {
 	#name : #GtInspectorTool,
 	#superclass : #GtPhlowTool,
+	#traits : 'TGtInspectorObjectAccess',
+	#classTraits : 'TGtInspectorObjectAccess classTrait',
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
 
@@ -11,9 +13,24 @@ GtInspectorTool class >> priority [
 ]
 
 { #category : #converting }
-GtInspectorTool >> asElementDo: aOneArgBlock context: aContext [
+GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
-	anInspector := GtInspector newWrapperOn: aContext object.
-	aOneArgBlock cull: anInspector asElement.
+	anInspector := GtInspector new 
+		objectHolder: self objectHolder.
+	aOneArgBlock cull: anInspector asPagerPageElement.
+]
+
+{ #category : #accessing }
+GtInspectorTool >> object [
+	"compatibility method for ${GLMBlocObjectToSelect}$"
+	^ self object
+]
+
+{ #category : #accessing }
+GtInspectorTool >> object: anObject [
+	"Store object that is going to be inspected"
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new object: anObject.
+	self objectHolder: anObjectHolder.
 ]

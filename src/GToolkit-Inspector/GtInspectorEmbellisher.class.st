@@ -1,6 +1,9 @@
 Class {
 	#name : #GtInspectorEmbellisher,
 	#superclass : #GtPagerPageEmbellisher,
+	#instVars : [
+		'object'
+	],
 	#category : #'GToolkit-Inspector-Stencils'
 }
 
@@ -13,7 +16,7 @@ GtInspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 0 ].
-	aPlayBook := GtPlayPage forObject: aCreationContext model.
+	aPlayBook := GtPlayPage forObject: self object.
 	aPlayground := aPlayBook asElement.
 	aPlayground
 		constraintsDo: [ :c | 
@@ -53,4 +56,14 @@ GtInspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 GtInspectorEmbellisher >> fillContentWrapperIn: aCreationContext [
 	super fillContentWrapperIn: aCreationContext.
 	self addPlaygroundIn: aCreationContext.
+]
+
+{ #category : #accessing }
+GtInspectorEmbellisher >> object [
+	^ object
+]
+
+{ #category : #accessing }
+GtInspectorEmbellisher >> object: anObject [
+	object := anObject
 ]

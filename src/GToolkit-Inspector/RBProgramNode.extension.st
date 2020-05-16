@@ -51,7 +51,7 @@ RBProgramNode >> gtVisualTreeFor: aView [
 					textElement 	
 						when: BlClickEvent 
 						do: [ :e | 
-							textElement fireEvent: (GtPhlowObjectToSpawn new object: each node; sourceElement: textElement).
+							textElement phlow spawnObject: each node.
 							e consumed: true ].
 					textElement ];	
 				with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
