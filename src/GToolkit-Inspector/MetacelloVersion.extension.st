@@ -3,23 +3,14 @@ Extension { #name : #MetacelloVersion }
 { #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtPackagesFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView list
 		title: 'Packages';
 		priority: 50;
-		stencil: [ 
-			| list |
-			list := BrColumnedList new display: [ self packages ].
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list column
-				title: 'Packages';
-				stencil: [ :aNode :index |
-					| text textElement |
-					text := [ aNode gtDisplayString asRopedText ] 
-						on: Error 
-						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list ]
+		items: [ self packages ];
+		itemFormat: [ :aNode | 
+			[ aNode gtDisplayString asRopedText ]
+				on: Error
+				do: [ aNode errorMessage asRopedText foreground: Color red ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -35,9 +26,9 @@ MetacelloVersion >> gtProjectMapFor: aView [
 					text := [
 						((each asString 
 							copyReplaceAll: 'baseline [BaselineOf' with: '') 
-							copyReplaceAll: 'ConfigurationOf' with: '') asRopedText
+							copyReplaceAll: 'ConfigurationOf' with: '') asRopedText glamorousRegularFont
 						foreground: Color black ]
-						on: Error do: [:e | e asString asRopedText foreground: Color red ].
+						on: Error do: [:e | e asString asRopedText glamorousRegularFont foreground: Color red ].
 					BlTextElement new text: text ];
 				with: ((self 
 					withDeepCollect: [ :each | each projects collect: #version ] 
@@ -60,21 +51,13 @@ MetacelloVersion >> gtProjectMapFor: aView [
 { #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtProjectsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView list
 		title: 'Projects';
 		priority: 60;
-		stencil: [ 
-			| list |
-			list := BrColumnedList new display: [ self projects ].
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list column
-				title: 'Project';
-				stencil: [ :aNode :index |
-					| text textElement |
-					text := [ aNode gtDisplayString asRopedText ] 
-						on: Error 
-						do: [ aNode errorMessage asRopedText foreground: Color red ].
-					textElement := (BrColumnCellLabelStencil matchParent: text) asElement.
-					textElement constraintsDo: [ :c | c horizontal matchParent. c padding: (BlInsets left: 10) ] ].
-			list ]
+		items: [ self projects ];
+		itemFormat: [ :aNode | 
+			[ aNode gtDisplayString asRopedText ]
+				on: Error
+				do: [ aNode errorMessage asRopedText foreground: Color red ] ];
+		send: #version
 ]

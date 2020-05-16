@@ -12,3 +12,9 @@ MetacelloMCVersion >> = aMetacelloVersion [
 MetacelloMCVersion >> gtDisplayOn: stream [
 	stream nextPutAll: self spec project configuration class name
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+MetacelloMCVersion >> gtRPackages [
+	^ self packages collect: [:each | 
+		RPackageOrganizer default packageNamed: each name ]
+]
