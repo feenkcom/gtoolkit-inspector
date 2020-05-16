@@ -108,7 +108,7 @@ GtInspector >> mayUpdateView [
 ]
 
 { #category : #'instance creation' }
-GtInspector >> newEmbelisherExtension [
+GtInspector >> newEmbellisherExtension [
 	^ self extensions
 ]
 
