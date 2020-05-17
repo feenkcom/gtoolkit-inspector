@@ -15,7 +15,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 			text := self source asRopedText.
 			text 
 				attributes: {
-					BlTextUnderlineAttribute new 
+					BlTextHighlightAttribute new 
 						paint: (BrGlamorousColors lightBorderColor alpha: 0.5); 
 						beNotOverwritableByStyler} 
 				from: self start 
