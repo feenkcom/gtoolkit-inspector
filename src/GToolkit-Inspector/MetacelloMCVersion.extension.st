@@ -15,6 +15,10 @@ MetacelloMCVersion >> gtDisplayOn: stream [
 
 { #category : #'*GToolkit-Inspector' }
 MetacelloMCVersion >> gtRPackages [
-	^ self packages collect: [:each | 
-		RPackageOrganizer default packageNamed: each name ]
+	| gtRPackages |
+	gtRPackages := OrderedCollection new.
+	self packages do: [:each | 
+		(RPackageOrganizer default includesPackageNamed: each name) ifTrue: [
+			gtRPackages add: (RPackageOrganizer default packageNamed: each name)] ].
+	^ gtRPackages
 ]
