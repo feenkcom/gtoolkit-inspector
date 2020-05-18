@@ -62,7 +62,7 @@ GtInspectorEmbeddedPlayground >> addedToSceneGraph [
 GtInspectorEmbeddedPlayground >> fillToolWidgetIn: aCreationContext [
 	GEmbeddedPlaygroundStencil new
 		receiver: self object;
-		asChildIn: aCreationContext wrapperElement
+		asChildIn: aCreationContext contentElement
 ]
 
 { #category : #accessing }

@@ -156,7 +156,8 @@ GtInspector >> onAddedToSceneGraph [
 
 { #category : #'hooks - pager' }
 GtInspector >> onMaximizedInPager: aGtPager [
-	"Inspector was maximized int the pager"
+	"Inspector was maximized in the pager"
+	
 ]
 
 { #category : #'hooks - pager' }
