@@ -24,7 +24,7 @@ GtInspectorEmbellisher >> addPlaygroundIn: aCreationContext [
 			c vertical matchParent ].
 	aPlayground clipChildren: false.
 	aPlaygroundContainer addChild: aPlayground.
-	aContentToPlaygroundResizer := GtInspectorPagePlaygroundResizer new
+	aContentToPlaygroundResizer := GtEmbeddedPlaygroundResizer new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.

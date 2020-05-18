@@ -7,19 +7,26 @@ SmalltalkImage >> gtExamplesContainedFor: aView [
 		title: 'Examples';
 		priority: 10;
 		stencil: [ | aList |
-			aList := BrColumnedList new display: (self gtExamplesContained collect: [ :each | each asExampleWithResult ]).
-			aList addEventHandler: (GtInspectorListToSelectHandler new transformation: [ :each | 
-				(each isKindOf: GtExampleWithResult)
-					ifTrue: [ each example ]
-					ifFalse: [ each ] ]).
+			aList := BrColumnedList new
+				items:
+					(self gtExamplesContained
+						collect: [ :each | each asExampleWithResult ]).
+			aList
+				addEventHandler:
+					(GtInspectorListToSelectHandler new
+						transformation: [ :each | 
+							(each isKindOf: GtExampleWithResult)
+								ifTrue: [ each example ]
+								ifFalse: [ each ] ]).
 			aList column
 				title: 'Icon' translated;
-				stencil: [ :eachExample :anIndex | | anElement |
+				stencil: [ :eachExample :anIndex | 
+					| anElement |
 					anElement := eachExample icon asElement.
 					anElement
-						constraintsDo: [ :c | 
-							c padding: (BlInsets top: 2) ];
-						when: BlClickEvent do: [ :anEvent | 
+						constraintsDo: [ :c | c padding: (BlInsets top: 2) ];
+						when: BlClickEvent
+							do: [ :anEvent | 
 							eachExample run.
 							anElement background: eachExample icon.
 							anEvent consumed: true.
@@ -27,18 +34,19 @@ SmalltalkImage >> gtExamplesContainedFor: aView [
 			aList column
 				title: 'Class' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrColumnCellLabelStencil matchParent: eachExample example methodClass name) asElement
+					(BrColumnCellLabelStencil
+						matchParent: eachExample example methodClass name) asElement
 						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList column
 				title: 'Selector' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrColumnCellLabelStencil matchParent: eachExample example selector asString) asElement
+					(BrColumnCellLabelStencil
+						matchParent: eachExample example selector asString) asElement
 						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
 			aList column
 				title: 'Result' translated;
 				stencil: [ :eachExample :anIndex | 
-					(BrColumnCellLabelStencil matchParent: eachExample resultOrErrorName) asElement
-						constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
-			aList
-			]
+					(BrColumnCellLabelStencil matchParent: eachExample resultOrErrorName)
+						asElement constraintsDo: [ :c | c padding: (BlInsets left: 10) ] ].
+			aList ]
 ]
