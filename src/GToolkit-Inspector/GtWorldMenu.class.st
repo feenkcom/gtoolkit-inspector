@@ -100,7 +100,7 @@ GtWorldMenu class >> openAllDocumenterFiles [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
-	GtPager openWrappedOn: GtCoder new title: 'Coder'
+	GtCoder new openInPager maximized
 ]
 
 { #category : #'api - actions' }

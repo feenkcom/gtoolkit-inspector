@@ -40,11 +40,6 @@ GtInspector class >> newOn: anObject [
 			c vertical matchParent ].
 ]
 
-{ #category : #'private - instance creation' }
-GtInspector class >> newTitleFrom: anObject [
-	^ 'Inspector on ' , anObject printString
-]
-
 { #category : #defaults }
 GtInspector >> defaultExtensions [
 	^ GtInspectorExtensions default inspectorInstance: self
@@ -189,6 +184,12 @@ GtInspector >> onRemovedFromPager: aGtPager [
 GtInspector >> onRemovedFromSceneGraph [
 	super onRemovedFromSceneGraph.
 	self notifyRemovedFromSceneGraph.
+]
+
+{ #category : #opening }
+GtInspector >> pagerWindowTitle [
+	<return: #String>
+	^ 'Inspector on ', self object gtDisplayString
 ]
 
 { #category : #'updating ui' }
