@@ -8,24 +8,24 @@ Class {
 	#category : #'GToolkit-Inspector-Model'
 }
 
-{ #category : #'widget configuration' }
+{ #category : #adding }
 GtInspectorEmbeddedPlayground >> addPlaygroundIn: aCreationContext [
-	| aPlaygroundContainer aContentToPlaygroundResizer aPlayground |
+	| aPlaygroundContainer aContentToPlaygroundResizer aPlayground aPlayBook |
 	aPlaygroundContainer := BlElement new
 		padding: (BlInsets all: 10);
 		layout: BlLinearLayout new;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 0 ].
-	playBook := GtPlayPage forObject: self object.
-	aPlayground := playBook asElement.
+	aPlayBook := GtPlayPage forObject: self object.
+	aPlayground := aPlayBook asElement.
 	aPlayground
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
 	aPlayground clipChildren: false.
 	aPlaygroundContainer addChild: aPlayground.
-	aContentToPlaygroundResizer := GtInspectorPagePlaygroundResizer new
+	aContentToPlaygroundResizer := GtEmbeddedPlaygroundResizer new
 		layout: BlFrameLayout new;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
@@ -60,7 +60,9 @@ GtInspectorEmbeddedPlayground >> addedToSceneGraph [
 
 { #category : #'widget configuration' }
 GtInspectorEmbeddedPlayground >> fillToolWidgetIn: aCreationContext [
-	self addPlaygroundIn: aCreationContext
+	GEmbeddedPlaygroundStencil new
+		receiver: self object;
+		asChildIn: aCreationContext wrapperElement
 ]
 
 { #category : #accessing }
