@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'extensions'
 	],
-	#category : #'GToolkit-Inspector-UI'
+	#category : #'GToolkit-Inspector-! Core'
 }
 
 { #category : #'gt-extensions' }
