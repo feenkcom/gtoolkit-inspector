@@ -1,4 +1,4 @@
-# GToolkit Inspector
+# GT Inspector
 GT Inspector is the moldable inspector for Pharo. It is part of the [Glamorous Toolkit project](https://github.com/feenkcom/gtoolkit).
 
 ## How to load
