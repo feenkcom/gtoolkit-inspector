@@ -24,7 +24,7 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 { #category : #accessing }
 GtInspectorTool >> object [
 	"compatibility method for ${GLMBlocObjectToSelect}$"
-	^ self object
+	^ self objectHolder object
 ]
 
 { #category : #accessing }
