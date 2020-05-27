@@ -3,48 +3,39 @@ Extension { #name : #Class }
 { #category : #'*GToolkit-Inspector' }
 Class >> gtAllReferencesFor: aView [
 	<gtView>
-	
-	^ aView explicit 
+	<gtClassView>
+	^ aView columnedList
 		title: 'References';
-		priority: 19;
-		stencil: [
-			| list |
-			list := BrColumnedList new 
-				display: [ 
-					(SystemNavigation default allReferencesTo: self binding) 
-						sorted: [ :x :y | x name < y name ] ].
-			list addEventHandler: GtInspectorListToSelectHandler new.
-			list column 
-				title: 'Method';
-				stencil: [ :each | BrColumnCellLabelStencil matchParent: each name ].
-			list column 
-				title: 'Package';
-				stencil: [ :each | BrColumnCellLabelStencil matchParent: each package name ].
-			list
-			].
-		
+		priority: 40;
+		items: [ (SystemNavigation default allReferencesTo: self binding)
+						sorted: [ :x :y | x name < y name ] ];
+		column: 'Method' item: [ :eachMethod | eachMethod name ];
+		column: 'Package' item: [ :eachMethod | 
+			| aText |
+			aText := eachMethod package name asRopedText.
+			eachMethod package name = self package name ifTrue: [
+				aText foreground: BrGlamorousColors disabledButtonTextColor ].
+ 			aText ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 Class >> gtAllReferencesOutsideFor: aView [
 	<gtView>
-	^ aView explicit 
+	^ aView explicit
 		title: 'All Ref Outside';
 		priority: 41;
-		stencil: [
-			| list |
-			list := BrColumnedList new display: [ ((SystemNavigation default allReferencesTo: self binding) 
-							reject: [ :method | method package name == self package name ])
+		stencil: [ | list |
+			list := BrColumnedList new
+				items: [ ((SystemNavigation default allReferencesTo: self binding)
+						reject: [ :method | method package name == self package name ])
 						sorted: [ :x :y | x name < y name ] ].
-			list column 
+			list column
 				title: 'Method';
 				stencil: [ :each | BrColumnCellLabelStencil matchParent: each name ].
-			list column 
+			list column
 				title: 'Package';
 				stencil: [ :each | BrColumnCellLabelStencil matchParent: each package name ].
-			list
-			].
-		
+			list ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
