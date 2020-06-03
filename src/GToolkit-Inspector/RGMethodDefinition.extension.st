@@ -6,11 +6,9 @@ RGMethodDefinition >> gtBasicSourceFor: aView [
 		title: 'Source';
 		priority: 0;
 		actionButtonIcon: BrGlamorousVectorIcons browse 
-			action: [ :aButton | self browse ];
-		actionButtonIcon: BrGlamorousVectorIcons inspect 
-			action: [ :aButton | 
-				aButton phlow spawnObject: 
-					(GtClassCoder forClass: self methodClass) ];
+			tooltip: 'Browse method'
+			action: [ :aButton | aButton phlow spawnTool: 
+				(GtMethodCoderTool compiledMethod: self compiledMethod) ];
 		stencil: [ 
 			 ((GtMethodCoder forMethod: self) 
 				expanded: true; 

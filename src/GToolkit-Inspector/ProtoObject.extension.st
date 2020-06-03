@@ -4,9 +4,9 @@ Extension { #name : #ProtoObject }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
-		tooltip: 'Browse';
+		tooltip: 'Browse class';
 		icon: BrGlamorousVectorIcons browse;
-		action: [ :button | self class gtBrowseFrom: button ]
+		action: [ :button | self gtBrowseFrom: button ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -14,7 +14,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
 		icon: BrGlamorousVectorIcons inspect;
-		tooltip: 'Inspect';
+		tooltip: 'Inspect object';
 		action: [ :button | button phlow spawnObject: self]
 ]
 
