@@ -101,9 +101,10 @@ GtExampleGroup >> gtExamplesFor: aView [
 		title: 'Examples';
 		priority: 11;
 		actionButtonIcon: BrGlamorousVectorIcons play
+			tooltip: 'Run all examples'
 			action: [ :aButton :aTab | 
-			self runAllExamplesFrom: aButton.
-			aTab viewContentElement phlow update ];
+				self runAllExamplesFrom: aButton.
+				aTab viewContentElement phlow update ];
 		stencil: [ | aContainer aButtonsContainer aListView |
 			aContainer := BlElement new
 				layout: BlLinearLayout vertical;
