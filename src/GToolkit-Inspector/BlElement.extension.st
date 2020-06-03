@@ -35,11 +35,11 @@ BlElement >> gtChildrenFor: aView [
 						label: 'Slides';
 						look: 
 							BrGlamorousButtonWithIconLook
-							- BrGlamorousWithLabelTooltipLook
+							- BrGlamorousButtonWithLabelTooltipLook
 							+ (BrGlamorousWithDropdownLook
 								handle: [ BrButton new
 									look: BrGlamorousButtonWithIconLook 
-										- BrGlamorousWithLabelTooltipLook
+										- BrGlamorousButtonWithLabelTooltipLook
 										- BrGlamorousButtonExteriorLook;
 									icon: (BlElement new
 										size: 50@20;
@@ -277,11 +277,11 @@ BlElement >> gtParentsFor: aView [
 						label: 'Slides';
 						look: 
 							BrGlamorousButtonWithIconLook
-							- BrGlamorousWithLabelTooltipLook
+							- BrGlamorousButtonWithLabelTooltipLook
 							+ (BrGlamorousWithDropdownLook
 								handle: [ BrButton new
 									look: BrGlamorousButtonWithIconLook 
-										- BrGlamorousWithLabelTooltipLook
+										- BrGlamorousButtonWithLabelTooltipLook
 										- BrGlamorousButtonExteriorLook;
 									icon: (BlElement new
 										size: 50@20;
