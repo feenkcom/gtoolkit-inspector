@@ -13,7 +13,7 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 		action: [ anElement children second items: (self examples select: #hasResult) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
-		label: self numberOfSuccesses asString, ' sucesses ';
+		label: self numberOfSuccesses asString, ' successes ';
 		action: [ anElement children second items: (self examples select: #isSuccess) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
@@ -101,9 +101,10 @@ GtExampleGroup >> gtExamplesFor: aView [
 		title: 'Examples';
 		priority: 11;
 		actionButtonIcon: BrGlamorousVectorIcons play
+			tooltip: 'Run all examples'
 			action: [ :aButton :aTab | 
-			self runAllExamplesFrom: aButton.
-			aTab viewContentElement phlow update ];
+				self runAllExamplesFrom: aButton.
+				aTab viewContentElement phlow update ];
 		stencil: [ | aContainer aButtonsContainer aListView |
 			aContainer := BlElement new
 				layout: BlLinearLayout vertical;
