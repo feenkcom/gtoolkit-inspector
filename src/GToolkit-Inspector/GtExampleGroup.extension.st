@@ -13,7 +13,7 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 		action: [ anElement children second items: (self examples select: #hasResult) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
-		label: self numberOfSuccesses asString, ' sucesses ';
+		label: self numberOfSuccesses asString, ' successes ';
 		action: [ anElement children second items: (self examples select: #isSuccess) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
