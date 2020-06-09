@@ -135,6 +135,19 @@ GtExampleGroup >> gtExamplesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+GtExampleGroup >> gtExpandableExamplesFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Examples';
+		priority: 1;
+		stencil: [
+			GtExampleGroupCoder new forItems: self examples ];
+		actionButtonIcon: BrGlamorousVectorIcons play 
+			tooltip: 'Run all examples'
+			action: [ :aButton | self runAll ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
