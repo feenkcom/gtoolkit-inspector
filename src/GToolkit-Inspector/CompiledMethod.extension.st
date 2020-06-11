@@ -6,11 +6,9 @@ CompiledMethod >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 10;
-		actionStencil: [ 
-			BrButton new 
-				look: BrGlamorousButtonWithIconLook;
-				icon: BrGlamorousVectorIcons browse;
-				action: [ self gtBrowse ] ];
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ self gtBrowse ];
 		stencil: [ ((GtMethodCoder forMethod: self) expanded: true; asElement) asScrollableElement ]
 ]
 
