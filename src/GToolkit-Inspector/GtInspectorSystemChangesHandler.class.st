@@ -162,6 +162,7 @@ GtInspectorSystemChangesHandler >> scheduleTask: aTask [
 
 { #category : #subscriptions }
 GtInspectorSystemChangesHandler >> subscribeToSystem [
+	true ifTrue: [ ^ self ].
 	self isSubscribedToSystem
 		ifTrue: [ ^ self ].
 	SystemAnnouncer uniqueInstance
