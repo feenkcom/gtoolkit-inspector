@@ -65,10 +65,16 @@ RGMethodDefinition >> gtSendersFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSourceFor: aView [
 	<gtView>
-	^ aView forward
+	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		object: [ self ];
-		view: #gtBasicSourceFor:;
-		transformed: #asScrollableElement
+		actionButtonIcon: BrGlamorousVectorIcons browse 
+			tooltip: 'Browse method'
+			action: [ :aButton | aButton phlow spawnTool: 
+				(GtMethodCoderTool compiledMethod: self compiledMethod) ];
+		stencil: [ 
+			 ((GtMethodCoder forMethod: self) 
+				expanded: true; 
+				subscribeToSystem;
+				asElement) asScrollableElement ].
 ]

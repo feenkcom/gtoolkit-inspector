@@ -95,7 +95,7 @@ GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 	self assert: theViews size equals: 1.
 	theElements := OrderedCollection new.
 	theViews do: [ :eachView | eachView asElementDo: [ :el | theElements add: el ] ].
-	self assert: theElements isEmpty.
+	self assert: theElements size equals: 1.
 	^ theViews
 ]
 
