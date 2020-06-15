@@ -9,6 +9,8 @@ Class >> gtAllReferencesFor: aView [
 		tooltip: 'Class references';
 		priority: 40;
 		addUpdateButtonTooltip: 'Update class references';
+		addAutoUpdate: GtPhlowUpdateViewOnClassReferenceChange;
+		addAutoUpdate: GtPhlowUpdateViewOnAddedToScene;
 		items: [ (SystemNavigation default allReferencesTo: self binding)
 						sorted: [ :x :y | x name < y name ] ];
 		column: 'Method' item: [ :eachMethod | eachMethod name ];
