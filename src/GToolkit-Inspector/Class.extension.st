@@ -6,7 +6,9 @@ Class >> gtAllReferencesFor: aView [
 	<gtClassView>
 	^ aView columnedList
 		title: 'References';
+		tooltip: 'Class references';
 		priority: 40;
+		addUpdateButtonTooltip: 'Update class references';
 		items: [ (SystemNavigation default allReferencesTo: self binding)
 						sorted: [ :x :y | x name < y name ] ];
 		column: 'Method' item: [ :eachMethod | eachMethod name ];
