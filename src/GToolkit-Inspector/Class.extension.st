@@ -8,7 +8,7 @@ Class >> gtAllReferencesFor: aView [
 		title: 'References';
 		tooltip: 'Class references';
 		priority: 40;
-		addUpdateButtonTooltip: 'Update class references';
+		actionUpdateButtonTooltip: 'Update class references';
 		addAutoUpdate: GtPhlowUpdateViewOnClassReferenceChange;
 		addAutoUpdate: GtPhlowUpdateViewOnAddedToScene;
 		items: [ (SystemNavigation default allReferencesTo: self binding)

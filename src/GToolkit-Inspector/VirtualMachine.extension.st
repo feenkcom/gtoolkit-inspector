@@ -45,7 +45,7 @@ VirtualMachine >> gtStatisticsFor: aView [
 	^ aView columnedList
 		title: 'Statistics';
 		priority: 30;
-		addUpdateButton;
+		actionUpdateButton;
 		items: [ {('Full GC count' -> (self parameterAt: 7)).
 			('Scavenge count' -> (self parameterAt: 8)).
 			('Tenure count' -> (self parameterAt: 11)).
