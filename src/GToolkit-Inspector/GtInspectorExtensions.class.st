@@ -76,7 +76,7 @@ GtInspectorExtensions >> gtExtensionsFor: aView [
 	^ aView list
 		title: 'Extensions';
 		items: [ self collection ];
-		addUpdateButton
+		actionUpdateButton
 ]
 
 { #category : #initialization }
