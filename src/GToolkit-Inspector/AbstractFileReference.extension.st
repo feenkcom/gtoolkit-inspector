@@ -41,6 +41,9 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 AbstractFileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
+	[ self readStreamDo: [ :s | s next: 1000 ] ]
+		on: ZnInvalidUTF8
+		do: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Contents' translated;
 		priority: 50;
@@ -51,10 +54,7 @@ AbstractFileReference >> gtContentsFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent ];
 				editor: (BrTextEditor new 
-					text: (self binaryReadStreamDo: [ :stream | 
-						[stream contents ]
-							on: Error 
-							do: [ (stream next: 10000) asString ] ]) asRopedText glamorousRegularFont) ];
+					text: (BlRopeableCollectionFile ropeFor: self) glamorousRegularFont) ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
