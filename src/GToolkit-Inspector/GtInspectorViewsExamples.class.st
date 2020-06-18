@@ -33,8 +33,8 @@ GtInspectorViewsExamples >> exceptionAtCreation [
 GtInspectorViewsExamples >> labelViewOfMyself [
 	<gtExample>
 	| labelView |
-	labelView := self gtViewsFor: GtPhlowEmptyView new..
-	self assert: labelView label asString = self printString.
+	labelView := self gtViewsFor: GtPhlowEmptyView new.
+	self assert: labelView newLabel asString equals: self gtDisplayString.
 	^ labelView 
 ]
 
@@ -42,8 +42,8 @@ GtInspectorViewsExamples >> labelViewOfMyself [
 GtInspectorViewsExamples >> labelViewOfSmallInteger [
 	<gtExample>
 	| labelView |
-	labelView := 42 gtViewsFor: GtPhlowEmptyView new..
-	self assert: labelView label asString = 'a SmallInteger (42)'.
+	labelView := 42 gtViewsFor: GtPhlowEmptyView new.
+	self assert: labelView newLabel asString = 'a SmallInteger (42)'.
 	^ labelView 
 ]
 
