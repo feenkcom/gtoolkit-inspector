@@ -9,7 +9,8 @@ CompiledMethod >> gtSourceFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ self gtBrowse ];
-		stencil: [ ((GtMethodCoder forMethod: self) expanded: true; asElement) asScrollableElement ]
+		stencil: [ (GtMethodCoder forMethod: self)
+			asExpandedOnlyElement vFitContentLimited ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
