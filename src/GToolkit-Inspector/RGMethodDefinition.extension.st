@@ -74,7 +74,6 @@ RGMethodDefinition >> gtSourceFor: aView [
 				(GtMethodCoderTool compiledMethod: self compiledMethod) ];
 		stencil: [ 
 			 ((GtMethodCoder forMethod: self) 
-				expanded: true; 
 				subscribeToSystem;
-				asElement) asScrollableElement ].
+				asExpandedOnlyElement) vFitContentLimited ].
 ]
