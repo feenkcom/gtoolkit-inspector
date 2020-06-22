@@ -6,6 +6,6 @@ ZnUrl >> gtUrlFor: aView [
 	^ aView textEditor
 		title: 'URL';
 		priority: 1;
-		look: BrGlamorousCodeEditorLook new;
+		look: BrGlamorousCodeEditorLook;
 		text: [ self printString asRopedText ]
 ]

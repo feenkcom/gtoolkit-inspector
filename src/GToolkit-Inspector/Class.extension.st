@@ -47,9 +47,9 @@ Class >> gtDefinitionFor: aView [
 	<gtView>
 	^ aView textEditor  
 		title: 'Definition';
-		priority: 1;
+		priority: 1; 
 		styler: BrRBTextStyler new;
-		look: BrGlamorousCodeEditorLook new;
+		look: BrGlamorousCodeEditorLook;
 		text: [ self definition asRopedText ].
 ]
 
