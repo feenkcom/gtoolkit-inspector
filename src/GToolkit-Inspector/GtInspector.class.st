@@ -30,6 +30,12 @@ GtInspector class >> gtExtensionsFor: aView [
 		priority: 34
 ]
 
+{ #category : #accessing }
+GtInspector class >> inspectorViews [
+	<gtExample>
+	^ #gtView gtPragmas
+]
+
 { #category : #'instance creation' }
 GtInspector class >> newOn: anObject [
 	"create an inspector element on a given object"
