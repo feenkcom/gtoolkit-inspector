@@ -69,7 +69,7 @@ MessageTally >> gtTextReportFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Text report';
-		look: BrGlamorousCodeEditorLook new;
+		look: BrGlamorousCodeEditorLook;
 		priority: 60;
 		text: [ String streamContents: [:s | self report: s ] ]
 ]
