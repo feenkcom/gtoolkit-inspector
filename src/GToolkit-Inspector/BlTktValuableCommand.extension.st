@@ -5,5 +5,8 @@ BlTktValuableCommand >> gtBlockClosureFor: aView [
 	<gtView>
 	^ self valuable
 		ifNil: [ aView empty ] 
-		ifNotNil: [ :aValuable | aValuable gtSourceCodeFor: aView ]
+		ifNotNil: [ :aValuable |
+			aValuable isClosure
+				ifTrue: [ aValuable gtSourceCodeFor: aView ]
+				ifFalse: [ aView empty ] ]
 ]
