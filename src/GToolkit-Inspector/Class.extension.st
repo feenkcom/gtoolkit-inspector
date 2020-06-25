@@ -48,7 +48,9 @@ Class >> gtDefinitionFor: aView [
 	^ aView textEditor  
 		title: 'Definition';
 		priority: 1; 
-		styler: BrRBTextStyler new;
+		styler: (BrRBTextStyler new 
+				isForWorkspace: true;
+				yourself);
 		look: BrGlamorousCodeEditorLook;
 		text: [ self definition asRopedText ].
 ]
