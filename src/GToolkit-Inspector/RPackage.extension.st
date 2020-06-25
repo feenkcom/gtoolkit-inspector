@@ -35,6 +35,6 @@ RPackage >> gtTagsFor: aView [
 	^ aView list
 		title: 'Tags';
 		priority: 2;
-		items: [ self classTags asOrderedCollection ];
+		items: [ self classTags asOrderedCollection sorted: [ :a :b | a name < b name ] ];
 		itemFormat: [ :aTag | aTag name ]
 ]
