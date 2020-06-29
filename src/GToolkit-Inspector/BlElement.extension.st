@@ -49,6 +49,7 @@ BlElement >> gtChildrenFor: aView [
 				constraintsDo: [ :c | c linear horizontal alignRight ]
 				"padding: (BlInsets all: 10) "]];
 		column: 'Type' format: [ :eachElement | eachElement class ];
+		column: 'Element' item: [ :anElement | anElement ];
 		column: 'Drawing cache' 
 		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
 			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
