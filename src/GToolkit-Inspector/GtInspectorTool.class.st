@@ -6,6 +6,11 @@ Class {
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
 
+{ #category : #'instance creation' }
+GtInspectorTool class >> forObject: anObject [
+	^ self new object: anObject
+]
+
 { #category : #accessing }
 GtInspectorTool class >> priority [
 	<return: #Number>
