@@ -18,12 +18,19 @@ GtFileUtility class >> imageElementFromBytes: theBytes named: aFileName [
 GtFileUtility class >> imageElementFromFileReference: aFileReference [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
+	| image |
+
 	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
-	^ (ImageReadWriter gtReaderClassFromFileReference: aFileReference)
-		ifNil: [ BrEditorElement new 
+	image := SkiaImage fromFile: aFileReference asFileReference asAbsolute fullName.
+	
+	^ image isNull
+		ifTrue: [ BrEditorElement new 
 			editor: (BrTextEditor new 
 				text: ('Unsupported format for ', aFileReference fullName asString) asRopedText);
 			constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-		ifNotNil: [ :aReaderClass | 
-			(aReaderClass gtFormFromFileReference: aFileReference) asElement asPannableElement ] 
+		ifFalse: [
+			image asElement
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent. ] ] 
 ]
