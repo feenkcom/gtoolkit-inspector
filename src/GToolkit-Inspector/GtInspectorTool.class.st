@@ -23,7 +23,23 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 	| anInspector |
 	anInspector := GtInspector new 
 		objectHolder: self objectHolder.
-	aOneArgBlock cull: anInspector asPagerPageElement.
+	^ aOneArgBlock cull: anInspector asPagerPageElement.
+]
+
+{ #category : #'api - converting' }
+GtInspectorTool >> asTabDo: aBlock [
+	| aTab |
+	aTab := BrTab new
+		look: BrGlamorousTabSwitcherWithIconLook;
+		label: self name;
+		icon: BrGlamorousVectorIcons inspect;
+		stencil: [ self asElementDo: [ :anElement | anElement ] ].
+	aBlock cull: aTab.
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> name [
+	^ 'inspector'
 ]
 
 { #category : #accessing }
