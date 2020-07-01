@@ -4,26 +4,45 @@ Extension { #name : #GtFileUtility }
 GtFileUtility class >> imageElementFromBytes: theBytes named: aFileName [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
-	theBytes isNil ifTrue: [^ BlElement new asPannableElement].
-	^ (theBytes readStreamDo: [ :aReadSteam | ImageReadWriter gtReaderClassFromStream: aReadSteam ])
-		ifNil: [ BrEditorElement new 
+	| image |
+
+	(theBytes isNil or: [ theBytes isEmpty ]) ifTrue: [^ BlElement new asPannableElement].
+	image := SkiaImage fromBuffer: theBytes start: 0 end: theBytes size - 1.
+	^ image isNull ifTrue:
+		[ BrEditorElement new 
 			editor: (BrTextEditor new 
 				text: ('Unsupported format for ', aFileName asString) asRopedText);
 			constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-		ifNotNil: [ :aReaderClass | 
-			(aReaderClass gtFormFromBuffer: theBytes) asElement asPannableElement ]
+	ifFalse:
+		[ image asElement 
+			constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent. ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 GtFileUtility class >> imageElementFromFileReference: aFileReference [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
+	| image buffer valid |
+
 	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
-	^ (ImageReadWriter gtReaderClassFromFileReference: aFileReference)
-		ifNil: [ BrEditorElement new 
+	aFileReference fileSystem isDiskFileSystem ifTrue: 
+		[ valid := true.
+		image := BlFileImageElement file: aFileReference ]
+	ifFalse: 
+		[ buffer := aFileReference binaryReadStreamDo: [ :s | s upToEnd ].
+		image := SkiaImage fromBuffer: buffer start: 0 end: buffer size - 1.
+		valid := image isNull not ].
+	
+	^ valid ifFalse: 
+		[ BrEditorElement new 
 			editor: (BrTextEditor new 
 				text: ('Unsupported format for ', aFileReference fullName asString) asRopedText);
 			constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-		ifNotNil: [ :aReaderClass | 
-			(aReaderClass gtFormFromFileReference: aFileReference) asElement asPannableElement ] 
+	ifTrue: 
+		[ image asElement
+				constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent. ] ] 
 ]
