@@ -71,7 +71,7 @@ AbstractFileReference >> gtContentsFor: aView [
 AbstractFileReference >> gtFigureFor: aView [
 	<gtView>
 	(self isFile and: [ 
-		(ImageReadWriter allTypicalFileExtensions includes: self extension) ]) ifFalse: [ ^ aView empty ].
+		(ImageReadWriter allTypicalFileExtensions includes: self extension asLowercase) ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
