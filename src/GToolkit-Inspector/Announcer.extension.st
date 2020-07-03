@@ -3,11 +3,12 @@ Extension { #name : #Announcer }
 { #category : #'*GToolkit-Inspector' }
 Announcer >> gtSubscriptionsFor: aView [
 	<gtView>
-	self numberOfSubscriptions isZero ifTrue: [ ^ aView empty ].
+	self subscriptions ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Subscriptions';
 		priority: 50;
 		items: [ self subscriptions subscriptions asArray ];
+		actionUpdateButtonTooltip: 'Update subscription list';
 		column: 'Subscriber' translated do: [ :aColumn | 
 			aColumn 
 				item: [ :aSubscription | aSubscription subscriber ]; 
