@@ -8,5 +8,6 @@ GtPhlowSystemChangeUpdateDefinition >> gtElementContextFor: aView [
 		title: 'Contexts';
 		items: [ self contexts ];
 		column: 'Element' item: #element;
-		column: 'View' item: #entity
+		column: 'View' item: #entity;
+		actionUpdateButtonTooltip: 'Update context list'
 ]
