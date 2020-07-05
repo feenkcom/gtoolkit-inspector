@@ -1,15 +1,11 @@
 "
 !Inspector
-
 The inspector offers several operators that can be combined in many ways to adapt the inspection to the context:
 - Show multiple views for each object.
 - Show connected objects.
 - Treat code evaluation like navigation.
 - Extend the object while inspecting.
-
-
 !!Show multiple views for each object
-
 Every object is different and should be allowed to look different, too. Here is an inspector example opened on an instance of ${class:CompiledMethod}$.  Take a moment to play with the different tabs.
 
 ${example:CompiledMethod class>>#gtExampleSimple|expandedPreview|noCode=|200}$
@@ -19,10 +15,7 @@ Classic inspectors are typically defined as tools that show the interior of an o
 This behavior is achieved by asking the object to specify what views make sense for it. This is similar to how objects can print themselves, only we can now define multiple representations that offer interactions. For example, the extension that shows the bytecodes can be seen in ${method:CompiledCode>>#gtBytecodeFor:}$.
 
 The extension is annotated with the ==<gtView>== pragma and is defined as a Phlow view. More details about how to define these views can be found in ${class:BaselineOfGToolkitPhlow}$.
-
-
 !!Show connected objects
-
 Investigating software systems often requires us to drill through objects to find in the search for an answer. Once we do find the answer, we also want to be able to go back throughout the tunnel we went through to link the cause with the effect. To this end, we want to keep track of the navigation. This is achieved through the pager interface that is a variation of Miller columns interface.
 
 Take a look at the inspector showing the working directory.
@@ -34,20 +27,14 @@ As the instance of ${class:FileReference}$ represents a directory, the inspector
 Take a moment to explore your file system. Notice how the exploration does not feel much different from a file navigator. Yet, it happens right in the inspector, the most basic tool we have at our disposal.
 
 This design keeps track of the last navigation path and allows one to go back through the navigation steps to trace the reasoning.
-
-
 !!Treat code and navigation the same
-
 Clicking on an item in the list spawns a new object to the right. Another way to obtain an object is via code. In the inspector, the two interactions are treated the same. This is achieved through the Playground. This simple combination enables an endless set of workflows, such as:
 - brdging navigation through code,
 - code querying, or
 - quick prototyping.
 
 Learn more about the Playground at ${class:BaselineOfGToolkitPlayground}$.
-
-
 !!Extend the object while inspecting
-
 Each class can define object extensions that are meaningful for inspecting instances of that class. One of the extensions that exists for all objects is the Meta one. This one shows a Coder for editing the class of the current object.
 
 For example, take as look at a ${class:Color}$.
