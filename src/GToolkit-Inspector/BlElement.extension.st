@@ -50,12 +50,11 @@ BlElement >> gtChildrenFor: aView [
 				"padding: (BlInsets all: 10) "]];
 		column: 'Type' format: [ :eachElement | eachElement class ];
 		column: 'Element' item: [ :anElement | anElement ];
-		column: 'Drawing cache' 
-		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
-			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
-				ifTrue: [ 'Enabled' ]
-				ifFalse: [ 'Disabled' ] ]
-			ifFalse: [ '' ] ]
+		column: 'Composition layer' 
+		item: [ :eachElement |
+			eachElement wantsSeparateCompositingLayer
+				ifTrue: [ 'Yes' ]
+				ifFalse: [ '' ] ]
 		width: 100
 ]
 

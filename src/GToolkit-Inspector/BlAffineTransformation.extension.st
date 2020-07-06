@@ -45,10 +45,9 @@ BlAffineTransformation >> gtPreviewFor: aView [
 				paint: Color white;
 				path: canvas bounds;
 				draw.
-			canvas transform push.
 			canvas transform
 				translateBy: 50@50;
-				apply.
+				push.
 			canvas stroke
 				paint: Color black;
 				path: aHouse;
@@ -57,12 +56,12 @@ BlAffineTransformation >> gtPreviewFor: aView [
 				draw.
 			canvas transform
 				multiplyBy: self asMatrix;
-				apply.
+				push.
 			canvas stroke
 				paint: Color black;
 				path: aHouse;
 				width: 2;
 				draw.
-			canvas transform pop.
+			canvas transform pop pop.
 			canvas asForm asElement ]
 ]
