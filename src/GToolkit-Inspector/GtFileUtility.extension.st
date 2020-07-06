@@ -4,45 +4,31 @@ Extension { #name : #GtFileUtility }
 GtFileUtility class >> imageElementFromBytes: theBytes named: aFileName [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
-	| image |
 
 	(theBytes isNil or: [ theBytes isEmpty ]) ifTrue: [^ BlElement new asPannableElement].
-	image := SkiaImage fromBuffer: theBytes start: 0 end: theBytes size - 1.
-	^ image isNull ifTrue:
-		[ BrEditorElement new 
-			editor: (BrTextEditor new 
-				text: ('Unsupported format for ', aFileName asString) asRopedText);
-			constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-	ifFalse:
-		[ image asElement 
-			constraintsDo: [ :c |
+	^ (BlSpartaBufferedImageElement buffer: theBytes)
+		errorText: 'Unable to decode ', aFileName asString;
+		constraintsDo: [ :c |
 					c vertical matchParent.
-					c horizontal matchParent. ] ]
+					c horizontal matchParent. ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 GtFileUtility class >> imageElementFromFileReference: aFileReference [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
-	| image buffer valid |
+	| image buffer |
 
 	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
-	aFileReference fileSystem isDiskFileSystem ifTrue: 
-		[ valid := true.
-		image := BlFileImageElement file: aFileReference ]
+	image := aFileReference fileSystem isDiskFileSystem ifTrue: 
+		[ BlFileImageElement file: aFileReference ]
 	ifFalse: 
 		[ buffer := aFileReference binaryReadStreamDo: [ :s | s upToEnd ].
-		image := SkiaImage fromBuffer: buffer start: 0 end: buffer size - 1.
-		valid := image isNull not ].
+		BlSpartaBufferedImageElement buffer: buffer ].
 	
-	^ valid ifFalse: 
-		[ BrEditorElement new 
-			editor: (BrTextEditor new 
-				text: ('Unsupported format for ', aFileReference fullName asString) asRopedText);
-			constraintsDo: [ :c | c vertical matchParent. c horizontal matchParent ] ]
-	ifTrue: 
-		[ image asElement
-				constraintsDo: [ :c |
+	^ image
+		errorText: 'Unable to decode ', aFileReference asString;
+		constraintsDo: [ :c |
 					c vertical matchParent.
-					c horizontal matchParent. ] ] 
+					c horizontal matchParent. ]
 ]
