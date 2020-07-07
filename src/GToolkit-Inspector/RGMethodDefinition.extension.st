@@ -24,7 +24,7 @@ RGMethodDefinition >> gtImplementorsFor: aView [
 		priority: 11;
 		stencil: [ | list |
 			list := BrColumnedList new items: self compiledMethod implementors.
-			list addEventHandler: GtInspectorListToSelectHandler new.
+			list addEventHandler: GtPhlowListToSelectHandler new.
 			list column
 				title: 'Index';
 				stencil: [ :aClass :anIndex | 
@@ -47,7 +47,7 @@ RGMethodDefinition >> gtSendersFor: aView [
 		priority: 10;
 		stencil: [ | list |
 			list := BrColumnedList new items: self compiledMethod senders.
-			list addEventHandler: GtInspectorListToSelectHandler new.
+			list addEventHandler: GtPhlowListToSelectHandler new.
 			list column
 				title: 'Index';
 				stencil: [ :aClass :anIndex | 

@@ -13,7 +13,7 @@ SmalltalkImage >> gtExamplesContainedFor: aView [
 						collect: [ :each | each asExampleWithResult ]).
 			aList
 				addEventHandler:
-					(GtInspectorListToSelectHandler new
+					(GtPhlowListToSelectHandler new
 						transformation: [ :each | 
 							(each isKindOf: GtExampleWithResult)
 								ifTrue: [ each example ]

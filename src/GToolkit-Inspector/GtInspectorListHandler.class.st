@@ -1,3 +1,6 @@
+"
+Use ${class:GtPhlowListHandler}$ subclasses instead.
+"
 Class {
 	#name : #GtInspectorListHandler,
 	#superclass : #BlBasicEventHandler,
@@ -6,6 +9,11 @@ Class {
 	],
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
+
+{ #category : #testing }
+GtInspectorListHandler class >> isDeprecated [
+	^ true
+]
 
 { #category : #initialization }
 GtInspectorListHandler >> initialize [

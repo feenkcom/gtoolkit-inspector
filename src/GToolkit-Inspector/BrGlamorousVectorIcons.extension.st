@@ -8,16 +8,26 @@ BrGlamorousVectorIcons class >> gtIconsFor: aView [
 			title: 'Icons';
 			priority: -10;
 			items: self allIcons;
-			itemStencil: [ :eachIcon | 
+			itemStencil: [ 
 				BlElement new
 					layout: BlLinearLayout horizontal;
 					margin: (BlInsets all: 3);
-					constraintsDo: [ :c | c vertical fitContent ];
-					addChild: (eachIcon value asElement asScalableElement size: 64@64);
+					constraintsDo: [ :c | 
+						c vertical fitContent.
+						c horizontal matchParent ];
+					addChild: (BlElement new size: 64@64) as: #icon;
 					addChild: (BrLabel new 
 						look: BrGlamorousLabelLook;
 						constraintsDo: [:c | c linear vertical alignCenter];
-						text: eachIcon key asString;
-						padding: (BlInsets left: 20 right: 3)) ];
+						padding: (BlInsets left: 20 right: 3)) as: #label ];
+			itemDataBinder: [ :anElement :anIcon :anIndex |
+				anElement 
+					replaceChild: (anElement childNamed: #icon) 
+					with: (anIcon value asElement asScalableElement size: 64@64)
+					as: #icon.
+				(anElement childNamed: #label)
+					text: anIcon key asString.
+				anElement ];
+			actionUpdateButtonTooltip: 'Update icon list';
 			send: #value
 ]
