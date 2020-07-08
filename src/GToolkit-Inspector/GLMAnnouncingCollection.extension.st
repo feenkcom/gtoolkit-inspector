@@ -27,7 +27,7 @@ GLMAnnouncingCollection >> gtItemsFor: aView [
         stencil: [ 
             | list refreshBlock |
             list := BrColumnedList new
-                addEventHandler: GtInspectorListToSelectHandler new;
+                addEventHandler: GtPhlowListToSelectHandler new;
                 display: self asOrderedCollection.
 				refreshBlock := [  list look request: BrListItemsRequest new].
 				self when: GLMItemAdded do: refreshBlock.
