@@ -2,11 +2,11 @@ Extension { #name : #CompiledCode }
 
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtBytecodeFor: aView [
-	<gtView> 
+	<gtView>
 	^ aView list
 		title: 'Bytecode' translated;
 		items: [ self symbolicBytecodes ];
-		itemFormat: [ :each | each printString ]
+		itemText: [ :each | each printString ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
