@@ -87,7 +87,7 @@ GtExampleGroup >> buildListViewFor: aView [
 								at: #example
 								ifPresent: [ :anExample |
 									anExample hasResult ifTrue: [ | aResult |
-										aResult := anExample result returnValue.
+										aResult := anExample result returnValueOrExampleException.
 										(aResult isKindOf: BlElement) ifTrue: [ 
 											aResult removeFromParent ].
 										anEvent currentTarget phlow spawnObject: aResult.
