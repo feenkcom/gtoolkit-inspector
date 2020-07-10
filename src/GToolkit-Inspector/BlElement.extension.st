@@ -50,7 +50,7 @@ BlElement >> gtChildrenFor: aView [
 															addChild: form asElement asScalableElement) ]
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
-		column: 'Type' format: [ :eachElement | eachElement class ];
+		column: 'Type' text: [ :eachElement | eachElement class ];
 		column: 'Element' item: [ :anElement | anElement ];
 		column: 'Composition layer'
 			item: [ :eachElement | 
@@ -297,7 +297,7 @@ BlElement >> gtParentsFor: aView [
 															addChild: form asElement asScalableElement) ]
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
-		column: 'Type' format: [ :eachElement | eachElement class ];
+		column: 'Type' text: [ :eachElement | eachElement class ];
 		column: 'Drawing cache'
 			item: [ :eachElement | 
 			(eachElement class withAllSuperclasses
