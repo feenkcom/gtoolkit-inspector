@@ -49,32 +49,25 @@ Object >> gtRawFor: aView [
 	^ aView columnedList
 		title: 'Raw';
 		priority: 100;
-		items: [ 
-			| variableNodes |
+		items: [ | variableNodes |
 			variableNodes := OrderedCollection new: self class allSlots size.
 			variableNodes add: (GTInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			variableNodes ];
-		column: 'Icon' do: [:aColumn | 
-			aColumn 
-				itemStencil: [ :aNode |
-					| icon |
-					icon := ([ aNode rawValue gtInspectorIcon ifNil: [ aNode rawValue class systemIcon ] ]
-						on: Error 
-						do: [ :error | self iconNamed: #smallWarningIcon ]).
-					icon asElement 
-						margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0 ) ];
-				noResize ];
-		column: 'Variable' do: [:aColumn |
-			aColumn 
-				itemFormat: [ :aNode | aNode label asRopedText ];
-				matchParent ];
-		column: 'Value' do: [ :aColumn |
-			aColumn 
-				itemFormat: [ :aNode |
-					[ aNode rawValue gtDisplayString asRopedText ] 
-						on: Error, Halt
-						do: [ aNode errorMessage asRopedText foreground: Color red ] ];
-			matchParent ];
+		column: 'Icon'
+			icon: [ :aNode | 
+				| icon |
+				icon := [ aNode rawValue gtInspectorIcon
+					ifNil: [ aNode rawValue class systemIcon ] ]
+					on: Error
+					do: [ :error | self iconNamed: #smallWarningIcon ].
+				icon asElement
+					margin: (BlInsets top: 3 left: 10 bottom: 3 right: 10) ]
+			width: 36;
+		column: 'Variable' text: [ :aNode | aNode label ];
+		column: 'Value' text: [ :aNode | 
+			[ aNode rawValue gtDisplayString asRopedText ]
+			on: Error , Halt
+			do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value
 ]

@@ -121,35 +121,26 @@ AbstractFileReference >> gtItemsFor: aView [
 						addFirst: self parent;
 						yourself ].
 			children ];
-		column: 'Icon' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
-					each isDirectory
-						ifTrue: [ BrGlamorousIcons folder ]
-						ifFalse: [ BrGlamorousIcons file ] ];
-				rowStencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
-				noResize ];
-		column: 'Name' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
-					(self isChildOf: each)
-						ifTrue: [ '..' ]
-						ifFalse: [ each basename asString ] ];
-				matchParent ];
+		column: 'Icon' translated 
+			icon: [ :each | 
+				each isDirectory
+					ifTrue: [ BrGlamorousIcons folder ]
+					ifFalse: [ BrGlamorousIcons file ] ]
+			width: 26;
+		column: 'Name' translated text: [ :each | 
+			(self isChildOf: each)
+				ifTrue: [ '..' ]
+				ifFalse: [ each basename asString ] ];
 		column: 'Size' translated
-			do:
-				[ :column | column item: [ :each | each humanReadableSize asString ] ];
+			text: [ :each | each humanReadableSize asString ]
+			width: 100;
 		column: 'Creation' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
-					String
-						streamContents: [ :s | 
-							each creationTime printYMDOn: s.
-							s nextPut: Character space.
-							each creationTime printHMSOn: s ] ] ]
+			text: [ :each | 
+				String
+					streamContents: [ :s | 
+						each creationTime printYMDOn: s.
+						s nextPut: Character space.
+						each creationTime printHMSOn: s ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

@@ -39,7 +39,7 @@ GtExampleGroup >> buildListViewFor: aView [
 		column: 'Status' translated
 			do: [ :aColumn | 
 			aColumn
-				itemStencil: [ :eachExample :anIndex | 
+				stencil: [ :eachExample :anIndex | 
 					| anElement |
 					anElement := eachExample icon asElement.
 					eachExample announcer
@@ -105,6 +105,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 			action: [ :aButton :aTab | 
 				self runAllExamplesFrom: aButton.
 				aTab viewContentElement phlow update ];
+		actionUpdateButtonTooltip: 'Update example list';
 		stencil: [ | aContainer aButtonsContainer aListView |
 			aContainer := BlElement new
 				layout: BlLinearLayout vertical;
