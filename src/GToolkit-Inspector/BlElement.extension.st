@@ -22,7 +22,7 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				noResize;
+				noWidth;
 				width: 70;
 				stencil: [ :eachElement | 
 					| form |
@@ -269,7 +269,7 @@ BlElement >> gtParentsFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				noResize;
+				noWidth;
 				width: 70;
 				stencil: [ :eachElement | 
 					| form |
@@ -354,14 +354,20 @@ BlElement >> gtResizersFor: aView [
 BlElement >> gtShortcutsFor: aView [
 	<gtView>
 	self shortcuts ifEmpty: [ ^ aView empty ].
-	^ aView columnedList 
+	^ aView columnedList
 		title: 'Shortcuts' translated;
 		priority: 10;
 		items: [ self shortcuts asArray ];
-		column: 'Key' do: [:aColumn | 
-			aColumn item: [ :each | each combination gtDisplayString ]; matchParent ];
-		column: 'Action' do: [:aColumn |
-			aColumn item: [ :each | each action asString ]; matchParent ]
+		column: 'Key'
+			do: [ :aColumn | 
+			aColumn
+				item: [ :each | each combination gtDisplayString ];
+				weight: 1 ];
+		column: 'Action'
+			do: [ :aColumn | 
+			aColumn
+				item: [ :each | each action asString ];
+				weight: 1 ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
