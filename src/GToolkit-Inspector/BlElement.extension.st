@@ -19,43 +19,45 @@ BlElement >> gtChildrenFor: aView [
 		expandUpTo: 2;
 		items: [ {self} ];
 		children: #children;
-		column: 'Preview' do: [ :aColumn |
+		column: 'Preview'
+			do: [ :aColumn | 
 			aColumn
 				noResize;
 				width: 70;
-				rowStencil: [ :eachElement |
+				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
-					BrButton new 
+					BrButton new
 						margin: (BlInsets all: 10);
-						icon: (BlElement new
-							size: 50@20;
-							"margin: (BlInsets top: 2 bottom: 2);"
-							addChild: (form asElement asScalableElement));
+						icon:
+							(BlElement new
+								size: 50 @ 20;
+								"margin: (BlInsets top: 2 bottom: 2);"
+									addChild: form asElement asScalableElement);
 						label: 'Slides';
-						look: 
-							BrGlamorousButtonWithIconLook
-							- BrGlamorousButtonWithLabelTooltipLook
-							+ (BrGlamorousWithDropdownLook
-								handle: [ BrButton new
-									look: BrGlamorousButtonWithIconLook 
-										- BrGlamorousButtonWithLabelTooltipLook
-										- BrGlamorousButtonExteriorLook;
-									icon: (BlElement new
-										size: 50@20;
-										"margin: (BlInsets top: 2 bottom: 2);"
-										addChild: (form asElement asScalableElement)) ]
-				content: [ form asElement ]);
-				constraintsDo: [ :c | c linear horizontal alignRight ]
-				"padding: (BlInsets all: 10) "]];
+						look:
+							BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+								+
+									(BrGlamorousWithDropdownLook
+										handle: [ BrButton new
+												look:
+													BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+														- BrGlamorousButtonExteriorLook;
+												icon:
+													(BlElement new
+														size: 50 @ 20;
+														"margin: (BlInsets top: 2 bottom: 2);"
+															addChild: form asElement asScalableElement) ]
+										content: [ form asElement ]);
+						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' format: [ :eachElement | eachElement class ];
 		column: 'Element' item: [ :anElement | anElement ];
-		column: 'Composition layer' 
-		item: [ :eachElement |
+		column: 'Composition layer'
+			item: [ :eachElement | 
 			eachElement wantsSeparateCompositingLayer
 				ifTrue: [ 'Yes' ]
 				ifFalse: [ '' ] ]
-		width: 100
+			width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -259,44 +261,51 @@ BlElement >> gtParentsFor: aView [
 		title: 'Parents';
 		priority: 36;
 		expandUpTo: 2;
-		items: [ { self } ];
-		children: [ :each | each hasParent ifTrue: [ { each parent } ] ifFalse: [ {  } ] ];
-		column: 'Preview' do: [ :aColumn |
+		items: [ {self} ];
+		children: [ :each | 
+			each hasParent
+				ifTrue: [ {each parent} ]
+				ifFalse: [ {} ] ];
+		column: 'Preview'
+			do: [ :aColumn | 
 			aColumn
 				noResize;
 				width: 70;
-				rowStencil: [ :eachElement |
+				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
-					BrButton new 
+					BrButton new
 						margin: (BlInsets all: 10);
-						icon: (BlElement new
-							size: 50@20;
-							"margin: (BlInsets top: 2 bottom: 2);"
-							addChild: (form asElement asScalableElement));
+						icon:
+							(BlElement new
+								size: 50 @ 20;
+								"margin: (BlInsets top: 2 bottom: 2);"
+									addChild: form asElement asScalableElement);
 						label: 'Slides';
-						look: 
-							BrGlamorousButtonWithIconLook
-							- BrGlamorousButtonWithLabelTooltipLook
-							+ (BrGlamorousWithDropdownLook
-								handle: [ BrButton new
-									look: BrGlamorousButtonWithIconLook 
-										- BrGlamorousButtonWithLabelTooltipLook
-										- BrGlamorousButtonExteriorLook;
-									icon: (BlElement new
-										size: 50@20;
-										"margin: (BlInsets top: 2 bottom: 2);"
-										addChild: (form asElement asScalableElement)) ]
-				content: [ form asElement ]);
-				constraintsDo: [ :c | c linear horizontal alignRight ]
-				"padding: (BlInsets all: 10) "]];
+						look:
+							BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+								+
+									(BrGlamorousWithDropdownLook
+										handle: [ BrButton new
+												look:
+													BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+														- BrGlamorousButtonExteriorLook;
+												icon:
+													(BlElement new
+														size: 50 @ 20;
+														"margin: (BlInsets top: 2 bottom: 2);"
+															addChild: form asElement asScalableElement) ]
+										content: [ form asElement ]);
+						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' format: [ :eachElement | eachElement class ];
-		column: 'Drawing cache' 
-		item: [ :eachElement | (eachElement class withAllSuperclasses anySatisfy: [ :eachClass| eachClass traits includes: TBlDrawingCache ])
-			ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
-				ifTrue: [ 'Enabled' ]
-				ifFalse: [ 'Disabled' ] ]
-			ifFalse: [ '' ] ]
+		column: 'Drawing cache'
+			item: [ :eachElement | 
+			(eachElement class withAllSuperclasses
+				anySatisfy: [ :eachClass | eachClass traits includes: TBlDrawingCache ])
+				ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
+						ifTrue: [ 'Enabled' ]
+						ifFalse: [ 'Disabled' ] ]
+				ifFalse: [ '' ] ]
 			width: 100;
 		column: 'Clip children'
 			item: [ :eachElement | eachElement clipChildren asString ]
@@ -320,25 +329,25 @@ BlElement >> gtResizersFor: aView [
 		title: 'Resizers' translated;
 		priority: 10;
 		items: [ self withAllParents reversed ];
-		column: 'Icon' do: [ :aColumn |
-			aColumn itemStencil: [ :each |
-				BlLazyElement new 
-					elementBuilder: [
-						| aForm |
-						aForm := each asSpartaForm.
-						(aForm width isZero or: [ aForm height isZero ])
-							ifFalse: [ (aForm scaledToSize: 16@16) asElement
-								margin: (BlInsets all: 3) ]
-							ifTrue: [ BlElement new size: 16@16 ] ];
-					size: 16@16 ];
+		column: 'Icon'
+			do: [ :aColumn | 
+			aColumn
+				stencil: [ :each | 
+					BlLazyElement new
+						elementBuilder: [ | aForm |
+							aForm := each asSpartaForm.
+							(aForm width isZero or: [ aForm height isZero ])
+								ifFalse:
+									[ (aForm scaledToSize: 16 @ 16) asElement margin: (BlInsets all: 3) ]
+								ifTrue: [ BlElement new size: 16 @ 16 ] ];
+						size: 16 @ 16 ];
 				width: 16 ];
-		column: 'Width' 
+		column: 'Width'
 			item: [ :anElement | anElement constraints horizontal resizer ];
-		column: 'Height' 
+		column: 'Height'
 			item: [ :anElement | anElement constraints vertical resizer ];
-		column: 'Layout' 
-			item: [ :anElement | anElement layout ];
-		column: 'Element' item: [ :anElement | anElement  ]
+		column: 'Layout' item: [ :anElement | anElement layout ];
+		column: 'Element' item: [ :anElement | anElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
