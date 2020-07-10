@@ -172,43 +172,28 @@ AbstractFileReference >> gtJsonFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPathFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Path';
 		priority: 55;
-		stencil: [ 
-			| all container |
-			all := self fullPath withParents collect: #asFileReference.
-			container := BlElement new
-				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c |
-					c horizontal matchParent.
-					c vertical matchParent ].
-			all doWithIndex: [ :aFileReference :index |
-				| icon |
-				icon := aFileReference exists 
-					ifTrue: [ 
-						(GtInspectorAcceptIconStencil new radius: 8; thickness: 2) asElement background: 
-						BrGlamorousColors successBackgroundColor ] 
-					ifFalse: [ 
-						(GtInspectorPlusIconStencil close radius: 8; thickness: 2) asElement background: BrGlamorousColors errorBackgroundColor].
-				container addChild: (
-					BlElement new
-						when: BlClickEvent do: [:event | event target phlow spawnObject: aFileReference ];
-						constraintsDo: [ :c |
-							c frame horizontal alignCenter.
-							c frame vertical alignCenter.
-							c horizontal fitContent.
-							c vertical fitContent ];
-						layout: BlLinearLayout horizontal;
-						addChild: (icon
-							constraintsDo: [ :c | c frame vertical alignCenter];
-							margin: (BlInsets top: 20 left: 20 bottom: 0 right: 0));
-						addChild: (BrLabel new
-							constraintsDo: [ :c | c frame vertical alignCenter];
-							text: (aFileReference basename, (all size > index ifTrue: ['/'] ifFalse: ['']));
-							look: BrGlamorousLabelLook;
-							margin: (BlInsets top: 20 left: 10 bottom: 0 right: 0))) ].
-			container ]
+		items: [ self asFileReference fullPath withParents collect: #asFileReference ];
+		column: 'Icon' icon: [ :aFileReference |
+			aFileReference exists 
+				ifTrue: [ 
+					(GtInspectorAcceptIconStencil new 
+						radius: 8; 
+						thickness: 2) asElement 
+						background: BrGlamorousColors successBackgroundColor ]
+				ifFalse: [ 
+					(GtInspectorPlusIconStencil close 
+						radius: 8; 
+						thickness: 2) asElement 
+						background: BrGlamorousColors errorBackgroundColor] ]
+			width: 35;
+		column: 'Name' text: [ :aFileReference | 
+			aFileReference basename, 
+				(aFileReference isDirectory 
+					ifTrue: ['/'] 
+				ifFalse: ['']) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
