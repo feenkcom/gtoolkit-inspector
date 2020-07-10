@@ -80,6 +80,8 @@ GtExampleGroup >> buildListViewFor: aView [
 				cellStencil: [
 					BrLabel new
 						look: BrGlamorousListLabelLook;
+						addLook: (GtPhlowLabelTooltipLook new 
+							text: 'Click to display result details');
 						fitContent;
 						when: BlClickEvent
 						do: [ :anEvent |
