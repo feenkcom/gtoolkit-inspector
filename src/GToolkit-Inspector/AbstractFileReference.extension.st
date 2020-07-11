@@ -125,8 +125,7 @@ AbstractFileReference >> gtItemsFor: aView [
 			icon: [ :each | 
 				each isDirectory
 					ifTrue: [ BrGlamorousIcons folder ]
-					ifFalse: [ BrGlamorousIcons file ] ]
-			width: 26;
+					ifFalse: [ BrGlamorousIcons file ] ];
 		column: 'Name' translated text: [ :each | 
 			(self isChildOf: each)
 				ifTrue: [ '..' ]
