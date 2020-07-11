@@ -56,13 +56,10 @@ Object >> gtRawFor: aView [
 			variableNodes ];
 		column: 'Icon'
 			icon: [ :aNode | 
-				| icon |
-				icon := [ aNode rawValue gtInspectorIcon
+				[ aNode rawValue gtInspectorIcon
 					ifNil: [ aNode rawValue class systemIcon ] ]
 					on: Error
-					do: [ :error | self iconNamed: #smallWarningIcon ].
-				icon asElement
-					margin: (BlInsets top: 3 left: 10 bottom: 3 right: 10) ]
+					do: [ :error | self iconNamed: #smallWarningIcon ] ]
 			width: 36;
 		column: 'Variable' text: [ :aNode | aNode label ];
 		column: 'Value' text: [ :aNode | 
