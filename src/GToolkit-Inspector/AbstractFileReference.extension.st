@@ -213,36 +213,41 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtZipItemsFor: aView [
 	<gtView>
-	(self isFile and: [ #('zip' 'jar' 'ear' 'war' 'mcz' 'xdoc') includes: self extension ]) ifFalse: [ ^ aView empty ].
+	(self isFile
+		and: [ #('zip' 'jar' 'ear' 'war' 'mcz' 'xdoc') includes: self extension ])
+		ifFalse: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Archive';
 		priority: 10;
-		items: [ 
-			| children root |
+		items: [ | children root |
 			root := (FileSystem zip: self) open workingDirectory.
-			children := root directories, root files.
-			children := self isRoot 
+			children := root directories , root files.
+			children := self isRoot
 				ifTrue: [ children ]
-				ifFalse: [ children asOrderedCollection addFirst: self parent; yourself ] ];
-		column: 'Icon' do: [ :aColumn | 
-				aColumn itemStencil: [ :each :index |
-					(each isDirectory 
+				ifFalse: [ children asOrderedCollection
+						addFirst: self parent;
+						yourself ] ];
+		column: 'Icon' icon: [ :each | 
+					each isDirectory
 						ifTrue: [ BrGlamorousIcons folder asElement ]
-						ifFalse: [ BrGlamorousIcons file asElement ])
-						margin: (BlInsets left: 5 right: 5) ];
-					noResize ];
-		column: 'Name' do: [:aColumn | 
-				aColumn item: [ :each | 
-					(self isChildOf: each) 
+						ifFalse: [ BrGlamorousIcons file asElement ]];
+		column: 'Name'
+			do: [ :aColumn | 
+			aColumn
+				item: [ :each | 
+					(self isChildOf: each)
 						ifTrue: [ '..' ]
 						ifFalse: [ each basename asString ] ] ];
-		column: 'Size' do: [ :aColumn |
-				aColumn item: [:each |  
-					each humanReadableSize asString ] ];
-		column: 'Creation' do: [ :aColumn |
-				aColumn item: [ :each | 
-					String streamContents: [:s | 
-						each creationTime printYMDOn: s.
-						s nextPut: Character space.
-						each creationTime printHMSOn: s ] ] ]
+		column: 'Size'
+			do:
+				[ :aColumn | aColumn item: [ :each | each humanReadableSize asString ] ];
+		column: 'Creation'
+			do: [ :aColumn | 
+			aColumn
+				item: [ :each | 
+					String
+						streamContents: [ :s | 
+							each creationTime printYMDOn: s.
+							s nextPut: Character space.
+							each creationTime printHMSOn: s ] ] ]
 ]
