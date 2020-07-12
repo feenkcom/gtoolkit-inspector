@@ -12,8 +12,8 @@ Dictionary >> gtItemsFor: aView [
 				ifFalse: [ (each value isArray and: [ each value allSatisfy: #isDictionary ])
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
 						ifFalse: [ #() ] ] ];
-		column: 'Key' item: [ :assoc | assoc key ];
-		column: 'Value' item: [ :assoc | assoc value ];
+		column: 'Key' text: [ :assoc | assoc key ];
+		column: 'Value' text: [ :assoc | assoc value ];
 		send: [ :assoc | assoc value ]
 ]
 
