@@ -20,10 +20,8 @@ Dictionary >> gtItemsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Dictionary >> gtKeysFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView list
 		title: 'Keys';
 		priority: 5;
-		items: [ self keys ];
-		column: 'Key' do: [ :column |
-			column item: [ :aKey | aKey ]; matchParent ]
+		items: [ self keys ]
 ]
