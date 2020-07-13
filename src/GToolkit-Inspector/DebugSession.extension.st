@@ -10,9 +10,7 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 		title: 'Interrupted context';
 		priority: 105;
 		stencil: [ | methodCoder pcRange |
-			methodCoder := (GtMethodCoder forMethod: self interruptedContext method) 
-				expanded: true;
-				ensureBuilt.
+			methodCoder := (GtMethodCoder forMethod: self interruptedContext method) expanded: true.
 			pcRange := self pcRangeForContext: self interruptedContext.
 			(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
 				BlTextUnderlineAttribute new
@@ -38,7 +36,6 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
 				|  pcRange |
 				pcRange := self pcRangeForContext: (stack at: index).
-				methodCoder ensureBuilt.
 				(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
 					BlTextUnderlineAttribute new
 						paint: BrGlamorousColors errorBackgroundColor;
@@ -81,7 +78,6 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 			methodCodersStencil coders withIndexDo: [ :methodCoder :index | 
 				|  pcRange |
 				pcRange := self pcRangeForContext: (stack at: index).
-				methodCoder ensureBuilt.
 				(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
 					BlTextUnderlineAttribute new
 						paint: BrGlamorousColors errorBackgroundColor;
