@@ -40,21 +40,37 @@ MessageTally >> gtMessagesTreeIn: aView [
 	<gtView>
 	| methods normalizer |
 	methods := self withDeepCollect: #children.
-	normalizer := BrColorLinearNormalizer 
-						inContext: methods 
-						withCommand: #tally 
-						lowColor: Color gray 
-						highColor: (Color r: 216 g: 55 b: 62 range: 255).
+	normalizer := BrColorLinearNormalizer
+		inContext: methods
+		withCommand: #tally
+		lowColor: Color gray
+		highColor:
+			(Color
+				r: 216
+				g: 55
+				b: 62
+				range: 255).
 	^ aView columnedTree
 		title: 'Tree';
 		priority: 10;
 		expandUpTo: 3;
-		items: [ { self } ];
+		items: [ {self} ];
 		children: [ :each | each children ];
-		column: 'Method' format: [ :each | 
-			each method gtDisplayString asRopedText glamorousRegularFont foreground: (normalizer value: each)];
-		column: 'Percent' format: [:each | ((each tally / (self tally max: 0.1) asFloat * 100 printShowingDecimalPlaces: 1), '%') asRopedText glamorousRegularFont foreground: (normalizer value: each) ] width: 100;
-		column: 'Tally' format: [ :each | each tally asString asRopedText glamorousRegularFont foreground: (normalizer value: each)] width: 100
+		column: 'Method'
+			text: [ :each | 
+			each method gtDisplayString asRopedText glamorousRegularFont
+				foreground: (normalizer value: each) ];
+		column: 'Percent'
+			text: [ :each | 
+			((each tally / (self tally max: 0.1) asFloat * 100
+				printShowingDecimalPlaces: 1) , '%') asRopedText
+				glamorousRegularFont foreground: (normalizer value: each) ]
+			width: 100;
+		column: 'Tally'
+			text: [ :each | 
+			each tally asString asRopedText glamorousRegularFont
+				foreground: (normalizer value: each) ]
+			width: 100
 ]
 
 { #category : #'*GToolkit-Inspector' }

@@ -4,16 +4,13 @@ Extension { #name : #Collection }
 Collection >> gtItemsFor: aView [
 	<gtView>
 	| aList |
-
 	aList := aView columnedList
 		title: 'Items' translated;
 		priority: 50;
 		items: [ self asOrderedCollection ].
-		
 	aList column
 		title: 'Item' translated;
-		matchParent;
-		itemFormat: [ :eachItem | eachItem gtDisplayText ].
-	
+		weight: 1;
+		text: [ :eachItem | eachItem gtDisplayText ].
 	^ aList
 ]
