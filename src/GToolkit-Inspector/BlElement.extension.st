@@ -22,8 +22,6 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				noWidth;
-				width: 70;
 				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
