@@ -11,13 +11,12 @@ BrProgressGradientPaintStencil >> gtNextGradientsFor: aView [
 		column: 'Index' item: [ :aPaint :anIndex | anIndex ] width: 40;
 		column: 'Preview' do: [ :aColumn | 
 			aColumn 
-				item: [ :aPaint | 
+				stencil: [ :aPaint | 
 					BlElement new
 						background: aPaint;
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
-							c vertical matchParent ] ];
-					rowStencil: [ :anElement | anElement ] ]
+							c vertical matchParent ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

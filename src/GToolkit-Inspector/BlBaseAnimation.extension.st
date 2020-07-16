@@ -17,11 +17,7 @@ BlBaseAnimation >> gtPropertiesFor: aView [
 			'Start time' -> (self isStarted ifTrue: [ self startTime ] ifFalse: [ 'unknown' ]).
 			'Elapsed time' -> (self isStarted ifTrue: [ self elapsedTime humanReadablePrintString ] ifFalse: [ 'unknown' ]).
 		} ];
-		column: 'Property' do: [ :aColumn | aColumn 
-				item: #key; 
-				matchParent ];
-		column: 'Value' do: [ :aColumn | aColumn 
-				item: #value; 
-				matchParent ];
-		send: [ :x | x value ]
+		column: 'Property' item: #key;
+		column: 'Value' item: #value; 
+		send: #value
 ]

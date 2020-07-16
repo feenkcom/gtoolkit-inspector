@@ -232,22 +232,16 @@ AbstractFileReference >> gtZipItemsFor: aView [
 						ifTrue: [ BrGlamorousIcons folder asElement ]
 						ifFalse: [ BrGlamorousIcons file asElement ]];
 		column: 'Name'
-			do: [ :aColumn | 
-			aColumn
-				item: [ :each | 
-					(self isChildOf: each)
-						ifTrue: [ '..' ]
-						ifFalse: [ each basename asString ] ] ];
+			item: [ :each | 
+				(self isChildOf: each)
+					ifTrue: [ '..' ]
+					ifFalse: [ each basename asString ] ];
 		column: 'Size'
-			do:
-				[ :aColumn | aColumn item: [ :each | each humanReadableSize asString ] ];
-		column: 'Creation'
-			do: [ :aColumn | 
-			aColumn
-				item: [ :each | 
-					String
-						streamContents: [ :s | 
-							each creationTime printYMDOn: s.
-							s nextPut: Character space.
-							each creationTime printHMSOn: s ] ] ]
+			item: [ :each | each humanReadableSize asString ];
+		column: 'Creation' item: [ :each | 
+			String
+				streamContents: [ :s | 
+					each creationTime printYMDOn: s.
+					s nextPut: Character space.
+					each creationTime printHMSOn: s ] ]
 ]

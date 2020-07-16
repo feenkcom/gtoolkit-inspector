@@ -55,34 +55,20 @@ GtOmbuSessions >> gtItemsFor: aView [
 						addFirst: directory parent;
 						yourself ].
 			children ];
-		column: 'Icon' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
-					each isDirectory
-						ifTrue: [ BrGlamorousIcons folder ]
-						ifFalse: [ BrGlamorousIcons file ] ];
-				rowStencil: [ :eachIcon | eachIcon asElement margin: (BlInsets left: 5 right: 5) ];
-				noResize ];
-		column: 'Name' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
+		column: 'Icon' translated icon: [ :each | 
+			each isDirectory
+				ifTrue: [ BrGlamorousIcons folder ]
+				ifFalse: [ BrGlamorousIcons file ] ];
+		column: 'Name' translated item: [ :each | 
 					(directory isChildOf: each)
 						ifTrue: [ '..' ]
 						ifFalse: [ each basename asString ] ];
-				matchParent ];
-		column: 'Size' translated
-			do:
-				[ :column | column item: [ :each | each humanReadableSize asString ] ];
-		column: 'Creation' translated
-			do: [ :column | 
-			column
-				item: [ :each | 
+		column: 'Size' translated item: [ :each | each humanReadableSize asString ];
+		column: 'Creation' translated item: [ :each | 
 					String
 						streamContents: [ :s | 
 							each creationTime printYMDOn: s.
 							s nextPut: Character space.
-							each creationTime printHMSOn: s ] ] ];
+							each creationTime printHMSOn: s ] ];
 		send: [ :file | GtEpicea new ombuFile: file ]
 ]

@@ -6,8 +6,5 @@ BrTabGroupHeaderLook >> gtTabsFor: aView [
 	^ aView columnedList
 		title: 'Tabs';
 		items: [ self tabs ];
-		column: 'Model' do: [ :aColumn | 
-			aColumn 
-				item: [ :anAssoc | anAssoc key ];
-				matchParent ]
+		column: 'Model' item: #key
 ]

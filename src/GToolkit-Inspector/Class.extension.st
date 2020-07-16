@@ -87,10 +87,8 @@ Class >> gtInstanceVariablesFor: aView [
 		priority: 5;
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];
-		column: 'Variable'
-			do: [ :aColumn | aColumn item: [ :each | each key ] ];
-		column: 'Value'
-			do: [ :aColumn | aColumn item: [ :each | each value ] ]
+		column: 'Variable' item: #key;
+		column: 'Value' item: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
