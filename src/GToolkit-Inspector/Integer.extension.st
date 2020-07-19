@@ -14,7 +14,7 @@ Integer >> gtIntegerFor: aView [
 			(self between: 0 and: 16r10FFFF)
 				ifTrue: [ associations add: 'character' -> self asCharacter ].
 			associations ];
-		column: 'Key' do: [:column | column item: #key ];
-		column: 'Value' do: [:column | column item: [ :each | each value ] ];
-		send: [:assoc | assoc value]
+		column: 'Key' item: #key;
+		column: 'Value' item: #value;
+		send: #value
 ]

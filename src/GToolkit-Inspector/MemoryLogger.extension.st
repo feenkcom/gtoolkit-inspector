@@ -7,14 +7,8 @@ MemoryLogger >> gtGroupedFor: aView [
 		title: 'Grouped';
 		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
 		updateWhen: Announcement in: [ self announcer ];
-		column: 'Class' do: [ :aColumn |
-			aColumn
-				item: [ :each | each key asString ];
-				matchParent ];
-		column: 'Instances' do: [ :aColumn |
-			aColumn
-				item: [ :each | each value size asString  ];
-				matchParent ];
+		column: 'Class' item: [ :each | each key asString ];
+		column: 'Instances' item: [ :each | each value size asString  ];
 		send: #value
 ]
 
@@ -26,22 +20,11 @@ MemoryLogger >> gtRecordingsFor: aView [
 		priority: 50;
 		items: [ self recordings reverse ];
 		updateWhen: Announcement in: [ self announcer ];
-		column: 'Timestamp' translated do: [ :aColumn | 
-			aColumn 
-				item: [ :each | each timestamp asString ]; 
-				matchParent ];
-		column: 'Process' translated do: [ :aColumn | 
-			aColumn 
-				item: [ :each | each processId asString ]; 
-				matchParent ];
-		column: 'Type' translated do: [ :aColumn | 
-			aColumn 
-				item: [ :each | each name ]; 
-				matchParent ];
-		column: 'Contents' translated do: [ :aColumn | 
-			aColumn 
-				item: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]; 
-				matchParent ]
+		column: 'Timestamp' translated item: [ :each | each timestamp asString ];
+		column: 'Process' translated item: [ :each | each processId asString ];
+		column: 'Type' translated item: [ :each | each name ];
+		column: 'Contents' translated 
+			item: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

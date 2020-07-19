@@ -44,18 +44,15 @@ SequenceableCollection >> gtBoxesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
-	| aList |
-	aList := aView columnedList
-		title: 'Items' translated;
+	^ aView columnedList
+		title: 'Items';
 		priority: 50;
-		items: [ self ].
-	aList column
-		title: 'Index' translated;
-		width: 30;
-		item: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ].
-	aList column
-		title: 'Item' translated;
-		item: [ :eachItem :eachIndex | eachItem ];
-		text: [ :eachItem | eachItem gtDisplayText ].
-	^ aList
+		items: [ self ];
+		actionUpdateButtonTooltip: 'Update item list';
+		column: 'Index' 
+			item: [ :eachItem :eachIndex | 
+				eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Item' 
+			text: [ :eachItem | eachItem gtDisplayText ].
 ]

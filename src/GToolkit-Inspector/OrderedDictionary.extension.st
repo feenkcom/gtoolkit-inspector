@@ -5,8 +5,8 @@ OrderedDictionary >> gtItemsFor: aView [
 	^ aView columnedList
 		title: 'Items';
 		items: [ self associations ];
-		column: 'Key' do: [:aColumn | aColumn item: [:each | each key ] ];
-		column: 'Value' do: [:aColumn | aColumn item: [:each | each value ] ];
+		column: 'Key' item: #key;
+		column: 'Value' item: #value;
 		send: #value
 ]
 
@@ -16,6 +16,5 @@ OrderedDictionary >> gtKeysFor: aView [
 	^ aView columnedList
 		title: 'Keys';
 		items: [ self keys ];
-		column: 'Key' do: [ :column |
-			column item: [ :aKey | aKey ]; matchParent ]
+		column: 'Key' item: [ :aKey | aKey ]
 ]

@@ -22,8 +22,6 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				noWidth;
-				width: 70;
 				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
@@ -54,9 +52,9 @@ BlElement >> gtChildrenFor: aView [
 		column: 'Element' item: [ :anElement | anElement ];
 		column: 'Composition layer'
 			item: [ :eachElement | 
-			eachElement wantsSeparateCompositingLayer
-				ifTrue: [ 'Yes' ]
-				ifFalse: [ '' ] ]
+				eachElement wantsSeparateCompositingLayer
+					ifTrue: [ 'Yes' ]
+					ifFalse: [ '' ] ]
 			width: 100
 ]
 
@@ -269,7 +267,6 @@ BlElement >> gtParentsFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				noWidth;
 				width: 70;
 				stencil: [ :eachElement | 
 					| form |
@@ -358,16 +355,8 @@ BlElement >> gtShortcutsFor: aView [
 		title: 'Shortcuts' translated;
 		priority: 10;
 		items: [ self shortcuts asArray ];
-		column: 'Key'
-			do: [ :aColumn | 
-			aColumn
-				item: [ :each | each combination gtDisplayString ];
-				weight: 1 ];
-		column: 'Action'
-			do: [ :aColumn | 
-			aColumn
-				item: [ :each | each action asString ];
-				weight: 1 ]
+		column: 'Key' item: [ :each | each combination gtDisplayString ];
+		column: 'Action' item: [ :each | each action asString ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

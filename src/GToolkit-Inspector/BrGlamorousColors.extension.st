@@ -7,13 +7,9 @@ BrGlamorousColors class >> gtClassVariablesFor: aView [
 		title: 'Class Variables';
 		priority: 0.7;
 		items: [ self classVariables ];
-		column: 'Icon'
-			do: [ :aColumn | 
-			aColumn
-				itemStencil: [ :anAssoc | anAssoc value gtInspectorIcon asElement ];
-				width: 16 ];
-		column: 'Class Variable' item: [ :anAssoc | anAssoc key asString ];
-		send: [ :anAssoc | anAssoc value ]
+		column: 'Icon' icon: [ :anAssoc | anAssoc value gtInspectorIcon asElement ];
+		column: 'Class Variable' item: #key;
+		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -25,11 +21,9 @@ BrGlamorousColors class >> gtColorsFor: aView [
 		priority: 0.5;
 		items: [ self class selectors
 				select: [ :each | each numArgs isZero and: [ each endsWith: 'Color' ] ] ];
-		column: 'Icon'
-			do: [ :aColumn | 
-			aColumn
-				itemStencil: [ :aSymbol | (self perform: aSymbol) gtInspectorIcon asElement asScalableElement ];
-				width: 32 ];
+		column: 'Icon' 
+			icon: [ :aSymbol | (self perform: aSymbol) gtInspectorIcon asElement asScalableElement ]
+			width: 32;
 		column: 'Selector' item: [ :aSymbol | aSymbol asString ];
 		send: [ :aSymbol | self perform: aSymbol ]
 ]
