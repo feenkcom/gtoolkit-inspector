@@ -17,7 +17,7 @@ BlRopedText >> gtStoreStringFor: aView [
 	^ aView explicit
 		title: 'Serialized';
 		priority: 30;
-		stencil: [ (GtPharoSnippetCoder new source: self storeString) asElement matchParent ]
+		stencil: [ (GtPharoSnippetCoder new forSource: self storeString) asElement matchParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
