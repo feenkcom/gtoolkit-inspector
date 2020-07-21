@@ -174,7 +174,7 @@ AbstractFileReference >> gtPathFor: aView [
 	^ aView columnedList
 		title: 'Path';
 		priority: 55;
-		items: [ self asFileReference fullPath withParents collect: #asFileReference ];
+		items: [ self asFileReference withParents ];
 		column: 'Icon' icon: [ :aFileReference |
 			aFileReference exists 
 				ifTrue: [ 
@@ -244,4 +244,22 @@ AbstractFileReference >> gtZipItemsFor: aView [
 					each creationTime printYMDOn: s.
 					s nextPut: Character space.
 					each creationTime printHMSOn: s ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> withParents [
+	<return: #Array of: #FileReference>
+	^ Array streamContents: [ :aStream | 
+		self withParentsInto: aStream.
+		aStream nextPut: self ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> withParentsInto: aStream [
+	<return: #Array of: #FileReference>
+	| aParent |
+	aParent := self parent.
+	aParent = self ifTrue: [ ^ self ].
+	aParent withParentsInto: aStream.
+	aStream nextPut: aParent
 ]
