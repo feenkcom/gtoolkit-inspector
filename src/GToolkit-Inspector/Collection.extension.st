@@ -3,14 +3,10 @@ Extension { #name : #Collection }
 { #category : #'*GToolkit-Inspector' }
 Collection >> gtItemsFor: aView [
 	<gtView>
-	| aList |
-	aList := aView columnedList
+	^ aView columnedList
 		title: 'Items' translated;
 		priority: 50;
-		items: [ self asOrderedCollection ].
-	aList column
-		title: 'Item' translated;
-		weight: 1;
-		text: [ :eachItem | eachItem gtDisplayText ].
-	^ aList
+		items: [ self asOrderedCollection ];
+		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
+		actionUpdateButtonTooltip: 'Update item list'
 ]
