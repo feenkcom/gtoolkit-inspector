@@ -196,7 +196,11 @@ GtInspector >> onRemovedFromSceneGraph [
 { #category : #opening }
 GtInspector >> pagerWindowTitle [
 	<return: #String>
-	^ 'Inspector on ', self object gtDisplayString
+	| aName |
+	aName := self object gtDisplayString.
+	(aName size > 30) ifTrue: [
+		aName := (aName first: 30), '...' ].
+	^ 'Inspector on ', aName
 ]
 
 { #category : #'updating ui' }
