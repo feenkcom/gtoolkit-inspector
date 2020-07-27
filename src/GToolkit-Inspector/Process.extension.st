@@ -13,6 +13,13 @@ Process >> gtInvocatedByElementPreviewFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 Process >> gtName [
-	<return: #String>
-	^ name ifNil: [ '' ] ifNotNil: #asString
+	<return: #BlRope>
+	| aText |
+	aText := (name 
+		ifNil: [ '' ] 
+		ifNotNil: #asString) asRopedText.
+	aText append: ' ' asRopedText.
+	aText append: ((suspendedContext asString asRopedText 
+		foreground: BrGlamorousColors disabledButtonTextColor)).
+	^ aText
 ]
