@@ -220,7 +220,6 @@ GtSyntaxExplanationViewUtility >> create [
 { #category : #accessing }
 GtSyntaxExplanationViewUtility >> dividerBarElement [
 	^ BlElement new
-		geometry: BlRoundedRectangleGeometry new;
 		constraintsDo: [ :c |
 			c vertical matchParent ];
 		width: 1;
