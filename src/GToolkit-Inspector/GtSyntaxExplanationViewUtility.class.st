@@ -220,7 +220,7 @@ GtSyntaxExplanationViewUtility >> create [
 { #category : #accessing }
 GtSyntaxExplanationViewUtility >> dividerBarElement [
 	^ BlElement new
-		geometry: BlRectangle new;
+		geometry: BlRoundedRectangleGeometry new;
 		constraintsDo: [ :c |
 			c vertical matchParent ];
 		width: 1;
@@ -234,7 +234,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 	lines := OrderedCollection new.
 	label := BrLabel new
 		look: BrGlamorousLabelLook new;
-		geometry: (BlRectangle cornerRadius: 4);
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 		padding: (BlInsets all: 5);
 		hExact: 80.
 	label explainer
