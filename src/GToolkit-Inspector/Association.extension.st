@@ -3,8 +3,15 @@ Extension { #name : #Association }
 { #category : #'*GToolkit-Inspector' }
 Association >> gtAssociationViewLiveFor: aView [
 	<gtView>
-	^ (self value gtLiveFor: aView)
-		title: 'Value'
+	^ aView forward
+		title: 'Value';
+		priority: 1;
+		object: [ self value ];
+		view: #gtLiveFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
+			tooltip: 'Inspect value' 
+			action: [ :aButton :aTab | 
+				aButton phlow spawnObject: self value ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

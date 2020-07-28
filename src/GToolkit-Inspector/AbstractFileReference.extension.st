@@ -147,25 +147,17 @@ AbstractFileReference >> gtJsonFor: aView [
 	<gtView>
 	(self isFile and: [ (GtFileUtility mimeTypeOfExtension: self extension) 
 		= ZnMimeType applicationJson ]) ifFalse: [ ^ aView empty ].
-	^ aView explicit
+	^ aView textEditor
 		title: 'JSON';
 		priority: 1;
-		actionButtonIcon: BrGlamorousIcons tree asElement 
-			action: [ :aButton | aButton phlow spawnObject: (STONJSON fromString: self contents) ];
-		stencil: [ | editorElement textEditor text |
-			textEditor := BrTextEditor new.
-			textEditor styler: JSONParser gtStyler.
-			editorElement := BrEditorElement new.
-			editorElement editor: textEditor.
-			text := (STONJSON toStringPretty: (STONJSON fromString: self contents)) asRopedText.
-			text glamorousCodeFontDo: #beNotOverwritableByStyler; glamorousCodeSizeDo: #beNotOverwritableByStyler.
-			textEditor text: text.
-			editorElement
-				padding: (BlInsets all: 10);
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ].
-			editorElement ]
+		actionButtonIcon: BrGlamorousIcons tree 
+			action: [ :aButton | 
+				aButton phlow spawnObject: (
+					STONJSON fromString: self contents) ];
+		look: [ BrGlamorousCodeEditorLook ];
+		styler: [ JSONParser gtStyler ];
+		text: [ (STONJSON toStringPretty: (
+			STONJSON fromString: self contents)) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
