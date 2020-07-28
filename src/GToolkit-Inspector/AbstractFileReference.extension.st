@@ -241,17 +241,20 @@ AbstractFileReference >> gtZipItemsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParents [
 	<return: #Array of: #FileReference>
+	| anAbsolutePath |
+	anAbsolutePath := self withPath: self absolutePath.
 	^ Array streamContents: [ :aStream | 
-		self withParentsInto: aStream.
-		aStream nextPut: self ]
+		anAbsolutePath withParentsInto: aStream.
+		aStream nextPut: anAbsolutePath ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParentsInto: aStream [
 	<return: #Array of: #FileReference>
+	"I should be called on file references with absolute paths, otherwise an infinite loop happens"
 	| aParent |
 	aParent := self parent.
-	aParent = self ifTrue: [ ^ self ].
-	aParent withParentsInto: aStream.
+	aParent isRoot ifFalse: [
+		aParent withParentsInto: aStream ].
 	aStream nextPut: aParent
 ]
