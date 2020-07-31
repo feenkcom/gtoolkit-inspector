@@ -7,7 +7,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 		title: 'Source code';
 		actionButtonIcon: BrGlamorousVectorIcons browse 
 			tooltip: 'Browse'
-			action: [ self methodNode compiledMethod browse ];
+			action: [ self methodNode compiledMethod gtBrowse ];
 		look: BrGlamorousCodeEditorLook;
 		styler: (BrRBTextStyler new classOrMetaClass: self methodNode compiledMethod methodClass);
 		text: [ 

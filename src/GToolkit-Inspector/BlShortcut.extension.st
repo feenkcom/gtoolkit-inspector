@@ -4,6 +4,6 @@ Extension { #name : #BlShortcut }
 BlShortcut >> gtViewSourceCodeFor: aView [
 	<gtView>
 	^ self action 
-		ifNil: [ aView ]
+		ifNil: [ aView empty ]
 		ifNotNil: [ self action gtSourceCodeFor: aView ]
 ]
