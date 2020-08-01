@@ -11,7 +11,7 @@ GtInspectorListToSelectHandler >> eventClasses [
 
 { #category : #'api - event managing' }
 GtInspectorListToSelectHandler >> handleEvent: anEvent [
-	anEvent acceptInspectorHandler: self
+	anEvent acceptPhlowHandler: self
 ]
 
 { #category : #'api - event managing' }
