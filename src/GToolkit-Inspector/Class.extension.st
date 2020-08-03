@@ -88,7 +88,8 @@ Class >> gtInstanceVariablesFor: aView [
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];
 		column: 'Variable' item: #key;
-		column: 'Value' item: #value
+		column: 'Value' item: #value;
+		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
