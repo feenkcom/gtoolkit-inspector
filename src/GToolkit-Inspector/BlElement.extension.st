@@ -267,7 +267,7 @@ BlElement >> gtParentsFor: aView [
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				width: 70;
+				weight: 1;
 				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
