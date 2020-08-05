@@ -37,6 +37,12 @@ GtInspectorTool >> asTabDo: aBlock [
 	aBlock cull: aTab.
 ]
 
+{ #category : #accessing }
+GtInspectorTool >> initialize [
+	super initialize.
+	self initializeObjectHolder.
+]
+
 { #category : #'api - accessing' }
 GtInspectorTool >> name [
 	^ 'inspector'
