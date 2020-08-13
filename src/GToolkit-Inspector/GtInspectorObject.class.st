@@ -3,7 +3,8 @@ Class {
 	#superclass : #GtInspectorAbstractObject,
 	#instVars : [
 		'object',
-		'hasObject'
+		'hasObject',
+		'viewSelector'
 	],
 	#category : #'GToolkit-Inspector-Model'
 }
@@ -20,16 +21,29 @@ GtInspectorObject >> asElementDo: aOneArgBlock [
 ]
 
 { #category : #asserting }
-GtInspectorObject >> assertImmutability [
+GtInspectorObject >> assertObjectImmutability [
 	self 
 		assert: [ hasObject not ]
-		description: [ 'Object holder is immutable.' ].
+		description: [ 'Object holder is immutable. The object cannot be changed.' ].
+]
+
+{ #category : #asserting }
+GtInspectorObject >> assertViewSelectorImmutability [
+	self 
+		assert: [ self viewSelector = self defaultViewSelector ]
+		description: [ 'Object holder is immutable. The view selector cannot be changed.' ].
+]
+
+{ #category : #defaults }
+GtInspectorObject >> defaultViewSelector [
+	^ #gtViewsFor:
 ]
 
 { #category : #initialization }
 GtInspectorObject >> initialize [
 	super initialize.
 	hasObject := false.
+	viewSelector := self defaultViewSelector
 ]
 
 { #category : #notifying }
@@ -44,7 +58,7 @@ GtInspectorObject >> object [
 
 { #category : #accessing }
 GtInspectorObject >> object: anObject [
-	self assertImmutability.
+	self assertObjectImmutability.
 	object := anObject.
 	hasObject := true.
 ]
@@ -59,5 +73,20 @@ GtInspectorObject >> printOn: aStream [
 { #category : #accessing }
 GtInspectorObject >> view [
 	<return: #GtPhlowLabelledView>
-	^ self object gtViewsFor: GtPhlowView empty
+	^ self object perform: self viewSelector with: GtPhlowView empty
+]
+
+{ #category : #accessing }
+GtInspectorObject >> viewSelector [
+	<return: #Symbol>
+	^ viewSelector
+]
+
+{ #category : #accessing }
+GtInspectorObject >> viewSelector: aSymbol [
+	self assertViewSelectorImmutability.
+	self 
+		assert: [ aSymbol isSymbol ] 
+		description: [ 'View selector must be a symbol' ].
+	viewSelector := aSymbol asSymbol 
 ]

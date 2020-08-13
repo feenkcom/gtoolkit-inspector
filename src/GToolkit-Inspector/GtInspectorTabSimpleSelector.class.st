@@ -26,6 +26,7 @@ GtInspectorTabSimpleSelector >> printOn: aStream [
 
 { #category : #configuration }
 GtInspectorTabSimpleSelector >> recentlySelectedTab: aTabName on: anObject [
+	aTabName hasTabName ifFalse: [ ^ self ].
 	self tabName: aTabName
 ]
 

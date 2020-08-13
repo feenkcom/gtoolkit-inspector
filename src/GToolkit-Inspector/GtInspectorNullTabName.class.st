@@ -7,6 +7,11 @@ Class {
 }
 
 { #category : #testing }
+GtInspectorNullTabName >> hasTabName [
+	^ false
+]
+
+{ #category : #testing }
 GtInspectorNullTabName >> isEqualToString: aString [
 	^ false
 ]

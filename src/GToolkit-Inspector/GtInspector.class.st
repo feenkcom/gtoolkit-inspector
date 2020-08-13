@@ -145,6 +145,13 @@ GtInspector >> object: anObject [
 	self objectHolder: anObjectHolder.
 ]
 
+{ #category : #convenience }
+GtInspector >> object: anObject viewSelector: aSymbol [
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new object: anObject; viewSelector: aSymbol.
+	self objectHolder: anObjectHolder.
+]
+
 { #category : #'hooks - pager' }
 GtInspector >> onAddedToPager: aGtPager [
 	"Inspector was added to a pager"

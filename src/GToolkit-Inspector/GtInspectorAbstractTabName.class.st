@@ -7,6 +7,11 @@ Class {
 }
 
 { #category : #testing }
+GtInspectorAbstractTabName >> hasTabName [
+	^ true
+]
+
+{ #category : #testing }
 GtInspectorAbstractTabName >> isEqualToString: aString [
 	<return: #Boolean>
 	^ self subclassResponsibility
