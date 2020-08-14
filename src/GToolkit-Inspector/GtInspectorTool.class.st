@@ -11,6 +11,11 @@ GtInspectorTool class >> forObject: anObject [
 	^ self new object: anObject
 ]
 
+{ #category : #'instance creation' }
+GtInspectorTool class >> forObject: anObject viewSelector: aSymbol [
+	^ self new object: anObject viewSelector: aSymbol
+]
+
 { #category : #accessing }
 GtInspectorTool class >> priority [
 	<return: #Number>
@@ -37,7 +42,7 @@ GtInspectorTool >> asTabDo: aBlock [
 	aBlock cull: aTab.
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 GtInspectorTool >> initialize [
 	super initialize.
 	self initializeObjectHolder.
@@ -48,16 +53,24 @@ GtInspectorTool >> name [
 	^ 'inspector'
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtInspectorTool >> object [
 	"compatibility method for ${GLMBlocObjectToSelect}$"
 	^ self objectHolder object
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtInspectorTool >> object: anObject [
 	"Store object that is going to be inspected"
 	| anObjectHolder |
 	anObjectHolder := GtInspectorObject new object: anObject.
+	self objectHolder: anObjectHolder.
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> object: anObject viewSelector: aSymbol [
+	"Store object that is going to be inspected and displayed using a specific Phlow view message selector"
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new object: anObject; viewSelector: aSymbol.
 	self objectHolder: anObjectHolder.
 ]

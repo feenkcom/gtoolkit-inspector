@@ -12,12 +12,13 @@ Class {
 { #category : #'api - actions' }
 GtInspectorSelectedTabExtractor >> extract [
 	<return: #GtInspectorTabName>
-	^ self inspectorElement phlow
+	self inspectorElement phlow
 		firstChildWithCompositeViewDo: [ :tabGroup | 
-			tabGroup viewModel selectedTab widget
+			^ tabGroup viewModel selectedTab widget
 				phlow entity 
 					ifNotNil: [ :aPhlow | GtInspectorTabName new string: aPhlow title asString ]
 					ifNil: [ GtInspectorTabName null ] ].
+	^ GtInspectorTabName null
 ]
 
 { #category : #accessing }
