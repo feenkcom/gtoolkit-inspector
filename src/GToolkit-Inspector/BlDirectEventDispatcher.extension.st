@@ -21,3 +21,14 @@ BlDirectEventDispatcher >> gtHandlersFor: aView [
 	^ (handlers gtHandlersFor: aView)
 			title: 'Handlers'
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BlDirectEventDispatcher >> gtOwnerElementFor: aView [
+	<gtView>
+	self owner ifNil: [ ^ aView empty ].
+	^ aView forward 
+		title: 'Owner element';
+		priority: 55;
+		object: [ self owner ];
+		view: #gtPreviewFor:
+]
