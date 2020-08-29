@@ -4,6 +4,16 @@ Class {
 	#category : #'GToolkit-Inspector-Examples'
 }
 
+{ #category : #'examples - ui - content' }
+GtInspectorExamples >> basicContentElement [
+	<gtExample>
+	| anElement |
+	anElement := GtInspectorContentElement new.
+	anElement matchParent.
+	self assert: anElement objectHolder equals: GtInspectorObject null.
+	^ anElement
+]
+
 { #category : #'examples - inspector' }
 GtInspectorExamples >> basicInspector [
 	<gtExample>
@@ -17,6 +27,16 @@ GtInspectorExamples >> basicInspector [
 GtInspectorExamples >> basicInspectorClass [
 	<gtExample>
 	^ GtInspector
+]
+
+{ #category : #'examples - ui - tool' }
+GtInspectorExamples >> basicInspectorElement [
+	<gtExample>
+	| anElement |
+	anElement := GtInspector new.
+	anElement matchParent.
+	self assert: anElement objectHolder equals: GtInspectorObject null.
+	^ anElement
 ]
 
 { #category : #'examples - object holder' }
@@ -33,6 +53,17 @@ GtInspectorExamples >> basicObjectHolderClass [
 	^ GtInspectorObject
 ]
 
+{ #category : #'examples - ui - playground' }
+GtInspectorExamples >> basicPlaygroundElement [
+	<gtExample>
+	| anElement |
+	anElement := GtInspectorPlaygroundElement new.
+	anElement matchParent.
+	self assert: anElement objectHolder equals: GtInspectorObject null.
+	self assert: anElement playPage receiver equals: nil.
+	^ anElement
+]
+
 { #category : #configuration }
 GtInspectorExamples >> configureInspector: anInspector [
 	<gtExample>
@@ -42,6 +73,16 @@ GtInspectorExamples >> configureInspector: anInspector [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ]
+]
+
+{ #category : #'examples - ui - content' }
+GtInspectorExamples >> contentElement [
+	<gtExample>
+	| anElement |
+	anElement := self basicContentElement.
+	anElement object: 42.
+	self assert: anElement object equals: 42.
+	^ anElement
 ]
 
 { #category : #'examples - inspected objects' }
@@ -54,6 +95,16 @@ GtInspectorExamples >> inspectedObject [
 GtInspectorExamples >> inspectedObjectClass [
 	<gtExample>
 	^ GtInspectorExampleObject
+]
+
+{ #category : #'examples - ui - tool' }
+GtInspectorExamples >> inspectorElement [
+	<gtExample>
+	| anElement |
+	anElement := self basicInspectorElement.
+	anElement object: 42.
+	self assert: anElement object equals: 42.
+	^ anElement
 ]
 
 { #category : #'examples - inspector in pager' }
@@ -86,4 +137,15 @@ GtInspectorExamples >> objectHolderWithExampleObject [
 	aModel object: anObject.
 	self assert: aModel object equals: anObject.
 	^ aModel
+]
+
+{ #category : #'examples - ui - playground' }
+GtInspectorExamples >> playgroundElement [
+	<gtExample>
+	| anElement |
+	anElement := self basicPlaygroundElement.
+	anElement object: 42.
+	self assert: anElement object equals: 42.
+	self assert: anElement playPage receiver equals: 42.
+	^ anElement
 ]
