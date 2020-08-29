@@ -16,13 +16,25 @@ TGtInspectorObjectAccess >> initializeObjectHolder [
 	objectHolder := self defaultObjectHolder
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
+TGtInspectorObjectAccess >> object [
+	^ self objectHolder object
+]
+
+{ #category : #'api - accessing' }
+TGtInspectorObjectAccess >> object: anObject [
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new object: anObject.
+	self objectHolder: anObjectHolder.
+]
+
+{ #category : #'api - accessing' }
 TGtInspectorObjectAccess >> objectHolder [
 	<return: #GtInspectorObject>
 	^ objectHolder
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 TGtInspectorObjectAccess >> objectHolder: anObjectHolder [
 	self 
 		assert: [ anObjectHolder isNotNil ]

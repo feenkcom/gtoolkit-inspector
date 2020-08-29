@@ -28,7 +28,7 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 	| anInspector |
 	anInspector := GtInspector new 
 		objectHolder: self objectHolder.
-	^ aOneArgBlock cull: anInspector asPagerPageElement.
+	^ aOneArgBlock cull: anInspector "asPagerPageElement".
 ]
 
 { #category : #'api - converting' }
