@@ -11,6 +11,11 @@ GtInspectorExtension class >> isAbstract [
 	^ self name = #GtInspectorExtension 
 ]
 
+{ #category : #testing }
+GtInspectorExtension class >> isDeprecated [
+	^ true
+]
+
 { #category : #'instance creation' }
 GtInspectorExtension class >> newExtension [
 	"Subclasses can define how to instantiate a new extension"

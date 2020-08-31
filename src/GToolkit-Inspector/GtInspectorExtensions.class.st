@@ -19,6 +19,11 @@ GtInspectorExtensions class >> default [
 	^ self autoInitialized
 ]
 
+{ #category : #testing }
+GtInspectorExtensions class >> isDeprecated [
+	^ true
+]
+
 { #category : #adding }
 GtInspectorExtensions >> addExtension: aGtInspectorExtension [
 	self assertExtension: aGtInspectorExtension.
