@@ -22,24 +22,29 @@ GtInspectorTool class >> priority [
 	^ 1
 ]
 
-{ #category : #converting }
+{ #category : #'api - converting' }
 GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
 	anInspector := GtInspector new 
 		objectHolder: self objectHolder.
-	^ aOneArgBlock cull: anInspector "asPagerPageElement".
+	^ aOneArgBlock cull: anInspector cull: self.
 ]
 
-{ #category : #'api - converting' }
-GtInspectorTool >> asTabDo: aBlock [
-	| aTab |
-	aTab := BrTab new
-		look: BrGlamorousTabSwitcherWithIconLook;
-		label: self name;
-		icon: BrGlamorousVectorIcons inspect;
-		stencil: [ self asElementDo: [ :anElement | anElement ] ].
-	aBlock cull: aTab.
+{ #category : #'private - converting' }
+GtInspectorTool >> asTabElement [
+	"Return a tool element that is going to be used as a part of ${class:GtPhlowCompositeTool}$"
+	<return: #BlElement>
+	| anInspector |
+	anInspector := super asTabElement.
+	anInspector addEventHandler: (GtPhlowToolChangedObjectHandler new
+		onChangeSend: #object: to: anInspector).
+	^ anInspector
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> icon [
+	^ BrGlamorousVectorIcons inspect
 ]
 
 { #category : #initialization }
@@ -73,4 +78,9 @@ GtInspectorTool >> object: anObject viewSelector: aSymbol [
 	| anObjectHolder |
 	anObjectHolder := GtInspectorObject new object: anObject; viewSelector: aSymbol.
 	self objectHolder: anObjectHolder.
+]
+
+{ #category : #'private - accessing' }
+GtInspectorTool >> tabLook [
+	^ BrGlamorousTabSwitcherWithIconLook
 ]

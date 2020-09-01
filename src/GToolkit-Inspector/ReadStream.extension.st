@@ -9,9 +9,6 @@ ReadStream >> gtStreamStateFor: aView [
 		text: [ 
 			| aText |
 			aText := self contents asRopedText monospace.
-			(aText from: 1 to: self position) 
-				underlinePaint: BrGlamorousColors errorBackgroundColor
-				width: 1.
-			aText
-			]
+			(aText from: 1 to: self position) underlineColor: BrGlamorousColors errorBackgroundColor.
+			aText ]
 ]
