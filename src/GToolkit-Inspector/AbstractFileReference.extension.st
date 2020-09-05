@@ -111,13 +111,13 @@ AbstractFileReference >> gtItemsFor: aView [
 	|fileBrowser|
 	self isDirectory
 		ifFalse: [ ^ aView empty ].
-	fileBrowser := BrFileBrowser new.
+	"fileBrowser := BrFileBrowser new.
 	fileBrowser folder: self.
 	^ aView explicit
 		title: 'Items' translated;
 		priority: 10;
-		stencil: fileBrowser
-	"^ aView columnedList
+		stencil: fileBrowser"
+	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
 		items: [ | children |
@@ -146,7 +146,7 @@ AbstractFileReference >> gtItemsFor: aView [
 					streamContents: [ :s | 
 						each creationTime printYMDOn: s.
 						s nextPut: Character space.
-						each creationTime printHMSOn: s ] ]"
+						each creationTime printHMSOn: s ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
