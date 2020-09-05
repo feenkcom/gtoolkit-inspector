@@ -19,6 +19,15 @@ ProtoObject >> gtActionInspectFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtActionInspectInWindowFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons maximize;
+		tooltip: 'Inspect object in a new window';
+		action: [ (GtPager openWrappedOn: (GtInspectorTool forObject: self) title: ('GtInspector @ {1}' format: { self })) maximized ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActions [
 	"This collects all view actions for the current object.
 	By default, it simply looks for the #gtAction pragma.
