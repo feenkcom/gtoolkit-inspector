@@ -2,7 +2,7 @@ Extension { #name : #AtomicSharedPriorityQueue }
 
 { #category : #'*GToolkit-Inspector' }
 AtomicSharedPriorityQueue >> gtItemsFor: aView [
-	"<gtView>"
+	<gtView>
 	| aList |
 
 	aList := aView columnedList

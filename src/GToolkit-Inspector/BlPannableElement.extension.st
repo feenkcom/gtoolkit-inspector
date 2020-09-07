@@ -2,6 +2,7 @@ Extension { #name : #BlPannableElement }
 
 { #category : #'*GToolkit-Inspector' }
 BlPannableElement >> gtLiveFor: aView [
+	<gtView>
 	^ (super gtLiveFor: aView)
 		actionStencil: [ 
 			BrButton new 

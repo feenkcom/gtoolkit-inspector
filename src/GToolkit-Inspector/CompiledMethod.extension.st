@@ -14,6 +14,7 @@ CompiledMethod >> gtSourceFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtTreeFor: aView [
+	<gtView>
 	^ self parseTree gtTreeFor: aView
 ]
 

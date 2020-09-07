@@ -16,6 +16,7 @@ Association >> gtAssociationViewLiveFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 Association >> gtPreviewFor: aView [
+	<gtView>
 	^ aView explicit
 		title: 'Preview';
 		stencil: [ self newPreviewStencil ]

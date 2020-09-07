@@ -2,6 +2,7 @@ Extension { #name : #OrderedDictionary }
 
 { #category : #'*GToolkit-Inspector' }
 OrderedDictionary >> gtItemsFor: aView [
+	<gtView>
 	^ aView columnedList
 		title: 'Items';
 		items: [ self associations ];

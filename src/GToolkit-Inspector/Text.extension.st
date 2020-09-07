@@ -4,7 +4,7 @@ Extension { #name : #Text }
 Text >> gtItemsFor: aView [
 	"No items presentation for a Text"
 
-	^aView
+	^ aView empty
 ]
 
 { #category : #'*GToolkit-Inspector' }

@@ -10,6 +10,7 @@ BrProgress >> decreaseByTenPercent [
 
 { #category : #'*GToolkit-Inspector' }
 BrProgress >> gtLiveFor: aView [
+	<gtView>
 	^ (super gtLiveFor: aView)
 		actionButtonLabel: 'Minus' action: [
 			self decreaseByTenPercent ];
