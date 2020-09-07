@@ -6,5 +6,6 @@ Class {
 
 { #category : #ui }
 GtInspectorSampleSubclassOfA >> gtViewRemovedInSubclassFor: aView [
+	<gtView>
 	^ aView empty
 ]

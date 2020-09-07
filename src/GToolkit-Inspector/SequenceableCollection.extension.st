@@ -44,6 +44,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
+	<gtView>
 	^ aView columnedList
 		title: 'Items';
 		priority: 50;

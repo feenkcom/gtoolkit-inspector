@@ -2,6 +2,7 @@ Extension { #name : #Dictionary }
 
 { #category : #'*GToolkit-Inspector' }
 Dictionary >> gtItemsFor: aView [
+	<gtView>
 	^ aView columnedTree
 		title: 'Items';
 		priority: 1;

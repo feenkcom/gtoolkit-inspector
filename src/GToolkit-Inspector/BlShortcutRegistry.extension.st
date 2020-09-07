@@ -2,6 +2,7 @@ Extension { #name : #BlShortcutRegistry }
 
 { #category : #'*GToolkit-Inspector' }
 BlShortcutRegistry >> gtItemsFor: aView [
+	<gtView>
 	^ aView columnedList 
 		title: 'Shortcuts' translated;
 		priority: 10;
