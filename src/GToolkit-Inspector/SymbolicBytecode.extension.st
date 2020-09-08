@@ -13,7 +13,7 @@ SymbolicBytecode >> gtSourceFor: aView [
 			text := self method sourceCode asRopedText.
 			(text from: self sourceInterval first to: self sourceInterval last) attributes: { 
 				BlTextUnderlineAttribute new 
-					paint: BrGlamorousColors lightBorderColor; 
+					color: BrGlamorousColors lightBorderColor; 
 					beNotOverwritableByStyler }.
 			text ]
 ]
