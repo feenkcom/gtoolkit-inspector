@@ -1,12 +1,12 @@
 Extension { #name : #FileLocator }
 
 { #category : #'*GToolkit-Inspector' }
-FileLocator class >> gtSupportedOriginsViewFor: aView [
+FileLocator class >> gtPredefinedOriginsFor: aView [
 	<gtView>
 	<gtClassView>
 	^ aView columnedList
-		title: 'Supported Origins';
+		title: 'Predefined origins';
 		items: [ self supportedOrigins collect: [ :sel | self perform: sel ] as: OrderedCollection ];
 		column: 'Selector' translated item: [ :e | e origin ];
-		column: 'Current Location' translated item: [ :e | e resolve ]
+		column: 'Location' translated item: [ :e | e resolve ]
 ]
