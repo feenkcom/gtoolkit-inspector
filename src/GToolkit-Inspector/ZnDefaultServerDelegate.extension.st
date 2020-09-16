@@ -9,14 +9,14 @@ ZnDefaultServerDelegate >> gtPrefixMapFor: aView [
 		column: 'Prefix' text: #key;
 		column: 'Handler' text: #value weight: 2;
 		actionUpdateButtonTooltip: 'Update prefix map';
-		send: [ :anAssoc | 
+		sendTool: [ :anAssoc | 
 			| aClass aHandler |
 			aHandler := anAssoc value.
 			aHandler isSymbol 
 				ifTrue: [
 					aClass := self class whichClassIncludesSelector: aHandler.
 					aClass
-						ifNil: [ aHandler ]
+						ifNil: [ GtPhlowTool default object: aHandler ]
 						ifNotNil: [ GtMethodCoderTool compiledMethod: (aClass >> aHandler) ] ]
 				ifFalse: [ aHandler ] ]
 ]
