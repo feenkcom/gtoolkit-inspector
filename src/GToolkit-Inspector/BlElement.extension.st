@@ -295,15 +295,6 @@ BlElement >> gtParentsFor: aView [
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
-		column: 'Drawing cache'
-			item: [ :eachElement | 
-			(eachElement class withAllSuperclasses
-				anySatisfy: [ :eachClass | eachClass traits includes: TBlDrawingCache ])
-				ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
-						ifTrue: [ 'Enabled' ]
-						ifFalse: [ 'Disabled' ] ]
-				ifFalse: [ '' ] ]
-			width: 100;
 		column: 'Clip children'
 			item: [ :eachElement | eachElement clipChildren asString ]
 			width: 100
