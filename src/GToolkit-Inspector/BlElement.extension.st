@@ -143,7 +143,7 @@ BlElement >> gtLookChangesFor: aView [
 					tree := BrColumnedTree new.
 					tree
 						items: {e}
-						children: [ :f | 
+						lazy: [ :f | 
 							(f isKindOf: BrLook)
 								ifTrue: [ f children , f changes changes ]
 								ifFalse: [ #() ] ].
@@ -155,7 +155,8 @@ BlElement >> gtLookChangesFor: aView [
 								text:
 									((f value isKindOf: BrLook)
 										ifTrue: [ f value class name ]
-										ifFalse: [ f value printString ]) asRopedText glamorousRegularFont ].
+										ifFalse: [ f value printString ]) asRopedText
+										glamorousRegularFont ].
 					tree column
 						title: 'Toogle';
 						width: 32;
@@ -181,8 +182,7 @@ BlElement >> gtLookChangesFor: aView [
 										margin: (BlInsets all: 3);
 										icon: BrGlamorousVectorIcons inspect;
 										label: 'Source' translated;
-										action: [ :g | 
-											g phlow spawnObject: f value source ];
+										action: [ :g | g phlow spawnObject: f value source ];
 										yourself ]
 								ifFalse: [ BlElement new size: 0 @ 0 ] ].
 					tree ] ]
@@ -295,15 +295,6 @@ BlElement >> gtParentsFor: aView [
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
-		column: 'Drawing cache'
-			item: [ :eachElement | 
-			(eachElement class withAllSuperclasses
-				anySatisfy: [ :eachClass | eachClass traits includes: TBlDrawingCache ])
-				ifTrue: [ (TBlDrawingCache isDrawingCacheEnabledFor: eachElement)
-						ifTrue: [ 'Enabled' ]
-						ifFalse: [ 'Disabled' ] ]
-				ifFalse: [ '' ] ]
-			width: 100;
 		column: 'Clip children'
 			item: [ :eachElement | eachElement clipChildren asString ]
 			width: 100
