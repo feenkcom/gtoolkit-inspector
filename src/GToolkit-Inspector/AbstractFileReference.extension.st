@@ -138,15 +138,20 @@ AbstractFileReference >> gtItemsFor: aView [
 				ifTrue: [ '..' ]
 				ifFalse: [ each basename asString ] ];
 		column: 'Size' translated
-			text: [ :each | each humanReadableSize asString ]
+			text: [ :each | 
+				[ each humanReadableSize asString ]
+				on: FileException, FileSystemError
+				do: [ :anException | anException return: '' ] ]
 			width: 100;
 		column: 'Creation' translated
 			text: [ :each | 
-				String
+				[ String
 					streamContents: [ :s | 
 						each creationTime printYMDOn: s.
 						s nextPut: Character space.
 						each creationTime printHMSOn: s ] ]
+				on: FileException, FileSystemError
+				do: [ :anException | anException return: '' ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
