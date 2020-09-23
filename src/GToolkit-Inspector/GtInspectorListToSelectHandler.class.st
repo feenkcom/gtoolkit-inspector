@@ -19,7 +19,6 @@ GtInspectorListToSelectHandler >> selectionChangedEvent: anEvent [
 	| aWidgetElement |
 
 	aWidgetElement := anEvent currentTarget.
-	anEvent asBeaconSignal emit.
 
 	anEvent selectedDo: [ :anInterval |
 		| selectedObject |
