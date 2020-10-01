@@ -48,7 +48,8 @@ GtInspectorPlaygroundElement >> initialize [
 			c vertical fitContent ].
 
 	"resizer is added in this method"
-	self initializeResizerElement.	
+	self initializeResizerElement.
+	self background: BrGlamorousColors neutralBackgroundColor.
 
 	self addChild: self playPageElement as: #playPage.
 	self addLook: (BrLayoutResizerLook new
