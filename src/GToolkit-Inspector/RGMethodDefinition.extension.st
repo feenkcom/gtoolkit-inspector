@@ -19,47 +19,33 @@ RGMethodDefinition >> gtBasicSourceFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtImplementorsFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Implementors';
 		priority: 11;
-		stencil: [ | list |
-			list := BrColumnedList new items: self compiledMethod implementors.
-			list addEventHandler: GtPhlowListToSelectHandler new.
-			list column
-				title: 'Index';
-				stencil: [ :aClass :anIndex | 
-					BlTextElement new
-						width: 30;
-						margin: (BlInsets all: 3);
-						text: (anIndex asString asRopedText foreground: Color gray) ].
-			list column
-				title: 'Method';
-				stencil:
-						[ :each :index | BrColumnCellLabelStencil new text: each gtDisplayString ].
-			list ]
+		items: [ self compiledMethod implementors ];
+		column: 'Index' 
+			item: [ :aMethod :anIndex | anIndex ]
+			text: [ :anIndex | 
+				anIndex asString asRopedText 
+					foreground: Color gray ]
+			width: 50;
+		column: 'Method' text: #gtDisplayString.
 ]
 
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSendersFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView columnedList
 		title: 'Senders';
 		priority: 10;
-		stencil: [ | list |
-			list := BrColumnedList new items: self compiledMethod senders.
-			list addEventHandler: GtPhlowListToSelectHandler new.
-			list column
-				title: 'Index';
-				stencil: [ :aClass :anIndex | 
-					BlTextElement new
-						width: 30;
-						margin: (BlInsets all: 3);
-						text: (anIndex asString asRopedText foreground: Color gray) ].
-			list column
-				title: 'Method';
-				stencil:
-						[ :each :index | BrColumnCellLabelStencil new text: each gtDisplayString ].
-			list ]
+		items: [ self compiledMethod senders ];
+		column: 'Index' 
+			item: [ :aMethod :anIndex | anIndex ]
+			text: [ :anIndex | 
+				anIndex asString asRopedText 
+					foreground: Color gray ]
+			width: 50;
+		column: 'Method' text: #gtDisplayString.
 ]
 
 { #category : #'*GToolkit-Inspector' }
