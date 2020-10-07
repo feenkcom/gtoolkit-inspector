@@ -58,7 +58,6 @@ Class >> gtDefinitionFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesFor: aView [
 	<gtView>
-	<gtClassView>
 	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Examples';
