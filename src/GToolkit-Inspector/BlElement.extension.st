@@ -90,7 +90,7 @@ BlElement >> gtLiveFor: aView [
 		title: 'Live';
 		priority: 0;
 		stencil: [ 
-			self hasParent
+			(self hasParent or: [self isRoot ])
 				ifTrue: [ 
 					| container label |
 					container := BlElement new constraintsDo: [ :c | 
