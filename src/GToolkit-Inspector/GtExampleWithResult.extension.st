@@ -4,6 +4,7 @@ Extension { #name : #GtExampleWithResult }
 GtExampleWithResult >> gtSourceFor: aView [
 	<gtView>
 	self example ifNil: [ ^ aView empty ].
+	self isMethodDefined ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Source';
 		priority: 0;

@@ -169,7 +169,8 @@ GtExampleGroup >> gtMapFor: aView [
 	^ aView mondrian
 		title: 'Map';
 		priority: 90;
-		painting: [ :mondrian | self paintMapWith: mondrian ]
+		painting: [ :mondrian | self paintMapWith: mondrian ];
+		actionUpdateButtonTooltip: 'Update examples map'
 ]
 
 { #category : #'*GToolkit-Inspector' }
