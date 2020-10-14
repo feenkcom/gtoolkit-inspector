@@ -5,22 +5,23 @@ RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Source code';
-		actionButtonIcon: BrGlamorousVectorIcons browse 
+		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ self methodNode compiledMethod gtBrowse ];
 		look: BrGlamorousCodeEditorLook;
-		styler: (BrRBTextStyler new classOrMetaClass: self methodNode compiledMethod methodClass);
-		text: [ 
-			| text |
+		styler:
+			(BrRBTextStyler new
+				classOrMetaClass: self methodNode compiledMethod methodClass);
+		text: [ | text |
 			text := self source asRopedText.
-			text 
-				attributes: {
-					BlTextHighlightAttribute new 
-						paint: (BrGlamorousColors lightBorderColor alpha: 0.5); 
-						beNotOverwritableByStyler} 
-				from: self start 
-				to: self stop.
-		]
+			text
+				attributes:
+					{(BlTextUnderlineAttribute new
+						color: BrGlamorousColors textHighlightColor;
+						thickness: 3;
+						beNotOverwritableByStyler)}
+				from: self start
+				to: self stop ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
