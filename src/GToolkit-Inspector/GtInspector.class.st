@@ -120,6 +120,6 @@ GtInspector >> onRemovedFromPager: aGtPager [
 
 { #category : #'private - accessing' }
 GtInspector >> playgroundElement [
-	<return: #GtInspectorPlaygroundElement>
+	<return: #GtInspectorObjectElement>
 	^ playgroundElement
 ]
