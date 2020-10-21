@@ -74,12 +74,12 @@ GtExample >> gtDependenciesGraphFor: aView [
 						geometry: BlEllipse new;
 						border: (BlBorder paint: Color black width: 2);
 						size: 20@20;
-						look: (BrWithTooltipLook2 new
+						look: (BrWithTooltipLook new
 							preferredExtent: 200@200;
 							showDelay: 100 milliSeconds;
 							hideDelay: 100 milliSeconds;
 							stencil: [ 
-								BlElement new look: (BrTooltipLook2 new content: ((GtMethodCoder forExample: each) expanded: true) asElement)]).
+								BlElement new look: (BrTooltipLook new content: ((GtMethodCoder forExample: each) expanded: true) asElement)]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.
