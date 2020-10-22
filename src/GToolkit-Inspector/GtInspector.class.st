@@ -15,8 +15,22 @@ Class {
 		'contentElement',
 		'playgroundElement'
 	],
+	#classInstVars : [
+		'embeddedPlaygroundName'
+	],
 	#category : #'GToolkit-Inspector-! Core'
 }
+
+{ #category : #accessing }
+GtInspector class >> embeddedPlaygroundName [
+	^ embeddedPlaygroundName ifNil: [ 
+		embeddedPlaygroundName := GtInspectorPlaygroundElement name ]
+]
+
+{ #category : #accessing }
+GtInspector class >> embeddedPlaygroundName: aClassName [
+	embeddedPlaygroundName := aClassName
+]
 
 { #category : #'api - instance creation' }
 GtInspector class >> forObject: anObject [
@@ -89,7 +103,9 @@ GtInspector >> initializeListeners [
 
 { #category : #initialization }
 GtInspector >> initializePlaygroundElement [
-	playgroundElement := GtInspectorPlaygroundElement new.
+	playgroundElement := (self class environment 
+		at: self class embeddedPlaygroundName 
+		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
 ]
 
 { #category : #'private - event handling' }
