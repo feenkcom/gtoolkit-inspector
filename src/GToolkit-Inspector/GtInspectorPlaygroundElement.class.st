@@ -65,7 +65,7 @@ GtInspectorPlaygroundElement >> initializePlayPageElement [
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
-			c vertical fitContent ].
+			c vertical matchParent ].
 	self playPage bindingsDo: [ :eachBinding | 
 		eachBinding at: #thisPlayground put: playPageElement ].
 	
