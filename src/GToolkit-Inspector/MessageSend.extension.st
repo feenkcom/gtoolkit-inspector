@@ -12,3 +12,8 @@ MessageSend >> gtMethodFor: aView [
 				ifAbsent: [ BlElement new ] ].
 			
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageSend >> gtSourceCodeFor: aView [
+	^ self gtMethodFor: aView
+]
