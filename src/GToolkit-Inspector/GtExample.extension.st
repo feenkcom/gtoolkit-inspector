@@ -71,7 +71,7 @@ GtExample >> gtDependenciesGraphFor: aView [
 				stencil: [ :each |
 					| element |
 					element := BlElement new
-						geometry: BlEllipse new;
+						geometry: BlEllipseGeometry new;
 						border: (BlBorder paint: Color black width: 2);
 						size: 20@20;
 						look: (BrWithTooltipLook new
