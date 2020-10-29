@@ -21,6 +21,7 @@ RPackage >> gtDisplayOn: stream [
 { #category : #'*GToolkit-Inspector' }
 RPackage >> gtExamplesFor: aView [
 	<gtView>
+	<gtPackageView>
 	
 	^ (GtExampleGroup withAll: self gtExamplesAllContained)
 			gtExamplesFor: aView
