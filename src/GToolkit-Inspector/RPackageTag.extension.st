@@ -12,3 +12,12 @@ RPackageTag >> gtDefinedClassesFor: aView [
 		column: 'Name' item: [ :aRing | aRing name ];
 		column: 'Category' item: [ :aRing | aRing category ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+RPackageTag >> gtExamplesFor: aView [
+	<gtView>
+	<gtPackageTagView>
+	
+	^ (GtExampleGroup withAll: self gtExamplesAllContained)
+			gtExamplesFor: aView
+]
