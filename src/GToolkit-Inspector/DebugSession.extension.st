@@ -10,13 +10,13 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 		title: 'Interrupted context';
 		priority: 105;
 		stencil: [ | methodCoder pcRange |
-			methodCoder := (GtMethodCoder forMethod: self interruptedContext method) expanded: true.
+			methodCoder := (GtMethodCoder forMethod: self interruptedContext method).
 			pcRange := self pcRangeForContext: self interruptedContext.
 			(methodCoder sourceEditor text from: pcRange first to: pcRange last) attributes: {
 				BlTextUnderlineAttribute new
 					paint: BrGlamorousColors errorBackgroundColor;
 					beNotOverwritableByStyler }.
-			methodCoder asElement  ]
+			(methodCoder asCoderUIModel expanded: true) asElement  ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

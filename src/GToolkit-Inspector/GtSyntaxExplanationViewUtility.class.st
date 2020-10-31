@@ -200,7 +200,7 @@ GtSyntaxExplanationViewUtility >> create [
 				
 	coder := GtMethodCoder new forMethod: method.
 	coder explanationLink: (self explanationLinkStylerRules).
-	coderElement := (coder expanded: true) asElement margin: (BlInsets all: 0).
+	coderElement := (coder asCoderUIModel expanded: true) asElement margin: (BlInsets all: 0).
 	coderElement forceLayout.
 	coderElement vMatchParent.
 			

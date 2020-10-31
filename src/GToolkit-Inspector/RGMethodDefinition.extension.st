@@ -10,9 +10,8 @@ RGMethodDefinition >> gtBasicSourceFor: aView [
 			action: [ :aButton | aButton phlow spawnTool: 
 				(GtMethodCoderTool compiledMethod: self compiledMethod) ];
 		stencil: [ 
-			 ((GtMethodCoder forMethod: self) 
-				expanded: true; 
-				subscribeToSystem;
+			 ((((GtMethodCoder forMethod: self) 
+				subscribeToSystem) asCoderUIModel expanded: true)
 				asElement) ].
 ]
 
