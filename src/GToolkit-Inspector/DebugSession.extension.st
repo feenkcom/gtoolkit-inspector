@@ -6,7 +6,7 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 	(self interruptedProcess isNil
 		or: [ self interruptedProcess isSuspended not
 				or: [ self interruptedContext isNil ] ])
-		ifTrue: [ ^ aView ].
+		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Interrupted context';
 		priority: 105;
@@ -28,7 +28,7 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 	(self interruptedProcess isNil
 		or: [ self interruptedProcess isSuspended not
 				or: [ self interruptedContext isNil ] ])
-		ifTrue: [ ^ aView ].
+		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Interrupted stack' translated;
 		priority: 108;
@@ -56,7 +56,7 @@ DebugSession >> gtViewLiveDebuggerFor: aView [
 	<gtView>
 	(self interruptedProcess isNil or: [ 
 		self interruptedProcess isSuspended not or: [ 
-			self interruptedContext isNil ] ]) ifTrue: [ ^ aView ].
+			self interruptedContext isNil ] ]) ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Live debugger' translated;
 		priority: 150;
@@ -74,7 +74,7 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil
 		or: [ self interruptedProcess isSuspended not ])
-		ifTrue: [ ^ aView ].
+		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Suspended stack' translated;
 		priority: 108;
