@@ -1,8 +1,9 @@
-Extension { #name : #BlShortcut }
+Extension { #name : #BlShortcutWithAction }
 
 { #category : #'*GToolkit-Inspector' }
-BlShortcut >> gtViewSourceCodeFor: aView [
+BlShortcutWithAction >> gtViewSourceCodeFor: aView [
 	<gtView>
+
 	^ self action 
 		ifNil: [ aView empty ]
 		ifNotNil: [ self action gtSourceCodeFor: aView ]
