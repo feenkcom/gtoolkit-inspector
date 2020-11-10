@@ -61,9 +61,9 @@ BaselineOfGToolkitInspector >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'GToolkitPlayground' with: [
-				spec repository: 'github://feenkcom/gtoolkit-playground:v0.8.176/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-playground:v0.8.177/src' ];
 			baseline: 'GToolkitPager' with: [
-				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.154/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.155/src' ].
 		spec package: 'GToolkit-Inspector' with: [
 				spec requires: #('GToolkitPlayground' 'GToolkitPager' ). ]. ].
 
