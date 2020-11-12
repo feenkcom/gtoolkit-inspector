@@ -1,7 +1,7 @@
 Extension { #name : #BlShortcutWithAction }
 
 { #category : #'*GToolkit-Inspector' }
-BlShortcutWithAction >> gtViewSourceCodeFor: aView [
+BlShortcutWithAction >> gtSourceCodeFor: aView [
 	<gtView>
 
 	^ self action 
