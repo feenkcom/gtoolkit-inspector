@@ -35,7 +35,7 @@ Association >> newPreviewStencil [
 		label: self value asString;
 		action: [ :aButton | aButton phlow spawnObject: self value ];
 		constraintsDo: [ :c | c linear horizontal alignCenter ].
-	anArrowElement := BrGlamorousIcons right asElement
+	anArrowElement := BrGlamorousVectorIcons right asElement
 		constraintsDo: [ :c | 
 			c margin: (BlInsets left: 5 right: 5).
 			c linear horizontal alignCenter ].
