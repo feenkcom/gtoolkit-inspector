@@ -49,7 +49,7 @@ BlElement >> gtChildrenFor: aView [
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
-		column: 'Element' item: [ :anElement | anElement ];
+		column: 'Element' item: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
 		column: 'Composition layer'
 			item: [ :eachElement | 
 				eachElement wantsSeparateCompositingLayer
