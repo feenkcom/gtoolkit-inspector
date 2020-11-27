@@ -98,7 +98,8 @@ GtInspector >> initializeListeners [
 		self onAddedToPager: anEvent pager ].
 	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
 		self onRemovedFromPager: anEvent pager ].
-
+	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
+		self onUpdateWish: anEvent ]
 ]
 
 { #category : #initialization }
@@ -134,8 +135,19 @@ GtInspector >> onRemovedFromPager: aGtPager [
 	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
 ]
 
+{ #category : #'private - event handling' }
+GtInspector >> onUpdateWish: anEvent [
+	self updateElement.
+]
+
 { #category : #'private - accessing' }
 GtInspector >> playgroundElement [
 	<return: #GtInspectorObjectElement>
 	^ playgroundElement
+]
+
+{ #category : #'private - updating' }
+GtInspector >> updateElement [
+	self contentElement updateView.
+	self playgroundElement updatePlayPage.
 ]
