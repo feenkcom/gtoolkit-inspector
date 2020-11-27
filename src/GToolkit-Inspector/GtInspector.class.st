@@ -137,6 +137,7 @@ GtInspector >> onRemovedFromPager: aGtPager [
 
 { #category : #'private - event handling' }
 GtInspector >> onUpdateWish: anEvent [
+	anEvent consumed: true.
 	self updateElement.
 ]
 
