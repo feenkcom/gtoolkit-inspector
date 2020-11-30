@@ -6,27 +6,27 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: self numberOfExamples asString, ' examples ';
-		action: [ anElement children second items: (self examples) ]).
+		action: [ anElement children second items: (self examples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: self numberOfResults asString, ' executed ';
-		action: [ anElement children second items: (self examples select: #hasResult) ]).
+		action: [ anElement children second items: (self executedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: self numberOfSuccesses asString, ' successes ';
-		action: [ anElement children second items: (self examples select: #isSuccess) ]).
+		action: [ anElement children second items: (self successfulExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: self numberOfFailures asString, ' failures ';
-		action: [ anElement children second items: (self examples select: #isFailure) ]).
+		action: [ anElement children second items: (self failedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: self numberOfErrors asString, ' errors ';
-		action: [ anElement children second items: (self examples select: #isError) ]).
+		action: [ anElement children second items: (self erroredExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
 		look: BrGlamorousButtonWithLabelLook; beSmall; 
 		label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
-		action: [ anElement children second items: (self examples reject: [ :e | e hasResult ]) ]).
+		action: [ anElement children second items: (self skippedExamples sorted: GtMethodsSortFunction new) ]).
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -35,7 +35,7 @@ GtExampleGroup >> buildListViewFor: aView [
 	aListView := aView columnedList
 		title: 'Examples List';
 		priority: 11;
-		items: [ self examples ];
+		items: [ self examples sorted: GtMethodsSortFunction new ];
 		column: 'Status' translated do: [ :aColumn | 
 			aColumn
 				width: 26;
@@ -157,7 +157,7 @@ GtExampleGroup >> gtExpandableExamplesFor: aView [
 		title: 'Examples';
 		priority: 1;
 		stencil: [
-			GtExampleGroupCoder new forItems: self examples ];
+			GtExampleGroupCoder new forItems: (self examples sorted: GtMethodsSortFunction new) ];
 		actionButtonIcon: BrGlamorousVectorIcons play 
 			tooltip: 'Run all examples'
 			action: [ :aButton | self runAll ]
