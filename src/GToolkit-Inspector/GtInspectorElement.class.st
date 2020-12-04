@@ -14,6 +14,6 @@ Class {
 { #category : #initialization }
 GtInspectorElement >> initialize [
 	super initialize.
-	self addInteractiveModelState: BrLayoutHorizontalResizerModel matchParent.
-	self addInteractiveModelState: BrLayoutVerticalResizerModel matchParent.
+	
+	self matchParent
 ]

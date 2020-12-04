@@ -4,27 +4,27 @@ Extension { #name : #GtExampleGroup }
 GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
 	aButtonsContainer removeChildren.
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: self numberOfExamples asString, ' examples ';
 		action: [ anElement children second items: (self examples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: self numberOfResults asString, ' executed ';
 		action: [ anElement children second items: (self executedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: self numberOfSuccesses asString, ' successes ';
 		action: [ anElement children second items: (self successfulExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: self numberOfFailures asString, ' failures ';
 		action: [ anElement children second items: (self failedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: self numberOfErrors asString, ' errors ';
 		action: [ anElement children second items: (self erroredExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmall; 
+		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
 		label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
 		action: [ anElement children second items: (self skippedExamples sorted: GtMethodsSortFunction new) ]).
 ]
