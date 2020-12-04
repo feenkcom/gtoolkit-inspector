@@ -207,9 +207,11 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 		title: 'Script';
 		priority: 10;
 		stencil: [ 
-			GtCoderSnippet new 
-				sourceCode: (self readStreamDo: [ :s | s contents ]);
-				asElement ];
+			(GtPharoSnippetCoder new 
+				forSource: (self readStreamDo: [ :s | s contents ]);
+				subscribeToSystem;
+				asExpandedOnlyElement) 
+					vFitContentLimited ];
 		actionButtonLabel: 'File In' 
 			action: [ :aButton :aTab | self asFileReference fileIn ]
 ]

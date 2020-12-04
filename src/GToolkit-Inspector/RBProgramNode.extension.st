@@ -1,6 +1,22 @@
 Extension { #name : #RBProgramNode }
 
 { #category : #'*GToolkit-Inspector' }
+RBProgramNode >> gtPropertiesFor: aView [
+	<gtView>
+	properties ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Properties';
+		priority: 10;
+		items: [ properties 
+			ifNil: #() 
+			ifNotNil: [ :aDictionary |
+				aDictionary associations ] ];
+		column: 'Key' item: #key;
+		column: 'Value' item: #value weight: 2;
+		send: #value
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView textEditor
