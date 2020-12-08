@@ -106,10 +106,9 @@ GtInspectorElementOverview >> buildOtherProperties [
 { #category : #'private - instance creation' }
 GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock [
 	^ BrButton new
-		beSmall;
-		look: (BrGlamorousButtonRectangularLook new + 
-			(BrInteractiveCommonLook new
-				default: [ :aWidget | aWidget background: BrGlamorousColors neutralBackgroundColor ]) + BrGlamorousButtonLabelLook new);
+		beSmallSize;
+		background: BrGlamorousColors neutralBackgroundColor;
+		look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
 		label: aName;
 		hMatchParent;
 		action: aSpawnBlock
