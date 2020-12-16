@@ -20,14 +20,11 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 	
 	nodesCollection := method ast doSemanticAnalysis allChildren.
 	 
-	verticalContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		layout: BlLinearLayout vertical;
+	verticalContainer := BrVerticalPane new
+		fitContent;
 		padding: (BlInsets all: 10).
 	
-	otherNodesGroup := self verticalGroupElement.
+	otherNodesGroup := self verticalGroupElement hExact: 80.
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBPragmaNode ])
 		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #PragmaNode) ]
 		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #PragmaNode) ].
@@ -139,29 +136,21 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 GtSyntaxExplanationViewUtility >> create [
 	| mainContainer nodesListContainer "coder" coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
-	mainContainer := BlElement new
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent.
-					c padding: (BlInsets all: 5)];
-				layout: BlLinearLayout horizontal. 
+	mainContainer := BrHorizontalPane new
+		matchParent;
+		padding: (BlInsets all: 5).
 	mainContainer explainer isExplanationHolder: true.
 			
-	leftContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical matchParent. ];
+	leftContainer := BrVerticalPane new
+		hFitContent;
+		vMatchParent;
 		padding: (BlInsets all: 5);
-		margin: (BlInsets right: 20);
-		layout: BlLinearLayout vertical.
+		margin: (BlInsets right: 20).
 			
-	rightContainer := BlElement new
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical matchParent.
-			c padding: (BlInsets all: 5)];
-		layout: BlLinearLayout vertical.
-	
+	rightContainer := BrVerticalPane new
+		matchParent;
+		padding: (BlInsets all: 5).
+
 	tooltipsContainer := BrEditor new
 		text: '' asRopedText;
 		padding: (BlInsets all: 10);
@@ -179,9 +168,9 @@ GtSyntaxExplanationViewUtility >> create [
 		size: 0 @ 0;
 		elevation: (BlRelativeElevation elevation: 10);
 		geometry: BlCircle new.
-				
+
 	nodesListContainer := self astNodesList.
-			
+
 	leftContainerLabel := (BrLabel new
 		text: ('Syntactical constructs:' asRopedText 
 			glamorousRegularFont; 
@@ -197,24 +186,23 @@ GtSyntaxExplanationViewUtility >> create [
 			fontSize: 25);
 		look: BrGlamorousLabelLook;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
-				
+
 	coder := GtMethodCoder new forMethod: method.
 	coder explanationLink: (self explanationLinkStylerRules).
 	coderElement := (coder asCoderUIModel expanded: true) asElement margin: (BlInsets all: 0).
-	coderElement forceLayout.
 	coderElement vMatchParent.
-			
+
 	leftContainer addChild: leftContainerLabel.
 	leftContainer addChild: nodesListContainer.
-			
+
 	rightContainer addChild: rightContainerLabel.
 	rightContainer addChild: coderElement.
 	rightContainer addChild: tooltipsContainer.
-			
+
 	mainContainer addChild: leftContainer.
 	mainContainer addChild: rightContainer.
-			
-	^ mainContainer.
+
+	^ mainContainer
 ]
 
 { #category : #accessing }
@@ -228,58 +216,27 @@ GtSyntaxExplanationViewUtility >> dividerBarElement [
 
 { #category : #'as yet unclassified' }
 GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
-	| lines nodeName label |
-	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
-	lines := OrderedCollection new.
-	label := BrLabel new
-		look: BrGlamorousLabelLook new;
+	| nodeName |
+	
+	"Node names are in form ArrayNode, so we want to remove the Node suffix"
+	nodeName := aNodeNameSymbol copyFrom: 1 to: (aNodeNameSymbol size - 4).
+	
+	^ BrLabel new
+		look: BrGlamorousLabelLook new + (GtExplainerExplanationLook new explanationModel: aNodeNameSymbol) + (BrStyleCommonLook new
+			hovered: [ :aStyle |
+				aStyle background: (BrGlamorousColors textHighlightColor).
+				aStyle
+					do: [
+						tooltipsContainer
+							text: (tooltips at: aNodeNameSymbol);
+							visibility: BlVisibility visible ]
+					after: [
+						tooltipsContainer
+							text: '' asRopedText;
+							visibility: BlVisibility gone ] ] );
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-		padding: (BlInsets all: 5);
-		hExact: 80.
-	label explainer
-		isExplanation: true;
-		model: aNodeNameSymbol.
-	label look: (BrInteractiveCommonLook new 
-		default: [ :aWidget |
-			lines do: [ :each | 
-				each toAnchor referenceElement fireEvent: GtExplanationLinkDisconnectedEvent new.
-				each removeFromParent ].
-			lines removeAll.
-			aWidget
-				border: (BlBorder paint: Color transparent width: 2);
-				background: Color transparent.
-			tooltipsContainer
-				text: '' asRopedText;
-				visibility: BlVisibility gone];
-		hovered: [ :aWidget |
-			tooltipsContainer
-				text: (tooltips at: aNodeNameSymbol);
-				visibility: BlVisibility visible.
-			aWidget border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2).
-			aWidget background: (BrGlamorousColors textHighlightColor).
-			aWidget explainer firstExplanationHolderParent explainer
-				allTargetChildrenWithModel: aWidget explainer model
-				do: [ :explanationTargetElement | 
-					explanationTargetElement fireEvent: GtExplanationLinkConnectedEvent new.
-					lines add: (BlLineElement new
-						fromAnchor:
-							(BlNearestPositionTightCircleAnchor
-								referenceElement: aWidget
-								relatedTo: explanationTargetElement);
-						toAnchor: (BlNearestPositionTightCircleAnchor
-							referenceElement: explanationTargetElement
-							relatedTo: aWidget);
-						zIndex: 10;
-						border: (BlBorder paint: (BrGlamorousColors textHighlightColor alpha: 0.7) width: 2);
-						constraintsDo: [ :c | c ignoreByLayout ];
-						yourself).
-					aWidget 
-						firstCommonParent: explanationTargetElement
-						ifFound: [ :aCommonParent |
-							aCommonParent addChild: (lines last) ]
-						ifNone: [  ] ] ] ).
-	label addChildren: { BrLabel new text: nodeName; look: BrGlamorousLabelLook }.
-	^ label.
+		text: nodeName;
+		padding: (BlInsets all: 5)
 ]
 
 { #category : #'as yet unclassified' }
@@ -444,7 +401,7 @@ GtSyntaxExplanationViewUtility >> initialize [
 		#CommentNode -> 'A comment is a description for a piece of code. It has no functionalty.' }.
 	
 	associationsCollection do: [ :each |
-		tooltips at: each key put: (each value asRopedText glamorousRegularFont; fontSize: 15) ].
+		tooltips at: each key put: (each value asRopedText glamorousRegularFont fontSize: 15) ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -463,9 +420,5 @@ GtSyntaxExplanationViewUtility >> regularLabelFor: aNodeNameSymbol [
 
 { #category : #accessing }
 GtSyntaxExplanationViewUtility >> verticalGroupElement [
-	^ BlElement new
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent];
-		layout: BlLinearLayout vertical.
+	^ BrVerticalPane new fitContent
 ]
