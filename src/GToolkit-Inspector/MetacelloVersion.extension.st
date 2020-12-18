@@ -7,7 +7,7 @@ MetacelloVersion >> gtPackagesFor: aView [
 		title: 'Packages';
 		priority: 50;
 		items: [ self packages ];
-		itemFormat: [ :aNode | 
+		itemText: [ :aNode | 
 			[ aNode gtDisplayString asRopedText ]
 				on: Error
 				do: [ aNode errorMessage asRopedText foreground: Color red ] ]
@@ -55,7 +55,7 @@ MetacelloVersion >> gtProjectsFor: aView [
 		title: 'Projects';
 		priority: 60;
 		items: [ self projects ];
-		itemFormat: [ :aNode | 
+		itemText: [ :aNode | 
 			[ aNode gtDisplayString asRopedText ]
 				on: Error
 				do: [ aNode errorMessage asRopedText foreground: Color red ] ];
