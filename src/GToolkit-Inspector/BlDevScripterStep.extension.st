@@ -20,9 +20,9 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		expandUpTo: 3;
 		items: [ { self } ];
 		children: [ :aStep | aStep steps ];
-		column: 'Status' text: [ :aStep | aStep stateName asRopedText foreground: aStep stateColor ];
-		column: 'Step' item: #label;
-		column: 'Target' item: #target
+		column: 'Status' text: [ :aStep | aStep stateName asRopedText foreground: aStep stateColor ] weight: 2;
+		column: 'Step' item: #label weight: 4;
+		column: 'Target' item: #target weight: 1
 ]
 
 { #category : #'*GToolkit-Inspector' }
