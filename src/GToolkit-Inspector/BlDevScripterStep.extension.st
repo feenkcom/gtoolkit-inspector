@@ -29,7 +29,7 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 BlDevScripterStep >> paintTreeWith: view [
 	view nodes
 		shape: [ :each | 
-			BlDevScripterStepElement newFromStep: each ];
+			BrDevScripterStepElement newFromStep: each ];
 		with: (self withDeepCollect: #steps).
 	view edges
 		shape: [ :each | BlLineElement new border: (BlBorder paint: (Color gray alpha: 0.5) width: 1 ) ];
