@@ -53,7 +53,8 @@ MessageTally >> gtMessagesTreeIn: aView [
 	^ aView columnedTree
 		title: 'Tree';
 		priority: 10;
-		expandUpTo: 3;
+		expandSuchThat: [ :aNode :aMessageTally |
+			(aMessageTally tally / (self tally max: 0.1)) > 0.15 ];
 		items: [ {self} ];
 		children: [ :each | each children ];
 		column: 'Method'
