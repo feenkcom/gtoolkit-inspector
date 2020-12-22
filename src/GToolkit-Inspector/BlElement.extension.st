@@ -20,34 +20,9 @@ BlElement >> gtChildrenFor: aView [
 		items: [ {self} ];
 		children: #children;
 		column: 'Preview'
-			do: [ :aColumn | 
-			aColumn
+			do: [ :aColumn | aColumn
 				stencil: [ :eachElement | 
-					| form |
-					form := eachElement asSpartaForm.
-					BrButton new
-						margin: (BlInsets all: 10);
-						icon:
-							(BlElement new
-								size: 50 @ 20;
-								"margin: (BlInsets top: 2 bottom: 2);"
-									addChild: form asElement asScalableElement);
-						label: 'Slides';
-						look:
-							BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
-								+
-									(BrGlamorousWithDropdownLook
-										handle: [ BrButton new
-												look:
-													BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
-														- BrGlamorousButtonExteriorLook;
-												icon:
-													(BlElement new
-														size: 50 @ 20;
-														"margin: (BlInsets top: 2 bottom: 2);"
-															addChild: form asElement asScalableElement) ]
-										content: [ form asElement ]);
-						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
+					self gtPreviewThumbnailFor: eachElement ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
 		column: 'Element' item: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
 		column: 'Composition layer'
@@ -308,6 +283,37 @@ BlElement >> gtPreviewFor: aView [
 		priority: 1;
 		stencil: [ self asSpartaForm asElement 
 			margin: (BlInsets all: 10) ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlElement >> gtPreviewThumbnailFor: anElement [
+	^ BlLazyElement new 
+		layout: BlFrameLayout new; 
+		margin: (BlInsets all: 10);
+		size: 50 @ 20;
+		elementBuilder: [
+			| form |
+			form := anElement asSpartaForm.
+			BrButton new
+				icon: (BlElement new
+					size: 50 @ 20;
+					addChild: form asElement asScalableElement);
+				label: 'Slides';
+				look: BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+					+ (BrGlamorousWithDropdownLook
+							handle: [ BrButton new
+								look: BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+										- BrGlamorousButtonExteriorLook;
+								icon: (BlElement new
+										size: 50 @ 20;
+										addChild: form asElement asScalableElement) ]
+							content: [ form asElement ]);
+				constraintsDo: [ :c | 
+					c linear horizontal alignRight ] ];
+		postAction: [ :theLazyElement :theChild |
+			theLazyElement constraintsDo: [ :c | 
+				c horizontal fitContent.
+				c vertical fitContent ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
