@@ -99,7 +99,9 @@ GtInspector >> initializeListeners [
 	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
 		self onRemovedFromPager: anEvent pager ].
 	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
-		self onUpdateWish: anEvent ]
+		self onUpdateWish: anEvent ].
+	self when: BlFocusInEvent do: [ 
+		self onFocusReceived ].
 ]
 
 { #category : #initialization }
@@ -109,6 +111,12 @@ GtInspector >> initializePlaygroundElement [
 		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
 ]
 
+{ #category : #'private - notifying' }
+GtInspector >> notifyTabAppearanceChangeWishTo: aString [
+	self enqueueTask: (BlTaskAction new action: [
+		self fireEvent: (GtPhlowChangeDescriptionLabelWish new label: aString) ])
+]
+
 { #category : #'private - event handling' }
 GtInspector >> onAddedToPager: aGtPager [
 	"Inspector was added to a pager"
@@ -116,6 +124,11 @@ GtInspector >> onAddedToPager: aGtPager [
 		firstChildWithCompositeViewDo: [ :aTabGroup | 
 			aGtPager context inspectorTabSelector
 				selectTabIn: aTabGroup on: self object ].
+]
+
+{ #category : #'private - event handling' }
+GtInspector >> onFocusReceived [
+	self updateTabLabel
 ]
 
 { #category : #'private - hooks' }
@@ -151,4 +164,13 @@ GtInspector >> playgroundElement [
 GtInspector >> updateElement [
 	self contentElement updateView.
 	self playgroundElement updatePlayPage.
+]
+
+{ #category : #'private - updating' }
+GtInspector >> updateTabLabel [
+	| aTitle aShortTitle |
+	aTitle := GtPhlowLabelBuilder new object: self object; build.
+	aTitle := 'Inspector: ', aTitle asString.
+	aShortTitle := GtPhlowShortLabelBuilder new fullLabel: aTitle; build.
+	self notifyTabAppearanceChangeWishTo: aShortTitle.
 ]
