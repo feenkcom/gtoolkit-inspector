@@ -163,9 +163,9 @@ GtInspector >> updateElement [
 
 { #category : #'private - updating' }
 GtInspector >> updateTabLabel [
-	GtPhlowTitleLabelNotifier new
+	GtPhlowTitleIconAndLabelNotifier new
 		element: self;
-		toolName: 'Inspector'
-		subjectName: [ GtPhlowLabelBuilder new object: self object; build ];
+		longLabel: [ GtPhlowLabelBuilder new object: self object; build ];
+		icon: BrGlamorousVectorIcons inspect;
 		notifyIfFocused
 ]
