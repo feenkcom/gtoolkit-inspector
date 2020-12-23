@@ -99,7 +99,10 @@ GtInspector >> initializeListeners [
 	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
 		self onRemovedFromPager: anEvent pager ].
 	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
-		self onUpdateWish: anEvent ]
+		self onUpdateWish: anEvent ].
+	self when: BlFocusInEvent do: [ 
+		self onFocusReceived ].
+	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
 { #category : #initialization }
@@ -116,6 +119,11 @@ GtInspector >> onAddedToPager: aGtPager [
 		firstChildWithCompositeViewDo: [ :aTabGroup | 
 			aGtPager context inspectorTabSelector
 				selectTabIn: aTabGroup on: self object ].
+]
+
+{ #category : #'private - event handling' }
+GtInspector >> onFocusReceived [
+	self updateTabLabel
 ]
 
 { #category : #'private - hooks' }
@@ -151,4 +159,13 @@ GtInspector >> playgroundElement [
 GtInspector >> updateElement [
 	self contentElement updateView.
 	self playgroundElement updatePlayPage.
+]
+
+{ #category : #'private - updating' }
+GtInspector >> updateTabLabel [
+	GtPhlowTitleLabelNotifier new
+		element: self;
+		toolName: 'Inspector'
+		subjectName: [ GtPhlowLabelBuilder new object: self object; build ];
+		notifyIfFocused
 ]

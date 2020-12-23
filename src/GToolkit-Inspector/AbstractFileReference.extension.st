@@ -54,7 +54,7 @@ AbstractFileReference >> gtContentsFor: aView [
 					c horizontal matchParent.
 					c vertical matchParent ];
 				editor: (BrTextEditor new 
-					text: (BlRopeableCollectionFile ropeFor: self) glamorousRegularFont) ];
+					text: (BlRopedText file: self) glamorousRegularFont) ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
