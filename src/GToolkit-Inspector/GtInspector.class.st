@@ -102,6 +102,7 @@ GtInspector >> initializeListeners [
 		self onUpdateWish: anEvent ].
 	self when: BlFocusInEvent do: [ 
 		self onFocusReceived ].
+	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
 { #category : #initialization }
@@ -109,12 +110,6 @@ GtInspector >> initializePlaygroundElement [
 	playgroundElement := (self class environment 
 		at: self class embeddedPlaygroundName 
 		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
-]
-
-{ #category : #'private - notifying' }
-GtInspector >> notifyTabAppearanceChangeWishTo: aString [
-	self enqueueTask: (BlTaskAction new action: [
-		self fireEvent: (GtPhlowChangeDescriptionLabelWish new label: aString) ])
 ]
 
 { #category : #'private - event handling' }
@@ -168,9 +163,9 @@ GtInspector >> updateElement [
 
 { #category : #'private - updating' }
 GtInspector >> updateTabLabel [
-	| aTitle aShortTitle |
-	aTitle := GtPhlowLabelBuilder new object: self object; build.
-	aTitle := 'Inspector: ', aTitle asString.
-	aShortTitle := GtPhlowShortLabelBuilder new fullLabel: aTitle; build.
-	self notifyTabAppearanceChangeWishTo: aShortTitle.
+	GtPhlowTitleLabelNotifier new
+		element: self;
+		toolName: 'Inspector'
+		subjectName: [ GtPhlowLabelBuilder new object: self object; build ];
+		notifyIfFocused
 ]
