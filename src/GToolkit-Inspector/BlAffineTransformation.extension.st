@@ -46,7 +46,7 @@ BlAffineTransformation >> gtPreviewFor: aView [
 				path: canvas bounds;
 				draw.
 			canvas transform
-				translateBy: 50@50;
+				translateBy: 200@200;
 				push.
 			canvas stroke
 				paint: Color black;

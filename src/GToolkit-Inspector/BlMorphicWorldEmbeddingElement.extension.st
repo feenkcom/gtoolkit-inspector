@@ -1,7 +1,7 @@
 Extension { #name : #BlMorphicWorldEmbeddingElement }
 
 { #category : #'*GToolkit-Inspector' }
-BlMorphicWorldEmbeddingElement classSide >> openEmbedded [
+BlMorphicWorldEmbeddingElement class >> openEmbedded [
 	<script: 'self openEmbedded'>
 	GtPager
 		openWrappedOn: self new beMain
