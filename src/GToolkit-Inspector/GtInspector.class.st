@@ -13,7 +13,8 @@ Class {
 	#classTraits : 'TGtPagerWindowOpener classTrait',
 	#instVars : [
 		'contentElement',
-		'playgroundElement'
+		'playgroundElement',
+		'titleNotifier'
 	],
 	#classInstVars : [
 		'embeddedPlaygroundName'
@@ -76,6 +77,7 @@ GtInspector >> contentElement [
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
+	self initializeTitleNotifier.
 	self initializeContentElement.
 	self initializePlaygroundElement.
 	self layout: BlLinearLayout vertical.
@@ -100,8 +102,6 @@ GtInspector >> initializeListeners [
 		self onRemovedFromPager: anEvent pager ].
 	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
 		self onUpdateWish: anEvent ].
-	self when: BlFocusInEvent do: [ 
-		self onFocusReceived ].
 	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
@@ -112,6 +112,14 @@ GtInspector >> initializePlaygroundElement [
 		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
 ]
 
+{ #category : #initialization }
+GtInspector >> initializeTitleNotifier [
+	titleNotifier := GtPhlowTitleIconAndLabelNotifier new
+		longLabel: [ GtPhlowLabelBuilder new object: self object; build ];
+		icon: BrGlamorousVectorIcons inspect.
+	self addEventHandler: titleNotifier.
+]
+
 { #category : #'private - event handling' }
 GtInspector >> onAddedToPager: aGtPager [
 	"Inspector was added to a pager"
@@ -119,11 +127,6 @@ GtInspector >> onAddedToPager: aGtPager [
 		firstChildWithCompositeViewDo: [ :aTabGroup | 
 			aGtPager context inspectorTabSelector
 				selectTabIn: aTabGroup on: self object ].
-]
-
-{ #category : #'private - event handling' }
-GtInspector >> onFocusReceived [
-	self updateTabLabel
 ]
 
 { #category : #'private - hooks' }
@@ -155,6 +158,12 @@ GtInspector >> playgroundElement [
 	^ playgroundElement
 ]
 
+{ #category : #'private - accessing' }
+GtInspector >> titleNotifier [
+	<return: #GtPhlowTitleNotifier>
+	^ titleNotifier
+]
+
 { #category : #'private - updating' }
 GtInspector >> updateElement [
 	self contentElement updateView.
@@ -163,9 +172,5 @@ GtInspector >> updateElement [
 
 { #category : #'private - updating' }
 GtInspector >> updateTabLabel [
-	GtPhlowTitleIconAndLabelNotifier new
-		element: self;
-		longLabel: [ GtPhlowLabelBuilder new object: self object; build ];
-		icon: BrGlamorousVectorIcons inspect;
-		notifyIfFocused
+	self titleNotifier notifyIfFocused
 ]
