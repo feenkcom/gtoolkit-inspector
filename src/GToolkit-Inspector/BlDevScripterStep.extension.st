@@ -20,9 +20,13 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		expandUpTo: 3;
 		items: [ { self } ];
 		children: [ :aStep | aStep steps ];
-		column: 'Status' text: [ :aStep | aStep stateName asRopedText foreground: aStep stateColor ] weight: 2;
+		column: 'Status' translated 
+			icon: [ :each | 
+				BrLabel new text: each stateName; look: (BrGlamorousLabelLook new);
+					geometry: (BlRoundedRectangleGeometry cornerRadius: 2); background: each stateColor ]
+			weight: 1;
 		column: 'Step' item: #label weight: 4;
-		column: 'Target' item: #target weight: 1
+		column: 'Target' item: #target weight: 2
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -33,6 +37,8 @@ BlDevScripterStep >> paintTreeWith: view [
 		with: (self withDeepCollect: #steps).
 	view edges
 		shape: [ :each | BlLineElement new border: (BlBorder paint: (Color gray alpha: 0.5) width: 1 ) ];
+		fromRightCenter;
+		toLeftCenter;
 		connectToAll: #steps.
-	view layout custom: (GtGradNorthHierarchicalLayout new)
+	view layout custom: (GtGradWestHierarchicalLayout new alignment: GtGradHierarchicalLayoutRootAlignment new)
 ]
