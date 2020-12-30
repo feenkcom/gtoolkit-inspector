@@ -63,7 +63,7 @@ ProtoObject class >> gtSubclassesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView [
 	"this is the default entry method for retrieving the wrapper view containing all views"
-	^ self gtViewsFor: aView inContext: GtPhlowContext null
+	^ self gtViewsFor: aView inContext: GtPhlowContext new
 		
 ]
 
