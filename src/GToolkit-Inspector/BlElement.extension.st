@@ -95,13 +95,12 @@ BlElement >> gtLiveFor: aView [
 				ifFalse: [ 
 					| container |
 					container := BlElement new
-						layout: BlLinearLayout new;
-						padding: (BlInsets all: 20);
+						margin: (BlInsets all: 20);
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent ]. 
 						container addChild: self.
-						container when: BlClickEvent do: [:event | self requestFocus].
+						container when: BlClickEvent do: [ :event | container requestFocus ].
 						container ]  ].
 ]
 

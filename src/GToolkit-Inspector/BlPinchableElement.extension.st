@@ -1,7 +1,7 @@
-Extension { #name : #BlPannableElement }
+Extension { #name : #BlPinchableElement }
 
 { #category : #'*GToolkit-Inspector' }
-BlPannableElement >> gtLiveFor: aView [
+BlPinchableElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
 		actionStencil: [ 
@@ -20,12 +20,12 @@ BlPannableElement >> gtLiveFor: aView [
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons zoomtofit asElement;
-				label: 'Zoom to fit' asRopedText;
+				label: 'Fit' asRopedText;
 				action: [ self zoomToFit ] ];
 		actionStencil: [ 
 			BrButton new
 				look: BrGlamorousButtonWithIconLook;
 				icon: BrGlamorousIcons actualsize asElement;
-				label: 'Zoom to actual size' asRopedText;
+				label: 'Resize' asRopedText;
 				action: [ self zoomToActualSize ] ]
 ]
