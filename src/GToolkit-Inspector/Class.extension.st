@@ -4,22 +4,11 @@ Extension { #name : #Class }
 Class >> gtAllReferencesFor: aView [
 	<gtView>
 	<gtClassView>
-	^ aView columnedList
+	^ aView explicit
 		title: 'References';
 		tooltip: 'Class references';
 		priority: 40;
-		actionUpdateButtonTooltip: 'Update class references';
-		addAutoUpdate: GtPhlowUpdateViewOnClassReferenceChange;
-		addAutoUpdate: GtPhlowUpdateViewOnAddedToScene;
-		items: [ (SystemNavigation default allReferencesTo: self binding)
-						sorted: [ :x :y | x name < y name ] ];
-		column: 'Method' item: [ :eachMethod | eachMethod name ];
-		column: 'Package' item: [ :eachMethod | 
-			| aText |
-			aText := eachMethod package name asRopedText.
-			eachMethod package name = self package name ifTrue: [
-				aText foreground: BrGlamorousColors disabledButtonTextColor ].
- 			aText ]
+		stencil: [ self gtReferences ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

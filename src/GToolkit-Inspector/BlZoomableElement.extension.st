@@ -1,7 +1,7 @@
-Extension { #name : #BlPannableElement }
+Extension { #name : #BlZoomableElement }
 
 { #category : #'*GToolkit-Inspector' }
-BlPannableElement >> gtLiveFor: aView [
+BlZoomableElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
 		actionStencil: [ 
