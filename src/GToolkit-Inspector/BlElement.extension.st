@@ -1,16 +1,6 @@
 Extension { #name : #BlElement }
 
 { #category : #'*GToolkit-Inspector' }
-BlElement >> gtChangesFor: aView [
-	<gtView>
-	^ aView forward 
-		title: 'Changes';
-		priority: 30;
-		object: [ self changes ];
-		view: #gtItemsFor:
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtChildrenFor: aView [
 	<gtView>
 	^ aView columnedTree
