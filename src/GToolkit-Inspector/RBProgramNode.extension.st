@@ -12,13 +12,15 @@ RBProgramNode >> gtPropertiesFor: aView [
 			ifNotNil: [ :aDictionary |
 				aDictionary associations ] ];
 		column: 'Key' item: #key;
-		column: 'Value' item: #value weight: 2;
+		column: 'Value' item: #value weight: 3;
+		column: 'Type' item: [ :anAssoc | anAssoc value class ] weight: 2;
 		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
+	self methodNode ifNil: [ ^ aView empty ].
 	^ aView textEditor
 		title: 'Source code';
 		actionButtonIcon: BrGlamorousVectorIcons browse
