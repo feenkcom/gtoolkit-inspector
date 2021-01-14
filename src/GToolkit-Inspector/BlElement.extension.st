@@ -24,31 +24,6 @@ BlElement >> gtChildrenFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlElement >> gtEditorFor: aView [
-	<gtView>
-	^ aView explicit 
-		title: 'Editor';
-		priority: 40;
-		stencil: [ | theEditors container |
-			theEditors := GtDiagrammerFigureEditor editorsOf: self.
-			
-			container := BlElement new.
-			container layout: BlLinearLayout vertical.
-			container constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ].
-			
-			theEditors do: [ :anEditor |
-				| aTitle |
-				aTitle := BlTextElement new text: (anEditor title asRopedText).
-				aTitle margin: (BlInsets all: 5). 
-				container addChild: aTitle.
-				container addChild: anEditor editor ].
-			
-			container ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -95,64 +70,6 @@ BlElement >> gtLiveFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlElement >> gtLookChangesFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Look changes';
-		priority: 10;
-		stencil: [ self look
-				ifNil: [ BlElement new ]
-				ifNotNil: [ :e | 
-					| tree |
-					tree := BrColumnedTree new.
-					tree
-						items: {e}
-						lazy: [ :f | 
-							(f isKindOf: BrLook)
-								ifTrue: [ f children , f changes changes ]
-								ifFalse: [ #() ] ].
-					tree column
-						title: 'Name';
-						width: 350;
-						stencil: [ :f | 
-							BrColumnCellLabelStencil new
-								text:
-									((f value isKindOf: BrLook)
-										ifTrue: [ f value class name ]
-										ifFalse: [ f value printString ]) asRopedText
-										glamorousRegularFont ].
-					tree column
-						title: 'Toogle';
-						width: 32;
-						stencil: [ :f | 
-							(f value isKindOf: BrLookChange)
-								ifTrue: [ BrToggle new
-										look: BrHydraSwitchWithoutTrackLook new;
-										margin: (BlInsets all: 3);
-										activated: f value initialized;
-										when: BrToggleActivatedEvent
-											do: [ :g | f value upOn: f parent value ];
-										when: BrToggleDeactivatedEvent
-											do: [ :g | f value downOn: f parent value ];
-										yourself ]
-								ifFalse: [ BlElement new size: 0 @ 0 ] ].
-					tree column
-						title: 'Source';
-						width: 32;
-						stencil: [ :f | 
-							(f value isKindOf: BrLookChange)
-								ifTrue: [ BrButton new
-										look: BrGlamorousButtonWithIconLook;
-										margin: (BlInsets all: 3);
-										icon: BrGlamorousVectorIcons inspect;
-										label: 'Source' translated;
-										action: [ :g | g phlow spawnObject: f value source ];
-										yourself ]
-								ifFalse: [ BlElement new size: 0 @ 0 ] ].
-					tree ] ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -167,30 +84,16 @@ BlElement >> gtMeasurementChainFor: aView [
 				[ currentElement hasParent ] whileTrue: [ 
 					currentElement := currentElement parent.
 					aStream nextPut: currentElement ] ]) reversed ];
-		column: 'Index' item: [ :anElement :anIndex | anIndex ] width: 50;
 		column: 'Width spec' 
 			item: [ :anElement :anIndex | 
 				anElement layout previousMeasurementSpec 
-					ifNotNil: #widthSpec ] 
-			width: 100;
+					ifNotNil: #widthSpec ];
 		column: 'Height spec' 
 			item: [ :anElement :anIndex | 
 				anElement layout previousMeasurementSpec 
-					ifNotNil: #heightSpec ] 
-			width: 100;
+					ifNotNil: #heightSpec ];
 		column: 'Layout' item: [ :anElement :anIndex | anElement layout ];
 		column: 'Element' item: [ :anElement :anIndex | anElement ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
-BlElement >> gtMetricsFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Metrics';
-		priority: 20;
-		stencil: [ BlMetricsInspector new
-			padding: (BlInsets all: 10); 
-			for: self ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -312,19 +215,6 @@ BlElement >> gtResizersFor: aView [
 		title: 'Resizers' translated;
 		priority: 10;
 		items: [ self withAllParents reversed ];
-		column: 'Icon'
-			do: [ :aColumn | 
-			aColumn
-				stencil: [ :each | 
-					BlLazyElement new
-						elementBuilder: [ | aForm |
-							aForm := each asSpartaForm.
-							(aForm width isZero or: [ aForm height isZero ])
-								ifFalse:
-									[ (aForm scaledToSize: 16 @ 16) asElement margin: (BlInsets all: 3) ]
-								ifTrue: [ BlElement new size: 16 @ 16 ] ];
-						size: 16 @ 16 ];
-				width: 16 ];
 		column: 'Width'
 			item: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height'
