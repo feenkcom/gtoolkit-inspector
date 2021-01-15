@@ -86,11 +86,11 @@ BlElement >> gtMeasurementChainFor: aView [
 					aStream nextPut: currentElement ] ]) reversed ];
 		column: 'Width spec' 
 			item: [ :anElement :anIndex | 
-				anElement layout previousMeasurementSpec 
+				anElement privatePreviousMeasurementSpec
 					ifNotNil: #widthSpec ];
 		column: 'Height spec' 
 			item: [ :anElement :anIndex | 
-				anElement layout previousMeasurementSpec 
+				anElement privatePreviousMeasurementSpec
 					ifNotNil: #heightSpec ];
 		column: 'Layout' item: [ :anElement :anIndex | anElement layout ];
 		column: 'Element' item: [ :anElement :anIndex | anElement ]
