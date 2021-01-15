@@ -229,7 +229,7 @@ BlElement >> gtShortcutsFor: aView [
 	self shortcuts ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Shortcuts' translated;
-		priority: 10;
+		priority: 11;
 		items: [ self shortcuts asArray ];
 		column: 'Name' item: [ :each | each name ifNil: [ each gtDisplayString ] ];
 		column: 'Combination' item: [ :each | each combination gtDisplayString ]
