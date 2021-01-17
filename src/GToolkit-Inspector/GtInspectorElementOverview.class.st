@@ -243,7 +243,9 @@ GtInspectorElementOverview >> elementParent [
 
 { #category : #'element - shortcuts' }
 GtInspectorElementOverview >> elementShortcuts [
-	^ inspectedElement shortcuts
+	^ BlShortcutRegistry new
+		addAll: inspectedElement shortcuts;
+		yourself
 ]
 
 { #category : #'element - user data' }
