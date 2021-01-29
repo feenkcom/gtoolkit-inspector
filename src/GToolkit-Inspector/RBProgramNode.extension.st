@@ -49,7 +49,8 @@ RBProgramNode >> gtTreeFor: aView [
 		title: 'Tree';
 		priority: 60;
 		items: [ { self } ];
-		children: #children
+		children: #children;
+		expandAll
 ]
 
 { #category : #'*GToolkit-Inspector' }
