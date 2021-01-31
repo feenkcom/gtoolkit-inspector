@@ -14,6 +14,7 @@ GtResourceReference >> gtInspectFileReferenceFor: aView [
 { #category : #'*GToolkit-Inspector' }
 GtResourceReference >> gtItemsFor: aView [
 	<gtView>
+	self exists ifFalse: [ ^ aView empty ].
 	^ aView forward
 		title: 'Items';
 		priority: 5;
