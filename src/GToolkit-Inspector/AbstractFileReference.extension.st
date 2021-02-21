@@ -38,6 +38,28 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtChildren [
+	self isDirectory ifFalse: [ ^ Array empty ].
+
+	^ (self directories sorted: [:a :b | a basename < b basename ]) , 
+		(self files sorted: [:a :b | a basename < b basename ]).
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtChildrenWithParent [
+	| aChildrenCollection |
+	self isDirectory ifFalse: [ ^ Array empty ].
+	
+	aChildrenCollection := self gtChildren.
+	aChildrenCollection := self isRoot
+		ifTrue: [ aChildrenCollection ]
+		ifFalse: [ aChildrenCollection asOrderedCollection
+			addFirst: self parent;
+			yourself ].
+	^ aChildrenCollection
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
@@ -120,14 +142,7 @@ AbstractFileReference >> gtItemsFor: aView [
 	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
-		items: [ | children |
-			children := (self directories sorted: [:a :b | a basename < b basename ]) , (self files sorted: [:a :b | a basename < b basename ]).
-			children := self isRoot
-				ifTrue: [ children ]
-				ifFalse: [ children asOrderedCollection
-						addFirst: self parent;
-						yourself ].
-			children ];
+		items: [ self gtChildrenWithParent ];
 		column: 'Icon' translated 
 			icon: [ :each | 
 				each isDirectory
@@ -214,6 +229,40 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 					vFitContentLimited ];
 		actionButtonLabel: 'File In' 
 			action: [ :aButton :aTab | self asFileReference fileIn ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtTreeFor: aView [
+	<gtView>
+	|fileBrowser|
+	self isDirectory
+		ifFalse: [ ^ aView empty ].
+	^ aView columnedTree
+		title: 'Tree' translated;
+		priority: 10;
+		items: [ self gtChildren ];
+		children: [ :each | each gtChildren ];
+		expandUpTo: 1;
+		column: 'Name' translated text: [ :each | 
+			(self isChildOf: each)
+				ifTrue: [ '..' ]
+				ifFalse: [ each basename asString ] ];
+		column: 'Size' translated
+			text: [ :each | 
+				[ each humanReadableSize asString ]
+				on: FileException, FileSystemError
+				do: [ :anException | anException return: '' ] ]
+			width: 100;
+		column: 'Creation' translated
+			text: [ :each | 
+				[ String
+					streamContents: [ :s | 
+						each creationTime printYMDOn: s.
+						s nextPut: Character space.
+						each creationTime printHMSOn: s ] ]
+				on: FileException, FileSystemError
+				do: [ :anException | anException return: '' ] ]
+			width: 150
 ]
 
 { #category : #'*GToolkit-Inspector' }
