@@ -174,16 +174,14 @@ GtSyntaxExplanationViewUtility >> create [
 	leftContainerLabel := (BrLabel new
 		text: ('Syntactical constructs:' asRopedText 
 			glamorousRegularFont; 
-			foreground: Color gray;
-			fontSize: 25);
+			foreground: Color gray);
 		look: BrGlamorousLabelLook;
 		hFitContent;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
 	rightContainerLabel := (BrLabel new
 		text: ('Method source code:' asRopedText
 			glamorousRegularFont; 
-			foreground: Color gray;
-			fontSize: 25);
+			foreground: Color gray);
 		look: BrGlamorousLabelLook;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
 
