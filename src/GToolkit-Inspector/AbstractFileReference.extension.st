@@ -242,11 +242,22 @@ AbstractFileReference >> gtTreeFor: aView [
 		priority: 10;
 		items: [ self gtChildren ];
 		children: [ :each | each gtChildren ];
-		expandUpTo: 1;
-		column: 'Name' translated text: [ :each | 
-			(self isChildOf: each)
-				ifTrue: [ '..' ]
-				ifFalse: [ each basename asString ] ];
+		column: 'Name' translated 
+			icon: [ :each :aRowIndex :aColumnIndex :anIconContainer :aPhlowColumn | 
+				| anIcon aName aContainer |
+				anIcon := each isDirectory
+					ifTrue: [ BrGlamorousIcons folder asElement ]
+					ifFalse: [ BrGlamorousIcons file asElement ].
+				
+				aName := aPhlowColumn newItemLabel.
+				aName text: each basename asString.
+				
+				aContainer := BrHorizontalPane new
+					alignCenter;
+					fitContent.
+				
+				aContainer addChild: anIcon; addChild: aName ]
+			weight: 1;
 		column: 'Size' translated
 			text: [ :each | 
 				[ each humanReadableSize asString ]
