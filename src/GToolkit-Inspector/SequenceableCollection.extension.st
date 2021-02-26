@@ -3,6 +3,7 @@ Extension { #name : #SequenceableCollection }
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtBoxesFor: aView [
 	<gtView>
+	self isCollection ifFalse: [^ aView empty].
 	^ aView explicit
 		title: 'Boxes';
 		priority: 90;
