@@ -5,7 +5,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
 		tooltip: 'Browse class';
-		icon: BrGlamorousVectorIcons browse;
+		icon: BrGlamorousVectorIcons emphasizedBrowse;
 		action: [ :button | self gtBrowseFrom: button ]
 ]
 
