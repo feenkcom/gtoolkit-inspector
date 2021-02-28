@@ -1,17 +1,6 @@
 Extension { #name : #Class }
 
 { #category : #'*GToolkit-Inspector' }
-Class >> gtAllReferencesFor: aView [
-	<gtView>
-	<gtClassView>
-	^ aView explicit
-		title: 'References';
-		tooltip: 'Class references';
-		priority: 40;
-		stencil: [ self gtReferences ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 Class >> gtAllReferencesOutsideFor: aView [
 	<gtView>
 	^ aView explicit
