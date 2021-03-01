@@ -80,6 +80,7 @@ AbstractFileReference >> gtContentsFor: aView [
 		actionStencil: [ :tab | 
 			BrButton new 
 				look: BrGlamorousButtonWithIconLook;
+				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
 				action: [ 
 					| newContents | 
