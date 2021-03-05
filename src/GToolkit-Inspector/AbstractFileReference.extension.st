@@ -38,6 +38,22 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtActionWebBrowseFor: anAction [
+	<gtAction>
+	|  button |
+
+	self exists ifFalse: [ ^ anAction noAction].
+	^ anAction explicit stencil: [
+		button := BrButton new.
+		button
+			look: BrGlamorousButtonWithIconLook;
+			action:  [ WebBrowser openOn: self fullName ];
+			icon: BrGlamorousIcons go asElement;
+			label: 'Open in OS' translated.
+	]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtChildren [
 	self isDirectory ifFalse: [ ^ Array empty ].
 
