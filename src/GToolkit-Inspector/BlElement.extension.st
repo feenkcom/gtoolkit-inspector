@@ -111,12 +111,14 @@ BlElement >> gtOpenInSpaceFor: anAction [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtOverviewFor: aView [
 	<gtView>
+
 	^ aView explicit
 		title: 'Overview';
 		priority: 1;
 		stencil: [ GtInspectorElementOverview new
 			margin: (BlInsets all: 5);	
-			element: self ]
+			element: self ];
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }

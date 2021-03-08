@@ -9,11 +9,30 @@ Class {
 }
 
 { #category : #'private - properties' }
+GtInspectorElementOverview >> buildBoundsProperties [
+	| theProperties |	
+	
+	theProperties := { 
+		('Extent {1})' format: { self printPoint: self elementExtent showingDecimalPlaces: 2 }) -> [ self spawnExtent ].
+		('Position in parent {1}' format: { self printPoint: self elementPositionInParent showingDecimalPlaces: 2 }) -> [ self spawnPositionInParent ].
+		('Visual bounds:', String cr, '{1}' format: { self printRectangle: self elementVisualBounds showingDecimalPlaces: 2 }) -> [ self spawnVisualBounds ].
+		('Bounds in space:', String cr,'{1}' format: { self printRectangle: self elementBoundsInSpace asRectangle showingDecimalPlaces: 2 }) -> [ self spawnBoundsInSpace ].
+	}.
+
+	^ self buildSectionContainer
+		addChild: (self buildSectionLabelNamed: 'Bounds');
+		addChildren: (theProperties collect: [ :each |
+			self
+				buildPropertyButtonNamed: each key
+				spawn: each value ])
+]
+
+{ #category : #'private - properties' }
 GtInspectorElementOverview >> buildCompositionProperties [
 	| theParent theProperties |	
 	
 	theParent := self elementHasParent
-		ifTrue: [ { ('Parent ({1})' format: { self elementParent }) -> [ self spawnParent ] } ]
+		ifTrue: [ { ('Parent:', String cr, '{1}' format: { self elementParent class }) -> [ self spawnParent ] } ]
 		ifFalse: [ {  } ].
 	
 	theProperties := theParent, { 
@@ -75,8 +94,16 @@ GtInspectorElementOverview >> buildLayoutProperties [
 	
 	theProperties := { 
 		('Layout ({1})' format: { self elementLayoutName }) -> [ self spawnLayout ].
-		('Margin ({1})' format: { self elementMargin }) -> [ self spawnMargin ].
-		('Padding ({1})' format: { self elementPadding }) -> [ self spawnPadding ].
+		('Margin (top: {1} right: {2} bottom: {3} left: {4})' format: {
+			self elementMargin top.
+			self elementMargin right.
+			self elementMargin bottom.
+			self elementMargin left }) -> [ self spawnMargin ].
+		('Padding (top: {1} right: {2} bottom: {3} left: {4})' format: {
+			self elementPadding top.
+			self elementPadding right.
+			self elementPadding bottom.
+			self elementPadding left }) -> [ self spawnPadding ].
 	} sorted: [ :a :b | a key < b key ].
 	
 	^ self buildSectionContainer
@@ -105,13 +132,22 @@ GtInspectorElementOverview >> buildOtherProperties [
 
 { #category : #'private - instance creation' }
 GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock [
-	^ BrButton new
-		beSmallSize;
-		background: BrGlamorousColors neutralBackgroundColor;
-		look: BrGlamorousButtonRectangularLook + BrGlamorousButtonLabelLook;
-		label: aName;
+	^ BrHorizontalPane new
 		hMatchParent;
-		action: aSpawnBlock
+		vFitContent;
+		alignCenter;
+		addLook: BrGlamorousLinkButtonExteriorLook;
+		when: BlClickEvent do: [ :anEvent |
+			anEvent consumed: true.
+			aSpawnBlock cull: anEvent currentTarget ];
+		addChild: (BrEditor new
+			hFitContentLimited;
+			vFitContent;
+			look: BrGlamorousRegularEditorLook new glamorousRegularSmallSize;
+			padding: BlInsets empty;
+			preventMeAndChildrenMouseEvents;
+			beReadOnlyWithoutSelection;
+			text: aName)
 ]
 
 { #category : #'private - instance creation' }
@@ -131,13 +167,36 @@ GtInspectorElementOverview >> buildSectionLabelNamed: aString [
 ]
 
 { #category : #'private - properties' }
+GtInspectorElementOverview >> buildStatesProperties [
+	| theLocalStates theInheritedStates theProperties |
+	
+	theLocalStates := (inspectedElement states localStatesCopy asArray collect: [ :eachState |
+		('({1} local) {2}' format: { eachState priority . eachState printString }) -> [ self phlow spawnObject: eachState ]
+	]) sorted: [ :a :b | a key < b key ].
+
+	theInheritedStates := (inspectedElement states inheritedStatesCopy asArray collect: [ :eachState |
+		('({1} inherited) {2}' format: { eachState priority . eachState printString }) -> [ self phlow spawnObject: eachState ]
+	]) sorted: [ :a :b | a key < b key ].
+	
+	theProperties := theLocalStates, theInheritedStates.
+	
+	^ self buildSectionContainer
+		addChild: (self buildSectionLabelNamed: 'States');
+		addChildren: (theProperties collect: [ :each |
+			self
+				buildPropertyButtonNamed: each key
+				spawn: each value ])
+]
+
+{ #category : #'private - properties' }
 GtInspectorElementOverview >> buildVisualProperties [
 	| theProperties |	
 	
 	theProperties := { 
 		('Background ({1})' format: { self elementBackgroundName }) -> [ self spawnBackground ].
-		'Border' -> [ self spawnBorder ].
+		('Border (width: {1})' format: { self elementBorder width }) -> [ self spawnBorder ].
 		('Geometry ({1})' format: { self elementGeometryName }) -> [ self spawnGeometry ].
+		('Transformation ({1})' format: { self elementTransformationName }) -> [ self spawnTransformation ].
 	}.
 		
 	^ self buildSectionContainer
@@ -170,6 +229,11 @@ GtInspectorElementOverview >> elementBorder [
 	^ inspectedElement border 
 ]
 
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> elementBoundsInSpace [
+	^ inspectedElement bounds inSpace
+]
+
 { #category : #'element - composition' }
 GtInspectorElementOverview >> elementChildren [
 	^ inspectedElement children
@@ -188,6 +252,11 @@ GtInspectorElementOverview >> elementEventFilters [
 { #category : #'element - events' }
 GtInspectorElementOverview >> elementEventHandlers [
 	^ inspectedElement eventDispatcher handlers
+]
+
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> elementExtent [
+	^ inspectedElement extent
 ]
 
 { #category : #'element - visual' }
@@ -241,11 +310,31 @@ GtInspectorElementOverview >> elementParent [
 	^ inspectedElement parent
 ]
 
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> elementPositionInParent [
+	^ inspectedElement bounds inParent position
+]
+
 { #category : #'element - shortcuts' }
 GtInspectorElementOverview >> elementShortcuts [
 	^ BlShortcutRegistry new
 		addAll: inspectedElement shortcuts;
 		yourself
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementTransformation [
+	^ inspectedElement transformation
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementTransformationName [
+	^ self elementTransformation isIdentity
+		ifTrue: [ 'Identity' ]
+		ifFalse: [
+			self elementTransformation isPureTranslation
+				ifTrue: [ 'Translation' ]
+				ifFalse: [ 'Affine' ] ]
 ]
 
 { #category : #'element - user data' }
@@ -256,6 +345,11 @@ GtInspectorElementOverview >> elementUserData [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> elementVerticalConstraintsName [
 	^ inspectedElement constraints vertical resizer printString
+]
+
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> elementVisualBounds [
+	^ inspectedElement visualBounds
 ]
 
 { #category : #initialization }
@@ -285,11 +379,35 @@ GtInspectorElementOverview >> initializeProperties [
 	properties removeChildren.
 	
 	properties addChild: self buildVisualProperties.
-	properties addChild: self buildEventProperties.
+	properties addChild: self buildBoundsProperties.
 	properties addChild: self buildLayoutProperties.
 	properties addChild: self buildConstraintsProperties.
+	properties addChild: self buildEventProperties.
 	properties addChild: self buildCompositionProperties.
+	properties addChild: self buildStatesProperties.
 	properties addChild: self buildOtherProperties
+]
+
+{ #category : #private }
+GtInspectorElementOverview >> printPoint: aPoint showingDecimalPlaces: anAmountOfDecimalPlaces [
+	^ String streamContents: [ :aStream |
+		aStream
+			nextPut: $(;
+			nextPutAll: (((aPoint x printShowingDecimalPlaces: anAmountOfDecimalPlaces) trimRight: [ :ch | ch = $0 ]) trimRight: [ :ch | ch = $. ]);
+			nextPut: $@;
+			nextPutAll: (((aPoint y printShowingDecimalPlaces: anAmountOfDecimalPlaces) trimRight: [ :ch | ch = $0 ]) trimRight: [ :ch | ch = $. ]);
+			nextPut: $) ]
+]
+
+{ #category : #private }
+GtInspectorElementOverview >> printRectangle: aRectangle showingDecimalPlaces: anAmountOfDecimalPlaces [
+	^ String streamContents: [ :aStream |
+		aStream
+			nextPut: $(;
+			nextPutAll: (self printPoint: aRectangle origin showingDecimalPlaces: anAmountOfDecimalPlaces);
+			nextPutAll: ' extent: ';
+			nextPutAll: (self printPoint: aRectangle extent showingDecimalPlaces: anAmountOfDecimalPlaces);
+			nextPut: $) ]
 ]
 
 { #category : #'element - visual' }
@@ -300,6 +418,11 @@ GtInspectorElementOverview >> spawnBackground [
 { #category : #'element - visual' }
 GtInspectorElementOverview >> spawnBorder [
 	self phlow spawnObject: self elementBorder
+]
+
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> spawnBoundsInSpace [
+	self phlow spawnObject: self elementBoundsInSpace
 ]
 
 { #category : #'element - composition' }
@@ -325,6 +448,11 @@ GtInspectorElementOverview >> spawnEventFilters [
 { #category : #'element - events' }
 GtInspectorElementOverview >> spawnEventHandlers [
 	self phlow spawnObject: self elementEventHandlers
+]
+
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> spawnExtent [
+	self phlow spawnObject: self elementExtent
 ]
 
 { #category : #'element - visual' }
@@ -359,9 +487,19 @@ GtInspectorElementOverview >> spawnParent [
 	self phlow spawnObject: self elementParent
 ]
 
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> spawnPositionInParent [
+	self phlow spawnObject: self elementPositionInParent
+]
+
 { #category : #'element - shortcuts' }
 GtInspectorElementOverview >> spawnShortcuts [
 	self phlow spawnObject: self elementShortcuts
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnTransformation [
+	self phlow spawnObject: self elementTransformation
 ]
 
 { #category : #'element - user data' }
@@ -372,4 +510,9 @@ GtInspectorElementOverview >> spawnUserData [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> spawnVerticalConstraints [
 	self phlow spawnObject: inspectedElement constraints vertical
+]
+
+{ #category : #'element - bounds' }
+GtInspectorElementOverview >> spawnVisualBounds [
+	self phlow spawnObject: self elementVisualBounds
 ]
