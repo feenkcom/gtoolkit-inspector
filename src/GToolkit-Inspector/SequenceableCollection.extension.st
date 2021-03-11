@@ -7,6 +7,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 	^ aView explicit
 		title: 'Boxes';
 		priority: 90;
+		actionUpdateButtonTooltip: 'Update boxes';
 		stencil: [
 		| container |
 		container := BlElement new
@@ -18,7 +19,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 			self withIndexDo: [:each :i | 
 				container addChild: (BlElement new 
 					margin: (BlInsets top: -1 left: -1);
-					constraintsDo: [:c | c vertical exact: 50. c horizontal exact: 50];
+					constraintsDo: [:c | c vertical exact: 50. c horizontal fitContent];
 					border: (BlBorder paint: Color gray);
 					layout: BlLinearLayout new;
 					padding: (BlInsets all: 10);
@@ -39,8 +40,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 									c vertical fitContent.
 									c linear vertical alignCenter.
 									c linear horizontal alignCenter])))].
-		container asScrollableElement ];
-				actionUpdateButtonTooltip: 'Update boxes'
+		container asScrollableElement ]
 		
 ]
 
