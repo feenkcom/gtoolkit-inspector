@@ -39,7 +39,8 @@ SequenceableCollection >> gtBoxesFor: aView [
 									c vertical fitContent.
 									c linear vertical alignCenter.
 									c linear horizontal alignCenter])))].
-		container asScrollableElement ]
+		container asScrollableElement ];
+				actionUpdateButtonTooltip: 'Update boxes'
 		
 ]
 
