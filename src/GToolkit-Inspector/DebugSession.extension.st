@@ -11,7 +11,7 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 		title: 'Interrupted context';
 		priority: 105;
 		stencil: [ | methodCoder pcRange |
-			methodCoder := GtMethodCoder
+			methodCoder := GtPharoMethodCoder
 				forMethod: self interruptedContext method.
 			pcRange := self pcRangeForContext: self interruptedContext.
 			(methodCoder sourceText from: pcRange first to: pcRange last)

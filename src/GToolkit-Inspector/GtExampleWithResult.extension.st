@@ -8,7 +8,7 @@ GtExampleWithResult >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		stencil: [ (GtMethodCoder forExample: self) asExpandedOnlyElement vFitContentLimited ];
+		stencil: [ (GtPharoMethodCoder forExample: self) asExpandedOnlyElement vFitContentLimited ];
 		actionButtonIcon: BrGlamorousVectorIcons browse 
 			action: [ self method browse ]
 ]

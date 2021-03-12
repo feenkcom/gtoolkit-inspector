@@ -8,7 +8,7 @@ MessageSend >> gtMethodFor: aView [
 		title: 'Method';
 		stencil: [ 
 			self receiver class classAndMethodFor: self selector
-				do: [ :c :m | (GtMethodCoder forMethod: m) asCoderUIModel expanded: true ]
+				do: [ :c :m | (GtPharoMethodCoder forMethod: m) asCoderUIModel expanded: true ]
 				ifAbsent: [ BlElement new ] ].
 			
 ]

@@ -43,7 +43,7 @@ GtExample >> gtCoderSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 0;
-		stencil: [ (GtMethodCoder forExample: self) asExpandedOnlyElement ];
+		stencil: [ (GtPharoMethodCoder forExample: self) asExpandedOnlyElement ];
 		actionButtonIcon: BrGlamorousVectorIcons browse 
 			action: [ self method browse ]
 ]
@@ -79,7 +79,7 @@ GtExample >> gtDependenciesGraphFor: aView [
 							showDelay: 100 milliSeconds;
 							hideDelay: 100 milliSeconds;
 							stencil: [ 
-								BlElement new look: (BrTooltipLook new content: ((GtMethodCoder forExample: each) asCoderUIModel expanded: true) asElement)]).
+								BlElement new look: (BrTooltipLook new content: ((GtPharoMethodCoder forExample: each) asCoderUIModel expanded: true) asElement)]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.
