@@ -185,7 +185,7 @@ GtSyntaxExplanationViewUtility >> create [
 		look: BrGlamorousLabelLook;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
 
-	coder := GtMethodCoder new forMethod: method.
+	coder := GtPharoMethodCoder new forMethod: method.
 	coder explanationLink: (self explanationLinkStylerRules).
 	coderElement := (coder asCoderUIModel expanded: true) asElement margin: (BlInsets all: 0).
 	coderElement vMatchParent.

@@ -66,5 +66,6 @@ Object >> gtRawFor: aView [
 			[ aNode rawValue gtDisplayString asRopedText ]
 			on: Error , Halt
 			do: [ aNode errorMessage asRopedText foreground: Color red ] ];
-		send: #value
+		send: #value;
+		actionUpdateButton
 ]
