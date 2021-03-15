@@ -3,7 +3,6 @@ Extension { #name : #BrTextStylerDeferringTask }
 { #category : #'*GToolkit-Inspector' }
 BrTextStylerDeferringTask >> gtInfoDictionary [
 	^ {
-		#text -> self textToStyle.
 		#stylerStrategy -> self stylerAsyncStrategy.
 		#stylerStrategyHash -> self stylerAsyncStrategy identityHash.
 		#styler -> self stylerAsyncStrategy styler.
