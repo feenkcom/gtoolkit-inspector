@@ -6,6 +6,6 @@ RBAddClassChange >> gtViewDefinitionFor: aView [
 	^ aView textEditor
 		priority: 50;
 		title: 'Definition';
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self definition asRopedText ]
 ]

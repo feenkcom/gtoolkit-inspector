@@ -26,12 +26,12 @@ Association >> gtPreviewFor: aView [
 Association >> newPreviewStencil [
 	| aContainer aKeyElement anArrowElement aValueElement |
 	aKeyElement := BrButton new
-		look: BrGlamorousButtonWithLabelLook;
+		aptitude: BrGlamorousButtonWithLabelAptitude;
 		label: self key asString;
 		action: [ :aButton | aButton phlow spawnObject: self key ];
 		constraintsDo: [ :c | c linear horizontal alignCenter ].
 	aValueElement := BrButton new
-		look: BrGlamorousButtonWithLabelLook;
+		aptitude: BrGlamorousButtonWithLabelAptitude;
 		label: self value asString;
 		action: [ :aButton | aButton phlow spawnObject: self value ];
 		constraintsDo: [ :c | c linear horizontal alignCenter ].
@@ -41,7 +41,7 @@ Association >> newPreviewStencil [
 			c linear horizontal alignCenter ].
 	aContainer := BlElement new
 		layout: BlLinearLayout horizontal alignCenter;
-		look: BrShadowLook;
+		aptitude: BrShadowAptitude;
 		background: Color white;
 		margin: (BlInsets all: 20);
 		padding: (BlInsets all: 20);

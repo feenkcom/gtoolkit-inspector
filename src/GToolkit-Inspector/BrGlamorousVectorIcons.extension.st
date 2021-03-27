@@ -17,7 +17,7 @@ BrGlamorousVectorIcons class >> gtIconsFor: aView [
 						c horizontal matchParent ];
 					addChild: (BlElement new size: 64@64) as: #icon;
 					addChild: (BrLabel new 
-						look: BrGlamorousLabelLook;
+						aptitude: BrGlamorousLabelAptitude;
 						constraintsDo: [:c | c linear vertical alignCenter];
 						padding: (BlInsets left: 20 right: 3)) as: #label ];
 			itemDataBinder: [ :anElement :anIcon :anIndex |

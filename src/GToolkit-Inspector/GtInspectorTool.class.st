@@ -82,5 +82,5 @@ GtInspectorTool >> object: anObject viewSelector: aSymbol [
 
 { #category : #'private - accessing' }
 GtInspectorTool >> tabLook [
-	^ BrGlamorousTabSwitcherWithIconLook
+	^ BrGlamorousTabSwitcherWithIconAptitude
 ]

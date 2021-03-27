@@ -21,7 +21,7 @@ BlFocusFinder >> gtPreviewFor: aView [
 				
 			aDescription := BrEditor new
 				fitContentLimited;
-				look: (BrGlamorousRegularEditorLook new);
+				aptitude: (BrGlamorousRegularEditorAptitude new);
 				text: (('Find ' asRopedText foreground: Color gray),
 					('next focus element' asRopedText foreground: (Color blue alpha: 0.75)),
 					(' when moving ' asRopedText foreground: Color gray),

@@ -16,7 +16,7 @@ GtInspectorNullObject >> newEmptyElement [
 	^ BrLabel new
 		matchParent;
 		alignCenter;
-		look: BrLabelLook;
+		aptitude: BrLabelAptitude;
 		text: self newText.
 ]
 

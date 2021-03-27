@@ -14,7 +14,7 @@ BrTextAdornmentDynamicAttribute >> gtLiveFor: aView [
 				addChildren: stencilBuilder build asCollection.
 			aContainer 
 				addChild: (BrLabel new
-					look: (BrGlamorousLabelLook new
+					aptitude: (BrGlamorousLabelAptitude new
 						foreground: Color gray);
 					text: 'Number of elements: ', aContainer childrenCount asString;
 					constraintsDo: [ :c | 

@@ -67,7 +67,7 @@ GtInspectorExamples >> basicPlaygroundElement [
 { #category : #configuration }
 GtInspectorExamples >> configureInspector: anInspector [
 	<gtExample>
-	anInspector look: BrShadowLook.
+	anInspector aptitude: BrShadowAptitude.
 	anInspector background: Color white.
 	anInspector
 		constraintsDo: [ :c | 

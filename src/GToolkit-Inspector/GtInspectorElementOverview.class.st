@@ -136,14 +136,14 @@ GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock
 		hMatchParent;
 		vFitContent;
 		alignCenter;
-		addLook: BrGlamorousLinkButtonExteriorLook;
+		addAptitude: BrGlamorousLinkButtonExteriorAptitude;
 		when: BlClickEvent do: [ :anEvent |
 			anEvent consumed: true.
 			aSpawnBlock cull: anEvent currentTarget ];
 		addChild: (BrEditor new
 			hFitContentLimited;
 			vFitContent;
-			look: BrGlamorousRegularEditorLook new glamorousRegularSmallSize;
+			aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize;
 			padding: BlInsets empty;
 			preventMeAndChildrenMouseEvents;
 			beReadOnlyWithoutSelection;
@@ -161,7 +161,7 @@ GtInspectorElementOverview >> buildSectionContainer [
 { #category : #'private - instance creation' }
 GtInspectorElementOverview >> buildSectionLabelNamed: aString [
 	^ BrLabel new
-		look: (BrGlamorousLabelLook new foreground: Color gray; fontSize: 12);
+		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; fontSize: 12);
 		hMatchParent;
 		text: aString
 ]
@@ -361,7 +361,7 @@ GtInspectorElementOverview >> initialize [
 	self addChild: (BrEditor new
 		hMatchParent;
 		vFitContent;
-		look: (BrGlamorousEditorLook new lineSpacing: 6);
+		aptitude: (BrGlamorousEditorAptitude new lineSpacing: 6);
 		margin: (BlInsets left: 5);
 		beReadOnlyWithoutSelection;
 		text: ('Want to know more?' asRopedText fontSize: 14; foreground: Color darkGray), String cr asRopedText,

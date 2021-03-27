@@ -8,7 +8,7 @@ AbstractFileReference >> gtActionMaterializeFuelFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonWithIconLook;
+		aptitude: BrGlamorousButtonWithIconAptitude;
 		action:  [
 			button phlow spawnObject: (FLMaterializer materializeFromFileNamed: self fullName) ];
 		icon: BrGlamorousVectorIcons play;
@@ -24,7 +24,7 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonWithIconLook;
+		aptitude: BrGlamorousButtonWithIconAptitude;
 		action:  [
 			| reader xdFile |
 			reader := XdReader new.
@@ -46,7 +46,7 @@ AbstractFileReference >> gtActionWebBrowseFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			action:  [ WebBrowser openOn: self fullName ];
 			icon: BrGlamorousIcons go asElement;
 			label: 'Open in OS' translated.
@@ -95,7 +95,7 @@ AbstractFileReference >> gtContentsFor: aView [
 					text: (BlRopedText file: self) glamorousRegularFont) ];
 		actionStencil: [ :tab | 
 			BrButton new 
-				look: BrGlamorousButtonWithIconLook;
+				aptitude: BrGlamorousButtonWithIconAptitude;
 				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
 				action: [ 
@@ -198,7 +198,7 @@ AbstractFileReference >> gtJsonFor: aView [
 			action: [ :aButton | 
 				aButton phlow spawnObject: (
 					STONJSON fromString: self contents) ];
-		look: [ BrGlamorousCodeEditorLook ];
+		aptitude: [ BrGlamorousCodeEditorAptitude ];
 		styler: [ JSONParser gtStyler ];
 		text: [ (STONJSON toStringPretty: (
 			STONJSON fromString: self contents)) ]

@@ -29,7 +29,7 @@ Class >> gtDefinitionFor: aView [
 		styler: (BrRBTextStyler new 
 				isForWorkspace: true;
 				yourself);
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self definition asRopedText ].
 ]
 

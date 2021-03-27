@@ -9,7 +9,7 @@ GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonWithIconLook; 
+		aptitude: BrGlamorousButtonWithIconAptitude; 
 		action: [ 
 			self add:'random'.
 		];
@@ -29,7 +29,7 @@ GLMAnnouncingCollection >> gtItemsFor: aView [
             list := BrColumnedList new
                 addEventHandler: GtPhlowListToSelectHandler new;
                 display: self asOrderedCollection.
-				refreshBlock := [  list look request: BrListItemsRequest new].
+				refreshBlock := [  list aptitude request: BrListItemsRequest new].
 				self when: GLMItemAdded do: refreshBlock.
 				self when: GLMItemChanged do: refreshBlock.
 				self when: GLMItemRemoved do: refreshBlock.
@@ -48,7 +48,7 @@ GLMAnnouncingCollection >> gtRemoveRandomItemAction: anAction [
 		| button |
 		button := BrButton new.
 		button
-		look: BrGlamorousButtonWithIconLook; 
+		aptitude: BrGlamorousButtonWithIconAptitude; 
 		action: [ 
 			self remove: 'random'.
 		];

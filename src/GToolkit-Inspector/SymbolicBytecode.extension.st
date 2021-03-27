@@ -5,7 +5,7 @@ SymbolicBytecode >> gtSourceFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Source';
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		styler: (BrRBTextStyler new classOrMetaClass: self method methodClass);
 		priority: 10;
 		text: [ | text |

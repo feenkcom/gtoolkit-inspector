@@ -128,7 +128,7 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 	^ verticalContainer asScrollableElement 
 		constraintsDo: [:c | c horizontal fitContent. c vertical matchParent.];
 		background: Color white;
-		look: BrShadowLook";
+		aptitude: BrShadowAptitude";
 		margin: (BlInsets all: 10)"
 ]
 
@@ -159,7 +159,7 @@ GtSyntaxExplanationViewUtility >> create [
 			c horizontal matchParent ];
 		visibility: BlVisibility gone;
 		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
-		look: BrShadowLook + BrGlamorousEditorLook;
+		aptitude: BrShadowAptitude + BrGlamorousEditorAptitude;
 		vFitContent;
 		background: BrGlamorousColors textHighlightColor.
 	
@@ -175,14 +175,14 @@ GtSyntaxExplanationViewUtility >> create [
 		text: ('Syntactical constructs:' asRopedText 
 			glamorousRegularFont; 
 			foreground: Color gray);
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		hFitContent;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
 	rightContainerLabel := (BrLabel new
 		text: ('Method source code:' asRopedText
 			glamorousRegularFont; 
 			foreground: Color gray);
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
 
 	coder := GtPharoMethodCoder new forMethod: method.
@@ -220,7 +220,7 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 	nodeName := aNodeNameSymbol copyFrom: 1 to: (aNodeNameSymbol size - 4).
 	
 	^ BrLabel new
-		look: BrGlamorousLabelLook new + (GtExplainerExplanationLook new explanationModel: aNodeNameSymbol) + (BrStyleCommonLook new
+		aptitude: BrGlamorousLabelAptitude new + (GtExplainerExplanationAptitude new explanationModel: aNodeNameSymbol) + (BrStyleCommonAptitude new
 			hovered: [ :aStyle |
 				aStyle background: (BrGlamorousColors textHighlightColor).
 				aStyle
@@ -351,7 +351,7 @@ GtSyntaxExplanationViewUtility >> forMethod: aMethod [
 { #category : #accessing }
 GtSyntaxExplanationViewUtility >> groupLabelWithText: aText [
 	^ BrLabel new
-		look: BrGlamorousLabelLook new;
+		aptitude: BrGlamorousLabelAptitude new;
 		text: ((aText asRopedText) glamorousRegularFont; fontSize: 5; foreground: Color gray);
 		padding: (BlInsets all: 5);
 		hExact: 70.
@@ -410,7 +410,7 @@ GtSyntaxExplanationViewUtility >> regularLabelFor: aNodeNameSymbol [
 	
 	^ BrLabel new
 		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
-		look: BrGlamorousLabelLook;
+		aptitude: BrGlamorousLabelAptitude;
 		padding: (BlInsets all: 5);
 		hExact: 80.
 		

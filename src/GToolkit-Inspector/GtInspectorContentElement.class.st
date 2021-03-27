@@ -16,7 +16,7 @@ GtInspectorContentElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout vertical.
 	self updateView.
-	self addLook: BrLayoutResizerLook inherit.
+	self addAptitude: BrLayoutResizerAptitude inherit.
 ]
 
 { #category : #'private - hooks' }

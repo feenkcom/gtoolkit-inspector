@@ -4,27 +4,27 @@ Extension { #name : #GtExampleGroup }
 GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
 	aButtonsContainer removeChildren.
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: self numberOfExamples asString, ' examples ';
 		action: [ anElement children second items: (self examples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: self numberOfResults asString, ' executed ';
 		action: [ anElement children second items: (self executedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: self numberOfSuccesses asString, ' successes ';
 		action: [ anElement children second items: (self successfulExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: self numberOfFailures asString, ' failures ';
 		action: [ anElement children second items: (self failedExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: self numberOfErrors asString, ' errors ';
 		action: [ anElement children second items: (self erroredExamples sorted: GtMethodsSortFunction new) ]).
 	aButtonsContainer addChild: (BrButton new 
-		look: BrGlamorousButtonWithLabelLook; beSmallSize; 
+		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
 		label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
 		action: [ anElement children second items: (self skippedExamples sorted: GtMethodsSortFunction new) ]).
 ]
@@ -44,7 +44,7 @@ GtExampleGroup >> buildListViewFor: aView [
 						size: 16@16;
 						padding: (BlInsets top: 3 bottom: 3);
 						margin: (BlInsets top: 3 bottom: 3);
-						addLook: (GtPhlowLabelTooltipLook new 
+						addAptitude: (GtPhlowLabelTooltipAptitude new 
 							text: 'Click to run example');
 						when: BlClickEvent
 							do: [ :anEvent |
@@ -79,8 +79,8 @@ GtExampleGroup >> buildListViewFor: aView [
 			aColumn
 				cellStencil: [
 					BrLabel new
-						look: BrGlamorousListLabelLook;
-						addLook: (GtPhlowLabelTooltipLook new 
+						aptitude: BrGlamorousListLabelAptitude;
+						addAptitude: (GtPhlowLabelTooltipAptitude new 
 							text: 'Click to display result details');
 						fitContent;
 						when: BlClickEvent

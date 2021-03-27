@@ -73,7 +73,7 @@ Color >> gtPreviewFor: aView [
 					c vertical matchParent ];
 				addChild: (
 					BlElement new
-						look: (BrShadowLook new);
+						aptitude: (BrShadowAptitude new);
 						background: Color white;
 						constraintsDo: [ :c |
 							c frame horizontal alignCenter.

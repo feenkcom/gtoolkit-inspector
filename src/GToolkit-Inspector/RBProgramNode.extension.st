@@ -26,7 +26,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ self methodNode compiledMethod gtBrowse ];
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		styler:
 			(BrRBTextStyler new
 				classOrMetaClass: self methodNode compiledMethod methodClass);

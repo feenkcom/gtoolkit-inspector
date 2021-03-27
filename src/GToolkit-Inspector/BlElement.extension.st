@@ -40,7 +40,7 @@ BlElement >> gtLiveFor: aView [
 						padding: (BlInsets all: 10);
 						margin: (BlInsets all: 10).
 					container addChild: (BlElement new
-						look: BrShadowLook;
+						aptitude: BrShadowAptitude;
 						layout: BlLinearLayout new;
 						background: Color white;
 						constraintsDo: [:c | 
@@ -48,7 +48,7 @@ BlElement >> gtLiveFor: aView [
 							c vertical matchParent ];
 						addChild: self asSpartaForm asElement asPannableElement).
 					label := BrLabel new 
-						look: (BrGlamorousLabelLook new foreground: Color gray);
+						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
 						text: (('You see a static preview because this element already has a parent.') asRopedText glamorousRegularFont readonly);
 						alignCenter;
 						constraintsDo: [ :c | 
@@ -102,7 +102,7 @@ BlElement >> gtOpenInSpaceFor: anAction [
 	self hasParent ifTrue: [ ^ anAction noAction].
 	^ anAction explicit stencil: [
 		BrButton new
-			look: BrGlamorousButtonWithIconLook; 
+			aptitude: BrGlamorousButtonWithIconAptitude; 
 			action:  [ self hasParent ifFalse: [ BlSpace new rootDo:[:r| r addChild: self];show ]];
 			icon: BrGlamorousVectorIcons play;
 			label: 'Open in Space' translated ]
@@ -148,14 +148,14 @@ BlElement >> gtParentsFor: aView [
 								"margin: (BlInsets top: 2 bottom: 2);"
 									addChild: form asElement asScalableElement);
 						label: 'Slides';
-						look:
-							BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
+						aptitude:
+							BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 								+
-									(BrGlamorousWithDropdownLook
+									(BrGlamorousWithDropdownAptitude
 										handle: [ BrButton new
-												look:
-													BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
-														- BrGlamorousButtonExteriorLook;
+												aptitude:
+													BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+														- BrGlamorousButtonExteriorAptitude;
 												icon:
 													(BlElement new
 														size: 50 @ 20;
@@ -193,11 +193,11 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 					size: 50 @ 20;
 					addChild: form asElement asScalableElement);
 				label: 'Slides';
-				look: BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
-					+ (BrGlamorousWithDropdownLook
+				aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+					+ (BrGlamorousWithDropdownAptitude
 							handle: [ BrButton new
-								look: BrGlamorousButtonWithIconLook - BrGlamorousButtonWithLabelTooltipLook
-										- BrGlamorousButtonExteriorLook;
+								aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+										- BrGlamorousButtonExteriorAptitude;
 								icon: (BlElement new
 										size: 50 @ 20;
 										addChild: form asElement asScalableElement) ]
@@ -251,5 +251,5 @@ BlElement >> gtWidgetGraphFor: aView [
 	^ aView mondrian
 		title: 'Widget';
 		priority: 10;
-		painting: [ :view | self gtInspectorPaintModelLookIn: view ]
+		painting: [ :view | self gtInspectorPaintModelAptitudeIn: view ]
 ]

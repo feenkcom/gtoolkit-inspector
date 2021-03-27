@@ -83,7 +83,7 @@ GtInspector >> initialize [
 	self layout: BlLinearLayout vertical.
 	self addChild: self contentElement as: #content.
 	self addChild: self playgroundElement as: #playground.
-	self addLook: (BrLayoutResizerLook inherit).
+	self addAptitude: (BrLayoutResizerAptitude inherit).
 	self initializeListeners.
 	self matchParent.
 	self playgroundElement collapse.
