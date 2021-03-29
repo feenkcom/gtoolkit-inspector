@@ -36,7 +36,7 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 			self
 				flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedContext stack.
-			methodsCoder := GtMethodsCoder
+			methodsCoder := GtPharoMethodsCoder
 				forItems: (stack collect: #method).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
@@ -82,7 +82,7 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 			self
 				flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedProcess suspendedContext stack.
-			methodsCoder := GtMethodsCoder
+			methodsCoder := GtPharoMethodsCoder
 				forItems: (stack collect: #method).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
