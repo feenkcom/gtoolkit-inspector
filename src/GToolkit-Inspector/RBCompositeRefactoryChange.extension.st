@@ -14,12 +14,12 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 			element
 				addChild:
 					(BrLabel new
-						look: BrGlamorousListLabelLook;
+						aptitude: BrGlamorousListLabelAptitude;
 						text: '').
 			executeButton := BrButton new.
 			executeButton
 				beTinySize;
-				look: BrGlamorousButtonWithIconLook;
+				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousVectorIcons accept;
 				label: 'Accept changes';
 				constraintsDo: [ :c | 

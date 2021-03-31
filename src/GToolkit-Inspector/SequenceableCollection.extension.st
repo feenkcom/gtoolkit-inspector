@@ -25,7 +25,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 					padding: (BlInsets all: 10);
 					addChild: (BrLabel new 
 						text: i asString; 
-						look: (BrGlamorousLabelLook new foreground: Color gray; fontSize: 10);
+						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; fontSize: 10);
 						constraintsDo: [:c | c ignoreByLayout ]);
 						addChild: (BlElement new 
 							constraintsDo: [:c | 
@@ -34,7 +34,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 							layout: BlLinearLayout new alignCenter;
 							addChild: (BrLabel new 
 								text: each gtDisplayString; 
-								look: BrGlamorousLabelLook;
+								aptitude: BrGlamorousLabelAptitude;
 								constraintsDo: [:c | 
 									c horizontal fitContent.
 									c vertical fitContent.

@@ -52,7 +52,7 @@ GtInspectorPlaygroundElement >> initialize [
 	self background: BrGlamorousColors neutralBackgroundColor.
 
 	self addChild: self playPageElement as: #playPage.
-	self addLook: (BrLayoutResizerLook new
+	self addAptitude: (BrLayoutResizerAptitude new
 		hInherit: self;
 		hInherit: self playPageElement).
 	self updatePlayPage.
@@ -74,7 +74,7 @@ GtInspectorPlaygroundElement >> initializePlayPageElement [
 { #category : #initialization }
 GtInspectorPlaygroundElement >> initializeResizerElement [
 	self
-		addLook: (BrGlamorousWithVerticalResizerLook new beTop
+		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beTop
 		resizerDo: [ :theResizer | resizerElement := theResizer ]).
 	self resizerElement
 		when: BlResizerResizedEvent

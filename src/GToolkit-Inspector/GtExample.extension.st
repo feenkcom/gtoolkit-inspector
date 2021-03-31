@@ -7,7 +7,7 @@ GtExample >> gtActionDebugFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			action:  [ [ self debug ] fork ];
 			icon: BrGlamorousIcons spawn asElement;
 			label: 'Debug example' translated.
@@ -21,7 +21,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 	^ anAction explicit stencil: [
 		button := BrButton new.
 		button
-			look: BrGlamorousButtonWithIconLook;
+			aptitude: BrGlamorousButtonWithIconAptitude;
 			action:  [
 				button phlow spawnObject: (self runThenDo: [ :r | r returnValue ] onErrorDo: [ :r | r ]) ];
 			icon: BrGlamorousVectorIcons playinspect;
@@ -74,12 +74,12 @@ GtExample >> gtDependenciesGraphFor: aView [
 						geometry: BlEllipseGeometry new;
 						border: (BlBorder paint: Color black width: 2);
 						size: 20@20;
-						look: (BrWithTooltipLook new
+						aptitude: (BrWithTooltipAptitude new
 							preferredExtent: 200@200;
 							showDelay: 100 milliSeconds;
 							hideDelay: 100 milliSeconds;
 							stencil: [ 
-								BlElement new look: (BrTooltipLook new content: ((GtPharoMethodCoder forExample: each) asCoderUIModel expanded: true) asElement)]).
+								BlElement new aptitude: (BrTooltipAptitude new content: ((GtPharoMethodCoder forExample: each) asCoderUIModel expanded: true) asElement)]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.

@@ -39,7 +39,7 @@ Object >> gtPrintFor: aView [
 	^ aView textEditor
 		title: 'Print';
 		priority: 110;
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self printString asRopedText ]
 ]
 

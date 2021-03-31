@@ -13,7 +13,7 @@ UndefinedObject >> gtLiveFor: aView [
 					c vertical matchParent ];
 				addChild: (
 					BlElement new
-						look: BrShadowLook new;
+						aptitude: BrShadowAptitude new;
 						background: Color white;
 						constraintsDo: [ :c |
 							c frame horizontal alignCenter.
@@ -24,7 +24,7 @@ UndefinedObject >> gtLiveFor: aView [
 						addChild: (BlElement new background: BrGlamorousColors disabledButtonTextColor; constraintsDo: [:c | c vertical matchParent. c horizontal exact: 30 ]);
 						addChild: (BrLabel new
 							text: self asString;
-							look: BrGlamorousLabelLook;
+							aptitude: BrGlamorousLabelAptitude;
 							layout: BlLinearLayout vertical alignCenter;
 							padding: (BlInsets all: 10))) ]
 ]

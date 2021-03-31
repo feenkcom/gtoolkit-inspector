@@ -9,5 +9,5 @@ BlShortcutRegistry >> gtItemsFor: aView [
 		priority: 10;
 		items: [ self shortcuts asArray ];
 		column: 'Name' item: [ :each | each name ifNil: [ each gtDisplayString ] ];
-		column: 'Combination' item: [ :each | each combination gtDisplayString ]
+		column: 'Combination' item: [ :each | each combinationForPlatform gtDisplayString ]
 ]

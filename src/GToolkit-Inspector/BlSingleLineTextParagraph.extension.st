@@ -24,7 +24,7 @@ BlSingleLineTextParagraph >> gtMetricsFor: aView [
 								nextPutAll: 'loose bounds: '; print: self looseBounds; cr;
 								nextPutAll: 'width: '; print: self width; cr;
 								nextPutAll: 'advance: '; print: self line advance ]) asRopedText;
-						look: BrGlamorousCodeEditorLook) ];
+						aptitude: BrGlamorousCodeEditorAptitude) ];
 		rendering: [ :aCanvas :anElement |
 			aCanvas transform
 				by: [ :t | t translateBy: 20@20 ]

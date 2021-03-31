@@ -7,7 +7,7 @@ BeaconSignal >> gtOneLineFor: aView [
 	^ aView textEditor
 		title: 'One line';
 		priority: 1;
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self printOneLineString asRopedText ]
 ]
 

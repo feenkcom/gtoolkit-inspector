@@ -23,7 +23,7 @@ BrEditorElement >> paintEditorElementsWith: mondrian [
 		shape: [ :each | 
 			| form content container label labelText |
 			container := BlElement new 
-				look: BrShadowLook new;
+				aptitude: BrShadowAptitude new;
 				background: Color white;
 				constraintsDo: [:c | 
 					c vertical fitContent. 

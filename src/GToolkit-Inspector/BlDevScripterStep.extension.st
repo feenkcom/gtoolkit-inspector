@@ -22,7 +22,7 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		children: [ :aStep | aStep steps ];
 		column: 'Status' translated 
 			icon: [ :each | 
-				BrLabel new text: each stateName; look: (BrGlamorousLabelLook new);
+				BrLabel new text: each stateName; aptitude: (BrGlamorousLabelAptitude new);
 					geometry: (BlRoundedRectangleGeometry cornerRadius: 2); background: each stateColor ]
 			weight: 1;
 		column: 'Step' item: #label weight: 4;

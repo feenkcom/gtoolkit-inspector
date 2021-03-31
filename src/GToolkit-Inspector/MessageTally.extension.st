@@ -25,7 +25,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			barChart withAdjacentBars.
 			barChart groupSpacing: 10.
 			barChart barLabelWidth: 300.
-			barChart barLabelLookStencil: [ BrGlamorousLabelLook new glamorousRegularFont; fontSize: 10 ].
+			barChart barLabelLookStencil: [ BrGlamorousLabelAptitude new glamorousRegularFont; fontSize: 10 ].
 			barChart barWidthScale: aBarWidthScale.
 			barChart barWidthData: [ :eachValue | eachValue localTally ].
 			barChart barHeightScale: aBarHeightScale.
@@ -86,7 +86,7 @@ MessageTally >> gtTextReportFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Text report';
-		look: BrGlamorousCodeEditorLook;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		priority: 60;
 		text: [ String streamContents: [:s | self report: s ] ]
 ]

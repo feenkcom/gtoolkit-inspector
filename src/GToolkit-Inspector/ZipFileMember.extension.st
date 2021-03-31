@@ -16,7 +16,7 @@ ZipFileMember >> gtFigureFor: aView [
 			anElement := (GtFileUtility 
 				imageElementFromBytes: self gtBytes 
 				named: self localFileName).
-			anElement contentElement addLook: BrShadowLook.
+			anElement contentElement addAptitude: BrShadowAptitude.
 			anElement contentElement margin: (BlInsets all: 10).
 			anElement zoomableElement margin: (BlInsets all: 10).
 			anElement margin: (BlInsets all: 10).

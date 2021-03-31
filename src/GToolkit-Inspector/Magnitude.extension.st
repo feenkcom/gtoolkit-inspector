@@ -9,7 +9,7 @@ Magnitude >> gtPreviewFor: aView [
 			| aNumberElement |
 			aNumberElement := BrLabel new 
 				text: self asString;
-				look: BrGlamorousLabelLook + BrShadowLook;
+				aptitude: BrGlamorousLabelAptitude + BrShadowAptitude;
 				background: Color white;
 				margin: (BlInsets all: 20);
 				padding: (BlInsets all: 10);

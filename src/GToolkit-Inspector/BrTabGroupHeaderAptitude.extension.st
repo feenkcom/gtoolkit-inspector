@@ -1,7 +1,7 @@
-Extension { #name : #BrTabGroupHeaderLook }
+Extension { #name : #BrTabGroupHeaderAptitude }
 
 { #category : #'*GToolkit-Inspector' }
-BrTabGroupHeaderLook >> gtTabsFor: aView [
+BrTabGroupHeaderAptitude >> gtTabsFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Tabs';

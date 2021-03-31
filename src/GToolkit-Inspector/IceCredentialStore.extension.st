@@ -11,7 +11,7 @@ IceCredentialStore >> gtAllCredentialsFor: aView [
 		column: 'Description' item: #description weight: 5;
 		column: 'Remove' icon: [ :aCredential |
 			BrButton new 
-				look: BrGlamorousButtonWithIconLook;
+				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousVectorIcons remove;
 				label: 'Remove credential';
 				action: [ :aButton | 
