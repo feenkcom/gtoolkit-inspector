@@ -1,5 +1,5 @@
 Class {
-	#name : #GtSyntaxExplanationViewUtility,
+	#name : #GtPharoSyntaxExplainer,
 	#superclass : #BrStencil,
 	#instVars : [
 		'method',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-GtSyntaxExplanationViewUtility >> astNodesList [
+GtPharoSyntaxExplainer >> astNodesList [
 	| verticalContainer nodesCollection messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup |
 	
 	nodesCollection := method ast doSemanticAnalysis allChildren.
@@ -54,12 +54,15 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isGlobal ] ])
 		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #GlobalNode) ]
 		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #GlobalNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isSelf ] ])
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBSelfNode ])
 		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #SelfNode) ]
 		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #SelfNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isSuper ] ])
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBSuperNode ])
 		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #SuperNode) ]
 		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #SuperNode) ].
+	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBThisContextNode ])
+		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #ThisContextNode) ]
+		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #ThisContextNode) ].
 	
 	arrayNodesGroup := self verticalGroupElement.
 	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBArrayNode ])
@@ -133,7 +136,7 @@ GtSyntaxExplanationViewUtility >> astNodesList [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility >> create [
+GtPharoSyntaxExplainer >> create [
 	| mainContainer nodesListContainer "coder" coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
 	mainContainer := BrHorizontalPane new
@@ -186,7 +189,7 @@ GtSyntaxExplanationViewUtility >> create [
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
 
 	coder := GtPharoMethodCoder new forMethod: method.
-	coder explanationLink: (self explanationLinkStylerRules).
+	coder explanationLink: GtPharoSyntaxExplanationStyler new.
 	coderElement := (coder asCoderUIModel expanded: true) asElement margin: (BlInsets all: 0).
 	coderElement vMatchParent.
 
@@ -204,7 +207,7 @@ GtSyntaxExplanationViewUtility >> create [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility >> dividerBarElement [
+GtPharoSyntaxExplainer >> dividerBarElement [
 	^ BlElement new
 		constraintsDo: [ :c |
 			c vertical matchParent ];
@@ -213,7 +216,7 @@ GtSyntaxExplanationViewUtility >> dividerBarElement [
 ]
 
 { #category : #'as yet unclassified' }
-GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
+GtPharoSyntaxExplainer >> explanationLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
 	"Node names are in form ArrayNode, so we want to remove the Node suffix"
@@ -237,51 +240,50 @@ GtSyntaxExplanationViewUtility >> explanationLabelFor: aNodeNameSymbol [
 		padding: (BlInsets all: 5)
 ]
 
-{ #category : #'as yet unclassified' }
-GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
+{ #category : #accessing }
+GtPharoSyntaxExplainer >> explanationLinkStylerRules [
 	| compositeExplanationLinkStylerRules |
-	
 	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
 		{
 			GtASTNodeStylerRule new
-				nodeClassName: #RBProgramNode;
+				nodeClass: GtPharoProgramNode;
 				styleBlock: [ :aNode :aText |
 					aNode comments do: [:aCommentNode | 
 					(aText
 						from: aCommentNode start - 1
 						to: aCommentNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #CommentNode; size: 0; coder: coder; node: aNode; start: aCommentNode start; stop: aCommentNode stop} ] ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #CommentNode; coder: coder; node: aNode; start: aCommentNode start; stop: aCommentNode stop} ] ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBPragmaNode;
+				nodeClass: GtPharoPragmaNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #PragmaNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #PragmaNode; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBReturnNode;
+				nodeClass: GtPharoReturnNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
 						to: aNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ReturnNode; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode start} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ReturnNode; coder: coder; node: aNode; start: aNode start; stop: aNode start} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBCascadeNode;
+				nodeClass: GtPharoCascadeNode;
 				styleBlock: [ :aNode :aText |
 					aNode semicolons do: [ :each |
 						(aText
 							from: each - 1
 							to: each - 1)
-							attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #CascadeNode; size: 0; coder: coder; node: aNode; start: each; stop: each}] ].
+							attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #CascadeNode; coder: coder; node: aNode; start: each; stop: each}] ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBArrayNode;
+				nodeClass: GtPharoArrayNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ArrayNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
+						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ArrayNode; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBMessageNode;
+				nodeClass: GtPharoMessageNode;
 				styleBlock: [ :aNode :aText |
 					| identifier |
 					(aNode isBinary) ifTrue: [ identifier := #BinaryNode ].
@@ -292,21 +294,21 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 							to: aNode keywordsIntervals first first - 1)
 							attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (aNode start); stop: (aNode stop)} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBBlockNode;
+				nodeClass: GtPharoBlockNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode left - 1
 						to: aNode left - 1)
 						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #BlockNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBAssignmentNode;
+				nodeClass: GtPharoAssignmentNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode assignment - 1
 						to: aNode assignment - 1)
 						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #AssignmentNode; size: 0; coder: coder; node: aNode; start: aNode assignment; stop: aNode assignment + 1} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBVariableNode;
+				nodeClass: GtPharoVariableNode;
 				styleBlock: [ :aNode :aText |
 					| identifier |
 					(aNode isTemp) ifTrue: [ identifier := #TemporaryNode ].
@@ -319,7 +321,7 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 						to: aNode start - 1)
 						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode start + aNode name byteSize - 1} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBLiteralValueNode;
+				nodeClass: GtPharoLiteralNode;
 				styleBlock: [ :aNode :aText |
 					| identifier |
 					(aNode value isInteger) ifTrue: [ identifier := #IntegerNode ].
@@ -332,7 +334,7 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 						to: aNode start - 1)
 						attributes: {GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode stop} ].
 			GtASTNodeStylerRule new
-				nodeClassName: #RBLiteralArrayNode;
+				nodeClass: GtPharoArrayLiteralNode;
 				styleBlock: [ :aNode :aText |
 					(aText
 						from: aNode start - 1
@@ -344,21 +346,22 @@ GtSyntaxExplanationViewUtility >> explanationLinkStylerRules [
 ]
 
 { #category : #'instance creation' }
-GtSyntaxExplanationViewUtility >> forMethod: aMethod [
+GtPharoSyntaxExplainer >> forMethod: aMethod [
 	method := aMethod.
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility >> groupLabelWithText: aText [
+GtPharoSyntaxExplainer >> groupLabelWithText: aText [
 	^ BrLabel new
-		aptitude: BrGlamorousLabelAptitude new;
-		text: ((aText asRopedText) glamorousRegularFont; fontSize: 5; foreground: Color gray);
+		beSmallSize;
+		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
+		text: aText;
 		padding: (BlInsets all: 5);
 		hExact: 70.
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility >> horizontalGroupElement [
+GtPharoSyntaxExplainer >> horizontalGroupElement [
 	^ BlElement new
 		constraintsDo: [ :c | 
 			c horizontal fitContent.
@@ -368,7 +371,7 @@ GtSyntaxExplanationViewUtility >> horizontalGroupElement [
 ]
 
 { #category : #initialization }
-GtSyntaxExplanationViewUtility >> initialize [
+GtPharoSyntaxExplainer >> initialize [
 	| associationsCollection |
 	super initialize.
 	
@@ -384,8 +387,9 @@ GtSyntaxExplanationViewUtility >> initialize [
 		#TemporaryNode -> 'A temporary is a variable declared in this method and it is only visible here.'.
 		#ArgumentNode -> 'An argument is a variable received as a pramatere in the current method and it is only visible there.'.
 		#GlobalNode -> 'A global is a variable declared in another class that can be used anywhere else.'.
-		#SelfNode -> 'Self represents the current object.'.
-		#SuperNode -> 'Super represents the parent class for the current class.'.
+		#SelfNode -> 'self represents the current object.'.
+		#SuperNode -> 'super represents the parent class for the current class.'.
+		#ThisContextNode -> 'thisContext is a pseudo-variable that represents the top frame of the execution stack. It is essential for implementing development tools like the debugger, and it is also used to implement exception handling and continuations.'.
 		#ArrayNode -> 'An array is a collection of objects.'. 
 		#LiteralArrayNode -> 'A literal array is a collection of literals.'. 
 		#IntegerNode -> 'An integer is a value without a fractional component.'.
@@ -403,7 +407,7 @@ GtSyntaxExplanationViewUtility >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
-GtSyntaxExplanationViewUtility >> regularLabelFor: aNodeNameSymbol [
+GtPharoSyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
 	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
@@ -417,6 +421,6 @@ GtSyntaxExplanationViewUtility >> regularLabelFor: aNodeNameSymbol [
 ]
 
 { #category : #accessing }
-GtSyntaxExplanationViewUtility >> verticalGroupElement [
+GtPharoSyntaxExplainer >> verticalGroupElement [
 	^ BrVerticalPane new fitContent
 ]

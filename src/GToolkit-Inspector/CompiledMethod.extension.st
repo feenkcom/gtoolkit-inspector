@@ -24,5 +24,5 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	
 	^ aView explicit
 		title: 'Syntax Explanation' translated;
-		stencil: [ GtSyntaxExplanationViewUtility new forMethod: self ].
+		stencil: [ GtPharoSyntaxExplainer new forMethod: self ].
 ]
