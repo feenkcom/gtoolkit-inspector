@@ -16,95 +16,38 @@ Class {
 
 { #category : #'as yet unclassified' }
 GtPharoSyntaxExplainer >> astNodesList [
-	| verticalContainer nodesCollection messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup |
-	
-	nodesCollection := method ast doSemanticAnalysis allChildren.
-	 
+	| verticalContainer messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup sourceCode ast detectedConstructs |
+	sourceCode := method sourceCode.
+	ast := GtPharoParser parseWithErrors: sourceCode startingAt: GtPharoParser startingStateForMethod.
+	detectedConstructs := GtPharoSyntaxExplanationStyler new style: sourceCode asRopedText ast: ast; detectedConstructs.
 	verticalContainer := BrVerticalPane new
 		fitContent;
 		padding: (BlInsets all: 10).
-	
 	otherNodesGroup := self verticalGroupElement hExact: 80.
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBPragmaNode ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #PragmaNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #PragmaNode) ].
-	
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBReturnNode ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #ReturnNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #ReturnNode) ].
-	
+	#(PragmaNode ReturnNode BlockNode AssignmentNode CascadeNode CommentNode) do: [ :each |
+			(detectedConstructs includes: each) 
+				ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: each) ]
+				ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: each) ] ].
 	messageNodesGroup := self verticalGroupElement.
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isUnary ] ])
-		ifTrue: [ messageNodesGroup addChild: (self explanationLabelFor: #UnaryNode) ]
-		ifFalse: [ messageNodesGroup addChild: (self regularLabelFor: #UnaryNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isBinary ] ])
-		ifTrue: [ messageNodesGroup addChild: (self explanationLabelFor: #BinaryNode) ]
-		ifFalse: [ messageNodesGroup addChild: (self regularLabelFor: #BinaryNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBMessageNode) and: [ aNode isKeyword ] ])
-		ifTrue: [ messageNodesGroup addChild: (self explanationLabelFor: #KeywordNode) ]
-		ifFalse: [ messageNodesGroup addChild: (self regularLabelFor: #KeywordNode) ].
-	
+	#(UnaryNode BinaryNode KeywordNode ) do: [ :each |
+			(detectedConstructs includes: each) 
+				ifTrue: [ messageNodesGroup addChild: (self explanationLabelFor: each) ]
+				ifFalse: [ messageNodesGroup addChild: (self regularLabelFor: each) ] ].
 	variableNodesGroup := self verticalGroupElement.
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isTemp and: [ aNode isArg not ] ] ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #TemporaryNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #TemporaryNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isArg ] ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #ArgumentNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #ArgumentNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBVariableNode) and: [ aNode isGlobal ] ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #GlobalNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #GlobalNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBSelfNode ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #SelfNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #SelfNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBSuperNode ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #SuperNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #SuperNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBThisContextNode ])
-		ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: #ThisContextNode) ]
-		ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: #ThisContextNode) ].
-	
+	#(TemporaryNode ArgumentNode GlobalNode SelfNode SuperNode ThisContextNode) do: [ :each |
+			(detectedConstructs includes: each) 
+				ifTrue: [ variableNodesGroup addChild: (self explanationLabelFor: each) ]
+				ifFalse: [ variableNodesGroup addChild: (self regularLabelFor: each) ] ].
 	arrayNodesGroup := self verticalGroupElement.
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBArrayNode ])
-		ifTrue: [ arrayNodesGroup addChild: (self explanationLabelFor: #ArrayNode) ]
-		ifFalse: [ arrayNodesGroup addChild: (self regularLabelFor: #ArrayNode) ].
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBLiteralArrayNode ])
-		ifTrue: [ arrayNodesGroup addChild: (self explanationLabelFor: #LiteralArrayNode) ]
-		ifFalse: [ arrayNodesGroup addChild: (self regularLabelFor: #LiteralArrayNode) ].
-	
+	#(ArrayNode LiteralArrayNode) do: [ :each |
+			(detectedConstructs includes: each) 
+				ifTrue: [ arrayNodesGroup addChild: (self explanationLabelFor: each) ]
+				ifFalse: [ arrayNodesGroup addChild: (self regularLabelFor: each) ] ].
 	literalValueNodesGroup := self verticalGroupElement.
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [aNode value isInteger]])
-		ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: #IntegerNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: #IntegerNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isFloat]])
-		ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: #FloatNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: #FloatNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isCharacter]])
-		ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: #CharacterNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: #CharacterNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isSymbol]])
-		ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: #SymbolNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: #SymbolNode) ].
-	(nodesCollection anySatisfy: [ :aNode | (aNode isKindOf: RBLiteralValueNode) and: [ aNode value isString and: [ aNode value isSymbol not]]])
-		ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: #StringNode) ]
-		ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: #StringNode) ].
-	
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBBlockNode ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #BlockNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #BlockNode) ].
-	
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBAssignmentNode ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #AssignmentNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #AssignmentNode) ].
-	
-	(nodesCollection anySatisfy: [ :aNode | aNode isKindOf: RBCascadeNode ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #CascadeNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #CascadeNode) ].
-	
-	(nodesCollection anySatisfy: [ :aNode | aNode comments notEmpty ])
-		ifTrue: [ otherNodesGroup addChild: (self explanationLabelFor: #CommentNode) ]
-		ifFalse: [ otherNodesGroup addChild: (self regularLabelFor: #CommentNode) ].
-	
+	#(IntegerNode FloatNode CharacterNode SymbolNode StringNode) do: [ :each |
+			(detectedConstructs includes: each) 
+				ifTrue: [ literalValueNodesGroup addChild: (self explanationLabelFor: each) ]
+				ifFalse: [ literalValueNodesGroup addChild: (self regularLabelFor: each) ] ].	
 	
 	verticalContainer addChildren: { 
 		self horizontalGroupElement addChildren: {
@@ -131,8 +74,7 @@ GtPharoSyntaxExplainer >> astNodesList [
 	^ verticalContainer asScrollableElement 
 		constraintsDo: [:c | c horizontal fitContent. c vertical matchParent.];
 		background: Color white;
-		aptitude: BrShadowAptitude";
-		margin: (BlInsets all: 10)"
+		aptitude: BrShadowAptitude new
 ]
 
 { #category : #accessing }
@@ -238,111 +180,6 @@ GtPharoSyntaxExplainer >> explanationLabelFor: aNodeNameSymbol [
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 		text: nodeName;
 		padding: (BlInsets all: 5)
-]
-
-{ #category : #accessing }
-GtPharoSyntaxExplainer >> explanationLinkStylerRules [
-	| compositeExplanationLinkStylerRules |
-	compositeExplanationLinkStylerRules := GtCompositeExplanationLinkStyler forLinks:
-		{
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoProgramNode;
-				styleBlock: [ :aNode :aText |
-					aNode comments do: [:aCommentNode | 
-					(aText
-						from: aCommentNode start - 1
-						to: aCommentNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #CommentNode; coder: coder; node: aNode; start: aCommentNode start; stop: aCommentNode stop} ] ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoPragmaNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #PragmaNode; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoReturnNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ReturnNode; coder: coder; node: aNode; start: aNode start; stop: aNode start} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoCascadeNode;
-				styleBlock: [ :aNode :aText |
-					aNode semicolons do: [ :each |
-						(aText
-							from: each - 1
-							to: each - 1)
-							attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #CascadeNode; coder: coder; node: aNode; start: each; stop: each}] ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoArrayNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode left - 1
-						to: aNode left - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #ArrayNode; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoMessageNode;
-				styleBlock: [ :aNode :aText |
-					| identifier |
-					(aNode isBinary) ifTrue: [ identifier := #BinaryNode ].
-					(aNode isUnary) ifTrue: [ identifier := #UnaryNode ].
-					(aNode isKeyword) ifTrue: [ identifier := #KeywordNode ].
-					(aText
-							from: aNode keywordsIntervals first first - 1
-							to: aNode keywordsIntervals first first - 1)
-							attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: (aNode start); stop: (aNode stop)} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoBlockNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode left - 1
-						to: aNode left - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #BlockNode; size: 0; coder: coder; node: aNode; start: aNode left; stop: aNode right} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoAssignmentNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode assignment - 1
-						to: aNode assignment - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: #AssignmentNode; size: 0; coder: coder; node: aNode; start: aNode assignment; stop: aNode assignment + 1} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoVariableNode;
-				styleBlock: [ :aNode :aText |
-					| identifier |
-					(aNode isTemp) ifTrue: [ identifier := #TemporaryNode ].
-					(aNode isArg) ifTrue: [ identifier := #ArgumentNode ].
-					(aNode isGlobal) ifTrue: [ identifier := #GlobalNode ].
-					(aNode isSelf) ifTrue: [ identifier := #SelfNode ].
-					(aNode isSuper) ifTrue: [ identifier := #SuperNode ].
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: { GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode start + aNode name byteSize - 1} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoLiteralNode;
-				styleBlock: [ :aNode :aText |
-					| identifier |
-					(aNode value isInteger) ifTrue: [ identifier := #IntegerNode ].
-					(aNode value isFloat) ifTrue: [ identifier := #FloatNode ].
-					(aNode value isCharacter) ifTrue: [ identifier := #CharacterNode ].
-					(aNode value isSymbol) ifTrue: [ identifier := #SymbolNode ].
-					(aNode value isString and: [aNode value isSymbol not]) ifTrue: [ identifier := #StringNode ].
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: {GtTargetCircleWithUnderlineAdornment new identifier: identifier; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode stop} ].
-			GtASTNodeStylerRule new
-				nodeClass: GtPharoArrayLiteralNode;
-				styleBlock: [ :aNode :aText |
-					(aText
-						from: aNode start - 1
-						to: aNode start - 1)
-						attributes: {GtTargetCircleWithUnderlineAdornment new identifier: #LiteralArrayNode; size: 0; coder: coder; node: aNode; start: aNode start; stop: aNode stop} ].
-		}.
-	
-	^ compositeExplanationLinkStylerRules.
 ]
 
 { #category : #'instance creation' }
