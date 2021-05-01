@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-GtPharoSyntaxExplainer >> astNodesList [
+GtPharoSyntaxExplainer >> constructsList [
 	| verticalContainer messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup sourceCode ast detectedConstructs |
 	sourceCode := method sourceCode.
 	ast := GtPharoParser parseWithErrors: sourceCode startingAt: GtPharoParser startingStateForMethod.
@@ -79,7 +79,7 @@ GtPharoSyntaxExplainer >> astNodesList [
 
 { #category : #accessing }
 GtPharoSyntaxExplainer >> create [
-	| mainContainer nodesListContainer "coder" coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
+	| mainContainer constructsContainer coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
 	mainContainer := BrHorizontalPane new
 		matchParent;
@@ -114,17 +114,17 @@ GtPharoSyntaxExplainer >> create [
 		elevation: (BlRelativeElevation elevation: 10);
 		geometry: BlCircle new.
 
-	nodesListContainer := self astNodesList.
+	constructsContainer := self constructsList.
 
 	leftContainerLabel := (BrLabel new
-		text: ('Syntactical constructs:' asRopedText 
+		text: ('Pharo constructs:' asRopedText 
 			glamorousRegularFont; 
 			foreground: Color gray);
 		aptitude: BrGlamorousLabelAptitude;
 		hFitContent;
 		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
 	rightContainerLabel := (BrLabel new
-		text: ('Method source code:' asRopedText
+		text: ('Method:' asRopedText
 			glamorousRegularFont; 
 			foreground: Color gray);
 		aptitude: BrGlamorousLabelAptitude;
@@ -136,7 +136,7 @@ GtPharoSyntaxExplainer >> create [
 	coderElement vMatchParent.
 
 	leftContainer addChild: leftContainerLabel.
-	leftContainer addChild: nodesListContainer.
+	leftContainer addChild: constructsContainer.
 
 	rightContainer addChild: rightContainerLabel.
 	rightContainer addChild: coderElement.
