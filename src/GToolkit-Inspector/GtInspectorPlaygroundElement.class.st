@@ -43,19 +43,21 @@ GtInspectorPlaygroundElement >> initialize [
 	widthStrategy := BrResizerElementLength exact: self minimumHeight.
 	self initializePlayPageElement.
 	self layout: (BlLinearLayout vertical cellSpacing: 5).
-	self constraintsDo: [ :c | 
+	self
+		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ].
 
 	"resizer is added in this method"
 	self initializeResizerElement.
-	self background: BrGlamorousColors neutralBackgroundColor.
-
+	self background: self theme status neutralBackgroundColor.
 	self addChild: self playPageElement as: #playPage.
-	self addAptitude: (BrLayoutResizerAptitude new
-		hInherit: self;
-		hInherit: self playPageElement).
-	self updatePlayPage.
+	self
+		addAptitude:
+			(BrLayoutResizerAptitude new
+				hInherit: self;
+				hInherit: self playPageElement).
+	self updatePlayPage
 ]
 
 { #category : #initialization }
