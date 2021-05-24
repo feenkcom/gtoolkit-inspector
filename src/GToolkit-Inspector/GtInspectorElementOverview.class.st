@@ -357,15 +357,6 @@ GtInspectorElementOverview >> initialize [
 	super initialize.
 	
 	self matchParent.
-	
-	self addChild: (BrEditor new
-		hMatchParent;
-		vFitContent;
-		aptitude: (BrGlamorousEditorAptitude new lineSpacing: 6);
-		margin: (BlInsets left: 5);
-		beReadOnlyWithoutSelection;
-		text: ('Want to know more?' asRopedText fontSize: 14; foreground: Color darkGray), String cr asRopedText,
-			('Click on items below to inspect my properties:' asRopedText fontSize: 12; foreground: Color gray)).
 
 	self addChild: (properties := BlElement new
 		layout: (BlGridLayout horizontal columnCount: 2; cellSpacing: 8);
