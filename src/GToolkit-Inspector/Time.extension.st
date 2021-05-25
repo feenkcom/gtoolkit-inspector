@@ -11,7 +11,7 @@ Time >> gtDetailsFor: aView [
 			('seconds' -> self seconds).
 			('nanoseconds' -> self nanoSecond).
 			('meridian' -> self meridianAbbreviation)} ];
-		column: 'Key' evaluated: #key;
-		column: 'Value' evaluated: #value;
+		column: 'Key' item: #key;
+		column: 'Value' item: #value;
 		send: #value
 ]
