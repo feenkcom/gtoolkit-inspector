@@ -56,6 +56,7 @@ ProtoObject class >> gtSubclassesFor: aView [
 	^ aView tree
 		title: 'Subclasses';
 		items: [ { self } ];
+		sendTool: [ :aClass | GtClassCoderTool forClass: aClass  ];
 		expandOneLevel;
 		children: #subclasses
 ]
