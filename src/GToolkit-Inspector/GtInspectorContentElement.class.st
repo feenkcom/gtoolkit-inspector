@@ -1,8 +1,9 @@
 "
 I display an object graphical representation.
-I use ${method:GtInspectorObject>>#asElementDo:}$ to generate the object inspector widget.
+I use {{gtMethod:GtInspectorObject>>#asElementDo:}} to generate the object inspector widget.
 
-${example:GtInspectorExamples>>#contentElement|previewExpanded}$
+{{gtExample:GtInspectorExamples>>#contentElement|previewExpanded}}
+
 
 "
 Class {

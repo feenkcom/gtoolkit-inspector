@@ -1,5 +1,7 @@
 "
 I create and store wrapper nodes so that the links (parent - children) between wrapper nodes can be estabilshed just like for wrapped nodes.
+
+
 "
 Class {
 	#name : #RBNodeWrapperFactory,

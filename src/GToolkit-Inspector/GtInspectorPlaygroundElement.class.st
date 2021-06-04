@@ -1,7 +1,8 @@
 "
 I display an embedded playground.
 
-${example:GtInspectorExamples>>#playgroundElement|previewExpanded}$
+{{gtExample:GtInspectorExamples>>#playgroundElement|previewExpanded}}
+
 
 "
 Class {

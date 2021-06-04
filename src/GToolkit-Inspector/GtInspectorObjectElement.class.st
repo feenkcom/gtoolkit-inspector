@@ -1,7 +1,9 @@
 "
 I am an abstract class.
-I provide basic ${method:GtInspectorObjectElement>>#objectHolder|label=object holder}$ accessors.
-See my ${class:GtInspectorObjectElement|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+I provide basic {{gtMethod:GtInspectorObjectElement>>#objectHolder|label=object holder}} accessors.
+See my {{gtClass:GtInspectorObjectElement|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #GtInspectorObjectElement,

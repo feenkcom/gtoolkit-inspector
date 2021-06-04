@@ -1,7 +1,9 @@
 "
 I am an abstract class.
-I provide basic ${class:TBrLayoutResizable}$ methods.
-See my ${class:GtInspectorElement|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+I provide basic {{gtClass:TBrLayoutResizable}} methods.
+See my {{gtClass:GtInspectorElement|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #GtInspectorElement,

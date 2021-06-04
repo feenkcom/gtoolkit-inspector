@@ -1,5 +1,7 @@
 "
 GtInspector openOn: self new
+
+
 "
 Class {
 	#name : #GtInspectorSampleWithExceptionsInExtensions,
