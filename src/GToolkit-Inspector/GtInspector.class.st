@@ -1,9 +1,10 @@
 "
 I am an object inspector.
 I display an object.
-I use ${method:GtInspectorObject>>#asElementDo:}$ to generate the object inspector widget.
+I use {{gtMethod:GtInspectorObject>>#asElementDo:}} to generate the object inspector widget.
 
-${example:GtInspectorExamples>>#inspectorElement|previewExpanded}$
+{{gtExample:GtInspectorExamples>>#inspectorElement|previewExpanded}}
+
 
 "
 Class {

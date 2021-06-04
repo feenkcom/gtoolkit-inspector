@@ -1,6 +1,7 @@
 "
-I am used by ${class:GtInspectorExamples}$ as an example object.
-The purpose it to exemplify ${class:GtInspector}$.
+I am used by {{gtClass:GtInspectorExamples}} as an example object.
+The purpose it to exemplify {{gtClass:GtInspector}}.
+
 
 "
 Class {

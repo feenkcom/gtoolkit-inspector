@@ -1,9 +1,10 @@
 "
 I hold examples with extensions drawn with views that are slow.
 
-[[[
+```
 GtInspectorElementWithSlowViews new
-]]]
+```
+
 
 "
 Class {
