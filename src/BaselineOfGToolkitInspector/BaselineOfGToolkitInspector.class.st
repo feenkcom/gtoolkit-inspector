@@ -8,7 +8,7 @@ The inspector offers several operators that can be combined in many ways to adap
 !!Show multiple views for each object
 Every object is different and should be allowed to look different, too. Here is an inspector example opened on an instance of ${class:CompiledMethod}$.  Take a moment to play with the different tabs.
 
-${example:CompiledMethod class>>#gtExampleSimple|previewExpanded|noCode=|200}$
+${example:CompiledMethod class>>#gtExampleSimple|previewExpanded|noCode}$
 
 Classic inspectors are typically defined as tools that show the interior of an object. In contrast, we define the inspector as a tool to understand an object. Let's go back to our example. A ${class:CompiledMethod}$ represents a method, and as we recognize a method by its source code the first view shows exactly that. However, there are other perspectives that are relevant from which to look at such an object, too. For example, when wanting to understand how the internal bytecodes look like we can simply switch to the corresponding view.
 
