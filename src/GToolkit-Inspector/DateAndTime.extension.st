@@ -20,7 +20,8 @@ DateAndTime >> gtViewDetailsIn: composite [
 			('meridian' -> self meridianAbbreviation).
 			('offset' -> self offset).
 			('date' -> self asDate).
-			('time' -> self asTime)} ];
+			('time' -> self asTime).
+			('unix time' -> self asUnixTime) } ];
 		column: 'Key' item: #key;
 		column: 'Value' item: #value;
 		send: #value
