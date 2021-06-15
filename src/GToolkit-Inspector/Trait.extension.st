@@ -10,5 +10,6 @@ Trait >> gtUsersFor: aView [
 		children: [ :aClassOrTrait | 
 			aClassOrTrait isTrait
 				ifTrue: [ aClassOrTrait users asOrderedCollection ]
-				ifFalse: [ #() ] ]
+				ifFalse: [ #() ] ];
+		sendTool: [:aClassOrTrait | GtClassCoderTool forClass: aClassOrTrait ]
 ]
