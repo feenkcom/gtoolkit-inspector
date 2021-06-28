@@ -7,7 +7,11 @@ BlockClosure >> gtSourceCodeFor: aView [
 		title: 'Source code';
 		priority: 1;
 		object: [ self sourceNode ];
-		view: #gtSourceCodeFor:
+		view: #gtSourceCodeFor:;
+		actionButtonIcon: BrGlamorousIcons inspect 
+			tooltip: 'Inspect Block' 
+			action: [ :aButton | 
+				aButton phlow spawnObject: self ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
