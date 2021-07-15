@@ -1,7 +1,7 @@
-Extension { #name : #PragmaType }
+Extension { #name : #GtPragmaType }
 
 { #category : #'*GToolkit-Inspector' }
-PragmaType >> gtPragmasFor: aView [
+GtPragmaType >> gtPragmasFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Pragmas';
