@@ -1,6 +1,6 @@
-Extension { #name : #BrTextHoverStylableAttribute }
+Extension { #name : 'BrTextHoverStylableAttribute' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTextHoverStylableAttribute >> gtAttributesFor: aView [
 	<gtView>
 	self attributes ifNil: [ ^ aView empty ].

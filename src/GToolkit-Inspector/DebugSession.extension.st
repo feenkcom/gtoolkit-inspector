@@ -1,6 +1,6 @@
-Extension { #name : #DebugSession }
+Extension { #name : 'DebugSession' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 DebugSession >> gtViewInterruptedContextFor: aView [
 	<gtView>
 	(self interruptedProcess isNil
@@ -22,7 +22,7 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 			(methodCoder asCoderUIModel expanded: true) asElement ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 DebugSession >> gtViewInterruptedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil
@@ -51,7 +51,7 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 				expandCoder: methodsCoder coders first ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 DebugSession >> gtViewLiveDebuggerFor: aView [
 	<gtView>
 	(self interruptedProcess isNil or: [ 
@@ -69,7 +69,7 @@ DebugSession >> gtViewLiveDebuggerFor: aView [
 			debuggerElement ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 DebugSession >> gtViewSuspendedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil

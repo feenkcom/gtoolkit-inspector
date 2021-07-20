@@ -1,6 +1,6 @@
-Extension { #name : #MetaLink }
+Extension { #name : 'MetaLink' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetaLink >> gtOptionsFor: aView [
 	<gtView>
 	self options ifNil: [ ^ aView empty ].
@@ -10,7 +10,7 @@ MetaLink >> gtOptionsFor: aView [
 		items: [ self options asSortedCollection ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetaLink >> gtPluginsFor: aView [
 	<gtView>
 	^ aView columnedList

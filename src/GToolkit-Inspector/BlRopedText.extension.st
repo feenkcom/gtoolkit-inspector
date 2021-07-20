@@ -1,16 +1,16 @@
-Extension { #name : #BlRopedText }
+Extension { #name : 'BlRopedText' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlRopedText >> gtDisplayText [
 	^ self
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlRopedText >> gtLiveFor: aView [
 	^ self gtTreeFor: aView
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlRopedText >> gtStoreStringFor: aView [
 	<gtView>
 	
@@ -20,7 +20,7 @@ BlRopedText >> gtStoreStringFor: aView [
 		stencil: [ (GtPharoSnippetCoder new forSource: self storeString) asElement matchParent ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlRopedText >> gtTextAttributesFor: aView [
 	<gtView>
 	(self attributesBuilder respondsTo: #attributes)
@@ -30,7 +30,7 @@ BlRopedText >> gtTextAttributesFor: aView [
 		items: [ self attributesBuilder attributes ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlRopedText >> gtTreeFor: aView [
 	<gtView>
 	^ self rope 

@@ -1,6 +1,6 @@
-Extension { #name : #BlTktCommandTask }
+Extension { #name : 'BlTktCommandTask' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlTktCommandTask >> gtBlockClosureFor: aView [
 	<gtView>
 	^ self command
@@ -8,7 +8,7 @@ BlTktCommandTask >> gtBlockClosureFor: aView [
 		ifNotNil: [ :aValuable | aValuable gtBlockClosureFor: aView ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlTktCommandTask >> gtDecoratedCommandsFor: aView [
 	<gtView>
 	^ self command 

@@ -1,6 +1,6 @@
-Extension { #name : #GtPhlowSystemChangeUpdateDefinition }
+Extension { #name : 'GtPhlowSystemChangeUpdateDefinition' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtPhlowSystemChangeUpdateDefinition >> gtElementContextFor: aView [
 	<gtView>
 	self contexts ifNil: [ ^ aView empty ].

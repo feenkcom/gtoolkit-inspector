@@ -1,6 +1,6 @@
-Extension { #name : #GtExampleGroup }
+Extension { #name : 'GtExampleGroup' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
 	aButtonsContainer removeChildren.
 	aButtonsContainer addChild: (BrButton new 
@@ -29,7 +29,7 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 		action: [ anElement children second items: (self skippedExamples sorted: GtMethodsSortFunction new) ]).
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> buildListViewFor: aView [
 	| aListView |
 	aListView := aView columnedList
@@ -109,7 +109,7 @@ GtExampleGroup >> buildListViewFor: aView [
 	^ aListView
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
 	^ aView explicit
@@ -150,7 +150,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aContainer ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> gtExpandableExamplesFor: aView [
 	<gtView>
 	^ aView explicit
@@ -163,7 +163,7 @@ GtExampleGroup >> gtExpandableExamplesFor: aView [
 			action: [ :aButton | self runAll ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -173,7 +173,7 @@ GtExampleGroup >> gtMapFor: aView [
 		actionUpdateButtonTooltip: 'Update examples map'
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtExampleGroup >> runAllExamplesFrom: aBrTab [
 	self runAll.
 	"aBrTab phlow viewContent 	

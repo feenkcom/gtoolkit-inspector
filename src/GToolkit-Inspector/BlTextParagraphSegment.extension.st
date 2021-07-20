@@ -1,6 +1,6 @@
-Extension { #name : #BlTextParagraphSegment }
+Extension { #name : 'BlTextParagraphSegment' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlTextParagraphSegment >> gtMetricsFor: aView [
 	<gtView>
 

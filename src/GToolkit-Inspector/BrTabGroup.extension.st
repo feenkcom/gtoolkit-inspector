@@ -1,6 +1,6 @@
-Extension { #name : #BrTabGroup }
+Extension { #name : 'BrTabGroup' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTabGroup >> gtTabsFor: aView [
 	<gtView>
 	self viewModel ifNil: [ ^ aView empty ].

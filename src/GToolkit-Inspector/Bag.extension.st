@@ -1,6 +1,6 @@
-Extension { #name : #Bag }
+Extension { #name : 'Bag' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Bag >> gtOccurrencesFor: aView [
 	<gtView>
 	self valuesAndCounts ifNil: [ ^ aView empty ].

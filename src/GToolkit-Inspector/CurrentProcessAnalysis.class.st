@@ -1,13 +1,13 @@
 Class {
-	#name : #CurrentProcessAnalysis,
-	#superclass : #Object,
+	#name : 'CurrentProcessAnalysis',
+	#superclass : 'Object',
 	#instVars : [
 		'signals'
 	],
-	#category : #'GToolkit-Inspector-Convenience and Utilities'
+	#category : 'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CurrentProcessAnalysis class >> signals: aCollection [
 	"Open the receiver on the supplied set of signals"
 
@@ -15,7 +15,7 @@ CurrentProcessAnalysis class >> signals: aCollection [
 		[ :each | each class = CurrentProcessSignal ])
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 CurrentProcessAnalysis >> gtStackTreeFor: aView [
 	<gtView>
 
@@ -24,13 +24,13 @@ CurrentProcessAnalysis >> gtStackTreeFor: aView [
 		painting: [ :mondrian | self stackTreeFor: mondrian ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CurrentProcessAnalysis >> initializeWith: aCollection [
 
 	signals := aCollection.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 CurrentProcessAnalysis >> stackTreeFor: aMondrian [
 	"Display the signals as a tree assuming a common root"
 

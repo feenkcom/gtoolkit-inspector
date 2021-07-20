@@ -1,6 +1,6 @@
-Extension { #name : #ZnStatusLine }
+Extension { #name : 'ZnStatusLine' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnStatusLine >> gtHttpFor: aView [
 	<gtView>
 	^ aView textEditor

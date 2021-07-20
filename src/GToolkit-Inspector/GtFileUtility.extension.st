@@ -1,6 +1,6 @@
-Extension { #name : #GtFileUtility }
+Extension { #name : 'GtFileUtility' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtFileUtility class >> imageElementFromBytes: theBytes named: aFileName [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 
@@ -13,7 +13,7 @@ GtFileUtility class >> imageElementFromBytes: theBytes named: aFileName [
 					c horizontal matchParent. ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtFileUtility class >> imageElementFromFileReference: aFileReference [
 	"It returns a text editor if an unsupported image"
 	<return: #BlElement> 

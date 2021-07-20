@@ -1,6 +1,6 @@
-Extension { #name : #BlEvent }
+Extension { #name : 'BlEvent' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlEvent >> gtCurrentTargetFor: aView [
 	<gtView>
 	^ (self currentTarget isKindOf: BlElement)
@@ -10,7 +10,7 @@ BlEvent >> gtCurrentTargetFor: aView [
 			priority: 5 ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlEvent >> gtTargetFor: aView [
 	<gtView>
 	^ (self target isKindOf: BlElement)

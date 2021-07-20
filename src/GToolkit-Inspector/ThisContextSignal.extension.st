@@ -1,6 +1,6 @@
-Extension { #name : #ThisContextSignal }
+Extension { #name : 'ThisContextSignal' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ThisContextSignal class >> gtExampleMethodStackSignal [
 	<gtExample>
 	<label: 'MethodStackSignal'>
@@ -8,7 +8,7 @@ ThisContextSignal class >> gtExampleMethodStackSignal [
 	^ MethodStackSignal new
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ThisContextSignal >> gtStackFor: aView [
 	<gtView>
 	^ aView list
@@ -17,7 +17,7 @@ ThisContextSignal >> gtStackFor: aView [
 		items: [  self stack ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ThisContextSignal >> gtViewTopMethodFor: aView [
 	<gtView>
 	^ self stack 

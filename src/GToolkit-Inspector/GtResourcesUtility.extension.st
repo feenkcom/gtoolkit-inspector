@@ -1,6 +1,6 @@
-Extension { #name : #GtResourcesUtility }
+Extension { #name : 'GtResourcesUtility' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtResourcesUtility >> gtLocationsFor: aView [
 	<gtView>
 	self locations ifNil: [ ^ aView empty ].

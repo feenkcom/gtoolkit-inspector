@@ -1,6 +1,6 @@
-Extension { #name : #RPackageTag }
+Extension { #name : 'RPackageTag' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RPackageTag >> gtDefinedClassesFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -13,7 +13,7 @@ RPackageTag >> gtDefinedClassesFor: aView [
 		column: 'Category' item: [ :aRing | aRing category ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RPackageTag >> gtExamplesFor: aView [
 	<gtView>
 	<gtPackageTagView>

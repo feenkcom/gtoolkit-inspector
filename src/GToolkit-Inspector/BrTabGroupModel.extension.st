@@ -1,6 +1,6 @@
-Extension { #name : #BrTabGroupModel }
+Extension { #name : 'BrTabGroupModel' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTabGroupModel >> gtTabsFor: aView [
 	<gtView>
 	

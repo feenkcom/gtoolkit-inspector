@@ -1,6 +1,6 @@
-Extension { #name : #TGtOptions }
+Extension { #name : 'TGtOptions' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 TGtOptions >> gtOptionsFor: aView [
 	<gtView>
 	self hasOptions ifFalse: [ ^ aView empty ].

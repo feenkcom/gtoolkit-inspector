@@ -1,6 +1,6 @@
-Extension { #name : #VirtualMachine }
+Extension { #name : 'VirtualMachine' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 VirtualMachine >> gtDetailsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -16,7 +16,7 @@ VirtualMachine >> gtDetailsFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 VirtualMachine >> gtParametersFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -39,7 +39,7 @@ VirtualMachine >> gtParametersFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 VirtualMachine >> gtStatisticsFor: aView [
 	<gtView>
 	^ aView columnedList

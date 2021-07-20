@@ -1,6 +1,6 @@
-Extension { #name : #BlAttributeRope }
+Extension { #name : 'BlAttributeRope' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlAttributeRope >> gtAttributesFor: aView [
 	<gtView>
 	self attributes ifNil: [ ^ aView empty ].

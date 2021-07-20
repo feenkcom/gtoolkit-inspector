@@ -1,6 +1,6 @@
-Extension { #name : #BrStencilValuableExecutor }
+Extension { #name : 'BrStencilValuableExecutor' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrStencilValuableExecutor >> gtBlockClosureVariablesFor: aView [
 	<gtView>
 	(self valuable isKindOf: BlockClosure) 
@@ -12,7 +12,7 @@ BrStencilValuableExecutor >> gtBlockClosureVariablesFor: aView [
 		view: #gtVariablesFor:
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrStencilValuableExecutor >> gtSourceCodeFor: aView [
 	<gtView>
 	(self valuable isKindOf: BlockClosure) 

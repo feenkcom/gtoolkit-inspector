@@ -1,6 +1,6 @@
-Extension { #name : #BlFocusFinder }
+Extension { #name : 'BlFocusFinder' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlFocusFinder >> gtPreviewFor: aView [
 	<gtView>
 	

@@ -1,6 +1,6 @@
-Extension { #name : #BrGlamorousColors }
+Extension { #name : 'BrGlamorousColors' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrGlamorousColors class >> gtClassVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -12,7 +12,7 @@ BrGlamorousColors class >> gtClassVariablesFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrGlamorousColors class >> gtColorsFor: aView [
 	<gtView>
 	<gtClassView>

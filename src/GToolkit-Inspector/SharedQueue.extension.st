@@ -1,6 +1,6 @@
-Extension { #name : #SharedQueue }
+Extension { #name : 'SharedQueue' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 SharedQueue >> gtItemsFor: aView [
 	<gtView>
 	items ifNil: [ ^ aView empty ].

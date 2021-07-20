@@ -1,6 +1,6 @@
-Extension { #name : #AtomicSharedPriorityQueue }
+Extension { #name : 'AtomicSharedPriorityQueue' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 AtomicSharedPriorityQueue >> gtItemsFor: aView [
 	<gtView>
 	| aList |

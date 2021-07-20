@@ -1,6 +1,6 @@
-Extension { #name : #BlMatrix }
+Extension { #name : 'BlMatrix' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlMatrix >> gtMatrixFor: aView [
 	<gtView>
 	

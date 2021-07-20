@@ -1,14 +1,14 @@
 Class {
-	#name : #GtInspectorElementOverview,
-	#superclass : #BrVerticalPane,
+	#name : 'GtInspectorElementOverview',
+	#superclass : 'BrVerticalPane',
 	#instVars : [
 		'inspectedElement',
 		'properties'
 	],
-	#category : #'GToolkit-Inspector-Convenience and Utilities'
+	#category : 'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildBoundsProperties [
 	| theProperties |	
 	
@@ -27,7 +27,7 @@ GtInspectorElementOverview >> buildBoundsProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildCompositionProperties [
 	| theParent theProperties |	
 	
@@ -47,7 +47,7 @@ GtInspectorElementOverview >> buildCompositionProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildConstraintsProperties [
 	| theProperties |
 	
@@ -69,7 +69,7 @@ GtInspectorElementOverview >> buildConstraintsProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildEventProperties [
 	| theProperties |	
 	
@@ -88,7 +88,7 @@ GtInspectorElementOverview >> buildEventProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildLayoutProperties [
 	| theProperties |
 	
@@ -114,7 +114,7 @@ GtInspectorElementOverview >> buildLayoutProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildOtherProperties [
 	| theProperties |
 	
@@ -130,7 +130,7 @@ GtInspectorElementOverview >> buildOtherProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock [
 	^ BrHorizontalPane new
 		hMatchParent;
@@ -150,7 +150,7 @@ GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock
 			text: aName)
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 GtInspectorElementOverview >> buildSectionContainer [
 	^ BrVerticalPane new
 		hMatchParent;
@@ -158,7 +158,7 @@ GtInspectorElementOverview >> buildSectionContainer [
 		cellSpacing: 5
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 GtInspectorElementOverview >> buildSectionLabelNamed: aString [
 	^ BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; fontSize: 12);
@@ -166,7 +166,7 @@ GtInspectorElementOverview >> buildSectionLabelNamed: aString [
 		text: aString
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildStatesProperties [
 	| theLocalStates theInheritedStates theProperties |
 	
@@ -188,7 +188,7 @@ GtInspectorElementOverview >> buildStatesProperties [
 				spawn: each value ])
 ]
 
-{ #category : #'private - properties' }
+{ #category : 'private - properties' }
 GtInspectorElementOverview >> buildVisualProperties [
 	| theProperties |	
 	
@@ -207,127 +207,127 @@ GtInspectorElementOverview >> buildVisualProperties [
 				spawn: each value ])
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorElementOverview >> element: anInspectedElement [
 	inspectedElement := anInspectedElement.
 	self initializeProperties
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementBackground [
 	^ inspectedElement background
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementBackgroundName [
 	^ (self elementBackground class name copyReplaceAll: 'Bl' with: '')
 		copyReplaceAll: 'Background' with: ''
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementBorder [
 	^ inspectedElement border 
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> elementBoundsInSpace [
 	^ inspectedElement bounds inSpace
 ]
 
-{ #category : #'element - composition' }
+{ #category : 'element - composition' }
 GtInspectorElementOverview >> elementChildren [
 	^ inspectedElement children
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> elementEventDispatcher [
 	^ inspectedElement eventDispatcher
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> elementEventFilters [
 	^ inspectedElement eventDispatcher filters
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> elementEventHandlers [
 	^ inspectedElement eventDispatcher handlers
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> elementExtent [
 	^ inspectedElement extent
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementGeometry [
 	^ inspectedElement geometry 
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementGeometryName [
 	^ self elementGeometry class name copyReplaceAll: 'Bl' with: ''
 ]
 
-{ #category : #'element - composition' }
+{ #category : 'element - composition' }
 GtInspectorElementOverview >> elementHasParent [
 	^ inspectedElement hasParent
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> elementHorizontalConstraintsName [
 	^ inspectedElement constraints horizontal resizer printString
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> elementLayout [
 	^ inspectedElement layout
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> elementLayoutName [
 	^ (self elementLayout class name copyReplaceAll: 'Bl' with: '')
 		copyReplaceAll: 'Layout' with: ''
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> elementMargin [
 	^ inspectedElement margin 
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> elementOtherConstraints [
 	^ inspectedElement constraints other
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> elementPadding [
 	^ inspectedElement padding
 ]
 
-{ #category : #'element - composition' }
+{ #category : 'element - composition' }
 GtInspectorElementOverview >> elementParent [
 	^ inspectedElement parent
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> elementPositionInParent [
 	^ inspectedElement bounds inParent position
 ]
 
-{ #category : #'element - shortcuts' }
+{ #category : 'element - shortcuts' }
 GtInspectorElementOverview >> elementShortcuts [
 	^ BlShortcutRegistry new
 		addAll: inspectedElement shortcuts;
 		yourself
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementTransformation [
 	^ inspectedElement transformation
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> elementTransformationName [
 	^ self elementTransformation isIdentity
 		ifTrue: [ 'Identity' ]
@@ -337,22 +337,22 @@ GtInspectorElementOverview >> elementTransformationName [
 				ifFalse: [ 'Affine' ] ]
 ]
 
-{ #category : #'element - user data' }
+{ #category : 'element - user data' }
 GtInspectorElementOverview >> elementUserData [
 	^ inspectedElement userData
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> elementVerticalConstraintsName [
 	^ inspectedElement constraints vertical resizer printString
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> elementVisualBounds [
 	^ inspectedElement visualBounds
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorElementOverview >> initialize [
 	super initialize.
 	
@@ -365,7 +365,7 @@ GtInspectorElementOverview >> initialize [
 			c vertical fitContent ]) asScrollableElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorElementOverview >> initializeProperties [
 	properties removeChildren.
 	
@@ -379,7 +379,7 @@ GtInspectorElementOverview >> initializeProperties [
 	properties addChild: self buildOtherProperties
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtInspectorElementOverview >> printPoint: aPoint showingDecimalPlaces: anAmountOfDecimalPlaces [
 	^ String streamContents: [ :aStream |
 		aStream
@@ -390,7 +390,7 @@ GtInspectorElementOverview >> printPoint: aPoint showingDecimalPlaces: anAmountO
 			nextPut: $) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtInspectorElementOverview >> printRectangle: aRectangle showingDecimalPlaces: anAmountOfDecimalPlaces [
 	^ String streamContents: [ :aStream |
 		aStream
@@ -401,109 +401,109 @@ GtInspectorElementOverview >> printRectangle: aRectangle showingDecimalPlaces: a
 			nextPut: $) ]
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> spawnBackground [
 	self phlow spawnObject: self elementBackground
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> spawnBorder [
 	self phlow spawnObject: self elementBorder
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> spawnBoundsInSpace [
 	self phlow spawnObject: self elementBoundsInSpace
 ]
 
-{ #category : #'element - composition' }
+{ #category : 'element - composition' }
 GtInspectorElementOverview >> spawnChildren [
 	self phlow spawnObject: self elementChildren
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> spawnConstraints [
 	self phlow spawnObject: inspectedElement constraints
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> spawnEventDispatcher [
 	self phlow spawnObject: self elementEventDispatcher
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> spawnEventFilters [
 	self phlow spawnObject: self elementEventFilters
 ]
 
-{ #category : #'element - events' }
+{ #category : 'element - events' }
 GtInspectorElementOverview >> spawnEventHandlers [
 	self phlow spawnObject: self elementEventHandlers
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> spawnExtent [
 	self phlow spawnObject: self elementExtent
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> spawnGeometry [
 	self phlow spawnObject: self elementGeometry
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> spawnHorizontalConstraints [
 	self phlow spawnObject: inspectedElement constraints horizontal
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> spawnLayout [
 	self phlow spawnObject: self elementLayout
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> spawnMargin [
 	self phlow spawnObject: self elementMargin
 ]
 
-{ #category : #'element - layout' }
+{ #category : 'element - layout' }
 GtInspectorElementOverview >> spawnPadding [
 	self phlow spawnObject: self elementPadding
 ]
 
-{ #category : #'element - composition' }
+{ #category : 'element - composition' }
 GtInspectorElementOverview >> spawnParent [
 	self elementHasParent
 		ifFalse: [ ^ self ].
 	self phlow spawnObject: self elementParent
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> spawnPositionInParent [
 	self phlow spawnObject: self elementPositionInParent
 ]
 
-{ #category : #'element - shortcuts' }
+{ #category : 'element - shortcuts' }
 GtInspectorElementOverview >> spawnShortcuts [
 	self phlow spawnObject: self elementShortcuts
 ]
 
-{ #category : #'element - visual' }
+{ #category : 'element - visual' }
 GtInspectorElementOverview >> spawnTransformation [
 	self phlow spawnObject: self elementTransformation
 ]
 
-{ #category : #'element - user data' }
+{ #category : 'element - user data' }
 GtInspectorElementOverview >> spawnUserData [
 	self phlow spawnObject: self elementUserData
 ]
 
-{ #category : #'element - constraints' }
+{ #category : 'element - constraints' }
 GtInspectorElementOverview >> spawnVerticalConstraints [
 	self phlow spawnObject: inspectedElement constraints vertical
 ]
 
-{ #category : #'element - bounds' }
+{ #category : 'element - bounds' }
 GtInspectorElementOverview >> spawnVisualBounds [
 	self phlow spawnObject: self elementVisualBounds
 ]

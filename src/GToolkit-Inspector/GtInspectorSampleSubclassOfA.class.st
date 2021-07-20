@@ -1,10 +1,10 @@
 Class {
-	#name : #GtInspectorSampleSubclassOfA,
-	#superclass : #GtInspectorSampleA,
-	#category : #'GToolkit-Inspector-Example Samples'
+	#name : 'GtInspectorSampleSubclassOfA',
+	#superclass : 'GtInspectorSampleA',
+	#category : 'GToolkit-Inspector-Example Samples'
 }
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtInspectorSampleSubclassOfA >> gtViewRemovedInSubclassFor: aView [
 	<gtView>
 	^ aView empty

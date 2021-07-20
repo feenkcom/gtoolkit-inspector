@@ -1,6 +1,6 @@
-Extension { #name : #RBRenameClassChange }
+Extension { #name : 'RBRenameClassChange' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBRenameClassChange >> gtLabel [
 	| aText |
 	aText := 'Rename ' asRopedText foreground: Color gray.

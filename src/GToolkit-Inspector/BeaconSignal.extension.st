@@ -1,6 +1,6 @@
-Extension { #name : #BeaconSignal }
+Extension { #name : 'BeaconSignal' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BeaconSignal >> gtOneLineFor: aView [
 	<gtView>
 	self timestamp ifNil: [ ^ aView empty ].
@@ -11,7 +11,7 @@ BeaconSignal >> gtOneLineFor: aView [
 		text: [ self printOneLineString asRopedText ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BeaconSignal >> gtReferencesFor: aView [
 	<gtView>
 	^ aView forward

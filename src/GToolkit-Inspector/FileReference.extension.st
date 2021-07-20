@@ -1,6 +1,6 @@
-Extension { #name : #FileReference }
+Extension { #name : 'FileReference' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 FileReference >> gtContentsIn: anElement [
 	| contents textElement |
 	contents := self readStreamDo: [ :stream | 

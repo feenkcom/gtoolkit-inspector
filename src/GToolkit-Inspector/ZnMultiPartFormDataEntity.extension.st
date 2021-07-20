@@ -1,6 +1,6 @@
-Extension { #name : #ZnMultiPartFormDataEntity }
+Extension { #name : 'ZnMultiPartFormDataEntity' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnMultiPartFormDataEntity >> gtViewMimePartsFor: aView [
 	<gtView>
 	^ aView columnedList

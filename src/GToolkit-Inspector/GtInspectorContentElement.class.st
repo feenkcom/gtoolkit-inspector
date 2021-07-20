@@ -7,12 +7,12 @@ I use {{gtMethod:GtInspectorObject>>#asElementDo:}} to generate the object inspe
 
 "
 Class {
-	#name : #GtInspectorContentElement,
-	#superclass : #GtInspectorObjectElement,
-	#category : #'GToolkit-Inspector-UI'
+	#name : 'GtInspectorContentElement',
+	#superclass : 'GtInspectorObjectElement',
+	#category : 'GToolkit-Inspector-UI'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorContentElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout vertical.
@@ -20,13 +20,13 @@ GtInspectorContentElement >> initialize [
 	self addAptitude: BrLayoutResizerAptitude inherit.
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 GtInspectorContentElement >> onObjectHolderChanged [
 	super onObjectHolderChanged.
 	self updateView.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtInspectorContentElement >> updateContentWith: aContentElement [
 	"Create and configure an inspector page for a given object and corresponding content element.
 	My job is to set up the pager page decorator and configure the neccesary event listeners"
@@ -36,7 +36,7 @@ GtInspectorContentElement >> updateContentWith: aContentElement [
 		addChild: aContentElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtInspectorContentElement >> updateView [
 	self objectHolder asElementDo: [ :aPageContentElement |
 		self updateContentWith: aPageContentElement ]

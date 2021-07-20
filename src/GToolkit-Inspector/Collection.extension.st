@@ -1,6 +1,6 @@
-Extension { #name : #Collection }
+Extension { #name : 'Collection' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Collection >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -11,7 +11,7 @@ Collection >> gtItemsFor: aView [
 		actionUpdateButtonTooltip: 'Update item list'
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Collection >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
