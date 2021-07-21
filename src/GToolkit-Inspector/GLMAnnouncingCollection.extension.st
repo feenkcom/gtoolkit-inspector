@@ -21,22 +21,14 @@ GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 { #category : #'*GToolkit-Inspector' }
 GLMAnnouncingCollection >> gtItemsFor: aView [
     <gtView>
-    ^ aView explicit
+    ^ aView list
         title: 'Items';
         priority: 50;
-        stencil: [ 
-            | list refreshBlock |
-            list := BrColumnedList new
-                addEventHandler: GtPhlowListToSelectHandler new;
-                display: self asOrderedCollection.
-				refreshBlock := [  list aptitude request: BrListItemsRequest new].
-				self when: GLMItemAdded do: refreshBlock.
-				self when: GLMItemChanged do: refreshBlock.
-				self when: GLMItemRemoved do: refreshBlock.
-            list column
-                title: 'Item';
-                stencil: [ :each :anIndex | BrColumnCellLabelStencil new text: each gtDisplayString ].
-            list ]
+		  updateWhen: GLMItemAdded in: [ self ];
+		  updateWhen: GLMItemChanged in: [ self ];
+		  updateWhen: GLMItemRemoved in: [ self ];
+		  items: [ self asOrderedCollection ];
+		  itemText: [ :each | each gtDisplayString]
 ]
 
 { #category : #'*GToolkit-Inspector' }
