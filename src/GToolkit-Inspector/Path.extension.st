@@ -1,6 +1,6 @@
-Extension { #name : 'Path' }
+Extension { #name : #Path }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Path >> gtFileReferencePathFor: aView [
 	<gtView>
 	^ aView forward

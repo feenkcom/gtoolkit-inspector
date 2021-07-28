@@ -1,6 +1,6 @@
-Extension { #name : 'WeakMessageSend' }
+Extension { #name : #WeakMessageSend }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WeakMessageSend >> gtMethodFor: aView [ 
 	<gtView>
 	self isValid ifFalse: [ ^ aView empty ].
@@ -11,7 +11,7 @@ WeakMessageSend >> gtMethodFor: aView [
 		view: #gtMethodFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WeakMessageSend >> gtMethodSendersFor: aView [ 
 	<gtView>
 	self isValid ifFalse: [ ^ aView empty ].

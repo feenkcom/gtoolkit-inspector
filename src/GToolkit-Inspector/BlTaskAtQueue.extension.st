@@ -1,6 +1,6 @@
-Extension { #name : 'BlTaskAtQueue' }
+Extension { #name : #BlTaskAtQueue }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTaskAtQueue >> gtItemsFor: aView [
 	<gtView>
 	queue ifNil: [ ^ self ].

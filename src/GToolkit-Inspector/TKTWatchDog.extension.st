@@ -1,6 +1,6 @@
-Extension { #name : 'TKTWatchDog' }
+Extension { #name : #TKTWatchDog }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 TKTWatchDog >> gtFailedTasksFor: aView [
 	<gtView>
 	^ self pool 
@@ -8,7 +8,7 @@ TKTWatchDog >> gtFailedTasksFor: aView [
 		ifNotNil: [ :aPool | aPool gtFailedTasksFor: aView ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 TKTWatchDog >> gtQueueFor: aView [
 	<gtView>
 	^ self pool 

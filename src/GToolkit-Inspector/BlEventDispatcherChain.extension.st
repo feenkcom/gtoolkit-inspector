@@ -1,6 +1,6 @@
-Extension { #name : 'BlEventDispatcherChain' }
+Extension { #name : #BlEventDispatcherChain }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlEventDispatcherChain >> gtDispatchersFor: aView [
 	<gtView>
 

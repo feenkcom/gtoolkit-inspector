@@ -1,6 +1,6 @@
-Extension { #name : 'UndefinedObject' }
+Extension { #name : #UndefinedObject }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 UndefinedObject >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

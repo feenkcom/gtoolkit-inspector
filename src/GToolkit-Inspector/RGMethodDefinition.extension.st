@@ -1,6 +1,6 @@
-Extension { #name : 'RGMethodDefinition' }
+Extension { #name : #RGMethodDefinition }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtBasicSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
@@ -15,7 +15,7 @@ RGMethodDefinition >> gtBasicSourceFor: aView [
 				asElement) ].
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtImplementorsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -31,7 +31,7 @@ RGMethodDefinition >> gtImplementorsFor: aView [
 		column: 'Method' text: #gtDisplayString.
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSendersFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -47,7 +47,7 @@ RGMethodDefinition >> gtSendersFor: aView [
 		column: 'Method' text: #gtDisplayString.
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSourceFor: aView [
 	<gtView>
 	^ aView explicit

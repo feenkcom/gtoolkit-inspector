@@ -1,6 +1,6 @@
-Extension { #name : 'ExceptionSignal' }
+Extension { #name : #ExceptionSignal }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ExceptionSignal class >> gtExampleEmpty [
 	<gtExample>
 	<label: 'Empty'>

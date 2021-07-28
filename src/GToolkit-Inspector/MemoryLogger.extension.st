@@ -1,6 +1,6 @@
-Extension { #name : 'MemoryLogger' }
+Extension { #name : #MemoryLogger }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtGroupedFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -12,7 +12,7 @@ MemoryLogger >> gtGroupedFor: aView [
 		send: #value
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtRecordingsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -27,7 +27,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 			item: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtResetActionFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -36,7 +36,7 @@ MemoryLogger >> gtResetActionFor: anAction [
 		action: [ :aButton | self reset ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtStartActionFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -45,7 +45,7 @@ MemoryLogger >> gtStartActionFor: anAction [
 		action: [ :aButton | self start ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtStopActionFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -54,7 +54,7 @@ MemoryLogger >> gtStopActionFor: anAction [
 		action: [ :aButton | self stop ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger class >> saveBlocGlobalLogger [
 	"Collect detailed events for 10 seconds and then save the file"
 

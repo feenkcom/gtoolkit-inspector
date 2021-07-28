@@ -1,6 +1,6 @@
-Extension { #name : 'GtExample' }
+Extension { #name : #GtExample }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtActionDebugFor: anAction [
 	<gtAction>
 	|  button |
@@ -14,7 +14,7 @@ GtExample >> gtActionDebugFor: anAction [
 	]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtActionSpawnReturnValueFor: anAction [
 	<gtAction>
 	|  button |
@@ -29,7 +29,7 @@ GtExample >> gtActionSpawnReturnValueFor: anAction [
 	]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtAfterFor: aView [
 	<gtView>
 	self hasAfter ifFalse: [ ^ aView empty ].
@@ -37,7 +37,7 @@ GtExample >> gtAfterFor: aView [
 			title: 'After'
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtCoderSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -48,7 +48,7 @@ GtExample >> gtCoderSourceFor: aView [
 			action: [ self method browse ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesFor: aView [
 	<gtView>
 	^ self directDependencies 
@@ -60,7 +60,7 @@ GtExample >> gtDependenciesFor: aView [
 	
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesGraphFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -95,7 +95,7 @@ GtExample >> gtDependenciesGraphFor: aView [
 			m layout horizontalTree. ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtProblemsFor: aView [
 	<gtView>
 	self hasProblems ifFalse: [ ^ aView empty ].
@@ -103,7 +103,7 @@ GtExample >> gtProblemsFor: aView [
 			title: 'Problems'
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtSubjectsFor: aView [
 	<gtView>
 	self hasSubjects ifFalse: [ ^ aView empty ].

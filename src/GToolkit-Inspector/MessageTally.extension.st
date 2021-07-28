@@ -1,6 +1,6 @@
-Extension { #name : 'MessageTally' }
+Extension { #name : #MessageTally }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
 	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
@@ -35,7 +35,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			barChart asElement	 ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtMessagesTreeIn: aView [
 	<gtView>
 	| methods normalizer |
@@ -74,14 +74,14 @@ MessageTally >> gtMessagesTreeIn: aView [
 			width: 100
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtSourceFor: aView [
 	<gtView>
 	^ self method ifNotNil: [
 		(self method gtSourceFor: aView) priority: 20]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtTextReportFor: aView [
 	<gtView>
 	^ aView textEditor

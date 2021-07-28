@@ -1,6 +1,6 @@
-Extension { #name : 'BrEditorShortcut' }
+Extension { #name : #BrEditorShortcut }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrEditorShortcut >> gtSourceCodeFor: aView [ 
 	<gtView>
 

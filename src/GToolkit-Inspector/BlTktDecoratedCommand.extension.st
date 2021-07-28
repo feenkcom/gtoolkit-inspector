@@ -1,13 +1,13 @@
-Extension { #name : 'BlTktDecoratedCommand' }
+Extension { #name : #BlTktDecoratedCommand }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTktDecoratedCommand >> gtDecoratedCommands [
 	<return: #Array of: #BlTktProtoCommand>
 	^ Array streamContents: [ :aStream | 
 		self putDecoratedCommandInto: aStream ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTktDecoratedCommand >> gtDecoratedCommandsFor: aView [
 	<gtView>
 	self command ifNil: [ ^ aView empty ].
@@ -16,7 +16,7 @@ BlTktDecoratedCommand >> gtDecoratedCommandsFor: aView [
 		items: [ self gtDecoratedCommands ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTktDecoratedCommand >> putDecoratedCommandInto: aStream [
 	self command ifNil: [ ^ self ].
 	aStream nextPut: self command.

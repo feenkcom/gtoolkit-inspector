@@ -1,28 +1,28 @@
 Class {
-	#name : 'GtInspectorTool',
-	#superclass : 'GtPhlowTool',
+	#name : #GtInspectorTool,
+	#superclass : #GtPhlowTool,
 	#traits : 'TGtInspectorObjectAccess',
 	#classTraits : 'TGtInspectorObjectAccess classTrait',
 	#category : 'GToolkit-Inspector-Phlow Tool'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtInspectorTool class >> forObject: anObject [
 	^ self new object: anObject
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtInspectorTool class >> forObject: anObject viewSelector: aSymbol [
 	^ self new object: anObject viewSelector: aSymbol
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtInspectorTool class >> priority [
 	<return: #Number>
 	^ 1
 ]
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
@@ -31,7 +31,7 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anInspector cull: self.
 ]
 
-{ #category : 'private - converting' }
+{ #category : #'private - converting' }
 GtInspectorTool >> asTabElement [
 	"Return a tool element that is going to be used as a part of ${class:GtPhlowCompositeTool}$"
 	<return: #BlElement>
@@ -42,29 +42,29 @@ GtInspectorTool >> asTabElement [
 	^ anInspector
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtInspectorTool >> icon [
 	^ BrGlamorousVectorIcons inspect
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtInspectorTool >> initialize [
 	super initialize.
 	self initializeObjectHolder.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtInspectorTool >> name [
 	^ 'inspector'
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtInspectorTool >> object [
 	"compatibility method for ${GLMBlocObjectToSelect}$"
 	^ self objectHolder object
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtInspectorTool >> object: anObject [
 	"Store object that is going to be inspected"
 	| anObjectHolder |
@@ -72,7 +72,7 @@ GtInspectorTool >> object: anObject [
 	self objectHolder: anObjectHolder.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 GtInspectorTool >> object: anObject viewSelector: aSymbol [
 	"Store object that is going to be inspected and displayed using a specific Phlow view message selector"
 	| anObjectHolder |
@@ -80,7 +80,7 @@ GtInspectorTool >> object: anObject viewSelector: aSymbol [
 	self objectHolder: anObjectHolder.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 GtInspectorTool >> tabLook [
 	^ BrGlamorousTabSwitcherWithIconAptitude
 ]

@@ -1,13 +1,13 @@
-Extension { #name : 'Text' }
+Extension { #name : #Text }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Text >> gtItemsFor: aView [
 	"No items presentation for a Text"
 
 	^ aView empty
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Text >> gtStringFor: aView [
 	<gtView>
 	^ aView explicit

@@ -1,6 +1,6 @@
-Extension { #name : 'BlPannableElement' }
+Extension { #name : #BlPannableElement }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlPannableElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)

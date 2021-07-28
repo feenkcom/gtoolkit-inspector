@@ -1,6 +1,6 @@
-Extension { #name : 'RPackage' }
+Extension { #name : #RPackage }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtDefinedClassesFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -13,12 +13,12 @@ RPackage >> gtDefinedClassesFor: aView [
 		column: 'Category' text: [ :aRing | aRing category ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtDisplayOn: stream [
 	stream nextPutAll: self name
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtExamplesFor: aView [
 	<gtView>
 	<gtPackageView>
@@ -27,7 +27,7 @@ RPackage >> gtExamplesFor: aView [
 			gtExamplesFor: aView
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtTagsFor: aView [
 	<gtView>
 	self classTags ifEmpty: [ ^ aView empty ].

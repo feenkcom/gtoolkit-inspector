@@ -1,6 +1,6 @@
-Extension { #name : 'ZnStringEntity' }
+Extension { #name : #ZnStringEntity }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnStringEntity >> gtTextFor: aView [
 	<gtView>
 	^ aView textEditor

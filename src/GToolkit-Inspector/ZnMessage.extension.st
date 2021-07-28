@@ -1,6 +1,6 @@
-Extension { #name : 'ZnMessage' }
+Extension { #name : #ZnMessage }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMessage >> gtBinaryContentsFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].
@@ -11,7 +11,7 @@ ZnMessage >> gtBinaryContentsFor: aView [
 			priority: 40
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMessage >> gtHeadersFor: aView [
 	<gtView>
 	^ (self headers gtHeadersFor: aView)
@@ -20,7 +20,7 @@ ZnMessage >> gtHeadersFor: aView [
 			
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMessage >> gtTextContentsFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].

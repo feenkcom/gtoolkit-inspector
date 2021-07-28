@@ -1,6 +1,6 @@
-Extension { #name : 'Class' }
+Extension { #name : #Class }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> gtAllReferencesOutsideFor: aView [
 	<gtView>
 	^ aView explicit
@@ -20,7 +20,7 @@ Class >> gtAllReferencesOutsideFor: aView [
 			list ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> gtDefinitionFor: aView [
 	<gtView>
 	^ aView textEditor  
@@ -33,7 +33,7 @@ Class >> gtDefinitionFor: aView [
 		text: [ self definition asRopedText ].
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesFor: aView [
 	<gtView>
 	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
@@ -44,7 +44,7 @@ Class >> gtExamplesFor: aView [
 		view: #gtExamplesFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> gtInstanceVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -57,7 +57,7 @@ Class >> gtInstanceVariablesFor: aView [
 		send: #value
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> gtMethodsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -66,7 +66,7 @@ Class >> gtMethodsFor: aView [
 		stencil: [ (GtClassMethodsCoder forClass: self) asElement ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Class >> itOrItsSuperclassesDefineGTViews [
 	"Says whether this class or its superclasses define a dedicated gtView.
 	ProtoObject and Object are excluded because they are too generic"

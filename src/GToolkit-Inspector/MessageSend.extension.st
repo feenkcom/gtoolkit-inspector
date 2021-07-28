@@ -1,6 +1,6 @@
-Extension { #name : 'MessageSend' }
+Extension { #name : #MessageSend }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageSend >> gtMethodFor: aView [ 
 	<gtView>
 	self selector ifNil: [ ^ aView empty ].
@@ -13,7 +13,7 @@ MessageSend >> gtMethodFor: aView [
 			
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 MessageSend >> gtSourceCodeFor: aView [
 	^ self gtMethodFor: aView
 ]

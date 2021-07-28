@@ -1,6 +1,6 @@
-Extension { #name : 'GtResourceReference' }
+Extension { #name : #GtResourceReference }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtResourceReference >> gtInspectFileReferenceFor: aView [
 	<gtAction>
 	^ aView button
@@ -11,7 +11,7 @@ GtResourceReference >> gtInspectFileReferenceFor: aView [
 		action: [ :aButton | aButton phlow spawnObject: self fileReference ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtResourceReference >> gtItemsFor: aView [
 	<gtView>
 	self exists ifFalse: [ ^ aView empty ].
@@ -22,7 +22,7 @@ GtResourceReference >> gtItemsFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtResourceReference >> gtLocationsFor: aView [
 	<gtView>
 	self path ifNil: [ ^ aView empty ].
@@ -37,7 +37,7 @@ GtResourceReference >> gtLocationsFor: aView [
 			width: 100
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtResourceReference >> gtPathFor: aView [
 	<gtView>
 	^ aView forward

@@ -1,6 +1,6 @@
-Extension { #name : 'ZnManagingMultiThreadedServer' }
+Extension { #name : #ZnManagingMultiThreadedServer }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 	<gtView>
 	^ aView list 
@@ -12,7 +12,7 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 			action: [ :aButton :aTab | self closeConnections ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnManagingMultiThreadedServer >> gtOverview [
 	^ OrderedCollection new 
 		add: ('listenning' -> self isListening);
@@ -22,7 +22,7 @@ ZnManagingMultiThreadedServer >> gtOverview [
 		
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnManagingMultiThreadedServer >> gtOverviewFor: aView [
 	<gtView>
 	^ aView columnedList 

@@ -1,13 +1,13 @@
-Extension { #name : 'Context' }
+Extension { #name : #Context }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Context >> gtSourceFor: aView [
 	<gtView>
 	self method ifNil: [ ^ aView empty ].
 	^ self method gtSourceFor: aView
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Context >> gtStackFor: aView [
 	<gtView>
 	^ aView list
@@ -15,7 +15,7 @@ Context >> gtStackFor: aView [
 		items: [self stack]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Context >> gtVariables [
 	| aCollection |
 	aCollection := OrderedCollection new.
@@ -31,7 +31,7 @@ Context >> gtVariables [
 	^ aCollection
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Context >> gtVariablesFor: aView [
 	<gtView>
 	^ aView columnedList

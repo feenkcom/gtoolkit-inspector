@@ -1,6 +1,6 @@
-Extension { #name : 'BlSingleLineTextParagraph' }
+Extension { #name : #BlSingleLineTextParagraph }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlSingleLineTextParagraph >> gtMetricsFor: aView [
 	<gtView>
 	

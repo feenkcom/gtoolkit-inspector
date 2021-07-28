@@ -1,6 +1,6 @@
-Extension { #name : 'Time' }
+Extension { #name : #Time }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Time >> gtDetailsFor: aView [
 	<gtView>
 	^ aView columnedList

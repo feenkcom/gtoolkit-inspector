@@ -1,6 +1,6 @@
-Extension { #name : 'BlSpaceFrame' }
+Extension { #name : #BlSpaceFrame }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlSpaceFrame >> gtPhasesFor: aView [
 	<gtView>
 	
