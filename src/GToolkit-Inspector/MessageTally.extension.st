@@ -25,7 +25,7 @@ MessageTally >> gtGroupedByMethodFor: aView [
 			barChart withAdjacentBars.
 			barChart groupSpacing: 10.
 			barChart barLabelWidth: 300.
-			barChart barLabelLookStencil: [ BrGlamorousLabelAptitude new glamorousRegularFont; fontSize: 10 ].
+			barChart barLabelAptitudeStencil: [ BrGlamorousLabelAptitude new glamorousRegularFont; fontSize: 10 ].
 			barChart barWidthScale: aBarWidthScale.
 			barChart barWidthData: [ :eachValue | eachValue localTally ].
 			barChart barHeightScale: aBarHeightScale.
