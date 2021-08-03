@@ -1,36 +1,36 @@
 Class {
-	#name : #GtInspectorTabSimpleSelector,
-	#superclass : #GtInspectorTabSelector,
+	#name : 'GtInspectorTabSimpleSelector',
+	#superclass : 'GtInspectorTabSelector',
 	#traits : 'TGtInspectorTabNameAccessor',
 	#classTraits : 'TGtInspectorTabNameAccessor classTrait',
 	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtInspectorTabSimpleSelector >> defaultTabName [
 	^ GtInspectorTabName null
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorTabSimpleSelector >> initialize [
 	super initialize.
 	self initializeTabName.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtInspectorTabSimpleSelector >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Selector of: ';
 		print: self tabName
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 GtInspectorTabSimpleSelector >> recentlySelectedTab: aTabName on: anObject [
 	aTabName hasTabName ifFalse: [ ^ self ].
 	self tabName: aTabName
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtInspectorTabSimpleSelector >> selectTabIn: aTabGroup on: anObect [
 	aTabGroup viewModel tabs
 		detect:
@@ -42,7 +42,7 @@ GtInspectorTabSimpleSelector >> selectTabIn: aTabGroup on: anObect [
 		ifNone: [ "do nothing" ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorTabSimpleSelector >> tabName [
 	<return: #GtInspectorTabName>
 	^ tabName

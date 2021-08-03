@@ -6,8 +6,8 @@ I display an embedded playground.
 
 "
 Class {
-	#name : #GtInspectorPlaygroundElement,
-	#superclass : #GtInspectorObjectElement,
+	#name : 'GtInspectorPlaygroundElement',
+	#superclass : 'GtInspectorObjectElement',
 	#instVars : [
 		'playPage',
 		'playPageElement',
@@ -17,27 +17,27 @@ Class {
 	#category : 'GToolkit-Inspector-UI'
 }
 
-{ #category : #'private - visibility' }
+{ #category : 'private - visibility' }
 GtInspectorPlaygroundElement >> beExact: aNumber [
 	widthStrategy := BrResizerElementLength exact: aNumber.
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtInspectorPlaygroundElement >> collapse [
 	self height: self minimumHeight.
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtInspectorPlaygroundElement >> defaultPlayPage [
 	^ GtPlayPage newDefault.
 ]
 
-{ #category : #'api - visibility' }
+{ #category : 'api - visibility' }
 GtInspectorPlaygroundElement >> expand [
 	widthStrategy adjustHeightFor: self.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorPlaygroundElement >> initialize [
 	super initialize.
 	playPage := self defaultPlayPage.
@@ -61,7 +61,7 @@ GtInspectorPlaygroundElement >> initialize [
 	self updatePlayPage
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorPlaygroundElement >> initializePlayPageElement [
 	playPageElement := self playPage asElement.
 	playPageElement 
@@ -74,7 +74,7 @@ GtInspectorPlaygroundElement >> initializePlayPageElement [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorPlaygroundElement >> initializeResizerElement [
 	self
 		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beTop
@@ -86,24 +86,24 @@ GtInspectorPlaygroundElement >> initializeResizerElement [
 			do: [ :anEvent | self onResizerDoubleClick: anEvent ]
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtInspectorPlaygroundElement >> isCollapsed [
 	<return: #Boolean>
 	^ self height <= self minimumHeight
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspectorPlaygroundElement >> minimumHeight [
 	^ 5
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 GtInspectorPlaygroundElement >> onObjectHolderChanged [
 	super onObjectHolderChanged.
 	self updatePlayPage.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtInspectorPlaygroundElement >> onResizerDoubleClick: anEvent [
 	anEvent consumed: true.
 	self isCollapsed
@@ -111,29 +111,29 @@ GtInspectorPlaygroundElement >> onResizerDoubleClick: anEvent [
 		ifFalse: [ self collapse ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtInspectorPlaygroundElement >> onResizerResized: anEvent [
 	self beExact: anEvent extent y
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspectorPlaygroundElement >> playPage [
 	<return: #GtPlayPage>
 	^ playPage
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspectorPlaygroundElement >> playPageElement [
 	<return: #GtPageElement>
 	^ playPageElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspectorPlaygroundElement >> resizerElement [
 	^ resizerElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtInspectorPlaygroundElement >> updatePlayPage [
 	self playPage receiver: self object.
 	self playPage xDocLoadSavedContent.

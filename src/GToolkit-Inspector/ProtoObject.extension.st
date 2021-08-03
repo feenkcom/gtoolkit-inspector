@@ -1,6 +1,6 @@
-Extension { #name : #ProtoObject }
+Extension { #name : 'ProtoObject' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -9,7 +9,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 		action: [ :button | self gtBrowseFrom: button ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -18,7 +18,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 		action: [ :button | button phlow spawnObject: self]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectInWindowFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -27,7 +27,7 @@ ProtoObject >> gtActionInspectInWindowFor: anAction [
 		action: [ (GtPager openWrappedOn: (GtInspectorTool forObject: self) title: ('GtInspector @ {1}' format: { self })) maximized ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtActions [
 	"This collects all view actions for the current object.
 	By default, it simply looks for the #gtAction pragma.
@@ -39,17 +39,17 @@ ProtoObject >> gtActions [
 		collect
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtIcon [
 	^ BrGlamorousIcons empty
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtInspect [ 
 	^ (GtInspector openOn: self) maximized
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject class >> gtSubclassesFor: aView [
 	<gtView>
 	self subclasses ifNil: [ ^ aView empty ].
@@ -61,14 +61,14 @@ ProtoObject class >> gtSubclassesFor: aView [
 		children: #subclasses
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView [
 	"this is the default entry method for retrieving the wrapper view containing all views"
 	^ self gtViewsFor: aView inContext: GtPhlowContext new
 		
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtViewsFor: aView inContext: aContext [
 	<return: #GtPhlowLabelledView>
 	^ GtPhlowLabelledViewBuilder new
@@ -78,7 +78,7 @@ ProtoObject >> gtViewsFor: aView inContext: aContext [
 		build
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ProtoObject >> gtViewsInContext: aContext [
 	"This collects all views for the current object.
 	By default, it simply looks for the #gtView pragma.

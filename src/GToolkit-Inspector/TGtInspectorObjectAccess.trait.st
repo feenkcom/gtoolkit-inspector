@@ -1,40 +1,40 @@
 Trait {
-	#name : #TGtInspectorObjectAccess,
+	#name : 'TGtInspectorObjectAccess',
 	#instVars : [
 		'objectHolder'
 	],
 	#category : 'GToolkit-Inspector-Model'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 TGtInspectorObjectAccess >> defaultObjectHolder [
 	^ GtInspectorObject null
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TGtInspectorObjectAccess >> initializeObjectHolder [
 	objectHolder := self defaultObjectHolder
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 TGtInspectorObjectAccess >> object [
 	^ self objectHolder object
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 TGtInspectorObjectAccess >> object: anObject [
 	| anObjectHolder |
 	anObjectHolder := GtInspectorObject new object: anObject.
 	self objectHolder: anObjectHolder.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 TGtInspectorObjectAccess >> objectHolder [
 	<return: #GtInspectorObject>
 	^ objectHolder
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 TGtInspectorObjectAccess >> objectHolder: anObjectHolder [
 	self 
 		assert: [ anObjectHolder isNotNil ]
@@ -44,7 +44,7 @@ TGtInspectorObjectAccess >> objectHolder: anObjectHolder [
 	self onObjectHolderChanged.
 ]
 
-{ #category : #'hooks - object' }
+{ #category : 'hooks - object' }
 TGtInspectorObjectAccess >> onObjectHolderChanged [
 	"Classes can handle object holder changes"
 ]

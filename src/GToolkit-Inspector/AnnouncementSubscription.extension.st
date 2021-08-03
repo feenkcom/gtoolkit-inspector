@@ -1,6 +1,6 @@
-Extension { #name : #AnnouncementSubscription }
+Extension { #name : 'AnnouncementSubscription' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 AnnouncementSubscription >> gtSourceCodeFor: aView [ 
 	<gtView>
 	^ aView forward

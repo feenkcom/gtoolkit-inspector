@@ -1,6 +1,6 @@
-Extension { #name : #BlZoomableElement }
+Extension { #name : 'BlZoomableElement' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlZoomableElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)

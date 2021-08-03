@@ -1,6 +1,6 @@
-Extension { #name : #Pragma }
+Extension { #name : 'Pragma' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Pragma >> gtSourceFor: aView [
 	<gtView> 
 	^ self method gtSourceFor: aView

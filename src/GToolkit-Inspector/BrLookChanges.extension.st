@@ -1,6 +1,6 @@
-Extension { #name : #BrLookChanges }
+Extension { #name : 'BrLookChanges' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrLookChanges >> gtChangesFor: aView [
 	<gtView>
 	self changes ifNil: [ ^ aView empty ].

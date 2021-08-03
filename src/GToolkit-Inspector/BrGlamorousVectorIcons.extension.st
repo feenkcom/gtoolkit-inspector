@@ -1,6 +1,6 @@
-Extension { #name : #BrGlamorousVectorIcons }
+Extension { #name : 'BrGlamorousVectorIcons' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrGlamorousVectorIcons class >> gtIconsFor: aView [
 	<gtView>
 	<gtClassView>

@@ -1,6 +1,6 @@
-Extension { #name : #Form }
+Extension { #name : 'Form' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Form >> gtFormFor: aView [
 	<gtView>  
 	^ aView explicit

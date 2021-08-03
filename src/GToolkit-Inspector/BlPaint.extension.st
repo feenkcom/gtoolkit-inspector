@@ -1,11 +1,11 @@
-Extension { #name : #BlPaint }
+Extension { #name : 'BlPaint' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlPaint >> gtLiveFor: aView [
 	^ self gtPreviewFor: aView
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlPaint >> gtPreviewFor: aView [
 	<gtView>
 

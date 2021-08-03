@@ -1,6 +1,6 @@
-Extension { #name : #Dictionary }
+Extension { #name : 'Dictionary' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Dictionary >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -18,7 +18,7 @@ Dictionary >> gtItemsFor: aView [
 		send: [ :assoc | assoc value ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Dictionary >> gtKeysFor: aView [
 	<gtView>
 	^ aView list

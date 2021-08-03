@@ -1,13 +1,13 @@
-Extension { #name : #Object }
+Extension { #name : 'Object' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Object >> gtDisplayText [
 	^ [ self gtDisplayString asRopedText ]
 		on: Error 
 		do: [ :e | e printString asRopedText foreground: Color red ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Object >> gtInspectorForGtIn: composite [
 	"this is a bridge solution to embed all views into the existing inspector"
 	<gtInspectorPresentationOrder: 10>
@@ -27,13 +27,13 @@ Object >> gtInspectorForGtIn: composite [
 						fromElement: anEvent sourceElement) ] ] ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Object >> gtLiveFor: aView [
 	"I am a utility method that can be useful for polymorphic purposes"
 	^ self gtPrintFor: aView
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Object >> gtPrintFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -43,7 +43,7 @@ Object >> gtPrintFor: aView [
 		text: [ self printString asRopedText ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Object >> gtRawFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -68,4 +68,9 @@ Object >> gtRawFor: aView [
 			do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value;
 		actionUpdateButton
+]
+
+{ #category : '*GToolkit-Inspector' }
+Object >> gtSystemIconName [
+	^ self systemIconName
 ]

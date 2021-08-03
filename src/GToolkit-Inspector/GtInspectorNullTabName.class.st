@@ -1,22 +1,22 @@
 Class {
-	#name : #GtInspectorNullTabName,
-	#superclass : #GtInspectorAbstractTabName,
+	#name : 'GtInspectorNullTabName',
+	#superclass : 'GtInspectorAbstractTabName',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtInspectorNullTabName >> hasTabName [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtInspectorNullTabName >> isEqualToString: aString [
 	^ false
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtInspectorNullTabName >> printOn: aStream [
 	aStream nextPutAll: 'Without tab name'
 ]

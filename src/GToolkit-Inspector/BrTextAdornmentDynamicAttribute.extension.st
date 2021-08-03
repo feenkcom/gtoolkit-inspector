@@ -1,6 +1,6 @@
-Extension { #name : #BrTextAdornmentDynamicAttribute }
+Extension { #name : 'BrTextAdornmentDynamicAttribute' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTextAdornmentDynamicAttribute >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

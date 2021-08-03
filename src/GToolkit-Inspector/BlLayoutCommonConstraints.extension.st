@@ -1,6 +1,6 @@
-Extension { #name : #BlLayoutCommonConstraints }
+Extension { #name : 'BlLayoutCommonConstraints' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlLayoutCommonConstraints >> gtConstraintsFor: aView [ 
 	<gtView>
 	constraints ifNil: [ ^ aView empty ].

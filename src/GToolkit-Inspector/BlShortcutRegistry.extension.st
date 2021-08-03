@@ -1,6 +1,6 @@
-Extension { #name : #BlShortcutRegistry }
+Extension { #name : 'BlShortcutRegistry' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlShortcutRegistry >> gtItemsFor: aView [
 	<gtView>
 	self shortcuts ifEmpty: [ ^ aView empty ].

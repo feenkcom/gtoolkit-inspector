@@ -1,6 +1,6 @@
-Extension { #name : #BlAsyncDelayedPreviewStrategy }
+Extension { #name : 'BlAsyncDelayedPreviewStrategy' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlAsyncDelayedPreviewStrategy >> gtLiveFor: aView [
 	<gtView>
 	self previewStencil ifNil: [ ^ aView empty ].

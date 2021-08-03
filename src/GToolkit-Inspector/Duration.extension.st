@@ -1,6 +1,6 @@
-Extension { #name : #Duration }
+Extension { #name : 'Duration' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Duration >> gtViewDetailsIn: composite [
 	<gtView>
 	^ composite columnedList

@@ -1,6 +1,6 @@
-Extension { #name : #RBProgramNode }
+Extension { #name : 'RBProgramNode' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBProgramNode >> gtPropertiesFor: aView [
 	<gtView>
 	properties ifNil: [ ^ aView empty ].
@@ -17,7 +17,7 @@ RBProgramNode >> gtPropertiesFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	self methodNode ifNil: [ ^ aView empty ].
@@ -42,7 +42,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 				to: self stop ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
 	<gtView> 
 	^ aView tree
@@ -53,7 +53,7 @@ RBProgramNode >> gtTreeFor: aView [
 		expandAll
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBProgramNode >> gtVisualTreeFor: aView [
 	<gtView> 
 	| wrapperFactory |	

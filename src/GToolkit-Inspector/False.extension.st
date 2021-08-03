@@ -1,6 +1,6 @@
-Extension { #name : #False }
+Extension { #name : 'False' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 False >> gtLiveBackground [
 	^ BrGlamorousColors errorBackgroundColor
 ]

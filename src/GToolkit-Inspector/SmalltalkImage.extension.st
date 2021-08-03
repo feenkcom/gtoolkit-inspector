@@ -1,6 +1,6 @@
-Extension { #name : #SmalltalkImage }
+Extension { #name : 'SmalltalkImage' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 SmalltalkImage >> gtExamplesContainedFor: aView [
 	<gtView>
 	^ aView explicit

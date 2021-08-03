@@ -8,8 +8,8 @@ I use {{gtMethod:GtInspectorObject>>#asElementDo:}} to generate the object inspe
 
 "
 Class {
-	#name : #GtInspector,
-	#superclass : #GtInspectorObjectElement,
+	#name : 'GtInspector',
+	#superclass : 'GtInspectorObjectElement',
 	#traits : 'TGtPagerWindowOpener',
 	#classTraits : 'TGtPagerWindowOpener classTrait',
 	#instVars : [
@@ -23,23 +23,23 @@ Class {
 	#category : 'GToolkit-Inspector-! Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspector class >> embeddedPlaygroundName [
 	^ embeddedPlaygroundName ifNil: [ 
 		embeddedPlaygroundName := GtInspectorPlaygroundElement name ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspector class >> embeddedPlaygroundName: aClassName [
 	embeddedPlaygroundName := aClassName
 ]
 
-{ #category : #'api - instance creation' }
+{ #category : 'api - instance creation' }
 GtInspector class >> forObject: anObject [
 	^ self new object: anObject
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtInspector class >> gtActionsFor: aView [
 	<gtView>
 	<gtClassView>
@@ -48,7 +48,7 @@ GtInspector class >> gtActionsFor: aView [
 		priority: 35
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtInspector class >> gtExtensionsFor: aView [
 	<gtView>
 	<gtClassView>
@@ -57,25 +57,25 @@ GtInspector class >> gtExtensionsFor: aView [
 		priority: 34
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 GtInspector class >> inspectorViews [
 	<gtExample>
 	^ #gtView gtPragmas
 ]
 
-{ #category : #'api - instance creation' }
+{ #category : 'api - instance creation' }
 GtInspector class >> newOn: anObject [
 	"create an inspector element on a given object"
 	^ self forObject: anObject 
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspector >> contentElement [
 	<rerturn: #GtInspectorContentElement>
 	^ contentElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspector >> initialize [
 	super initialize.
 	self initializeTitleNotifier.
@@ -90,12 +90,12 @@ GtInspector >> initialize [
 	self playgroundElement collapse.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspector >> initializeContentElement [
 	contentElement := GtInspectorContentElement new.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspector >> initializeListeners [
 	self when: GtPagerPageAddedEvent do: [ :anEvent | 
 		self onAddedToPager: anEvent pager ].
@@ -106,14 +106,14 @@ GtInspector >> initializeListeners [
 	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspector >> initializePlaygroundElement [
 	playgroundElement := (self class environment 
 		at: self class embeddedPlaygroundName 
 		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspector >> initializeTitleNotifier [
 	titleNotifier := GtPhlowTitleIconAndLabelNotifier new
 		longLabel: [ GtPhlowLabelBuilder new object: self object; build ];
@@ -121,7 +121,7 @@ GtInspector >> initializeTitleNotifier [
 	self addEventHandler: titleNotifier.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtInspector >> onAddedToPager: aGtPager [
 	"Inspector was added to a pager"
 	self phlow
@@ -130,14 +130,14 @@ GtInspector >> onAddedToPager: aGtPager [
 				selectTabIn: aTabGroup on: self object ].
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 GtInspector >> onObjectHolderChanged [
 	super onObjectHolderChanged.
 	self contentElement objectHolder: self objectHolder.
 	self playgroundElement objectHolder: self objectHolder.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtInspector >> onRemovedFromPager: aGtPager [
 	"Inspector was removed from a pager"
 	| aInspectorTabName |
@@ -147,31 +147,31 @@ GtInspector >> onRemovedFromPager: aGtPager [
 	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 GtInspector >> onUpdateWish: anEvent [
 	anEvent consumed: true.
 	self updateElement.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspector >> playgroundElement [
 	<return: #GtInspectorObjectElement>
 	^ playgroundElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 GtInspector >> titleNotifier [
 	<return: #GtPhlowTitleNotifier>
 	^ titleNotifier
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtInspector >> updateElement [
 	self contentElement updateView.
 	self playgroundElement updatePlayPage.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtInspector >> updateTabLabel [
 	self titleNotifier notifyIfFocused
 ]

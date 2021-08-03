@@ -1,6 +1,6 @@
-Extension { #name : #ZnUrl }
+Extension { #name : 'ZnUrl' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnUrl >> gtUrlFor: aView [
 	<gtView>
 	^ aView textEditor

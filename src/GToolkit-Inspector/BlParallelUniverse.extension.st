@@ -1,6 +1,6 @@
-Extension { #name : #BlParallelUniverse }
+Extension { #name : 'BlParallelUniverse' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlParallelUniverse >> gtSpacesFor: aView [
 	<gtView>
 	

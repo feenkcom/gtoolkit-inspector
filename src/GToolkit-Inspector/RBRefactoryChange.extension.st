@@ -1,11 +1,11 @@
-Extension { #name : #RBRefactoryChange }
+Extension { #name : 'RBRefactoryChange' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBRefactoryChange >> gtChildren [
 	^ #()
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBRefactoryChange >> gtInspectorLabel [
 	| label |
 	label := BrLabel new.
@@ -17,7 +17,7 @@ RBRefactoryChange >> gtInspectorLabel [
 	^ label
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 RBRefactoryChange >> gtLabel [
 	^ self name asRopedText
 ]

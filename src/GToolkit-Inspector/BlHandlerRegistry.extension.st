@@ -1,6 +1,6 @@
-Extension { #name : #BlHandlerRegistry }
+Extension { #name : 'BlHandlerRegistry' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlHandlerRegistry >> gtHandlersFor: aView [
 	<gtView>
 	^ aView list

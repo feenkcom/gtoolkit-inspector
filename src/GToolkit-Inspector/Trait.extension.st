@@ -1,6 +1,6 @@
-Extension { #name : #Trait }
+Extension { #name : 'Trait' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Trait >> gtUsersFor: aView [
 	<gtView>
 	<gtClassView>

@@ -1,10 +1,10 @@
 Class {
-	#name : #GtInspectorSampleNotReturningTheView,
-	#superclass : #Object,
+	#name : 'GtInspectorSampleNotReturningTheView',
+	#superclass : 'Object',
 	#category : 'GToolkit-Inspector-Example Samples'
 }
 
-{ #category : #ui }
+{ #category : 'ui' }
 GtInspectorSampleNotReturningTheView >> gtViewNotReturningFor: aView [
 	<gtView>
 	

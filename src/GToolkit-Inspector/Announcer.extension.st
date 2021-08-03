@@ -1,6 +1,6 @@
-Extension { #name : #Announcer }
+Extension { #name : 'Announcer' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Announcer >> gtSubscriptionsFor: aView [
 	<gtView>
 	self subscriptions ifNil: [ ^ aView empty ].

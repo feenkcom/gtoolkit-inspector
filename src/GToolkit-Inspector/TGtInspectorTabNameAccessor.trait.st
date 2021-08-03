@@ -1,28 +1,28 @@
 Trait {
-	#name : #TGtInspectorTabNameAccessor,
+	#name : 'TGtInspectorTabNameAccessor',
 	#instVars : [
 		'tabName'
 	],
 	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 TGtInspectorTabNameAccessor >> defaultTabName [
 	^ GtInspectorTabName null
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TGtInspectorTabNameAccessor >> initializeTabName [
 	tabName := self defaultTabName.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtInspectorTabNameAccessor >> tabName [
 	<return: #GtInspectorTabName>
 	^ tabName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtInspectorTabNameAccessor >> tabName: aGtInspectorTabName [
 	self 
 		assert: [ aGtInspectorTabName isNotNil ]

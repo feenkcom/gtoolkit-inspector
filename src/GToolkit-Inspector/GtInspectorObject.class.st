@@ -1,6 +1,6 @@
 Class {
-	#name : #GtInspectorObject,
-	#superclass : #GtInspectorAbstractObject,
+	#name : 'GtInspectorObject',
+	#superclass : 'GtInspectorAbstractObject',
 	#instVars : [
 		'object',
 		'hasObject',
@@ -9,80 +9,80 @@ Class {
 	#category : 'GToolkit-Inspector-Model'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 GtInspectorObject class >> null [ 
 	^ GtInspectorNullObject default
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtInspectorObject >> asElementDo: aOneArgBlock [
 	"Create an element representing an object and execute the block"
 	self view asElementDo: aOneArgBlock
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtInspectorObject >> assertObjectImmutability [
 	self 
 		assert: [ hasObject not ]
 		description: [ 'Object holder is immutable. The object cannot be changed.' ].
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 GtInspectorObject >> assertViewSelectorImmutability [
 	self 
 		assert: [ self viewSelector = self defaultViewSelector ]
 		description: [ 'Object holder is immutable. The view selector cannot be changed.' ].
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtInspectorObject >> defaultViewSelector [
 	^ #gtViewsFor:
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtInspectorObject >> initialize [
 	super initialize.
 	hasObject := false.
 	viewSelector := self defaultViewSelector
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtInspectorObject >> notifyObjectChangedIn: anInspector [
 	anInspector notifyObjectChangedTo: self object.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorObject >> object [
 	^ object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorObject >> object: anObject [
 	self assertObjectImmutability.
 	object := anObject.
 	hasObject := true.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtInspectorObject >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Holder of ';
 		print: self object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorObject >> view [
 	<return: #GtPhlowLabelledView>
 	^ self object perform: self viewSelector with: GtPhlowView empty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorObject >> viewSelector [
 	<return: #Symbol>
 	^ viewSelector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorObject >> viewSelector: aSymbol [
 	self assertViewSelectorImmutability.
 	self 

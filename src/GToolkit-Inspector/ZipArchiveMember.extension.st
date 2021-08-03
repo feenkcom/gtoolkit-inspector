@@ -1,6 +1,6 @@
-Extension { #name : #ZipArchiveMember }
+Extension { #name : 'ZipArchiveMember' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZipArchiveMember >> gtContentsFor: aView [
 	<gtView>
 	^ aView textEditor

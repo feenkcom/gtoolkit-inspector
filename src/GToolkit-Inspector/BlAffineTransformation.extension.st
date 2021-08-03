@@ -1,13 +1,13 @@
-Extension { #name : #BlAffineTransformation }
+Extension { #name : 'BlAffineTransformation' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlAffineTransformation >> gtMatrixFor: aView [
 	<gtView>
 	
 	^ self asMatrix gtMatrixFor: aView
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlAffineTransformation >> gtPreviewFor: aView [
 	<gtView>
 	self is2D ifFalse: [ ^ aView empty ].
