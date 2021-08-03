@@ -69,3 +69,8 @@ Object >> gtRawFor: aView [
 		send: #value;
 		actionUpdateButton
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Object >> gtSystemIconName [
+	^ self systemIconName
+]
