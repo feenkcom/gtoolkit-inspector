@@ -54,17 +54,17 @@ This ability stays at the core of moldable development: Software is highly conte
 
 "
 Class {
-	#name : #BaselineOfGToolkitInspector,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGToolkitInspector
+	#name : 'BaselineOfGToolkitInspector',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGToolkitInspector'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGToolkitInspector >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'GToolkitPlayground' with: [
-				spec repository: 'github://feenkcom/gtoolkit-playground:v0.8.456/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-playground:v0.8.457/src' ].
 		spec package: 'GToolkit-Inspector' with: [
 				spec requires: #('GToolkitPlayground' ). ]. ].
 
