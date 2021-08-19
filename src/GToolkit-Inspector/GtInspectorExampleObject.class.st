@@ -5,12 +5,12 @@ The purpose it to exemplify {{gtClass:GtInspector}}.
 
 "
 Class {
-	#name : #GtInspectorExampleObject,
-	#superclass : #Object,
-	#category : #'GToolkit-Inspector-Example Samples'
+	#name : 'GtInspectorExampleObject',
+	#superclass : 'Object',
+	#category : 'GToolkit-Inspector-Example Samples'
 }
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtInspectorExampleObject >> gtViewOneFor: aView [
 	<gtView>
 	^ aView list
@@ -19,7 +19,7 @@ GtInspectorExampleObject >> gtViewOneFor: aView [
 		items: [ 1 to: 50 ]
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 GtInspectorExampleObject >> gtViewTwoFor: aView [
 	<gtView>
 	^ aView textEditor

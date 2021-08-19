@@ -1,6 +1,6 @@
-Extension { #name : #OrderedDictionary }
+Extension { #name : 'OrderedDictionary' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 OrderedDictionary >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -17,7 +17,7 @@ OrderedDictionary >> gtItemsFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 OrderedDictionary >> gtKeysFor: aView [
 	<gtView>
 	^ aView columnedList

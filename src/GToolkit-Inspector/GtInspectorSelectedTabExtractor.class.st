@@ -1,15 +1,15 @@
 Class {
-	#name : #GtInspectorSelectedTabExtractor,
-	#superclass : #Object,
+	#name : 'GtInspectorSelectedTabExtractor',
+	#superclass : 'Object',
 	#traits : 'TBlDebug + TGtElementAssertion',
 	#classTraits : 'TBlDebug classTrait + TGtElementAssertion classTrait',
 	#instVars : [
 		'inspectorElement'
 	],
-	#category : #'GToolkit-Inspector-Tab Selector'
+	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 GtInspectorSelectedTabExtractor >> extract [
 	<return: #GtInspectorTabName>
 	self inspectorElement phlow
@@ -21,13 +21,13 @@ GtInspectorSelectedTabExtractor >> extract [
 	^ GtInspectorTabName null
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorSelectedTabExtractor >> inspectorElement [
 	<return: #GtInspector>
 	^ inspectorElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorSelectedTabExtractor >> inspectorElement: aGtInspector [
 	self assertElement: aGtInspector.
 	inspectorElement := aGtInspector

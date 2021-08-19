@@ -1,6 +1,6 @@
-Extension { #name : #SignalLogger }
+Extension { #name : 'SignalLogger' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 SignalLogger class >> startBlocGlobalLogger [
 
 	BlSpaceRenderSignal ignore.

@@ -1,6 +1,6 @@
-Extension { #name : #BrTextEditor }
+Extension { #name : 'BrTextEditor' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTextEditor >> gtTextTreeFor: aView [
 	<gtView>
 	^ (self text gtTreeFor: aView) 

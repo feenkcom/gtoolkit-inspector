@@ -1,6 +1,6 @@
-Extension { #name : #GtPagerContext }
+Extension { #name : 'GtPagerContext' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtPagerContext >> inspectorTabSelector [
 	<return: #GtInspectorTabSelector>
 	^ self 

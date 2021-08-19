@@ -1,6 +1,6 @@
-Extension { #name : #GtResourcesUtilityResultContext }
+Extension { #name : 'GtResourcesUtilityResultContext' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtResourcesUtilityResultContext >> gtLocationFor: aView [
 	<gtView>
 	self location ifNil: [ ^ aView empty ].
@@ -9,7 +9,7 @@ GtResourcesUtilityResultContext >> gtLocationFor: aView [
 		title: 'Searched Location'
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtResourcesUtilityResultContext >> gtPathFor: aView [
 	<gtView>
 	self result ifNil: [ ^ aView empty ].

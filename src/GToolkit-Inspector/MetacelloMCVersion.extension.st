@@ -1,6 +1,6 @@
-Extension { #name : #MetacelloMCVersion }
+Extension { #name : 'MetacelloMCVersion' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloMCVersion >> = aMetacelloVersion [
 	"needed because the super implementation only checks the version number,
 	and we also need to ensure that we have the same configuration class"	
@@ -8,12 +8,12 @@ MetacelloMCVersion >> = aMetacelloVersion [
 		self spec project configuration class = aMetacelloVersion spec project configuration class ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloMCVersion >> gtDisplayOn: stream [
 	stream nextPutAll: self spec project configuration class name
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloMCVersion >> gtRPackages [
 	| gtRPackages |
 	gtRPackages := OrderedCollection new.

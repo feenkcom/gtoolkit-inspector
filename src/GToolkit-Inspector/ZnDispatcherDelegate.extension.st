@@ -1,6 +1,6 @@
-Extension { #name : #ZnDispatcherDelegate }
+Extension { #name : 'ZnDispatcherDelegate' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnDispatcherDelegate >> gtMapFor: aView [
 	<gtView>
 	^ self dispatcherDictionary gtItemsFor: aView

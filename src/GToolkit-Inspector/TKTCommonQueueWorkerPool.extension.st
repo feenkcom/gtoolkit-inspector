@@ -1,6 +1,6 @@
-Extension { #name : #TKTCommonQueueWorkerPool }
+Extension { #name : 'TKTCommonQueueWorkerPool' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
 	<gtView>
 	failedTasks isEmptyOrNil
@@ -17,7 +17,7 @@ TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
 		actionUpdateButtonTooltip: 'Update failed tasks list'
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 TKTCommonQueueWorkerPool >> gtQueueFor: aView [
 	<gtView>
 	^ aView list

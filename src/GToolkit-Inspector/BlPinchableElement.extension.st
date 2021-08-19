@@ -1,6 +1,6 @@
-Extension { #name : #BlPinchableElement }
+Extension { #name : 'BlPinchableElement' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlPinchableElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)

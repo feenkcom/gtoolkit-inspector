@@ -1,6 +1,6 @@
-Extension { #name : #DateAndTime }
+Extension { #name : 'DateAndTime' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 DateAndTime >> gtViewDetailsIn: composite [
 	<gtView>
 	^ composite columnedList

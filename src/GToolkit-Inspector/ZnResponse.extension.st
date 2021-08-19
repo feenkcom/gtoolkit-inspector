@@ -1,6 +1,6 @@
-Extension { #name : #ZnResponse }
+Extension { #name : 'ZnResponse' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnResponse >> gtJsonFor: aView [
 	<gtView>
 	self isNoContent ifTrue: [ ^ aView empty ].
@@ -27,7 +27,7 @@ ZnResponse >> gtJsonFor: aView [
 			editorElement ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZnResponse >> gtResponseFor: aView [
 	<gtView>
 	^ self statusLine 

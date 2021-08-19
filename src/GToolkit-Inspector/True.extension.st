@@ -1,6 +1,6 @@
-Extension { #name : #True }
+Extension { #name : 'True' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 True >> gtLiveBackground [
 	^ BrGlamorousColors successBackgroundColor
 ]

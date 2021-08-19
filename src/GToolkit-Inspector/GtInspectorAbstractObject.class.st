@@ -1,29 +1,29 @@
 Class {
-	#name : #GtInspectorAbstractObject,
-	#superclass : #Object,
+	#name : 'GtInspectorAbstractObject',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Inspector-Model'
+	#category : 'GToolkit-Inspector-Model'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtInspectorAbstractObject class >> isAbstract [ 
 	^ self name = #GtInspectorAbstractObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtInspectorAbstractObject >> asElementDo: aOneArgBlock [
 	"Create an element representing an object and execute the block"
 	self subclassResponsibility
 ]
 
-{ #category : #notifying }
+{ #category : 'notifying' }
 GtInspectorAbstractObject >> notifyObjectChangedIn: anInspector [
 	"Notify about object changes"
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtInspectorAbstractObject >> object [
 	"Return an inspecting object"
 	^ self subclassResponsibility

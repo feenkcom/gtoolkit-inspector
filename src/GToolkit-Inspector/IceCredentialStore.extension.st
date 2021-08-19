@@ -1,6 +1,6 @@
-Extension { #name : #IceCredentialStore }
+Extension { #name : 'IceCredentialStore' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 IceCredentialStore >> gtAllCredentialsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -18,7 +18,7 @@ IceCredentialStore >> gtAllCredentialsFor: aView [
 					self removeCredential: aCredential. ] ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 IceCredentialStore >> gtRemoveStoreFileFor: anAction [
 	<gtAction>
 	^ anAction button

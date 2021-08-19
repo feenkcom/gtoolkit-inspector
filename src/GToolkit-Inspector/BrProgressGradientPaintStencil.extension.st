@@ -1,6 +1,6 @@
-Extension { #name : #BrProgressGradientPaintStencil }
+Extension { #name : 'BrProgressGradientPaintStencil' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrProgressGradientPaintStencil >> gtNextGradientsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -19,7 +19,7 @@ BrProgressGradientPaintStencil >> gtNextGradientsFor: aView [
 							c vertical matchParent ] ] ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrProgressGradientPaintStencil >> gtPreviewFor: aView [
 	^ (super gtPreviewFor: aView)
 		actionButtonIcon: BrGlamorousIcons refresh 

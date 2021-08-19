@@ -1,6 +1,6 @@
-Extension { #name : #ZdcSocketStream }
+Extension { #name : 'ZdcSocketStream' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZdcSocketStream >> gtLiveTranscriptFor: aView [
 	<gtView>
 	^ aView forward

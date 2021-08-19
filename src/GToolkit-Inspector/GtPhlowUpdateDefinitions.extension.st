@@ -1,6 +1,6 @@
-Extension { #name : #GtPhlowUpdateDefinitions }
+Extension { #name : 'GtPhlowUpdateDefinitions' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GtPhlowUpdateDefinitions >> gtDefinitionsFor: aView [
 	<gtView>
 	self definitions ifNil: [ ^ aView empty ].

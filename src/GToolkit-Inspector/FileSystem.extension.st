@@ -1,6 +1,6 @@
-Extension { #name : #FileSystem }
+Extension { #name : 'FileSystem' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 FileSystem >> gtRootItemsFor: aView [
 	<gtView>
 	self root ifNil: [ ^ aView empty ].
@@ -8,7 +8,7 @@ FileSystem >> gtRootItemsFor: aView [
 		title: 'Root directory'
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 FileSystem >> gtWorkingItemsFor: aView [
 	<gtView>
 	self workingDirectory ifNil: [ ^ aView empty ].

@@ -1,6 +1,6 @@
-Extension { #name : #BlVector }
+Extension { #name : 'BlVector' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlVector >> gtPreviewFor: aView [
 	<gtView>
 	((self isKindOf: BlVector2D) and: [ self length isZero not ])

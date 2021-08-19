@@ -1,6 +1,6 @@
-Extension { #name : #Association }
+Extension { #name : 'Association' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Association >> gtAssociationViewLiveFor: aView [
 	<gtView>
 	^ aView forward
@@ -14,7 +14,7 @@ Association >> gtAssociationViewLiveFor: aView [
 				aButton phlow spawnObject: self value ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Association >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit
@@ -22,7 +22,7 @@ Association >> gtPreviewFor: aView [
 		stencil: [ self newPreviewStencil ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Association >> newPreviewStencil [
 	| aContainer aKeyElement anArrowElement aValueElement |
 	aKeyElement := BrButton new

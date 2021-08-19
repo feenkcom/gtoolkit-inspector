@@ -1,6 +1,6 @@
-Extension { #name : #SymbolicBytecode }
+Extension { #name : 'SymbolicBytecode' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 SymbolicBytecode >> gtSourceFor: aView [
 	<gtView>
 	^ aView textEditor

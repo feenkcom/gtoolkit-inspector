@@ -1,6 +1,6 @@
-Extension { #name : #BlBaseAnimation }
+Extension { #name : 'BlBaseAnimation' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlBaseAnimation >> gtPropertiesFor: aView [
 	<gtView>
 

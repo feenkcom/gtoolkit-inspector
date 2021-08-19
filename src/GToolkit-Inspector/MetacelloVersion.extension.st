@@ -1,6 +1,6 @@
-Extension { #name : #MetacelloVersion }
+Extension { #name : 'MetacelloVersion' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloVersion >> gtPackagesFor: aView [
 	<gtView>
 	^ aView list
@@ -13,7 +13,7 @@ MetacelloVersion >> gtPackagesFor: aView [
 				do: [ aNode errorMessage asRopedText foreground: Color red ] ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloVersion >> gtProjectMapFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -48,7 +48,7 @@ MetacelloVersion >> gtProjectMapFor: aView [
 			mondrian layout horizontalDominanceTree nodeDistance: 10; levelDistance: 10 ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 MetacelloVersion >> gtProjectsFor: aView [
 	<gtView>
 	^ aView list

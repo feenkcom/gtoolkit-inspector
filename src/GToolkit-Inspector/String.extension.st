@@ -1,11 +1,11 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 String >> gtDisplayOn: aStream [
 	aStream nextPutAll: self
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 String >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -60,7 +60,7 @@ String >> gtLiveFor: aView [
 		]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 String >> gtStringFor: aView [
 	<gtView>
 	^ aView explicit

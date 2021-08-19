@@ -1,6 +1,6 @@
-Extension { #name : #Archive }
+Extension { #name : 'Archive' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 Archive >> gtMembersFor: aView [
 	<gtView>
 	^ aView list 

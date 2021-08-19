@@ -1,6 +1,6 @@
-Extension { #name : #ByteArray }
+Extension { #name : 'ByteArray' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 	^ {('hex string'
 		->
@@ -32,7 +32,7 @@ ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 	('integer reversed' -> aDisplayedBytes reversed asInteger)}
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ByteArray >> gtBytesFor: aView [
 	<gtView>
 	^ aView list
@@ -45,7 +45,7 @@ ByteArray >> gtBytesFor: aView [
 			self gtByteAssociationsFor: aDisplayedBytes ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ByteArray >> gtHexDumpFor: aView [
 	<gtView>
 	 self isCompiledMethod ifTrue: [ ^ aView empty ].

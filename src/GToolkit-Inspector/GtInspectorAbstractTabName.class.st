@@ -1,17 +1,17 @@
 Class {
-	#name : #GtInspectorAbstractTabName,
-	#superclass : #Object,
+	#name : 'GtInspectorAbstractTabName',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : #'GToolkit-Inspector-Tab Selector'
+	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtInspectorAbstractTabName >> hasTabName [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtInspectorAbstractTabName >> isEqualToString: aString [
 	<return: #Boolean>
 	^ self subclassResponsibility

@@ -1,6 +1,6 @@
-Extension { #name : #BrTextStylerDeferringTask }
+Extension { #name : 'BrTextStylerDeferringTask' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTextStylerDeferringTask >> gtInfoDictionary [
 	^ {
 		#stylerStrategy -> self stylerAsyncStrategy.
@@ -11,7 +11,7 @@ BrTextStylerDeferringTask >> gtInfoDictionary [
 	 }
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BrTextStylerDeferringTask >> gtInfoFor: aView [
 	<gtView>
 

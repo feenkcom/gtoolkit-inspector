@@ -1,6 +1,6 @@
-Extension { #name : #BlTktValuableCommand }
+Extension { #name : 'BlTktValuableCommand' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlTktValuableCommand >> gtBlockClosureFor: aView [
 	<gtView>
 	^ self valuable

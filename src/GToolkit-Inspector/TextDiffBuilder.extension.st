@@ -1,6 +1,6 @@
-Extension { #name : #TextDiffBuilder }
+Extension { #name : 'TextDiffBuilder' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 TextDiffBuilder >> asElement [
 	^ (GtDiffElement on: self) aptitude: GtDiffShadowAptitude
 ]

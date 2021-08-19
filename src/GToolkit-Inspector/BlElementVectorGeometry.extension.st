@@ -1,6 +1,6 @@
-Extension { #name : #BlElementVectorGeometry }
+Extension { #name : 'BlElementVectorGeometry' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlElementVectorGeometry >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

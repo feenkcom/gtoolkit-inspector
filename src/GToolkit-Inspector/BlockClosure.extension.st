@@ -1,6 +1,6 @@
-Extension { #name : #BlockClosure }
+Extension { #name : 'BlockClosure' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlockClosure >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView forward
@@ -14,7 +14,7 @@ BlockClosure >> gtSourceCodeFor: aView [
 				aButton phlow spawnObject: self ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 BlockClosure >> gtVariablesFor: aView [
 	<gtView>
 	self outerContext ifNil: [ ^ aView empty ].

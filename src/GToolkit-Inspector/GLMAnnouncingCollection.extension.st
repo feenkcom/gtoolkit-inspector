@@ -1,6 +1,6 @@
-Extension { #name : #GLMAnnouncingCollection }
+Extension { #name : 'GLMAnnouncingCollection' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 	<gtAction>
 	| action |
@@ -18,7 +18,7 @@ GLMAnnouncingCollection >> gtAddRandomItemAction: anAction [
 	].
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GLMAnnouncingCollection >> gtItemsFor: aView [
     <gtView>
     ^ aView list
@@ -31,7 +31,7 @@ GLMAnnouncingCollection >> gtItemsFor: aView [
 		  itemText: [ :each | each gtDisplayString]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 GLMAnnouncingCollection >> gtRemoveRandomItemAction: anAction [
 	<gtAction>
 	| action |

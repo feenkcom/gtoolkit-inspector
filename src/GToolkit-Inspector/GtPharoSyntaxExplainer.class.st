@@ -1,6 +1,6 @@
 Class {
-	#name : #GtPharoSyntaxExplainer,
-	#superclass : #BrStencil,
+	#name : 'GtPharoSyntaxExplainer',
+	#superclass : 'BrStencil',
 	#instVars : [
 		'method',
 		'tooltips',
@@ -11,10 +11,10 @@ Class {
 	#classInstVars : [
 		'method'
 	],
-	#category : #'GToolkit-Inspector-Convenience and Utilities'
+	#category : 'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtPharoSyntaxExplainer >> constructsList [
 	| verticalContainer messageNodesGroup variableNodesGroup arrayNodesGroup literalValueNodesGroup otherNodesGroup sourceCode ast detectedConstructs |
 	sourceCode := method sourceCode.
@@ -77,7 +77,7 @@ GtPharoSyntaxExplainer >> constructsList [
 		aptitude: BrShadowAptitude new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoSyntaxExplainer >> create [
 	| mainContainer constructsContainer coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
 	
@@ -148,7 +148,7 @@ GtPharoSyntaxExplainer >> create [
 	^ mainContainer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoSyntaxExplainer >> dividerBarElement [
 	^ BlElement new
 		constraintsDo: [ :c |
@@ -157,7 +157,7 @@ GtPharoSyntaxExplainer >> dividerBarElement [
 		background: BrGlamorousColors lightBorderColor
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtPharoSyntaxExplainer >> explanationLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
@@ -182,12 +182,12 @@ GtPharoSyntaxExplainer >> explanationLabelFor: aNodeNameSymbol [
 		padding: (BlInsets all: 5)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPharoSyntaxExplainer >> forMethod: aMethod [
 	method := aMethod.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoSyntaxExplainer >> groupLabelWithText: aText [
 	^ BrLabel new
 		beSmallSize;
@@ -197,7 +197,7 @@ GtPharoSyntaxExplainer >> groupLabelWithText: aText [
 		hExact: 70.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoSyntaxExplainer >> horizontalGroupElement [
 	^ BlElement new
 		constraintsDo: [ :c | 
@@ -207,7 +207,7 @@ GtPharoSyntaxExplainer >> horizontalGroupElement [
 		layout: BlLinearLayout horizontal.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtPharoSyntaxExplainer >> initialize [
 	| associationsCollection |
 	super initialize.
@@ -243,7 +243,7 @@ GtPharoSyntaxExplainer >> initialize [
 		tooltips at: each key put: (each value asRopedText glamorousRegularFont fontSize: 15) ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtPharoSyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 	| nodeName |
 	
@@ -257,7 +257,7 @@ GtPharoSyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoSyntaxExplainer >> verticalGroupElement [
 	^ BrVerticalPane new fitContent
 ]

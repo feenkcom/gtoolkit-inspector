@@ -1,6 +1,6 @@
-Extension { #name : #ZipFileMember }
+Extension { #name : 'ZipFileMember' }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZipFileMember >> gtFigureFor: aView [
 	<gtView>
 		
@@ -23,7 +23,7 @@ ZipFileMember >> gtFigureFor: aView [
 			anElement ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : '*GToolkit-Inspector' }
 ZipFileMember >> gtJsonFor: aView [
 	<gtView>
 	( self fileName endsWith: '.json' ) ifFalse:  [ ^ aView empty ].
