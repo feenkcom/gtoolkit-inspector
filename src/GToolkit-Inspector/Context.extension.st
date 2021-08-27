@@ -4,7 +4,7 @@ Extension { #name : 'Context' }
 Context >> gtSourceFor: aView [
 	<gtView>
 	self method ifNil: [ ^ aView empty ].
-	^ self method gtSourceFor: aView
+	^ self blocDefiningMethod gtSourceFor: aView
 ]
 
 { #category : '*GToolkit-Inspector' }
