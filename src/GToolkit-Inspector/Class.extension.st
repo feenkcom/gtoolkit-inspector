@@ -22,15 +22,16 @@ Class >> gtAllReferencesOutsideFor: aView [
 
 { #category : '*GToolkit-Inspector' }
 Class >> gtDefinitionFor: aView [
+
 	<gtView>
-	^ aView textEditor  
-		title: 'Definition';
-		priority: 1; 
-		styler: (BrRBTextStyler new 
-				isForWorkspace: true;
-				yourself);
-		aptitude: BrGlamorousCodeEditorAptitude;
-		text: [ self definition asRopedText ].
+	^ aView textEditor
+		  title: 'Definition';
+		  priority: 1;
+		  styler: (BrRBTextStyler new
+				   isForWorkspace: true;
+				   yourself);
+		  aptitude: BrGlamorousCodeEditorAptitude;
+		  text: [ self definitionString asRopedText ]
 ]
 
 { #category : '*GToolkit-Inspector' }
