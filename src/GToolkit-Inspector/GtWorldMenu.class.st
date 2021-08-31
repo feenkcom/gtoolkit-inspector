@@ -127,7 +127,7 @@ GtWorldMenu class >> openTour [
 
 { #category : 'api - actions' }
 GtWorldMenu class >> openWorld [
-	GtWorld open
+	GtWorld openDefault
 ]
 
 { #category : 'world menu' }
