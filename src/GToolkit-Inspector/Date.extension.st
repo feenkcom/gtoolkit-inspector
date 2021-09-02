@@ -12,7 +12,7 @@ Date >> gtDetailsFor: aView [
 			('day of month' -> self dayOfMonth).
 			('day of week' -> self dayOfWeekName).
 			('day of year' -> self dayOfYear)} ];
-		column: 'Key' item: #key;
-		column: 'Value' item: #value;
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]

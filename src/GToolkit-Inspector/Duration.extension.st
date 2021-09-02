@@ -11,7 +11,7 @@ Duration >> gtViewDetailsIn: composite [
 			('minutes' -> self minutes).
 			('seconds' -> self seconds).
 			('nanoseconds' -> self nanoSeconds)} ];
-		column: 'Key' item: #key;
-		column: 'Value' item: #value;
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]

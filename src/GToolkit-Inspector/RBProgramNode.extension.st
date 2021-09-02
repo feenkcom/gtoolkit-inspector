@@ -11,9 +11,9 @@ RBProgramNode >> gtPropertiesFor: aView [
 			ifNil: #() 
 			ifNotNil: [ :aDictionary |
 				aDictionary associations ] ];
-		column: 'Key' item: #key;
-		column: 'Value' item: #value weight: 3;
-		column: 'Type' item: [ :anAssoc | anAssoc value class ] weight: 2;
+		column: 'Key' text: #key;
+		column: 'Value' text: #value weight: 3;
+		column: 'Type' text: [ :anAssoc | anAssoc value class ] weight: 2;
 		send: #value
 ]
 

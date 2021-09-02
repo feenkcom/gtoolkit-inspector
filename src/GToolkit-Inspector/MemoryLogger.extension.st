@@ -7,8 +7,8 @@ MemoryLogger >> gtGroupedFor: aView [
 		title: 'Grouped';
 		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
 		updateWhen: Announcement in: [ self announcer ];
-		column: 'Class' item: [ :each | each key asString ];
-		column: 'Instances' item: [ :each | each value size asString  ];
+		column: 'Class' text: [ :each | each key asString ];
+		column: 'Instances' text: [ :each | each value size asString  ];
 		send: #value
 ]
 
@@ -20,11 +20,11 @@ MemoryLogger >> gtRecordingsFor: aView [
 		priority: 50;
 		items: [ self recordings reverse ];
 		updateWhen: Announcement in: [ self announcer ];
-		column: 'Timestamp' translated item: [ :each | each timestamp asString ];
-		column: 'Process' translated item: [ :each | each processId asString ];
-		column: 'Type' translated item: [ :each | each name ];
+		column: 'Timestamp' translated text: [ :each | each timestamp asString ];
+		column: 'Process' translated text: [ :each | each processId asString ];
+		column: 'Type' translated text: [ :each | each name ];
 		column: 'Contents' translated 
-			item: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]
+			text: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]
 ]
 
 { #category : '*GToolkit-Inspector' }

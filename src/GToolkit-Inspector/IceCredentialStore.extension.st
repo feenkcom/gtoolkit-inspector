@@ -6,9 +6,9 @@ IceCredentialStore >> gtAllCredentialsFor: aView [
 	^ aView columnedList
 		title: 'All Credentials';
 		items: [ self allCredentials ];
-		column: 'Host' item: #hostDescription weight: 1;
-		column: 'Type' item: #type weight: 1;
-		column: 'Description' item: #description weight: 5;
+		column: 'Host' text: #hostDescription weight: 1;
+		column: 'Type' text: #type weight: 1;
+		column: 'Description' text: #description weight: 5;
 		column: 'Remove' icon: [ :aCredential |
 			BrButton new 
 				aptitude: BrGlamorousButtonWithIconAptitude;

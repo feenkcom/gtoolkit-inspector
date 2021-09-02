@@ -7,9 +7,9 @@ GtResourcesUtility >> gtLocationsFor: aView [
 	^ aView columnedList
 		title: 'Locations';
 		items: [ self locations ];
-		column: 'Name' item: [ :aLocation | aLocation printString ];
+		column: 'Name' text: [ :aLocation | aLocation printString ];
 		column: 'Exists' 
-			item: [ :aLocation | aLocation exists 
+			text: [ :aLocation | aLocation exists 
 				ifTrue: [ 'available' asRopedText foreground: BrGlamorousColors successBackgroundColor ] 
 				ifFalse: [ 'unavailable' asRopedText foreground: BrGlamorousColors errorBackgroundColor ] ] 
 			width: 100

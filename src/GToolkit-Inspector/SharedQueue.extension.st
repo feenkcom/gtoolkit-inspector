@@ -7,6 +7,6 @@ SharedQueue >> gtItemsFor: aView [
 	^ aView columnedList 
 		title: 'Items';
 		items: [ monitor critical: [ items copy ] ];
-		column: 'Index' item: [ :anItem :anIndex | anIndex ] width: 100;
-		column: 'Item' item: [ :anItem :anIndex | anItem ]
+		column: 'Index' text: [ :anItem :anIndex | anIndex ] width: 100;
+		column: 'Item' text: [ :anItem :anIndex | anItem ]
 ]

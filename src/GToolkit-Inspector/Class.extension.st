@@ -53,8 +53,8 @@ Class >> gtInstanceVariablesFor: aView [
 		priority: 5;
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];
-		column: 'Variable' item: #key;
-		column: 'Value' item: #value;
+		column: 'Variable' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]
 

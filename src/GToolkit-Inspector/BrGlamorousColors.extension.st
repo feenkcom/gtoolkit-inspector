@@ -8,7 +8,7 @@ BrGlamorousColors class >> gtClassVariablesFor: aView [
 		priority: 0.7;
 		items: [ self classVariables ];
 		column: 'Icon' icon: [ :anAssoc | anAssoc value gtInspectorIcon asElement ];
-		column: 'Class Variable' item: #key;
+		column: 'Class Variable' text: #key;
 		send: #value
 ]
 
@@ -24,6 +24,6 @@ BrGlamorousColors class >> gtColorsFor: aView [
 		column: 'Icon' 
 			icon: [ :aSymbol | (self perform: aSymbol) gtInspectorIcon asElement asScalableElement ]
 			width: 32;
-		column: 'Selector' item: [ :aSymbol | aSymbol asString ];
+		column: 'Selector' text: [ :aSymbol | aSymbol asString ];
 		send: [ :aSymbol | self perform: aSymbol ]
 ]

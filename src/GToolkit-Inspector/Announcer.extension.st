@@ -9,7 +9,7 @@ Announcer >> gtSubscriptionsFor: aView [
 		priority: 50;
 		items: [ self subscriptions subscriptions asArray ];
 		actionUpdateButtonTooltip: 'Update subscription list';
-		column: 'Subscriber' item: [ :aSubscription | aSubscription subscriber ];
-		column: 'Announcement' item: [ :aSubscription | aSubscription announcementClass ];
-		column: 'Kind' item: [ :aSubscription | aSubscription class ]
+		column: 'Subscriber' text: [ :aSubscription | aSubscription subscriber ];
+		column: 'Announcement' text: [ :aSubscription | aSubscription announcementClass ];
+		column: 'Kind' text: [ :aSubscription | aSubscription class ]
 ]

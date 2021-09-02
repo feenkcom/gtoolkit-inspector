@@ -70,10 +70,10 @@ GtExampleGroup >> buildListViewFor: aView [
 					aLabel background: anExample icon.
 					aLabel userData at: #example put: anExample ] ];
 		column: 'Class' translated 
-			item: [ :eachExample :anIndex | 
+			text: [ :eachExample :anIndex | 
 				eachExample example classLabel ];
 		column: 'Selector' translated 
-			item: [ :eachExample :anIndex | 
+			text: [ :eachExample :anIndex | 
 				eachExample example selector asString ];
 		column: 'Result' translated do: [ :aColumn | 
 			aColumn

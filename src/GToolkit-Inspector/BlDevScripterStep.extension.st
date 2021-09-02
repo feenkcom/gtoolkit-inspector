@@ -25,8 +25,8 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 				BrLabel new text: each stateName; aptitude: (BrGlamorousLabelAptitude new);
 					geometry: (BlRoundedRectangleGeometry cornerRadius: 2); background: each stateColor ]
 			weight: 1;
-		column: 'Step' item: #label weight: 4;
-		column: 'Target' item: #target weight: 2
+		column: 'Step' text: #label weight: 4;
+		column: 'Target' text: #target weight: 2
 ]
 
 { #category : '*GToolkit-Inspector' }

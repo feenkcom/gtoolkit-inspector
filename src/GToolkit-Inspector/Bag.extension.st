@@ -8,7 +8,7 @@ Bag >> gtOccurrencesFor: aView [
 	^ aView columnedTree
 		title: 'Occurrences';
 		items: [ self sortedCounts ];
-		column: 'Item' item: [ :anAssoc | anAssoc value ];
-		column: 'Occurrences' item: [ :anAssoc | anAssoc key ];
+		column: 'Item' text: [ :anAssoc | anAssoc value ];
+		column: 'Occurrences' text: [ :anAssoc | anAssoc key ];
 		send: [ :anAssoc | anAssoc value ]
 ]

@@ -6,5 +6,5 @@ BrTabGroupHeaderAptitude >> gtTabsFor: aView [
 	^ aView columnedList
 		title: 'Tabs';
 		items: [ self tabs ];
-		column: 'Model' item: #key
+		column: 'Model' text: #key
 ]

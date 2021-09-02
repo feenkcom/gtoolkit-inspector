@@ -53,7 +53,7 @@ SequenceableCollection >> gtItemsFor: aView [
 		items: [ self ];
 		actionUpdateButtonTooltip: 'Update item list';
 		column: 'Index' 
-			item: [ :eachItem :eachIndex | 
+			text: [ :eachItem :eachIndex | 
 				eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Item' 

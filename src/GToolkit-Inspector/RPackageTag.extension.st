@@ -9,8 +9,8 @@ RPackageTag >> gtDefinedClassesFor: aView [
 		items: [ (self classes sorted: [ :a :b | a name < b name ])
 				collect: #asRingDefinition
 				as: OrderedCollection ];
-		column: 'Name' item: [ :aRing | aRing name ];
-		column: 'Category' item: [ :aRing | aRing category ]
+		column: 'Name' text: [ :aRing | aRing name ];
+		column: 'Category' text: [ :aRing | aRing category ]
 ]
 
 { #category : '*GToolkit-Inspector' }

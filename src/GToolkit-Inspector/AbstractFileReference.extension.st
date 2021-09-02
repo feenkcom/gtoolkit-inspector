@@ -315,13 +315,13 @@ AbstractFileReference >> gtZipItemsFor: aView [
 						ifTrue: [ BrGlamorousIcons folder asElement ]
 						ifFalse: [ BrGlamorousIcons file asElement ]];
 		column: 'Name'
-			item: [ :each | 
+			text: [ :each | 
 				(self isChildOf: each)
 					ifTrue: [ '..' ]
 					ifFalse: [ each basename asString ] ];
 		column: 'Size'
-			item: [ :each | each humanReadableSize asString ];
-		column: 'Creation' item: [ :each | 
+			text: [ :each | each humanReadableSize asString ];
+		column: 'Creation' text: [ :each | 
 			String
 				streamContents: [ :s | 
 					each creationTime printYMDOn: s.
