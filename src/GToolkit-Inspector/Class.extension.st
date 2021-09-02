@@ -28,8 +28,8 @@ Class >> gtClassSlotsFor: aView [
 		priority: 6;
 		items: [ self classVarNames sorted
 				collect: [ :each | each -> (self classVarNamed: each) ] ];
-		column: 'Variable' item: #key;
-		column: 'Value' item: #value;
+		column: 'Variable' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]
 
@@ -66,8 +66,8 @@ Class >> gtInstanceSlotsFor: aView [
 		priority: 5;
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];
-		column: 'Variable' item: #key;
-		column: 'Value' item: #value;
+		column: 'Variable' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]
 
