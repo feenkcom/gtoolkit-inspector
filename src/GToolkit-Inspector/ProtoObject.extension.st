@@ -14,7 +14,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
 		icon: BrGlamorousVectorIcons inspect;
-		tooltip: 'Inspect object';
+		tooltip: 'Inspect Object';
 		action: [ :button | button phlow spawnObject: self]
 ]
 
@@ -23,7 +23,7 @@ ProtoObject >> gtActionInspectInWindowFor: anAction [
 	<gtAction>
 	^ anAction button
 		icon: BrGlamorousIcons maximize;
-		tooltip: 'Inspect object in a new window';
+		tooltip: 'Inspect Object in a New Window';
 		action: [ (GtPager openWrappedOn: (GtInspectorTool forObject: self) title: ('GtInspector @ {1}' format: { self })) maximized ]
 ]
 

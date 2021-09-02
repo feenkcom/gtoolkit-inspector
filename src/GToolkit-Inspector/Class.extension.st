@@ -21,6 +21,19 @@ Class >> gtAllReferencesOutsideFor: aView [
 ]
 
 { #category : '*GToolkit-Inspector' }
+Class >> gtClassSlotsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Class Slots';
+		priority: 6;
+		items: [ self classVarNames sorted
+				collect: [ :each | each -> (self classVarNamed: each) ] ];
+		column: 'Variable' item: #key;
+		column: 'Value' item: #value;
+		send: #value
+]
+
+{ #category : '*GToolkit-Inspector' }
 Class >> gtDefinitionFor: aView [
 
 	<gtView>
@@ -46,15 +59,15 @@ Class >> gtExamplesFor: aView [
 ]
 
 { #category : '*GToolkit-Inspector' }
-Class >> gtInstanceVariablesFor: aView [
+Class >> gtInstanceSlotsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'InstVars';
+		title: 'Instance Slots';
 		priority: 5;
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];
-		column: 'Variable' text: #key;
-		column: 'Value' text: #value;
+		column: 'Variable' item: #key;
+		column: 'Value' item: #value;
 		send: #value
 ]
 
