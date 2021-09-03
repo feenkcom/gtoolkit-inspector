@@ -59,12 +59,12 @@ GtOmbuSessions >> gtItemsFor: aView [
 			each isDirectory
 				ifTrue: [ BrGlamorousIcons folder ]
 				ifFalse: [ BrGlamorousIcons file ] ];
-		column: 'Name' translated item: [ :each | 
+		column: 'Name' translated text: [ :each | 
 					(directory isChildOf: each)
 						ifTrue: [ '..' ]
 						ifFalse: [ each basename asString ] ];
-		column: 'Size' translated item: [ :each | each humanReadableSize asString ];
-		column: 'Creation' translated item: [ :each | 
+		column: 'Size' translated text: [ :each | each humanReadableSize asString ];
+		column: 'Creation' translated text: [ :each | 
 					String
 						streamContents: [ :s | 
 							each creationTime printYMDOn: s.

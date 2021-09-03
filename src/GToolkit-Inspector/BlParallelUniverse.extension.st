@@ -8,8 +8,8 @@ BlParallelUniverse >> gtSpacesFor: aView [
 		title: 'Spaces';
 		priority: 10;
 		items: [ self spaces ];
-		column: 'Index' item: [ :eachSpace :anIndex | anIndex ] width: 50;
-		column: 'Name' item: [ :eachSpace | eachSpace ifNotNil: #title ifNil: 'nil' ];
+		column: 'Index' text: [ :eachSpace :anIndex | anIndex ] width: 50;
+		column: 'Name' text: [ :eachSpace | eachSpace ifNotNil: #title ifNil: 'nil' ];
 		actionButtonIcon: BrGlamorousIcons trash 
 			action: [
 				self spaces do: #close.

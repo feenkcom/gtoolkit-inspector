@@ -8,7 +8,7 @@ BrTabGroup >> gtTabsFor: aView [
 		title: 'Tabs';
 		priority: 3;
 		items: [ self viewModel tabs ];
-		column: 'Name' item: #yourself;
-		column: 'Selection' item: #isSelected width: 80;
+		column: 'Name' text: #yourself;
+		column: 'Selection' text: #isSelected width: 80;
 		actionUpdateButtonTooltip: 'Update tab list'
 ]

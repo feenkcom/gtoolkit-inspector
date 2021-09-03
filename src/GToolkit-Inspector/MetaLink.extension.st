@@ -17,6 +17,6 @@ MetaLink >> gtPluginsFor: aView [
 		title: 'Plugins';
 		priority: 5;
 		items: [ RFReification subclasses ];
-		column: 'Plugin' item: #yourself;
-		column: 'Supported Nodes' item: #entities weight: 2.
+		column: 'Plugin' text: #yourself;
+		column: 'Supported Nodes' text: #entities weight: 2.
 ]

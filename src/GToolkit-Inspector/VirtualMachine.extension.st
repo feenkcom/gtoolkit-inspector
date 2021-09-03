@@ -11,8 +11,8 @@ VirtualMachine >> gtDetailsFor: aView [
 			('VM version' -> self version).
 			('Image directory' -> self imagePath asFileReference parent).
 			('Image version' -> self imageVersionNumber)} ];
-		column: 'Property' item: [:assoc | assoc key ];
-		column: 'Value' item: [:assoc | assoc value gtDisplayString ];
+		column: 'Property' text: [:assoc | assoc key ];
+		column: 'Value' text: [:assoc | assoc value gtDisplayString ];
 		send: #value
 ]
 
@@ -34,8 +34,8 @@ VirtualMachine >> gtParametersFor: aView [
 					ifTrue: ['unlimited']
 					ifFalse: [(self parameterAt: 67) humanReadableSIByteSize])).
 			} ];
-		column: 'Property' item: [:assoc | assoc key ];
-		column: 'Value' item: [:assoc | assoc value gtDisplayString ];
+		column: 'Property' text: [:assoc | assoc key ];
+		column: 'Value' text: [:assoc | assoc value gtDisplayString ];
 		send: #value
 ]
 
@@ -58,7 +58,7 @@ VirtualMachine >> gtStatisticsFor: aView [
 			('Stack Page Overflows' -> (self parameterAt: 60)).
 			('Stack Page Divorces' -> (self parameterAt: 61)).
 			} ];
-		column: 'Property' item: [:assoc | assoc key ];
-		column: 'Value' item: [:assoc | assoc value gtDisplayString ];
+		column: 'Property' text: [:assoc | assoc key ];
+		column: 'Value' text: [:assoc | assoc value gtDisplayString ];
 		send: #value
 ]

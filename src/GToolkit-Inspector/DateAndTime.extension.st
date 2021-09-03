@@ -22,7 +22,7 @@ DateAndTime >> gtViewDetailsIn: composite [
 			('date' -> self asDate).
 			('time' -> self asTime).
 			('unix time' -> self asUnixTime) } ];
-		column: 'Key' item: #key;
-		column: 'Value' item: #value;
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]

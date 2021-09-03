@@ -23,8 +23,7 @@ RGMethodDefinition >> gtImplementorsFor: aView [
 		priority: 11;
 		items: [ self compiledMethod implementors ];
 		column: 'Index' 
-			item: [ :aMethod :anIndex | anIndex ]
-			text: [ :anIndex | 
+			text: [ :aMethod :anIndex | 
 				anIndex asString asRopedText 
 					foreground: Color gray ]
 			width: 50;
@@ -39,8 +38,7 @@ RGMethodDefinition >> gtSendersFor: aView [
 		priority: 10;
 		items: [ self compiledMethod senders ];
 		column: 'Index' 
-			item: [ :aMethod :anIndex | anIndex ]
-			text: [ :anIndex | 
+			text: [ :aMethod :anIndex | 
 				anIndex asString asRopedText 
 					foreground: Color gray ]
 			width: 50;

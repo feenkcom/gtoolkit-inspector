@@ -12,8 +12,8 @@ OrderedDictionary >> gtItemsFor: aView [
 				ifFalse: [ (each value isArray and: [ each value allSatisfy: #isDictionary ])
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
 						ifFalse: [ #() ] ] ];
-		column: 'Key' item: #key;
-		column: 'Value' item: #value;
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
 		send: #value
 ]
 
@@ -23,5 +23,5 @@ OrderedDictionary >> gtKeysFor: aView [
 	^ aView columnedList
 		title: 'Keys';
 		items: [ self keys ];
-		column: 'Key' item: [ :aKey | aKey ]
+		column: 'Key' text: [ :aKey | aKey ]
 ]

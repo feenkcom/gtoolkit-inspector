@@ -32,7 +32,7 @@ Collection >> gtTreeFor: aView [
 						ifFalse: [ #() ] ] ];
 		actionUpdateButtonTooltip: 'Update tree';
 		column: 'Index'
-			item: [ :eachItem :eachIndex | 
+			text: [ :eachItem :eachIndex | 
 			| aKey |
 			aKey := (eachItem isKindOf: Association)
 				ifTrue: [ eachItem key ]

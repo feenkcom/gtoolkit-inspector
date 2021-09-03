@@ -37,7 +37,7 @@ Context >> gtVariablesFor: aView [
 	^ aView columnedList
 		title: 'Variables';
 		items: [ self gtVariables ];
-		column: 'Name' item: #key;
-		column: 'Value' item: #value;
+		column: 'Name' text: #key;
+		column: 'Value' text: #value;
 		send: [ :anAssoc | anAssoc value ]
 ]

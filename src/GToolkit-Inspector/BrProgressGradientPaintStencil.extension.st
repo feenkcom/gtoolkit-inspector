@@ -8,7 +8,7 @@ BrProgressGradientPaintStencil >> gtNextGradientsFor: aView [
 		items: [ | aStencil |
 			aStencil := self copy.
 			200 timesCollect: [ aStencil create ] ];
-		column: 'Index' item: [ :aPaint :anIndex | anIndex ] width: 40;
+		column: 'Index' text: [ :aPaint :anIndex | anIndex ] width: 40;
 		column: 'Preview' do: [ :aColumn | 
 			aColumn 
 				stencil: [ :aPaint | 

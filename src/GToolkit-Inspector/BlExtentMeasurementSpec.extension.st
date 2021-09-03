@@ -8,6 +8,6 @@ BlExtentMeasurementSpec >> gtSpecFor: aView [
 		title: 'Spec';
 		items: [ { 'width' -> self widthSpec . 'height' -> self heightSpec } ];
 		send: #value;
-		column: 'Dimension' item: [ :each | each key ];
-		column: 'Size' item: [ :each | each value ]
+		column: 'Dimension' text: [ :each | each key ];
+		column: 'Size' text: [ :each | each value ]
 ]

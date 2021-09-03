@@ -14,9 +14,9 @@ BlElement >> gtChildrenFor: aView [
 				stencil: [ :eachElement | 
 					self gtPreviewThumbnailFor: eachElement ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
-		column: 'Element' item: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
+		column: 'Element' text: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
 		column: 'Composition layer'
-			item: [ :eachElement | 
+			text: [ :eachElement | 
 				eachElement wantsSeparateCompositingLayer
 					ifTrue: [ 'Yes' ]
 					ifFalse: [ '' ] ]
@@ -85,15 +85,15 @@ BlElement >> gtMeasurementChainFor: aView [
 					currentElement := currentElement parent.
 					aStream nextPut: currentElement ] ]) reversed ];
 		column: 'Width spec' 
-			item: [ :anElement :anIndex | 
+			text: [ :anElement :anIndex | 
 				anElement privatePreviousMeasurementSpec
 					ifNotNil: #widthSpec ];
 		column: 'Height spec' 
-			item: [ :anElement :anIndex | 
+			text: [ :anElement :anIndex | 
 				anElement privatePreviousMeasurementSpec
 					ifNotNil: #heightSpec ];
-		column: 'Layout' item: [ :anElement :anIndex | anElement layout ];
-		column: 'Element' item: [ :anElement :anIndex | anElement ]
+		column: 'Layout' text: [ :anElement :anIndex | anElement layout ];
+		column: 'Element' text: [ :anElement :anIndex | anElement ]
 ]
 
 { #category : '*GToolkit-Inspector' }
@@ -165,7 +165,7 @@ BlElement >> gtParentsFor: aView [
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
 		column: 'Clip children'
-			item: [ :eachElement | eachElement clipChildren asString ]
+			text: [ :eachElement | eachElement clipChildren asString ]
 			width: 100
 ]
 
@@ -218,11 +218,11 @@ BlElement >> gtResizersFor: aView [
 		priority: 10;
 		items: [ self withAllParents reversed ];
 		column: 'Width'
-			item: [ :anElement | anElement constraints horizontal resizer ];
+			text: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height'
-			item: [ :anElement | anElement constraints vertical resizer ];
-		column: 'Layout' item: [ :anElement | anElement layout ];
-		column: 'Element' item: [ :anElement | anElement ]
+			text: [ :anElement | anElement constraints vertical resizer ];
+		column: 'Layout' text: [ :anElement | anElement layout ];
+		column: 'Element' text: [ :anElement | anElement ]
 ]
 
 { #category : '*GToolkit-Inspector' }
@@ -233,8 +233,8 @@ BlElement >> gtShortcutsFor: aView [
 		title: 'Shortcuts' translated;
 		priority: 11;
 		items: [ self shortcuts asArray ];
-		column: 'Name' item: [ :each | each name ifNil: [ each gtDisplayString ] ];
-		column: 'Combination' item: [ :each | each combination gtDisplayString ]
+		column: 'Name' text: [ :each | each name ifNil: [ each gtDisplayString ] ];
+		column: 'Combination' text: [ :each | each combination gtDisplayString ]
 ]
 
 { #category : '*GToolkit-Inspector' }
