@@ -78,7 +78,7 @@ MessageTally >> gtMessagesTreeIn: aView [
 MessageTally >> gtSourceFor: aView [
 	<gtView>
 	^ self method ifNotNil: [
-		(self method gtSourceFor: aView) priority: 20]
+		(self method method gtSourceFor: aView) priority: 20]
 ]
 
 { #category : '*GToolkit-Inspector' }
