@@ -251,7 +251,6 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 { #category : '*GToolkit-Inspector' }
 AbstractFileReference >> gtTreeFor: aView [
 	<gtView>
-	|fileBrowser|
 	self isDirectory
 		ifFalse: [ ^ aView empty ].
 	^ aView columnedTree
@@ -260,13 +259,13 @@ AbstractFileReference >> gtTreeFor: aView [
 		items: [ self gtChildren ];
 		children: [ :each | each gtChildren ];
 		column: 'Name' translated 
-			icon: [ :each :aRowIndex :aColumnIndex :anIconContainer :aPhlowColumn | 
+			icon: [ :each | 
 				| anIcon aName aContainer |
 				anIcon := each isDirectory
 					ifTrue: [ BrGlamorousIcons folder asElement ]
 					ifFalse: [ BrGlamorousIcons file asElement ].
 				
-				aName := aPhlowColumn newItemLabel.
+				aName := GtPhlowUtility newItemLabel.
 				aName text: each basename asString.
 				
 				aContainer := BrHorizontalPane new
