@@ -260,13 +260,12 @@ AbstractFileReference >> gtTreeFor: aView [
 		items: [ self gtChildren ];
 		children: [ :each | each gtChildren ];
 		column: 'Name' translated 
-			icon: [ :each :aRowIndex :aColumnIndex :anIconContainer :aPhlowColumn | 
+			icon: [ :each | 
 				| anIcon aName aContainer |
 				anIcon := each isDirectory
 					ifTrue: [ BrGlamorousIcons folder asElement ]
-					ifFalse: [ BrGlamorousIcons file asElement ].
-				
-				aName := aPhlowColumn newItemLabel.
+					ifFalse: [ BrGlamorousIcons file asElement ].			
+				aName := GtPhlowTreeView new newItemLabel.
 				aName text: each basename asString.
 				
 				aContainer := BrHorizontalPane new

@@ -6,6 +6,7 @@ BlLayoutCommonConstraints >> gtConstraintsFor: aView [
 	constraints ifNil: [ ^ aView empty ].
 	^ aView forward 
 		title: 'Constraints';
+		priority: 11;
 		object: [ constraints ];
 		view: #gtItemsFor:
 ]
