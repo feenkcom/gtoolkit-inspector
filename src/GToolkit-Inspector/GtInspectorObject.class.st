@@ -72,8 +72,16 @@ GtInspectorObject >> printOn: aStream [
 
 { #category : 'accessing' }
 GtInspectorObject >> view [
+	"Answer the view for the receiver's object and view"
 	<return: #GtPhlowLabelledView>
-	^ self object perform: self viewSelector with: GtPhlowView empty
+
+	"Using #object:perform:withArguments:inClass: allows proxies that are a subclass of ProtoObject to be inspected. #perform:with: is defined in Object."
+	^ thisContext
+		object: self object
+		perform: self viewSelector
+		withArguments: { GtPhlowView empty }
+		inClass: self object class.
+
 ]
 
 { #category : 'accessing' }
