@@ -25,8 +25,7 @@ Class {
 
 { #category : 'accessing' }
 GtInspector class >> embeddedPlaygroundName [
-	^ embeddedPlaygroundName ifNil: [ 
-		embeddedPlaygroundName := GtInspectorPlaygroundElement name ]
+	^ embeddedPlaygroundName
 ]
 
 { #category : 'accessing' }
@@ -108,9 +107,7 @@ GtInspector >> initializeListeners [
 
 { #category : 'initialization' }
 GtInspector >> initializePlaygroundElement [
-	playgroundElement := (self class environment 
-		at: self class embeddedPlaygroundName 
-		ifAbsent: [ GtInspectorPlaygroundElement ]) new.
+	playgroundElement := (self class environment at: self class embeddedPlaygroundName) new
 ]
 
 { #category : 'initialization' }

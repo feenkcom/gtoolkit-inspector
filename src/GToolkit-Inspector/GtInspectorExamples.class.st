@@ -57,10 +57,9 @@ GtInspectorExamples >> basicObjectHolderClass [
 GtInspectorExamples >> basicPlaygroundElement [
 	<gtExample>
 	| anElement |
-	anElement := GtInspectorPlaygroundElement new.
+	anElement := (self class environment at: GtInspector embeddedPlaygroundName) new.
 	anElement matchParent.
 	self assert: anElement objectHolder equals: GtInspectorObject null.
-	self assert: anElement playPage receiver equals: nil.
 	^ anElement
 ]
 
