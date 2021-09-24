@@ -63,19 +63,23 @@ Class {
 BaselineOfGToolkitInspector >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec 
+		spec
 			baseline: 'GToolkitPager' with: [
-				spec repository: 'github://feenkcom/gtoolkit-pager:main/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.417/src' ].
+		spec
 			baseline: 'GToolkitSpotter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-spotter:main/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.398/src' ].
+		spec
 			baseline: 'GToolkitCompleter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-completer:main/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.408/src' ].
+		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:main/src' ];
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.140/src' ].
+		spec
 			baseline: 'GToolkitExamples' with: [
-				spec repository: 'github://feenkcom/gtoolkit-examples:main/src' ].
-				
-		spec package: 'GToolkit-Inspector' with: [
-				spec requires: #('GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples'). ]. ].
+				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.33/src' ].
 
+		spec package: 'GToolkit-Inspector' with: [
+			spec requires: #('GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ].
+	]
 ]
