@@ -145,6 +145,5 @@ GtInspectorExamples >> playgroundElement [
 	anElement := self basicPlaygroundElement.
 	anElement object: 42.
 	self assert: anElement object equals: 42.
-	self assert: anElement playPage receiver equals: 42.
 	^ anElement
 ]
