@@ -54,27 +54,27 @@ This ability stays at the core of moldable development: Software is highly conte
 
 "
 Class {
-	#name : 'BaselineOfGToolkitInspector',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfGToolkitInspector'
+	#name : #BaselineOfGToolkitInspector,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfGToolkitInspector
 }
 
-{ #category : 'baseline' }
+{ #category : #baseline }
 BaselineOfGToolkitInspector >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitPager' with: [
-				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.419/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.420/src' ].
 		spec
 			baseline: 'GToolkitSpotter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.399/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.400/src' ].
 		spec
 			baseline: 'GToolkitCompleter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.409/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.410/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.146/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.147/src' ].
 		spec
 			baseline: 'GToolkitExamples' with: [
 				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.33/src' ].
