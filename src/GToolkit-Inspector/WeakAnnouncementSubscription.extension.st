@@ -1,6 +1,6 @@
-Extension { #name : 'WeakAnnouncementSubscription' }
+Extension { #name : #WeakAnnouncementSubscription }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WeakAnnouncementSubscription >> gtMethodSendersFor: aView [ 
 	<gtView>
 	^ aView forward
@@ -9,7 +9,7 @@ WeakAnnouncementSubscription >> gtMethodSendersFor: aView [
 		view: #gtMethodSendersFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WeakAnnouncementSubscription >> gtSourceCodeFor: aView [ 
 	<gtView>
 	^ aView forward

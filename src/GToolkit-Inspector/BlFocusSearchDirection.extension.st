@@ -1,6 +1,6 @@
-Extension { #name : 'BlFocusSearchDirection' }
+Extension { #name : #BlFocusSearchDirection }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlFocusSearchDirection >> gtArrowElementAt: aPoint [
 	<return: #BlElement>
 	

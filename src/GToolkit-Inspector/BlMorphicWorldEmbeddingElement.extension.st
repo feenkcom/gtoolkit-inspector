@@ -1,6 +1,6 @@
-Extension { #name : 'BlMorphicWorldEmbeddingElement' }
+Extension { #name : #BlMorphicWorldEmbeddingElement }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlMorphicWorldEmbeddingElement class >> openEmbedded [
 	<script: 'self openEmbedded'>
 	GtPager

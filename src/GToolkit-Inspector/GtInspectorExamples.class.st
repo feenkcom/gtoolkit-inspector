@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtInspectorExamples',
-	#superclass : 'Object',
+	#name : #GtInspectorExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Inspector-Examples'
 }
 
-{ #category : 'examples - ui - content' }
+{ #category : #'examples - ui - content' }
 GtInspectorExamples >> basicContentElement [
 	<gtExample>
 	| anElement |
@@ -14,7 +14,7 @@ GtInspectorExamples >> basicContentElement [
 	^ anElement
 ]
 
-{ #category : 'examples - inspector' }
+{ #category : #'examples - inspector' }
 GtInspectorExamples >> basicInspector [
 	<gtExample>
 	| anInspector |
@@ -23,13 +23,13 @@ GtInspectorExamples >> basicInspector [
 	^ anInspector
 ]
 
-{ #category : 'examples - inspector' }
+{ #category : #'examples - inspector' }
 GtInspectorExamples >> basicInspectorClass [
 	<gtExample>
 	^ GtInspector
 ]
 
-{ #category : 'examples - ui - tool' }
+{ #category : #'examples - ui - tool' }
 GtInspectorExamples >> basicInspectorElement [
 	<gtExample>
 	| anElement |
@@ -39,7 +39,7 @@ GtInspectorExamples >> basicInspectorElement [
 	^ anElement
 ]
 
-{ #category : 'examples - object holder' }
+{ #category : #'examples - object holder' }
 GtInspectorExamples >> basicObjectHolder [
 	<gtExample>
 	| anInspector |
@@ -47,13 +47,13 @@ GtInspectorExamples >> basicObjectHolder [
 	^ anInspector
 ]
 
-{ #category : 'examples - object holder' }
+{ #category : #'examples - object holder' }
 GtInspectorExamples >> basicObjectHolderClass [
 	<gtExample>
 	^ GtInspectorObject
 ]
 
-{ #category : 'examples - ui - playground' }
+{ #category : #'examples - ui - playground' }
 GtInspectorExamples >> basicPlaygroundElement [
 	<gtExample>
 	| anElement |
@@ -63,7 +63,7 @@ GtInspectorExamples >> basicPlaygroundElement [
 	^ anElement
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 GtInspectorExamples >> configureInspector: anInspector [
 	<gtExample>
 	anInspector aptitude: BrShadowAptitude.
@@ -74,7 +74,7 @@ GtInspectorExamples >> configureInspector: anInspector [
 			c vertical matchParent ]
 ]
 
-{ #category : 'examples - ui - content' }
+{ #category : #'examples - ui - content' }
 GtInspectorExamples >> contentElement [
 	<gtExample>
 	| anElement |
@@ -84,19 +84,19 @@ GtInspectorExamples >> contentElement [
 	^ anElement
 ]
 
-{ #category : 'examples - inspected objects' }
+{ #category : #'examples - inspected objects' }
 GtInspectorExamples >> inspectedObject [
 	<gtExample>
 	^ self inspectedObjectClass new 
 ]
 
-{ #category : 'examples - inspected objects' }
+{ #category : #'examples - inspected objects' }
 GtInspectorExamples >> inspectedObjectClass [
 	<gtExample>
 	^ GtInspectorExampleObject
 ]
 
-{ #category : 'examples - ui - tool' }
+{ #category : #'examples - ui - tool' }
 GtInspectorExamples >> inspectorElement [
 	<gtExample>
 	| anElement |
@@ -106,7 +106,7 @@ GtInspectorExamples >> inspectorElement [
 	^ anElement
 ]
 
-{ #category : 'examples - inspector in pager' }
+{ #category : #'examples - inspector in pager' }
 GtInspectorExamples >> inspectorInPagerWithExampleObject [
 	<gtExample>
 	| aPager anObject |
@@ -116,7 +116,7 @@ GtInspectorExamples >> inspectorInPagerWithExampleObject [
 	^ aPager
 ]
 
-{ #category : 'examples - inspector' }
+{ #category : #'examples - inspector' }
 GtInspectorExamples >> inspectorWithExampleObject [
 	<gtExample>
 	| anInspector anObject |
@@ -127,7 +127,7 @@ GtInspectorExamples >> inspectorWithExampleObject [
 	^ anInspector
 ]
 
-{ #category : 'examples - object holder' }
+{ #category : #'examples - object holder' }
 GtInspectorExamples >> objectHolderWithExampleObject [
 	<gtExample>
 	| aModel anObject |
@@ -138,7 +138,7 @@ GtInspectorExamples >> objectHolderWithExampleObject [
 	^ aModel
 ]
 
-{ #category : 'examples - ui - playground' }
+{ #category : #'examples - ui - playground' }
 GtInspectorExamples >> playgroundElement [
 	<gtExample>
 	| anElement |

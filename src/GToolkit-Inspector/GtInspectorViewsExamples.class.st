@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtInspectorViewsExamples',
-	#superclass : 'Object',
+	#name : #GtInspectorViewsExamples,
+	#superclass : #Object,
 	#category : 'GToolkit-Inspector-Examples'
 }
 
-{ #category : 'examples - exceptions' }
+{ #category : #'examples - exceptions' }
 GtInspectorViewsExamples >> containerViewOfSampleWithExceptions [
 	<gtExample>
 	| view object |
@@ -14,7 +14,7 @@ GtInspectorViewsExamples >> containerViewOfSampleWithExceptions [
 	^ object
 ]
 
-{ #category : 'examples - exceptions' }
+{ #category : #'examples - exceptions' }
 GtInspectorViewsExamples >> exceptionAtCreation [
 	<gtExample>
 	| aView |
@@ -29,7 +29,7 @@ GtInspectorViewsExamples >> exceptionAtCreation [
 	^ aView
 ]
 
-{ #category : 'examples - working' }
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> labelViewOfMyself [
 	<gtExample>
 	| labelView |
@@ -38,7 +38,7 @@ GtInspectorViewsExamples >> labelViewOfMyself [
 	^ labelView 
 ]
 
-{ #category : 'examples - working' }
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> labelViewOfSmallInteger [
 	<gtExample>
 	| labelView |
@@ -47,13 +47,13 @@ GtInspectorViewsExamples >> labelViewOfSmallInteger [
 	^ labelView 
 ]
 
-{ #category : 'examples - exceptions' }
+{ #category : #'examples - exceptions' }
 GtInspectorViewsExamples >> sampleWithExceptions [
 	<gtExample>
 	^ GtInspectorSampleWithExceptionsInExtensions new
 ]
 
-{ #category : 'examples - exceptions' }
+{ #category : #'examples - exceptions' }
 GtInspectorViewsExamples >> viewNotReturning [
 	<gtExample>
 	| aView anObject anElement |
@@ -64,7 +64,7 @@ GtInspectorViewsExamples >> viewNotReturning [
 	^ anObject
 ]
 
-{ #category : 'examples - working' }
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> viewWithViewsForCollection [
 	<gtExample>
 	| aView anElement |
@@ -75,7 +75,7 @@ GtInspectorViewsExamples >> viewWithViewsForCollection [
 	^ aView
 ]
 
-{ #category : 'examples - working' }
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> viewsOfSampleA [
 	<gtExample>
 	| theViews theElements |
@@ -87,7 +87,7 @@ GtInspectorViewsExamples >> viewsOfSampleA [
 	^ theViews
 ]
 
-{ #category : 'examples - working' }
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
 	| theViews theElements |
@@ -99,7 +99,7 @@ GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 	^ theViews
 ]
 
-{ #category : 'examples - exceptions' }
+{ #category : #'examples - exceptions' }
 GtInspectorViewsExamples >> viewsOfSampleWithExceptions [
 	<gtExample>
 	| allViews elements viewsNotDefinedInObject |

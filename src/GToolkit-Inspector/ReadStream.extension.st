@@ -1,6 +1,6 @@
-Extension { #name : 'ReadStream' }
+Extension { #name : #ReadStream }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ReadStream >> gtStreamStateFor: aView [
 	<gtView>
 	self position ifNil: [ ^ aView empty ].

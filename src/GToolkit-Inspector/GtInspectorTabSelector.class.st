@@ -1,28 +1,28 @@
 Class {
-	#name : 'GtInspectorTabSelector',
-	#superclass : 'Object',
+	#name : #GtInspectorTabSelector,
+	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtInspectorTabSelector class >> isAbstract [
 	^ self name = #GtInspectorTabSelector 
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 GtInspectorTabSelector class >> simple [
 	^ GtInspectorTabSimpleSelector new
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 GtInspectorTabSelector >> recentlySelectedTab: aInspectorTabName on: anObject [
 	"Set recently selected tab name for a given object"
 	self subclassResponsibility
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 GtInspectorTabSelector >> selectTabIn: aTabGroup on: anObject [
 	"Select tab of a given tab group"
 	self subclassResponsibility

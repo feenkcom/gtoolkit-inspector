@@ -1,6 +1,6 @@
-Extension { #name : 'RPackageOrganizer' }
+Extension { #name : #RPackageOrganizer }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RPackageOrganizer >> gtPackagesFor: aView [
 	<gtView>
 	self packages ifNil: [ ^ aView empty ].

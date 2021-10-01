@@ -1,6 +1,6 @@
-Extension { #name : 'BrTabGroupHeaderAptitude' }
+Extension { #name : #BrTabGroupHeaderAptitude }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrTabGroupHeaderAptitude >> gtTabsFor: aView [
 	<gtView>
 	^ aView columnedList

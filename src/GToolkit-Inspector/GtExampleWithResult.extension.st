@@ -1,6 +1,6 @@
-Extension { #name : 'GtExampleWithResult' }
+Extension { #name : #GtExampleWithResult }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtExampleWithResult >> gtSourceFor: aView [
 	<gtView>
 	self example ifNil: [ ^ aView empty ].

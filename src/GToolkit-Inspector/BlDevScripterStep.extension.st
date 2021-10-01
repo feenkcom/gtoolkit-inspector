@@ -1,6 +1,6 @@
-Extension { #name : 'BlDevScripterStep' }
+Extension { #name : #BlDevScripterStep }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
@@ -10,7 +10,7 @@ BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 		painting: [ :aMondrian | self paintTreeWith: aMondrian ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsTreeFor: aView [
 	<gtView>
 	
@@ -29,7 +29,7 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		column: 'Target' text: #target weight: 2
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> paintTreeWith: view [
 	view nodes
 		shape: [ :each | 

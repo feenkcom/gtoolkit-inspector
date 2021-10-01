@@ -1,6 +1,6 @@
-Extension { #name : 'BlExtentMeasurementSpec' }
+Extension { #name : #BlExtentMeasurementSpec }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlExtentMeasurementSpec >> gtSpecFor: aView [
 	<gtView>
 

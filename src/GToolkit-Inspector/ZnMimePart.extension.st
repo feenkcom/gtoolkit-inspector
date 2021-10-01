@@ -1,6 +1,6 @@
-Extension { #name : 'ZnMimePart' }
+Extension { #name : #ZnMimePart }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMimePart >> gtBinaryContentsFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].
@@ -11,7 +11,7 @@ ZnMimePart >> gtBinaryContentsFor: aView [
 			priority: 40
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMimePart >> gtTextContentsFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].
@@ -21,7 +21,7 @@ ZnMimePart >> gtTextContentsFor: aView [
 		priority: 40
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMimePart >> gtViewBytesFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].
@@ -33,7 +33,7 @@ ZnMimePart >> gtViewBytesFor: aView [
 		view: #gtViewBytesFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMimePart >> gtViewContentHexDumpFor: aView [
 	<gtView>
 	self hasEntity ifFalse: [ ^ aView empty ].
@@ -45,7 +45,7 @@ ZnMimePart >> gtViewContentHexDumpFor: aView [
 		view: #gtViewContentHexDumpFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnMimePart >> gtViewHeadersFor: aView [
 	<gtView>
 	self hasHeaders ifFalse: [ aView empty ].

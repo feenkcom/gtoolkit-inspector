@@ -1,6 +1,6 @@
-Extension { #name : 'RBAddClassChange' }
+Extension { #name : #RBAddClassChange }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBAddClassChange >> gtViewDefinitionFor: aView [
 	<gtView>
 	^ aView textEditor

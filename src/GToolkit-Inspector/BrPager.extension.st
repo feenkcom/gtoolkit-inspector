@@ -1,6 +1,6 @@
-Extension { #name : 'BrPager' }
+Extension { #name : #BrPager }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrPager >> gtPagesFor: aView [
 	<gtView>
 	self viewModel ifNil: [ ^ aView empty ].

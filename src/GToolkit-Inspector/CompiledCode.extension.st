@@ -1,6 +1,6 @@
-Extension { #name : 'CompiledCode' }
+Extension { #name : #CompiledCode }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
@@ -9,13 +9,13 @@ CompiledCode >> gtBytecodeFor: aView [
 		itemText: [ :each | each printString ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtBytesFor: aView [
 	<gtView>
 	^ aView empty
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtHeaderFor: aView [
 	<gtView> 
 	^ aView textEditor
@@ -23,7 +23,7 @@ CompiledCode >> gtHeaderFor: aView [
 		text: [ self headerDescription ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtItemsFor: aView [
 	^ aView empty 
 ]

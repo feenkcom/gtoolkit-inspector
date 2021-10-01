@@ -1,6 +1,6 @@
-Extension { #name : 'RBCompositeRefactoryChange' }
+Extension { #name : #RBCompositeRefactoryChange }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtChangesFor: aView [
 	<gtView>
 	^ aView tree
@@ -32,12 +32,12 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 			(aPaneElement childAt: 2) action: [ anItemObject execute ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtChildren [
 	^ self changes
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtLabel [
 	^ self changes
 		ifNotNil: [ self changes size asString, ' changes' ] 

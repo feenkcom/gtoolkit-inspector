@@ -1,6 +1,6 @@
-Extension { #name : 'UUID' }
+Extension { #name : #UUID }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 UUID >> gtByteAssociationsFor: aDisplayedBytes [
 	^ (super gtByteAssociationsFor: aDisplayedBytes)
 		copyWith: ('string36' -> self asString36)

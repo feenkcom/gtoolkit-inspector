@@ -1,6 +1,6 @@
-Extension { #name : 'BlElement' }
+Extension { #name : #BlElement }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtChildrenFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -23,7 +23,7 @@ BlElement >> gtChildrenFor: aView [
 			width: 100
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -69,7 +69,7 @@ BlElement >> gtLiveFor: aView [
 						container ]  ].
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -96,7 +96,7 @@ BlElement >> gtMeasurementChainFor: aView [
 		column: 'Element' text: [ :anElement :anIndex | anElement ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtOpenInSpaceFor: anAction [
 	<gtAction>
 	self hasParent ifTrue: [ ^ anAction noAction].
@@ -108,7 +108,7 @@ BlElement >> gtOpenInSpaceFor: anAction [
 			label: 'Open in Space' translated ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtOverviewFor: aView [
 	<gtView>
 
@@ -121,7 +121,7 @@ BlElement >> gtOverviewFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtParentsFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -169,7 +169,7 @@ BlElement >> gtParentsFor: aView [
 			width: 100
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -179,7 +179,7 @@ BlElement >> gtPreviewFor: aView [
 			margin: (BlInsets all: 10) ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewThumbnailFor: anElement [
 	^ BlLazyElement new 
 		layout: BlFrameLayout new; 
@@ -210,7 +210,7 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 				c vertical fitContent ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtResizersFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -225,7 +225,7 @@ BlElement >> gtResizersFor: aView [
 		column: 'Element' text: [ :anElement | anElement ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtShortcutsFor: aView [
 	<gtView>
 	self shortcuts ifEmpty: [ ^ aView empty ].
@@ -237,7 +237,7 @@ BlElement >> gtShortcutsFor: aView [
 		column: 'Combination' text: [ :each | each combination gtDisplayString ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtUserDataFor: aView [
 	<gtView>
 	^ (self userData gtItemsFor: aView) 
@@ -245,7 +245,7 @@ BlElement >> gtUserDataFor: aView [
 		priority: 5
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtWidgetGraphFor: aView [
 	<gtView>
 	^ aView mondrian

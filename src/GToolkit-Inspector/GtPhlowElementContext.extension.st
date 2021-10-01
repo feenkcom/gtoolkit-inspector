@@ -1,6 +1,6 @@
-Extension { #name : 'GtPhlowElementContext' }
+Extension { #name : #GtPhlowElementContext }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtPhlowElementContext >> gtLiveFor: aView [
 	<gtView>
 	self element ifNil: [ ^ aView empty ].
@@ -11,7 +11,7 @@ GtPhlowElementContext >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtPhlowElementContext >> gtPhlowViewFor: aView [
 	<gtView>
 	self entity ifNil: [ ^ aView empty ].

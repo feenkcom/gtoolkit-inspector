@@ -6,14 +6,14 @@ See my {{gtClass:GtInspectorElement|expanded|show=#gtSubclassesFor:}} for concre
 
 "
 Class {
-	#name : 'GtInspectorElement',
-	#superclass : 'BlElement',
+	#name : #GtInspectorElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#category : 'GToolkit-Inspector-UI'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GtInspectorElement >> initialize [
 	super initialize.
 	

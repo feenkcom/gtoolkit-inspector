@@ -1,6 +1,6 @@
-Extension { #name : 'BlTextStyler' }
+Extension { #name : #BlTextStyler }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTextStyler >> gtViewTextFor: aView [
 	<gtView>
 	text  ifNil: [ ^ aView empty ].

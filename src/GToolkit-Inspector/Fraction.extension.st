@@ -1,6 +1,6 @@
-Extension { #name : 'Fraction' }
+Extension { #name : #Fraction }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Fraction >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit

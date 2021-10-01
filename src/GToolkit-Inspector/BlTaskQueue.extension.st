@@ -1,6 +1,6 @@
-Extension { #name : 'BlTaskQueue' }
+Extension { #name : #BlTaskQueue }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlTaskQueue >> gtTasksFor: aView [
 	<gtView>
 	^ aView list 

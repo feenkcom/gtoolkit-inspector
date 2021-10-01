@@ -1,6 +1,6 @@
-Extension { #name : 'BrProgress' }
+Extension { #name : #BrProgress }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrProgress >> decreaseByTenPercent [
 	| anAmount aDecrease |
 	aDecrease := self total * 10 / 100.
@@ -8,7 +8,7 @@ BrProgress >> decreaseByTenPercent [
 	self amount: anAmount total: self total.
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrProgress >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
@@ -18,7 +18,7 @@ BrProgress >> gtLiveFor: aView [
 			self increatesByTenPercent ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrProgress >> increatesByTenPercent [
 	| anAmount anIncrease |
 	anIncrease := self total * 10 / 100.

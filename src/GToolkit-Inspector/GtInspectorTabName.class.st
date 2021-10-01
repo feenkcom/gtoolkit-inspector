@@ -1,36 +1,36 @@
 Class {
-	#name : 'GtInspectorTabName',
-	#superclass : 'GtInspectorAbstractTabName',
+	#name : #GtInspectorTabName,
+	#superclass : #GtInspectorAbstractTabName,
 	#instVars : [
 		'string'
 	],
 	#category : 'GToolkit-Inspector-Tab Selector'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 GtInspectorTabName class >> null [ 
 	^ GtInspectorNullTabName default
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GtInspectorTabName >> isEqualToString: aString [
 	^ self string = aString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GtInspectorTabName >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Tab name: ';
 		print: self string
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtInspectorTabName >> string [
 	<return: #String>
 	^ string
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtInspectorTabName >> string: aString [
 	self 
 		assert: [ aString isString ] 

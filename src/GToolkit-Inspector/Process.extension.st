@@ -1,17 +1,17 @@
-Extension { #name : 'Process' }
+Extension { #name : #Process }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Process >> gtId [
 	<return: #String>
 	^ self hash asString
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Process >> gtInvocatedByElementPreviewFor: aView [
 	^ aView empty
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Process >> gtName [
 	<return: #BlRope>
 	| aText |
@@ -24,7 +24,7 @@ Process >> gtName [
 	^ aText
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Process >> gtPSKeysFor: aView [
 	<gtView>
 	^ aView columnedList
