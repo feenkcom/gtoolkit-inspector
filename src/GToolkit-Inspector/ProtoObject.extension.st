@@ -50,6 +50,13 @@ ProtoObject >> gtInspect [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtInspectorTitleString [
+	^ GtPhlowLabelBuilder new 
+		object: self; 
+		build 
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject class >> gtSubclassesFor: aView [
 	<gtView>
 	self subclasses ifNil: [ ^ aView empty ].

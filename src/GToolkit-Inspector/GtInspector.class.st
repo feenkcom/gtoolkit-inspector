@@ -20,7 +20,7 @@ Class {
 	#classInstVars : [
 		'embeddedPlaygroundName'
 	],
-	#category : 'GToolkit-Inspector-! Core'
+	#category : #'GToolkit-Inspector-! Core'
 }
 
 { #category : #accessing }
@@ -113,7 +113,7 @@ GtInspector >> initializePlaygroundElement [
 { #category : #initialization }
 GtInspector >> initializeTitleNotifier [
 	titleNotifier := GtPhlowTitleIconAndLabelNotifier new
-		longLabel: [ GtPhlowLabelBuilder new object: self object; build ];
+		longLabel: [ self object gtInspectorTitleString ];
 		icon: BrGlamorousVectorIcons inspect.
 	self addEventHandler: titleNotifier.
 ]
