@@ -8,12 +8,12 @@ GtInspectorElementWithSlowViews new
 
 "
 Class {
-	#name : 'GtInspectorElementWithSlowViews',
-	#superclass : 'Object',
+	#name : #GtInspectorElementWithSlowViews,
+	#superclass : #Object,
 	#category : 'GToolkit-Inspector-Examples'
 }
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -31,7 +31,7 @@ GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -46,7 +46,7 @@ GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtLongLastingComputation2For: aView [
 	<gtView>
 	^ aView explicit 
@@ -66,7 +66,7 @@ GtInspectorElementWithSlowViews >> gtLongLastingComputation2For: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtLongLastingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -86,7 +86,7 @@ GtInspectorElementWithSlowViews >> gtLongLastingComputationFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtProgressingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -103,7 +103,7 @@ GtInspectorElementWithSlowViews >> gtProgressingComputationFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtShortLastingComputation2For: aView [
 	<gtView>
 	^ aView explicit 
@@ -117,7 +117,7 @@ GtInspectorElementWithSlowViews >> gtShortLastingComputation2For: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtShortLastingComputationFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -131,7 +131,7 @@ GtInspectorElementWithSlowViews >> gtShortLastingComputationFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 	<gtView>
 	^ aView explicit 
@@ -149,13 +149,13 @@ GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 GtInspectorElementWithSlowViews >> itself [
 	<gtExample>
 	^ self
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 GtInspectorElementWithSlowViews >> views [
 	<gtExample>
 	| aView |

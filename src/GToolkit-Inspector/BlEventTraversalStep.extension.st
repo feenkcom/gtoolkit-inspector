@@ -1,6 +1,6 @@
-Extension { #name : 'BlEventTraversalStep' }
+Extension { #name : #BlEventTraversalStep }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlEventTraversalStep >> gtTargetFor: aView [
 	<gtView>
 	(self target isKindOf: BlElement) 

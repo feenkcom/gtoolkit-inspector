@@ -1,6 +1,6 @@
-Extension { #name : 'GlobalVariable' }
+Extension { #name : #GlobalVariable }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GlobalVariable >> gtDisplayOn: stream [
 	value gtDisplayOn: stream
 ]

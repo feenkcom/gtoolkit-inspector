@@ -1,6 +1,6 @@
-Extension { #name : 'BlText' }
+Extension { #name : #BlText }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlText >> gtStringFor: aView [
 	<gtView>
 	^ self asString 
@@ -8,7 +8,7 @@ BlText >> gtStringFor: aView [
 			ifNotEmpty: [ :aString | (aString gtLiveFor: aView) title: 'String' ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlText >> gtTextFor: aView [
 	<gtView>
 	^ aView text

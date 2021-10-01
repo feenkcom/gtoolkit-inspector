@@ -1,6 +1,6 @@
-Extension { #name : 'BlShortcutWithAction' }
+Extension { #name : #BlShortcutWithAction }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlShortcutWithAction >> gtSourceCodeFor: aView [
 	<gtView>
 

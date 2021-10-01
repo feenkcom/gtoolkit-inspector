@@ -1,6 +1,6 @@
-Extension { #name : 'BlElementQueryResult' }
+Extension { #name : #BlElementQueryResult }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElementQueryResult >> gtResultsFor: aView [
 	<gtView>
 	^ aView columnedList

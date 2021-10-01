@@ -1,6 +1,6 @@
-Extension { #name : 'BlElementNamedId' }
+Extension { #name : #BlElementNamedId }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElementNamedId >> gtReferencesFor: aView [
 	<gtView>
 	self identifier ifNil: [ ^ aView empty ].

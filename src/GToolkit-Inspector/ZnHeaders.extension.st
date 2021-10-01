@@ -1,6 +1,6 @@
-Extension { #name : 'ZnHeaders' }
+Extension { #name : #ZnHeaders }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnHeaders >> gtHeadersFor: aView [
 	<gtView>
 	^ (self headers gtItemsFor: aView)

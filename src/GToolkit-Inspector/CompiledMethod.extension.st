@@ -1,6 +1,6 @@
-Extension { #name : 'CompiledMethod' }
+Extension { #name : #CompiledMethod }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtSourceFor: aView [
 	<gtView>
 	^ aView explicit
@@ -12,13 +12,13 @@ CompiledMethod >> gtSourceFor: aView [
 		stencil: [ (GtPharoMethodCoder forMethod: self) asExpandedOnlyElement vFitContentLimited ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtTreeFor: aView [
 	<gtView>
 	^ self parseTree gtTreeFor: aView
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	<gtView>
 	

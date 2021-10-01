@@ -1,6 +1,6 @@
-Extension { #name : 'TKTService' }
+Extension { #name : #TKTService }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 TKTService >> gtActionStartFor: anAction [
 	<gtAction>
 	self isRunning ifTrue: [ ^ anAction noAction ].
@@ -11,7 +11,7 @@ TKTService >> gtActionStartFor: anAction [
 		action: [ self launch ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 TKTService >> gtActionStopFor: anAction [
 	<gtAction>
 	self isRunning ifFalse: [ ^ anAction noAction ].

@@ -1,6 +1,6 @@
-Extension { #name : 'GtCompositeVariablesBindings' }
+Extension { #name : #GtCompositeVariablesBindings }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtCompositeVariablesBindings >> gtBindingsFor: aView [
 	<gtView>
 

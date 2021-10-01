@@ -1,6 +1,6 @@
-Extension { #name : 'Color' }
+Extension { #name : #Color }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtContrastingColor [
 	"See: https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color"
 	<return: #Color>
@@ -9,7 +9,7 @@ Color >> gtContrastingColor [
 		ifFalse: [ Color white ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtLuminanceValue [
 	"Eye color favor green color.
 	See: https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color"
@@ -17,7 +17,7 @@ Color >> gtLuminanceValue [
 	^ ((0.299 * self red) + (0.587 * self green) + (0.114 * self blue)) "/ 255"
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtOpaqueColorOn: aBackgroundColor [
 	| a1 r1 g1 b1 r2 g2 b2 |
 	(self alpha closeTo: 1)
@@ -37,12 +37,12 @@ Color >> gtOpaqueColorOn: aBackgroundColor [
 		b: b2 + ((b1 - b2) * a1)
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtOpaqueColorOnWhite [
 	^ self gtOpaqueColorOn: Color white
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit

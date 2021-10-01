@@ -1,6 +1,6 @@
-Extension { #name : 'BlDirectEventDispatcher' }
+Extension { #name : #BlDirectEventDispatcher }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDirectEventDispatcher >> gtFiltersFor: aView [
 	<gtView>
 
@@ -11,7 +11,7 @@ BlDirectEventDispatcher >> gtFiltersFor: aView [
 			title: 'Filters'
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDirectEventDispatcher >> gtHandlersFor: aView [
 	<gtView>
 	
@@ -22,7 +22,7 @@ BlDirectEventDispatcher >> gtHandlersFor: aView [
 			title: 'Handlers'
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDirectEventDispatcher >> gtOwnerElementFor: aView [
 	<gtView>
 	self owner ifNil: [ ^ aView empty ].

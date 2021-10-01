@@ -1,6 +1,6 @@
-Extension { #name : 'GtPragmaType' }
+Extension { #name : #GtPragmaType }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtPragmaType >> gtPragmasFor: aView [
 	<gtView>
 	^ aView list
@@ -9,7 +9,7 @@ GtPragmaType >> gtPragmasFor: aView [
 		itemText: #gtDisplayString
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtPragmaType >> gtSpotterPragmasFor: aStep [
 	<gtSearch>
 	^ aStep listProcessor
@@ -20,7 +20,7 @@ GtPragmaType >> gtSpotterPragmasFor: aStep [
 		filter: GtFilterSubstring
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 GtPragmaType >> gtSpotterUsersFor: aStep [
 	<gtSearch>
 	^ aStep listProcessor

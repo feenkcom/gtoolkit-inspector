@@ -1,6 +1,6 @@
-Extension { #name : 'ChangeRecord' }
+Extension { #name : #ChangeRecord }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ChangeRecord >> gtSourceFor: aView [
 	<gtView>
 	^ aView textEditor 

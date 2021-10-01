@@ -1,6 +1,6 @@
-Extension { #name : 'Morph' }
+Extension { #name : #Morph }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Morph >> gtMorphFor: aView [
 	<gtView>
 	^ aView explicit

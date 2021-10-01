@@ -1,6 +1,6 @@
-Extension { #name : 'RBComment' }
+Extension { #name : #RBComment }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBComment >> gtContentsFor: aView [
 	<gtView>
 	self contents ifNil: [ ^ aView empty ].

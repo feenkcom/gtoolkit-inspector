@@ -1,6 +1,6 @@
-Extension { #name : 'TGtVariablesBindings' }
+Extension { #name : #TGtVariablesBindings }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 TGtVariablesBindings >> gtBindingsFor: aView [
 	<gtView>
 
