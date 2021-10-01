@@ -100,7 +100,7 @@ AbstractFileReference >> gtContentsFor: aView [
 				icon: BrGlamorousVectorIcons accept;
 				action: [ 
 					| newContents | 
-					newContents := tab viewContentElement children first editor text asString.
+					newContents := tab viewContentElement children first children first editor text asString.
 					(self fullName, '.backup') asFileReference ensureDelete.
 					self copyTo: (self fullName, '.backup') asFileReference.
 					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
