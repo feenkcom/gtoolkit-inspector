@@ -1,6 +1,6 @@
-Extension { #name : 'BlElementEagerQuery' }
+Extension { #name : #BlElementEagerQuery }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlElementEagerQuery >> gtResultsFor: aView [
 	<gtView>
 	

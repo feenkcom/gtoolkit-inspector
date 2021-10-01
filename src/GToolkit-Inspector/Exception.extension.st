@@ -1,6 +1,6 @@
-Extension { #name : 'Exception' }
+Extension { #name : #Exception }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Exception >> gtDebugActionFor: anAction [
 	<gtAction>
 	signalContext ifNil: [ ^ anAction noAction ].
@@ -9,7 +9,7 @@ Exception >> gtDebugActionFor: anAction [
 		action: [ [ self debug ] fork ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Exception >> gtLiveFor: aView [
 	<gtView>
 	
@@ -21,7 +21,7 @@ Exception >> gtLiveFor: aView [
 		view: #gtStackFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Exception >> gtMessageTextFor: aView [
 	<gtView>
 	^ aView textEditor

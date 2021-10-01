@@ -1,10 +1,10 @@
 Class {
-	#name : 'GtInspectorWithViews',
-	#superclass : 'Object',
+	#name : #GtInspectorWithViews,
+	#superclass : #Object,
 	#category : 'GToolkit-Inspector-Examples'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtInspectorWithViews >> gtExplicitViewWithActionsFor: aView [
 	<gtView>
 	^ aView explicit 

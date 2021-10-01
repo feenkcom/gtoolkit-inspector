@@ -1,6 +1,6 @@
-Extension { #name : 'ZnRequestLine' }
+Extension { #name : #ZnRequestLine }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnRequestLine >> gtViewRequestLineTextFor: aView [
 	<gtView>
 	^ aView text

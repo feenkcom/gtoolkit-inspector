@@ -1,6 +1,6 @@
-Extension { #name : 'ZnByteArrayEntity' }
+Extension { #name : #ZnByteArrayEntity }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnByteArrayEntity >> gtViewBytesFor: aView [
 	<gtView>
 	^ aView forward 
@@ -9,7 +9,7 @@ ZnByteArrayEntity >> gtViewBytesFor: aView [
 		view: #gtBytesFor: 
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnByteArrayEntity >> gtViewContentHexDumpFor: aView [
 	<gtView>
 	^ aView forward 

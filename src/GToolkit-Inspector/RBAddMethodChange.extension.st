@@ -1,6 +1,6 @@
-Extension { #name : 'RBAddMethodChange' }
+Extension { #name : #RBAddMethodChange }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBAddMethodChange >> gtChangesFor: aView [
 	<gtView>
 	^ aView explicit

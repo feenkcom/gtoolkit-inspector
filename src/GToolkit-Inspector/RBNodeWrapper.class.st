@@ -5,8 +5,8 @@ My responsability is to overwrite >>= so that distinct nodes are seen as distinc
 
 "
 Class {
-	#name : 'RBNodeWrapper',
-	#superclass : 'Object',
+	#name : #RBNodeWrapper,
+	#superclass : #Object,
 	#instVars : [
 		'node',
 		'factory'
@@ -14,33 +14,33 @@ Class {
 	#category : 'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RBNodeWrapper >> = anObject [
 	^ self == anObject 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RBNodeWrapper >> node [
 	^ node
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RBNodeWrapper >> node: anObject [
 	node := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RBNodeWrapper >> node: anObject factory: aFactory [
 	node := anObject.
 	factory := aFactory
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RBNodeWrapper >> parent [ 
 	^ factory wrapperFor: node parent
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 RBNodeWrapper >> printString [  
 	^ node printString
 ]

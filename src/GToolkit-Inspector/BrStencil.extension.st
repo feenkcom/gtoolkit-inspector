@@ -1,6 +1,6 @@
-Extension { #name : 'BrStencil' }
+Extension { #name : #BrStencil }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrStencil >> gtLiveFor: aView [
 	<gtView>
 	self class isAbstract ifTrue: [ ^ aView empty ].
@@ -13,7 +13,7 @@ BrStencil >> gtLiveFor: aView [
 			aBrButton phlow spawnObject: self create ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrStencil class >> gtLiveFor: aView [
 	<gtView>
 	self isAbstract ifTrue: [ ^ aView empty ].

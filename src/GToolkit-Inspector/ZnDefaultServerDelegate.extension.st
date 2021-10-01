@@ -1,6 +1,6 @@
-Extension { #name : 'ZnDefaultServerDelegate' }
+Extension { #name : #ZnDefaultServerDelegate }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ZnDefaultServerDelegate >> gtPrefixMapFor: aView [
 	<gtView>
 	^ aView columnedList

@@ -1,6 +1,6 @@
-Extension { #name : 'BlDevScripter' }
+Extension { #name : #BlDevScripter }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtElementsFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
@@ -10,7 +10,7 @@ BlDevScripter >> gtElementsFor: aView [
 		view: #gtChildrenFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtEventTracesIn: aContainer [
 	| anEventColor |
 	
@@ -60,7 +60,7 @@ BlDevScripter >> gtEventTracesIn: aContainer [
 					toAnchor: (BlAbsolutePositionAnchor position: eachEvent position)) ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtEventsFor: aView [
 	<gtView>
 	self events ifNil: [ ^ aView empty ].
@@ -69,7 +69,7 @@ BlDevScripter >> gtEventsFor: aView [
 		priority: 3
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtReveresedEventsFor: aView [
 	<gtView>
 	self events ifNil: [ ^ aView empty ].
@@ -78,7 +78,7 @@ BlDevScripter >> gtReveresedEventsFor: aView [
 		priority: 4
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtSpaceFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
@@ -109,7 +109,7 @@ BlDevScripter >> gtSpaceFor: aView [
 				anElement phlow spawnObject: self elementWithoutParent ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtSpaceTasksFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
@@ -118,21 +118,21 @@ BlDevScripter >> gtSpaceTasksFor: aView [
 		title: 'Space Tasks'
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
 	^ rootStep gtStepsMondrianTreeFor: aView
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtStepsTreeFor: aView [
 	<gtView>
 	
 	^ rootStep gtStepsTreeFor: aView
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtUserDataFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].

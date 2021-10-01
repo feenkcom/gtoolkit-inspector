@@ -1,6 +1,6 @@
-Extension { #name : 'ExceptionSet' }
+Extension { #name : #ExceptionSet }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 ExceptionSet >> gtExceptionsFor: aView [
 	<gtView>
 	exceptions ifNil: [ ^ aView empty ].

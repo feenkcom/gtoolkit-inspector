@@ -1,6 +1,6 @@
-Extension { #name : 'BlSpace' }
+Extension { #name : #BlSpace }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlSpace >> gtChildrenFor: aView [
 	<gtView>
 	self root ifNil: [ ^ aView empty ].
@@ -11,7 +11,7 @@ BlSpace >> gtChildrenFor: aView [
 		view: #gtChildrenFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlSpace >> gtPreviewFor: aView [
 	<gtView>
 	self root ifNil: [ ^ aView empty ].

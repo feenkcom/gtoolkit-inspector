@@ -1,6 +1,6 @@
-Extension { #name : 'RBRemoveMethodChange' }
+Extension { #name : #RBRemoveMethodChange }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBRemoveMethodChange >> gtChangesFor: aView [
 	<gtView>
 	^ aView explicit

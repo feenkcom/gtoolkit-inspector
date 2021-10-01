@@ -1,6 +1,6 @@
-Extension { #name : 'BlChildren' }
+Extension { #name : #BlChildren }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BlChildren >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit

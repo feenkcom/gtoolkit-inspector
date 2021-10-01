@@ -1,6 +1,6 @@
-Extension { #name : 'WaitfreeQueue' }
+Extension { #name : #WaitfreeQueue }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WaitfreeQueue >> gtGraphFor: aView [
 	<gtView> 
 
@@ -9,7 +9,7 @@ WaitfreeQueue >> gtGraphFor: aView [
 		painting: [ :mondrian | self paintGraphWith: mondrian ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WaitfreeQueue >> gtItemsFor: aView [
 	<gtView> 
 	| aList |
@@ -33,7 +33,7 @@ WaitfreeQueue >> gtItemsFor: aView [
 	^ aList
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 WaitfreeQueue >> paintGraphWith: view [
 	| itemArray |
 	itemArray := self itemArray.

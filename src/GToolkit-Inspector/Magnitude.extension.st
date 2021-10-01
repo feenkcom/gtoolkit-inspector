@@ -1,6 +1,6 @@
-Extension { #name : 'Magnitude' }
+Extension { #name : #Magnitude }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Magnitude >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit

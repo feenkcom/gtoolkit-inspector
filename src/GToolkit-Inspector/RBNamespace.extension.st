@@ -1,6 +1,6 @@
-Extension { #name : 'RBNamespace' }
+Extension { #name : #RBNamespace }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBNamespace >> gtChangedClassesFor: aView [
 	<gtView>
 	changedClasses ifNil: [ ^ aView empty ].
@@ -11,7 +11,7 @@ RBNamespace >> gtChangedClassesFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBNamespace >> gtChangesFor: aView [
 	<gtView>
 	self changes ifNil: [ ^ aView empty ].
@@ -23,7 +23,7 @@ RBNamespace >> gtChangesFor: aView [
 		view: #gtChangesFor:
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 RBNamespace >> gtRemovedClassesFor: aView [
 	<gtView>
 	removedClasses ifNil: [ ^ aView empty ].

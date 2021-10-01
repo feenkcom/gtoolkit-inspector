@@ -1,6 +1,6 @@
-Extension { #name : 'AbstractFileReference' }
+Extension { #name : #AbstractFileReference }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtActionMaterializeFuelFor: anAction [
 	<gtAction>
 	|  button |
@@ -16,7 +16,7 @@ AbstractFileReference >> gtActionMaterializeFuelFor: anAction [
 	]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 	<gtAction>
 	|  button |
@@ -37,7 +37,7 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 	]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtActionWebBrowseFor: anAction [
 	<gtAction>
 	|  button |
@@ -53,7 +53,7 @@ AbstractFileReference >> gtActionWebBrowseFor: anAction [
 	]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtChildren [
 	self isDirectory ifFalse: [ ^ Array empty ].
 
@@ -61,7 +61,7 @@ AbstractFileReference >> gtChildren [
 		(self files sorted: [:a :b | a basename < b basename ]).
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtChildrenWithParent [
 	| aChildrenCollection |
 	self isDirectory ifFalse: [ ^ Array empty ].
@@ -75,7 +75,7 @@ AbstractFileReference >> gtChildrenWithParent [
 	^ aChildrenCollection
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
@@ -106,7 +106,7 @@ AbstractFileReference >> gtContentsFor: aView [
 					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtFigureFor: aView [
 	<gtView>
 	(self isFile and: [ 
@@ -117,7 +117,7 @@ AbstractFileReference >> gtFigureFor: aView [
 		stencil: [ GtFileUtility imageElementFromFileReference: self ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtHexContentsFor: aView [
 	<gtView>
 	self isFile ifFalse: [ ^ aView empty ].
@@ -144,7 +144,7 @@ AbstractFileReference >> gtHexContentsFor: aView [
 					text: displayString asRopedText glamorousMonospace) ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
 	|fileBrowser|
@@ -186,7 +186,7 @@ AbstractFileReference >> gtItemsFor: aView [
 				do: [ :anException | anException return: '' ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtJsonFor: aView [
 	<gtView>
 	(self isFile and: [ (GtFileUtility mimeTypeOfExtension: self extension) 
@@ -204,7 +204,7 @@ AbstractFileReference >> gtJsonFor: aView [
 			STONJSON fromString: self contents)) ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPathFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -231,7 +231,7 @@ AbstractFileReference >> gtPathFor: aView [
 				ifFalse: ['']) ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPharoScriptFor: aView [
 	<gtView>
 	(self isFile and: [ self extension = 'st' or: [self extension = 'ph'] ]) ifFalse: [ ^ aView empty ].
@@ -248,7 +248,7 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 			action: [ :aButton :aTab | self asFileReference fileIn ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtTreeFor: aView [
 	<gtView>
 	self isDirectory
@@ -292,7 +292,7 @@ AbstractFileReference >> gtTreeFor: aView [
 			width: 150
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtZipItemsFor: aView [
 	<gtView>
 	(self isFile
@@ -328,7 +328,7 @@ AbstractFileReference >> gtZipItemsFor: aView [
 					each creationTime printHMSOn: s ] ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParents [
 	<return: #Array of: #FileReference>
 	| anAbsolutePath |
@@ -338,7 +338,7 @@ AbstractFileReference >> withParents [
 		aStream nextPut: anAbsolutePath ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParentsInto: aStream [
 	<return: #Array of: #FileReference>
 	"I should be called on file references with absolute paths, otherwise an infinite loop happens"

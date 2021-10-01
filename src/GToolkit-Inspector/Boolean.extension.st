@@ -1,11 +1,11 @@
-Extension { #name : 'Boolean' }
+Extension { #name : #Boolean }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Boolean >> gtLiveBackground [
 	^ BlBackground transparent
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 Boolean >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

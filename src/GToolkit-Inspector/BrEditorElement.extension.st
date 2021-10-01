@@ -1,6 +1,6 @@
-Extension { #name : 'BrEditorElement' }
+Extension { #name : #BrEditorElement }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrEditorElement >> gtEditorElementsFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -9,14 +9,14 @@ BrEditorElement >> gtEditorElementsFor: aView [
 		painting: [ :mondrian | self paintEditorElementsWith: mondrian ]
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrEditorElement >> gtTextTreeFor: aView [
 	<gtView>
 	^ (self editor gtTextTreeFor: aView)
 		priority: 3
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 BrEditorElement >> paintEditorElementsWith: mondrian [
 	self forceLayout.
 	mondrian nodes

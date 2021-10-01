@@ -1,6 +1,6 @@
-Extension { #name : 'SequenceableCollection' }
+Extension { #name : #SequenceableCollection }
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtBoxesFor: aView [
 	<gtView>
 	self isCollection ifFalse: [^ aView empty].
@@ -44,7 +44,7 @@ SequenceableCollection >> gtBoxesFor: aView [
 		
 ]
 
-{ #category : '*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedList

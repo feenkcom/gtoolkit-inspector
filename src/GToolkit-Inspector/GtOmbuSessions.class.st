@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtOmbuSessions',
-	#superclass : 'Object',
+	#name : #GtOmbuSessions,
+	#superclass : #Object,
 	#instVars : [
 		'directory'
 	],
 	#category : 'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtOmbuSessions class >> default [
 	"Answer an instance of the receiver on the default Ombu Sessions directory"
 
@@ -19,19 +19,19 @@ GtOmbuSessions class >> default [
 	self error: 'Can''t find default ombu-sessions directory'.
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GtOmbuSessions class >> directory: aFileReference [
 	"Open the receiver on the supplied directory"
 
 	^ self new directory: aFileReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtOmbuSessions >> directory [
 	^ directory
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GtOmbuSessions >> directory: aFileReference [
 
 	aFileReference isDirectory ifFalse: 
@@ -39,7 +39,7 @@ GtOmbuSessions >> directory: aFileReference [
 	directory := aFileReference
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 GtOmbuSessions >> gtItemsFor: aView [
 	<gtView>
 	directory isDirectory
