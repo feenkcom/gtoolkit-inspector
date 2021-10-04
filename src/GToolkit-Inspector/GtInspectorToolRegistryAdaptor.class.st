@@ -16,6 +16,11 @@ GtInspectorToolRegistryAdaptor class >> isRegistered [
 
 ]
 
+{ #category : #actions }
+GtInspectorToolRegistryAdaptor class >> openOn: anObject [ 
+	^ self inspect: anObject 
+]
+
 { #category : #'tools registry' }
 GtInspectorToolRegistryAdaptor class >> register [
 	<script>
