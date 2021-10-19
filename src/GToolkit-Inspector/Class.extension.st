@@ -49,14 +49,33 @@ Class >> gtDefinitionFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 Class >> gtExamplesFor: aView [
+
 	<gtView>
 	<gtClassView>
 	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
-	^ aView forward
-		title: 'Examples';
-		priority: 20;
-		object: [ GtExampleGroup withAll: self gtExamplesAll ];
-		view: #gtExamplesFor:
+	^ aView explicit
+		  title: 'Examples';
+		  priority: 20;
+		  stencil: [ 
+			  | aGroup aGroupView anElement |
+			  aGroup := GtExampleGroup withAll: self gtExamplesAll.
+			  aGroupView := GtPhlowView empty
+				                on: aGroup
+				                perform: #gtExamplesFor:.
+			  anElement := aGroupView asElement.
+			  anElement userData at: #gtExamplesFor: put: aGroup.
+			  anElement ];
+		  actionButtonIcon: BrGlamorousVectorIcons play
+		  tooltip: 'Run all examples'
+		  action: [ :aButton :aTab | 
+			  aTab viewContentElement withAllChildrenBreadthFirstDo: [ 
+					  :anElement | 
+					  anElement userData
+						  at: #gtExamplesFor:
+						  ifPresent: [ :aGroup | 
+							  aGroup runAll. ]
+						  ifAbsent: [ "ignore" ] ] ];
+		  actionUpdateButtonTooltip: 'Update example list'
 ]
 
 { #category : #'*GToolkit-Inspector' }
