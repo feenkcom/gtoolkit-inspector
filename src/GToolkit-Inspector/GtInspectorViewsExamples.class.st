@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorViewsExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #'examples - exceptions' }
@@ -79,7 +79,7 @@ GtInspectorViewsExamples >> viewWithViewsForCollection [
 GtInspectorViewsExamples >> viewsOfSampleA [
 	<gtExample>
 	| theViews theElements |
-	theViews := GtInspectorSampleA new gtViewsInContext: GtPhlowContext null.
+	theViews := GtInspectorSampleA new gtViewsInContext: GtPhlowContext new.
 	self assert: theViews size equals: 1.
 	theElements := OrderedCollection new.
 	theViews do: [ :eachView | eachView asElementDo: [ :el | theElements add: el ] ].
@@ -91,7 +91,7 @@ GtInspectorViewsExamples >> viewsOfSampleA [
 GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
 	| theViews theElements |
-	theViews := GtInspectorSampleSubclassOfA new gtViewsInContext: GtPhlowContext null.
+	theViews := GtInspectorSampleSubclassOfA new gtViewsInContext: GtPhlowContext new.
 	self assert: theViews size equals: 1.
 	theElements := OrderedCollection new.
 	theViews do: [ :eachView | eachView asElementDo: [ :el | theElements add: el ] ].
@@ -103,7 +103,7 @@ GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 GtInspectorViewsExamples >> viewsOfSampleWithExceptions [
 	<gtExample>
 	| allViews elements viewsNotDefinedInObject |
-	allViews := GtInspectorSampleWithExceptionsInExtensions new gtViewsInContext: GtPhlowContext null.
+	allViews := GtInspectorSampleWithExceptionsInExtensions new gtViewsInContext: GtPhlowContext new.
 	viewsNotDefinedInObject := allViews select: [ :each | each definingMethod methodClass ~= ProtoObject and: [ each definingMethod methodClass ~= Object ] ].
 	self assert: viewsNotDefinedInObject size equals: 2.
 	elements := OrderedCollection new.
