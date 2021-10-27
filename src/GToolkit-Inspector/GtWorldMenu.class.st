@@ -121,7 +121,7 @@ GtWorldMenu class >> openGToolkitRepositoriesExplorer [
 { #category : #'api - actions' }
 GtWorldMenu class >> openTour [
 	GtPager 
-		openWrappedOn: (GtDocumenter forClass: BaselineOfGToolkit) 
+		openWrappedOn: (LeCoderCommentElement coderElementFor: #BaselineOfGToolkit) 
 		title: 'GToolkit Tour'
 ]
 
