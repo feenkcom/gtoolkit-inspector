@@ -81,11 +81,6 @@ GtWorldMenu class >> openAllClassesDocumentedByLepiter [
 ]
 
 { #category : #'api - actions' }
-GtWorldMenu class >> openAllDocumenterFiles [
-	GtInspector openOn: GtResourcesUtility default pillarDocuments
-]
-
-{ #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
 	GtCoder new openInPager maximized
 ]
