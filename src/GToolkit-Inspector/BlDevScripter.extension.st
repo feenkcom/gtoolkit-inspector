@@ -20,7 +20,7 @@ BlDevScripter >> gtEventTracesIn: aContainer [
 		eachEvent class = BlMouseDownEvent
 			ifTrue: [
 				aContainer addChild: (BlElement new
-					geometry: (BlCircle new);
+					geometry: (BlCircleGeometry new);
 					size: 6@6;
 					background: anEventColor;
 					effect: (BlGaussianShadowEffect
@@ -33,7 +33,7 @@ BlDevScripter >> gtEventTracesIn: aContainer [
 		eachEvent class = BlMouseUpEvent
 			ifTrue: [
 				aContainer addChild: (BlElement new
-					geometry: (BlCircle new);
+					geometry: (BlCircleGeometry new);
 					size: 6@6;
 					background: Color white;
 					border: (BlBorder paint: anEventColor width: 1);
@@ -46,7 +46,7 @@ BlDevScripter >> gtEventTracesIn: aContainer [
 		eachEvent class = BlClickEvent
 			ifTrue: [
 				aContainer addChild: (BlElement new
-					geometry: (BlCircle new);
+					geometry: (BlCircleGeometry new);
 					size: 12@12;
 					background: Color transparent;
 					border: (BlBorder paint: anEventColor width: 1);

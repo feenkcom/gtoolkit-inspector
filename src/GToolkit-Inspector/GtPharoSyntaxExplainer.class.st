@@ -11,7 +11,7 @@ Class {
 	#classInstVars : [
 		'method'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'as yet unclassified' }
@@ -112,7 +112,7 @@ GtPharoSyntaxExplainer >> create [
 		constraintsDo: [ :c | c ignoreByLayout ];
 		size: 0 @ 0;
 		elevation: (BlRelativeElevation elevation: 10);
-		geometry: BlCircle new.
+		geometry: BlCircleGeometry new.
 
 	constructsContainer := self constructsList.
 
