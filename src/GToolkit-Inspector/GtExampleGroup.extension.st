@@ -113,7 +113,7 @@ GtExampleGroup >> buildListViewFor: aView [
 GtExampleGroup >> gtExamplesFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Examples';
+		title: 'List';
 		priority: 11;
 		actionButtonIcon: BrGlamorousVectorIcons play
 			tooltip: 'Run all examples'
@@ -154,7 +154,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 GtExampleGroup >> gtExpandableExamplesFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Examples';
+		title: 'Methods';
 		priority: 1;
 		stencil: [
 			GtExampleGroupCoder new forItems: (self examples sorted: GtMethodsSortFunction new) ];
