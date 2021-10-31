@@ -39,31 +39,6 @@ GtWorldMenu class >> documentationExplorerOn: aBuilder [
 ]
 
 { #category : #'world menu' }
-GtWorldMenu class >> documenterClassCommentsMenuOn: aBuilder [
-	<worldMenu>
-	(aBuilder item: #gtdocumenterclasses)
-		parent: #gtoolkit;
-		label: 'gt Documenter class comments';
-		target: self;
-		selector: #openAllClassesDocumentedByDocumenter;
-		order: 15;
-		help: 'Open GToolkit Documenter classes'
-]
-
-{ #category : #'world menu' }
-GtWorldMenu class >> documenterFilesMenuOn: aBuilder [
-	<worldMenu>
-	(aBuilder item: #gtdocumenterfiles)
-		parent: #gtoolkit;
-		label: 'gt Documenter files';
-		target: self;
-		selector: #openAllDocumenterFiles;
-		order: 20;
-		help: 'Open GToolkit Documenter files';
-		withSeparatorAfter 
-]
-
-{ #category : #'world menu' }
 GtWorldMenu class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtexamplesexplorer)
@@ -87,15 +62,22 @@ GtWorldMenu class >> gtWorldMenuOn: aBuilder [
 		help: 'Open the GToolkit World'
 ]
 
-{ #category : #'api - actions' }
-GtWorldMenu class >> openAllClassesDocumentedByDocumenter [
-	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
-		eachClassOrTrait comment includesSubstring: '${' ])
+{ #category : #'world menu' }
+GtWorldMenu class >> lepiterClassCommentsMenuOn: aBuilder [
+	<worldMenu>
+	(aBuilder item: #gtdocumenterclasses)
+		parent: #gtoolkit;
+		label: 'Lepiter class comments';
+		target: self;
+		selector: #openAllClassesDocumentedByLepiter;
+		order: 15;
+		help: 'Open GToolkit Documenter classes'
 ]
 
 { #category : #'api - actions' }
-GtWorldMenu class >> openAllDocumenterFiles [
-	GtInspector openOn: GtResourcesUtility default pillarDocuments
+GtWorldMenu class >> openAllClassesDocumentedByLepiter [
+	GtInspector openOn: (Smalltalk allClassesAndTraits select: [ :eachClassOrTrait | 
+		eachClassOrTrait comment includesSubstring: '${' ])
 ]
 
 { #category : #'api - actions' }
