@@ -75,7 +75,7 @@ BlElement >> gtMeasurementChainFor: aView [
 	^ aView columnedList
 		title: 'Measurement' translated;
 		priority: 11;
-		items: [ 
+		items: [
 			| withAllParents |
 			withAllParents := (Array streamContents: [ :aStream |
 				| currentElement |
@@ -211,6 +211,17 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtPropertiesFor: aView [
+	<gtView>
+
+	^ aView forward
+		title: 'Properties';
+		priority: 11;
+		object: [ self properties ];
+		view: #gtPropertiesFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtResizersFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -235,6 +246,28 @@ BlElement >> gtShortcutsFor: aView [
 		items: [ self shortcuts asArray ];
 		column: 'Name' text: [ :each | each name ifNil: [ each gtDisplayString ] ];
 		column: 'Combination' text: [ :each | each combination gtDisplayString ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlElement >> gtStatesFor: aView [
+	<gtView>
+
+	^ aView forward
+		title: 'States';
+		priority: 10;
+		object: [ self states ];
+		view: #gtStatesFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlElement >> gtStylesFor: aView [
+	<gtView>
+
+	^ aView forward
+		title: 'Styles';
+		priority: 10;
+		object: [ self styles ];
+		view: #gtStylesFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
