@@ -11,5 +11,6 @@ Trait >> gtUsersFor: aView [
 			aClassOrTrait isTrait
 				ifTrue: [ aClassOrTrait users asOrderedCollection ]
 				ifFalse: [ #() ] ];
+		actionUpdateButtonTooltip: 'Update user list';
 		sendTool: [:aClassOrTrait | GtClassCoderTool forClass: aClassOrTrait ]
 ]

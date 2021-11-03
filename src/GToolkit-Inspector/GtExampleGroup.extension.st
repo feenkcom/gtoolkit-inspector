@@ -55,8 +55,7 @@ GtExampleGroup >> buildListViewFor: aView [
 										anExample run.
 										anEvent currentTarget background: anExample icon.
 										anEvent currentTarget phlow 
-											selectObject: anExample result 
-												returnValueOrExampleException ]
+											selectObject: anExample result returnValue ]
 									ifAbsent: [ "do nothing" ] ] ];
 			dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
 					aLabel userData
@@ -89,7 +88,7 @@ GtExampleGroup >> buildListViewFor: aView [
 								at: #example
 								ifPresent: [ :anExample |
 									anExample hasResult ifTrue: [ | aResult |
-										aResult := anExample result returnValueOrExampleException.
+										aResult := anExample result returnValue.
 										(aResult isKindOf: BlElement) ifTrue: [ 
 											aResult removeFromParent ].
 										anEvent currentTarget phlow spawnObject: aResult.
