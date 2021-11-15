@@ -4,7 +4,14 @@ Extension { #name : #Context }
 Context >> gtSourceFor: aView [
 	<gtView>
 	self method ifNil: [ ^ aView empty ].
-	^ self blocDefiningMethod gtSourceFor: aView
+	
+	^ aView explicit
+		title: 'Source';
+		priority: 10;
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ self gtBrowse ];
+		stencil: [ (GtPharoMethodContextCoder forContext: self session: nil) asExpandedOnlyElement vFitContentLimited ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
