@@ -38,6 +38,12 @@ GtInspector class >> forObject: anObject [
 	^ self new object: anObject
 ]
 
+{ #category : #'instance creation' }
+GtInspector class >> forObject: anObject viewSelector: aSymbol [ 
+
+	^ self new object: anObject viewSelector: aSymbol
+]
+
 { #category : #'gt-extensions' }
 GtInspector class >> gtActionsFor: aView [
 	<gtView>
@@ -116,6 +122,16 @@ GtInspector >> initializeTitleNotifier [
 		longLabel: [ self object gtInspectorTitleString ];
 		icon: BrGlamorousVectorIcons inspect.
 	self addEventHandler: titleNotifier.
+]
+
+{ #category : #accessing }
+GtInspector >> object: anObject viewSelector: aSymbol [
+
+	| anObjectHolder |
+	anObjectHolder := GtInspectorObject new
+		                  object: anObject;
+		                  viewSelector: aSymbol.
+	self objectHolder: anObjectHolder
 ]
 
 { #category : #'private - event handling' }
