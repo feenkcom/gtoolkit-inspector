@@ -234,7 +234,7 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 	(self isFile and: [ self extension = 'st' or: [self extension = 'ph'] ]) ifFalse: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Script';
-		priority: 10;
+		priority: 1;
 		stencil: [ 
 			(GtPharoSnippetCoder new 
 				forSource: (self readStreamDo: [ :s | s contents ]);
@@ -242,7 +242,18 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 				asExpandedOnlyElement) 
 					vFitContentLimited ];
 		actionButtonLabel: 'File In' 
-			action: [ :aButton :aTab | self asFileReference fileIn ]
+			action: [ :aButton :aTab | self asFileReference fileIn ];
+		actionStencil: [ :tab | 
+			BrButton new 
+				aptitude: BrGlamorousButtonWithIconAptitude;
+				label: 'Save';
+				icon: BrGlamorousVectorIcons accept;
+				action: [ 
+					| newContents | 
+					newContents := tab viewContentElement children first children first children first textualCoderViewModel styledText asString.
+					(self fullName, '.backup') asFileReference ensureDelete.
+					self copyTo: (self fullName, '.backup') asFileReference.
+					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
