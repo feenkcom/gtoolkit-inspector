@@ -238,14 +238,46 @@ BlElement >> gtResizersFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtShortcutsFor: aView [
+
+	"	self shortcuts ifEmpty: [ ^ aView empty ]."
+
 	<gtView>
-	self shortcuts ifEmpty: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Shortcuts' translated;
-		priority: 11;
-		items: [ self shortcuts asArray ];
-		column: 'Name' text: [ :each | each name ifNil: [ each gtDisplayString ] ];
-		column: 'Combination' text: [ :each | each combination gtDisplayString ]
+		  title: 'Shortcuts' translated;
+		  priority: 11;
+		  items: [ 
+			  | all |
+			  all := OrderedCollection new.
+			  self withAllParentsDo: [ :el | 
+					  all addAll: ((el shortcuts collect: [ :s | el -> s ]) sorted: [:a :b | a value gtDisplayString < b value gtDisplayString ])].
+			  all  ];
+		  column: 'Name'
+		  text: [ :each | 
+			  each value name ifNil: [ each value gtDisplayString ] ];
+		  column: 'Combination'
+		  text: [ :each | each value combination gtDisplayString ];
+		  column: 'Element' icon: [ :each | 
+			  each key = self
+				  ifTrue: [ BlElement new size: 1@1 ]
+				  ifFalse: [ 
+					  BrButton new
+						  beSmallSize;
+						  label: each key gtDisplayString;
+						  aptitude: (BrGlamorousButtonLabelAptitude new
+								   hoveredColor: Color black;
+								   pressedColor: Color black)
+							  + (BrGlamorousButtonRectangularAptitude
+									   paddingScale: 0.8
+									   heightScale: 0.85
+									   cornerRadius: 3) + (BrStyleCommonAptitude new
+								   default: [ :s | s background: (Color gray alpha: 0.1) ];
+								   hovered: [ :s | s background: (Color gray alpha: 0.2) ];
+								   pressed: [ :s | s background: (Color gray alpha: 0.3) ]);
+						  action: [ :aButtonElement | 
+						  aButtonElement phlow spawnObject: each key ] ] ]
+		  width: 200;
+		  send: [ :each | each value ]
+	"text: [ :each | each key = self ifTrue: [''] ifFalse: [each key gtDisplayString] ];"
 ]
 
 { #category : #'*GToolkit-Inspector' }
