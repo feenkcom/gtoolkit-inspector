@@ -82,6 +82,7 @@ BlDevScripter >> gtReveresedEventsFor: aView [
 BlDevScripter >> gtSpaceFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
+	element ifNil: [ ^ aView empty ].
 		
 	^ aView explicit
 		title: 'Preview';
