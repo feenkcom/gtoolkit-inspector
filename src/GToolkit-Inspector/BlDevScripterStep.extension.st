@@ -4,6 +4,9 @@ Extension { #name : #BlDevScripterStep }
 BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
+	self steps
+		ifEmpty: [ ^ aView empty ].
+	
 	^ aView mondrian
 		title: 'Steps';
 		priority: 2;
@@ -13,6 +16,9 @@ BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsTreeFor: aView [
 	<gtView>
+	
+	self steps
+		ifEmpty: [ ^ aView empty ].
 	
 	^ aView columnedTree
 		title: 'Steps In Tree';
