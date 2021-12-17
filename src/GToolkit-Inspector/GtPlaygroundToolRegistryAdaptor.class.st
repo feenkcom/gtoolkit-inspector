@@ -50,5 +50,5 @@ GtPlaygroundToolRegistryAdaptor class >> title [
 { #category : #'tools registry' }
 GtPlaygroundToolRegistryAdaptor class >> unregister [
 	<script>
-	GTPlayground register
+	StPlayground register
 ]

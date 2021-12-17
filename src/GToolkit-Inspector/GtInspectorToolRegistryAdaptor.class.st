@@ -35,5 +35,5 @@ GtInspectorToolRegistryAdaptor class >> registerToolsOn: aToolRegistry [
 { #category : #'tools registry' }
 GtInspectorToolRegistryAdaptor class >> unregister [
 	<script>
-	GTInspector register
+	StInspector register
 ]
