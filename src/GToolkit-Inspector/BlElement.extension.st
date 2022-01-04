@@ -61,6 +61,7 @@ BlElement >> gtLiveFor: aView [
 					| container |
 					container := BlElement new
 						margin: (BlInsets all: 20);
+						layout: BlLinearLayout new;
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent ]. 
@@ -74,7 +75,7 @@ BlElement >> gtMeasurementChainFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Measurement' translated;
-		priority: 11;
+		priority: 15.1;
 		items: [
 			| withAllParents |
 			withAllParents := (Array streamContents: [ :aStream |
@@ -226,7 +227,7 @@ BlElement >> gtResizersFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Resizers' translated;
-		priority: 10;
+		priority: 15;
 		items: [ self withAllParents reversed ];
 		column: 'Width'
 			text: [ :anElement | anElement constraints horizontal resizer ];
@@ -244,7 +245,7 @@ BlElement >> gtShortcutsFor: aView [
 	<gtView>
 	^ aView columnedList
 		  title: 'Shortcuts' translated;
-		  priority: 11;
+		  priority: 10;
 		  items: [ 
 			  | all |
 			  all := OrderedCollection new.
