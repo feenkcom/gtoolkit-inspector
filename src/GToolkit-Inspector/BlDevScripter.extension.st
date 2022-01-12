@@ -134,6 +134,32 @@ BlDevScripter >> gtStepsTreeFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlDevScripter >> gtTaskEventsFor: aView [
+	<gtView>
+	
+	self events
+		ifNil: [ ^ aView empty ].
+	
+	^ aView columnedList
+		title: 'Tasks';
+		priority: 2;
+		items: [ self events select: [ :eachEvent | eachEvent isKindOf: BlSpaceTaskEvent ] ];
+		column: 'Frame id' text: [ :eachEvent | eachEvent frameId ] width: 75;
+		column: 'Event' text: [ :eachEvent |
+			eachEvent isTaskEnqueuedEvent
+				ifTrue: [ 'Enqueued' asRopedText foreground: BrGlamorousColors linkColor darker ]
+				ifFalse: [
+					eachEvent isTaskDequeuedEvent
+						ifTrue: [ 'Dequeued' asRopedText foreground: BrGlamorousColors errorBorderColor ]
+						ifFalse: [ eachEvent isTaskExecutedEvent
+							ifTrue: [ 'Executed' asRopedText foreground: BrGlamorousColors successBackgroundColor darker ]
+							ifFalse: [ 'Unknown' ] ] ] ] width: 100;
+		column: 'Task id' text: [ :eachEvent | eachEvent task id ] width: 75;
+		column: 'Tasks' text: [ :eachEvent | eachEvent tasks size ] width: 75;
+		column: 'Description' text: [ :eachEvent | eachEvent task printString ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripter >> gtUserDataFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
