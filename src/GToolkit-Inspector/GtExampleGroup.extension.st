@@ -213,7 +213,7 @@ GtExampleGroup >> paintMapWith: m [
 						aptitude: (BrGlamorousWithTooltipAptitude new 
 							contentStencil: [
 								| aCoderElement |
-								aCoderElement := ((GtPharoMethodCoder forExample: anExample) asCoderUIModel expanded: true) 
+								aCoderElement := ((GtPharoMethodCoder forExample: anExample) asCoderViewModel expanded: true) 
 									asExpandedOnlyElement
 										vFitContentLimited;
 										when: GtPhlowObjectToSpawn

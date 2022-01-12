@@ -132,7 +132,7 @@ GtPharoSyntaxExplainer >> create [
 
 	coder := GtPharoMethodCoder new forMethod: method.
 	coder explanationLink: GtPharoSyntaxExplanationStyler new.
-	coderElement := (coder asCoderUIModel expanded: true) asElement margin: (BlInsets all: 0).
+	coderElement := (coder asCoderViewModel expanded: true) asElement margin: (BlInsets all: 0).
 	coderElement vMatchParent.
 
 	leftContainer addChild: leftContainerLabel.

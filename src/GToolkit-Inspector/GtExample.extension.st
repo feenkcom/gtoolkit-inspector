@@ -79,7 +79,7 @@ GtExample >> gtDependenciesGraphFor: aView [
 							showDelay: 100 milliSeconds;
 							hideDelay: 100 milliSeconds;
 							stencil: [ 
-								BlElement new aptitude: (BrTooltipAptitude new content: ((GtPharoMethodCoder forExample: each) asCoderUIModel expanded: true) asElement)]).
+								BlElement new aptitude: (BrTooltipAptitude new content: ((GtPharoMethodCoder forExample: each) asCoderViewModel expanded: true) asElement)]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.
