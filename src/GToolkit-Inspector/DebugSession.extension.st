@@ -19,7 +19,7 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 					{(BlTextUnderlineAttribute new
 						color: BrGlamorousColors errorBackgroundColor;
 						beNotOverwritableByStyler)}.
-			(methodCoder asCoderUIModel expanded: true) asElement ]
+			(methodCoder asCoderViewModel expanded: true) asElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -47,7 +47,7 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 							{(BlTextUnderlineAttribute new
 								color: BrGlamorousColors errorBackgroundColor;
 								beNotOverwritableByStyler)} ].
-			methodsCoder asCoderUIModel 
+			methodsCoder asCoderViewModel 
 				expandCoder: methodsCoder coders first ]
 ]
 
@@ -93,6 +93,6 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 							{(BlTextUnderlineAttribute new
 								color: BrGlamorousColors errorBackgroundColor;
 								beNotOverwritableByStyler)} ].
-			methodsCoder asCoderUIModel 
+			methodsCoder asCoderViewModel 
 				expandCoder: methodsCoder coders first ]
 ]
