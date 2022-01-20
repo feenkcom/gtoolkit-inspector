@@ -305,10 +305,12 @@ BlElement >> gtStylesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtUserDataFor: aView [
+
 	<gtView>
-	^ (self userData gtItemsFor: aView) 
-		title: 'User data';
-		priority: 5
+	^ (self userData gtItemsFor: aView)
+		  title: 'User data';
+		  priority: 5;
+		  actionUpdateButtonTooltip: 'Update user data'
 ]
 
 { #category : #'*GToolkit-Inspector' }
