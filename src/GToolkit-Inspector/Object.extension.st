@@ -40,7 +40,8 @@ Object >> gtPrintFor: aView [
 		title: 'Print';
 		priority: 110;
 		aptitude: BrGlamorousCodeEditorAptitude;
-		text: [ self printString asRopedText ]
+		text: [ self printString asRopedText ];
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
