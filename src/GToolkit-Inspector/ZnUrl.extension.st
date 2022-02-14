@@ -13,13 +13,16 @@ ZnUrl >> gtActionWebBrowseFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtQueryFor: aView [
+
 	<gtView>
-	^ aView columnedList 
-		title: 'Query';
-		priority: 2;
-		items: [ query associations ];
-		column: 'Property' text: #key;
-		column: 'Value' text: #value
+	query ifNil: [ ^ aView empty ].
+
+	^ aView columnedList
+		  title: 'Query';
+		  priority: 2;
+		  items: [ query associations ];
+		  column: 'Property' text: #key;
+		  column: 'Value' text: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
