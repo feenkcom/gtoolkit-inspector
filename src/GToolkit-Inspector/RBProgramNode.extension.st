@@ -55,26 +55,30 @@ RBProgramNode >> gtTreeFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtVisualTreeFor: aView [
-	<gtView> 
-	| wrapperFactory |	
-	wrapperFactory := RBNodeWrapperFactory new. 
-	^ aView mondrian
+	<gtView>
+	
+	| wrapperFactory |
+	wrapperFactory := RBNodeWrapperFactory new.
+	^ (aView mondrian)
 		title: 'Map';
 		priority: 60;
-		painting: [ :view | 
-			view nodes 
-				shape: [ :each |
-					| textElement text |
-					text := BlRopedText string: ((each printString) truncateTo:30).
-					textElement := BlTextElement new.
-					textElement text: text.
-					textElement 	
-						when: BlClickEvent 
-						do: [ :e | 
-							textElement phlow spawnObject: each node.
-							e consumed: true ].
-					textElement ];	
-				with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
-			view edges connectFrom: #parent.
-			view layout tree ].
+		painting:
+				[ :view | 
+					(view nodes)
+						shape:
+								[ :each | 
+									| textElement text |
+									text := (each printString truncateTo: 30) asRopedText.
+									textElement := BlTextElement new.
+									textElement text: text.
+									textElement
+										when: BlClickEvent
+										do:
+											[ :e | 
+											textElement phlow spawnObject: each node.
+											e consumed: true ].
+									textElement ];
+						with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
+					view edges connectFrom: #parent.
+					view layout tree ]
 ]
