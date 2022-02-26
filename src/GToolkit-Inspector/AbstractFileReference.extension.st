@@ -147,12 +147,7 @@ AbstractFileReference >> gtItemsFor: aView [
 	|fileBrowser|
 	self isDirectory
 		ifFalse: [ ^ aView empty ].
-	"fileBrowser := BrFileBrowser new.
-	fileBrowser folder: self.
-	^ aView explicit
-		title: 'Items' translated;
-		priority: 10;
-		stencil: fileBrowser"
+
 	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
@@ -168,7 +163,9 @@ AbstractFileReference >> gtItemsFor: aView [
 				ifFalse: [ each basename asString ] ];
 		column: 'Size' translated
 			text: [ :each | 
-				[ each humanReadableSize asString ]
+				[ each isDirectory 
+					ifTrue: [ '' ]
+					ifFalse: [ each humanReadableSize asString ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
 			width: 100;
@@ -181,6 +178,7 @@ AbstractFileReference >> gtItemsFor: aView [
 						each creationTime printHMSOn: s ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
+			width: 150
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -263,7 +261,7 @@ AbstractFileReference >> gtTreeFor: aView [
 		ifFalse: [ ^ aView empty ].
 	^ aView columnedTree
 		title: 'Tree' translated;
-		priority: 10;
+		priority: 15;
 		items: [ self gtChildren ];
 		children: [ :each | each gtChildren ];
 		column: 'Name' translated 
@@ -284,7 +282,10 @@ AbstractFileReference >> gtTreeFor: aView [
 			weight: 1;
 		column: 'Size' translated
 			text: [ :each | 
-				[ each humanReadableSize asString ]
+				[ 
+					each isDirectory
+						ifFalse: [  each humanReadableSize asString ]
+						ifTrue: [ '' ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
 			width: 100;
