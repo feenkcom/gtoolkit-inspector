@@ -1,17 +1,17 @@
-Extension { #name : #BlRopedText }
+Extension { #name : #BlAbstractRopedText }
 
 { #category : #'*GToolkit-Inspector' }
-BlRopedText >> gtDisplayText [
+BlAbstractRopedText >> gtDisplayText [
 	^ self
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlRopedText >> gtLiveFor: aView [
+BlAbstractRopedText >> gtLiveFor: aView [
 	^ self gtTreeFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlRopedText >> gtStoreStringFor: aView [
+BlAbstractRopedText >> gtStoreStringFor: aView [
 	<gtView>
 	
 	^ aView explicit
@@ -21,7 +21,7 @@ BlRopedText >> gtStoreStringFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlRopedText >> gtTextAttributesFor: aView [
+BlAbstractRopedText >> gtTextAttributesFor: aView [
 	<gtView>
 	(self attributesBuilder respondsTo: #attributes)
 		ifFalse: [ ^ aView empty ].
@@ -31,7 +31,7 @@ BlRopedText >> gtTextAttributesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlRopedText >> gtTreeFor: aView [
+BlAbstractRopedText >> gtTreeFor: aView [
 	<gtView>
 	^ self rope 
 		ifNil: [ aView empty ]
