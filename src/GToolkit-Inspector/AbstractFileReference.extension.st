@@ -144,7 +144,6 @@ AbstractFileReference >> gtHexContentsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
-	|fileBrowser|
 	self isDirectory
 		ifFalse: [ ^ aView empty ].
 
@@ -164,7 +163,7 @@ AbstractFileReference >> gtItemsFor: aView [
 		column: 'Size' translated
 			text: [ :each | 
 				[ each isDirectory 
-					ifTrue: [ '' ]
+					ifTrue: [ '--' ]
 					ifFalse: [ each humanReadableSize asString ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
@@ -285,7 +284,7 @@ AbstractFileReference >> gtTreeFor: aView [
 				[ 
 					each isDirectory
 						ifFalse: [  each humanReadableSize asString ]
-						ifTrue: [ '' ] ]
+						ifTrue: [ '--' ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
 			width: 100;
