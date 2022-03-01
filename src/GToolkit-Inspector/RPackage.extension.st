@@ -23,8 +23,11 @@ RPackage >> gtExamplesFor: aView [
 	<gtView>
 	<gtPackageView>
 	
-	^ (GtExampleGroup withAll: self gtExamplesAllContained)
-			gtExamplesFor: aView
+	^ aView forward 
+		title: 'Examples';
+		priority: 11;
+		object: [ GtExampleGroup withAll: self gtExamplesAllContained];
+		view: #gtExamplesFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
