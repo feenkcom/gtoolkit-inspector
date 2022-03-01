@@ -27,18 +27,6 @@ GtWorldMenu class >> createDefaultMessageTally [
 ]
 
 { #category : #'world menu' }
-GtWorldMenu class >> documentationExplorerOn: aBuilder [
-	<worldMenu>
-	(aBuilder item: #gtintroductionmenu)
-		parent: #gtoolkit;
-		label: 'gt Documentation Explorer';
-		target: self;
-		selector: #openGToolkitDocumentationExplorer;
-		order: 10;
-		help: 'Open the Glamorous Toolkit Documentation'
-]
-
-{ #category : #'world menu' }
 GtWorldMenu class >> examplesExplorerMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtexamplesexplorer)
@@ -83,11 +71,6 @@ GtWorldMenu class >> openAllClassesDocumentedByLepiter [
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
 	GtCoder new openInPager maximized
-]
-
-{ #category : #'api - actions' }
-GtWorldMenu class >> openGToolkitDocumentationExplorer [
-	GtInspector openOn: GtRlGToolkitDocumentationExplorer buildForGToolkitProject
 ]
 
 { #category : #'api - actions' }
