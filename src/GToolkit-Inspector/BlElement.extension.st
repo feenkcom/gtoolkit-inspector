@@ -182,11 +182,11 @@ BlElement >> gtPreviewFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewThumbnailFor: anElement [
-	^ BlLazyElement new 
+	^ BrAsyncWidget new 
 		layout: BlFrameLayout new; 
 		margin: (BlInsets all: 10);
 		size: 50 @ 20;
-		elementBuilder: [
+		stencil: [
 			| form |
 			form := anElement asSpartaForm.
 			BrButton new
@@ -204,11 +204,7 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 										addChild: form asElement asScalableElement) ]
 							content: [ form asElement ]);
 				constraintsDo: [ :c | 
-					c linear horizontal alignRight ] ];
-		postAction: [ :theLazyElement :theChild |
-			theLazyElement constraintsDo: [ :c | 
-				c horizontal fitContent.
-				c vertical fitContent ] ]
+					c linear horizontal alignRight ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
