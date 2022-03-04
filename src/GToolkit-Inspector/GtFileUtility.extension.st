@@ -27,7 +27,6 @@ GtFileUtility class >> imageElementFromFileReference: aFileReference [
 		BlSpartaBufferedImageElement buffer: buffer ].
 	
 	^ image
-		errorText: 'Unable to decode ', aFileReference asString;
 		constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent. ]
