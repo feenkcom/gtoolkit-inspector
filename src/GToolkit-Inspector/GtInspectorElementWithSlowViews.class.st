@@ -10,7 +10,7 @@ GtInspectorElementWithSlowViews new
 Class {
 	#name : #GtInspectorElementWithSlowViews,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #'gt-extension' }
@@ -20,10 +20,7 @@ GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 		title: 'Any Progress';
 		priority: 7;
 		stencil: [ 
-			BlTaskProgress signalMessage: 'Obtaining data...'.
-			1 second wait.
-			BlTaskProgress signalMessage: 'Preparing visualization...'.
-			1 second wait.
+			2 second wait.
 			BlTextElement new
 				text: 'The Any Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
@@ -38,7 +35,6 @@ GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 		title: 'Exact Progress';
 		priority: 5;
 		stencil: [ 
-			BlTktDemoResponsiveCommand new value.
 			BlTextElement new
 				text: 'The Exact Progress rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
@@ -93,9 +89,6 @@ GtInspectorElementWithSlowViews >> gtProgressingComputationFor: aView [
 		title: 'Progressing' translated;
 		priority: 5;
 		stencil: [ 
-			BlAnyProgress signal: 'Obtaining data...'.
-			BlTktDemoResponsiveCommand new value.
-			BlAnyProgress signal: 'Preparing visualization...'.
 			BlTextElement new
 				text: 'The Progressing rendering is now finished.' asRopedText;
 				constraintsDo: [ :c | 
@@ -140,7 +133,6 @@ GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 		stencil: [ 
 			0.5 second wait.
 			1 to: 20 do: [ :each |
-				BlTaskProgress signal: 'Transferring...' amount: each * 1024.
 				(Delay forMilliseconds: 100) wait ].
 			BlTextElement new
 				text: 'The Some Progress rendering is now finished.' asRopedText;
