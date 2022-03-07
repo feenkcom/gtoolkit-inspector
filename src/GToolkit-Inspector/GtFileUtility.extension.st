@@ -21,13 +21,12 @@ GtFileUtility class >> imageElementFromFileReference: aFileReference [
 
 	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
 	image := aFileReference fileSystem isDiskFileSystem ifTrue: 
-		[ BlFileImageElement file: aFileReference ]
+		[ BrAsyncFileWidget new file: aFileReference ]
 	ifFalse: 
 		[ buffer := aFileReference binaryReadStreamDo: [ :s | s upToEnd ].
 		BlSpartaBufferedImageElement buffer: buffer ].
 	
 	^ image
-		errorText: 'Unable to decode ', aFileReference asString;
 		constraintsDo: [ :c |
 					c vertical matchParent.
 					c horizontal matchParent. ]
