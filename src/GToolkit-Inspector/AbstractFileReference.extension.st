@@ -41,7 +41,6 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 AbstractFileReference >> gtActionWebBrowseFor: anAction [
 
 	<gtAction>
-	| button |
 	self exists ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
