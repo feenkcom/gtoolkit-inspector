@@ -52,8 +52,8 @@ Object >> gtInspectorVariableNodesIn: aCollection [
 		aCollection add: (GtInspectorIndexedNode hostObject: self index: index) ].
 	
 	aCollection
-		addAll: ((self class allSlots collect: [ :slot | 
-			GtInspectorSlotNode hostObject: self slot: slot ]))
+		addAll: (self class allSlots collect: [ :slot | 
+			GtInspectorSlotNode hostObject: self slot: slot ])
 ]
 
 { #category : #'*GToolkit-Inspector' }
