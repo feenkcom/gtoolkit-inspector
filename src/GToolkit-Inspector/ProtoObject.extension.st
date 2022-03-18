@@ -50,6 +50,11 @@ ProtoObject >> gtInspect [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtInspectorIcon [
+	^ nil
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtInspectorTitleString [
 	^ GtPhlowLabelBuilder new 
 		object: self; 

@@ -1,6 +1,23 @@
 Extension { #name : #Context }
 
 { #category : #'*GToolkit-Inspector' }
+Context >> gtInspectorTempNodes [
+
+	^ (self tempNames withIndexCollect: [ :tempName :tempIndex |
+			GtInspectorContextNamedTempNode hostObject: self tempName: tempName tempIndex: tempIndex ]) .
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Context >> gtInspectorVariableNodesIn: aCollection [
+	"We override the variables with context specific ones"
+	| tempVariableValueNodes |
+	
+	tempVariableValueNodes := self gtInspectorTempNodes sort: [:aNode :anotherNode | aNode key < anotherNode key ].
+	aCollection addAll: tempVariableValueNodes.
+	super gtInspectorVariableNodesIn: aCollection
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Context >> gtSourceFor: aView [
 	<gtView>
 	self method ifNil: [ ^ aView empty ].
