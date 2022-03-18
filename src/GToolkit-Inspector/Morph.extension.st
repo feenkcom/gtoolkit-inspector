@@ -1,6 +1,11 @@
 Extension { #name : #Morph }
 
 { #category : #'*GToolkit-Inspector' }
+Morph >> gtInspectorIcon [
+	^ self class systemIcon
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Morph >> gtMorphFor: aView [
 	<gtView>
 	^ aView explicit

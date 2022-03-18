@@ -28,6 +28,47 @@ Object >> gtInspectorForGtIn: composite [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Object >> gtInspectorIcon [
+	^ self iconOrThumbnailOfSize: 16
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Object >> gtInspectorVariableNodesIn: aCollection [
+	"This is a helper method that adds to the given collection all nodes modeling named and 
+	indexed attributes for the current object.
+	Subclasses can override it to specialize what appears in the variables presentation."
+	| indexableDisplayLimit top bottom topLimit bottomLimit |
+	
+	indexableDisplayLimit := GtInspector indexableDisplayLimit.        
+	top := 1.
+	bottom := self basicSize.
+	topLimit    := indexableDisplayLimit min: bottom.
+	bottomLimit := indexableDisplayLimit max: (bottom - indexableDisplayLimit).
+
+	top to: topLimit do: [ :index | 
+		aCollection add: (GtInspectorIndexedNode hostObject: self index: index) ].
+	
+	bottomLimit + 1 to: bottom do: [ :index |
+		aCollection add: (GtInspectorIndexedNode hostObject: self index: index) ].
+	
+	aCollection
+		addAll: (self class allSlots collect: [ :slot | 
+			GtInspectorSlotNode hostObject: self slot: slot ])
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Object >> gtInspectorVariableValuePairs [
+	"This is a helper method that returns a collection of 
+		variable_name -> value
+	for the current object.
+	Subclasses can override it to specialize what appears in the variables presentation"
+	| bindings |
+	bindings := OrderedCollection new.
+	self gtInspectorVariableNodesIn: bindings.
+	^ bindings collect: [ :aNode | aNode key -> aNode value ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Object >> gtLiveFor: aView [
 	"I am a utility method that can be useful for polymorphic purposes"
 	^ self gtPrintFor: aView
@@ -52,7 +93,7 @@ Object >> gtRawFor: aView [
 		priority: 100;
 		items: [ | variableNodes |
 			variableNodes := OrderedCollection new: self class allSlots size.
-			variableNodes add: (GTInspectorSelfNode hostObject: self).
+			variableNodes add: (GtInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			variableNodes ];
 		column: 'Icon'

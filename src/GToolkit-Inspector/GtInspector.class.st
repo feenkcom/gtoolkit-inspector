@@ -17,6 +17,9 @@ Class {
 		'playgroundElement',
 		'titleNotifier'
 	],
+	#classVars : [
+		'IndexableDisplayLimit'
+	],
 	#classInstVars : [
 		'embeddedPlaygroundName'
 	],
@@ -60,6 +63,16 @@ GtInspector class >> gtExtensionsFor: aView [
 	^ (#gtView gtPragmas gtItemsFor: aView)
 		title: 'Extensions';
 		priority: 34
+]
+
+{ #category : #settings }
+GtInspector class >> indexableDisplayLimit [
+	^ IndexableDisplayLimit ifNil: [ 5000 ]
+]
+
+{ #category : #settings }
+GtInspector class >> indexableDisplayLimit: anInteger [
+	IndexableDisplayLimit := anInteger
 ]
 
 { #category : #'gt-extensions' }
