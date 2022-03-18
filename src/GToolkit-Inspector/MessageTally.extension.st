@@ -1,6 +1,32 @@
 Extension { #name : #MessageTally }
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> addReceiver: aMessageTally [
+	receivers := receivers copyWith: aMessageTally
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> applyFilter: aGtMessageTallyFilter [
+	^ aGtMessageTallyFilter filter: self
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> changeToOuterMethod [
+	method := method method
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> filterCopy [
+	^ self copy filterPostCopy
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> filterPostCopy [
+	receivers := Array new: 0.
+	senders := nil
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
 	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
@@ -75,6 +101,17 @@ MessageTally >> gtMessagesTreeIn: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> gtRecursionSummaryMessagesTreeIn: aView [
+	<gtView>
+	
+	| summarizedTally |
+	summarizedTally := self applyFilter: GtRecursionSummaryFilter new.
+	^ (summarizedTally gtMessagesTreeIn: aView)
+		title: 'Summarize Recursion';
+		priority: 12
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtSourceFor: aView [
 	<gtView>
 	^ self method ifNotNil: [
@@ -89,4 +126,9 @@ MessageTally >> gtTextReportFor: aView [
 		aptitude: BrGlamorousCodeEditorAptitude;
 		priority: 60;
 		text: [ String streamContents: [:s | self report: s ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> package [
+	^ method package
 ]
