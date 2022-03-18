@@ -52,7 +52,7 @@ Object >> gtRawFor: aView [
 		priority: 100;
 		items: [ | variableNodes |
 			variableNodes := OrderedCollection new: self class allSlots size.
-			variableNodes add: (GTInspectorSelfNode hostObject: self).
+			variableNodes add: (GtInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			variableNodes ];
 		column: 'Icon'
