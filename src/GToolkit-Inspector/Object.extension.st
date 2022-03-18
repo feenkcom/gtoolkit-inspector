@@ -39,7 +39,7 @@ Object >> gtInspectorVariableNodesIn: aCollection [
 	Subclasses can override it to specialize what appears in the variables presentation."
 	| indexableDisplayLimit top bottom topLimit bottomLimit |
 	
-	indexableDisplayLimit := GTInspector indexableDisplayLimit.        
+	indexableDisplayLimit := GtInspector indexableDisplayLimit.        
 	top := 1.
 	bottom := self basicSize.
 	topLimit    := indexableDisplayLimit min: bottom.
