@@ -11,7 +11,6 @@ CompiledCode >> gtBytecodeFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtBytesFor: aView [
-	<gtView>
 	^ aView empty
 ]
 
@@ -21,6 +20,11 @@ CompiledCode >> gtHeaderFor: aView [
 	^ aView textEditor
 		title: 'Header';
 		text: [ self headerDescription ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtHexDumpFor: aView [
+	 ^ aView empty
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -39,4 +43,20 @@ CompiledCode >> gtInspectorVariableNodesIn: aCollection [
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtItemsFor: aView [
 	^ aView empty 
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtTreeFor: aView context: aContext [
+	^ aView empty
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtViewIntermediareRepresentationFor: aView [
+	<gtView> 
+	^ aView text 
+		title: 'Ir';
+		text: [ 
+			| string |
+			string := self ast ir  longPrintString.
+			string copyFrom: 2 to: string size ]
 ]

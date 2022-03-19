@@ -26,3 +26,11 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 		title: 'Syntax Explanation' translated;
 		stencil: [ GtPharoSyntaxExplainer new forMethod: self ].
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtViewPragmasFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Pragmas';
+		items: [ self pragmas ]
+]

@@ -12,3 +12,8 @@ FileReference >> gtContentsIn: anElement [
 	anElement addChild: textElement.
 	^ textElement
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+FileReference >> gtDisplayOn: stream [
+	filesystem printPath: path on: stream
+]
