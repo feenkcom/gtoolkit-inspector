@@ -16,6 +16,21 @@ MessageTally >> changeToOuterMethod [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> children [
+	^ self sonsOver: 0
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> displayIdentifierOn: aStream [
+	class displayStringOn: aStream.
+	self method methodClass ~~ class 
+		ifTrue: [ aStream nextPut: $(; print: self method methodClass; nextPut: $) ].
+	aStream 
+		nextPutAll: '>>';
+		store: self method selector
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> filterCopy [
 	^ self copy filterPostCopy
 ]
@@ -24,6 +39,25 @@ MessageTally >> filterCopy [
 MessageTally >> filterPostCopy [
 	receivers := Array new: 0.
 	senders := nil
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> gtDisplayIdentifierOn: aStream [
+	class displayStringOn: aStream.
+	self method methodClass ~~ class 
+		ifTrue: [ aStream nextPut: $(; print: self method methodClass; nextPut: $) ].
+	aStream 
+		nextPutAll: '>>';
+		store: self method selector
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> gtDisplayOn: aStream [
+	self gtDisplayIdentifierOn: aStream.
+	aStream 
+		nextPutAll: ' (';
+		nextPutAll: self tally printString;
+		nextPutAll: ')'
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -126,6 +160,20 @@ MessageTally >> gtTextReportFor: aView [
 		aptitude: BrGlamorousCodeEditorAptitude;
 		priority: 60;
 		text: [ String streamContents: [:s | self report: s ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> localTally [
+	^ self children 
+		inject: self tally
+		into: [ :diff :each | diff - each tally ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> localTime [
+	^ self children
+		inject: self time 
+		into: [ :diff :each | diff - each time ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

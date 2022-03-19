@@ -1,6 +1,11 @@
 Extension { #name : #Text }
 
 { #category : #'*GToolkit-Inspector' }
+Text >> gtDisplayOn: aStream [
+	self printOn: aStream
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Text >> gtItemsFor: aView [
 	"No items presentation for a Text"
 
