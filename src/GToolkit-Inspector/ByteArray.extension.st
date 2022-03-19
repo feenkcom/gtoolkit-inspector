@@ -48,7 +48,7 @@ ByteArray >> gtBytesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ByteArray >> gtHexDumpFor: aView [
 	<gtView>
-	 self isCompiledMethod ifTrue: [ ^ aView empty ].
+	 
 	^ aView textEditor
 			title: 'Hex Dump';
 			text: [ 
