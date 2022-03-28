@@ -6,6 +6,11 @@ RBRefactoryChange >> gtChildren [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RBRefactoryChange >> gtDescription [
+	^self gtLabel
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBRefactoryChange >> gtInspectorLabel [
 	| label |
 	label := BrLabel new.
