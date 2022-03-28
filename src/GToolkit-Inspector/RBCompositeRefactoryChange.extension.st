@@ -40,6 +40,6 @@ RBCompositeRefactoryChange >> gtChildren [
 { #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtLabel [
 	^ self changes
-		ifNotNil: [ self changes size asString, ' changes' ] 
+		ifNotNil: [ self name, ':', self changes size asString, ' changes' ] 
 		ifNil: [ '0 changes' ]
 ]
