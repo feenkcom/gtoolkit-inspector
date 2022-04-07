@@ -63,11 +63,12 @@ MessageTally >> gtDisplayOn: aStream [
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> gtGroupedByMethodFor: aView [
 	<gtView>
-	| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale|
+	
 	^ aView explicit
 		title: 'Top local tallies';
 		priority: 11;
 		stencil: [ 
+			| grouped barChart tallies data maxTally aBarWidthScale aBarHeightScale |
 			tallies := self deepCollect: #children.
 			data := GtPlotterDataGroup new values: tallies.
 			grouped := data 
@@ -135,21 +136,31 @@ MessageTally >> gtMessagesTreeIn: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> gtPreviewFor: aView [
+	"No preview in this case."
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtRecursionSummaryMessagesTreeIn: aView [
 	<gtView>
 	
-	| summarizedTally |
-	summarizedTally := self applyFilter: GtRecursionSummaryFilter new.
-	^ (summarizedTally gtMessagesTreeIn: aView)
+	^ aView forward
 		title: 'Summarize Recursion';
-		priority: 12
+		priority: 12;
+		object: [ self applyFilter: GtRecursionSummaryFilter new ];
+		view: #gtMessagesTreeIn:
 ]
 
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> gtSourceFor: aView [
 	<gtView>
-	^ self method ifNotNil: [
-		(self method method gtSourceFor: aView) priority: 20]
+	self method ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Source';
+		priority: 20;
+		object: [ self method method ];
+		view: #gtSourceFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
