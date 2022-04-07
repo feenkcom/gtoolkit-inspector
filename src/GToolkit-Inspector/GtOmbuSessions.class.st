@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'directory'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #accessing }
@@ -70,5 +70,5 @@ GtOmbuSessions >> gtItemsFor: aView [
 							each creationTime printYMDOn: s.
 							s nextPut: Character space.
 							each creationTime printHMSOn: s ] ];
-		send: [ :file | GtEpicea new ombuFile: file ]
+		send: [ :file | GtEpiceaLog new ombuFile: file ]
 ]

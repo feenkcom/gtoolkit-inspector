@@ -1,6 +1,14 @@
 Extension { #name : #BrEditorElement }
 
 { #category : #'*GToolkit-Inspector' }
+BrEditorElement >> gtAttributesTreeFor: aView [
+	<gtView>
+	^ (self text attributeRuns gtTreeFor: aView) 
+		title: 'Attributes';
+		priority: 4
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BrEditorElement >> gtEditorElementsFor: aView [
 	<gtView>
 	^ aView mondrian
