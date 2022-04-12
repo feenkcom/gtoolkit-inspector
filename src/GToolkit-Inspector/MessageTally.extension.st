@@ -137,7 +137,7 @@ MessageTally >> gtMessagesTreeIn: aView [
 
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> gtPreviewFor: aView [
-	"No preview in this case."
+	^ aView empty
 ]
 
 { #category : #'*GToolkit-Inspector' }
