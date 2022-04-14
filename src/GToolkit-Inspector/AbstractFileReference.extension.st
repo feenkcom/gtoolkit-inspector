@@ -212,7 +212,7 @@ AbstractFileReference >> gtPathFor: aView [
 						thickness: 2) asElement 
 						background: BrGlamorousColors successBackgroundColor ]
 				ifFalse: [ 
-					(GtInspectorPlusIconStencil close 
+					(BrPlusIconStencil close 
 						radius: 8; 
 						thickness: 2) asElement 
 						background: BrGlamorousColors errorBackgroundColor] ]
