@@ -347,11 +347,17 @@ AbstractFileReference >> withParents [
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParentsInto: aStream [
-	<return: #Array of: #FileReference>
+
 	"I should be called on file references with absolute paths, otherwise an infinite loop happens"
+
+	<return: #Array of: #FileReference>
 	| aParent |
+	
+	self
+		assert: [ self isAbsolute ]
+		description: [ 'I must be called on absolute paths' ].
+		
 	aParent := self parent.
-	aParent isRoot ifFalse: [
-		aParent withParentsInto: aStream ].
+	aParent isRoot ifFalse: [ aParent withParentsInto: aStream ].
 	aStream nextPut: aParent
 ]
