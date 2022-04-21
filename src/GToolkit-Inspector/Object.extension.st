@@ -88,7 +88,7 @@ Object >> gtPrintFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Object >> gtRawFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Raw';
 		priority: 100;
 		items: [ | variableNodes |
@@ -96,14 +96,31 @@ Object >> gtRawFor: aView [
 			variableNodes add: (GtInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			variableNodes ];
-		column: 'Icon'
-			icon: [ :aNode | 
-				[ aNode rawValue gtInspectorIcon
-					ifNil: [ aNode rawValue class systemIcon ] ]
-					on: Error
-					do: [ :error | self iconNamed: #smallWarningIcon ] ]
-			width: 36;
-		column: 'Variable' text: [ :aNode | aNode label ];
+		children: [ :aNode | aNode childrenNodes ];
+		column: 'Variable' do: [ :aColumn |
+			aColumn 
+				cellStencil: [ 
+					BrHorizontalPane new
+						hMatchParent; 
+						vFitContent;
+						alignCenter ];
+				dataBinder: [ :itemElement :aNode | 
+					| nodeIcon |
+					nodeIcon := [ 
+						aNode rawValue gtInspectorIcon ifNil: [ 
+							aNode rawValue class systemIcon ] ]
+						on: Error
+						do: [ :error | self iconNamed: #smallWarningIcon ].
+					 
+					itemElement
+						removeChildren;
+						addChild: nodeIcon asElement;
+						addChild: (BrLabel new
+							aptitude: BrGlamorousListLabelAptitude;
+							text: aNode label;
+							alignCenterLeft;
+							hMatchParent;
+							vFitContent) ] ];
 		column: 'Value' text: [ :aNode | 
 			[ aNode rawValue gtDisplayString asRopedText ]
 			on: Error , Halt
