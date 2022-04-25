@@ -15,12 +15,16 @@ GtInspectorVariableNode class >> hostObject: anObject [
 ]
 
 { #category : #composition }
-GtInspectorVariableNode >> childrenNodesFor: aVariablesBrowser [
-	"Return a collection of subvariable nodes to be displayed in a given raw variables browser.
-	Note: by default we dispatch to browser and let it perform collection"
+GtInspectorVariableNode >> childrenNodes [
+	"Return a collection of subvariable nodes to be displayed in a given raw variables browser."
 	<return: #Collection of: #GtInspectorVariableNode>
-
-	^ aVariablesBrowser childrenVariableNodesForNode: self
+	| variableNodes |
+	
+	variableNodes := OrderedCollection new: self value class allSlots size.
+	variableNodes add: (GtInspectorSelfNode hostObject: self value).
+	self value gtInspectorVariableNodesIn: variableNodes.
+	
+	^ variableNodes
 ]
 
 { #category : #accessing }
