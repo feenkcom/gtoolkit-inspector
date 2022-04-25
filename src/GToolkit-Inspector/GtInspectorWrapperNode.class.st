@@ -15,8 +15,8 @@ GtInspectorWrapperNode class >> hostObject: anObject label: aString [
 ]
 
 { #category : #composition }
-GtInspectorWrapperNode >> childrenNodesFor: aVariablesBrowser [
-	^ self hostObject childrenNodesFor: aVariablesBrowser
+GtInspectorWrapperNode >> childrenNodes [
+	^ self hostObject childrenNodes
 ]
 
 { #category : #accessing }

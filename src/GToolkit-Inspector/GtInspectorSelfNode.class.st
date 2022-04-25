@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #composition }
-GtInspectorSelfNode >> childrenNodesFor: aVariablesBrowser [
+GtInspectorSelfNode >> childrenNodes [
 	"Self node does not have any subvariables, just return empty collection"
 	<return: #Collection of: #GtInspectorVariableNode>
 

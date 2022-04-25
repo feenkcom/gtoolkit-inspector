@@ -1,6 +1,12 @@
 Extension { #name : #Magnitude }
 
 { #category : #'*GToolkit-Inspector' }
+Magnitude >> gtLiveFor: aView [
+
+	^ self gtPreviewFor: aView
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Magnitude >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit
