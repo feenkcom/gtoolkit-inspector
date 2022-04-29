@@ -18,11 +18,26 @@ ZnUrl >> gtQueryFor: aView [
 	query ifNil: [ ^ aView empty ].
 
 	^ aView columnedList
-		  title: 'Query';
-		  priority: 2;
+		  title: 'Queries';
+		  priority: 3;
 		  items: [ query associations ];
 		  column: 'Property' text: #key;
-		  column: 'Value' text: #value
+		  column: 'Value' text: #value weight: 3;
+		  send: #value
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ZnUrl >> gtSegmentsFor: aView [
+
+	<gtView>
+	segments ifNil: [ ^ aView empty ].
+
+	^ aView columnedList
+		  title: 'Segments';
+		  priority: 2;
+		  items: [ segments ];
+		  column: 'Index' text: [ :_ :index | index ] width: 60;
+		  column: 'Value' text: #yourself
 ]
 
 { #category : #'*GToolkit-Inspector' }
