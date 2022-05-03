@@ -36,6 +36,10 @@ GtRecursionSummaryFilter >> filterOutRecursion: aMessageTally usingStack: anArra
 			[ :each | 
 			| compiledMethod index newStack newTally |
 			compiledMethod := each method method.
+			compiledMethod isFromTrait
+				ifTrue:
+					[ compiledMethod origin
+						ifNotNil: [ :origin | (origin methodNamed: compiledMethod selector) ifNotNil: [ :m | compiledMethod := m ] ] ].
 			index := (1 to: anArray size) detect: [ :i | (anArray at: i) method == compiledMethod ] ifNone: [ anArray size + 1 ].
 			index > anArray size
 				ifTrue:
@@ -43,7 +47,9 @@ GtRecursionSummaryFilter >> filterOutRecursion: aMessageTally usingStack: anArra
 					newTally
 						ifNotNil: [ newTally bump: each tally ]
 						ifNil:
-							[ newTally := each filterCopy changeToOuterMethod.
+							[ newTally := each filterCopy.
+							newTally setMethod: compiledMethod.
+							newTally changeToOuterMethod.
 							anArray last addReceiver: newTally ].
 					newStack := anArray copyWith: newTally ]
 				ifFalse:
