@@ -191,3 +191,8 @@ MessageTally >> localTime [
 MessageTally >> package [
 	^ method package
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+MessageTally >> setMethod: aCompiledMethod [
+	method := aCompiledMethod
+]
