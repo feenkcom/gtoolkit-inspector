@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #examples }
+GtMessageTallyFilter class >> messageTallyForGather [
+	<gtExample>
+	
+	^ MessageTally
+		tallySendsTo: nil
+		inBlock:
+			[ [ #a:b: numArgs ] value.
+			[ #c:d:e: numArgs ] value ]
+		showTree: false
+		closeAfter: false
+		openResultWindow: false
+]
+
+{ #category : #examples }
 GtMessageTallyFilter class >> messageTallyForInjectInto [
 	<gtExample>
 	
