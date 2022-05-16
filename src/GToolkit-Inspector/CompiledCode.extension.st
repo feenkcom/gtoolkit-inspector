@@ -29,8 +29,12 @@ CompiledCode >> gtHexDumpFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtInspectorVariableNodesIn: aCollection [
-
-	aCollection addAll: (self literals collectWithIndex: [ :aLiteral :anIndex | 
+	aCollection add: (GtInspectorDynamicNode 
+		hostObject: self 
+		label: 'literal0'
+		value: self header).
+				
+	aCollection addAll: (self allLiterals collectWithIndex: [ :aLiteral :anIndex | 
 		GtInspectorDynamicNode hostObject: self label: ('literal', anIndex asString) value: aLiteral ]).
 	self initialPC to: self size do: [ :index |
 		aCollection add: (GtInspectorDynamicNode 
