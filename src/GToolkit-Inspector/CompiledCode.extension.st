@@ -55,6 +55,21 @@ CompiledCode >> gtTreeFor: aView context: aContext [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtViewCompiledBlocksDo: aView [
+	<gtView>
+	
+	^ aView tree 
+		title: 'Compiled blocks';
+		items: [ {self} ];
+		expandAll;
+		children: [ :aCompiledCode |
+			| all |
+			all := OrderedCollection new.
+			aCompiledCode innerCompiledBlocksDo: [ :each | all add: each ].
+			all ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtViewIntermediareRepresentationFor: aView [
 	<gtView> 
 	^ aView text 
