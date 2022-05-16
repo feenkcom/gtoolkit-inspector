@@ -29,8 +29,12 @@ CompiledCode >> gtHexDumpFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtInspectorVariableNodesIn: aCollection [
-
-	aCollection addAll: (self literals collectWithIndex: [ :aLiteral :anIndex | 
+	aCollection add: (GtInspectorDynamicNode 
+		hostObject: self 
+		label: 'literal0'
+		value: self header).
+				
+	aCollection addAll: (self allLiterals collectWithIndex: [ :aLiteral :anIndex | 
 		GtInspectorDynamicNode hostObject: self label: ('literal', anIndex asString) value: aLiteral ]).
 	self initialPC to: self size do: [ :index |
 		aCollection add: (GtInspectorDynamicNode 
@@ -48,6 +52,21 @@ CompiledCode >> gtItemsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtTreeFor: aView context: aContext [
 	^ aView empty
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtViewCompiledBlocksDo: aView [
+	<gtView>
+	
+	^ aView tree 
+		title: 'Compiled blocks';
+		items: [ {self} ];
+		expandAll;
+		children: [ :aCompiledCode |
+			| all |
+			all := OrderedCollection new.
+			aCompiledCode innerCompiledBlocksDo: [ :each | all add: each ].
+			all ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
