@@ -26,3 +26,10 @@ Dictionary >> gtKeysFor: aView [
 		priority: 5;
 		items: [ self keys ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Dictionary >> gtSpecificSizeInMemory [
+	^ super gtSpecificSizeInMemory 
+		+ (self associations sum: [ :assoc | 
+			assoc sizeInMemory ])
+]
