@@ -13,6 +13,14 @@ CompiledMethod >> gtSourceFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtSpecificSizeInMemory [
+	^ super gtSpecificSizeInMemory  +
+		(self penultimateLiteral isMethodProperties
+			ifTrue: [ self penultimateLiteral sizeInMemory ] 
+			ifFalse: [ 0 ])
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtTreeFor: aView [
 	<gtView>
 	^ self parseTree gtTreeFor: aView
