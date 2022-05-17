@@ -50,6 +50,21 @@ CompiledCode >> gtItemsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtSpecificSizeInMemory [
+	| computedSize |
+	
+	computedSize := self sizeInMemory.
+	self innerCompiledBlocksDo: [ :aCompiledBlock | 
+		computedSize := computedSize + aCompiledBlock gtSpecificSizeInMemory ].
+		
+	self literalsDo: [ :aLiteral |
+		aLiteral class = Array ifTrue: [
+			computedSize := computedSize + aLiteral sizeInMemory ] ].
+	
+	^ computedSize
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtTreeFor: aView context: aContext [
 	^ aView empty
 ]
