@@ -58,7 +58,10 @@ CompiledCode >> gtSpecificSizeInMemory [
 		computedSize := computedSize + aCompiledBlock gtSpecificSizeInMemory ].
 		
 	self literalsDo: [ :aLiteral |
-		aLiteral class = Array ifTrue: [
+		(aLiteral class = Array or: [ 
+			aLiteral class = ByteString or: [
+				aLiteral class = WideString ] ]) 
+		ifTrue: [
 			computedSize := computedSize + aLiteral sizeInMemory ] ].
 	
 	^ computedSize
