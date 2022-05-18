@@ -9,3 +9,14 @@ RPackageOrganizer >> gtPackagesFor: aView [
 		items: [ self packages sorted ];
 		itemText: #name
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+RPackageOrganizer >> gtSpecificSizeInMemory [
+	^ self sizeInMemory 
+		+ classPackageMapping gtSpecificSizeInMemory
+		+ packages gtSpecificSizeInMemory
+		+ (packages sum: #gtSpecificSizeInMemory)
+		+ classExtendingPackagesMapping gtSpecificSizeInMemory
+		+ (classExtendingPackagesMapping sum: #gtSpecificSizeInMemory)
+		+ packageNames gtSpecificSizeInMemory
+]
