@@ -101,6 +101,14 @@ Class >> gtMethodsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Class >> gtSpecificSizeInMemory [
+	^ super gtSpecificSizeInMemory 
+		+ ((subclasses ifNil: [ 0 ] ifNotNil: [ subclasses sizeInMemory ]))
+		+ ((classPool ifNil: [ 0 ] ifNotNil: [ classPool gtSpecificSizeInMemory ]))
+		+ ((sharedPools ifNil: [ 0 ] ifNotNil: [ sharedPools gtSpecificSizeInMemory ]))
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Class >> itOrItsSuperclassesDefineGTViews [
 	"Says whether this class or its superclasses define a dedicated gtView.
 	ProtoObject and Object are excluded because they are too generic"
