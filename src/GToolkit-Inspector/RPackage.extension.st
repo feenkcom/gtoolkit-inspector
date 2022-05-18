@@ -31,6 +31,22 @@ RPackage >> gtExamplesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RPackage >> gtSpecificSizeInMemory [
+	^ self sizeInMemory 
+		+ classDefinedSelectors gtSpecificSizeInMemory
+		+ (classDefinedSelectors sum: #gtSpecificSizeInMemory)
+		+ metaclassDefinedSelectors gtSpecificSizeInMemory
+		+ (metaclassDefinedSelectors sum: #gtSpecificSizeInMemory)
+		+ metaclassExtensionSelectors gtSpecificSizeInMemory
+		+ (metaclassExtensionSelectors sum: #gtSpecificSizeInMemory)
+		+ classExtensionSelectors gtSpecificSizeInMemory
+		+ (classExtensionSelectors sum: #gtSpecificSizeInMemory)
+		+ classes gtSpecificSizeInMemory
+		+ classTags gtSpecificSizeInMemory
+		+ (classTags sum: #gtSpecificSizeInMemory)
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtTagsFor: aView [
 	<gtView>
 	self classTags ifEmpty: [ ^ aView empty ].
