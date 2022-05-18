@@ -50,6 +50,22 @@ CompiledCode >> gtItemsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtLiteralsSizeInMemory [
+	| literalsSize |
+	
+	literalsSize := 0.
+	self literalsDo: [ :aLiteral |
+		aLiteral class = Array ifTrue: [
+			literalsSize := literalsSize + aLiteral gtLiteralArraySizeInMemory ].
+		
+		(aLiteral class = ByteString or: [
+			aLiteral class = WideString ]) 
+				ifTrue: [
+					literalsSize := literalsSize + aLiteral sizeInMemory ] ].
+	^ literalsSize
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtSpecificSizeInMemory [
 	| computedSize |
 	
@@ -57,14 +73,7 @@ CompiledCode >> gtSpecificSizeInMemory [
 	self innerCompiledBlocksDo: [ :aCompiledBlock | 
 		computedSize := computedSize + aCompiledBlock gtSpecificSizeInMemory ].
 		
-	self literalsDo: [ :aLiteral |
-		(aLiteral class = Array or: [ 
-			aLiteral class = ByteString or: [
-				aLiteral class = WideString ] ]) 
-		ifTrue: [
-			computedSize := computedSize + aLiteral sizeInMemory ] ].
-	
-	^ computedSize
+	^ computedSize + self gtLiteralsSizeInMemory.
 ]
 
 { #category : #'*GToolkit-Inspector' }
