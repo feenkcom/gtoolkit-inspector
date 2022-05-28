@@ -45,15 +45,15 @@ GtRecursionSummaryFilter >> filterOutRecursion: aMessageTally usingStack: anArra
 				ifTrue:
 					[ newTally := anArray last receivers detect: [ :tally | tally method == compiledMethod ] ifNone: [  ].
 					newTally
-						ifNotNil: [ newTally bump: each tally ]
+						ifNotNil: [ newTally bumpBy: each tally ]
 						ifNil:
 							[ newTally := each filterCopy.
-							newTally setMethod: compiledMethod.
+							newTally method: compiledMethod.
 							newTally changeToOuterMethod.
 							anArray last addReceiver: newTally ].
 					newStack := anArray copyWith: newTally ]
 				ifFalse:
 					[ newStack := anArray first: index.
-					index + 1 to: anArray size do: [ :i | (anArray at: i) bump: each tally negated ] ].
+					index + 1 to: anArray size do: [ :i | (anArray at: i) bumpBy: each tally negated ] ].
 			self filterOutRecursion: each usingStack: newStack ]
 ]
