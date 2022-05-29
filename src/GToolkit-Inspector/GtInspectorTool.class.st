@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtPhlowTool,
 	#traits : 'TGtInspectorObjectAccess',
 	#classTraits : 'TGtInspectorObjectAccess classTrait',
-	#category : 'GToolkit-Inspector-Phlow Tool'
+	#category : #'GToolkit-Inspector-Phlow Tool'
 }
 
 { #category : #'instance creation' }
@@ -14,6 +14,16 @@ GtInspectorTool class >> forObject: anObject [
 { #category : #'instance creation' }
 GtInspectorTool class >> forObject: anObject viewSelector: aSymbol [
 	^ self new object: anObject viewSelector: aSymbol
+]
+
+{ #category : #'instance creation' }
+GtInspectorTool class >> openWrappedOn: anObject title: aString from: sourceElement [
+	"Open the supplied object as a tab in GtWorld with the supplied title"
+
+	GtPager
+		openWrappedOn: (self forObject: anObject) asElement
+		title: aString
+		from: sourceElement
 ]
 
 { #category : #accessing }
