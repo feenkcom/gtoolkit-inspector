@@ -23,11 +23,12 @@ BlAbstractRopedText >> gtStoreStringFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlAbstractRopedText >> gtTextAttributesFor: aView [
 	<gtView>
-	(self attributesBuilder respondsTo: #attributes)
-		ifFalse: [ ^ aView empty ].
-	^ aView list
+	
+	[ ^ aView list
 		title: 'Text attributes' translated;
-		items: [ self attributesBuilder attributes ]
+		items: [ self attributesBuilder attributes ] ]
+		onDNU: #attributes
+		do: [ ^ aView empty ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
