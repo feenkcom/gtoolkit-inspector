@@ -65,16 +65,16 @@ BaselineOfGToolkitInspector >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitPager' with: [
-				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.622/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.623/src' ].
 		spec
 			baseline: 'GToolkitSpotter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.590/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.591/src' ].
 		spec
 			baseline: 'GToolkitCompleter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.617/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.618/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.449/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.450/src' ].
 		spec
 			baseline: 'GToolkitExamples' with: [
 				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.46/src' ].
