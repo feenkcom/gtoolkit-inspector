@@ -14,3 +14,8 @@ Array >> gtLiteralArraySizeInMemory [
 					objectSize := anObject sizeInMemory ].
 		objectSize ])
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Array >> gtSpecificSizeInMemory [
+	^ self sizeInMemory
+]
