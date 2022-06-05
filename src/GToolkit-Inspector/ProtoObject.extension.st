@@ -40,6 +40,12 @@ ProtoObject >> gtActions [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtDisplayString [
+	"display nothing by default"
+	^ ''
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtIcon [
 	^ BrGlamorousIcons empty
 ]
