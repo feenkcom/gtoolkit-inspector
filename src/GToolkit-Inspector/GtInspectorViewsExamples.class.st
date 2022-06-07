@@ -80,10 +80,10 @@ GtInspectorViewsExamples >> viewsOfSampleA [
 	<gtExample>
 	| theViews theElements |
 	theViews := GtInspectorSampleA new gtViewsInContext: GtPhlowContext new.
-	self assert: theViews size equals: 1.
+	self assert: theViews size equals: 3.
 	theElements := OrderedCollection new.
 	theViews do: [ :eachView | eachView asElementDo: [ :el | theElements add: el ] ].
-	self assert: theElements size equals: 1.
+	self assert: theElements size equals: 3.
 	^ theViews
 ]
 
@@ -92,10 +92,10 @@ GtInspectorViewsExamples >> viewsOfSampleSubclassOfA [
 	<gtExample>
 	| theViews theElements |
 	theViews := GtInspectorSampleSubclassOfA new gtViewsInContext: GtPhlowContext new.
-	self assert: theViews size equals: 1.
+	self assert: theViews size equals: 3.
 	theElements := OrderedCollection new.
 	theViews do: [ :eachView | eachView asElementDo: [ :el | theElements add: el ] ].
-	self assert: theElements size equals: 1.
+	self assert: theElements size equals: 3.
 	^ theViews
 ]
 

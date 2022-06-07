@@ -40,6 +40,12 @@ ProtoObject >> gtActions [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtDisplayString [
+	"display nothing by default"
+	^ ''
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtIcon [
 	^ BrGlamorousIcons empty
 ]
@@ -59,6 +65,50 @@ ProtoObject >> gtInspectorTitleString [
 	^ GtPhlowLabelBuilder new 
 		object: self; 
 		build 
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtRawFor: aView [
+	<gtView>
+	
+	^ aView columnedTree
+		title: 'Raw';
+		priority: 100;
+		items: [ | variableNodes |
+			variableNodes := self class allSlots
+					collect: [ :slot | GtInspectorSlotNode hostObject: self slot: slot ].
+			{(GtInspectorSelfNode hostObject: self)}, variableNodes ];
+		children: [ :aNode | aNode childrenNodes ];
+		column: 'Variable'
+			do: [ :aColumn | 
+				aColumn
+					cellStencil: [ BrHorizontalPane new
+							hMatchParent;
+							vFitContent;
+							alignCenter ];
+					dataBinder: [ :itemElement :aNode | 
+						| nodeIcon |
+						nodeIcon := [ aNode rawValue gtInspectorIcon
+								ifNil: [ aNode rawValue class systemIcon ] ]
+								on: Error
+								do: [ :error | self iconNamed: #smallWarningIcon ].
+
+						itemElement
+							removeChildren;
+							addChild: nodeIcon asElement;
+							addChild: (BrLabel new
+									aptitude: BrGlamorousListLabelAptitude;
+									text: aNode label;
+									alignCenterLeft;
+									hMatchParent;
+									vFitContent) ] ];
+		column: 'Value'
+			text: [ :aNode | 
+				[ aNode rawValue gtDisplayString asRopedText ]
+					on: Error , Halt
+					do: [ aNode errorMessage asRopedText foreground: Color red ] ];
+		send: #value;
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
