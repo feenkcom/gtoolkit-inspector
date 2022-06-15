@@ -153,7 +153,9 @@ BlDevScripter >> gtTaskEventsFor: aView [
 						ifTrue: [ 'Dequeued' asRopedText foreground: BrGlamorousColors errorBorderColor ]
 						ifFalse: [ eachEvent isTaskExecutedEvent
 							ifTrue: [ 'Executed' asRopedText foreground: BrGlamorousColors successBackgroundColor darker ]
-							ifFalse: [ 'Unknown' ] ] ] ] width: 100;
+							ifFalse: [ eachEvent isTaskRequeuedEvent
+								ifTrue: [ 'Requeued' asRopedText foreground: Color gray ]
+								ifFalse: [ 'Unknown' ] ] ] ] ] width: 100;
 		column: 'Task id' text: [ :eachEvent | eachEvent task id ] width: 75;
 		column: 'Tasks' text: [ :eachEvent | eachEvent tasks size ] width: 75;
 		column: 'Description' text: [ :eachEvent | eachEvent task printString ]
