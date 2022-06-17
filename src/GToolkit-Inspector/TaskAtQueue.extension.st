@@ -1,7 +1,7 @@
-Extension { #name : #BlTaskAtQueue }
+Extension { #name : #TaskAtQueue }
 
 { #category : #'*GToolkit-Inspector' }
-BlTaskAtQueue >> gtItemsFor: aView [
+TaskAtQueue >> gtItemsFor: aView [
 	<gtView>
 	queue ifNil: [ ^ self ].
 	^ (queue gtItemsFor: aView)
