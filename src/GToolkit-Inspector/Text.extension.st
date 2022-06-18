@@ -24,7 +24,7 @@ Text >> gtStringFor: aView [
 				constraintsDo: [ :c | 
 					c vertical matchParent. 
 					c horizontal matchParent ];
-				editor: (BrTextEditor new
+				editor: (BrTextEditorModel new
 					text: ( self asRopedText
 						glamorousRegularFontAndSize) ) ]
 ]
