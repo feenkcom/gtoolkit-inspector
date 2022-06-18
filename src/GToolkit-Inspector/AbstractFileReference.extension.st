@@ -78,17 +78,11 @@ AbstractFileReference >> gtContentsFor: aView [
 	[ self readStreamDo: [ :s | s next: 1000 ] ]
 		on: ZnInvalidUTF8
 		do: [ ^ aView empty ].
-	^ aView explicit
+
+	^ aView textEditor
 		title: 'Contents' translated;
 		priority: 50;
-		stencil: [ 
-			BrEditorElement new 
-				padding: (BlInsets all: 10);
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ];
-				editor: (BrTextEditor new 
-					text: (BlRopedText file: self) glamorousRegularFont) ];
+		text: [ BlRopedText file: self ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				aptitude: BrGlamorousButtonWithIconAptitude;
@@ -116,11 +110,13 @@ AbstractFileReference >> gtFigureFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtHexContentsFor: aView [
 	<gtView>
-	self isFile ifFalse: [ ^ aView empty ].
-	^ aView explicit
+	self isFile
+		ifFalse: [ ^ aView empty ].
+	
+	^ aView textEditor
 		title: 'Hex' translated;
 		priority: 90;
-		stencil: [ 
+		text: [ 
 			| displayString  |
 			displayString := ''.
 			(self binaryReadStreamDo: [ :stream | 
@@ -129,15 +125,8 @@ AbstractFileReference >> gtHexContentsFor: aView [
 				buffer := stream next: maxBytes.
 				displayStream := (String new: maxBytes * 5) writeStream.
 				buffer hexDumpOn: displayStream max: maxBytes.
-				displayString := displayStream contents asText ]).
-			
-			BrEditorElement new 
-				padding: (BlInsets all: 10);
-				constraintsDo: [ :c | 
-					c horizontal matchParent.
-					c vertical matchParent ];
-				editor: (BrTextEditor new 
-					text: displayString asRopedText glamorousMonospace) ]
+				displayString := displayStream contents asText ]) ];
+		glamorousMonospace
 ]
 
 { #category : #'*GToolkit-Inspector' }

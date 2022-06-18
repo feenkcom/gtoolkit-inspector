@@ -24,7 +24,7 @@ String >> gtLiveFor: aView [
 					c vertical matchParent. 
 					c horizontal matchParent.
 					c linear weight: 4 ];
-				editor: (BrTextEditor new
+				editor: (BrTextEditorModel new
 				text: (self asRopedText glamorousRegularFont);
 				when: BrTextEditorCursorMovedEvent do: [:e | 
 					list selectOne: (e newIndex max: 1).
@@ -72,7 +72,7 @@ String >> gtStringFor: aView [
 				constraintsDo: [ :c | 
 					c vertical matchParent. 
 					c horizontal matchParent ];
-				editor: (BrTextEditor new
+				editor: (BrTextEditorModel new
 					text: ( self asRopedText
 						glamorousRegularFontAndSize) ) ]
 ]
