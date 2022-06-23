@@ -83,31 +83,28 @@ BlDevScripter >> gtSpaceFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	element ifNil: [ ^ aView empty ].
-		
+
 	^ aView explicit
 		title: 'Preview';
 		priority: 0;
-		stencil: [
-			| aContainer |
-			
-			aContainer := BlElement new.
-			aContainer constraintsDo: [ :c |
-				c horizontal matchParent.
-				c vertical matchParent ].
-			
+		stencil: [ | aContainer |
+			aContainer := BrVerticalPane new matchParent.
+			aContainer padding: (BlInsets all: 10).
+
 			(self space gtPreviewFor: GtPhlowEmptyView new)
-				asElementDo: [ :anElement | aContainer addChild: anElement ].
-			
+				asElementDo: [ :anElement | 
+					anElement aptitude: BrShadowAptitude.
+					aContainer addChild: anElement ].
+
 			self gtEventTracesIn: aContainer.
-			
+
 			aContainer ];
-		actionButtonLabel: 'Open' 
+		actionButtonLabel: 'Open'
 			tooltip: 'Open scripter space in a real window'
 			action: [ self showSpace ];
 		actionButtonLabel: 'Inspect'
-			tooltip: 'Inspect element (remove it from the Scripter space)' 
-			action: [ :anElement | 
-				anElement phlow spawnObject: self elementWithoutParent ]
+			tooltip: 'Inspect element (remove it from the Scripter space)'
+			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
