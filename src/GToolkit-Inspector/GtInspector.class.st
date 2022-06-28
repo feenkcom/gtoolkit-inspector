@@ -36,6 +36,11 @@ GtInspector class >> embeddedPlaygroundName: aClassName [
 	embeddedPlaygroundName := aClassName
 ]
 
+{ #category : #accessing }
+GtInspector class >> extensionsPragma [
+	^ #gtView
+]
+
 { #category : #'api - instance creation' }
 GtInspector class >> forObject: anObject [
 	^ self new object: anObject
@@ -60,9 +65,23 @@ GtInspector class >> gtActionsFor: aView [
 GtInspector class >> gtExtensionsFor: aView [
 	<gtView>
 	<gtClassView>
-	^ (#gtView gtPragmas gtItemsFor: aView)
+	
+	^ (self extensionsPragma gtPragmas gtItemsFor: aView)
 		title: 'Extensions';
 		priority: 34
+]
+
+{ #category : #inspecting }
+GtInspector class >> gtSpotterExtensionsFor: aStep [
+	<gtSearch>
+	
+	aStep listProcessor
+		priority: 50;
+		allCandidates: [ self inspectorExtendingMethods ];
+		title: 'Extensions';
+		itemName: [ :each | each gtDisplayString ];
+		filter: GtFilterSubstring;
+		wantsToDisplayOnEmptyQuery: true
 ]
 
 { #category : #settings }
@@ -73,6 +92,14 @@ GtInspector class >> indexableDisplayLimit [
 { #category : #settings }
 GtInspector class >> indexableDisplayLimit: anInteger [
 	IndexableDisplayLimit := anInteger
+]
+
+{ #category : #inspecting }
+GtInspector class >> inspectorExtendingMethods [
+	^ (SystemNavigation default allBehaviors flatCollect: [ :each | 
+			(Pragma allNamed: self extensionsPragma in: each) 
+				collect: [ :p | p method asRingDefinition ] ])
+		sorted
 ]
 
 { #category : #'gt-extensions' }
