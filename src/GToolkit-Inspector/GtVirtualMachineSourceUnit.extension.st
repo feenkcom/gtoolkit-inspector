@@ -8,6 +8,18 @@ GtVirtualMachineSourceUnit >> gtIncludesFor: aView [
 	
 	^ aView list
 		title: 'Includes';
-		priority: 1;
+		priority: 2;
 		items: [ includes ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+GtVirtualMachineSourceUnit >> gtSourcesFor: aView [
+	<gtView>
+	
+	sources ifEmpty: [ ^ aView empty ].
+	
+	^ aView list
+		title: 'Sources';
+		priority: 1;
+		items: [ sources ]
 ]
