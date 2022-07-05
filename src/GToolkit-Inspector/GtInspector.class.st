@@ -96,10 +96,8 @@ GtInspector class >> indexableDisplayLimit: anInteger [
 
 { #category : #inspecting }
 GtInspector class >> inspectorExtendingMethods [
-	^ (SystemNavigation default allBehaviors flatCollect: [ :each | 
-			(Pragma allNamed: self extensionsPragma in: each) 
-				collect: [ :p | p method asRingDefinition ] ])
-		sorted
+	^ ((Pragma allNamed: self extensionsPragma)
+		collect: [ :p | p method asRingDefinition ]) sorted
 ]
 
 { #category : #'gt-extensions' }
