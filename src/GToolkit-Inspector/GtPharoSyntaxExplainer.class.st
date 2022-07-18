@@ -80,68 +80,59 @@ GtPharoSyntaxExplainer >> constructsList [
 { #category : #accessing }
 GtPharoSyntaxExplainer >> create [
 	| mainContainer constructsContainer coderElement leftContainer rightContainer rightContainerLabel leftContainerLabel |
+	
 	mainContainer := BrHorizontalPane new
-			matchParent;
-			padding: (BlInsets all: 5).
+		matchParent;
+		padding: (BlInsets all: 5).
 	mainContainer explainer isExplanationHolder: true.
-
+			
 	leftContainer := BrVerticalPane new
-			hFitContent;
-			vMatchParent;
-			padding: (BlInsets all: 5);
-			margin: (BlInsets right: 20).
-
+		hFitContent;
+		vMatchParent;
+		padding: (BlInsets all: 5);
+		margin: (BlInsets right: 20).
+			
 	rightContainer := BrVerticalPane new
-			matchParent;
-			padding: (BlInsets all: 5).
+		matchParent;
+		padding: (BlInsets all: 5).
 
 	tooltipsContainer := BrEditor new
-			text: '' asRopedText;
-			padding: (BlInsets all: 10);
-			margin: (BlInsets
-					top: 10
-					right: 0
-					bottom: 0
-					left: 0);
-			constraintsDo: [ :c | c horizontal matchParent ];
-			visibility: BlVisibility gone;
-			border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
-			aptitude: BrShadowAptitude + BrGlamorousEditorAptitude;
-			vFitContent;
-			background: BrGlamorousColors textHighlightColor.
-
+		text: '' asRopedText;
+		padding: (BlInsets all: 10);
+		margin: (BlInsets top: 10 right: 0 bottom: 0 left: 0);
+		constraintsDo: [ :c |
+			c horizontal matchParent ];
+		visibility: BlVisibility gone;
+		border: (BlBorder paint: BrGlamorousColors textHighlightColor width: 2);
+		aptitude: BrShadowAptitude + BrGlamorousEditorAptitude;
+		vFitContent;
+		background: BrGlamorousColors textHighlightColor.
+	
 	tooltipsTarget := BrButton new
-			constraintsDo: [ :c | c ignoreByLayout ];
-			size: 0 @ 0;
-			elevation: (BlRelativeElevation elevation: 10);
-			geometry: BlCircleGeometry new.
+		constraintsDo: [ :c | c ignoreByLayout ];
+		size: 0 @ 0;
+		elevation: (BlRelativeElevation elevation: 10);
+		geometry: BlCircleGeometry new.
 
 	constructsContainer := self constructsList.
 
-	leftContainerLabel := BrLabel new
-			text: ('Pharo constructs:' asRopedText
-					glamorousRegularFont;
-					foreground: Color gray);
-			hFitContent;
-			margin: (BlInsets
-					top: 0
-					right: 0
-					bottom: 5
-					left: 0).
-	rightContainerLabel := BrLabel new
-			text: ('Method:' asRopedText
-					glamorousRegularFont;
-					foreground: Color gray);
-			margin: (BlInsets
-					top: 0
-					right: 0
-					bottom: 5
-					left: 5).
+	leftContainerLabel := (BrLabel new
+		text: ('Pharo constructs:' asRopedText 
+			glamorousRegularFont; 
+			foreground: Color gray);
+		aptitude: BrGlamorousLabelAptitude;
+		hFitContent;
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 0)).
+	rightContainerLabel := (BrLabel new
+		text: ('Method:' asRopedText
+			glamorousRegularFont; 
+			foreground: Color gray);
+		aptitude: BrGlamorousLabelAptitude;
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5)).
 
 	coder := GtPharoMethodCoder new forMethod: method.
 	coder explanationLink: GtPharoSyntaxExplanationStyler new.
-	coderElement := (coder asCoderViewModel expanded: true) asElement
-			margin: (BlInsets all: 0).
+	coderElement := (coder asCoderViewModel expanded: true) asElement margin: (BlInsets all: 0).
 	coderElement vMatchParent.
 
 	leftContainer addChild: leftContainerLabel.
@@ -252,17 +243,18 @@ GtPharoSyntaxExplainer >> initialize [
 		tooltips at: each key put: (each value asRopedText glamorousRegularFont fontSize: 15) ].
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 GtPharoSyntaxExplainer >> regularLabelFor: aNodeNameSymbol [
 	| nodeName |
-	nodeName := aNodeNameSymbol asRopedText from: 1 to: aNodeNameSymbol size - 4.
-
+	
+	nodeName := aNodeNameSymbol asRopedText from: 1 to: (aNodeNameSymbol size - 4).
+	
 	^ BrLabel new
-		text: (nodeName asRopedText
-				glamorousRegularFont;
-				foreground: Color gray);
+		text: (nodeName asRopedText glamorousRegularFont; foreground: Color gray);
+		aptitude: BrGlamorousLabelAptitude;
 		padding: (BlInsets all: 5);
-		hExact: 80
+		hExact: 80.
+		
 ]
 
 { #category : #accessing }
