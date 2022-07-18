@@ -16,7 +16,6 @@ RBRefactoryChange >> gtInspectorLabel [
 	label := BrLabel new.
 	label
 		text: self displayString;
-		aptitude: BrGlamorousLabelAptitude;
 		layout: BlLinearLayout vertical alignCenter;
 		padding: (BlInsets all: 10).
 	^ label
