@@ -16,27 +16,23 @@ BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsTreeFor: aView [
 	<gtView>
-	self steps ifEmpty: [ ^ aView empty ].
-
+	
+	self steps
+		ifEmpty: [ ^ aView empty ].
+	
 	^ aView columnedTree
 		title: 'Steps In Tree';
 		priority: 2.5;
 		expandUpTo: 3;
-		items: [ {self} ];
+		items: [ { self } ];
 		children: [ :aStep | aStep steps ];
-		column: 'Status' translated
+		column: 'Status' translated 
 			icon: [ :each | 
-				BrLabel new
-					text: each stateName;
-					geometry: (BlRoundedRectangleGeometry cornerRadius: 2);
-					background: each stateColor ]
+				BrLabel new text: each stateName; aptitude: (BrGlamorousLabelAptitude new);
+					geometry: (BlRoundedRectangleGeometry cornerRadius: 2); background: each stateColor ]
 			weight: 1;
-		column: 'Step'
-			text: #label
-			weight: 4;
-		column: 'Target'
-			text: #target
-			weight: 2
+		column: 'Step' text: #label weight: 4;
+		column: 'Target' text: #target weight: 2
 ]
 
 { #category : #'*GToolkit-Inspector' }
