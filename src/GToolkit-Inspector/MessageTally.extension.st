@@ -202,6 +202,17 @@ MessageTally >> localTime [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally class >> on: aBlock [
+
+	"This utility method constructs a tally object and returns it without
+	triggering the construction of the default report"
+
+	^ MessageTally new
+		  spyEvery: 1 on: aBlock;
+		  yourself
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> package [
 	^ method package
 ]
