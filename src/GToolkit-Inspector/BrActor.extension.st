@@ -21,10 +21,3 @@ BrActor >> gtHandlersFor: aView [
 	<gtView>
 	^ self eventDispatcher gtHandlersFor: aView
 ]
-
-{ #category : #'*GToolkit-Inspector' }
-BrActor >> gtPreviewFor: aView [
-	<gtView>
-	self isAttachedToWidget ifFalse: [ ^ aView empty ].
-	^ self widget gtPreviewFor: aView
-]
