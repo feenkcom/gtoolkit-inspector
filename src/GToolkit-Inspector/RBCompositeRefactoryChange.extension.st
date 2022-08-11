@@ -29,7 +29,7 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 			element ];
 		itemDataBinder: [ :aPaneElement :anItemObject :aTreeNode |
 			(aPaneElement childAt: 1) text: anItemObject gtLabel.
-			(aPaneElement childAt: 2) action: [ anItemObject execute ] ]
+			(aPaneElement childAt: 2) action: [ anItemObject gtExecuteWithNotification ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
