@@ -1,10 +1,10 @@
 Extension { #name : #RBCompositeRefactoryChange }
 
 { #category : #'*GToolkit-Inspector' }
-RBCompositeRefactoryChange >> gtChangesFor: aView [
+RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Changes';
+		title: 'Applying changes';
 		stencil: [ | pane changesElement applyButton progress |
 			pane := BrVerticalPane new.
 			pane matchParent.
@@ -52,6 +52,38 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 						addChild: applyButton;
 						addChild: progress).
 			pane ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RBCompositeRefactoryChange >> gtChangesFor: aView [
+	<gtView>
+	^ aView tree
+		title: 'Changes';
+		items: [ {self} ];
+		children: #gtChildren;
+		expandAll;
+		itemStencil: [ :aNodeType | 
+			| element executeButton |
+			element := BrHorizontalPane new vFitContent hMatchParent.
+			element
+				addChild:
+					(BrLabel new
+						aptitude: BrGlamorousListLabelAptitude;
+						text: '').
+			executeButton := BrButton new.
+			executeButton
+				beTinySize;
+				aptitude: BrGlamorousButtonWithIconAptitude;
+				icon: BrGlamorousVectorIcons accept;
+				label: 'Accept changes';
+				constraintsDo: [ :c | 
+					c linear vertical alignCenter.
+					c margin: c margin + (BlInsets left: 5) ].
+			element addChild: executeButton.
+			element ];
+		itemDataBinder: [ :aPaneElement :anItemObject :aTreeNode |
+			(aPaneElement childAt: 1) text: anItemObject gtLabel.
+			(aPaneElement childAt: 2) action: [ anItemObject gtExecuteWithNotification ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

@@ -1,6 +1,18 @@
 Extension { #name : #RBNamespace }
 
 { #category : #'*GToolkit-Inspector' }
+RBNamespace >> gtApplyingChangesFor: aView [
+	<gtView>
+	self changes ifNil: [ ^ aView empty ].
+
+	^ aView forward
+		title: 'Applying changes';
+		priority: 1;
+		object: [ self changes ];
+		view: #gtApplyingChangesFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBNamespace >> gtChangedClassesFor: aView [
 	<gtView>
 	changedClasses ifNil: [ ^ aView empty ].
@@ -18,7 +30,7 @@ RBNamespace >> gtChangesFor: aView [
 
 	^ aView forward
 		title: 'Changes';
-		priority: 1;
+		priority: 2;
 		object: [ self changes ];
 		view: #gtChangesFor:
 ]
