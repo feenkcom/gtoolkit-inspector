@@ -58,13 +58,20 @@ GtExampleGroup >> buildListViewFor: aView [
 											selectObject: anExample result returnValue ]
 									ifAbsent: [ "do nothing" ] ] ];
 			dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
+					| aHandler |
+			
 					aLabel userData
 						at: #example
 						ifPresent: [ :theExample | theExample announcer unsubscribe: self ]
 						ifAbsent: [ "do nothing" ].
-					(anExample announcer
+						
+					aHandler := [ :anAnnouncement | aLabel background: anAnnouncement result icon ].
+					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Status put: aHandler.	
+						
+					(anExample announcer weak
 						when: GtExampleExecuted
-						do: [ :anAnnouncement | aLabel background: anAnnouncement result icon ])
+						send: #value:
+						to: aHandler)
 							subscriber: self.
 					aLabel background: anExample icon.
 					aLabel userData at: #example put: anExample ] ];
@@ -95,13 +102,19 @@ GtExampleGroup >> buildListViewFor: aView [
 										anEvent consumed: true ] ]
 								ifAbsent: [ "do nothing" ] ] ];
 				dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
+					| aHandler |
 					aLabel userData
 						at: #example
 						ifPresent: [ :theExample | theExample announcer unsubscribe: self ]
 						ifAbsent: [ "do nothing" ].
+						
+					aHandler := [ :anAnnouncement | aLabel text: anExample resultOrErrorName asRopedText ].
+					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Result put: aHandler.	
+											
 					(anExample announcer weak
 						when: GtExampleExecuted
-						do: [ :anAnnouncement | aLabel text: anExample resultOrErrorName asRopedText ])
+						send: #value:
+						to: aHandler)
 							subscriber: self.
 					aLabel text: anExample resultOrErrorName asRopedText.
 					aLabel userData at: #example put: anExample ] ].
@@ -138,10 +151,14 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aListView := self buildListViewFor: aView.
 			aListView
 				asElementDo: [ :anElement | 
+					| aHandler |
+					aHandler := [ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
+					anElement userData at: #exampleAnnouncementHandler_gtExamplesFor put: aHandler.
+					
 					self announcer weak
 						when: GtExamplesExecuted , GtExampleExecuted
-						do:
-							[ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
+						send: #value:
+						to: aHandler.
 					aContainer addChild: anElement.
 					self
 						buildButtonsContainer: aButtonsContainer
@@ -201,9 +218,9 @@ GtExampleGroup >> paintMapWith: m [
 		with: grouped associations;
 		forEach: [:assoc | 
 			m nodes 
-				stencil: [ :anExample | | element |
-					element := BlElement new.
-					element
+				stencil: [ :anExample | | anElement aHandler |
+					anElement := BlElement new.
+					anElement
 						geometry: BlEllipseGeometry new;
 						constraintsDo: [ :c | c horizontal fitContent. c vertical fitContent];
 						border: (BlBorder paint: Color black width: 2);
@@ -217,16 +234,17 @@ GtExampleGroup >> paintMapWith: m [
 									asExpandedOnlyElement
 										vFitContentLimited;
 										when: GtPhlowObjectToSpawn
-											do: [:e | element phlow spawnTool: e tool ].
+											do: [:e | anElement phlow spawnTool: e tool ].
 								aCoderElement properties fontSizeEm: 0.75.
 								aCoderElement ];
 								preferredExtent: 200@200;
 								showDelay: 100 milliSeconds;
 								hideDelay: 200 milliSeconds ).
-					anExample announcer weak when: GtExampleExecuted do: [ :anEvent | 
-						element enqueueTask: (BlTaskAction new action: [ element background: anExample color ]) ].
-					(local includes: anExample) ifFalse: [element border: (BlBorder paint: Color gray width: 2)].
-					element ];
+					aHandler := [ :anAnnouncement | anElement enqueueTask: (BlTaskAction new action: [ anElement background: anExample color ]) ].
+					anElement userData at: #exampleAnnouncementHandler_paintMapWith put: aHandler.
+					anExample announcer weak when: GtExampleExecuted send: #value: to: aHandler.
+					(local includes: anExample) ifFalse: [anElement border: (BlBorder paint: Color gray width: 2)].
+					anElement ];
 		with: assoc value. 
 	m layout horizontalTree nodeDistance: 2; treesDistance: 4; levelDistance: 10.].
 	m edges 
