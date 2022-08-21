@@ -60,19 +60,23 @@ GtExampleGroup >> buildListViewFor: aView [
 			dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
 					| aHandler |
 			
-					aLabel userData
-						at: #example
-						ifPresent: [ :theExample | theExample announcer unsubscribe: self ]
+					aLabel userData 
+						at: #exampleAnnouncementHandler_buildListViewFor_Status
+						ifPresent: [ :anOldHandler | 
+							aLabel userData
+								at: #example
+								ifPresent: [ :anOldExample | anOldExample announcer unsubscribe: anOldHandler ]
+								ifAbsent: [ "do nothing" ] ]
 						ifAbsent: [ "do nothing" ].
 						
 					aHandler := [ :anAnnouncement | aLabel background: anAnnouncement result icon ].
 					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Status put: aHandler.	
 						
-					(anExample announcer weak
+					anExample announcer weak
 						when: GtExampleExecuted
 						send: #value:
-						to: aHandler)
-							subscriber: self.
+						to: aHandler.
+						
 					aLabel background: anExample icon.
 					aLabel userData at: #example put: anExample ] ];
 		column: 'Class' translated 
@@ -103,19 +107,23 @@ GtExampleGroup >> buildListViewFor: aView [
 								ifAbsent: [ "do nothing" ] ] ];
 				dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
 					| aHandler |
-					aLabel userData
-						at: #example
-						ifPresent: [ :theExample | theExample announcer unsubscribe: self ]
+					aLabel userData 
+						at: #exampleAnnouncementHandler_buildListViewFor_Result 
+						ifPresent: [ :anOldHandler |
+							aLabel userData
+								at: #example
+								ifPresent: [ :anOldExample | anOldExample announcer unsubscribe: anOldHandler ]
+								ifAbsent: [ "do nothing" ] ]
 						ifAbsent: [ "do nothing" ].
-						
+					
 					aHandler := [ :anAnnouncement | aLabel text: anExample resultOrErrorName asRopedText ].
 					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Result put: aHandler.	
 											
-					(anExample announcer weak
+					anExample announcer weak
 						when: GtExampleExecuted
 						send: #value:
-						to: aHandler)
-							subscriber: self.
+						to: aHandler.
+					
 					aLabel text: anExample resultOrErrorName asRopedText.
 					aLabel userData at: #example put: anExample ] ].
 	^ aListView
