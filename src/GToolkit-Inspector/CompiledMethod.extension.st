@@ -1,6 +1,16 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtPropertiesFor: aView [ 
+	<gtView>
+	self hasProperties ifFalse: [^ aView empty ].
+	^ aView forward
+		title: 'Properties';
+		object: self properties;
+		view: #gtPropertiesFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtSourceFor: aView [
 	<gtView>
 	^ aView explicit
