@@ -8,5 +8,6 @@ AdditionalMethodState >> gtPropertiesFor: aView [
 		priority: 1;
 		items: [ self properties associations ];
 		column: 'Property' text: #key;
-		column: 'Value' text: #value
+		column: 'Value' text: #value;
+		send: #value
 ]
