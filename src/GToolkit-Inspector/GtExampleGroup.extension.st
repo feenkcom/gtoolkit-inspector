@@ -99,7 +99,7 @@ GtExampleGroup >> buildListViewFor: aView [
 						at: #example
 						ifPresent: [ :theExample | theExample announcer unsubscribe: self ]
 						ifAbsent: [ "do nothing" ].
-					(anExample announcer
+					(anExample announcer weak
 						when: GtExampleExecuted
 						do: [ :anAnnouncement | aLabel text: anExample resultOrErrorName asRopedText ])
 							subscriber: self.
@@ -138,7 +138,7 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aListView := self buildListViewFor: aView.
 			aListView
 				asElementDo: [ :anElement | 
-					self announcer
+					self announcer weak
 						when: GtExamplesExecuted , GtExampleExecuted
 						do:
 							[ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
@@ -223,7 +223,7 @@ GtExampleGroup >> paintMapWith: m [
 								preferredExtent: 200@200;
 								showDelay: 100 milliSeconds;
 								hideDelay: 200 milliSeconds ).
-					anExample announcer when: GtExampleExecuted do: [ :anEvent | 
+					anExample announcer weak when: GtExampleExecuted do: [ :anEvent | 
 						element enqueueTask: (BlTaskAction new action: [ element background: anExample color ]) ].
 					(local includes: anExample) ifFalse: [element border: (BlBorder paint: Color gray width: 2)].
 					element ];
