@@ -9,22 +9,31 @@ MemoryLogger >> gtGroupedFor: aView [
 		updateWhen: Announcement in: [ self announcer ];
 		column: 'Class' text: [ :each | each key asString ];
 		column: 'Instances' text: [ :each | each value size asString  ];
-		send: #value
+		send: #value;
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtRecordingsFor: aView [
 	<gtView>
+	| aCollectionSize |
+	aCollectionSize := 0.
+	
 	^ aView columnedList
 		title: 'Recordings' translated;
 		priority: 50;
-		items: [ self recordings reverse ];
+		items: [ | aCollection | 
+			aCollection := self recordings reverse.
+			aCollectionSize := aCollection size.
+			aCollection ];
 		updateWhen: Announcement in: [ self announcer ];
+		column: 'Count' text: [ :_ :anIndex | aCollectionSize - anIndex + 1 ] width: 40;
 		column: 'Timestamp' translated text: [ :each | each timestamp asString ];
 		column: 'Process' translated text: [ :each | each processId asString ];
-		column: 'Type' translated text: [ :each | each name ];
+		column: 'Type' translated text: [ :each | each name ] weight: 2;
 		column: 'Contents' translated 
-			text: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ]
+			text: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ] weight: 2;
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
