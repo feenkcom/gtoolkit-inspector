@@ -19,18 +19,6 @@ RPackage >> gtDisplayOn: stream [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-RPackage >> gtExamplesFor: aView [
-	<gtView>
-	<gtPackageView>
-	
-	^ aView forward 
-		title: 'Examples';
-		priority: 11;
-		object: [ GtExampleGroup withAll: (self gtExamplesAllContained collect: #asCachedExampleWithResult) ];
-		view: #gtExamplesFor:
-]
-
-{ #category : #'*GToolkit-Inspector' }
 RPackage >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ classDefinedSelectors gtSpecificSizeInMemory

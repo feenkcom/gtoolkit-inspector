@@ -4,10 +4,14 @@ Extension { #name : #CompiledMethod }
 CompiledMethod >> gtPropertiesFor: aView [ 
 	<gtView>
 	self hasProperties ifFalse: [^ aView empty ].
-	^ aView forward
+	^ aView columnedList 
 		title: 'Properties';
-		object: self properties;
-		view: #gtPropertiesFor:
+		priority: 1;
+		items: [ self properties properties associations ];
+		column: 'Property' text: #key;
+		column: 'Value' text: #value;
+		send: #value;
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
