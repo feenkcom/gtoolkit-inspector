@@ -26,7 +26,7 @@ RPackage >> gtExamplesFor: aView [
 	^ aView forward 
 		title: 'Examples';
 		priority: 11;
-		object: [ GtExampleGroup withAll: self gtExamplesAllContained];
+		object: [ GtExampleGroup withAll: (self gtExamplesAllContained collect: #asCachedExampleWithResult) ];
 		view: #gtExamplesFor:
 ]
 

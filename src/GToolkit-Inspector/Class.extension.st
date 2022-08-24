@@ -70,8 +70,10 @@ Class >> gtExamplesFor: aView [
 		  title: 'Examples';
 		  priority: 20;
 		  stencil: [ 
-			  | aGroup aGroupView anElement |
-			  aGroup := GtExampleGroup withAll: self gtExamplesAll.
+			  | aCollection aGroup aGroupView anElement |
+			  aCollection := self gtExamplesAll collect: [ :eachExample | 
+			  	eachExample asCachedExampleWithResult ].
+			  aGroup := GtExampleGroup withAll: aCollection.
 			  aGroupView := GtPhlowView empty
 				                on: aGroup
 				                perform: #gtExamplesFor:.

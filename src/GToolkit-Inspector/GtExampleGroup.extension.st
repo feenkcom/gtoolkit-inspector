@@ -69,7 +69,8 @@ GtExampleGroup >> buildListViewFor: aView [
 								ifAbsent: [ "do nothing" ] ]
 						ifAbsent: [ "do nothing" ].
 						
-					aHandler := [ :anAnnouncement | aLabel background: anAnnouncement result icon ].
+					aHandler := [ :anAnnouncement | aLabel enqueueTask: (
+						BlTaskAction new action: [ aLabel background: anAnnouncement result icon ]) ].
 					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Status put: aHandler.	
 						
 					anExample announcer weak
@@ -116,7 +117,8 @@ GtExampleGroup >> buildListViewFor: aView [
 								ifAbsent: [ "do nothing" ] ]
 						ifAbsent: [ "do nothing" ].
 					
-					aHandler := [ :anAnnouncement | aLabel text: anExample resultOrErrorName asRopedText ].
+					aHandler := [ :anAnnouncement | aLabel enqueueTask: (
+						BlTaskAction new action: [ aLabel text: anExample resultOrErrorName asRopedText ]) ].
 					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Result put: aHandler.	
 											
 					anExample announcer weak
@@ -159,10 +161,16 @@ GtExampleGroup >> gtExamplesFor: aView [
 			aListView := self buildListViewFor: aView.
 			aListView
 				asElementDo: [ :anElement | 
-					| aHandler |
-					aHandler := [ :anAnnouncement | self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
+					| aHandler aBuilder anUpdater |
+					aBuilder := [  
+						self buildButtonsContainer: aButtonsContainer listWidget: anElement ].
+					anUpdater := BrElementUpdater new
+						element: anElement;
+						action: (MessageSend receiver: aBuilder selector: #value).
+
+					aHandler := [ :anAnnouncement | anUpdater requestUpdate ].
 					anElement userData at: #exampleAnnouncementHandler_gtExamplesFor put: aHandler.
-					
+										
 					self announcer weak
 						when: GtExamplesExecuted , GtExampleExecuted
 						send: #value:
