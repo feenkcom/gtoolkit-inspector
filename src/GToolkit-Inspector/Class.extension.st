@@ -61,39 +61,6 @@ Class >> gtDefinitionFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Class >> gtExamplesFor: aView [
-
-	<gtView>
-	<gtClassView>
-	self gtExamplesAll isEmpty ifTrue: [ ^ aView empty ].
-	^ aView explicit
-		  title: 'Examples';
-		  priority: 20;
-		  stencil: [ 
-			  | aCollection aGroup aGroupView anElement |
-			  aCollection := self gtExamplesAll collect: [ :eachExample | 
-			  	eachExample asCachedExampleWithResult ].
-			  aGroup := GtExampleGroup withAll: aCollection.
-			  aGroupView := GtPhlowView empty
-				                on: aGroup
-				                perform: #gtExamplesFor:.
-			  anElement := aGroupView asElement.
-			  anElement userData at: #gtExamplesFor: put: aGroup.
-			  anElement ];
-		  actionButtonIcon: BrGlamorousVectorIcons play
-		  tooltip: 'Run all examples'
-		  action: [ :aButton :aTab | 
-			  aTab viewContentElement withAllChildrenBreadthFirstDo: [ 
-					  :anElement | 
-					  anElement userData
-						  at: #gtExamplesFor:
-						  ifPresent: [ :aGroup | 
-							  aGroup runAll. ]
-						  ifAbsent: [ "ignore" ] ] ];
-		  actionUpdateButtonTooltip: 'Update example list'
-]
-
-{ #category : #'*GToolkit-Inspector' }
 Class >> gtInstanceSlotsFor: aView [
 	<gtView>
 	^ aView columnedList

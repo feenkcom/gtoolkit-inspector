@@ -36,12 +36,12 @@ GtExampleGroup >> buildListViewFor: aView [
 		title: 'Examples List';
 		priority: 11;
 		items: [ self examples sorted: GtMethodsSortFunction new ];
-		column: 'Status' translated do: [ :aColumn | 
+		column: '' translated do: [ :aColumn | 
 			aColumn
-				width: 26;
+				width: 24;
 				cellStencil: [ 
 					BlElement new
-						size: 16@16;
+						size: 14@14;
 						padding: (BlInsets top: 3 bottom: 3);
 						margin: (BlInsets top: 3 bottom: 3);
 						addAptitude: (GtPhlowLabelTooltipAptitude new 
@@ -52,10 +52,10 @@ GtExampleGroup >> buildListViewFor: aView [
 									at: #example
 									ifPresent: [ :anExample |
 										anEvent consumed: true.
+										[
 										anExample run.
-										anEvent currentTarget background: anExample icon.
 										anEvent currentTarget phlow 
-											selectObject: anExample result returnValue ]
+											selectObject: anExample result returnValue ] asAsyncPromise ]
 									ifAbsent: [ "do nothing" ] ] ];
 			dataBinder: [ :aLabel :anExample :aRowIndex :aRowHolder :aCellIndex |
 					| aHandler |
@@ -70,7 +70,7 @@ GtExampleGroup >> buildListViewFor: aView [
 						ifAbsent: [ "do nothing" ].
 						
 					aHandler := [ :anAnnouncement | aLabel enqueueTask: (
-						BlTaskAction new action: [ aLabel background: anAnnouncement result icon ]) ].
+						BlTaskAction new action: [ aLabel background: anAnnouncement result color ]) ].
 					aLabel userData at: #exampleAnnouncementHandler_buildListViewFor_Status put: aHandler.	
 						
 					anExample announcer weak
@@ -78,7 +78,7 @@ GtExampleGroup >> buildListViewFor: aView [
 						send: #value:
 						to: aHandler.
 						
-					aLabel background: anExample icon.
+					aLabel background: anExample color.
 					aLabel userData at: #example put: anExample ] ];
 		column: 'Class' translated 
 			text: [ :eachExample :anIndex | 

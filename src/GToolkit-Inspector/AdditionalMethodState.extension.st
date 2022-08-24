@@ -9,6 +9,5 @@ AdditionalMethodState >> gtPropertiesFor: aView [
 		items: [ self properties associations ];
 		column: 'Property' text: #key;
 		column: 'Value' text: #value;
-		actionUpdateButton;
 		send: #value
 ]
