@@ -209,7 +209,10 @@ GtExampleGroup >> gtMapFor: aView [
 GtExampleGroup >> paintMapWith: m [
 	| grouped all local |
 	local := self examples select: #isMethodDefined.
-	all := local withDeepCollect: #directDependencies as: Set.
+	all := local 
+		withDeepCollect: [ :each | each directDependencies collect: [ :dep | 
+			dep example asCachedExampleWithResult ] ] 
+		as: Set.
 	grouped := all groupedBy: [:each | each method methodClass ].
 	m nodes 
 		stencil: [:assoc | 
