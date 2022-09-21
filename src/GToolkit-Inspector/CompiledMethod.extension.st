@@ -6,7 +6,7 @@ CompiledMethod >> gtPropertiesFor: aView [
 	self hasProperties ifFalse: [^ aView empty ].
 	^ aView columnedList 
 		title: 'Properties';
-		priority: 1;
+		priority: 11;
 		items: [ self properties properties associations ];
 		column: 'Property' text: #key;
 		column: 'Value' text: #value;
