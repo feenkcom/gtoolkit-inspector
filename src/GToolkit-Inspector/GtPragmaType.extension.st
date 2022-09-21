@@ -10,14 +10,14 @@ GtPragmaType >> gtPragmasFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtPragmaType >> gtSpotterPragmasFor: aStep [
+GtPragmaType >> gtSpotterPragmasFor: aSearch [
 	<gtSearch>
-	^ aStep listProcessor
+	^ aSearch list
 		priority: 40;
 		title: 'Pragmas';
-		allCandidates: [ self pragmas ];
+		items: [ self pragmas ];
 		itemName: [ :pragma | pragma method printString , ' ' , pragma asString ];
-		filter: GtFilterSubstring
+		filterBySubstring
 ]
 
 { #category : #'*GToolkit-Inspector' }

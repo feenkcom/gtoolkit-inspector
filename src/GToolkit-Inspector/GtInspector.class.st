@@ -72,15 +72,14 @@ GtInspector class >> gtExtensionsFor: aView [
 ]
 
 { #category : #inspecting }
-GtInspector class >> gtSpotterExtensionsFor: aStep [
+GtInspector class >> gtSpotterExtensionsFor: aSearch [
 	<gtSearch>
-	
-	aStep listProcessor
+	^ aSearch list
 		priority: 50;
-		allCandidates: [ self inspectorExtendingMethods ];
+		items: [ self inspectorExtendingMethods ];
 		title: 'Extensions';
 		itemName: [ :each | each gtDisplayString ];
-		filter: GtFilterSubstring;
+		filterBySubstring;
 		wantsToDisplayOnEmptyQuery: true
 ]
 
