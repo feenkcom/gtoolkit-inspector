@@ -82,7 +82,7 @@ AbstractFileReference >> gtContentsFor: aView [
 	^ aView textEditor
 		title: 'Contents' translated;
 		priority: 50;
-		text: [ BlRopedText file: self ];
+		text: [ BlRunRopedText file: self ];
 		actionStencil: [ :tab | 
 			BrButton new 
 				aptitude: BrGlamorousButtonWithIconAptitude;
