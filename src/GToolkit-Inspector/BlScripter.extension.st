@@ -1,7 +1,7 @@
-Extension { #name : #BlDevScripter }
+Extension { #name : #BlScripter }
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtElementsFor: aView [
+BlScripter >> gtElementsFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -11,7 +11,7 @@ BlDevScripter >> gtElementsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtEventTracesIn: aContainer [
+BlScripter >> gtEventTracesIn: aContainer [
 	| anEventColor |
 	
 	anEventColor := Color r: 0.270772238514174 g: 0.6705767350928641 b: 0.9960899315738025 alpha: 1.0.
@@ -61,7 +61,7 @@ BlDevScripter >> gtEventTracesIn: aContainer [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtEventsFor: aView [
+BlScripter >> gtEventsFor: aView [
 	<gtView>
 	self events ifNil: [ ^ aView empty ].
 	^ (self events gtEventsFor: aView)
@@ -70,7 +70,7 @@ BlDevScripter >> gtEventsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtReveresedEventsFor: aView [
+BlScripter >> gtReveresedEventsFor: aView [
 	<gtView>
 	self events ifNil: [ ^ aView empty ].
 	^ (self events gtReveresedEventsFor: aView)
@@ -79,7 +79,7 @@ BlDevScripter >> gtReveresedEventsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtSpaceFor: aView [
+BlScripter >> gtSpaceFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	element ifNil: [ ^ aView empty ].
@@ -108,7 +108,7 @@ BlDevScripter >> gtSpaceFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtSpaceTasksFor: aView [
+BlScripter >> gtSpaceTasksFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	self spaceTasks ifEmpty: [ ^ aView empty ].
@@ -117,21 +117,21 @@ BlDevScripter >> gtSpaceTasksFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtStepsMondrianTreeFor: aView [
+BlScripter >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
 	^ rootStep gtStepsMondrianTreeFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtStepsTreeFor: aView [
+BlScripter >> gtStepsTreeFor: aView [
 	<gtView>
 	
 	^ rootStep gtStepsTreeFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtTaskEventsFor: aView [
+BlScripter >> gtTaskEventsFor: aView [
 	<gtView>
 	
 	self events
@@ -159,7 +159,7 @@ BlDevScripter >> gtTaskEventsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlDevScripter >> gtUserDataFor: aView [
+BlScripter >> gtUserDataFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	self userData isEmpty ifTrue: [ ^ aView empty ].
