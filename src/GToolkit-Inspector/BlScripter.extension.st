@@ -113,7 +113,11 @@ BlScripter >> gtSpaceTasksFor: aView [
 	space ifNil: [ ^ aView empty ].
 	self spaceTasks ifEmpty: [ ^ aView empty ].
 	^ (self spaceTasks gtItemsFor: aView)
-		title: 'Space Tasks'
+		title: 'Space Tasks';
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Space Tasks'
+			tooltip: 'Inspect space tasks'
+			action: [ :aButton | aButton phlow spawn: self spaceTasks ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

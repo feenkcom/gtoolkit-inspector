@@ -16,7 +16,7 @@ TBlDevScripterActionStep >> gtScripterActionStepsFor: aView [
 					copyWithoutDuplicates
 					sorted: GtMethodsSortFunction new ];
 		column: 'Method' text: [ :eachMethod | eachMethod selector printString asRopedText glamorousCodeFont ];
-		column: 'Description' text: [ :eachMethod | eachMethod firstComment ifEmpty: [ '' ] ];
+		column: 'Description' text: [ :eachMethod | eachMethod firstComment ifEmpty: [ '' ] ] weight: 2;
 		column: 'Add it' stencil: [ :eachMethod |
 			BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
