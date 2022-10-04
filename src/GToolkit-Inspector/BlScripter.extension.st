@@ -108,19 +108,6 @@ BlScripter >> gtSpaceFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlScripter >> gtSpaceTasksFor: aView [
-	<gtView>
-	space ifNil: [ ^ aView empty ].
-	self spaceTasks ifEmpty: [ ^ aView empty ].
-	^ (self spaceTasks gtItemsFor: aView)
-		title: 'Space Tasks';
-		actionButtonIcon: BrGlamorousVectorIcons inspect
-			label: 'Space Tasks'
-			tooltip: 'Inspect space tasks'
-			action: [ :aButton | aButton phlow spawn: self spaceTasks ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlScripter >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
