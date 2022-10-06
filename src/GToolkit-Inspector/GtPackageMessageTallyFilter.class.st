@@ -42,7 +42,7 @@ GtPackageMessageTallyFilter >> createOrReuseTallyFor: childTally in: newTally [
 			[ :each | 
 			each method == childTally method
 				ifTrue:
-					[ each bump: childTally tally.
+					[ each bumpBy: childTally tally.
 					^ each ] ].
 	newChild := childTally filterCopy.
 	newTally addReceiver: newChild.

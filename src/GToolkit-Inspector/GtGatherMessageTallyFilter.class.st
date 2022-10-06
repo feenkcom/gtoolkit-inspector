@@ -35,17 +35,17 @@ GtGatherMessageTallyFilter >> addChildrenOf: aMessageTally to: result [
 			tally := result receivers
 				detect: [ :child | child method == each method ]
 				ifNone:
-					[ tally := MessageTally new class: each theClass method: each method.
+					[ tally := aMessageTally class new class: each theClass method: each method.
 					result addReceiver: tally.
 					tally ].
-			tally bump: each tally.
+			tally bumpBy: each tally.
 			self addChildrenOf: each to: tally ]
 ]
 
 { #category : #'api - stream' }
 GtGatherMessageTallyFilter >> filter: aMessageTally [
 	| result |
-	result := MessageTally new class: rootMethod methodClass method: rootMethod.
+	result := aMessageTally class new class: rootMethod methodClass method: rootMethod.
 	self filterRootInto: result from: aMessageTally.
 	^ result
 ]
@@ -54,7 +54,7 @@ GtGatherMessageTallyFilter >> filter: aMessageTally [
 GtGatherMessageTallyFilter >> filterRootInto: result from: aMessageTally [
 	aMessageTally method == rootMethod
 		ifTrue:
-			[ result bump: aMessageTally tally.
+			[ result bumpBy: aMessageTally tally.
 			self addChildrenOf: aMessageTally to: result ]
 		ifFalse: [ aMessageTally receivers do: [ :each | self filterRootInto: result from: each ] ]
 ]
