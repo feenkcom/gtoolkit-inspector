@@ -62,7 +62,7 @@ DebugSession >> gtViewLiveDebuggerFor: aView [
 		priority: 150;
 		stencil: [ 
 			| debuggerElement |
-			debuggerElement := GtExpandableDebuggerElement on: self.
+			debuggerElement := GtPharoDebuggerElement on: (GtPharoDebuggerElement  spanNewSessionFrom: self).
 			debuggerElement constraintsDo: [ :c |
 				c horizontal matchParent.
 				c vertical matchParent ].
