@@ -124,28 +124,34 @@ BlScripter >> gtStepsTreeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlScripter >> gtTaskEventsFor: aView [
 	<gtView>
-	
-	self events
-		ifNil: [ ^ aView empty ].
-	
+	self events ifNil: [ ^ aView empty ].
+
 	^ aView columnedList
 		title: 'Tasks';
 		priority: 2;
-		items: [ self events select: [ :eachEvent | eachEvent isKindOf: BlSpaceTaskEvent ] ];
-		column: 'Frame id' text: [ :eachEvent | eachEvent frameId ] width: 75;
-		column: 'Event' text: [ :eachEvent |
-			eachEvent isTaskEnqueuedEvent
-				ifTrue: [ 'Enqueued' asRopedText foreground: BrGlamorousColors linkColor darker ]
-				ifFalse: [
-					eachEvent isTaskDequeuedEvent
-						ifTrue: [ 'Dequeued' asRopedText foreground: BrGlamorousColors errorBorderColor ]
-						ifFalse: [ eachEvent isTaskExecutedEvent
-							ifTrue: [ 'Executed' asRopedText foreground: BrGlamorousColors successBackgroundColor darker ]
-							ifFalse: [ eachEvent isTaskRequeuedEvent
-								ifTrue: [ 'Requeued' asRopedText foreground: Color gray ]
-								ifFalse: [ 'Unknown' ] ] ] ] ] width: 100;
-		column: 'Task id' text: [ :eachEvent | eachEvent task id ] width: 75;
-		column: 'Tasks' text: [ :eachEvent | eachEvent tasks size ] width: 75;
+		items: [ self spaceTaskEvents ];
+		column: 'Frame id'
+			text: [ :eachEvent | eachEvent frameId ]
+			width: 75;
+		column: 'Event'
+			text: [ :eachEvent | 
+				eachEvent isTaskEnqueuedEvent
+					ifTrue: [ 'Enqueued' asRopedText foreground: BrGlamorousColors linkColor darker ]
+					ifFalse: [ eachEvent isTaskDequeuedEvent
+							ifTrue: [ 'Dequeued' asRopedText foreground: BrGlamorousColors errorBorderColor ]
+							ifFalse: [ eachEvent isTaskExecutedEvent
+									ifTrue: [ 'Executed' asRopedText
+											foreground: BrGlamorousColors successBackgroundColor darker ]
+									ifFalse: [ eachEvent isTaskRequeuedEvent
+											ifTrue: [ 'Requeued' asRopedText foreground: Color gray ]
+											ifFalse: [ 'Unknown' ] ] ] ] ]
+			width: 100;
+		column: 'Task id'
+			text: [ :eachEvent | eachEvent task id ]
+			width: 75;
+		column: 'Tasks'
+			text: [ :eachEvent | eachEvent tasks size ]
+			width: 75;
 		column: 'Description' text: [ :eachEvent | eachEvent task printString ]
 ]
 

@@ -35,9 +35,18 @@ Context >> gtSourceFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Context >> gtStackFor: aView [
 	<gtView>
-	^ aView list
+	^ aView tree
 		title: 'Stack';
-		items: [self stack]
+		items: [ self stack ];
+		children: [ :anItem | anItem isContext ifTrue: [ anItem gtVariables ] ifFalse: [ #() ] ];
+		itemText: [ :anItem | 
+			anItem isContext
+				ifTrue: [ anItem ]
+				ifFalse: [ anItem key asRopedText
+						append: ' := ' asRopedText;
+						foreground: BrGlamorousColors disabledButtonTextColor;
+						append: anItem value gtDisplayText ] ];
+		send: [ :anItem | anItem isContext ifTrue: [ anItem ] ifFalse: [ anItem value ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
