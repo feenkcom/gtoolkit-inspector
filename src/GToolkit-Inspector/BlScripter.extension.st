@@ -22,11 +22,8 @@ BlScripter >> gtEventTracesIn: aContainer [
 				aContainer addChild: (BlElement new
 					geometry: (BlCircleGeometry new);
 					size: 6@6;
+					constraintsDo: [ :c | c ignoreByLayout ];
 					background: anEventColor;
-					effect: (BlGaussianShadowEffect
-						color: anEventColor
-						width: 1
-						offset: 0@0);
 					border: (BlBorder paint: Color white width: 1);
 					relocate: eachEvent position - (3@3)) ].
 				
@@ -35,12 +32,9 @@ BlScripter >> gtEventTracesIn: aContainer [
 				aContainer addChild: (BlElement new
 					geometry: (BlCircleGeometry new);
 					size: 6@6;
-					background: Color white;
+					constraintsDo: [ :c | c ignoreByLayout ];
+					background: anEventColor;
 					border: (BlBorder paint: anEventColor width: 1);
-					effect: (BlGaussianShadowEffect
-						color: anEventColor
-						width: 1
-						offset: 0@0);
 					relocate: eachEvent position - (3@3)) ].
 				
 		eachEvent class = BlClickEvent
@@ -48,7 +42,8 @@ BlScripter >> gtEventTracesIn: aContainer [
 				aContainer addChild: (BlElement new
 					geometry: (BlCircleGeometry new);
 					size: 12@12;
-					background: Color transparent;
+					constraintsDo: [ :c | c ignoreByLayout ];
+					background: (Color white alpha: 0.25);
 					border: (BlBorder paint: anEventColor width: 1);
 					relocate: eachEvent position - (6@6)) ].
 		
