@@ -27,7 +27,7 @@ GtTraceStyler >> privateStyle: aText [
 				aCompiledMethod := aClass >> tokens fourth value asSymbol.
 				(aText from: tokens second first start to: tokens fourth stop)
 					foreground: Color black;
-					attribute: (BrGlamorousTrangleExpanderTextAttribute new
+					attribute: (BrGlamorousTriangleExpanderTextAttribute new
 							attributesCreatingBlock: [ BrTextAdornmentDynamicAttribute new
 									beAppend;
 									stencil: [ | editorElement coder |
