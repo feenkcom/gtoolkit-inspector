@@ -220,7 +220,7 @@ GtPharoSyntaxExplainer >> initialize [
 		#ReturnNode -> 'A return node returns an object from a method.'.
 		#UnaryNode -> 'A unary message has the following form: anObject aMessage.'.
 		#BinaryNode -> 'A binary message has the following form: anObject aMessage anotherObject.'.
-		#KeywordNode -> 'A keyword message has parameteres with the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
+		#KeywordNode -> 'A keyword message has parameters with the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
 		#TemporaryNode -> 'A temporary is a variable declared in this method and it is only visible here.'.
 		#ArgumentNode -> 'An argument is a variable received as a pramatere in the current method and it is only visible there.'.
 		#GlobalNode -> 'A global is a variable declared in another class that can be used anywhere else.'.
