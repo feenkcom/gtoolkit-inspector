@@ -220,9 +220,9 @@ GtPharoSyntaxExplainer >> initialize [
 		#ReturnNode -> 'A return node returns an object from a method.'.
 		#UnaryNode -> 'A unary message has the following form: anObject aMessage.'.
 		#BinaryNode -> 'A binary message has the following form: anObject aMessage anotherObject.'.
-		#KeywordNode -> 'A keyword message has parameteres with the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
+		#KeywordNode -> 'A keyword message has parameters taking the following form: anObject aKey: anotherObject aKey2: anotherObject2.'.
 		#TemporaryNode -> 'A temporary is a variable declared in this method and it is only visible here.'.
-		#ArgumentNode -> 'An argument is a variable received as a parameter in the current method and it is only visible there.'.
+		#ArgumentNode -> 'An argument is a variable received as a parameter in the current method and is only visible there.'.
 		#GlobalNode -> 'A global is a variable declared in another class that can be used anywhere else.'.
 		#SelfNode -> 'self represents the current object.'.
 		#SuperNode -> 'super represents the parent class for the current class.'.
@@ -235,9 +235,9 @@ GtPharoSyntaxExplainer >> initialize [
 		#CharacterNode -> 'A character is a representation of a unicode value.'.
 		#SymbolNode -> 'A symbol is a uniquely created string.'.
 		#BlockNode -> 'A block contains multiple instructions to be executed.'.
-		#AssignmentNode -> 'An assignment node assgines values to objects.'.
+		#AssignmentNode -> 'An assignment node assigns values to objects.'.
 		#CascadeNode -> 'A cascade chains multiple messages, all applied to the same object.'.
-		#CommentNode -> 'A comment is a description for a piece of code. It has no functionalty.' }.
+		#CommentNode -> 'A comment is a description for a piece of code. It has no functionality.' }.
 	
 	associationsCollection do: [ :each |
 		tooltips at: each key put: (each value asRopedText glamorousRegularFont fontSize: 15) ].
