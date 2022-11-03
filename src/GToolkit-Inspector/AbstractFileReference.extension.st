@@ -189,28 +189,54 @@ AbstractFileReference >> gtJsonFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPathFor: aView [
 	<gtView>
+	| aCount |
+	aCount := 0.
 	^ aView columnedList
 		title: 'Path';
 		priority: 55;
-		items: [ self asFileReference withParents ];
-		column: 'Icon' icon: [ :aFileReference |
-			aFileReference exists 
-				ifTrue: [ 
-					(GtInspectorAcceptIconStencil new 
-						radius: 8; 
-						thickness: 2) asElement 
-						background: BrGlamorousColors successBackgroundColor ]
-				ifFalse: [ 
-					(BrPlusIconStencil close 
-						radius: 8; 
-						thickness: 2) asElement 
-						background: BrGlamorousColors errorBackgroundColor] ]
+		items: [ | aCollection |
+			aCollection := self asFileReference withParents.
+			aCount := aCollection size.
+			aCollection ];
+		column: 'Icon'
+			icon: [ :aFileReference | 
+				aFileReference exists
+					ifTrue: [ (GtInspectorAcceptIconStencil new
+							radius: 8;
+							thickness: 2) asElement
+							background: BrGlamorousColors successBackgroundColor ]
+					ifFalse: [ (BrPlusIconStencil close
+							radius: 8;
+							thickness: 2) asElement
+							background: BrGlamorousColors errorBackgroundColor ] ]
 			width: 35;
-		column: 'Name' text: [ :aFileReference | 
-			aFileReference basename, 
-				(aFileReference isDirectory 
-					ifTrue: ['/'] 
-				ifFalse: ['']) ]
+		column: 'Name'
+			text: [ :aFileReference | 
+				aFileReference basename
+					, (aFileReference isDirectory ifTrue: [ '/' ] ifFalse: [ '' ]) ];
+		column: 'Actions'
+			stencil: [ :aFileReference :anIndex | 
+				aFileReference exists
+					ifTrue: [ BlElement new size: 0 @ 0 ]
+					ifFalse: [ aFileReference parent exists
+							ifFalse: [ BlElement new size: 0 @ 0 ]
+							ifTrue: [ anIndex = aCount
+									ifFalse: [ BrButton new
+											fitContent;
+											aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
+											icon: BrGlamorousIcons add;
+											label: 'Make directory';
+											action: [ :aButton | 
+												aFileReference ensureCreateDirectory.
+												aButton phlow fireUpdateWish ] ]
+									ifTrue: [ BrButton new
+											fitContent;
+											aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
+											icon: BrGlamorousIcons add;
+											label: 'Make empty file';
+											action: [ :aButton | 
+												aFileReference binaryWriteStreamDo: [ :aStream |  ].
+												aButton phlow fireUpdateWish ] ] ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
