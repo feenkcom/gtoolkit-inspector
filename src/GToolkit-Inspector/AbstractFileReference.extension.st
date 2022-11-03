@@ -220,23 +220,31 @@ AbstractFileReference >> gtPathFor: aView [
 					ifTrue: [ BlElement new size: 0 @ 0 ]
 					ifFalse: [ aFileReference parent exists
 							ifFalse: [ BlElement new size: 0 @ 0 ]
-							ifTrue: [ anIndex = aCount
-									ifFalse: [ BrButton new
-											fitContent;
-											aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
-											icon: BrGlamorousIcons add;
-											label: 'Make directory';
-											action: [ :aButton | 
-												aFileReference ensureCreateDirectory.
-												aButton phlow fireUpdateWish ] ]
-									ifTrue: [ BrButton new
-											fitContent;
-											aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
-											icon: BrGlamorousIcons add;
-											label: 'Make empty file';
-											action: [ :aButton | 
-												aFileReference binaryWriteStreamDo: [ :aStream |  ].
-												aButton phlow fireUpdateWish ] ] ] ] ]
+							ifTrue: [ BrHorizontalPane new
+									fitContent;
+									in: [ :aPane | 
+										aPane
+											addChild: (BrButton new
+													fitContent;
+													aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
+													margin: (BlInsets right: 5);
+													icon: BrGlamorousIcons add;
+													label: 'Make directory';
+													action: [ :aButton | 
+														aFileReference ensureCreateDirectory.
+														aButton phlow fireUpdateWish ]).
+										anIndex = aCount
+											ifTrue: [ aPane
+													addChild: (BrButton new
+															fitContent;
+															aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
+															icon: BrGlamorousIcons add;
+															label: 'Make empty file';
+															action: [ :aButton | 
+																aFileReference binaryWriteStreamDo: [ :aStream |  ].
+																aButton phlow fireUpdateWish ]) ] ];
+									yourself ] ] ];
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
