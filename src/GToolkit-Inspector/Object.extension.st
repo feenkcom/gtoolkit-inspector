@@ -102,7 +102,7 @@ Object >> gtRawFor: aView [
 							hMatchParent;
 							vFitContent) ] ];
 		column: 'Value' text: [ :aNode | 
-			[ aNode rawValue gtDisplayString asRopedText ]
+			[ aNode rawValue gtDisplayText ]
 			on: Error , Halt
 			do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value;
