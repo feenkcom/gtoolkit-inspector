@@ -522,7 +522,7 @@ GtInspectorElementOverview >> spawnVerticalConstraints [
 
 { #category : #'element - visual' }
 GtInspectorElementOverview >> spawnVisibility [
-	self phlow spawnObject: self elementTransformation
+	self phlow spawnObject: self elementVisibility
 ]
 
 { #category : #'element - bounds' }
