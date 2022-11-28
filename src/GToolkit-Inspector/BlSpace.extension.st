@@ -14,7 +14,10 @@ BlSpace >> gtChildrenFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlSpace >> gtPreviewFor: aView [
 	<gtView>
+	
 	self root ifNil: [ ^ aView empty ].
-	^ self root gtPreviewFor: aView
-
+	
+	"note: #forward view is async and makes it hard to add extra stuff on top of the view"
+	^ self root
+		gtPreviewFor: aView
 ]
