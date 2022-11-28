@@ -12,9 +12,8 @@ BlScripter >> gtElementsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BlScripter >> gtEventTracesIn: aContainer [
-	| anEventColor anOffset|
-	
-	anOffset := aContainer children first margin topLeft + aContainer padding topLeft.
+	| anEventColor|
+
 	anEventColor := Color r: 0.270772238514174 g: 0.6705767350928641 b: 0.9960899315738025 alpha: 1.0.
 	
 	self events do: [ :eachEvent |
@@ -26,7 +25,7 @@ BlScripter >> gtEventTracesIn: aContainer [
 					constraintsDo: [ :c | c ignoreByLayout ];
 					background: anEventColor;
 					border: (BlBorder paint: Color white width: 1);
-					relocate: eachEvent position - (3@3) + anOffset) ].
+					relocate: eachEvent position - (3@3)) ].
 				
 		eachEvent class = BlMouseUpEvent
 			ifTrue: [
@@ -36,7 +35,7 @@ BlScripter >> gtEventTracesIn: aContainer [
 					constraintsDo: [ :c | c ignoreByLayout ];
 					background: anEventColor;
 					border: (BlBorder paint: anEventColor width: 1);
-					relocate: eachEvent position - (3@3) + anOffset) ].
+					relocate: eachEvent position - (3@3)) ].
 				
 		eachEvent class = BlClickEvent
 			ifTrue: [
@@ -46,14 +45,14 @@ BlScripter >> gtEventTracesIn: aContainer [
 					constraintsDo: [ :c | c ignoreByLayout ];
 					background: (Color white alpha: 0.25);
 					border: (BlBorder paint: anEventColor width: 1);
-					relocate: eachEvent position - (6@6) + anOffset) ].
+					relocate: eachEvent position - (6@6)) ].
 		
 		eachEvent class = BlMouseMoveEvent
 			ifTrue: [
 				aContainer addChild: (BlLineElement new
 					border: (BlBorder paint: anEventColor width: 1);
-					fromAnchor: (BlAbsolutePositionAnchor position: eachEvent position - eachEvent delta + anOffset);
-					toAnchor: (BlAbsolutePositionAnchor position: eachEvent position + anOffset)) ] ]
+					fromAnchor: (BlAbsolutePositionAnchor position: eachEvent position - eachEvent delta);
+					toAnchor: (BlAbsolutePositionAnchor position: eachEvent position)) ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -85,15 +84,12 @@ BlScripter >> gtSpaceFor: aView [
 		priority: 0;
 		stencil: [ | aContainer |
 			aContainer := BrVerticalPane new matchParent.
-			aContainer padding: (BlInsets all: 10).
-
 			(self space gtPreviewFor: GtPhlowEmptyView new)
 				asElementDo: [ :anElement | 
-					anElement aptitude: BrShadowAptitude.
+					(anElement
+						childWithId: #'element-preview--content'
+						ifFound: [ :aContent | self gtEventTracesIn: aContent ]).
 					aContainer addChild: anElement ].
-
-			self gtEventTracesIn: aContainer.
-
 			aContainer ];
 		actionButtonLabel: 'Open'
 			tooltip: 'Open scripter space in a real window'

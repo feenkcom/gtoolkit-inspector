@@ -171,13 +171,94 @@ BlElement >> gtParentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtPreviewElement [
+	| aPreviewElement aRenderAction |
+
+	aPreviewElement := BlElement new
+		id: #'element-preview--content'.
+	aPreviewElement constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent ].
+	aPreviewElement enqueueTask: (BlTaskAction new action: [
+		| aScaleFactor shouldForcePulse |
+		
+		aScaleFactor := 1.0.
+		aPreviewElement spaceDo: [ :aSpace | aScaleFactor := aSpace windowScale ].
+
+		aRenderAction := [
+			| aCanvas aSpaceExtent aSnapshot |
+
+			self forceLayout.
+			aSpaceExtent := self extent.
+
+			aCanvas := Bloc preferableSpartaCanvas extent:
+				(aSpaceExtent  * aScaleFactor) asIntegerPoint.
+
+			aCanvas fill
+				path: aCanvas bounds;
+				paint: Color white;
+				draw.
+			
+			aCanvas transform
+				by: [ :t | t scaleBy: aScaleFactor ]
+				during: [ self fullDrawOnSpartaCanvas: aCanvas ].
+
+			aSnapshot := aCanvas asForm.
+
+			aPreviewElement enqueueTask: (BlTaskAction new action: [
+				aPreviewElement
+					size: aSpaceExtent;
+					addChild: (aSnapshot asElement
+						elevation: (BlRelativeElevation elevation: -1);
+						transformDo: [ :t |
+							t topLeftOrigin.
+							t scaleBy: 1 / aScaleFactor ]) ]) ].
+
+		shouldForcePulse := true.
+		self spaceDo: [ :aSpace | aSpace universe uiProcessDo: [ :aUIProcess |
+				shouldForcePulse := aUIProcess isSuspended or: [ aUIProcess isTerminated or: [ aUIProcess isTerminating ] ] ]  ].
+		shouldForcePulse
+			ifTrue: aRenderAction
+			ifFalse: [ self enqueueTask: (BlTaskAction new action: aRenderAction) ]
+	]).
+	^ aPreviewElement
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewFor: aView [
 	<gtView>
-	^ aView explicit 
+	
+	^ aView explicit
 		title: 'Preview';
-		priority: 1;
-		stencil: [ self asSpartaForm asElement 
-			margin: (BlInsets all: 10) ]
+		priority: 2;
+		actionUpdateButton;
+		stencil: [
+			| aPreviewElement |
+			aPreviewElement := BrVerticalPane new.
+			aPreviewElement
+				matchParent;
+				background: aPreviewElement theme status neutralBackgroundColor;
+				padding: (BlInsets top: 10 left: 10 bottom: 5 right: 10);
+				addChild: (BrFrame new
+					matchParent;
+					background: Color white;
+					addAptitude: BrShadowAptitude;
+					padding: (BlInsets all: 10);
+					margin: (BlInsets top: 5 left: 10 bottom: 5 right: 10);
+					addChild: (BlScrollableElement new
+						id: #scrollable;
+						constraintsDo: [ :c |
+							c horizontal matchParent.
+							c vertical matchParent ];
+						addChild: self gtPreviewElement);
+					addAptitude: BrGlamorousWithHorizontalScrollbarAptitude;
+					addAptitude: BrGlamorousWithVerticalScrollbarAptitude);
+				addChild: (BrLabel new
+					alignCenter;
+					hMatchParent;
+					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
+					text: 'This is a staticaly rendered preview').
+			aPreviewElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
