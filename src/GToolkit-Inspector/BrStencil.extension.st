@@ -3,10 +3,11 @@ Extension { #name : #BrStencil }
 { #category : #'*GToolkit-Inspector' }
 BrStencil class >> gtLiveFor: aView [
 	<gtView>
+	<gtClassView>
 	self isAbstract ifTrue: [ ^ aView empty ].
 	^ aView forward
 		title: 'Live';
-		priority: -5;
+		priority: 10;
 		object: [ self new ];
 		view: #gtLiveFor:
 ]

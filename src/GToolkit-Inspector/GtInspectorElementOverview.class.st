@@ -5,7 +5,7 @@ Class {
 		'inspectedElement',
 		'properties'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'private - properties' }
@@ -190,21 +190,22 @@ GtInspectorElementOverview >> buildStatesProperties [
 
 { #category : #'private - properties' }
 GtInspectorElementOverview >> buildVisualProperties [
-	| theProperties |	
-	
-	theProperties := { 
-		('Background ({1})' format: { self elementBackgroundName }) -> [ self spawnBackground ].
-		('Border (width: {1})' format: { self elementBorder width }) -> [ self spawnBorder ].
-		('Geometry ({1})' format: { self elementGeometryName }) -> [ self spawnGeometry ].
-		('Transformation ({1})' format: { self elementTransformationName }) -> [ self spawnTransformation ].
-	}.
-		
+	| theProperties |
+	theProperties := {('Background ({1})' format: {self elementBackgroundName})
+				-> [ self spawnBackground ].
+			('Border (width: {1})' format: {self elementBorder width})
+				-> [ self spawnBorder ].
+			('Geometry ({1})' format: {self elementGeometryName})
+				-> [ self spawnGeometry ].
+			('Transformation ({1})' format: {self elementTransformationName})
+				-> [ self spawnTransformation ].
+			('Visibility ({1})' format: {self elementVisibilityName})
+				-> [ self spawnVisibility ]}.
+
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
-		addChildren: (theProperties collect: [ :each |
-			self
-				buildPropertyButtonNamed: each key
-				spawn: each value ])
+		addChildren: (theProperties
+				collect: [ :each | self buildPropertyButtonNamed: each key spawn: each value ])
 ]
 
 { #category : #initialization }
@@ -345,6 +346,22 @@ GtInspectorElementOverview >> elementUserData [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> elementVerticalConstraintsName [
 	^ inspectedElement constraints vertical resizer printString
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementVisibility [
+	^ inspectedElement visibility
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementVisibilityName [
+	^ self elementVisibility isVisible
+		ifTrue: [ 'Visible' ]
+		ifFalse: [ self elementVisibility isHidden
+				ifTrue: [ 'Hidden' ]
+				ifFalse: [ self elementVisibility isGone
+						ifTrue: [ 'Gone' ]
+						ifFalse: [ self elementVisibility printString ] ] ]
 ]
 
 { #category : #'element - bounds' }
@@ -501,6 +518,11 @@ GtInspectorElementOverview >> spawnUserData [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> spawnVerticalConstraints [
 	self phlow spawnObject: inspectedElement constraints vertical
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnVisibility [
+	self phlow spawnObject: self elementVisibility
 ]
 
 { #category : #'element - bounds' }
