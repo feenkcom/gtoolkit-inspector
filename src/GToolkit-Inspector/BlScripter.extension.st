@@ -144,6 +144,9 @@ BlScripter >> gtTaskEventsFor: aView [
 		column: 'Tasks'
 			text: [ :eachEvent | eachEvent tasks size ]
 			width: 75;
+		column: 'Source Process'
+			text: [ :eachEvent | eachEvent task processId ]
+			width: 120;
 		column: 'Description' text: [ :eachEvent | eachEvent task printString ]
 ]
 
