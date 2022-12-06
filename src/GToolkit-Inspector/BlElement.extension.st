@@ -257,7 +257,7 @@ BlElement >> gtPreviewFor: aView [
 					alignCenter;
 					hMatchParent;
 					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
-					text: 'This is a staticaly rendered preview').
+					text: 'This is a statically rendered preview').
 			aPreviewElement ]
 ]
 
