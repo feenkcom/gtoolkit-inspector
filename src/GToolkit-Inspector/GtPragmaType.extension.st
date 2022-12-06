@@ -21,12 +21,12 @@ GtPragmaType >> gtSpotterPragmasFor: aSearch [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtPragmaType >> gtSpotterUsersFor: aStep [
+GtPragmaType >> gtSpotterUsersFor: aSearch [
 	<gtSearch>
-	^ aStep listProcessor
+
+	^ aSearch list
 		priority: 50;
 		title: 'Users';
-		filter: GtFilterSubstring
-			item:
-				[ :filter :context | self users do: [ :sender | filter value: sender ] ]
+		items: [ self users ];
+		filterBySubstring
 ]
