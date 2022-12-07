@@ -60,7 +60,7 @@ GtExampleGroup >> paintMapWith: m [
 		withDeepCollect: [ :each | each directDependencies collect: [ :dep | 
 			dep example asCachedExampleWithResult ] ] 
 		as: Set.
-	grouped := all groupedBy: [:each | each method methodClass ].
+	grouped := (all asSortedCollection: [:a :b | a method name < b method name] )groupedBy: [:each | each method methodClass ].
 	m nodes 
 		stencil: [:assoc | 
 			| pane default |
