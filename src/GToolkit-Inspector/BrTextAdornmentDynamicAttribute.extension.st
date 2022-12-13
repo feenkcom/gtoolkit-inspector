@@ -11,7 +11,7 @@ BrTextAdornmentDynamicAttribute >> gtLiveFor: aView [
 				matchParent;
 				alignCenter;
 				margin: (BlInsets all: 10);
-				addChildren: stencilBuilder build asCollection.
+				addChildren: stencilBuilder build asOrderedCollection.
 			aContainer 
 				addChild: (BrLabel new
 					aptitude: (BrGlamorousLabelAptitude new
