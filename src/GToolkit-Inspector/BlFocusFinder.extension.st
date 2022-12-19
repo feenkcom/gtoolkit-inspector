@@ -10,7 +10,7 @@ BlFocusFinder >> gtPreviewFor: aView [
 		stencil: [ 
 			| anExplanation aRootPreview aReferenceBounds aDescription aNextFocusElement |
 			
-			aReferenceBounds := reference focusBoundsIn: rootElement.
+			aReferenceBounds := reference focusBoundsIn: rootElement direction: direction.
 			aNextFocusElement := self nextFocusDo: #yourself ifNone: [ nil ].
 			
 			anExplanation := BrVerticalPane new
