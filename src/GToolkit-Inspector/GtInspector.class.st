@@ -120,10 +120,12 @@ GtInspector >> contentElement [
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
+
 	self initializeTitleNotifier.
 	self initializeContentElement.
 	self initializePlaygroundElement.
 	self layout: BlLinearLayout vertical.
+	self beFocusable.
 	self addChild: self contentElement as: #content.
 	self addChild: self playgroundElement as: #playground.
 	self addAptitude: (BrLayoutResizerAptitude inherit).
