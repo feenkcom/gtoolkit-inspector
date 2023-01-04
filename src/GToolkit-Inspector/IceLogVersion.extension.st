@@ -1,6 +1,16 @@
 Extension { #name : #IceLogVersion }
 
 { #category : #'*GToolkit-Inspector' }
+IceLogVersion >> gtCommentFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Comment';
+		priority: 5;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		text: [ self comment ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 IceLogVersion >> gtSourceFor: aView [
 	<gtView>
 	^ aView textEditor
