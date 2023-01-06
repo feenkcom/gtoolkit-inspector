@@ -31,3 +31,15 @@ GtFileUtility class >> imageElementFromFileReference: aFileReference [
 					c vertical matchParent.
 					c horizontal matchParent. ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+GtFileUtility class >> imageFromFromFileReference: aFileReference [
+	<return: #Form> 
+	| buffer |
+
+	buffer := aFileReference binaryReadStreamDo: [ :s | s upToEnd ].
+	^ (SkiaImage 
+		fromBuffer: buffer 
+		start: 0 
+		end: buffer size - 1) asForm
+]
