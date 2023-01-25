@@ -37,7 +37,8 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 				flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedContext stack.
 			methodsCoder := GtPharoMethodsCoder
-				forItems: (stack collect: #method).
+				forItems: (stack collect: [ :aContext |
+					aContext compiledCode method ]).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
 					| pcRange |
@@ -49,6 +50,20 @@ DebugSession >> gtViewInterruptedStackFor: aView [
 								beNotOverwritableByStyler)} ].
 			methodsCoder asCoderViewModel 
 				expandCoder: methodsCoder coders first ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+DebugSession >> gtViewInterruptedStackListFor: aView [
+	<gtView>
+	(self interruptedProcess isNil
+		or: [ self interruptedProcess isSuspended not
+				or: [ self interruptedContext isNil ] ])
+		ifTrue: [ ^ aView empty ].
+		
+	^ aView list
+		title: 'Interrupted stack List';
+		priority: 110;
+		items: [ self interruptedContext stack. ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -83,7 +98,8 @@ DebugSession >> gtViewSuspendedStackFor: aView [
 				flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedProcess suspendedContext stack.
 			methodsCoder := GtPharoMethodsCoder
-				forItems: (stack collect: #method).
+				forItems: (stack collect: [ :aContext |
+					aContext compiledCode method ]).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
 					| pcRange |
