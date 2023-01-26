@@ -165,7 +165,8 @@ AbstractFileReference >> gtItemsFor: aView [
 						each creationTime printHMSOn: s ] ]
 				on: FileException, FileSystemError
 				do: [ :anException | anException return: '' ] ]
-			width: 150
+			width: 150;
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
