@@ -50,7 +50,7 @@ Object >> gtInspectorVariableNodesIn: aCollection [
 		aCollection add: (GtInspectorIndexedNode hostObject: self index: index) ].
 	
 	aCollection
-		addAll: (self class allSlots collect: [ :slot | 
+		addAll: ((self class allSlots sorted: [:a :b | a name <= b name ]) collect: [ :slot | 
 			GtInspectorSlotNode hostObject: self slot: slot ])
 ]
 
