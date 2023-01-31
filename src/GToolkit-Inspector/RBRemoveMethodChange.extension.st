@@ -6,5 +6,5 @@ RBRemoveMethodChange >> gtChangesFor: aView [
 	^ aView explicit
 		title: 'Diff';
 		priority: 10;
-		stencil: [ self gtDiff asElement ]
+		stencil: [ self gtDiffChange asElement ]
 ]
