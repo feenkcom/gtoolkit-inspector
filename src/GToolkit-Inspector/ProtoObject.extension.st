@@ -24,7 +24,9 @@ ProtoObject >> gtActionInspectInWindowFor: anAction [
 	^ anAction button
 		icon: BrGlamorousIcons maximize;
 		tooltip: 'Inspect Object in a New Window';
-		action: [ (GtPager openWrappedOn: (GtInspectorTool forObject: self) title: ('GtInspector @ {1}' format: { self })) maximized ]
+		action: [ (GtPager
+				openWrappedOn: (GtInspectorTool forObject: self)
+				title: 'GT Inspector @ ', self gtDisplayString ) maximized ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
