@@ -26,7 +26,7 @@ ProtoObject >> gtActionInspectInWindowFor: anAction [
 		tooltip: 'Inspect Object in a New Window';
 		action: [ (GtPager
 				openWrappedOn: (GtInspectorTool forObject: self)
-				title: 'GT Inspector @ ', self gtDisplayString ) maximized ]
+				title: 'GT Inspector @ ', self gtInspectorTitleString ) maximized ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
