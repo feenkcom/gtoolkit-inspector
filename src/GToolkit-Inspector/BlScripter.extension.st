@@ -91,10 +91,10 @@ BlScripter >> gtSpaceFor: aView [
 						ifFound: [ :aContent | self gtEventTracesIn: aContent ]).
 					aContainer addChild: anElement ].
 			aContainer ];
-		actionButtonLabel: 'Open'
+		actionButtonLabel: 'Open space'
 			tooltip: 'Open scripter space in a real window'
 			action: [ self showSpace ];
-		actionButtonLabel: 'Inspect'
+		actionButtonLabel: 'Inspect element'
 			tooltip: 'Inspect element (remove it from the Scripter space)'
 			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]
 ]
