@@ -200,7 +200,9 @@ GtInspectorElementOverview >> buildVisualProperties [
 			('Transformation ({1})' format: {self elementTransformationName})
 				-> [ self spawnTransformation ].
 			('Visibility ({1})' format: {self elementVisibilityName})
-				-> [ self spawnVisibility ]}.
+				-> [ self spawnVisibility ].
+			('Clip children ({1})' format: {self elementClipChildrenName})
+				-> [ self spawnClipChildren ]}.
 
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
@@ -238,6 +240,18 @@ GtInspectorElementOverview >> elementBoundsInSpace [
 { #category : #'element - composition' }
 GtInspectorElementOverview >> elementChildren [
 	^ inspectedElement children
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementClipChildren [
+	^ inspectedElement clipChildren
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementClipChildrenName [
+	^ self elementClipChildren
+		ifTrue: [ 'yes' ]
+		ifFalse: [ 'no' ]
 ]
 
 { #category : #'element - events' }
@@ -436,6 +450,11 @@ GtInspectorElementOverview >> spawnBoundsInSpace [
 { #category : #'element - composition' }
 GtInspectorElementOverview >> spawnChildren [
 	self phlow spawnObject: self elementChildren
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnClipChildren [
+	self phlow spawnObject: self elementClipChildren
 ]
 
 { #category : #'element - constraints' }
