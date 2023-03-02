@@ -120,6 +120,8 @@ GtInspectorElementOverview >> buildOtherProperties [
 	
 	theProperties := { 
 		('User data ({1})' format: { self elementUserData size }) -> [ self spawnUserData ].
+		('Element ID ({1})' format: { self elementIdName  }) -> [ self spawnElementId ].
+	
 	} sorted: [ :a :b | a key < b key ].
 	
 	^ self buildSectionContainer
@@ -200,7 +202,9 @@ GtInspectorElementOverview >> buildVisualProperties [
 			('Transformation ({1})' format: {self elementTransformationName})
 				-> [ self spawnTransformation ].
 			('Visibility ({1})' format: {self elementVisibilityName})
-				-> [ self spawnVisibility ]}.
+				-> [ self spawnVisibility ].
+			('Clip children ({1})' format: {self elementClipChildrenName})
+				-> [ self spawnClipChildren ]}.
 
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
@@ -238,6 +242,18 @@ GtInspectorElementOverview >> elementBoundsInSpace [
 { #category : #'element - composition' }
 GtInspectorElementOverview >> elementChildren [
 	^ inspectedElement children
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementClipChildren [
+	^ inspectedElement clipChildren
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementClipChildrenName [
+	^ self elementClipChildren
+		ifTrue: [ 'yes' ]
+		ifFalse: [ 'no' ]
 ]
 
 { #category : #'element - events' }
@@ -278,6 +294,18 @@ GtInspectorElementOverview >> elementHasParent [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> elementHorizontalConstraintsName [
 	^ inspectedElement constraints horizontal resizer printString
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementId [
+	^ inspectedElement id
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementIdName [
+	^ self elementId asSymbol
+		ifNil: [ 'nil' ]
+		ifNotNil: [ :aSymbol | '#' , aSymbol asString ]
 ]
 
 { #category : #'element - layout' }
@@ -438,9 +466,19 @@ GtInspectorElementOverview >> spawnChildren [
 	self phlow spawnObject: self elementChildren
 ]
 
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnClipChildren [
+	self phlow spawnObject: self elementClipChildren
+]
+
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> spawnConstraints [
 	self phlow spawnObject: inspectedElement constraints
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> spawnElementId [
+	self phlow spawnObject: self elementId
 ]
 
 { #category : #'element - events' }
