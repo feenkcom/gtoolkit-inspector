@@ -4,10 +4,11 @@ Extension { #name : #BrActor }
 BrActor >> gtChildrenFor: aView [
 	<gtView>
 	self children ifEmpty: [ ^ aView empty ].
-	^ aView list
+	^ aView tree
 		title: 'Children';
 		priority: 80;
-		items: [ self children ]
+		items: [ self children ];
+		children: #children
 ]
 
 { #category : #'*GToolkit-Inspector' }
