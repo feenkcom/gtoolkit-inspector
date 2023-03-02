@@ -120,6 +120,8 @@ GtInspectorElementOverview >> buildOtherProperties [
 	
 	theProperties := { 
 		('User data ({1})' format: { self elementUserData size }) -> [ self spawnUserData ].
+		('Element ID ({1})' format: { self elementIdName  }) -> [ self spawnElementId ].
+	
 	} sorted: [ :a :b | a key < b key ].
 	
 	^ self buildSectionContainer
@@ -294,6 +296,18 @@ GtInspectorElementOverview >> elementHorizontalConstraintsName [
 	^ inspectedElement constraints horizontal resizer printString
 ]
 
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementId [
+	^ inspectedElement id
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementIdName [
+	^ self elementId asSymbol
+		ifNil: [ 'nil' ]
+		ifNotNil: [ :aSymbol | '#' , aSymbol asString ]
+]
+
 { #category : #'element - layout' }
 GtInspectorElementOverview >> elementLayout [
 	^ inspectedElement layout
@@ -460,6 +474,11 @@ GtInspectorElementOverview >> spawnClipChildren [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> spawnConstraints [
 	self phlow spawnObject: inspectedElement constraints
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> spawnElementId [
+	self phlow spawnObject: self elementId
 ]
 
 { #category : #'element - events' }
