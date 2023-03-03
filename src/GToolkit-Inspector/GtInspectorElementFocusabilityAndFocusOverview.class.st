@@ -79,7 +79,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> focusedChildren [
 ]
 
 { #category : #accessing }
-GtInspectorElementFocusabilityAndFocusOverview >> focusedChildren: anElement [
+GtInspectorElementFocusabilityAndFocusOverview >> focusedChildrenFor: anElement [
 	| aList |
 	anElement ifNil: [ ^ #() ].
 
@@ -102,7 +102,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtFocusabilityChildrenFor: aVi
 		title: 'Focusable Children';
 		priority: 10;
 		items: [ self focusableChildren ];
-		children: [ :anElement | self focusedChildren: anElement ];
+		children: [ :anElement | self focusableChildrenFor: anElement ];
 		column: 'Preview'
 			do: [ :aColumn | aColumn
 				stencil: [ :eachElement | 
@@ -126,7 +126,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtFocusedChildrenFor: aView [
 		title: 'Focused Children';
 		priority: 5;
 		items: [ self focusedChildren ];
-		children: [ :anElement | self focusedChildren: anElement ];
+		children: [ :anElement | self focusedChildrenFor: anElement ];
 		column: 'Preview'
 			do: [ :aColumn | aColumn
 				stencil: [ :eachElement | 
