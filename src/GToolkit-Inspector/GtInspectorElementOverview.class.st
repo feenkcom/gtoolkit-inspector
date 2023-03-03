@@ -204,7 +204,11 @@ GtInspectorElementOverview >> buildVisualProperties [
 			('Visibility ({1})' format: {self elementVisibilityName})
 				-> [ self spawnVisibility ].
 			('Clip children ({1})' format: {self elementClipChildrenName})
-				-> [ self spawnClipChildren ]}.
+				-> [ self spawnClipChildren ].
+			('Focusability ({1})' format: {self elementFocusabilityName})
+				-> [ self spawnFocusability ].
+			('Focus ({1})' format: {self elementFocusName})
+				-> [ self spawnFocus ]}.
 
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
@@ -277,6 +281,61 @@ GtInspectorElementOverview >> elementExtent [
 ]
 
 { #category : #'element - visual' }
+GtInspectorElementOverview >> elementFocusName [
+	"hasFocus: Return true if the inspected element is focused 
+		or contains a focused element.
+	isFocused: Returns true if the inspected element is focused.
+	
+	Note: It is possible that an element has focus but is not focused by itself"
+
+	| isFocused hasFocus |
+	hasFocus := self elementHasFocus.
+	isFocused := self elementIsFocused.
+
+	hasFocus & isFocused ifTrue: [ ^ 'I am focused' ].
+	hasFocus & isFocused not ifTrue: [ ^ 'A child is focused' ].
+	hasFocus not & isFocused ifTrue: [ ^ 'has not focus and is focused' ].
+	hasFocus not & isFocused not
+		ifTrue: [ ^ 'neither I nor the children are focused' ].
+
+	^ '?'
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementFocusability [
+	^ inspectedElement focusability
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementFocusabilityName [
+	"hasFocusable: Returns true if the inspected element is focusable 
+		or if the inspected element contains a reachable child 
+		for which #hasFocusable returns true.
+	isFocusable: Return true if the inspected element is able to take focus.
+	"
+
+	| isFocusable hasFocusable aDescription |
+	hasFocusable := inspectedElement hasFocusable.
+	isFocusable := inspectedElement isFocusable.
+
+	self elementVisibility isVisible
+		ifFalse: [ aDescription := 'Not visible' ]
+		ifTrue: [ 
+			hasFocusable & isFocusable 
+				ifTrue: [ aDescription := 'I am focusable' ].
+			hasFocusable & isFocusable not
+				ifTrue: [ aDescription := 'A child is focusable' ].
+			hasFocusable not & isFocusable 
+				ifTrue: [ aDescription := 'I am focusable' ].
+			hasFocusable not & isFocusable not
+				ifTrue: [ aDescription := 'Not focusable' ] ].
+
+	^ '{1}, {2}'
+		format: {self elementFocusability.
+				aDescription ifNil: [ '?' ]}
+]
+
+{ #category : #'element - visual' }
 GtInspectorElementOverview >> elementGeometry [
 	^ inspectedElement geometry 
 ]
@@ -284,6 +343,11 @@ GtInspectorElementOverview >> elementGeometry [
 { #category : #'element - visual' }
 GtInspectorElementOverview >> elementGeometryName [
 	^ self elementGeometry class name copyReplaceAll: 'Bl' with: ''
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementHasFocus [
+	^ inspectedElement hasFocus
 ]
 
 { #category : #'element - composition' }
@@ -306,6 +370,11 @@ GtInspectorElementOverview >> elementIdName [
 	^ self elementId asSymbol
 		ifNil: [ 'nil' ]
 		ifNotNil: [ :aSymbol | '#' , aSymbol asString ]
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementIsFocused [
+	^ inspectedElement isFocused
 ]
 
 { #category : #'element - layout' }
@@ -499,6 +568,18 @@ GtInspectorElementOverview >> spawnEventHandlers [
 { #category : #'element - bounds' }
 GtInspectorElementOverview >> spawnExtent [
 	self phlow spawnObject: self elementExtent
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnFocus [
+	self phlow spawnObject: (GtInspectorElementFocusabilityAndFocusOverview new 
+		inspectedElement: inspectedElement)
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnFocusability [
+	self phlow spawnObject: (GtInspectorElementFocusabilityAndFocusOverview new 
+		inspectedElement: inspectedElement)
 ]
 
 { #category : #'element - visual' }
