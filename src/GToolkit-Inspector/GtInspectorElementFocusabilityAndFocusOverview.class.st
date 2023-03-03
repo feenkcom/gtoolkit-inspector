@@ -8,6 +8,26 @@ Class {
 }
 
 { #category : #accessing }
+GtInspectorElementFocusabilityAndFocusOverview >> allFocusableChildren [
+	^ self allFocusableChildrenFor: inspectedElement
+]
+
+{ #category : #accessing }
+GtInspectorElementFocusabilityAndFocusOverview >> allFocusableChildrenFor: anElement [
+	| aList |
+	anElement ifNil: [ ^ #() ].
+
+	aList := LinkedList new.
+
+	self
+		element: anElement
+		breadthFirstDo: [ :aChild | aChild isFocusable ifTrue: [ aList add: aChild ] ]
+		enqueueChildrenIf: [ :aChild | true ].
+
+	^ aList
+]
+
+{ #category : #accessing }
 GtInspectorElementFocusabilityAndFocusOverview >> element: anElement breadthFirstDo: aDoBlock enqueueChildrenIf: aConditionBlock [
 	| queue |
 	queue := LinkedList withAll: anElement children.
@@ -146,7 +166,8 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtOverviewDictionary [
 	^ OrderedDictionary new 
 		at: 'Is focusable' put: self elementIsFocusable;
 		at: 'Has focusable' put: self elementHasFocusable;
-		at: 'Number of focusable children' put: self focusableChildren size;
+		at: 'Number of focusable children (excluding sub-children)' put: self focusableChildren size;
+		at: 'Number of all focusable children (including sub-children)' put: self allFocusableChildren size;
 		at: 'Focusability' put: self elementFocusability;
 		at: 'Is focused' put: self elementIsFocused;
 		at: 'Has focus' put: self elementHasFocus;
@@ -165,7 +186,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtOverviewFor: aView [
 		priority: 1;
 		items: [ self gtOverviewDictionary associations ];
 		column: 'Name' text: [ :anAssoc | anAssoc key ];
-		column: 'Value' text: [ :anAssoc | anAssoc value ] weight: 3;
+		column: 'Value' text: [ :anAssoc | anAssoc value ];
 		send: #value
 ]
 
