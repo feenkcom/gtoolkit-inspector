@@ -283,7 +283,7 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 								icon: (BlElement new
 										size: 50 @ 20;
 										addChild: form asElement asScalableElement) ]
-							content: [ form asElement ]);
+							content: [ form asElement ]) beNotResizable;
 				constraintsDo: [ :c | 
 					c linear horizontal alignRight ] ]
 ]
