@@ -50,14 +50,9 @@ Class >> gtClassVariablesFor: aView [
 Class >> gtDefinitionFor: aView [
 
 	<gtView>
-	^ aView textEditor
-		  title: 'Definition';
-		  priority: 1;
-		  styler: (BrRBTextStyler new
-				   isForWorkspace: true;
-				   yourself);
-		  aptitude: BrGlamorousCodeEditorAptitude;
-		  text: [ self definitionString asRopedText ]
+	^ aView explicit 
+		title: 'Definition';
+		stencil: [ (GtPharoSnippetCoder forSource: self definitionString) asExpandedOnlyElement vFitContentLimited ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
