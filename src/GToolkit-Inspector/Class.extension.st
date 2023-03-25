@@ -52,6 +52,7 @@ Class >> gtDefinitionFor: aView [
 	<gtView>
 	^ aView explicit 
 		title: 'Definition';
+		priority: 1;
 		stencil: [ (GtPharoSnippetCoder forSource: self definitionString) asExpandedOnlyElement vFitContentLimited ]
 ]
 
