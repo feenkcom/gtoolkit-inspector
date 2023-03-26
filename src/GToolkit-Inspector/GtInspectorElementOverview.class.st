@@ -121,6 +121,7 @@ GtInspectorElementOverview >> buildOtherProperties [
 	theProperties := { 
 		('User data ({1})' format: { self elementUserData size }) -> [ self spawnUserData ].
 		('Element ID ({1})' format: { self elementIdName  }) -> [ self spawnElementId ].
+		('Space ({1})' format: { self elementSpaceName  }) -> [ self spawnElementSpace ].
 	
 	} sorted: [ :a :b | a key < b key ].
 	
@@ -420,6 +421,16 @@ GtInspectorElementOverview >> elementShortcuts [
 		yourself
 ]
 
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementSpace [
+	^ inspectedElement space
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> elementSpaceName [
+	^ self elementSpace printString
+]
+
 { #category : #'element - visual' }
 GtInspectorElementOverview >> elementTransformation [
 	^ inspectedElement transformation
@@ -548,6 +559,11 @@ GtInspectorElementOverview >> spawnConstraints [
 { #category : #'element - user data' }
 GtInspectorElementOverview >> spawnElementId [
 	self phlow spawnObject: self elementId
+]
+
+{ #category : #'element - user data' }
+GtInspectorElementOverview >> spawnElementSpace [
+	self phlow spawnObject: self elementSpace
 ]
 
 { #category : #'element - events' }
