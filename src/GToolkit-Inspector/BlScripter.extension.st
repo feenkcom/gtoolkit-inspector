@@ -5,7 +5,7 @@ BlScripter >> gtElementsFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
 	^ aView forward
-		title: 'Children';
+		title: 'Elements';
 		object: [ self space root ];
 		view: #gtChildrenFor:
 ]
