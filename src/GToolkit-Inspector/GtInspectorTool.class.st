@@ -94,3 +94,12 @@ GtInspectorTool >> object: anObject viewSelector: aSymbol [
 GtInspectorTool >> tabLook [
 	^ BrGlamorousTabSwitcherWithIconAptitude
 ]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> valuable: aValuable [
+	"Store a valuable that will be later computed 
+	to obtain an object that is going to be inspected"
+	| anObjectHolder |
+	anObjectHolder := GtInspectorValuableObject new valuable: aValuable.
+	self objectHolder: anObjectHolder.
+]

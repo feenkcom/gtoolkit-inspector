@@ -46,11 +46,6 @@ GtInspectorObject >> initialize [
 	viewSelector := self defaultViewSelector
 ]
 
-{ #category : #notifying }
-GtInspectorObject >> notifyObjectChangedIn: anInspector [
-	anInspector notifyObjectChangedTo: self object.
-]
-
 { #category : #accessing }
 GtInspectorObject >> object [
 	^ object
