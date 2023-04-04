@@ -1,6 +1,20 @@
 Extension { #name : #BlElementQueryResult }
 
 { #category : #'*GToolkit-Inspector' }
+BlElementQueryResult >> gtLastStepResultFor: aView [
+	<gtView>
+	results ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Last Non-Empty Step Results';
+		priority: 20;
+		object: [ (results select: #isNotEmpty) 
+			ifNotEmpty: #last 
+			ifEmpty: [ #() ] ];
+		view: #gtResultFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElementQueryResult >> gtResultsFor: aView [
 	<gtView>
 	^ aView columnedList
