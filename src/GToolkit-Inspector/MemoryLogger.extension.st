@@ -14,6 +14,20 @@ MemoryLogger >> gtGroupedFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MemoryLogger >> gtInterestingAnnouncementsFor: aView [
+	<gtView>
+	interestingAnnouncements ifNil: [ ^ aView empty ].
+	
+	^ aView columnedList
+		title: 'Interesting Announcements' translated;
+		priority: 60;
+		items: [ interestingAnnouncements ifNil: [ #() ] ifNotNil: #asArray ];
+		column: '#' text: [ :_ :anIndex | anIndex ] width: 40;
+		column: 'Name' translated text: [ :each | each yourself ];
+		actionUpdateButton
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MemoryLogger >> gtRecordingsFor: aView [
 	<gtView>
 	| aCollectionSize |
