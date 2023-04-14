@@ -9,7 +9,11 @@ MemoryLogger >> gtGroupedFor: aView [
 		updateWhen: Announcement in: [ self announcer ];
 		column: 'Class' text: [ :each | each key asString ];
 		column: 'Instances' text: [ :each | each value size asString  ];
-		send: #value;
+		send: [ :anAssoc | 
+			| aLogger |
+			aLogger := (self class withRecordings: anAssoc value).
+			aLogger name: anAssoc key name, ' from ', self name.
+			aLogger ];
 		actionUpdateButton
 ]
 
