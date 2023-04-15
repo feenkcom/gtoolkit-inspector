@@ -125,19 +125,15 @@ BlElement >> gtOverviewFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtParentsFor: aView [
 	<gtView>
-	^ aView columnedTree
+	^ aView columnedList
 		title: 'Parents';
 		priority: 36;
-		expandUpTo: 2;
-		items: [ {self} ];
-		children: [ :each | 
-			each hasParent
-				ifTrue: [ {each parent} ]
-				ifFalse: [ {} ] ];
+		items: [ self withAllParents ];
+		column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
 		column: 'Preview'
 			do: [ :aColumn | 
 			aColumn
-				weight: 1;
+				width: 100;
 				stencil: [ :eachElement | 
 					| form |
 					form := eachElement asSpartaForm.
@@ -165,6 +161,7 @@ BlElement >> gtParentsFor: aView [
 										content: [ form asElement ]);
 						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
+		column: 'Element' text: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
 		column: 'Clip children'
 			text: [ :eachElement | eachElement clipChildren asString ]
 			width: 100
