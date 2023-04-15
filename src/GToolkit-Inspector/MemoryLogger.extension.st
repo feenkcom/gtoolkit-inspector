@@ -5,10 +5,12 @@ MemoryLogger >> gtGroupedFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Grouped';
-		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations ];
+		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations sort: [ :a :b | a key name < b key name ] ];
 		updateWhen: Announcement in: [ self announcer ];
 		column: 'Class' text: [ :each | each key asString ];
-		column: 'Instances' text: [ :each | each value size asString  ];
+		column: 'Instances' 
+			text: [ :each | each value size asString  ]
+			width: 80;
 		send: [ :anAssoc | 
 			| aLogger |
 			aLogger := (self class withRecordings: anAssoc value).
