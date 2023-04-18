@@ -13,9 +13,13 @@ MemoryLogger >> gtGroupedFor: aView [
 			width: 80;
 		send: [ :anAssoc | 
 			| aLogger |
-			aLogger := (self class withRecordings: anAssoc value).
-			aLogger name: anAssoc key name, ' from ', self name.
-			aLogger ];
+			anAssoc value size = 1 
+				ifTrue: [ 
+					anAssoc value anyOne ]
+				ifFalse: [ 
+					aLogger := (self class withRecordings: anAssoc value).
+					aLogger name: anAssoc key name, ' from ', self name.
+					aLogger ] ];
 		actionUpdateButton
 ]
 
