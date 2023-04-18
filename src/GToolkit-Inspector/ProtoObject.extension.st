@@ -3,30 +3,77 @@ Extension { #name : #ProtoObject }
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
-	^ anAction button
-		tooltip: 'Browse class';
-		icon: BrGlamorousVectorIcons emphasizedBrowse;
-		action: [ :button | self gtBrowseFrom: button ]
+	^ anAction explicit
+		priority: 1;
+		stencil: [ | button |
+			button := BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
+					label: 'Browse class';
+					icon: BrGlamorousVectorIcons emphasizedBrowse;
+					action: [ :aButton :aModel :anEvent | 
+						anEvent modifiers isPrimaryModifier
+							ifTrue: [ self gtBrowseFrom: aButton ]
+							ifFalse: [ aButton phlow
+									spawnTool: (GtPhlowValuableTool new
+											name: self gtDisplayString;
+											valuable: [ GtCoder forObject: self ]) ] ].
+			button viewModel
+				when: BlClickEvent
+				do: [ :anEvent | 
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ button viewModel clickEvent: anEvent ] ].
+			button viewModel
+				when: BlMouseEnterEvent
+				do: [ :anEvent | 
+					anEvent consumed: true.
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
+						ifFalse: [ anEvent target mouseCursor: nil ].
+					anEvent target requestFocus ].
+			button ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
-	^ anAction button
-		icon: BrGlamorousVectorIcons inspect;
-		tooltip: 'Inspect Object';
-		action: [ :button | button phlow spawnObject: self]
-]
-
-{ #category : #'*GToolkit-Inspector' }
-ProtoObject >> gtActionInspectInWindowFor: anAction [
-	<gtAction>
-	^ anAction button
-		icon: BrGlamorousIcons maximize;
-		tooltip: 'Inspect Object in a New Window';
-		action: [ (GtPager
-				openWrappedOn: (GtInspectorTool forObject: self)
-				title: 'GT Inspector @ ', self gtInspectorTitleString ) maximized ]
+	^ anAction explicit
+		priority: 2;
+		stencil: [ | button |
+			button := BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
+					icon: BrGlamorousVectorIcons inspect;
+					label: 'Inspect Object';
+					action: [ :aButton :aModel :anEvent | 
+						| aTool aSpace |
+						aTool := self gtDefaultInspectorTool.
+						anEvent modifiers isPrimaryModifier
+							ifTrue: [ aSpace := BlSpace new.
+								aSpace title: self gtDisplayString.
+								aSpace icon: aTool icon.
+								aSpace extent: 1200 @ 600.
+								aSpace root background: Color transparent.
+								aSpace
+									addChild: (GtPager
+											createOn: (GtPagerWrapperElement new
+													tool: aTool;
+													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+								aSpace withHalos.
+								anEvent target showSpace: aSpace ]
+							ifFalse: [ aButton phlow spawnObject: self ] ].
+			button viewModel
+				when: BlClickEvent
+				do: [ :anEvent | 
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ button viewModel clickEvent: anEvent ] ].
+			button viewModel
+				when: BlMouseEnterEvent
+				do: [ :anEvent | 
+					anEvent consumed: true.
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
+						ifFalse: [ anEvent target mouseCursor: nil ].
+					anEvent target requestFocus ].
+			button ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
