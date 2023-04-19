@@ -59,9 +59,10 @@ BlElement >> gtLiveFor: aView [
 					container ]
 				ifFalse: [ 
 					| container |
+					"please don't change the layout of the container to anything except the default layout,
+					otherwise `relocate:` will not longer work as expected and element will always be in the top left corner"
 					container := BlElement new
 						margin: (BlInsets all: 20);
-						layout: BlLinearLayout new;
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical matchParent ]. 
