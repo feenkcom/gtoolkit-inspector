@@ -36,6 +36,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 		priority: 2;
 		stencil: [ | button |
 			button := BrButton new
+					id: GtInspectorInspectButtonId;
 					aptitude: BrGlamorousButtonWithIconAptitude;
 					icon: BrGlamorousVectorIcons inspect;
 					label: 'Inspect Object';
