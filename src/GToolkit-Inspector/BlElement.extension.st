@@ -29,46 +29,8 @@ BlElement >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 0;
-		stencil: [ 
-			(self hasParent or: [self isRoot ])
-				ifTrue: [ 
-					| container label |
-					container := BlElement new constraintsDo: [ :c | 
-						c horizontal matchParent.
-						c vertical matchParent ];
-						layout: BlLinearLayout vertical;
-						padding: (BlInsets all: 10);
-						margin: (BlInsets all: 10).
-					container addChild: (BlElement new
-						aptitude: BrShadowAptitude;
-						layout: BlLinearLayout new;
-						background: Color white;
-						constraintsDo: [:c | 
-							c horizontal matchParent. 
-							c vertical matchParent ];
-						addChild: self asSpartaForm asElement asPannableElement).
-					label := BrLabel new 
-						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
-						text: (('You see a static preview because this element already has a parent.') asRopedText glamorousRegularFont readonly);
-						alignCenter;
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical fitContent.
-							c linear horizontal alignCenter].
-					container addChild: label.
-					container ]
-				ifFalse: [ 
-					| container |
-					"please don't change the layout of the container to anything except the default layout,
-					otherwise `relocate:` will not longer work as expected and element will always be in the top left corner"
-					container := BlElement new
-						margin: (BlInsets all: 20);
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical matchParent ]. 
-						container addChild: self.
-						container when: BlClickEvent do: [ :event | container requestFocus ].
-						container ]  ].
+		stencil: [ GtInspectorElementLiveViewContainer new 
+			element: self ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
