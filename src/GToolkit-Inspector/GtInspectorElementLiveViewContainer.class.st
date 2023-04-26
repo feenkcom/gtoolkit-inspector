@@ -70,23 +70,6 @@ GtInspectorElementLiveViewContainer >> isElementPreviewView [
 ]
 
 { #category : #'private - testing' }
-GtInspectorElementLiveViewContainer >> isElementUsedInAnotherLiveView [
-	"Return true if the element should be displayed as a preview.
-	Return false if the element can be displayed live (added as a child)."
-
-	element ifNil: [ ^ true ].
-	
-	"Space root elements are always previewed."
-	element isRoot ifTrue: [ ^ true ].
-
-	"Currently displayed elements are previewed."
-	(element hasParent and: [ element isAddedToSceneGraph ])
-		ifTrue: [ ^ true ].
-	
-	^ false
-]
-
-{ #category : #'private - testing' }
 GtInspectorElementLiveViewContainer >> isMyLiveView [
 	element ifNil: [ ^ false ].
 	^ element parent == self
