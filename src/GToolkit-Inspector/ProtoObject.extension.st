@@ -11,17 +11,13 @@ ProtoObject >> gtActionBrowseFor: anAction [
 					label: 'Browse class';
 					icon: BrGlamorousVectorIcons emphasizedBrowse;
 					action: [ :aButton :aModel :anEvent | 
-						anEvent modifiers isPrimaryModifier
-							ifTrue: [ self gtBrowseFrom: aButton ]
-							ifFalse: [ aButton phlow
-									spawnTool: (GtPhlowValuableTool new
-											name: self gtDisplayString;
-											valuable: [ GtCoder forObject: self ]) ] ].
+						aButton phlow
+							spawnTool: (GtPhlowValuableTool new
+									name: self gtDisplayString;
+									valuable: [ GtCoder forObject: self ]) ].
 			button viewModel
 				when: BlClickEvent
-				do: [ :anEvent | 
-					anEvent modifiers isPrimaryModifier
-						ifTrue: [ button viewModel clickEvent: anEvent ] ].
+				do: [ :anEvent | anEvent modifiers isPrimaryModifier ifTrue: [ self gtBrowseFrom: button ] ].
 			button viewModel
 				when: BlMouseEnterEvent
 				do: [ :anEvent | 
@@ -44,27 +40,27 @@ ProtoObject >> gtActionInspectFor: anAction [
 					icon: BrGlamorousVectorIcons inspect;
 					label: 'Inspect Object';
 					action: [ :aButton :aModel :anEvent | 
-						| aTool aSpace |
+						| aTool |
 						aTool := self gtDefaultInspectorTool.
-						anEvent modifiers isPrimaryModifier
-							ifTrue: [ aSpace := BlSpace new.
-								aSpace title: self gtDisplayString.
-								aSpace icon: aTool icon.
-								aSpace extent: 1200 @ 600.
-								aSpace root background: Color transparent.
-								aSpace
-									addChild: (GtPager
-											createOn: (GtPagerWrapperElement new
-													tool: aTool;
-													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
-								aSpace withHalos.
-								anEvent target showSpace: aSpace ]
-							ifFalse: [ aButton phlow spawnObject: self ] ].
+						aButton phlow spawnObject: self ].
 			button viewModel
 				when: BlClickEvent
 				do: [ :anEvent | 
+					| aTool aSpace |
+					aTool := self gtDefaultInspectorTool.
 					anEvent modifiers isPrimaryModifier
-						ifTrue: [ button viewModel clickEvent: anEvent ] ].
+						ifTrue: [ aSpace := BlSpace new.
+							aSpace title: self gtDisplayString.
+							aSpace icon: aTool icon.
+							aSpace extent: 1200 @ 600.
+							aSpace root background: Color transparent.
+							aSpace
+								addChild: (GtPager
+										createOn: (GtPagerWrapperElement new
+												tool: aTool;
+												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+							aSpace withHalos.
+							anEvent target showSpace: aSpace ] ].
 			button viewModel
 				when: BlMouseEnterEvent
 				do: [ :anEvent | 
