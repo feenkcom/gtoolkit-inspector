@@ -77,31 +77,29 @@ GtInspectorElementLiveViewContainer >> isMyLiveView [
 
 { #category : #'private - testing' }
 GtInspectorElementLiveViewContainer >> isReadyForLiveView [
+	"Return true if element view should be changed to (or displayed as) a live view."
+	<return: #Boolean>
+
 	element ifNil: [ ^ false ].
 	
-	"It is already previewed as live by me, therefore do not update it"
-	element parent == self ifTrue: [ ^ false ].
+	element parent == self ifTrue: [ 
+		"The element is already previewed as live by me, therefore do not update it"
+		^ false ].
 	
-	"Space root elements are always previewed."
-	element isRoot ifTrue: [ ^ false ].
+	element isRoot ifTrue: [ 
+		"Space root elements are always previewed."
+		^ false ].
 
-	element hasParent ifTrue: [ 
-		element userData 
-			at: GtInspectorElementLiveViewContainer
-			ifPresent: [ :aContainer | (aContainer == self)
-				ifTrue: [ 
-					"This actually never happens. In such cases
-					`element parent == self` is true"
-					^ false ]
-				ifFalse: [ 
-					"If the container is not added to the scene graph,
-					take the element from him and display it as live."
-					^ aContainer isAddedToSceneGraph not
-				] ] 
-			ifAbsent: [ 
-				"The element is involved in as a part of a 'real' UI
-				(not as an inspected element). Do not display it as live."
-				^ false ] ].
+	element hasParent ifTrue: [
+		(element parent isKindOf: GtInspectorElementLiveViewContainer)
+			ifTrue: [
+				"If the container is not added to the scene graph,
+				take the element from the container and display the element as live."
+				^ element parent isAddedToSceneGraph not ].
+				
+		"The element is a part of a 'real' UI (not as an inspected element). 
+		Do not display it as live."
+		^ false ].
 
 	"The element am not displayed (used) anywhere, display it live."
 	^ true
@@ -109,42 +107,36 @@ GtInspectorElementLiveViewContainer >> isReadyForLiveView [
 
 { #category : #'private - updating' }
 GtInspectorElementLiveViewContainer >> isReadyForPreviewView [
+	"Return true if element view should be changed to (or displayed as) a preview view."
+	<return: #Boolean>
+
 	element ifNil: [ ^ false ].	
 	
-	"It is already previewed as live by me, therefore do not update it."
-	element parent == self ifTrue: [ ^ false ].
-
-	self children
-		detect: [ :aChild | 
-			aChild id = GtInspectorElementPreviewContainerId uniqueInstance ]
-		ifFound: [ :aChild | 
-			"The element is already previewed by me, 
-			therefore do not update it."
-			^ false ]
-		ifNone: [ "ignore" ].
+	element parent == self ifTrue: [ 
+		"The element is already previewed as live by me, therefore do not update it."
+		^ false ].
 		
-	"Space root elements are always previewed."
-	element isRoot ifTrue: [ ^ true ].
+	self isElementPreviewView ifTrue: [
+		"The element is already previewed by me, 
+		therefore do not update it."
+		^ false ].
+		
+	element isRoot ifTrue: [ 
+		"Space root elements are always previewed."
+		^ true ].
 	
 	element hasParent ifTrue: [ 
-		element userData 
-			at: GtInspectorElementLiveViewContainer
-			ifPresent: [ :aContainer | (aContainer == self)
-				ifTrue: [ 
-					"This actually never happens. In such cases
-					`element parent == self` is true"
-					^ false ]
-				ifFalse: [ 
-					"If the container is added to the scene graph,
-					display the element as a preview."
-					^ aContainer isAddedToSceneGraph
-				] ] 
-			ifAbsent: [ 
-				"The element is involved in as a part of a 'real' UI
-				(not as an inspected element). Display it as a preview."
-				^ true ] ].
+		(element parent isKindOf: GtInspectorElementLiveViewContainer)
+			ifTrue: [ 
+				"If the container is added to the scene graph,
+				display the element as a preview."
+				^ element parent isAddedToSceneGraph ].
+				
+		"The element is a part of a 'real' UI (not as an inspected element). 
+		Display it as a preview."
+		^ true ].
 
-	"The element am not displayed (used) anywhere, display it as a preview."
+	"The element is not displayed (used) anywhere, display it as a preview."
 	^ true
 ]
 
@@ -182,20 +174,15 @@ GtInspectorElementLiveViewContainer >> unregisterElementHandlers [
 
 { #category : #'private - updating' }
 GtInspectorElementLiveViewContainer >> updateAsElementLiveView [
-	"Please don't change the layout of the container to anything except the default layout,
-	otherwise `relocate:` will not longer work as expected and element will always be in the top left corner."
-
 	self removeChildren.
 	self margin: (BlInsets all: 20).
+	
+	"Please don't change the layout of the container to anything except the default layout,
+	otherwise `relocate:` will not longer work as expected and element will always be in the top left corner."
 	self layout: self defaultLayout.
 
 	element removeFromParent.
-	self addChild: element.
-	
-	"Mark that I display the element as live."
-	element userData 
-		at: GtInspectorElementLiveViewContainer 
-		put: self
+	self addChild: element
 ]
 
 { #category : #'private - updating' }
