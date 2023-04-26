@@ -2,8 +2,7 @@
 I preview {{gtClass:BlElement}} instances. If possible, I preview elements live (as my child) to be able to interact with them. I preview elements statically (a screenshot) otherwise.
 
 #Example
-The following two inspectors displays a same {{gtClass:BlElement | label=element}} instance. Try to switch to other tabs and back to the Live tabs in both panes to see how it behaves.
-  {{gtExample: GtInspectorElementLiveViewContainerByScripterExamples >> #twoPagerPagesWithInspectedElement | noCode | previewHeight=500 | previewShow=gtLiveFor: }}
+The following two inspectors display a same {{gtClass:BlElement | label=element}} instance. Try to switch between `Live` and `Overview` tabs in both panes to see how it behaves. {{gtExample: GtInspectorElementLiveViewContainerByScripterExamples >> #twoPagerPagesWithInspectedElement | noCode | previewHeight=500 | previewShow=gtLiveFor: }}
 "
 Class {
 	#name : #GtInspectorElementLiveViewContainer,
