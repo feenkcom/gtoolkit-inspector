@@ -2,8 +2,7 @@
 I preview {{gtClass:BlElement}} instances. If possible, I preview elements live (as my child) to be able to interact with them. I preview elements statically (a screenshot) otherwise.
 
 #Example
-The following two inspectors displays a same {{gtClass:BlElement | label=element}} instance. Try to switch to other tabs and back to the Live tabs in both panes to see how it behaves.
-  {{gtExample: GtInspectorElementLiveViewContainerByScripterExamples >> #twoPagerPagesWithInspectedElement | noCode | previewHeight=500 | previewShow=gtLiveFor: }}
+The following two inspectors display a same {{gtClass:BlElement | label=element}} instance. Try to switch between `Live` and `Overview` tabs in both panes to see how it behaves. {{gtExample: GtInspectorElementLiveViewContainerByScripterExamples >> #twoPagerPagesWithInspectedElement | noCode | previewHeight=500 | previewShow=gtLiveFor: }}
 "
 Class {
 	#name : #GtInspectorElementLiveViewContainer,
@@ -68,23 +67,6 @@ GtInspectorElementLiveViewContainer >> isElementPreviewView [
 	^ element isNotNil
 		and: [ self childrenCount = 2
 				and: [ (self childAt: 1) id = GtInspectorElementPreviewContainerId uniqueInstance ] ]
-]
-
-{ #category : #'private - testing' }
-GtInspectorElementLiveViewContainer >> isElementUsedInAnotherLiveView [
-	"Return true if the element should be displayed as a preview.
-	Return false if the element can be displayed live (added as a child)."
-
-	element ifNil: [ ^ true ].
-	
-	"Space root elements are always previewed."
-	element isRoot ifTrue: [ ^ true ].
-
-	"Currently displayed elements are previewed."
-	(element hasParent and: [ element isAddedToSceneGraph ])
-		ifTrue: [ ^ true ].
-	
-	^ false
 ]
 
 { #category : #'private - testing' }
