@@ -74,26 +74,31 @@ AbstractFileReference >> gtChildrenWithParent [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtContentsFor: aView [
 	<gtView>
+	| eventLoop |
 	self isFile ifFalse: [ ^ aView empty ].
 	[ self readStreamDo: [ :s | s next: 1000 ] ]
 		on: ZnInvalidUTF8
 		do: [ ^ aView empty ].
 
+	eventLoop := self watcher startLoop.
+
 	^ aView textEditor
 		title: 'Contents' translated;
 		priority: 50;
+		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
 		text: [ BlRunRopedText file: self ];
 		actionStencil: [ :tab | 
-			BrButton new 
+			BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
-				action: [ 
-					| newContents | 
+				action: [ | newContents |
 					newContents := tab viewContentElement children first text asString.
-					(self fullName, '.backup') asFileReference ensureDelete.
-					self copyTo: (self fullName, '.backup') asFileReference.
-					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
+					(self fullName , '.backup') asFileReference ensureDelete.
+					self copyTo: (self fullName , '.backup') asFileReference.
+					self
+						ensureDelete;
+						writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
