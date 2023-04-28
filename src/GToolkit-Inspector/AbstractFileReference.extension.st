@@ -137,12 +137,16 @@ AbstractFileReference >> gtHexContentsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
+	| eventLoop |
 	self isDirectory
 		ifFalse: [ ^ aView empty ].
+		
+	eventLoop := self watcher startLoop.
 
 	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
+		updateWhen: GtFileWatcherChangeAnnouncement in: eventLoop announcer;
 		items: [ self gtChildrenWithParent ];
 		column: 'Icon' translated 
 			icon: [ :each | 
