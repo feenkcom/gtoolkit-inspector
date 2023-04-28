@@ -81,5 +81,5 @@ BaselineOfGToolkitInspector >> baseline: spec [
 			spec
 				package: 'GToolkit-Inspector'
 				with: [ spec
-						requires: #('FileWatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ] ]
+						requires: #('Filewatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ] ]
 ]
