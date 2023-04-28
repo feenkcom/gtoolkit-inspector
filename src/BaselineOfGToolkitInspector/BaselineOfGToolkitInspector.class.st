@@ -67,6 +67,9 @@ BaselineOfGToolkitInspector >> baseline: spec [
 			baseline: 'GToolkitPager' with: [
 				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.984/src' ].
 		spec
+			baseline: 'Filewatcher' with: [
+				spec repository: 'github://feenkcom/filewatcher:v0.6.0/src' ].
+		spec
 			baseline: 'GToolkitSpotter' with: [
 				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.977/src' ].
 		spec
@@ -80,6 +83,6 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.71/src' ].
 
 		spec package: 'GToolkit-Inspector' with: [
-			spec requires: #('GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ].
+			spec requires: #('Filewatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ].
 	]
 ]
