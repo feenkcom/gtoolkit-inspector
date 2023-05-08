@@ -21,25 +21,14 @@ RBProgramNode >> gtPropertiesFor: aView [
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	self methodNode ifNil: [ ^ aView empty ].
-	^ aView textEditor
+	^ aView explicit
 		title: 'Source code';
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ :aButton | self methodNode compiledMethod gtBrowseFrom: aButton ];
-		aptitude: BrGlamorousCodeEditorAptitude;
-		styler:
-			(BrRBTextStyler new
-				classOrMetaClass: self methodNode compiledMethod methodClass);
-		text: [ | text |
-			text := self source asRopedText.
-			text
-				attributes:
-					{(BlTextUnderlineAttribute new
-						color: BrGlamorousColors textHighlightColor;
-						thickness: 3;
-						beNotOverwritableByStyler)}
-				from: self start
-				to: self stop ]
+		stencil: [ ((GtPharoMethodCoder forMethod: self methodNode compiledMethod)
+				highlighter: (GtRBPatternHighlighter new ast: self);
+				asExpandedOnlyElement) vFitContentLimited ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -81,4 +70,12 @@ RBProgramNode >> gtVisualTreeFor: aView [
 						with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
 					view edges connectFrom: #parent.
 					view layout tree ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RBProgramNode >> gtWithAllChildren [
+	| children |
+	children := OrderedCollection with: self.
+	self nodesDo: [ :each | children addLast: each ].
+	^ children
 ]
