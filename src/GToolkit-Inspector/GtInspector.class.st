@@ -128,7 +128,6 @@ GtInspector >> initialize [
 	self beFocusable.
 	self addChild: self contentElement as: #content.
 	self addChild: self playgroundElement as: #playground.
-	self addAptitude: (BrLayoutResizerAptitude inherit).
 	self initializeListeners.
 	self matchParent.
 	self playgroundElement collapse.
