@@ -71,7 +71,7 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				spec repository: 'github://feenkcom/filewatcher:v0.6.1/src' ].
 		spec
 			baseline: 'GToolkitSpotter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.991/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.992/src' ].
 		spec
 			baseline: 'GToolkitCompleter' with: [
 				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.991/src' ].
