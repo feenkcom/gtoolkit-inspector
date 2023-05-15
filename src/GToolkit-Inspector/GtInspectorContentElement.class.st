@@ -9,7 +9,7 @@ I use {{gtMethod:GtInspectorObject>>#asElementDo:}} to generate the object inspe
 Class {
 	#name : #GtInspectorContentElement,
 	#superclass : #GtInspectorObjectElement,
-	#category : 'GToolkit-Inspector-UI'
+	#category : #'GToolkit-Inspector-UI'
 }
 
 { #category : #initialization }
@@ -17,7 +17,6 @@ GtInspectorContentElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout vertical.
 	self updateView.
-	self addAptitude: BrLayoutResizerAptitude inherit.
 ]
 
 { #category : #'private - hooks' }
