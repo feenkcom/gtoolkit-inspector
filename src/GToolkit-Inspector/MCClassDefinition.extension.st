@@ -4,6 +4,6 @@ Extension { #name : #MCClassDefinition }
 MCClassDefinition >> gtViewClassDefinitionFor: aView [
 	<gtView>
 	^ aView textEditor
-		title: 'Class Definition';
+		title: 'Class definition';
 		text: [ self definitionString ]
 ]

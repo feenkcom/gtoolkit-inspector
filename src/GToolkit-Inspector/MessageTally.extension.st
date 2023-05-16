@@ -159,7 +159,7 @@ MessageTally >> gtRecursionSummaryMessagesTreeIn: aView [
 	<gtView>
 	
 	^ aView forward
-		title: 'Summarize Recursion';
+		title: 'Summarize recursion';
 		priority: 12;
 		object: [ self applyFilter: GtRecursionSummaryFilter new ];
 		view: #gtMessagesTreeIn:

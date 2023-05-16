@@ -4,7 +4,7 @@ Extension { #name : #Class }
 Class >> gtAllReferencesOutsideFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'All Ref Outside';
+		title: 'All ref outside';
 		priority: 41;
 		stencil: [ | list |
 			list := BrColumnedList new
@@ -24,7 +24,7 @@ Class >> gtAllReferencesOutsideFor: aView [
 Class >> gtClassSlotsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Class Slots';
+		title: 'Class slots';
 		priority: 7;
 		items: [ self class class allInstVarNames sorted
 				collect: [ :each | each -> (self class instVarNamed: each) ] ];
@@ -37,7 +37,7 @@ Class >> gtClassSlotsFor: aView [
 Class >> gtClassVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Class Variables';
+		title: 'Class variables';
 		priority: 6;
 		items: [ self allClassVarNames sorted
 				collect: [ :each | each -> (self bindingOf: each) ] ];
@@ -60,7 +60,7 @@ Class >> gtDefinitionFor: aView [
 Class >> gtInstanceSlotsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Instance Slots';
+		title: 'Instance slots';
 		priority: 5;
 		items: [ self class allInstVarNames sorted
 				collect: [ :each | each -> (self instVarNamed: each) ] ];

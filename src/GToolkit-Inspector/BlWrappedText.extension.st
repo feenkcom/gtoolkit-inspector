@@ -4,7 +4,7 @@ Extension { #name : #BlWrappedText }
 BlWrappedText >> gtInnerTextFor: aView [
 	<gtView>
 	^ aView text
-		title: 'Inner Text';
+		title: 'Inner text';
 		text: text;
 		priority: 11
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'signals'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'instance creation' }
@@ -20,7 +20,7 @@ CurrentProcessAnalysis >> gtStackTreeFor: aView [
 	<gtView>
 
 	^aView mondrian 
-		title: 'Stack Tree' translated;
+		title: 'Stack tree' translated;
 		painting: [ :mondrian | self stackTreeFor: mondrian ]
 ]
 

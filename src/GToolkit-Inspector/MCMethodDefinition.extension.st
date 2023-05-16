@@ -4,6 +4,6 @@ Extension { #name : #MCMethodDefinition }
 MCMethodDefinition >> gtViewDefinitionSourceFor: aView [
 	<gtView>
 	^ aView textEditor
-		title: 'Source Code';
+		title: 'Source code';
 		text: [ self source ]
 ]

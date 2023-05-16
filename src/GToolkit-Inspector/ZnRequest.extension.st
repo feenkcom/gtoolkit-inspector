@@ -31,7 +31,7 @@ ZnRequest >> gtJsonFor: aView [
 ZnRequest >> gtRequestQueryFor: aView [
 	<gtView>
 	^ aView forward
-		title: 'Request Query';
+		title: 'Request query';
 		priority: 45;
 		object: [ self requestLine ];
 		view: #gtQueryFor:

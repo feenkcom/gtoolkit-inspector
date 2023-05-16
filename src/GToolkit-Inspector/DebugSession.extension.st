@@ -61,7 +61,7 @@ DebugSession >> gtViewInterruptedStackListFor: aView [
 		ifTrue: [ ^ aView empty ].
 		
 	^ aView list
-		title: 'Interrupted stack List';
+		title: 'Interrupted stack list';
 		priority: 110;
 		items: [ self interruptedContext stack. ]
 ]
