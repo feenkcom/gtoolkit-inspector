@@ -6,7 +6,7 @@ BlElementQueryResult >> gtLastStepResultFor: aView [
 	results ifNil: [ ^ aView empty ].
 	
 	^ aView forward
-		title: 'Last Non-Empty Step Results';
+		title: 'Last non-empty step results';
 		priority: 20;
 		object: [ (results select: #isNotEmpty) 
 			ifNotEmpty: #last 

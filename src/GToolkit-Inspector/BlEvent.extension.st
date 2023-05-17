@@ -6,7 +6,7 @@ BlEvent >> gtCurrentTargetFor: aView [
 	^ (self currentTarget isKindOf: BlElement)
 		ifFalse: [ ^ aView empty ]
 		ifTrue: [ (self currentTarget gtPreviewFor: aView) 
-			title: 'Current Target';
+			title: 'Current target';
 			priority: 5 ]
 ]
 

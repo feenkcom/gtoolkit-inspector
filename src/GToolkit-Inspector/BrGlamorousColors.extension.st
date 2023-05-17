@@ -4,7 +4,7 @@ Extension { #name : #BrGlamorousColors }
 BrGlamorousColors class >> gtClassVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Class Variables';
+		title: 'Class variables';
 		priority: 0.7;
 		items: [ self classVariables ];
 		column: 'Icon' icon: [ :anAssoc | anAssoc value gtInspectorIcon asElement ];
