@@ -50,7 +50,7 @@ ByteArray >> gtHexDumpFor: aView [
 	<gtView>
 	 
 	^ aView textEditor
-			title: 'Hex Dump';
+			title: 'Hex dump';
 			text: [ 
 				| aMaxBytes aDisplayStream aDisplayRopeText |
 				aMaxBytes := 10000.

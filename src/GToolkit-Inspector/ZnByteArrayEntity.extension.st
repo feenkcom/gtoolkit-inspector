@@ -13,7 +13,7 @@ ZnByteArrayEntity >> gtViewBytesFor: aView [
 ZnByteArrayEntity >> gtViewContentHexDumpFor: aView [
 	<gtView>
 	^ aView forward 
-		title: 'Hex Dump';
+		title: 'Hex dump';
 		object: [ self bytes ];
 		view: #gtHexDumpFor: 
 ]

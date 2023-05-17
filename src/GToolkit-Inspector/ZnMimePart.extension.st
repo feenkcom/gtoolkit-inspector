@@ -39,7 +39,7 @@ ZnMimePart >> gtViewContentHexDumpFor: aView [
 	self hasEntity ifFalse: [ ^ aView empty ].
 	self entity isByteArrayEntity ifFalse: [ ^ aView empty ].
 	^ aView forward 
-		title: 'Hex Dump';
+		title: 'Hex dump';
 		priority: 45;
 		object: [ self entity ];
 		view: #gtViewContentHexDumpFor:

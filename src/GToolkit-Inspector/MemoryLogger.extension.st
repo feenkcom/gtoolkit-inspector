@@ -29,7 +29,7 @@ MemoryLogger >> gtInterestingAnnouncementsFor: aView [
 	interestingAnnouncements ifNil: [ ^ aView empty ].
 	
 	^ aView columnedList
-		title: 'Interesting Announcements' translated;
+		title: 'Interesting announcements' translated;
 		priority: 60;
 		items: [ interestingAnnouncements ifNil: [ #() ] ifNotNil: #asArray ];
 		column: '#' text: [ :_ :anIndex | anIndex ] width: 40;

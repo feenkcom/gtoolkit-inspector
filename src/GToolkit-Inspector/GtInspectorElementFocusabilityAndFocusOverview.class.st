@@ -119,7 +119,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtFocusabilityChildrenFor: aVi
 	self inspectedElement ifNil: [ ^ aView empty ].
 
 	^ aView columnedTree
-		title: 'Focusable Children';
+		title: 'Focusable children';
 		priority: 10;
 		items: [ self focusableChildren ];
 		children: [ :anElement | self focusableChildrenFor: anElement ];
@@ -143,7 +143,7 @@ GtInspectorElementFocusabilityAndFocusOverview >> gtFocusedChildrenFor: aView [
 	self inspectedElement ifNil: [ ^ aView empty ].
 
 	^ aView columnedTree
-		title: 'Focused Children';
+		title: 'Focused children';
 		priority: 5;
 		items: [ self focusedChildren ];
 		children: [ :anElement | self focusedChildrenFor: anElement ];

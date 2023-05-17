@@ -6,7 +6,7 @@ GtResourcesUtilityResultContext >> gtLocationFor: aView [
 	self location ifNil: [ ^ aView empty ].
 	^ (self location gtLocationFor: aView)
 		priority: 2;
-		title: 'Searched Location'
+		title: 'Searched location'
 ]
 
 { #category : #'*GToolkit-Inspector' }

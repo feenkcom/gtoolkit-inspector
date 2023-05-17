@@ -5,7 +5,7 @@ WeakMessageSend >> gtMethodFor: aView [
 	<gtView>
 	self isValid ifFalse: [ ^ aView empty ].
 	^ aView forward
-		title: 'Called Method';
+		title: 'Called method';
 		priority: 1;
 		object: [ self asMessageSend ];
 		view: #gtMethodFor:
@@ -16,7 +16,7 @@ WeakMessageSend >> gtMethodSendersFor: aView [
 	<gtView>
 	self isValid ifFalse: [ ^ aView empty ].
 	^ aView explicit
-		title: 'Method Senders';
+		title: 'Method senders';
 		priority: 2;
 		stencil: [ 
 			self receiver class name gtClassMatches &

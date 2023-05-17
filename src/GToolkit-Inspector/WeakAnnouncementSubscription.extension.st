@@ -4,7 +4,7 @@ Extension { #name : #WeakAnnouncementSubscription }
 WeakAnnouncementSubscription >> gtMethodSendersFor: aView [ 
 	<gtView>
 	^ aView forward
-		title: 'Method Senders';
+		title: 'Method senders';
 		object: [ self action ];
 		view: #gtMethodSendersFor:
 ]
@@ -13,7 +13,7 @@ WeakAnnouncementSubscription >> gtMethodSendersFor: aView [
 WeakAnnouncementSubscription >> gtSourceCodeFor: aView [ 
 	<gtView>
 	^ aView forward
-		title: 'Called Method';
+		title: 'Called method';
 		object: [ self action ];
 		view: #gtMethodFor:
 ]

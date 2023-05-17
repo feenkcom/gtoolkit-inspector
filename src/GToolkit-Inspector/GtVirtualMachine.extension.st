@@ -27,7 +27,7 @@ GtVirtualMachine >> gtVirtualMachineInfoJsonFor: aView [
 	<gtView>
 
 	^ aView textEditor
-		title: 'VM Info Json';
+		title: 'VM info json';
 		priority: 3;
 		actionButtonIcon: BrGlamorousIcons tree 
 			action: [ :aButton | 

@@ -4,7 +4,7 @@ Extension { #name : #IceCredentialStore }
 IceCredentialStore >> gtAllCredentialsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'All Credentials';
+		title: 'All credentials';
 		items: [ self allCredentials ];
 		column: 'Host' text: #hostDescription weight: 1;
 		column: 'Type' text: #type weight: 1;

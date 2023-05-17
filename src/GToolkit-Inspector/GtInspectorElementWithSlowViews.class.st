@@ -17,7 +17,7 @@ Class {
 GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Any Progress';
+		title: 'Any progress';
 		priority: 7;
 		stencil: [ 
 			2 second wait.
@@ -32,7 +32,7 @@ GtInspectorElementWithSlowViews >> gtAnyProgressFor: aView [
 GtInspectorElementWithSlowViews >> gtExactProgressFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Exact Progress';
+		title: 'Exact progress';
 		priority: 5;
 		stencil: [ 
 			BlTextElement new
@@ -128,7 +128,7 @@ GtInspectorElementWithSlowViews >> gtShortLastingComputationFor: aView [
 GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 	<gtView>
 	^ aView explicit 
-		title: 'Some Progress';
+		title: 'Some progress';
 		priority: 6;
 		stencil: [ 
 			0.5 second wait.

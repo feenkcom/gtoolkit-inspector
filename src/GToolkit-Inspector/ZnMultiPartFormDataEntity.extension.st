@@ -4,7 +4,7 @@ Extension { #name : #ZnMultiPartFormDataEntity }
 ZnMultiPartFormDataEntity >> gtViewMimePartsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Mime Parts';
+		title: 'Mime parts';
 		items: [ self parts ];
 		column: 'Name' text: [ :aMinePart | aMinePart fieldName ];
 		column: 'Entity' text: [ :aMinePart | aMinePart entity ]

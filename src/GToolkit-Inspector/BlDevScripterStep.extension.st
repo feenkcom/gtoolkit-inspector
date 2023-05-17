@@ -21,7 +21,7 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		ifEmpty: [ ^ aView empty ].
 	
 	^ aView columnedTree
-		title: 'Steps In Tree';
+		title: 'Steps in tree';
 		priority: 2.5;
 		expandUpTo: 3;
 		items: [ { self } ];

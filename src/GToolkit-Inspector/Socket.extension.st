@@ -4,7 +4,7 @@ Extension { #name : #Socket }
 Socket >> gtViewSocketInfoFor: aView [
 	<gtView>
 	^ aView forward
-		title: 'Socket Info';
+		title: 'Socket info';
 		priority: 55;
 		object: [ 
 			| dictionary | 

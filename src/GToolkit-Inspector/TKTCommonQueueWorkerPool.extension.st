@@ -6,7 +6,7 @@ TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
 	failedTasks isEmptyOrNil
 		ifTrue: [ ^ aView empty ].
 	^ aView list
-		title: 'Failed Tasks';
+		title: 'Failed tasks';
 		items: [ self failedTasks ];
 		itemText: [ :anExecution | anExecution name ];
 		actionButtonIcon: BrGlamorousIcons trash
