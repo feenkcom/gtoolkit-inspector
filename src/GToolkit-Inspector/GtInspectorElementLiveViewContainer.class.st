@@ -31,7 +31,9 @@ GtInspectorElementLiveViewContainer >> element: anElement [
 		assert: [ anElement isKindOf: BlElement ]
 		description: [ 'Element must be kind of ', BlElement name, '.' ].
 
-	element := anElement
+	element := anElement.
+	
+	BlUseAsyncFeatures ifDisabledDo: [ self updateElementLiveView ]
 ]
 
 { #category : #initialization }
