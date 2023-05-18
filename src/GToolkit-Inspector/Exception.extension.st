@@ -10,10 +10,14 @@ Exception >> gtDebugActionFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Exception >> gtHasStack [
+	^ signalContext isNotNil and: [ self signalerContext isNotNil ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Exception >> gtLiveFor: aView [
 	<gtView>
-	
-	(signalContext isNil or: [ self signalerContext isNil ]) ifTrue: [ ^ aView empty ].
+	self gtHasStack ifFalse: [ ^ aView empty ].
 	^ aView forward
 		title: 'Stack';
 		priority: 1;
