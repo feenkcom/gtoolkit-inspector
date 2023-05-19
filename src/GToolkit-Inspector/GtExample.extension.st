@@ -38,17 +38,6 @@ GtExample >> gtAfterFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExample >> gtCoderSourceFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Source';
-		priority: 0;
-		stencil: [ (GtPharoMethodCoder forExample: self) asExpandedOnlyElement ];
-		actionButtonIcon: BrGlamorousVectorIcons browse 
-			action: [ self method browse ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 GtExample >> gtDependenciesFor: aView [
 	<gtView>
 	^ self directDependencies 
