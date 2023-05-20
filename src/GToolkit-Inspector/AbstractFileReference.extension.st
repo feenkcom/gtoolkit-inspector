@@ -109,7 +109,8 @@ AbstractFileReference >> gtFigureFor: aView [
 	^ aView explicit
 		title: 'Picture';
 		priority: 10;
-		stencil: [ GtFileUtility imageElementFromFileReference: self ]
+		stencil: [ (GtFileUtility imageElementFromFileReference: self)
+			margin: (BlInsets all: 10) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
