@@ -5,7 +5,7 @@ GtVirtualMachine >> gtEnabledSignals: aView [
 	<gtView>
 	
 	^ aView list
-		priority: 2;
+		priority: 3;
 		title: 'Enabled signals';
 		items: [ self enabledSignals ]
 ]
