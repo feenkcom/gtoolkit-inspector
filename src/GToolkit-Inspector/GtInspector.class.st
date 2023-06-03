@@ -49,7 +49,8 @@ GtInspector class >> forObject: anObject [
 { #category : #'instance creation' }
 GtInspector class >> forObject: anObject viewSelector: aSymbol [ 
 
-	^ self new object: anObject viewSelector: aSymbol
+	^ self new 
+		object: anObject viewSelector: aSymbol
 ]
 
 { #category : #'gt-extensions' }

@@ -3,6 +3,10 @@ Class {
 	#superclass : #GtPhlowTool,
 	#traits : 'TGtInspectorObjectAccess',
 	#classTraits : 'TGtInspectorObjectAccess classTrait',
+	#instVars : [
+		'tabLook',
+		'name'
+	],
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
 
@@ -52,6 +56,16 @@ GtInspectorTool >> asTabElement [
 	^ anInspector
 ]
 
+{ #category : #accessing }
+GtInspectorTool >> defaultName [
+	^ 'inspector'
+]
+
+{ #category : #'private - accessing' }
+GtInspectorTool >> defaultTabLook [
+	^ BrGlamorousTabSwitcherWithIconAptitude
+]
+
 { #category : #'api - accessing' }
 GtInspectorTool >> icon [
 	^ BrGlamorousVectorIcons inspect
@@ -65,7 +79,13 @@ GtInspectorTool >> initialize [
 
 { #category : #'api - accessing' }
 GtInspectorTool >> name [
-	^ 'inspector'
+	^ name ifNil: [
+		self defaultName ]
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> name: aName [
+	name := aName
 ]
 
 { #category : #'api - accessing' }
@@ -86,13 +106,16 @@ GtInspectorTool >> object: anObject [
 GtInspectorTool >> object: anObject viewSelector: aSymbol [
 	"Store object that is going to be inspected and displayed using a specific Phlow view message selector"
 	| anObjectHolder |
-	anObjectHolder := GtInspectorObject new object: anObject; viewSelector: aSymbol.
+	anObjectHolder := GtInspectorObject new 
+		object: anObject; 
+		viewSelector: aSymbol.
 	self objectHolder: anObjectHolder.
 ]
 
 { #category : #'private - accessing' }
 GtInspectorTool >> tabLook [
-	^ BrGlamorousTabSwitcherWithIconAptitude
+	^  tabLook ifNil: [
+		self defaultTabLook ]
 ]
 
 { #category : #'api - accessing' }
@@ -102,4 +125,9 @@ GtInspectorTool >> valuable: aValuable [
 	| anObjectHolder |
 	anObjectHolder := GtInspectorValuableObject new valuable: aValuable.
 	self objectHolder: anObjectHolder.
+]
+
+{ #category : #accessing }
+GtInspectorTool >> withLabelAndIconAptitude [
+	tabLook := BrGlamorousTabSwitcherWithLabelAndIconAptitude
 ]
