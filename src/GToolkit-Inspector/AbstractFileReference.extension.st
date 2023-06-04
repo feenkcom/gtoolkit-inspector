@@ -429,15 +429,20 @@ AbstractFileReference >> gtZipItemsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParents [
-
 	<return: #Array of: #FileReference>
-	| anAbsolutePath |
-	anAbsolutePath := self absolutePath.
-
-
-	self assert: [ anAbsolutePath isAbsolute ] description: [ 
-		'Path must be absolute path, but is {1}' format:
-			{ anAbsolutePath printString } ].
-
-	^ anAbsolutePath withParents collect: #asFileReference
+	| withParents |
+	withParents := Array streamContents: [ :aStream | 
+		| aCurrentFile |
+		aCurrentFile := self asAbsolute.
+		[ aCurrentFile isNotNil ] whileTrue: [
+			| aParent |
+			aStream nextPut: aCurrentFile.
+			aParent := aCurrentFile parent.
+			aParent = aCurrentFile 
+				ifTrue: [ aCurrentFile := nil ]
+				ifFalse: [ aCurrentFile := aParent ]
+		]
+	].
+	
+	^ withParents reversed
 ]
