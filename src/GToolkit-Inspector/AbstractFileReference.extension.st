@@ -82,23 +82,72 @@ AbstractFileReference >> gtContentsFor: aView [
 
 	eventLoop := self watcher startLoop.
 
-	^ aView textEditor
+	^ aView explicit
 		title: 'Contents' translated;
 		priority: 50;
 		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
-		text: [ BlRunRopedText file: self ];
-		actionStencil: [ :tab | 
-			BrButton new
+		stencil: [ self gtEditorView ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtEditorView [
+	| pane editor editorPane changeBlock originalText toolbar saveBlock |
+	originalText := BlRunRopedText file: self.
+	pane := BrVerticalPane new matchParent.
+	editorPane := BrHorizontalPane new matchParent.
+	editorPane padding: (BlInsets all: 5).
+	editor := BrEditor new matchParent.
+	changeBlock := [ editorPane
+			childNamed: #modificationBar
+			ifFound: [ :elmt | 
+				elmt
+					inUIProcessDo: [ elmt
+							background: ((editor editor text equalsIgnoringAttributes: originalText)
+									ifTrue: [ Color transparent ]
+									ifFalse: [ elmt theme status changesBackgroundColor ]) ] ] ].
+	saveBlock := [ self gtSaveContents: editor text asString.
+		originalText := BlRunRopedText file: self.
+		changeBlock value ].
+	editor editor
+		when: BrTextEditorInsertedEvent do: changeBlock;
+		when: BrTextEditorDeletedEvent do: changeBlock;
+		when: BlInfiniteDataSourceChanged do: changeBlock.
+	editor
+		addShortcut: (BlShortcutWithAction new
+				combination: BlKeyCombination primaryS;
+				action: saveBlock).
+	editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+	editorPane
+		addChild: (BlElement new
+					width: 5;
+					constraintsDo: [ :c | c vertical matchParent ];
+					yourself)
+			as: #modificationBar;
+		addChild: editor as: #editor.
+	toolbar := BrToolbar new
+			aptitude: (BrGlamorousToolbarAptitude new spacing: 5);
+			fitContent;
+			margin: (BlInsets bottom: 5).
+	toolbar
+		addChild: (BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				label: 'Save';
+				beSmallSize;
 				icon: BrGlamorousVectorIcons accept;
-				action: [ | newContents |
-					newContents := tab viewContentElement children first text asString.
-					(self fullName , '.backup') asFileReference ensureDelete.
-					self copyTo: (self fullName , '.backup') asFileReference.
-					self
-						ensureDelete;
-						writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
+				label: 'Save';
+				action: saveBlock)
+		as: #saveButton.
+	toolbar
+		addChild: (BrButton new
+				aptitude: BrGlamorousButtonWithIconAptitude;
+				beSmallSize;
+				icon: BrGlamorousVectorIcons cancel;
+				label: 'Cancel';
+				action: [ editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+					changeBlock value ])
+		as: #cancelButton.
+	pane addChild: editorPane.
+	pane addChild: toolbar as: #toolbar.
+	^ pane
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -287,6 +336,15 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtSaveContents: newContents [
+	(self fullName , '.backup') asFileReference ensureDelete.
+	self copyTo: (self fullName , '.backup') asFileReference.
+	^ self
+		ensureDelete;
+		writeStreamDo: [ :s | s nextPutAll: newContents ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtTreeFor: aView [
 	<gtView>
 	self isDirectory
@@ -371,15 +429,20 @@ AbstractFileReference >> gtZipItemsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> withParents [
-
 	<return: #Array of: #FileReference>
-	| anAbsolutePath |
-	anAbsolutePath := self absolutePath.
-
-
-	self assert: [ anAbsolutePath isAbsolute ] description: [ 
-		'Path must be absolute path, but is {1}' format:
-			{ anAbsolutePath printString } ].
-
-	^ anAbsolutePath withParents collect: #asFileReference
+	| withParents |
+	withParents := Array streamContents: [ :aStream | 
+		| aCurrentFile |
+		aCurrentFile := self asAbsolute.
+		[ aCurrentFile isNotNil ] whileTrue: [
+			| aParent |
+			aStream nextPut: aCurrentFile.
+			aParent := aCurrentFile parent.
+			aParent = aCurrentFile 
+				ifTrue: [ aCurrentFile := nil ]
+				ifFalse: [ aCurrentFile := aParent ]
+		]
+	].
+	
+	^ withParents reversed
 ]
