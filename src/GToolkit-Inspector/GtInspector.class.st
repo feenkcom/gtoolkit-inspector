@@ -15,7 +15,8 @@ Class {
 	#instVars : [
 		'contentElement',
 		'playgroundElement',
-		'titleNotifier'
+		'titleNotifier',
+		'playgroundPageStrategy'
 	],
 	#classVars : [
 		'IndexableDisplayLimit'
@@ -186,7 +187,7 @@ GtInspector >> onAddedToPager: aGtPager [
 GtInspector >> onObjectHolderChanged [
 	super onObjectHolderChanged.
 	self contentElement objectHolder: self objectHolder.
-	self playgroundElement objectHolder: self objectHolder.
+	self updatePlaygroundElement
 ]
 
 { #category : #'private - event handling' }
@@ -211,6 +212,13 @@ GtInspector >> playgroundElement [
 	^ playgroundElement
 ]
 
+{ #category : #accessing }
+GtInspector >> playgroundPageStrategy: aPlaygroundPageStrategy [
+	playgroundPageStrategy := aPlaygroundPageStrategy.
+	
+	self updatePlaygroundPageStrategy.
+]
+
 { #category : #'private - accessing' }
 GtInspector >> titleNotifier [
 	<return: #GtPhlowTitleNotifier>
@@ -221,6 +229,21 @@ GtInspector >> titleNotifier [
 GtInspector >> updateElement [
 	self contentElement updateView.
 	self playgroundElement updatePlayPage.
+]
+
+{ #category : #'private - hooks' }
+GtInspector >> updatePlaygroundElement [
+
+	"We update first the page strategy, as setting the holder needs it."
+	self updatePlaygroundPageStrategy.
+	self playgroundElement 
+		objectHolder: self objectHolder.
+]
+
+{ #category : #'private - hooks' }
+GtInspector >> updatePlaygroundPageStrategy [
+	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
+		playgroundElement playgroundPageStrategy: aPlaygroundPageStrategy ]
 ]
 
 { #category : #'private - updating' }

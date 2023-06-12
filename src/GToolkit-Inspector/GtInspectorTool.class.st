@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'TGtInspectorObjectAccess classTrait',
 	#instVars : [
 		'tabLook',
-		'name'
+		'name',
+		'playgroundPageStrategy'
 	],
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
@@ -40,8 +41,16 @@ GtInspectorTool class >> priority [
 GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
-	anInspector := GtInspector new 
-		objectHolder: self objectHolder.
+	
+	anInspector := GtInspector new .
+	
+	"We first configure the playground before setting up the holder,
+	as when the holder is updated the playground page is computed."
+	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
+		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
+		
+	anInspector objectHolder: self objectHolder.
+	
 	^ aOneArgBlock cull: anInspector cull: self.
 ]
 
@@ -110,6 +119,11 @@ GtInspectorTool >> object: anObject viewSelector: aSymbol [
 		object: anObject; 
 		viewSelector: aSymbol.
 	self objectHolder: anObjectHolder.
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> playgroundPageStrategy: aPlaygroundPageStrategy [
+	playgroundPageStrategy := aPlaygroundPageStrategy
 ]
 
 { #category : #'private - accessing' }
