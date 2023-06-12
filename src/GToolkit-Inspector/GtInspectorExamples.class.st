@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorExamples,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #'examples - ui - content' }
@@ -57,7 +57,9 @@ GtInspectorExamples >> basicObjectHolderClass [
 GtInspectorExamples >> basicPlaygroundElement [
 	<gtExample>
 	| anElement |
-	anElement := (self class environment at: GtInspector embeddedPlaygroundName) new.
+	anElement := (self class environment 
+		at: GtInspector embeddedPlaygroundName) new.
+	
 	anElement matchParent.
 	self assert: anElement objectHolder equals: GtInspectorObject null.
 	^ anElement
