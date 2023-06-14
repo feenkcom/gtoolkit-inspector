@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'tabLook',
 		'name',
-		'playgroundPageStrategy'
+		'playgroundPageStrategy',
+		'databasesRegistry'
 	],
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
@@ -42,12 +43,14 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
 	
-	anInspector := GtInspector new .
+	anInspector := GtInspector new.
 	
 	"We first configure the playground before setting up the holder,
 	as when the holder is updated the playground page is computed."
 	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
 		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
+	databasesRegistry ifNotNil: [ :aRegistry |
+		anInspector databasesRegistry: aRegistry ].
 		
 	anInspector objectHolder: self objectHolder.
 	
@@ -63,6 +66,11 @@ GtInspectorTool >> asTabElement [
 	anInspector addEventHandler: (GtPhlowToolChangedObjectHandler new
 		onChangeSend: #object: to: anInspector).
 	^ anInspector
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> databasesRegistry: aDatabasesRegistry [
+	databasesRegistry := aDatabasesRegistry
 ]
 
 { #category : #accessing }
