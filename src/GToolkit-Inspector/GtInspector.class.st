@@ -244,7 +244,7 @@ GtInspector >> updateElement [
 { #category : #'private - hooks' }
 GtInspector >> updatePlaygroundDatabasesRegistry [
 	databasesRegistry ifNotNil: [ :aRegistry |
-		databasesRegistry databasesRegistry: aRegistry ]
+		playgroundElement databasesRegistry: aRegistry ]
 ]
 
 { #category : #'private - hooks' }
