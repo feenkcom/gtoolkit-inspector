@@ -9,17 +9,29 @@ Fraction >> gtPreviewFor: aView [
 			| overallElement fractionElement |
 			fractionElement := BlElement new 
 				layout: BlLinearLayout vertical;
-				constraintsDo: [ :c | c linear vertical alignCenter. c vertical fitContent ];
+				constraintsDo: [ :c | 
+					c linear vertical alignCenter.
+					c vertical fitContent.
+					c horizontal fitContent ];
 				addChild: (BrLabel new 
 					aptitude: BrGlamorousLabelAptitude;
-					text: self numerator asString;
+					text: (String streamContents: [ :aStream | 
+						self numerator printWithCommasOn: aStream ]);
 					constraintsDo: [:c | 
 						c linear horizontal alignCenter]);
-				addChild: (BlElement new height: 2; background: Color black; margin: (BlInsets top: 5 bottom: 5) );
+				addChild: (BlElement new 
+					height: 2; 
+					background: Color black; 
+					margin: (BlInsets top: 5 bottom: 5);
+					constraintsDo: [:c | 
+						c horizontal matchParent.
+						c linear horizontal alignCenter]);
 				addChild: (BrLabel new 
 					aptitude: BrGlamorousLabelAptitude; 
-					text: self denominator asString;
-					constraintsDo: [:c | c linear horizontal alignCenter]).
+					text: (String streamContents: [ :aStream | 
+						self denominator printWithCommasOn: aStream ]);
+					constraintsDo: [:c | 
+						c linear horizontal alignCenter]).
 			overallElement := BlElement new
 				aptitude: BrShadowAptitude new;
 				background: Color white;
@@ -27,7 +39,7 @@ Fraction >> gtPreviewFor: aView [
 				padding: (BlInsets all: 10);
 				layout: BlLinearLayout horizontal;
 				constraintsDo: [ :c | 
-					c vertical exact: 100.
+					c vertical fitContent.
 					c horizontal fitContent.
 					c frame horizontal alignCenter.
 					c frame vertical alignCenter ];
@@ -36,11 +48,13 @@ Fraction >> gtPreviewFor: aView [
 					aptitude: BrGlamorousLabelAptitude;
 					margin: (BlInsets left: 5 right: 5); 
 					text: '=';
-					constraintsDo: [:c | c linear vertical alignCenter ]);
+					constraintsDo: [:c | 
+						c linear vertical alignCenter ]);
 				addChild: (BrLabel new 
 					aptitude: BrGlamorousLabelAptitude;
 					text: self asFloat asString;
-					constraintsDo: [:c | c linear vertical alignCenter ]).
+					constraintsDo: [:c | 
+						c linear vertical alignCenter ]).
 			BlElement new 
 				constraintsDo: [:c | 
 					c vertical matchParent.
