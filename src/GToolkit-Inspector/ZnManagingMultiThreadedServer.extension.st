@@ -15,7 +15,7 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ZnManagingMultiThreadedServer >> gtOverview [
 	^ OrderedCollection new 
-		add: ('listenning' -> self isListening);
+		add: ('listening' -> self isListening);
 		add: ('port' -> self port);
 		add: ('delegate' -> self delegate);
 		yourself
