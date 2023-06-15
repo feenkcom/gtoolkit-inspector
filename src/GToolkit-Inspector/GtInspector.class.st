@@ -16,7 +16,8 @@ Class {
 		'contentElement',
 		'playgroundElement',
 		'titleNotifier',
-		'playgroundPageStrategy'
+		'playgroundPageStrategy',
+		'databasesRegistry'
 	],
 	#classVars : [
 		'IndexableDisplayLimit'
@@ -119,6 +120,13 @@ GtInspector >> contentElement [
 	^ contentElement
 ]
 
+{ #category : #accessing }
+GtInspector >> databasesRegistry: aDatabaseRegistry [
+	databasesRegistry := aDatabaseRegistry.
+	
+	self updatePlaygroundDatabasesRegistry.
+]
+
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
@@ -126,6 +134,7 @@ GtInspector >> initialize [
 	self initializeTitleNotifier.
 	self initializeContentElement.
 	self initializePlaygroundElement.
+	
 	self layout: BlLinearLayout vertical.
 	self beFocusable.
 	self addChild: self contentElement as: #content.
@@ -186,8 +195,9 @@ GtInspector >> onAddedToPager: aGtPager [
 { #category : #'private - hooks' }
 GtInspector >> onObjectHolderChanged [
 	super onObjectHolderChanged.
+	
 	self contentElement objectHolder: self objectHolder.
-	self updatePlaygroundElement
+	self playgroundElement objectHolder: self objectHolder.
 ]
 
 { #category : #'private - event handling' }
@@ -232,12 +242,9 @@ GtInspector >> updateElement [
 ]
 
 { #category : #'private - hooks' }
-GtInspector >> updatePlaygroundElement [
-
-	"We update first the page strategy, as setting the holder needs it."
-	self updatePlaygroundPageStrategy.
-	self playgroundElement 
-		objectHolder: self objectHolder.
+GtInspector >> updatePlaygroundDatabasesRegistry [
+	databasesRegistry ifNotNil: [ :aRegistry |
+		playgroundElement databasesRegistry: aRegistry ]
 ]
 
 { #category : #'private - hooks' }
