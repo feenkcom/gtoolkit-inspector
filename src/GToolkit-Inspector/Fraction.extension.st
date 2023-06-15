@@ -15,8 +15,7 @@ Fraction >> gtPreviewFor: aView [
 					c horizontal fitContent ];
 				addChild: (BrLabel new 
 					aptitude: BrGlamorousLabelAptitude;
-					text: (String streamContents: [ :aStream | 
-						self numerator printWithCommasOn: aStream ]);
+					text: self numerator asStringWithCommas;
 					constraintsDo: [:c | 
 						c linear horizontal alignCenter]);
 				addChild: (BlElement new 
@@ -28,8 +27,7 @@ Fraction >> gtPreviewFor: aView [
 						c linear horizontal alignCenter]);
 				addChild: (BrLabel new 
 					aptitude: BrGlamorousLabelAptitude; 
-					text: (String streamContents: [ :aStream | 
-						self denominator printWithCommasOn: aStream ]);
+					text: self denominator asStringWithCommas;
 					constraintsDo: [:c | 
 						c linear horizontal alignCenter]).
 			overallElement := BlElement new
