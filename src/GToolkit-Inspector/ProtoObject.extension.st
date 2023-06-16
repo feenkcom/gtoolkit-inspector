@@ -86,9 +86,11 @@ ProtoObject >> gtActions [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-ProtoObject >> gtDisplayString [
-	"display nothing by default"
-	^ ''
+ProtoObject >> gtDisplayText [
+	^ ((self class name first isVowel 
+		ifTrue: ['an '] 
+		ifFalse: ['a ']), 
+			self class name) asRopedText
 ]
 
 { #category : #'*GToolkit-Inspector' }
