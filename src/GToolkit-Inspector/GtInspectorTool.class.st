@@ -7,7 +7,8 @@ Class {
 		'tabLook',
 		'name',
 		'playgroundPageStrategy',
-		'databasesRegistry'
+		'databasesRegistry',
+		'externalSnippetContext'
 	],
 	#category : #'GToolkit-Inspector-Phlow Tool'
 }
@@ -51,6 +52,8 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
 	databasesRegistry ifNotNil: [ :aRegistry |
 		anInspector databasesRegistry: aRegistry ].
+	externalSnippetContext ifNotNil: [ :aRegistry |
+		anInspector externalSnippetContext: aRegistry ].
 		
 	anInspector objectHolder: self objectHolder.
 	
@@ -81,6 +84,11 @@ GtInspectorTool >> defaultName [
 { #category : #'private - accessing' }
 GtInspectorTool >> defaultTabLook [
 	^ BrGlamorousTabSwitcherWithIconAptitude
+]
+
+{ #category : #'api - accessing' }
+GtInspectorTool >> externalSnippetContext: anExternalSnippetContext [
+	externalSnippetContext := anExternalSnippetContext
 ]
 
 { #category : #'api - accessing' }

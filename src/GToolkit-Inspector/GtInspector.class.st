@@ -17,7 +17,8 @@ Class {
 		'playgroundElement',
 		'titleNotifier',
 		'playgroundPageStrategy',
-		'databasesRegistry'
+		'databasesRegistry',
+		'externalSnippetContext'
 	],
 	#classVars : [
 		'IndexableDisplayLimit'
@@ -125,6 +126,13 @@ GtInspector >> databasesRegistry: aDatabaseRegistry [
 	databasesRegistry := aDatabaseRegistry.
 	
 	self updatePlaygroundDatabasesRegistry.
+]
+
+{ #category : #accessing }
+GtInspector >> externalSnippetContext: anExternalSnippetContext [
+	externalSnippetContext := anExternalSnippetContext.
+	
+	self updateExternalSnippetContext.
 ]
 
 { #category : #initialization }
@@ -239,6 +247,12 @@ GtInspector >> titleNotifier [
 GtInspector >> updateElement [
 	self contentElement updateView.
 	self playgroundElement updatePlayPage.
+]
+
+{ #category : #'private - hooks' }
+GtInspector >> updateExternalSnippetContext [
+	externalSnippetContext ifNotNil: [ :aContext |
+		externalSnippetContext externalSnippetContext: aContext ]
 ]
 
 { #category : #'private - hooks' }
