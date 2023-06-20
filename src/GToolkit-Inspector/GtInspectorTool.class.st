@@ -46,8 +46,8 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 	
 	anInspector := GtInspector new.
 	
-	"We first configure the playground before setting up the holder,
-	as when the holder is updated the playground page is computed."
+	"We first configure the inspector before setting up the holder,
+	as when the holder is updated the inspector updates its state."
 	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
 		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
 	databasesRegistry ifNotNil: [ :aRegistry |
