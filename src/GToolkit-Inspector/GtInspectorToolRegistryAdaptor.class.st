@@ -1,12 +1,23 @@
 Class {
 	#name : #GtInspectorToolRegistryAdaptor,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Tool Registry'
+	#category : #'GToolkit-Inspector-Tool Registry'
 }
 
 { #category : #actions }
 GtInspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	^ (GtInspector openOn: anObject) maximized
+	| pager |
+	pager := GtPager createOn: (GtPagerWrapperElement new
+		tool: anObject gtDefaultInspectorTool;
+		embellisher: (GtPagerPageEmbellisher new 
+			extension: GtPagerPageEmbellisherExtension null)).
+	
+	GtPager 
+		openSpaceWith: pager
+		title: anObject gtInspectorTitleString.
+	
+	^ pager
+		maximized
 ]
 
 { #category : #testing }
