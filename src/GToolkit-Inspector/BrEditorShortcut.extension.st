@@ -5,7 +5,8 @@ BrEditorShortcut >> gtSourceCodeFor: aView [
 	<gtView>
 
 	^ aView forward
-		title: 'Source';
-		object: [ self class >> #performOnEditor:element:dueTo: ];
-		view: #gtSourceFor:
+		title: 'Source code';
+		priority: 1;
+		object: [ performBlock ifNil: [ self class >> #performOnEditor:element:dueTo: ] ];
+		view: #gtSourceCodeFor:
 ]

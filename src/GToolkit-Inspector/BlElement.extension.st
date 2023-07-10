@@ -314,7 +314,8 @@ BlElement >> gtShortcutsFor: aView [
 						  action: [ :aButtonElement | 
 						  aButtonElement phlow spawnObject: each key ] ] ]
 		  width: 200;
-		  send: [ :each | each value ]
+		  send: [ :each | each value ];
+		  actionUpdateButton
 	"text: [ :each | each key = self ifTrue: [''] ifFalse: [each key gtDisplayString] ];"
 ]
 
