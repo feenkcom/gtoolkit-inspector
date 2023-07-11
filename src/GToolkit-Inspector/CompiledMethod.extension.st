@@ -15,7 +15,7 @@ CompiledMethod >> gtPropertiesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-CompiledMethod >> gtSourceFor: aView [
+CompiledMethod >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Source';
@@ -24,6 +24,11 @@ CompiledMethod >> gtSourceFor: aView [
 			tooltip: 'Browse method'
 			action: [ self gtBrowse ];
 		stencil: [ (GtPharoMethodCoder forMethod: self) asExpandedOnlyElement vFitContentLimited ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtSourceFor: aView [
+	^ self gtSourceCodeFor: aView
 ]
 
 { #category : #'*GToolkit-Inspector' }
