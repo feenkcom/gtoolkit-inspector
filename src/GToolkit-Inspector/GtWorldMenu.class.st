@@ -1,7 +1,7 @@
 Class {
 	#name : #GtWorldMenu,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-World Menu'
+	#category : #'GToolkit-Inspector-World Menu'
 }
 
 { #category : #'world menu' }
@@ -70,7 +70,7 @@ GtWorldMenu class >> openAllClassesDocumentedByLepiter [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openCoder [
-	GtCoder new openInPager maximized
+	GtCoderElement new openInPager maximized
 ]
 
 { #category : #'api - actions' }
