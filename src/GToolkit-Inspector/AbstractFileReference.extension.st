@@ -255,7 +255,7 @@ AbstractFileReference >> gtPathFor: aView [
 		title: 'Path';
 		priority: 55;
 		items: [ | aCollection |
-			aCollection := self asFileReference withParents.
+			aCollection := self asFileReference asAbsolute withParents.
 			aCount := aCollection size.
 			aCollection ];
 		column: 'Icon'
@@ -425,24 +425,4 @@ AbstractFileReference >> gtZipItemsFor: aView [
 					each creationTime printYMDOn: s.
 					s nextPut: Character space.
 					each creationTime printHMSOn: s ] ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
-AbstractFileReference >> withParents [
-	<return: #Array of: #FileReference>
-	| withParents |
-	withParents := Array streamContents: [ :aStream | 
-		| aCurrentFile |
-		aCurrentFile := self asAbsolute.
-		[ aCurrentFile isNotNil ] whileTrue: [
-			| aParent |
-			aStream nextPut: aCurrentFile.
-			aParent := aCurrentFile parent.
-			aParent = aCurrentFile 
-				ifTrue: [ aCurrentFile := nil ]
-				ifFalse: [ aCurrentFile := aParent ]
-		]
-	].
-	
-	^ withParents reversed
 ]
