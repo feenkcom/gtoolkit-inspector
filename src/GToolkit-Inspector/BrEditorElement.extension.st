@@ -3,7 +3,7 @@ Extension { #name : #BrEditorElement }
 { #category : #'*GToolkit-Inspector' }
 BrEditorElement >> gtAttributesTreeFor: aView [
 	<gtView>
-	^ (self text attributeRuns gtTreeFor: aView) 
+	^ (self editor text attributeRuns gtTreeFor: aView) 
 		title: 'Attributes';
 		priority: 4
 ]
