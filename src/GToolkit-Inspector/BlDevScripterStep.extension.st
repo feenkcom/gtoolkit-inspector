@@ -1,6 +1,28 @@
 Extension { #name : #BlDevScripterStep }
 
 { #category : #'*GToolkit-Inspector' }
+BlDevScripterStep >> gtPropertiesFor: aView [
+	<gtView>
+	self properties ifNil: [ ^ aView empty ].
+	^ (self properties gtPropertiesFor: aView) priority: 90
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlDevScripterStep >> gtReferenceFor: aView [
+	<gtView>
+	self reference ifNil: [ ^ aView empty ].
+	^ (self reference gtReferenceFor: aView)
+		priority: 5
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlDevScripterStep >> gtScreenshotFor: aView [
+	<gtView>
+	self properties ifNil: [ ^ aView empty ].
+	^ self properties gtScreenshotFor: aView
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
@@ -17,6 +39,7 @@ BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 BlDevScripterStep >> gtStepsTreeFor: aView [
 	<gtView>
 	
+	| aTotalDuration |
 	self steps
 		ifEmpty: [ ^ aView empty ].
 	
@@ -24,7 +47,9 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 		title: 'Steps in tree';
 		priority: 2.5;
 		expandUpTo: 3;
-		items: [ { self } ];
+		items: [ 
+			aTotalDuration := self leavesStepExecutionTotalDuration asMicroseconds.
+			{ self } ];
 		children: [ :aStep | aStep steps ];
 		column: 'Status' translated 
 			icon: [ :each | 
@@ -32,7 +57,59 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 					geometry: (BlRoundedRectangleGeometry cornerRadius: 2); background: each stateColor ]
 			weight: 1;
 		column: 'Step' text: #label weight: 4;
-		column: 'Target' text: #target weight: 2
+		column: 'Target' text: #target weight: 2;
+		column: 'Duration' 
+			stencil: [ :aStep | 
+				| playTime pulseTime |
+				BrHorizontalPane new 
+					hMatchParent;
+					vExact: 8;
+					addAptitude: (BrGlamorousWithTooltipAptitude content: [ 
+						BrHorizontalGrid new 
+							fitContent;
+							padding: (BlInsets all: 5);
+							columnCount: 2;
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: 'Play time:');
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: aStep leavesStepExecutionPlayDuration humanReadablePrintString);
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: 'Pulse time:');
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: aStep leavesStepExecutionPulseDuration humanReadablePrintString);
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: 'Total time:');
+							addChild: (BrLabel new
+								aptitude: BrGlamorousLabelAptitude;
+								text: aStep leavesStepExecutionTotalDuration humanReadablePrintString)
+					]);
+					addChild: (BrFrame new
+						background: BrGlamorousColors  pressedButtonBorderColor;
+						matchParent;
+						constraintsDo: [ :c | 
+							c linear weight: (playTime := (aStep leavesStepExecutionPlayDuration asMicroseconds max: 1))
+						]);
+					addChild: (BrFrame new
+						background: BrGlamorousColors failureBorderColor;
+						matchParent;
+						constraintsDo: [ :c | 
+							c linear weight: (pulseTime := (aStep leavesStepExecutionPulseDuration asMicroseconds) max: 1)
+						]);
+					addChild: (BrFrame new
+						background: BlBackground transparent ;
+						matchParent;
+						constraintsDo: [ :c | 
+							c linear weight: ((aTotalDuration - playTime - pulseTime) max: 1)
+						]) ] 
+			width: 200;
+		column: 'Pulses' text: [ :aStep | aStep properties stepExecution 
+			ifNotNil: [ :aProperty | aProperty numberOfPulses ifNil: [ '' ] ] 
+			ifNil: [ '' ] ] width: 50
 ]
 
 { #category : #'*GToolkit-Inspector' }
