@@ -4,21 +4,18 @@ Extension { #name : #DebugSession }
 DebugSession >> gtViewInterruptedContextFor: aView [
 	<gtView>
 	(self interruptedProcess isNil
-		or: [ self interruptedProcess isSuspended not
-				or: [ self interruptedContext isNil ] ])
+		or: [ self interruptedProcess isSuspended not or: [ self interruptedContext isNil ] ])
 		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Interrupted context';
 		priority: 105;
 		stencil: [ | methodCoder pcRange |
-			methodCoder := GtPharoMethodCoder
-				forMethod: self interruptedContext method.
+			methodCoder := GtPharoMethodCoder forMethod: self interruptedContext method.
 			pcRange := self pcRangeForContext: self interruptedContext.
-			(methodCoder sourceText from: pcRange first to: pcRange last)
-				attributes:
-					{(BlTextUnderlineAttribute new
-						color: BrGlamorousColors errorBackgroundColor;
-						beNotOverwritableByStyler)}.
+			(methodCoder currentSourceText from: pcRange first to: pcRange last)
+				attributes: {BlTextUnderlineAttribute new
+							color: BrGlamorousColors errorBackgroundColor;
+							beNotOverwritableByStyler}.
 			(methodCoder asCoderViewModel expanded: true) asElement ]
 ]
 
@@ -26,30 +23,25 @@ DebugSession >> gtViewInterruptedContextFor: aView [
 DebugSession >> gtViewInterruptedStackFor: aView [
 	<gtView>
 	(self interruptedProcess isNil
-		or: [ self interruptedProcess isSuspended not
-				or: [ self interruptedContext isNil ] ])
+		or: [ self interruptedProcess isSuspended not or: [ self interruptedContext isNil ] ])
 		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Interrupted stack' translated;
 		priority: 108;
 		stencil: [ | stack methodsCoder |
-			self
-				flag: 'Replace me with an implementation for a group of contexts!'.
+			self flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedContext stack.
 			methodsCoder := GtPharoMethodsCoder
-				forItems: (stack collect: [ :aContext |
-					aContext compiledCode method ]).
+					forItems: (stack collect: [ :aContext | aContext compiledCode method ]).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
 					| pcRange |
 					pcRange := self pcRangeForContext: (stack at: index).
-					(methodCoder sourceText from: pcRange first to: pcRange last)
-						attributes:
-							{(BlTextUnderlineAttribute new
-								color: BrGlamorousColors errorBackgroundColor;
-								beNotOverwritableByStyler)} ].
-			methodsCoder asCoderViewModel 
-				expandCoder: methodsCoder coders first ]
+					(methodCoder currentSourceText from: pcRange first to: pcRange last)
+						attributes: {BlTextUnderlineAttribute new
+									color: BrGlamorousColors errorBackgroundColor;
+									beNotOverwritableByStyler} ].
+			methodsCoder asCoderViewModel expandCoder: methodsCoder coders first ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -87,28 +79,23 @@ DebugSession >> gtViewLiveDebuggerFor: aView [
 { #category : #'*GToolkit-Inspector' }
 DebugSession >> gtViewSuspendedStackFor: aView [
 	<gtView>
-	(self interruptedProcess isNil
-		or: [ self interruptedProcess isSuspended not ])
+	(self interruptedProcess isNil or: [ self interruptedProcess isSuspended not ])
 		ifTrue: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Suspended stack' translated;
 		priority: 108;
 		stencil: [ | stack methodsCoder |
-			self
-				flag: 'Replace me with an implementation for a group of contexts!'.
+			self flag: 'Replace me with an implementation for a group of contexts!'.
 			stack := self interruptedProcess suspendedContext stack.
 			methodsCoder := GtPharoMethodsCoder
-				forItems: (stack collect: [ :aContext |
-					aContext compiledCode method ]).
+					forItems: (stack collect: [ :aContext | aContext compiledCode method ]).
 			methodsCoder coders
 				withIndexDo: [ :methodCoder :index | 
 					| pcRange |
 					pcRange := self pcRangeForContext: (stack at: index).
-					(methodCoder sourceText from: pcRange first to: pcRange last)
-						attributes:
-							{(BlTextUnderlineAttribute new
-								color: BrGlamorousColors errorBackgroundColor;
-								beNotOverwritableByStyler)} ].
-			methodsCoder asCoderViewModel 
-				expandCoder: methodsCoder coders first ]
+					(methodCoder currentSourceText from: pcRange first to: pcRange last)
+						attributes: {BlTextUnderlineAttribute new
+									color: BrGlamorousColors errorBackgroundColor;
+									beNotOverwritableByStyler} ].
+			methodsCoder asCoderViewModel expandCoder: methodsCoder coders first ]
 ]

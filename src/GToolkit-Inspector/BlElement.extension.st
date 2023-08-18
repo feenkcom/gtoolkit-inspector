@@ -29,8 +29,10 @@ BlElement >> gtLiveFor: aView [
 	^ aView explicit
 		title: 'Live';
 		priority: 0;
-		stencil: [ GtInspectorElementLiveViewContainer new 
-			element: self ].
+		stencil: [ 
+			GtInspectorElementLiveViewContainer new 
+				element: self;
+				clipChildren: false  ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
