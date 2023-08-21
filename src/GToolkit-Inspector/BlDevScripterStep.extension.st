@@ -23,6 +23,15 @@ BlDevScripterStep >> gtScreenshotFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlDevScripterStep >> gtStepExecutionDetailsFor: aView [
+	<gtView>
+	self properties ifNil: [ ^ aView empty ].
+	^ (self properties stepExecution gtDetailsFor: aView)
+		title: 'Execution details';
+		priority: 20
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlDevScripterStep >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
