@@ -351,7 +351,7 @@ AbstractFileReference >> gtTreeFor: aView [
 		ifFalse: [ ^ aView empty ].
 	^ aView columnedTree
 		title: 'Tree' translated;
-		priority: 15;
+		priority: 1;
 		items: [ self gtChildren ];
 		children: [ :each | each gtChildren ];
 		column: 'Name' translated 
