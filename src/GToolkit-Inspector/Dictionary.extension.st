@@ -15,7 +15,9 @@ Dictionary >> gtItemsFor: aView [
 						ifFalse: [ #() ] ] ];
 		column: 'Key' text: [ :assoc | assoc key ];
 		column: 'Value' text: [ :assoc | assoc value ];
-		send: [ :assoc | assoc value ]
+		contextItemLabel: 'Inspect key' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value key ];
+		contextItemLabel: 'Inspect association' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value ];
+		send: [ :assoc | assoc value value ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
