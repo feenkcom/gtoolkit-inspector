@@ -35,9 +35,11 @@ String >> gtLiveFor: aView [
 		container addChild: editor.
 		
 		list := BrColumnedList new
+			rowStencil: (BrGlamorousColumnedListSelectableRowElementStencilBuilder new);
 			constraintsDo: [:c | 
 				c vertical matchParent. 
 				c horizontal matchParent ];
+			
 			items: (self asOrderedCollection collectWithIndex: [ :char :index | char -> index ]);
 			when: BrSelectionChanged do: [ :event | 
 				event selectedInterval ifNotNil: [ 
