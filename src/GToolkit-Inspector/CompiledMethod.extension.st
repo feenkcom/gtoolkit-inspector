@@ -10,6 +10,10 @@ CompiledMethod >> gtPropertiesFor: aView [
 		items: [ self properties properties associations ];
 		column: 'Property' text: #key;
 		column: 'Value' text: #value;
+		contextItemLabel: 'Remove property'
+			action: [ :aWidget :anAssoc | 
+				self removeProperty: anAssoc key.
+				aWidget phlow firstParentWithView phlow update ];
 		send: #value;
 		actionUpdateButton
 ]
