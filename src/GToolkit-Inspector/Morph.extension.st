@@ -2,7 +2,7 @@ Extension { #name : #Morph }
 
 { #category : #'*GToolkit-Inspector' }
 Morph >> gtInspectorIcon [
-	^ self class systemIcon
+	^ self class iconNamed: self class systemIconName
 ]
 
 { #category : #'*GToolkit-Inspector' }

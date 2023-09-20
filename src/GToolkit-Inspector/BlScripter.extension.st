@@ -11,15 +11,6 @@ BlScripter >> gtElementsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlScripter >> gtEventsFor: aView [
-	<gtView>
-	self events ifNil: [ ^ aView empty ].
-	^ (self events gtEventsFor: aView)
-		title: 'Events';
-		priority: 3
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlScripter >> gtEventTracesIn: aContainer [
 	| anEventColor|
 
@@ -62,6 +53,15 @@ BlScripter >> gtEventTracesIn: aContainer [
 					border: (BlBorder paint: anEventColor width: 1);
 					fromAnchor: (BlAbsolutePositionAnchor position: eachEvent position - eachEvent delta);
 					toAnchor: (BlAbsolutePositionAnchor position: eachEvent position)) ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlScripter >> gtEventsFor: aView [
+	<gtView>
+	self events ifNil: [ ^ aView empty ].
+	^ (self events gtEventsFor: aView)
+		title: 'Events';
+		priority: 3
 ]
 
 { #category : #'*GToolkit-Inspector' }
