@@ -65,6 +65,17 @@ GtInspectorViewsExamples >> viewNotReturning [
 ]
 
 { #category : #'examples - working' }
+GtInspectorViewsExamples >> viewWithViewsForCollection [
+	<gtExample>
+	| aView anElement |
+	aView := { 1 . 2 } gtViewsFor: GtPhlowView empty.
+	anElement := aView asElementDo: [ :x | x ].
+	self assert: anElement notNil.
+	self assert: (anElement isKindOf: BlElement).
+	^ aView
+]
+
+{ #category : #'examples - working' }
 GtInspectorViewsExamples >> viewsOfSampleA [
 	<gtExample>
 	| theViews theElements |
@@ -99,15 +110,4 @@ GtInspectorViewsExamples >> viewsOfSampleWithExceptions [
 	viewsNotDefinedInObject collect: [ :eachView | eachView asElementDo: [ :el | elements add: el ] ].
 	self assert: elements size equals: viewsNotDefinedInObject size.
 	^ viewsNotDefinedInObject
-]
-
-{ #category : #'examples - working' }
-GtInspectorViewsExamples >> viewWithViewsForCollection [
-	<gtExample>
-	| aView anElement |
-	aView := { 1 . 2 } gtViewsFor: GtPhlowView empty.
-	anElement := aView asElementDo: [ :x | x ].
-	self assert: anElement notNil.
-	self assert: (anElement isKindOf: BlElement).
-	^ aView
 ]
