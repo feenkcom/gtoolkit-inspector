@@ -47,21 +47,16 @@ ProtoObject >> gtActionInspectFor: anAction [
 			button viewModel
 				when: BlClickEvent
 				do: [ :anEvent | 
-					| aTool aSpace |
+					| aTool |
 					aTool := self gtDefaultInspectorTool.
 					anEvent modifiers isPrimaryModifier
-						ifTrue: [ aSpace := BlSpace new.
-							aSpace title: self gtDisplayString.
-							aSpace icon: aTool icon.
-							aSpace extent: 1200 @ 600.
-							aSpace root background: Color transparent.
-							aSpace
-								addChild: (GtPager
-										createOn: (GtPagerWrapperElement new
-												tool: aTool;
-												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
-							aSpace withHalos.
-							anEvent target showSpace: aSpace ] ].
+						ifTrue: [ 
+							GtWorldUtility 
+								showSpaceWithTitle:  (GtPhlowTitleLabelBuilder longLabel: [
+									self gtInspectorTitleString ]) build
+								inPagerWith: [ 
+									self gtDefaultInspectorTool asElementDo: [ :e | e ] ] asStencil
+								from: anEvent target ] ].
 			button viewModel
 				when: BlMouseEnterEvent
 				do: [ :anEvent | 
