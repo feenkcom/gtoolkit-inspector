@@ -15,30 +15,31 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFir
 	aScripter
 		substeps: 'Display back the live tab in the first page'
 		do: [ :aStep | 
-			aStep click
-				label: 'Select Live tab';
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspector;
-				// GtPhlowCompositeViewElementId;
-				// #tabbar;
-				onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Live' ] ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Select Live tab';
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspector;
+						// GtPhlowCompositeViewElementId;
+						// #tabbar;
+						onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Live' ] ] ].
 
-			aStep assert
-				label: 'Assert pane one live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementPreviewView ];
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspectorElementLiveViewContainer;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane one live view';
+						satisfies: [ :aContainer | aContainer isElementPreviewView ];
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspectorElementLiveViewContainer ].
 
-			aStep assert
-				label: 'Assert pane two live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementLiveView ];
-				// (GtPagerPageElementId indexed: 2);
-				// GtInspectorElementLiveViewContainer;
-				play ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane two live view';
+						satisfies: [ :aContainer | aContainer isElementLiveView ];
+						// (GtPagerPageElementId indexed: 2);
+						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
 ]
@@ -52,29 +53,31 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFir
 	aScripter
 		substeps: 'Display overview tab in the first page'
 		do: [ :aStep | 
-			aStep click
-				label: 'Select Verview tab';
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspector;
-				// GtPhlowCompositeViewElementId;
-				// #tabbar;
-				onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Overview' ] ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Select Verview tab';
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspector;
+						// GtPhlowCompositeViewElementId;
+						// #tabbar;
+						onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Overview' ] ] ].
 
-			aStep assert
-				label: 'Assert pane one live view';
-				notExists;
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspectorElementLiveViewContainer;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane one live view';
+						notExists;
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspectorElementLiveViewContainer ].
 
-			aStep assert
-				label: 'Assert pane two live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementLiveView ];
-				// (GtPagerPageElementId indexed: 2);
-				// GtInspectorElementLiveViewContainer;
-				play ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane two live view';
+						satisfies: [ :aContainer | aContainer isElementLiveView ];
+						// (GtPagerPageElementId indexed: 2);
+						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
 ]
@@ -88,29 +91,31 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecon
 	aScripter
 		substeps: 'Display the overview tab in the second page'
 		do: [ :aStep | 
-			aStep click
-				label: 'Select Live tab';
-				// (GtPagerPageElementId indexed: 2);
-				// GtInspector;
-				// GtPhlowCompositeViewElementId;
-				// #tabbar;
-				onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Overview' ] ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Select Live tab';
+						// (GtPagerPageElementId indexed: 2);
+						// GtInspector;
+						// GtPhlowCompositeViewElementId;
+						// #tabbar;
+						onChildFromBlock: [ :anElement | anElement children detect: [ :each | each label asString = 'Overview' ] ] ].
 
-			aStep assert
-				label: 'Assert pane one live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementLiveView ];
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspectorElementLiveViewContainer;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane one live view';
+						satisfies: [ :aContainer | aContainer isElementLiveView ];
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspectorElementLiveViewContainer ].
 
-			aStep assert
-				label: 'Assert pane two live view';
-				notExists;
-				// (GtPagerPageElementId indexed: 2);
-				// GtInspectorElementLiveViewContainer;
-				play ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane two live view';
+						notExists;
+						// (GtPagerPageElementId indexed: 2);
+						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
 ]
@@ -124,17 +129,15 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInPager [
 					size: 50 @ 100;
 					background: (Color blue alpha: 0.5);
 					relocate: 100 @ 100 ]
-			element: [ :anElementToPreview | 
-				GtPager createWrappedOn: (
-					GtInspector forObject: anElementToPreview) ].
-			
-	aScripter assert
-		label: 'Assert live view';
-		satisfies: [ :aContainer | 
-			aContainer isElementLiveView ];
-		// (GtPagerPageElementId indexed: 1);
-		// GtInspectorElementLiveViewContainer;
-		play.
+			element: [ :anElementToPreview | GtPager createWrappedOn: (GtInspector forObject: anElementToPreview) ].
+
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert live view';
+				satisfies: [ :aContainer | aContainer isElementLiveView ];
+				// (GtPagerPageElementId indexed: 1);
+				// GtInspectorElementLiveViewContainer ].
 
 	^ aScripter
 ]
@@ -149,26 +152,27 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPag
 	aScripter
 		substeps: 'Element in the second pane'
 		do: [ :aStep | 
-			aStep click
-				label: 'Spawn the second inspector';
-				// GtInspectorInspectButtonId;
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Spawn the second inspector';
+						// GtInspectorInspectButtonId ].
 
-			aStep assert
-				label: 'Assert pane one live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementLiveView ];
-				// (GtPagerPageElementId indexed: 1);
-				// GtInspectorElementLiveViewContainer;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane one live view';
+						satisfies: [ :aContainer | aContainer isElementLiveView ];
+						// (GtPagerPageElementId indexed: 1);
+						// GtInspectorElementLiveViewContainer ].
 
-			aStep assert
-				label: 'Assert pane two live view';
-				satisfies: [ :aContainer | 
-					aContainer isElementPreviewView ];
-				// (GtPagerPageElementId indexed: 2);
-				// GtInspectorElementLiveViewContainer;
-				play. ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert pane two live view';
+						satisfies: [ :aContainer | aContainer isElementPreviewView ];
+						// (GtPagerPageElementId indexed: 2);
+						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
 ]
