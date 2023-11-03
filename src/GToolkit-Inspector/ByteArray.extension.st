@@ -35,14 +35,16 @@ ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 { #category : #'*GToolkit-Inspector' }
 ByteArray >> gtBytesFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Bytes';
-		send: [ :anAssoc | anAssoc value ];
 		items: [ | aDisplayedBytes |
 			aDisplayedBytes := self size <= 2048
 				ifTrue: [ self ]
 				ifFalse: [ self copyFrom: 1 to: 2048 ].
-			self gtByteAssociationsFor: aDisplayedBytes ]
+			self gtByteAssociationsFor: aDisplayedBytes ];
+		column: 'Key' text: #key width: 128;
+		column: 'Value' text: #value;
+		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
