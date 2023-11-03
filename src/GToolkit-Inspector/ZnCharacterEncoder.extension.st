@@ -43,14 +43,16 @@ ZnCharacterEncoder class >> gtViewEncodingIdentifiersFor: aView [
 					tooltip: 'Search character encoders by identifier';
 					id: GtPharoSearchCodeButtonId;
 					objectActOn: [ :anActOnEvent :anItem :theButton | 
+						
 						(anItem isKindOf: ZnCharacterEncoder) ifTrue: [ 
 							| columnedList |
 							columnedList := theButton phlow viewContent 
 								allChildrenBreadthFirstDetect: [ :child | 
 									child isKindOf:  BrColumnedList ] 
 								ifFound: [ :child | child ].
-							columnedList scrollToItem: anItem.
-							columnedList selectOne: (columnedList items indexOf: anItem).
+							columnedList scrollToItem: anItem identifier.
+							columnedList selectOne: (columnedList items indexOf: anItem identifier).
+							
 							anActOnEvent beActed ] ];
 					asElement ]
 			tooltip: 'Search character encoders by identifier'
