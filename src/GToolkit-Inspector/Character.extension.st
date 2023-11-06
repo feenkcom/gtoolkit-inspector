@@ -14,6 +14,6 @@ Character >> gtViewCharacterDetailsFor: aView [
 							    stream << 'U+'.
 							    self codePoint printOn: stream base: 16 nDigits: 4 ])) } ];
 		  column: 'Key' text: #key;
-		  column: 'Value' text: [ :each | each value printString ];
+		  column: 'Value' text: #value;
 		  send: #value
 ]

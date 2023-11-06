@@ -12,6 +12,16 @@ ZnUrl >> gtActionWebBrowseFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ZnUrl >> gtCopyActionFor: anAction [
+	<gtAction>
+
+	^ anAction button 
+		tooltip: 'Copy URL';
+		icon: BrGlamorousVectorIcons clipboard;
+		action: [ :aButton | Clipboard clipboardText: self printString ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtQueryFor: aView [
 
 	<gtView>
