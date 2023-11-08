@@ -77,3 +77,15 @@ Context >> gtVariablesFor: aView [
 		column: 'Value' text: #value;
 		send: [ :anAssoc | anAssoc value ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Context >> gtViewLiveBlElementFor: aView [
+	<gtView>
+	(self receiver isKindOf: BlElement) ifFalse: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Live Element';
+		priority: 40;
+		object: [ self receiver ];
+		view: #gtLiveFor:
+]
