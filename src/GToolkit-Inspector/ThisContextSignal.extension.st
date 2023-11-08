@@ -13,7 +13,7 @@ ThisContextSignal >> gtStackFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Stack';
-		priority: 50;
+		priority: 45;
 		items: [  self stack ]
 ]
 

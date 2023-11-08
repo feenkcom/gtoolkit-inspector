@@ -16,7 +16,7 @@ BeaconSignal >> gtReferencesFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'References';
-		priority: 2;
+		priority: 50;
 		object: [ self class gtReferences ];
 		view: #gtItemsFor:
 ]
