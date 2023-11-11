@@ -38,6 +38,7 @@ Context >> gtStackFor: aView [
 	^ aView tree
 		title: 'Stack';
 		items: [ self stack ];
+		priority: 15;
 		children: [ :anItem | anItem isContext ifTrue: [ anItem gtVariables ] ifFalse: [ #() ] ];
 		itemText: [ :anItem | 
 			anItem isContext
@@ -70,8 +71,21 @@ Context >> gtVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Variables';
+		priority: 20;
 		items: [ self gtVariables ];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
 		send: [ :anAssoc | anAssoc value ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Context >> gtViewLiveBlElementFor: aView [
+	<gtView>
+	(self receiver isKindOf: BlElement) ifFalse: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Live Element';
+		priority: 40;
+		object: [ self receiver ];
+		view: #gtLiveFor:
 ]
