@@ -1,6 +1,21 @@
 Extension { #name : #Float }
 
 { #category : #'*GToolkit-Inspector' }
+Float >> gtFloatIn: aView [
+	<gtView>
+	^ aView columnedList 
+		title: 'Float';
+		items: [ {
+			'decimal' -> self.
+			'binary' -> self binaryLiteralString.
+			'significand' -> self significand.
+			'exponent' -> self exponent } asOrderedCollection ];
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
+		send: #value
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Float >> gtInspectorVariableNodesIn: aCollection [
 	
 	aCollection
