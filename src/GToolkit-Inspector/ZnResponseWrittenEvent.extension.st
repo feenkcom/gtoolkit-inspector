@@ -1,7 +1,7 @@
-Extension { #name : #ZnResponseReadEvent }
+Extension { #name : #ZnResponseWrittenEvent }
 
 { #category : #'*GToolkit-Inspector' }
-ZnResponseReadEvent >> gtDetails [
+ZnResponseWrittenEvent >> gtDetails [
 	^ super gtDetails ,
 		{ 
 			{#response 

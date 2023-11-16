@@ -1,7 +1,7 @@
-Extension { #name : #ZnClientTransactionEvent }
+Extension { #name : #ZnServerTransactionEvent }
 
 { #category : #'*GToolkit-Inspector' }
-ZnClientTransactionEvent >> gtDetails [
+ZnServerTransactionEvent >> gtDetails [
 	^ super gtDetails ,
 		{ 
 			{#request 
@@ -15,10 +15,7 @@ ZnClientTransactionEvent >> gtDetails [
 						out space.
 						self response entity printContentTypeAndLengthOn: out ] ]
 				. self response } .
-			{#requestDuration
-				. (self requestDuration printString , 'ms') 
-				. self requestDuration} .
-			{#responseDuration
-				. (self responseDuration printString , 'ms')
-				. self responseDuration} }
+			{#duration
+				. (self duration printString , 'ms') 
+				. self timing} }
 ]
