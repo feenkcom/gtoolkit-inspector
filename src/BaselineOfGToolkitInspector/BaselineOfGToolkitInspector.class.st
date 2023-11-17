@@ -78,7 +78,7 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				baseline: 'GToolkitExamples'
 					with: [ spec repository: 'github://feenkcom/gtoolkit-examples:main/src' ];
 				baseline: 'Unicode'
-					with: [ spec repository: 'github://feenkcom/pharo-unicode:master/src' ].
+					with: [ spec repository: 'github://feenkcom/pharo-unicode/src' ].
 
 			spec
 				package: 'GToolkit-Inspector'
