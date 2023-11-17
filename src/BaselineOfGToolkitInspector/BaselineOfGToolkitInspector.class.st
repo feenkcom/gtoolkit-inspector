@@ -76,10 +76,14 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				baseline: 'GToolkit4Pharo'
 					with: [ spec repository: 'github://feenkcom/gt4pharo:main/src' ];
 				baseline: 'GToolkitExamples'
-					with: [ spec repository: 'github://feenkcom/gtoolkit-examples:main/src' ].
+					with: [ spec repository: 'github://feenkcom/gtoolkit-examples:main/src' ];
+				baseline: 'Unicode'
+					with: [ spec repository: 'github://feenkcom/pharo-unicode:master/src' ].
 
 			spec
 				package: 'GToolkit-Inspector'
 				with: [ spec
-						requires: #('Filewatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter' 'GToolkit4Pharo' 'GToolkitExamples') ] ]
+						requires: #(
+							'Filewatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter'
+							'GToolkit4Pharo' 'GToolkitExamples' 'Unicode') ] ]
 ]
