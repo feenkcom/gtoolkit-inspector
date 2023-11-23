@@ -30,11 +30,26 @@ ZnRequest >> gtJsonFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ZnRequest >> gtRequestQueryFor: aView [
 	<gtView>
+	self requestLine ifNil: [ ^ aView empty ].
+	self requestLine uri ifNil: [ ^ aView empty ].
+	self requestLine uri hasQuery ifFalse: [ ^ aView empty ].
 	^ aView forward
-		title: 'Request query';
+		title: 'Query';
 		priority: 45;
 		object: [ self requestLine ];
 		view: #gtQueryFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ZnRequest >> gtRequestUriFor: aView [
+	<gtView>
+	self requestLine ifNil: [ ^ aView empty ].
+	self requestLine uri ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'URI';
+		priority: 27;
+		object: [ self uri ];
+		view: #gtUrlFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
