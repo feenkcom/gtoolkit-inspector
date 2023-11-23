@@ -23,12 +23,10 @@ ZnUrl >> gtCopyActionFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtQueryFor: aView [
-
 	<gtView>
 	query ifNil: [ ^ aView empty ].
-
 	^ aView columnedList
-		  title: 'Queries';
+		  title: 'Query';
 		  priority: 3;
 		  items: [ query associations ];
 		  column: 'Property' text: #key;
@@ -38,24 +36,50 @@ ZnUrl >> gtQueryFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtSegmentsFor: aView [
-
 	<gtView>
 	segments ifNil: [ ^ aView empty ].
-
 	^ aView columnedList
 		  title: 'Segments';
 		  priority: 2;
 		  items: [ segments ];
-		  column: 'Index' text: [ :_ :index | index ] width: 60;
-		  column: 'Value' text: #yourself
+		  column: 'Index' text: [ :_ :index | index ];
+		  column: 'Value' text: #yourself weight: 3 
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtUrlFor: aView [
 	<gtView>
-	^ aView textEditor
-		title: 'URL';
-		priority: 1;
-		aptitude: BrGlamorousCodeEditorAptitude;
-		text: [ self printString asRopedText ]
+	^ aView columnedList
+		  title: 'URL';
+		  priority: 1;
+		  items: [ {
+			"Note: we show the internal values, not the external encoded representation"
+			{ 'URL' . self printString . self }.
+			{ 'scheme'
+				. self scheme ifNil: [ self schemeOrDefault asRopedText foreground: Color gray ]
+				. self scheme }.
+			{ 'host' . self host ifNil: [ '' ] . self host }.
+			{ 'port' 
+				. self port ifNil: [ (self portOrDefault ifNil: '') asRopedText foreground: Color gray ] 
+				. self port }.
+			{ 'username' . self username ifNil: [ '' ] . self username }.
+			{ 'password' . self password ifNil: [ '' ] . self password}.
+			{ 'path' . '/' , self path . self pathSegments }.
+			{ 'query' 
+				. self query 
+					ifNil: [ '' ] 
+					ifNotNil: [ String streamContents: [ :out | | first |
+						out nextPut: $?.
+						first := true.
+						self queryDo: [ :key :value |
+							first ifFalse: [ out nextPut: $& ].
+							first := false.
+							out nextPutAll: key; nextPut: $=; nextPutAll: value ] ] ]
+				. self query }.
+			{ 'fragment'
+				. self fragment ifNil: [ '' ] ifNotNil: [ '#' , self fragment ]
+				. self fragment } } ];
+		  column: 'Key' text: #first;
+		  column: 'Value' text: #second weight: 5;
+		  send: #last
 ]
