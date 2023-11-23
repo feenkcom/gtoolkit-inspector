@@ -13,7 +13,7 @@ OrderedDictionary >> gtItemsFor: aView [
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
 						ifFalse: [ #() ] ] ];
 		column: 'Key' text: #key;
-		column: 'Value' text: #value;
+		column: 'Value' text: #value weight: 3;
 		send: #value
 ]
 
