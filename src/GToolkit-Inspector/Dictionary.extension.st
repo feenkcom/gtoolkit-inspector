@@ -14,7 +14,7 @@ Dictionary >> gtItemsFor: aView [
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
 						ifFalse: [ #() ] ] ];
 		column: 'Key' text: [ :assoc | assoc key ];
-		column: 'Value' text: [ :assoc | assoc value ];
+		column: 'Value' text: [ :assoc | assoc value ] weight: 3;
 		contextItemLabel: 'Inspect key' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value key ];
 		contextItemLabel: 'Inspect association' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value ];
 		send: [ :assoc | assoc value value ]

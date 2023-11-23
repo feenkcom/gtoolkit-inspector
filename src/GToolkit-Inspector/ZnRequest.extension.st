@@ -42,7 +42,7 @@ ZnRequest >> gtViewRequestLineTextFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Request';
-		priority: 45;
+		priority: 25;
 		object: [ self requestLine ];
-		view: #gtViewRequestLineTextFor:
+		view: #gtHttpFor:
 ]
