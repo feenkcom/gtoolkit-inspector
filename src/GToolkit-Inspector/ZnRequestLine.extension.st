@@ -7,7 +7,11 @@ ZnRequestLine >> gtHttpFor: aView [
 		  title: 'HTTP';
 		  priority: 30;
 		  items: [ {
-			{ 'request line' . String streamContents: [ :out | self writeOn: out ] . self }.
+			{ 'request line' 
+				. String streamContents: [ :out | 
+					self printMethodAndUriOn: out.
+					self version ifNotNil: [ out space; nextPutAll: version ] ]
+				. self }.
 			{ 'method' . self method ifNil: [ '' ] . self method }.
 			{ 'uri' . self uri ifNil: [ '' ] . self uri }.
 			{ 'version' . self version ifNil: [ '' ] . self version } } ];
@@ -19,6 +23,8 @@ ZnRequestLine >> gtHttpFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ZnRequestLine >> gtQueryFor: aView [
 	<gtView>
+	self uri ifNil: [ ^ aView empty ].
+	self uri hasQuery ifFalse: [ ^ aView empty ].
 	^ aView forward
 		title: 'Query';
 		priority: 40;

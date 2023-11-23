@@ -12,6 +12,17 @@ ZnMessage >> gtBinaryContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ZnMessage >> gtEntityFor: aView [
+	<gtView>
+	self hasEntity ifFalse: [ ^ aView empty ].
+	^ aView forward
+		title: 'Entity';
+		priority: 35;
+		object: [ self entity ];
+		view: #gtEntityFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ZnMessage >> gtHeadersFor: aView [
 	<gtView>
 	^ (self headers gtHeadersFor: aView)

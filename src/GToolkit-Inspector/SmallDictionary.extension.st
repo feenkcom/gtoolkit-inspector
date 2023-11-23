@@ -1,10 +1,11 @@
-Extension { #name : #OrderedDictionary }
+Extension { #name : #SmallDictionary }
 
 { #category : #'*GToolkit-Inspector' }
-OrderedDictionary >> gtItemsFor: aView [
+SmallDictionary >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedTree
 		title: 'Items';
+		priority: 1;
 		items: [ self associations ];
 		children: [ :each | 
 			each value isDictionary
@@ -17,13 +18,4 @@ OrderedDictionary >> gtItemsFor: aView [
 		contextItemLabel: 'Inspect key' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value key ];
 		contextItemLabel: 'Inspect association' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value ];
 		send: #value
-]
-
-{ #category : #'*GToolkit-Inspector' }
-OrderedDictionary >> gtKeysFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Keys';
-		items: [ self keys ];
-		column: 'Key' text: [ :aKey | aKey ]
 ]
