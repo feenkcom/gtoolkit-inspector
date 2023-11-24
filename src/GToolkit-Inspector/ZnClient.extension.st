@@ -55,7 +55,9 @@ ZnClient >> gtHttpFor: aView [
 							ifNotNil: [ :line | String streamContents: [ :out | line writeOn: out ] ] ] 
 				. self response }.
 			{ 'connected' . self isConnected. self connection }.
-			{ 'success' . self response ifNil: [ '' ] ifNotNil: [ self isSuccess ]. self response } } ];
+			{ 'success' . self response ifNil: [ '' ] ifNotNil: [ self isSuccess ]. self response }.
+			{ 'log level' . logLevel }.
+			{ 'last used' . lastUsed ifNil: [ '' ] ifNotNil: [ DateAndTime fromUnixTime: lastUsed ] } } ];
 		  column: 'Key' text: #first;
 		  column: 'Value' text: #second weight: 5;
 		  send: #last;
