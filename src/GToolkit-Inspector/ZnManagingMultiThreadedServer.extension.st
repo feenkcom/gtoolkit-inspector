@@ -13,6 +13,16 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ZnManagingMultiThreadedServer >> gtOpenLocalUrlFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousIcons go asElement;
+		tooltip: 'Open in Web Browser';
+		priority: 12;
+		action: [ WebBrowser openOn: self localUrl]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ZnManagingMultiThreadedServer >> gtOptionsFor: aView [
 	<gtView>
 	^ aView forward 
@@ -37,6 +47,7 @@ ZnManagingMultiThreadedServer >> gtOverview [
 		{ 'running' . self isRunning . process }.
 		{ 'listening' . self isListening . serverSocket }.
 		{ 'port' . self port }.
+		{ 'local url' . self localUrl }.
 		{ 'delegate' . self delegate }.
 		{ 'log level' . logLevel }
 	}
