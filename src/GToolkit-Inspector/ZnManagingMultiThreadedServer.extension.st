@@ -49,8 +49,32 @@ ZnManagingMultiThreadedServer >> gtOverviewFor: aView [
 		title: 'Overview';
 		priority: 40;
 		items: [ self gtOverview ];
-		actionUpdateButtonTooltip: 'Update overview';
-		column: 'Name' text: #first;
+		updateWhen: ZnServerStartedEvent in: [ ZnLogEvent announcer ];
+		updateWhen: ZnServerStoppedEvent in: [ ZnLogEvent announcer ];
+		actionUpdateButton;
+		column: 'Key' text: #first;
 		column: 'Value' text: #second weight: 5;
 		send: #last
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ZnManagingMultiThreadedServer >> gtStartActionFor: anAction [
+	<gtAction>
+	"self isRunning ifTrue: [ ^ anAction noAction ]."
+	^ anAction button
+		icon: BrGlamorousVectorIcons play;
+		tooltip: 'Start HTTP server';
+		priority: 10;
+		action: [ self start ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ZnManagingMultiThreadedServer >> gtStopActionFor: anAction [
+	<gtAction>
+	"self isRunning ifFalse: [ ^ anAction noAction ]."
+	^ anAction button
+		icon: BrGlamorousVectorIcons shutdown;
+		tooltip: 'Stop HTTP server';
+		priority: 11;
+		action: [ self stop ]
 ]

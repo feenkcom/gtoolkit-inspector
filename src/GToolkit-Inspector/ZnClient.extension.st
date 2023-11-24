@@ -3,7 +3,7 @@ Extension { #name : #ZnClient }
 { #category : #'*GToolkit-Inspector' }
 ZnClient >> gtCloseActionFor: anAction [
 	<gtAction>
-	self isConnected ifFalse: [ ^ anAction noAction ].
+	"self isConnected ifFalse: [ ^ anAction noAction ]."
 	^ anAction button
 		icon: BrGlamorousVectorIcons shutdown;
 		tooltip: 'Close HTTP client connection';
@@ -44,7 +44,10 @@ ZnClient >> gtHttpFor: aView [
 							ifNotNil: [ :line | 
 								String streamContents: [ :out |
 									line printMethodAndUriOn: out.
-									line version ifNotNil: [ :version | out space; nextPutAll: version ] ] ] ]
+									line version ifNotNil: [ :version | out space; nextPutAll: version ].
+									self request entity ifNotNil: [ :entity |
+										out space.
+										entity printContentTypeAndLengthOn: out ] ] ] ]
 				. self  request}.
 			{ 'response'
 				. self response 
@@ -52,7 +55,12 @@ ZnClient >> gtHttpFor: aView [
 					ifNotNil: [
 						self response statusLine
 							ifNil: [ '' ]
-							ifNotNil: [ :line | String streamContents: [ :out | line writeOn: out ] ] ] 
+							ifNotNil: [ :line | 
+								String streamContents: [ :out | 
+									out nextPutAll: line version; space; print: line code; space; nextPutAll: line reason.
+									self response entity ifNotNil: [ :entity |
+										out space.
+										entity printContentTypeAndLengthOn: out ] ] ] ]
 				. self response }.
 			{ 'connected' . self isConnected. self connection }.
 			{ 'success' . self response ifNil: [ '' ] ifNotNil: [ self isSuccess ]. self response }.
@@ -61,6 +69,7 @@ ZnClient >> gtHttpFor: aView [
 		  column: 'Key' text: #first;
 		  column: 'Value' text: #second weight: 5;
 		  send: #last;
+		  updateWhen: ZnClientConnectionClosedEvent in: [ ZnLogEvent announcer ];
 		  actionUpdateButton
 ]
 
