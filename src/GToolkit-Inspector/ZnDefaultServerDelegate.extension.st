@@ -9,6 +9,10 @@ ZnDefaultServerDelegate >> gtPrefixMapFor: aView [
 		column: 'Prefix' text: #key;
 		column: 'Handler' text: #value weight: 2;
 		actionUpdateButtonTooltip: 'Update prefix map';
+		contextItemLabel: 'Open in Web Browser' 
+			action: [ :anElement :assoc | | targetUrl |
+				targetUrl := self server localUrl / assoc key.
+				WebBrowser openOn: targetUrl ];
 		sendTool: [ :anAssoc | 
 			| aClass aHandler |
 			aHandler := anAssoc value.
