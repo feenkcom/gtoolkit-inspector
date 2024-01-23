@@ -5,6 +5,7 @@ CompiledCode >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Bytecode' translated;
+		priority: 25;
 		items: [ self symbolicBytecodes ];
 		itemText: [ :each | each printString ]
 ]
@@ -19,6 +20,7 @@ CompiledCode >> gtHeaderFor: aView [
 	<gtView> 
 	^ aView textEditor
 		title: 'Header';
+		priority: 26;
 		text: [ self headerDescription ]
 ]
 
@@ -87,6 +89,7 @@ CompiledCode >> gtViewCompiledBlocksDo: aView [
 	
 	^ aView tree 
 		title: 'Compiled blocks';
+		priority: 28;
 		items: [ {self} ];
 		expandAll;
 		children: [ :aCompiledCode |
@@ -101,6 +104,7 @@ CompiledCode >> gtViewIntermediareRepresentationFor: aView [
 	<gtView> 
 	^ aView text 
 		title: 'Ir';
+		priority: 27;
 		text: [ 
 			| string |
 			string := self ast ir  longPrintString.

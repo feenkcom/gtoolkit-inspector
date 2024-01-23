@@ -6,7 +6,7 @@ CompiledMethod >> gtPropertiesFor: aView [
 	self hasProperties ifFalse: [^ aView empty ].
 	^ aView columnedList 
 		title: 'Properties';
-		priority: 11;
+		priority: 40;
 		items: [ self properties properties associations ];
 		column: 'Property' text: #key;
 		column: 'Value' text: #value;
@@ -23,7 +23,7 @@ CompiledMethod >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Source';
-		priority: 10;
+		priority: 5;
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ self gtBrowse ];
@@ -55,6 +55,7 @@ CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	
 	^ aView explicit
 		title: 'Syntax explanation' translated;
+		priority: 35;
 		stencil: [ GtPharoSyntaxExplainer new forMethod: self ].
 ]
 
@@ -63,5 +64,6 @@ CompiledMethod >> gtViewPragmasFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Pragmas';
+		priority: 29;
 		items: [ self pragmas ]
 ]
