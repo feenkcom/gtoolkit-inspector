@@ -3,17 +3,22 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : 'GToolkit-Inspector-Tab Selector'
+	#category : #'GToolkit-Inspector-Tab Selector'
 }
+
+{ #category : #factory }
+GtInspectorTabSelector class >> byViewMethod [
+	^ GtInspectorTabByViewMethodSelector new
+]
+
+{ #category : #factory }
+GtInspectorTabSelector class >> byViewName [
+	^ GtInspectorTabByViewNameSelector new
+]
 
 { #category : #testing }
 GtInspectorTabSelector class >> isAbstract [
 	^ self name = #GtInspectorTabSelector 
-]
-
-{ #category : #factory }
-GtInspectorTabSelector class >> simple [
-	^ GtInspectorTabSimpleSelector new
 ]
 
 { #category : #configuration }
