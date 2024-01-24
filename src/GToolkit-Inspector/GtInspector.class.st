@@ -215,7 +215,8 @@ GtInspector >> onRemovedFromPager: aGtPager [
 	aInspectorTabName := GtInspectorSelectedTabExtractor new 
 		inspectorElement: self;
 		extract.
-	aGtPager context inspectorTabSelector recentlySelectedTab: aInspectorTabName on: self object.
+	aGtPager context inspectorTabSelector 
+		recentlySelectedTab: aInspectorTabName on: self object.
 ]
 
 { #category : #'private - event handling' }

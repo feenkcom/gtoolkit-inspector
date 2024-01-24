@@ -5,5 +5,5 @@ GtPagerContext >> inspectorTabSelector [
 	<return: #GtInspectorTabSelector>
 	^ self 
 		optionAt: #inspectorTabSelector 
-		ifAbsentPut: [ GtInspectorTabSelector simple ]
+		ifAbsentPut: [ GtInspectorTabSelector byViewName ]
 ]
