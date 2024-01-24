@@ -465,10 +465,10 @@ GtInspectorElementOverview >> elementVisibility [
 GtInspectorElementOverview >> elementVisibilityName [
 	^ self elementVisibility isVisible
 		ifTrue: [ 'Visible' ]
-		ifFalse: [ self elementVisibility isHidden
-				ifTrue: [ 'Hidden' ]
-				ifFalse: [ self elementVisibility isGone
-						ifTrue: [ 'Gone' ]
+		ifFalse: [ self elementVisibility isGone
+				ifTrue: [ 'Gone' ]
+				ifFalse: [ self elementVisibility isHidden
+						ifTrue: [ 'Hidden' ]
 						ifFalse: [ self elementVisibility printString ] ] ]
 ]
 
