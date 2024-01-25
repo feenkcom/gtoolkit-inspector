@@ -10,6 +10,7 @@ VirtualMachine >> gtDetailsFor: aView [
 			('VM build date' -> self buildDate).
 			('VM version' -> self version).
 			('Image directory' -> self imagePath asFileReference parent).
+			('Image file' -> self imagePath asFileReference basename).
 			('Image version' -> self imageVersionNumber)} ];
 		column: 'Property' text: [:assoc | assoc key ];
 		column: 'Value' text: [:assoc | assoc value gtDisplayString ];
