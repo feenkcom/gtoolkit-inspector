@@ -55,14 +55,20 @@ Context >> gtVariables [
 	| aCollection |
 	aCollection := OrderedCollection new.
 
-	aCollection add: ('self' -> self receiver).
-	
-	self tempNames do: [ :aTempName | 
-		| anAssoc |
-		anAssoc := aTempName -> (self tempNamed: aTempName).
-		aCollection add: anAssoc.
-	].
-	
+	aCollection add: 'self' -> self receiver.
+
+	self tempNames
+		do: [ :aTempName | 
+			| anAssoc |
+			anAssoc := aTempName
+					-> ([ self tempNamed: aTempName ]
+							on: Error
+							do: [ :anException | 
+								('Cannot read "{1}": {2}'
+									format: {aTempName.
+											anException}) asRopedText foreground: BrGlamorousColors errorBackgroundColor ]).
+			aCollection add: anAssoc ].
+
 	^ aCollection
 ]
 
