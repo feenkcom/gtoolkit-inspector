@@ -43,7 +43,6 @@ GtInspectorTool class >> priority [
 GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
-	
 	anInspector := GtInspector new.
 	
 	"We first configure the inspector before setting up the holder,
@@ -142,6 +141,12 @@ GtInspectorTool >> playgroundPageStrategy: aPlaygroundPageStrategy [
 	playgroundPageStrategy := aPlaygroundPageStrategy
 ]
 
+{ #category : #'testing ' }
+GtInspectorTool >> supportsSelectionHandling [
+	"The inspector can extract and restore the selected tab"
+	^ true
+]
+
 { #category : #'private - accessing' }
 GtInspectorTool >> tabLook [
 	^  tabLook ifNil: [
@@ -157,7 +162,12 @@ GtInspectorTool >> valuable: aValuable [
 	self objectHolder: anObjectHolder.
 ]
 
-{ #category : #accessing }
+{ #category : #configuring }
 GtInspectorTool >> withLabelAndIconAptitude [
 	tabLook := BrGlamorousTabSwitcherWithLabelAndIconAptitude
+]
+
+{ #category : #configuring }
+GtInspectorTool >> withLabelAptitude [
+	tabLook := BrGlamorousTabSwitcherWithLabelAptitude
 ]

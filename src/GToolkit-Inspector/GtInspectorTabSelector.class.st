@@ -21,14 +21,22 @@ GtInspectorTabSelector class >> isAbstract [
 	^ self name = #GtInspectorTabSelector 
 ]
 
-{ #category : #configuration }
-GtInspectorTabSelector >> recentlySelectedTab: aInspectorTabName on: anObject [
-	"Set recently selected tab name for a given object"
+{ #category : #actions }
+GtInspectorTabSelector >> matchesTab: aTabGroup [ 
 	self subclassResponsibility
 ]
 
 { #category : #actions }
-GtInspectorTabSelector >> selectTabIn: aTabGroup on: anObject [
-	"Select tab of a given tab group"
-	self subclassResponsibility
+GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
+	aTabGroupElement viewModel tabs
+		detect: [ :aTabModel | 
+			self matchesTab: aTabModel ]
+		ifFound: [ :aTabModel | aTabModel select ]
+		ifNone: [ "do nothing" ]
+]
+
+{ #category : #actions }
+GtInspectorTabSelector >> selectTabInInspectorElement: anInspectorElement on: anObject [
+	anInspectorElement phlow firstChildWithCompositeViewDo: [ :aTabGroupElement | 
+		self selectTabInGroup: aTabGroupElement on: anObject ]
 ]
