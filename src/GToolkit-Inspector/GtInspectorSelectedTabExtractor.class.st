@@ -6,17 +6,19 @@ Class {
 	#instVars : [
 		'inspectorElement'
 	],
-	#category : 'GToolkit-Inspector-Tab Selector'
+	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
 { #category : #'api - actions' }
-GtInspectorSelectedTabExtractor >> extract [
+GtInspectorSelectedTabExtractor >> extractTabName [
 	<return: #GtInspectorTabName>
 	self inspectorElement phlow
 		firstChildWithCompositeViewDo: [ :tabGroup | 
 			^ tabGroup viewModel selectedTab widget
 				phlow entity 
-					ifNotNil: [ :aPhlow | GtInspectorTabName new string: aPhlow title asString ]
+					ifNotNil: [ :aPhlow | 
+						GtInspectorTabName new 
+							string: aPhlow title asString ]
 					ifNil: [ GtInspectorTabName null ] ].
 	^ GtInspectorTabName null
 ]

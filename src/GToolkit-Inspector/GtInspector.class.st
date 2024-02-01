@@ -135,6 +135,18 @@ GtInspector >> externalSnippetContext: anExternalSnippetContext [
 	self updateExternalSnippetContext.
 ]
 
+{ #category : #'private - event handling' }
+GtInspector >> extractSelectedTabIdentifier [
+	^ (GtInspectorSelectedTabExtractor new 
+		inspectorElement: self) extractTabName
+]
+
+{ #category : #selection }
+GtInspector >> extractToolSelectionState [
+	^ GtPhlowTabbedToolSelectionState new 
+		tabIdentifier: self extractSelectedTabIdentifier
+]
+
 { #category : #initialization }
 GtInspector >> initialize [
 	super initialize.
@@ -159,10 +171,6 @@ GtInspector >> initializeContentElement [
 
 { #category : #initialization }
 GtInspector >> initializeListeners [
-	self when: GtPagerPageAddedEvent do: [ :anEvent | 
-		self onAddedToPager: anEvent pager ].
-	self when: GtPagerPageRemovedEvent do: [ :anEvent | 
-		self onRemovedFromPager: anEvent pager ].
 	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
 		self onUpdateWish: anEvent ].
 	self when: BlClickEvent do: [ self requestFocus ].
@@ -191,32 +199,12 @@ GtInspector >> object: anObject viewSelector: aSymbol [
 	self objectHolder: anObjectHolder
 ]
 
-{ #category : #'private - event handling' }
-GtInspector >> onAddedToPager: aGtPager [
-	"Inspector was added to a pager"
-	self phlow
-		firstChildWithCompositeViewDo: [ :aTabGroup | 
-			aGtPager context inspectorTabSelector
-				selectTabIn: aTabGroup on: self object ].
-]
-
 { #category : #'private - hooks' }
 GtInspector >> onObjectHolderChanged [
 	super onObjectHolderChanged.
 	
 	self contentElement objectHolder: self objectHolder.
 	self playgroundElement objectHolder: self objectHolder.
-]
-
-{ #category : #'private - event handling' }
-GtInspector >> onRemovedFromPager: aGtPager [
-	"Inspector was removed from a pager"
-	| aInspectorTabName |
-	aInspectorTabName := GtInspectorSelectedTabExtractor new 
-		inspectorElement: self;
-		extract.
-	aGtPager context inspectorTabSelector 
-		recentlySelectedTab: aInspectorTabName on: self object.
 ]
 
 { #category : #'private - event handling' }
@@ -236,6 +224,11 @@ GtInspector >> playgroundPageStrategy: aPlaygroundPageStrategy [
 	playgroundPageStrategy := aPlaygroundPageStrategy.
 	
 	self updatePlaygroundPageStrategy.
+]
+
+{ #category : #selection }
+GtInspector >> selectTabWithIdentifier: aTabIdentifier [
+	aTabIdentifier applySelectionTo: self
 ]
 
 { #category : #'private - accessing' }

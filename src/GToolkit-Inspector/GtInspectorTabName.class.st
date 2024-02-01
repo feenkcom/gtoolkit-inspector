@@ -1,15 +1,22 @@
 Class {
 	#name : #GtInspectorTabName,
-	#superclass : #GtInspectorAbstractTabName,
+	#superclass : #GtInspectorTabIdentifier,
 	#instVars : [
 		'string'
 	],
-	#category : 'GToolkit-Inspector-Tab Selector'
+	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
 { #category : #factory }
 GtInspectorTabName class >> null [ 
-	^ GtInspectorNullTabName default
+	^ GtInspectorNullTabIdentifier default
+]
+
+{ #category : #actions }
+GtInspectorTabName >> applySelectionTo: anInspectorElement [
+	(GtInspectorTabSelector byViewName
+		tabName: self)
+			selectTabInInspectorElement: anInspectorElement on: nil
 ]
 
 { #category : #testing }
@@ -17,11 +24,21 @@ GtInspectorTabName >> isEqualToString: aString [
 	^ self string = aString
 ]
 
+{ #category : #testing }
+GtInspectorTabName >> matchesTab: aTabModel [
+	| currentTabTitle |
+	currentTabTitle := aTabModel widget phlow entity ifNotNil: #title.
+	^ self isEqualToString: currentTabTitle asString
+]
+
 { #category : #printing }
 GtInspectorTabName >> printOn: aStream [
-	aStream 
-		nextPutAll: 'Tab name: ';
-		print: self string
+	super printOn: aStream.
+	
+	aStream parenthesize: [
+		aStream 
+			nextPutAll: 'Tab name: ';
+			print: self string ]
 ]
 
 { #category : #accessing }
