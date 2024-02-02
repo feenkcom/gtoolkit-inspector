@@ -19,6 +19,20 @@ GtInspectorTabName >> applySelectionTo: anInspectorElement [
 			selectTabInInspectorElement: anInspectorElement on: nil
 ]
 
+{ #category : #printing }
+GtInspectorTabName >> description [
+	^ String streamContents: [ :aStream |
+		self descriptionOn:  aStream ]
+]
+
+{ #category : #printing }
+GtInspectorTabName >> descriptionOn: aStream [
+
+	aStream 
+		nextPutAll: 'Tab name: ';
+		print: self string 
+]
+
 { #category : #testing }
 GtInspectorTabName >> isEqualToString: aString [
 	^ self string = aString
@@ -37,8 +51,7 @@ GtInspectorTabName >> printOn: aStream [
 	
 	aStream parenthesize: [
 		aStream 
-			nextPutAll: 'Tab name: ';
-			print: self string ]
+			<< self string ]
 ]
 
 { #category : #accessing }
