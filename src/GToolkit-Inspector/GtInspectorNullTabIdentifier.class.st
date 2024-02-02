@@ -6,6 +6,10 @@ Class {
 	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
+{ #category : #accessing }
+GtInspectorNullTabIdentifier >> applySelectionTo: anInspectorElement [
+]
+
 { #category : #testing }
 GtInspectorNullTabIdentifier >> matchesTab: aTabModel [
 	^ false
