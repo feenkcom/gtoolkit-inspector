@@ -1,6 +1,11 @@
 Extension { #name : #DateAndTime }
 
 { #category : #'*GToolkit-Inspector' }
+DateAndTime >> gtSpecificSizeInMemory [
+	^ self sizeInMemory + offset sizeInMemory
+]
+
+{ #category : #'*GToolkit-Inspector' }
 DateAndTime >> gtViewDetailsIn: composite [
 	<gtView>
 	^ composite columnedList

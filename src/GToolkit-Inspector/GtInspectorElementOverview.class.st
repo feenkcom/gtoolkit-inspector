@@ -282,27 +282,6 @@ GtInspectorElementOverview >> elementExtent [
 ]
 
 { #category : #'element - visual' }
-GtInspectorElementOverview >> elementFocusName [
-	"hasFocus: Return true if the inspected element is focused 
-		or contains a focused element.
-	isFocused: Returns true if the inspected element is focused.
-	
-	Note: It is possible that an element has focus but is not focused by itself"
-
-	| isFocused hasFocus |
-	hasFocus := self elementHasFocus.
-	isFocused := self elementIsFocused.
-
-	hasFocus & isFocused ifTrue: [ ^ 'I am focused' ].
-	hasFocus & isFocused not ifTrue: [ ^ 'A child is focused' ].
-	hasFocus not & isFocused ifTrue: [ ^ 'has not focus and is focused' ].
-	hasFocus not & isFocused not
-		ifTrue: [ ^ 'neither I nor the children are focused' ].
-
-	^ '?'
-]
-
-{ #category : #'element - visual' }
 GtInspectorElementOverview >> elementFocusability [
 	^ inspectedElement focusability
 ]
@@ -334,6 +313,27 @@ GtInspectorElementOverview >> elementFocusabilityName [
 	^ '{1}, {2}'
 		format: {self elementFocusability.
 				aDescription ifNil: [ '?' ]}
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementFocusName [
+	"hasFocus: Return true if the inspected element is focused 
+		or contains a focused element.
+	isFocused: Returns true if the inspected element is focused.
+	
+	Note: It is possible that an element has focus but is not focused by itself"
+
+	| isFocused hasFocus |
+	hasFocus := self elementHasFocus.
+	isFocused := self elementIsFocused.
+
+	hasFocus & isFocused ifTrue: [ ^ 'I am focused' ].
+	hasFocus & isFocused not ifTrue: [ ^ 'A child is focused' ].
+	hasFocus not & isFocused ifTrue: [ ^ 'has not focus and is focused' ].
+	hasFocus not & isFocused not
+		ifTrue: [ ^ 'neither I nor the children are focused' ].
+
+	^ '?'
 ]
 
 { #category : #'element - visual' }
