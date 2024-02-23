@@ -6,6 +6,7 @@ Exception >> gtDebugActionFor: anAction [
 	signalContext ifNil: [ ^ anAction noAction ].
 	^ anAction button 
 		icon: BrGlamorousVectorIcons debug;
+		tooltip: 'Debug';
 		action: [ [ self debug ] fork ]
 ]
 
