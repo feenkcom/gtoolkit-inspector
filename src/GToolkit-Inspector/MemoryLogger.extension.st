@@ -5,7 +5,7 @@ MemoryLogger >> gtGroupedFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Grouped';
-		items: [ (self recordings reverse groupedBy: [ :each | each class ]) associations sort: [ :a :b | a key name < b key name ] ];
+		items: [ (self recordings  groupedBy: [ :each | each class ]) associations sort: [ :a :b | a key name < b key name ] ];
 		updateWhen: Announcement in: [ self announcer ];
 		column: 'Class' text: [ :each | each key asString ];
 		column: 'Instances' 
