@@ -19,6 +19,7 @@ MemoryLogger >> gtGroupedFor: aView [
 				ifFalse: [ 
 					aLogger := (self class withRecordings: anAssoc value).
 					aLogger name: anAssoc key name, ' from ', self name.
+					aLogger initializeInterestingSubscriptionsWith: interestingAnnouncements.
 					aLogger ] ];
 		actionUpdateButton
 ]
