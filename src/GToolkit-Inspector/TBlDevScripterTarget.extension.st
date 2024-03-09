@@ -6,7 +6,7 @@ TBlDevScripterTarget >> gtScripterStepTargetsFor: aView [
 	
 	^ aView columnedList
 		title: 'Available targets';
-		priority: 2.2;
+		priority: 40;
 		items: [
 			((GtPhlowCollector new
 				fromObject: self;
