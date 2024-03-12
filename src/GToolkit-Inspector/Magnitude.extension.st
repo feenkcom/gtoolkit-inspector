@@ -11,11 +11,12 @@ Magnitude >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Preview';
+		priority: 1;
 		stencil: [ 
 			| aNumberElement |
 			aNumberElement := BrLabel new 
-				text: self asString;
-				aptitude: BrGlamorousLabelAptitude + BrShadowAptitude;
+				text: self gtDisplayString;
+				aptitude: (BrGlamorousLabelAptitude new fontSize: 20) + BrShadowAptitude;
 				background: Color white;
 				margin: (BlInsets all: 20);
 				padding: (BlInsets all: 10);

@@ -7,7 +7,7 @@ Character >> gtPreviewFor: aView [
 		title: 'Preview';
 		priority: 10;
 		glamorousCodeFontAndSize;
-		fontSize: 64;
+		fontSize: 30;
 		text: [ self ]
 ]
 
