@@ -94,6 +94,11 @@ ProtoObject >> gtIcon [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtIconName [
+	^ #empty
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtInspect [ 
 	^ (GtInspector openOn: self) maximized
 ]
