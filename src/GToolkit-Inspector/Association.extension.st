@@ -5,7 +5,7 @@ Association >> gtAssociationViewLiveFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Value';
-		priority: 1;
+		priority: 2;
 		object: [ self value ];
 		view: #gtLiveFor:;
 		actionButtonIcon: BrGlamorousVectorIcons inspect 
@@ -19,6 +19,7 @@ Association >> gtPreviewFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Preview';
+		priority: 1;
 		stencil: [ self newPreviewStencil ]
 ]
 

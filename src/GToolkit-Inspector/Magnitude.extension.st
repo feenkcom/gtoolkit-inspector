@@ -1,6 +1,17 @@
 Extension { #name : #Magnitude }
 
 { #category : #'*GToolkit-Inspector' }
+Magnitude >> formatNanoseconds: nanoseconds [
+	| n len |
+	n := nanoseconds.
+	len := 9.
+	[ n \\ 10 = 0 ]
+		whileTrue: [ n := n / 10.
+			len := len - 1 ].
+	^ n printStringBase: 10 length: len padded: true
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Magnitude >> gtLiveFor: aView [
 
 	^ self gtPreviewFor: aView
@@ -32,4 +43,38 @@ Magnitude >> gtPreviewFor: aView [
 					c horizontal matchParent];
 				layout: BlFrameLayout new;
 				addChild: aNumberElement ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+Magnitude >> newLabel: label withLegend: legend primary: primary [
+	| container largeLabel smallLabel center |
+	container := BlElement new
+			layout: BlLinearLayout vertical;
+			constraintsDo: [ :c | 
+				c horizontal fitContent.
+				c vertical fitContent ].
+	largeLabel := BrLabel new
+			aptitude: (BrGlamorousLabelAptitude new
+					perform: (primary ifTrue: #yourself ifFalse: #thin);
+					foreground: (primary ifTrue: [ Color black ] ifFalse: [ Color gray ]);
+					fontSize: 32);
+			text: label.
+	container addChild: largeLabel.
+	legend
+		ifNotNil: [ smallLabel := BrLabel new
+					aptitude: (BrGlamorousLabelAptitude new thin
+							foreground: Color gray;
+							fontSize: 10);
+					text: legend;
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ].
+			center := BlElement new
+					constraintsDo: [ :c | 
+						c horizontal matchParent.
+						c vertical matchParent ];
+					layout: BlLinearLayout new alignCenter.
+			center addChild: smallLabel.
+			container addChild: center ].
+	^ container
 ]
