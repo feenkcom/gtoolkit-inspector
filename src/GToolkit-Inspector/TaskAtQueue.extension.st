@@ -17,5 +17,6 @@ TaskAtQueue >> gtItemsFor: aView [
 					ifTrue: [ item valuable receiver ]
 					ifFalse: [ '' ] ];
 		column: 'Valuable'
-			text: [ :item | item valuable ]
+			text: [ :item | item valuable ];
+		actionUpdateButton
 ]
