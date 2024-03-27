@@ -87,7 +87,7 @@ Context >> gtVariablesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Context >> gtViewLiveBlElementFor: aView [
 	<gtView>
-	(self receiver isKindOf: BlElement) ifFalse: [ ^ aView empty ].
+	(self receiver class includesBehavior: BlElement) ifFalse: [ ^ aView empty ].
 	
 	^ aView forward
 		title: 'Live Element';
