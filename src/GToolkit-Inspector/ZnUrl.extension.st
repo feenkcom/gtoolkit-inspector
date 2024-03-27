@@ -22,12 +22,94 @@ ZnUrl >> gtCopyActionFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ZnUrl >> gtPreviewFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Preview';
+		priority: 10;
+		stencil: [ | container |
+			container := BlElement new
+					layout: BlLinearLayout horizontal;
+					padding: (BlInsets all: 5);
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ].
+			container addChild: (self
+				newLabel: self scheme
+				withLegend: 'scheme'
+				primary: true).
+			container addChild: (self
+				newLabel: '://'
+				withLegend: nil
+				primary: false).
+			self hasUsername 
+				ifTrue: [
+					container addChild: (self
+						newLabel: self username
+						withLegend: 'username'
+						primary: true).
+					self hasPassword
+						ifTrue: [
+							container addChild: (self
+								newLabel: ':'
+								withLegend: nil
+								primary: false).
+							container addChild: (self
+								newLabel: self password
+								withLegend: 'password'
+								primary: true) ]. 
+					container addChild: (self
+						newLabel: '@'
+						withLegend: nil
+						primary: false) ].
+			container addChild: (self
+				newLabel: self host
+				withLegend: 'host'
+				primary: true).
+			self hasPort
+				ifTrue: [
+					container addChild: (self
+						newLabel: ':'
+						withLegend: nil
+						primary: false).
+					container addChild: (self
+						newLabel: self port
+						withLegend: 'port'
+						primary: true) ].
+			container addChild: (self
+						newLabel: self pathPrintString
+						withLegend: (self isSlash ifTrue: [ nil ] ifFalse: [ 'path' ])
+						primary: true).
+			self hasQuery
+				ifTrue: [
+					container addChild: (self
+						newLabel: '?'
+						withLegend: nil
+						primary: false).
+					container addChild: (self
+						newLabel: (String streamContents: [ :out | self printQueryOn: out ]) allButFirst
+						withLegend: 'query'
+						primary: true) ].
+			self hasFragment
+				ifTrue: [
+					container addChild: (self
+						newLabel: '#'
+						withLegend: nil
+						primary: false).
+					container addChild: (self
+						newLabel: self fragment
+						withLegend: 'fragment'
+						primary: true) ].
+			container ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ZnUrl >> gtQueryFor: aView [
 	<gtView>
 	query ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		  title: 'Query';
-		  priority: 3;
+		  priority: 30;
 		  items: [ query associations ];
 		  column: 'Property' text: #key;
 		  column: 'Value' text: #value weight: 3;
@@ -40,7 +122,7 @@ ZnUrl >> gtSegmentsFor: aView [
 	segments ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		  title: 'Segments';
-		  priority: 2;
+		  priority: 25;
 		  items: [ segments ];
 		  column: 'Index' text: [ :_ :index | index ];
 		  column: 'Value' text: #yourself weight: 3 
@@ -51,7 +133,7 @@ ZnUrl >> gtUrlFor: aView [
 	<gtView>
 	^ aView columnedList
 		  title: 'URL';
-		  priority: 1;
+		  priority: 20;
 		  items: [ {
 			"Note: we show the internal values, not the external encoded representation"
 			{ 'URL' . self printString . self }.
@@ -82,4 +164,38 @@ ZnUrl >> gtUrlFor: aView [
 		  column: 'Key' text: #first;
 		  column: 'Value' text: #second weight: 5;
 		  send: #last
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ZnUrl >> newLabel: label withLegend: legend primary: primary [
+	| container largeLabel smallLabel center |
+	container := BlElement new
+			layout: BlLinearLayout vertical;
+			constraintsDo: [ :c | 
+				c horizontal fitContent.
+				c vertical fitContent ].
+	largeLabel := BrLabel new
+			aptitude: (BrGlamorousLabelAptitude new
+					perform: (primary ifTrue: #yourself ifFalse: #thin);
+					foreground: (primary ifTrue: [ Color black ] ifFalse: [ Color gray ]);
+					fontSize: 32);
+			text: label.
+	container addChild: largeLabel.
+	legend
+		ifNotNil: [ smallLabel := BrLabel new
+					aptitude: (BrGlamorousLabelAptitude new thin
+							foreground: Color gray;
+							fontSize: 10);
+					text: legend;
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ].
+			center := BlElement new
+					constraintsDo: [ :c | 
+						c horizontal matchParent.
+						c vertical matchParent ];
+					layout: BlLinearLayout new alignCenter.
+			center addChild: smallLabel.
+			container addChild: center ].
+	^ container
 ]
