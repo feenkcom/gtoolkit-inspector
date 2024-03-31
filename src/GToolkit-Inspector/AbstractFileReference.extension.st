@@ -237,6 +237,7 @@ AbstractFileReference >> gtJsonFor: aView [
 		title: 'JSON';
 		priority: 1;
 		actionButtonIcon: BrGlamorousIcons tree 
+			tooltip: 'Inspect parsed JSON'
 			action: [ :aButton | 
 				aButton phlow spawnObject: (
 					STONJSON fromString: self contents) ];
