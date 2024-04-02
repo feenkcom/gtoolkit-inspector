@@ -57,14 +57,16 @@ DateAndTime >> gtPreviewFor: aView [
 						newLabel: (self seconds printStringPadded: 2)
 						withLegend: 'seconds'
 						primary: true).
-			container addChild: (self
-						newLabel: '.'
-						withLegend: nil
-						primary: false).
-			container addChild: (self
-						newLabel: (self formatNanoseconds: self nanoSecond)
-						withLegend: 'nanoseconds'
-						primary: false).
+			self nanoSecond = 0
+				ifFalse: [
+					container addChild: (self
+								newLabel: '.'
+								withLegend: nil
+								primary: false).
+					container addChild: (self
+								newLabel: (self formatNanoseconds: self nanoSecond)
+								withLegend: 'nanoseconds'
+								primary: false) ].
 			container addChild: (self
 						newLabel: (self offset positive ifTrue: [ '+' ] ifFalse: [ '-' ])
 						withLegend: nil
