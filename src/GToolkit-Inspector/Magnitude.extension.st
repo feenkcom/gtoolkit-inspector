@@ -3,6 +3,7 @@ Extension { #name : #Magnitude }
 { #category : #'*GToolkit-Inspector' }
 Magnitude >> formatNanoseconds: nanoseconds [
 	| n len |
+	nanoseconds = 0 ifTrue: [ ^ '0' ].
 	n := nanoseconds.
 	len := 9.
 	[ n \\ 10 = 0 ]
