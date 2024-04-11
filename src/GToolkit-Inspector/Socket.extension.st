@@ -40,11 +40,13 @@ Socket >> gtViewSocketOptionsFor: aView [
 		title: 'Socket options';
 		priority: 60;
 		items: [ 
-			self gtKnownSocketOptions sorted collect: [ :each | | result |
-				result := [ self getOption: each ]
+			self gtKnownSocketOptions sorted 
+				collect: [ :each | | result |
+					result := [ self getOption: each ]
 								on: PrimitiveFailed do: [ #(nil nil) ].
-				{ each . result second . result first } ] ];
+					{ each . result second . result first } ] 
+				thenReject: [ :each | each second isNil ] ];
 		column: 'Option' text: #first;
-		column: 'Value' text: [ :each | each second ifNil: [ '' ] ifNotNil: [ :value | value ] ];
-		column: 'Readonly' text: [ :each | each third ifNil: [ '' ] ifNotNil: [ :value | value = -1 ] ]
+		column: 'Value' text: #second;
+		column: 'Readonly' text: [ :each | each = -1 ]
 ]
