@@ -6,29 +6,29 @@ Integer >> gtPreviewFor: aView [
 	^ aView explicit
 		title: 'Preview';
 		priority: 1;
-		stencil: [ 
-			| aNumberElement |
-			aNumberElement := BrLabel new 
-				text: (String streamContents: [ :out |
-							self
-								printSeparatedBy: Character space
-								every: 3
-								signed: false
-								on: out ]);
-				aptitude: (BrGlamorousLabelAptitude new fontSize: 20) + BrShadowAptitude;
-				background: Color white;
-				margin: (BlInsets all: 20);
-				padding: (BlInsets all: 10);
-				layout: BlLinearLayout horizontal;
+		stencil: [ | thousandsGroups container |
+			thousandsGroups := $| split: (String streamContents: [ :out |
+				self printSeparatedBy: $| every: 3 signed: false on: out ]).
+			container := BlElement new
+				layout: (BlLinearLayout horizontal cellSpacing: 1);
+				margin: (BlInsets all: 4);
 				constraintsDo: [ :c | 
-					c vertical fitContent.
 					c horizontal fitContent.
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ].
-			BlElement new 
-				constraintsDo: [:c | 
-					c vertical matchParent.
-					c horizontal matchParent];
-				layout: BlFrameLayout new;
-				addChild: aNumberElement ]
+					c vertical fitContent ].
+			thousandsGroups do: [ :each | | thousandsContainer |
+				thousandsContainer := BlElement new
+					layout: BlLinearLayout vertical;
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ].
+				thousandsContainer addChild: (BrLabel new
+					aptitude: (BrGlamorousLabelAptitude new fontSize: 32);
+					text: each).
+				thousandsContainer addChild: (BlElement new 
+					background: Color gray; 
+					height: 1;
+					margin: (BlInsets all: 4);
+					constraintsDo: [ :c | c horizontal matchParent ]).
+				container addChild: thousandsContainer ].
+			container ]
 ]
