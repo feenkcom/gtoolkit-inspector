@@ -4,11 +4,11 @@ Extension { #name : #ProtoObject }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction explicit
-		priority: 1;
+		priority: 70;
 		stencil: [ | button |
 			button := BrButton new
 					aptitude: BrGlamorousButtonWithIconAptitude;
-					label: 'Browse class';
+					label: 'Browse class for current object';
 					icon: BrGlamorousVectorIcons emphasizedBrowse;
 					action: [ :aButton :aModel :anEvent | 
 						aButton phlow
@@ -33,13 +33,13 @@ ProtoObject >> gtActionBrowseFor: anAction [
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction explicit
-		priority: 2;
+		priority: 75;
 		stencil: [ | button |
 			button := BrButton new
 					id: GtInspectorInspectButtonId;
 					aptitude: BrGlamorousButtonWithIconAptitude;
 					icon: BrGlamorousVectorIcons inspect;
-					label: 'Inspect Object';
+					label: 'Inspect current object';
 					action: [ :aButton :aModel :anEvent | 
 						| aTool |
 						aTool := self gtDefaultInspectorTool.

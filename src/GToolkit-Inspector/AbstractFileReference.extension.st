@@ -293,7 +293,7 @@ AbstractFileReference >> gtPathFor: aView [
 													label: 'Make directory';
 													action: [ :aButton | 
 														aFileReference ensureCreateDirectory.
-														aButton phlow fireUpdateWish ]).
+														aButton phlow fireToolUpdateWish ]).
 										anIndex = aCount
 											ifTrue: [ aPane
 													addChild: (BrButton new
@@ -303,7 +303,7 @@ AbstractFileReference >> gtPathFor: aView [
 															label: 'Make empty file';
 															action: [ :aButton | 
 																aFileReference binaryWriteStreamDo: [ :aStream |  ].
-																aButton phlow fireUpdateWish ]) ] ];
+																aButton phlow fireToolUpdateWish ]) ] ];
 									yourself ] ] ];
 		actionUpdateButton
 ]
