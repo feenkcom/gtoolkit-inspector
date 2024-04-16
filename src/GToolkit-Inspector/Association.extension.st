@@ -28,12 +28,12 @@ Association >> newPreviewStencil [
 	| aContainer aKeyElement anArrowElement aValueElement |
 	aKeyElement := BrButton new
 		aptitude: BrGlamorousButtonWithLabelAptitude;
-		label: self key printString;
+		label: (self key printStringLimitedTo: 32);
 		action: [ :aButton | aButton phlow spawnObject: self key ];
 		constraintsDo: [ :c | c linear horizontal alignCenter ].
 	aValueElement := BrButton new
 		aptitude: BrGlamorousButtonWithLabelAptitude;
-		label: self value printString;
+		label: (self value printStringLimitedTo: 32);
 		action: [ :aButton | aButton phlow spawnObject: self value ];
 		constraintsDo: [ :c | c linear horizontal alignCenter ].
 	anArrowElement := BrGlamorousVectorIcons right asElement
