@@ -90,6 +90,59 @@ AbstractFileReference >> gtContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtDetails [
+	| details |
+	details := {
+		{ #self . self }.
+		{ #printString. self printString }.
+		{ #gtDisplayString. self gtDisplayString }.
+		{ #pathString . self pathString }.
+		{ #URL . 
+			(self isAbsolute and: [ self path isAbsolute ]) 
+				ifTrue: [ self asUrl ] 
+				ifFalse: [ '' ] }.
+		{ #base . self base }.
+		{ #basename . self basename }.
+		{ #extension . self extension }.
+		{ #parent . self parent }.
+		{ #path . self path }.
+		{ #fileSystem . self fileSystem }.
+		{ #exists . self exists }.
+		{ #isFile . self isFile }.
+		{ #isDirectory . self isDirectory }.
+		{ #isAbsolute . self isAbsolute }.
+		{ #isRelative . self isRelative }.
+		{ #isReadable . self isReadable }.
+		{ #isWritable . self isWritable }.
+	}.
+	self exists ifTrue: [
+		details := details , {
+			{ #size . self humanReadableSize . self size }.
+			{ #uid . self uid }.
+			{ #gid . self gid }.
+			{ #inode . self inode }.
+			{ #creationTime . self creationTime }.
+			{ #modificationTime . self modificationTime }.
+			{ #changeTime . self changeTime }.
+			{ #accessTime . self accessTime }.
+			{ #permissions . self permissions }.
+	} ].
+	^ details
+]
+
+{ #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtDetailsFor: composite [
+	<gtView>
+	^ composite columnedList
+		title: 'Details';
+		priority: 60;
+		items: [ self gtDetails ];
+		column: 'key' text: #first;
+		column: 'value' text: #second weight: 3;
+		send: #last
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtEditorView [
 	| pane editor editorPane changeBlock originalText toolbar saveBlock |
 	originalText := BlRunRopedText file: self.
