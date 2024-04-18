@@ -106,17 +106,19 @@ AbstractFileReference >> gtDetails [
 		{ #extension . self extension }.
 		{ #parent . self parent }.
 		{ #path . self path }.
+		{ #fullPath . self fullPath }.
+		{ #absolutePath . self absolutePath }. 
 		{ #fileSystem . self fileSystem }.
 		{ #exists . self exists }.
 		{ #isFile . self isFile }.
 		{ #isDirectory . self isDirectory }.
 		{ #isAbsolute . self isAbsolute }.
 		{ #isRelative . self isRelative }.
-		{ #isReadable . self isReadable }.
-		{ #isWritable . self isWritable }.
 	}.
 	self exists ifTrue: [
 		details := details , {
+			{ #isReadable . self isReadable }.
+			{ #isWritable . self isWritable }.
 			{ #size . self humanReadableSize . self size }.
 			{ #uid . self uid }.
 			{ #gid . self gid }.
