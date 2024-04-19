@@ -34,72 +34,70 @@ ZnUrl >> gtPreviewFor: aView [
 					constraintsDo: [ :c | 
 						c horizontal fitContent.
 						c vertical fitContent ].
-			container addChild: (self
-				newLabel: self scheme
-				withLegend: 'scheme'
-				primary: true).
-			container addChild: (self
-				newLabel: '://'
-				withLegend: nil
-				primary: false).
-			self hasUsername 
-				ifTrue: [
-					container addChild: (self
-						newLabel: self username
-						withLegend: 'username'
-						primary: true).
-					self hasPassword
-						ifTrue: [
-							container addChild: (self
-								newLabel: ':'
-								withLegend: nil
-								primary: false).
-							container addChild: (self
-								newLabel: self password
-								withLegend: 'password'
-								primary: true) ]. 
-					container addChild: (self
-						newLabel: '@'
-						withLegend: nil
-						primary: false) ].
-			container addChild: (self
-				newLabel: self host
-				withLegend: 'host'
-				primary: true).
-			self hasPort
-				ifTrue: [
+			self hasScheme ifTrue: [
+				container addChild: (self 
+					newLabel: self scheme
+					withLegend: 'scheme'
+					primary: true).
+				container addChild: (self
+					newLabel: '://'
+					withLegend: nil
+					primary: false) ].
+			self hasUsername ifTrue: [
+				container addChild: (self
+					newLabel: self username
+					withLegend: 'username'
+					primary: true).
+				self hasPassword ifTrue: [
 					container addChild: (self
 						newLabel: ':'
 						withLegend: nil
 						primary: false).
 					container addChild: (self
-						newLabel: self port
-						withLegend: 'port'
-						primary: true) ].
-			container addChild: (self
-						newLabel: self pathPrintString
-						withLegend: (self isSlash ifTrue: [ nil ] ifFalse: [ 'path' ])
-						primary: true).
-			self hasQuery
-				ifTrue: [
-					container addChild: (self
-						newLabel: '?'
-						withLegend: nil
-						primary: false).
-					container addChild: (self
-						newLabel: (String streamContents: [ :out | self printQueryOn: out ]) allButFirst
-						withLegend: 'query'
-						primary: true) ].
-			self hasFragment
-				ifTrue: [
-					container addChild: (self
-						newLabel: '#'
-						withLegend: nil
-						primary: false).
-					container addChild: (self
-						newLabel: self fragment
-						withLegend: 'fragment'
-						primary: true) ].
+						newLabel: self password
+						withLegend: 'password'
+						primary: true) ]. 
+				container addChild: (self
+					newLabel: '@'
+					withLegend: nil
+					primary: false) ].
+			self hasHost ifTrue: [ 
+				container addChild: (self
+					newLabel: self host
+					withLegend: 'host'
+					primary: true) ].
+			self hasPort ifTrue: [
+				container addChild: (self
+					newLabel: ':'
+					withLegend: nil
+					primary: false).
+				container addChild: (self
+					newLabel: self port
+					withLegend: 'port'
+					primary: true) ].
+			self hasPath ifTrue: [
+				container addChild: (self
+					newLabel: self pathPrintString
+					withLegend: (self isSlash ifTrue: [ nil ] ifFalse: [ 'path' ])
+					primary: true) ].
+			self hasQuery ifTrue: [
+				container addChild: (self
+					newLabel: '?'
+					withLegend: nil
+					primary: false).
+				container addChild: (self
+					newLabel: (String streamContents: [ :out | self printQueryOn: out ]) allButFirst
+					withLegend: 'query'
+					primary: true) ].
+			self hasFragment ifTrue: [
+				container addChild: (self
+					newLabel: '#'
+					withLegend: nil
+					primary: false).
+				container addChild: (self
+					newLabel: self fragment
+					withLegend: 'fragment'
+					primary: true) ].
 			container ]
 ]
 

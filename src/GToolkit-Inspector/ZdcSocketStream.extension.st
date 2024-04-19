@@ -5,7 +5,7 @@ ZdcSocketStream >> gtLiveTranscriptFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Live';
-		priority: 0;
+		priority: 150;
 		object: [self liveTranscript];
 		view: #gtLiveFor:
 ]
