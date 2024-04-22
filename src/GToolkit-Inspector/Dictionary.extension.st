@@ -10,14 +10,17 @@ Dictionary >> gtItemsFor: aView [
 		children: [ :each | 
 			each value isDictionary
 				ifTrue: [ each value associations ]
-				ifFalse: [ (each value isArray and: [ each value allSatisfy: #isDictionary ])
+				ifFalse: [ 
+					(each value isArray and: [ each value allSatisfy: #isDictionary ])
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
 						ifFalse: [ #() ] ] ];
 		column: 'Key' text: [ :assoc | assoc key ];
 		column: 'Value' text: [ :assoc | assoc value ] weight: 3;
-		contextItemLabel: 'Inspect key' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value key ];
-		contextItemLabel: 'Inspect association' action: [ :anElement :assoc | anElement phlow spawnObject: assoc value ];
-		send: [ :assoc | assoc value value ]
+		contextItemLabel: 'Inspect key' action: [ :anElement :aTreeNode | 
+			anElement phlow spawnObject: aTreeNode value key ];
+		contextItemLabel: 'Inspect association' action: [ :anElement :aTreeNode | 
+			anElement phlow spawnObject: aTreeNode value ];
+		send: [ :assoc | assoc value  ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
