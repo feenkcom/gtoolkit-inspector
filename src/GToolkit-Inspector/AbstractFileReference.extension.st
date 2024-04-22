@@ -305,7 +305,10 @@ AbstractFileReference >> gtJsonFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPathFor: aView [
 	<gtView>
+	<gtContextView: #FileSystemError>
+	
 	| aCount |
+	
 	aCount := 0.
 	^ aView columnedList
 		title: 'Path';
