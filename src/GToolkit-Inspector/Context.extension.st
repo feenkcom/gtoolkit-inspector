@@ -76,7 +76,7 @@ Context >> gtVariables [
 Context >> gtVariablesFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Variables';
+		title: 'Context Variables';
 		priority: 20;
 		items: [ self gtVariables ];
 		column: 'Name' text: #key;
