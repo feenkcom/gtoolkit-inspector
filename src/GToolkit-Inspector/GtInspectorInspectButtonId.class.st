@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorInspectButtonId,
 	#superclass : #BlElementUniqueId,
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Ids'
 }
 
 { #category : #converting }
