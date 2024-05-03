@@ -26,7 +26,10 @@ RBProgramNode >> gtSourceCodeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ :aButton | self methodNode compiledMethod gtBrowseFrom: aButton ];
-		stencil: [ ((GtPharoMethodCoder forMethod: self methodNode compiledMethod)
+		stencil: [ ((self methodNode compilationContext
+				ifNil: [ (GtPharoMethodCoder forNewMethod: Object)
+						sourceCode: (GtCoderExplicitTextSource new text: self methodNode formattedCode) ]
+				ifNotNil: [ GtPharoMethodCoder forMethod: self methodNode compiledMethod ])
 				highlighter: (GtRBPatternHighlighter new ast: self);
 				asExpandedOnlyElement) vFitContentLimited ]
 ]
