@@ -43,3 +43,20 @@ GtFileUtility class >> imageFromFromFileReference: aFileReference [
 		start: 0 
 		end: buffer size - 1) asForm
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+GtFileUtility class >> svgElementFromFileReference: aFileReference [
+	"It returns a text editor if an unsupported image"
+	<return: #BlElement> 
+	| image |
+
+	aFileReference exists ifFalse: [^ BlElement new asPannableElement].
+	
+	image := BlSkiaSvgElement new.
+	image svg: aFileReference contents.
+	
+	^ image
+		constraintsDo: [ :c |
+					c vertical matchParent.
+					c horizontal matchParent. ]
+]
