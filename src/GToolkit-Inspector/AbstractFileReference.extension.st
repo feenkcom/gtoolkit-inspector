@@ -404,6 +404,19 @@ AbstractFileReference >> gtSaveContents: newContents [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtSvgFor: aView [
+	<gtView>
+	(self isFile and: [ 
+		self extension asLowercase = 'svg' ]) ifFalse: [ ^ aView empty ].
+
+	^ aView explicit
+		title: 'Svg';
+		priority: 10;
+		stencil: [
+			(GtFileUtility svgElementFromFileReference: self) margin: (BlInsets all: 10) ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtTreeFor: aView [
 	<gtView>
 	self isDirectory
