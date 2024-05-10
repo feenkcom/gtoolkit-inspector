@@ -209,7 +209,9 @@ GtInspectorElementOverview >> buildVisualProperties [
 			('Focusability ({1})' format: {self elementFocusabilityName})
 				-> [ self spawnFocusability ].
 			('Focus ({1})' format: {self elementFocusName})
-				-> [ self spawnFocus ]}.
+				-> [ self spawnFocus ].
+			('Elevation ({1})' format: {self elementElevationName})
+				-> [ self spawnElevation ]}.
 
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
@@ -259,6 +261,16 @@ GtInspectorElementOverview >> elementClipChildrenName [
 	^ self elementClipChildren
 		ifTrue: [ 'yes' ]
 		ifFalse: [ 'no' ]
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementElevation [
+	^ inspectedElement elevation
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementElevationName [
+	^ self elementElevation gtDisplayString
 ]
 
 { #category : #'element - events' }
@@ -564,6 +576,11 @@ GtInspectorElementOverview >> spawnElementId [
 { #category : #'element - user data' }
 GtInspectorElementOverview >> spawnElementSpace [
 	self phlow spawnObject: self elementSpace
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnElevation [
+	self phlow spawnObject: self elementElevation
 ]
 
 { #category : #'element - events' }
