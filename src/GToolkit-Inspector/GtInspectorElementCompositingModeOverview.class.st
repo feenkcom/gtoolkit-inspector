@@ -109,3 +109,10 @@ GtInspectorElementCompositingModeOverview >> parentWithBufferedLayer [
 
 	^ nil
 ]
+
+{ #category : #printing }
+GtInspectorElementCompositingModeOverview >> printOn: aStream [
+	aStream
+		nextPutAll: 'Compositing mode overview of ';
+		print: inspectedElement
+]
