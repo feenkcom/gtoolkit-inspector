@@ -28,6 +28,7 @@ ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 			([ ZnUTF8Encoder new decodeBytes: aDisplayedBytes ]
 				on: ZnCharacterEncodingError
 				do: [ :exception | exception ])).
+	('utf8 lossy' -> (ZnLossyUTF8Encoder new decodeBytesSingleReplacement: aDisplayedBytes)).
 	('integer' -> aDisplayedBytes asInteger).
 	('integer reversed' -> aDisplayedBytes reversed asInteger)}
 ]
