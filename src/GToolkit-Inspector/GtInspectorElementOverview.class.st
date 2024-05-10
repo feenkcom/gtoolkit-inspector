@@ -211,7 +211,9 @@ GtInspectorElementOverview >> buildVisualProperties [
 			('Focus ({1})' format: {self elementFocusName})
 				-> [ self spawnFocus ].
 			('Elevation ({1})' format: {self elementElevationName})
-				-> [ self spawnElevation ]}.
+				-> [ self spawnElevation ].
+			('Compositing mode ({1})' format: {self elementCompositingModeName})
+				-> [ self spawnCompositingMode ]}.
 
 	^ self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Visual');
@@ -261,6 +263,40 @@ GtInspectorElementOverview >> elementClipChildrenName [
 	^ self elementClipChildren
 		ifTrue: [ 'yes' ]
 		ifFalse: [ 'no' ]
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementCompositingMode [
+	<return: #BlCompositingMode>
+	^ inspectedElement compositingMode
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementCompositingModeName [
+	| anElementMode wantsElementMode wantsEffect wantsName wantsElement wantsParent wantsElementOrEffect parentName |
+	anElementMode := self elementCompositingMode.
+	wantsElementMode := anElementMode wantsCompositionLayer.
+	wantsEffect := inspectedElement effect wantsCompositionLayer.
+	wantsElement := inspectedElement wantsSeparateCompositingLayer.
+	wantsElementOrEffect := wantsEffect | wantsElement.
+	wantsParent := false.
+	inspectedElement
+		allParentsDo: [ :eachParent | eachParent compositingMode wantsBufferedLayer ifTrue: [ wantsParent := true ] ].
+	wantsParent
+		ifTrue: [ parentName := ', parent buffered layer' ]
+		ifFalse: [ parentName := ', no parent buffered layer' ].
+
+	wantsName := ''.
+	wantsElementMode & wantsEffect
+		ifTrue: [ wantsName := 'element and effect want' ].
+	wantsElementMode & wantsEffect not ifTrue: [ wantsName := 'element wants' ].
+	wantsElementMode not & wantsEffect ifTrue: [ wantsName := 'effect wants' ].
+	wantsElementMode not & wantsEffect not ifTrue: [ wantsName := 'no one wants' ].
+
+	^ '{1}, {2}{3}'
+		format: {wantsElement ifTrue: [ 'yes' ] ifFalse: [ 'no' ].
+				wantsName.
+				parentName}
 ]
 
 { #category : #'element - visual' }
@@ -561,6 +597,13 @@ GtInspectorElementOverview >> spawnChildren [
 { #category : #'element - visual' }
 GtInspectorElementOverview >> spawnClipChildren [
 	self phlow spawnObject: self elementClipChildren
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnCompositingMode [
+	self phlow
+		spawnObject: (GtInspectorElementCompositingModeOverview new
+				inspectedElement: inspectedElement)
 ]
 
 { #category : #'element - constraints' }
