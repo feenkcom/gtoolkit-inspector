@@ -5,6 +5,7 @@ GtPragmaType >> gtPragmasFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Pragmas';
+		priority: 1;
 		items: [ self pragmas ];
 		itemText: #gtDisplayString
 ]
