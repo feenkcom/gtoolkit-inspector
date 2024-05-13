@@ -119,6 +119,36 @@ BlScripter >> gtSpacePreview [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlScripter >> gtSpaceSimplePreview [
+	| aContainer |
+	aContainer := BrVerticalPane new matchParent.
+	(self space gtPreviewFor: GtPhlowEmptyView new)
+		asElementDo: [ :anElement |
+			aContainer when: BlClickEvent do: [ :anEvent |
+				self gtOnPreviewClickEvent: anEvent ].
+			aContainer addChild: anElement ].
+	^ aContainer
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlScripter >> gtSpaceSimplePreviewFor: aView [
+	space ifNil: [ ^ aView empty ].
+	element ifNil: [ ^ aView empty ].
+
+	^ aView explicit
+		title: 'Preview';
+		priority: 0;
+		stencil: [ self gtSpaceSimplePreview ];
+		actionButtonLabel: 'Open space'
+			tooltip: 'Open scripter space in a real window'
+			action: [ self showSpace ];
+		actionButtonIcon: BrGlamorousIcons inspect 
+			label: 'Element'
+			tooltip: 'Inspect element (remove it from the Scripter space)'
+			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlScripter >> gtStepsMondrianTreeFor: aView [
 	<gtView>
 	
