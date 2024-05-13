@@ -256,7 +256,7 @@ BlElement >> gtPropertiesFor: aView [
 
 	^ aView forward
 		title: 'Properties';
-		priority: 11;
+		priority: 12;
 		object: [ self properties ];
 		view: #gtPropertiesFor:
 ]
@@ -284,7 +284,7 @@ BlElement >> gtShortcutsFor: aView [
 	<gtView>
 	^ aView columnedList
 		  title: 'Shortcuts' translated;
-		  priority: 10;
+		  priority: 11;
 		  items: [ 
 			  | all |
 			  all := OrderedCollection new.
