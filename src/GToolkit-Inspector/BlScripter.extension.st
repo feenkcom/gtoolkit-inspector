@@ -65,6 +65,17 @@ BlScripter >> gtEventsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlScripter >> gtOnPreviewClickEvent: anEvent [
+	| aQuery aPreviewElement aLocalPosition aScripterElement |
+	aQuery := anEvent currentTarget query // #'element-preview--content'.
+	aQuery isEmpty ifTrue: [ ^ self ].
+	aPreviewElement := aQuery result anyOne.
+	aLocalPosition := aPreviewElement globalPointToLocal: anEvent position.
+	aScripterElement := self space mouseProcessor processPickingAt: aLocalPosition.
+	anEvent currentTarget phlow spawnObject: aScripterElement
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlScripter >> gtReveresedEventsFor: aView [
 	<gtView>
 	self events ifNil: [ ^ aView empty ].
@@ -101,8 +112,40 @@ BlScripter >> gtSpacePreview [
 			anElement
 				childWithId: #'element-preview--content'
 				ifFound: [ :aContent | self gtEventTracesIn: aContent ].
+			aContainer when: BlClickEvent do: [ :anEvent |
+				self gtOnPreviewClickEvent: anEvent ].
 			aContainer addChild: anElement ].
 	^ aContainer
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlScripter >> gtSpaceSimplePreview [
+	| aContainer |
+	aContainer := BrVerticalPane new matchParent.
+	(self space gtPreviewFor: GtPhlowEmptyView new)
+		asElementDo: [ :anElement |
+			aContainer when: BlClickEvent do: [ :anEvent |
+				self gtOnPreviewClickEvent: anEvent ].
+			aContainer addChild: anElement ].
+	^ aContainer
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlScripter >> gtSpaceSimplePreviewFor: aView [
+	space ifNil: [ ^ aView empty ].
+	element ifNil: [ ^ aView empty ].
+
+	^ aView explicit
+		title: 'Preview';
+		priority: 0;
+		stencil: [ self gtSpaceSimplePreview ];
+		actionButtonLabel: 'Open space'
+			tooltip: 'Open scripter space in a real window'
+			action: [ self showSpace ];
+		actionButtonIcon: BrGlamorousIcons inspect 
+			label: 'Element'
+			tooltip: 'Inspect element (remove it from the Scripter space)'
+			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
