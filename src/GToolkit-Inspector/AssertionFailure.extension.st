@@ -11,9 +11,9 @@ AssertionFailure >> gtScripter [
 					or: [ ctx hasTemporaryVariableNamed: #scripter ] ].
 	assertionContext ifNil: [ ^ nil ].
 
-	scripterValue := assertionContext readVariableNamed: #aScripter.
-	scripterValue
-		ifNil: [ scripterValue := assertionContext readVariableNamed: #scripter ].
+	scripterValue :=  (assertionContext hasTemporaryVariableNamed: #aScripter)
+		ifTrue: [ assertionContext readVariableNamed: #aScripter ]
+		ifFalse: [ assertionContext readVariableNamed: #scripter].
 
 	^ (scripterValue isKindOf: BlScripter)
 		ifTrue: [ scripterValue ]
