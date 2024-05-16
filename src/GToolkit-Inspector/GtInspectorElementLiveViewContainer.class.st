@@ -36,6 +36,17 @@ GtInspectorElementLiveViewContainer >> element: anElement [
 	BlUseAsyncFeatures ifDisabledDo: [ self updateElementLiveView ]
 ]
 
+{ #category : #'private - updating' }
+GtInspectorElementLiveViewContainer >> gtOnPreviewClickEvent: anEvent [
+	| aPreviewElement aLocalPosition aClickedElement aGlobalPosition |
+	element space ifNil: [ ^ self ].
+	aPreviewElement := anEvent currentTarget.
+	aLocalPosition := aPreviewElement globalPointToLocal: anEvent position.
+	aGlobalPosition := element localPointToGlobal: aLocalPosition.
+	aClickedElement := element findMouseEventTargetAt: aGlobalPosition.
+	aPreviewElement phlow spawnObject: aClickedElement
+]
+
 { #category : #initialization }
 GtInspectorElementLiveViewContainer >> initialize [
 	"The element should use {{gtClass:BasicLayout}} to be able to
@@ -189,14 +200,18 @@ GtInspectorElementLiveViewContainer >> updateAsElementLiveView [
 
 { #category : #'private - updating' }
 GtInspectorElementLiveViewContainer >> updateAsElementPreviewView [
-	| label previewContainer preview |
+	| label previewContainer scaledPreview preview |
 	self removeChildren.
 	self margin: (BlInsets all: 10).
-		
+
 	self layout: BlLinearLayout vertical.
-	
-	preview := element asSpartaForm asElement asScalableElement
-		maxScale: 1.0.
+
+	preview := element asSpartaForm asElement.
+	scaledPreview := preview asScalableElement maxScale: 1.0.
+
+	preview
+		when: BlClickEvent
+		do: [ :anEvent | self gtOnPreviewClickEvent: anEvent ].
 
 	previewContainer := BlElement new
 			aptitude: BrShadowAptitude;
@@ -205,7 +220,7 @@ GtInspectorElementLiveViewContainer >> updateAsElementPreviewView [
 			constraintsDo: [ :c | 
 				c horizontal matchParent.
 				c vertical matchParent ];
-			addChild: preview as: #preview.
+			addChild: scaledPreview as: #preview.
 
 	label := BrLabel new
 			aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
@@ -217,10 +232,8 @@ GtInspectorElementLiveViewContainer >> updateAsElementPreviewView [
 				c vertical fitContent.
 				c linear horizontal alignCenter ].
 
-	self 
-		addChild: previewContainer 
-		as: GtInspectorElementPreviewContainerId.
-	self addChild: label as: #description.
+	self addChild: previewContainer as: GtInspectorElementPreviewContainerId.
+	self addChild: label as: #description
 ]
 
 { #category : #'private - updating' }
