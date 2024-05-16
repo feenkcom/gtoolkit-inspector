@@ -55,19 +55,23 @@ Context >> gtVariables [
 	| aCollection |
 	aCollection := OrderedCollection new.
 
-	aCollection add: 'self' -> self receiver.
+	 GtPhlowOverviewItem new
+	 	name: 'sefl';
+	 	value: self receiver;
+	 	toCollection: aCollection.
 
 	self tempNames
 		do: [ :aTempName | 
 			| anAssoc |
-			anAssoc := aTempName
-					-> ([ self tempNamed: aTempName ]
-							on: Error
-							do: [ :anException | 
-								('Cannot read "{1}": {2}'
-									format: {aTempName.
-											anException}) asRopedText foreground: BrGlamorousColors errorBackgroundColor ]).
-			aCollection add: anAssoc ].
+			anAssoc := GtPhlowOverviewItem new
+					name: aTempName;
+					secureValue: [ self tempNamed: aTempName ];
+					ifExceptionValueDescription: [ :anException | 
+						('Cannot read "{1}": {2}'
+							format: {aTempName.
+									anException}) asRopedText
+							foreground: BrGlamorousColors errorBackgroundColor ];
+					toCollection: aCollection ].
 
 	^ aCollection
 ]
@@ -79,9 +83,9 @@ Context >> gtVariablesFor: aView [
 		title: 'Context Variables';
 		priority: 20;
 		items: [ self gtVariables ];
-		column: 'Name' text: #key;
-		column: 'Value' text: #value;
-		send: [ :anAssoc | anAssoc value ]
+		column: 'Name' text: #name;
+		column: 'Value' text: #description;
+		send: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
