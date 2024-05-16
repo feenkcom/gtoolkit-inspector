@@ -21,7 +21,7 @@ GtInspectorVariableNode >> childrenNodes [
 	| variableNodes |
 	
 	variableNodes := OrderedCollection new: self value class allSlots size.
-	variableNodes add: (GtInspectorSelfNode hostObject: self value).
+	"variableNodes add: (GtInspectorSelfNode hostObject: self value)."
 	self value gtInspectorVariableNodesIn: variableNodes.
 	
 	^ variableNodes
