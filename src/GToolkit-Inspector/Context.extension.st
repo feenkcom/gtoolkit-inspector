@@ -43,10 +43,10 @@ Context >> gtStackFor: aView [
 		itemText: [ :anItem | 
 			anItem isContext
 				ifTrue: [ anItem ]
-				ifFalse: [ anItem key asRopedText
+				ifFalse: [ anItem name asRopedText
 						append: ' := ' asRopedText;
 						foreground: BrGlamorousColors disabledButtonTextColor;
-						append: anItem value gtDisplayText ] ];
+						append: anItem description ] ];
 		send: [ :anItem | anItem isContext ifTrue: [ anItem ] ifFalse: [ anItem value ] ]
 ]
 
