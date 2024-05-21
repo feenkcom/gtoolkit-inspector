@@ -56,7 +56,7 @@ Context >> gtVariables [
 	aCollection := OrderedCollection new.
 
 	 GtPhlowOverviewItem new
-	 	name: 'sefl';
+	 	name: 'self';
 	 	value: self receiver;
 	 	toCollection: aCollection.
 
