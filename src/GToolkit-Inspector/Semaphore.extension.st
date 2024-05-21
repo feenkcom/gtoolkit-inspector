@@ -9,7 +9,8 @@ Semaphore >> gtDisplayOn: aStream [
 
 { #category : #'*GToolkit-Inspector' }
 Semaphore >> printOn: aStream [
-
+	<gtPharoPatch: #Pharo>
+	
 	self printNameOn: aStream.
 	(self isEmpty and: [ excessSignals = 0 ]) ifTrue: [ ^ self ].
 	aStream nextPut: $(.

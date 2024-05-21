@@ -22,6 +22,8 @@ MessageTally >> children [
 
 { #category : #'*GToolkit-Inspector' }
 MessageTally >> displayIdentifierOn: aStream [
+	<gtPharoPatch: #Pharo>
+	
 	class displayStringOn: aStream.
 	self method methodClass ~~ class 
 		ifTrue: [ aStream nextPut: $(; print: self method methodClass; nextPut: $) ].
