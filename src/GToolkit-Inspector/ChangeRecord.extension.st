@@ -6,5 +6,7 @@ ChangeRecord >> gtSourceFor: aView [
 	^ aView textEditor 
 		title: 'Source';
 		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: (BrRBTextStyler new
+			 classOrMetaClass: self methodClass);
 		text: [self sourceCode]
 ]
