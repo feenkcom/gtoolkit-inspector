@@ -154,7 +154,8 @@ ZnUrl >> gtUrlFor: aView [
 						self queryDo: [ :key :value |
 							first ifFalse: [ out nextPut: $& ].
 							first := false.
-							out nextPutAll: key; nextPut: $=; nextPutAll: value ] ] ]
+							out nextPutAll: key.
+							value ifNotNil: [ out nextPut: $=; nextPutAll: value ] ] ] ]
 				. self query }.
 			{ 'fragment'
 				. self fragment ifNil: [ '' ] ifNotNil: [ '#' , self fragment ]
