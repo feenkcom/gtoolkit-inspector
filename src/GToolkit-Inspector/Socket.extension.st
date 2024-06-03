@@ -27,7 +27,7 @@ Socket >> gtViewSocketInfoFor: aView [
 				at: #isUnconnectedOrInvalid put: self isUnconnectedOrInvalid;
 				at: #isValid put: self isValid;
 				at: #isWaitingForConnection put: self isWaitingForConnection.
-			] on: NetworkError, PrimitiveFailed do: [ :exception | 
+			] on: NetworkError, PrimitiveFailed, SocketError do: [ :exception | 
 				dictionary at: #EXCEPTION put: exception ].
 			dictionary ];
 		view: #gtItemsFor: 
@@ -43,7 +43,7 @@ Socket >> gtViewSocketOptionsFor: aView [
 			self gtKnownSocketOptions sorted 
 				collect: [ :each | | result |
 					result := [ self getOption: each ]
-								on: PrimitiveFailed do: [ #(nil nil) ].
+						on: PrimitiveFailed, SocketError do: [ #(nil nil) ].
 					{ each . result second . result first } ] 
 				thenReject: [ :each | each second isNil ] ];
 		column: 'Option' text: #first;
