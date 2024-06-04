@@ -7,6 +7,7 @@ Socket >> gtKnownSocketOptions [
 
 { #category : #'*GToolkit-Inspector' }
 Socket >> gtViewSocketInfoFor: aView [
+	"Provide an overview of the socket"
 	<gtView>
 	^ aView forward
 		title: 'Socket info';
@@ -27,14 +28,18 @@ Socket >> gtViewSocketInfoFor: aView [
 				at: #isUnconnectedOrInvalid put: self isUnconnectedOrInvalid;
 				at: #isValid put: self isValid;
 				at: #isWaitingForConnection put: self isWaitingForConnection.
-			] on: NetworkError, PrimitiveFailed, SocketError do: [ :exception | 
-				dictionary at: #EXCEPTION put: exception ].
+			] 
+				"Sockets signal SocketError instead of PrimitiveFailed in Pharo 11, 
+				PrimitiveFailed should be removed from here when Pharo 10 compatibility is dropped"
+				on: (ExceptionSet withClassNames: #(#NetworkError #PrimitiveFailed #SocketError))
+				do: [ :exception | dictionary at: #EXCEPTION put: exception ].
 			dictionary ];
 		view: #gtItemsFor: 
 ]
 
 { #category : #'*GToolkit-Inspector' }
 Socket >> gtViewSocketOptionsFor: aView [
+	"Display the socket's options"
 	<gtView>
 	^ aView columnedList
 		title: 'Socket options';
@@ -43,7 +48,10 @@ Socket >> gtViewSocketOptionsFor: aView [
 			self gtKnownSocketOptions sorted 
 				collect: [ :each | | result |
 					result := [ self getOption: each ]
-						on: PrimitiveFailed, SocketError do: [ #(nil nil) ].
+						"Sockets signal SocketError instead of PrimitiveFailed in Pharo 11, 
+						PrimitiveFailed should be removed from here when Pharo 10 compatibility is dropped"
+						on: (ExceptionSet withClassNames: #(#PrimitiveFailed #SocketError))
+						do: [ #(nil nil) ].
 					{ each . result second . result first } ] 
 				thenReject: [ :each | each second isNil ] ];
 		column: 'Option' text: #first;
