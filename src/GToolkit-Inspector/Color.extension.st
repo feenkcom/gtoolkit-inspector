@@ -1,6 +1,21 @@
 Extension { #name : #Color }
 
 { #category : #'*GToolkit-Inspector' }
+Color >> gtCircleFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Circle';
+		priority: 50;
+		stencil: [ 
+			BlElement new
+				geometry: BlCircleGeometry new;
+				background: self;
+				size: 64 @ 64;
+				margin: (BlInsets all: 10); 
+				yourself ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Color >> gtContrastingColor [
 	"See: https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color"
 	<return: #Color>
