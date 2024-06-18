@@ -78,9 +78,12 @@ Color >> gtPreviewFor: aView [
 						constraintsDo: [ :c |
 							c frame horizontal alignCenter.
 							c frame vertical alignCenter.
-							c horizontal exact: 300.
+							c horizontal exact: 400.
 							c vertical fitContent ];
 						layout: BlLinearLayout horizontal;
-						addChild: (BlElement new background: self; constraintsDo: [:c | c vertical matchParent. c horizontal exact: 70 ]);
+						addChild: (BlElement new 
+							geometry: BlCircleGeometry new; 
+							background: self; 
+							constraintsDo: [:c | c vertical matchParent. c horizontal exact: 200 ]);
 						addChild: list) ]
 ]
