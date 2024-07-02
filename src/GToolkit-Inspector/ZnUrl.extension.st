@@ -166,6 +166,14 @@ ZnUrl >> gtUrlFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ZnUrl >> gtWebpageFor: aView [
+	<gtView>
+	^ aView explicit 
+		title: 'Webpage';
+		stencil: [ GtWebViewElement new url: self asString ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ZnUrl >> newLabel: label withLegend: legend primary: primary [
 	| container largeLabel smallLabel center |
 	container := BlElement new
