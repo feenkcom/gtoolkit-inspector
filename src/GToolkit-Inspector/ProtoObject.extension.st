@@ -70,13 +70,23 @@ ProtoObject >> gtActionInspectFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActions [
+	"This collects all view actions for the current object in a new context"
+	<return: #Array of: #GtPhlowAction>
+	
+	^ self gtActionsInContext: GtPhlowContext new
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtActionsInContext: aPhlowContext [
 	"This collects all view actions for the current object.
 	By default, it simply looks for the #gtAction pragma.
 	Subclasses might want to override it for more special behavior."
+	
 	<return: #Array of: #GtPhlowAction>
 	^ GtPhlowActionsCollector new
 		pragmaName: #gtAction;
 		fromObject: self;
+		context: aPhlowContext;
 		collect
 ]
 
