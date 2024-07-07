@@ -10,7 +10,7 @@ Class {
 
 { #category : #accessing }
 GtVariableBindingsWithVariable >> bindings [
-	<return: #TGtVariableBindings>
+	<return: #TGtVariablesBindings>
 	^ bindings
 ]
 
