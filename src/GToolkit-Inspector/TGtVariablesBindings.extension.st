@@ -7,7 +7,11 @@ TGtVariablesBindings >> gtBindingsFor: aView [
 	^ aView columnedList
 		title: 'Bindings';
 		priority: 10;
-		items: [ self bindingNames collect: [ :eachName | self bindingOf: eachName ] ];
-		column: 'Name' text: [ :each | each name asSymbol printString ];
-		column: 'Value' text: [ :each | each value ]
+		items: [ self bindingNames collect: [ :eachName | 
+			GtVariableBindingsWithVariable new
+				bindings: self;
+				variable: (self bindingOf: eachName) ] ];
+		column: 'Name' text: [ :each | each name ];
+		column: 'Value' text: [ :each | each value ];
+		send: #value
 ]

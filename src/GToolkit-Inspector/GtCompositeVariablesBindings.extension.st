@@ -9,15 +9,19 @@ GtCompositeVariablesBindings >> gtBindingsFor: aView [
 		priority: 10;
 		items: [ bindings ];
 		children: [ :eachBindings |
-			(eachBindings isKindOf: Variable)
+			(eachBindings isKindOf: GtVariableBindingsWithVariable)
 				ifTrue: [ #() ]
-				ifFalse: [ eachBindings bindingNames collect: [ :eachName | eachBindings bindingOf: eachName ] ] ];
+				ifFalse: [ eachBindings bindingNames collect: [ :eachName | 
+					GtVariableBindingsWithVariable new
+						bindings: eachBindings;
+						variable: (eachBindings bindingOf: eachName) ] ] ];
 		column: 'Name' text: [ :each |
-			(each isKindOf: Variable)
-				ifTrue: [ each name asSymbol printString ]
+			(each isKindOf: GtVariableBindingsWithVariable)
+				ifTrue: [ each name ]
 				ifFalse: [ each class name ] ];
 		column: 'Value' text: [ :each |
-			(each isKindOf: Variable)
+			(each isKindOf: GtVariableBindingsWithVariable)
 				ifTrue: [ each value ]
-				ifFalse: [ '' ] ]
+				ifFalse: [ '' ] ];
+		send: [ :each | each value ]
 ]
