@@ -11,10 +11,19 @@ ThisContextSignal class >> gtExampleMethodStackSignal [
 { #category : #'*GToolkit-Inspector' }
 ThisContextSignal >> gtStackFor: aView [
 	<gtView>
-	^ aView list
+	^ aView tree
 		title: 'Stack';
-		priority: 45;
-		items: [  self stack ]
+		items: [ self stack ];
+		priority: 15;
+		children: [ :anItem | anItem isContext ifTrue: [ anItem gtVariables ] ifFalse: [ #() ] ];
+		itemText: [ :anItem | 
+			anItem isContext
+				ifTrue: [ anItem ]
+				ifFalse: [ anItem name asRopedText
+						append: ' := ' asRopedText;
+						foreground: BrGlamorousColors disabledButtonTextColor;
+						append: anItem description ] ];
+		send: [ :anItem | anItem isContext ifTrue: [ anItem ] ifFalse: [ anItem value ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
