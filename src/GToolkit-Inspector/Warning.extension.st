@@ -4,5 +4,6 @@ Extension { #name : #Warning }
 Warning >> gtMessageTextFor: aView [
 	<gtView>
 	<gtExceptionView>
+	<gtEmbeddedDebuggerView>
 	^ super gtMessageTextFor: aView
 ]
