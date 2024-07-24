@@ -41,8 +41,6 @@ ProtoObject >> gtActionInspectFor: anAction [
 					icon: BrGlamorousVectorIcons inspect;
 					label: 'Inspect current object';
 					action: [ :aButton :aModel :anEvent | 
-						| aTool |
-						aTool := self gtDefaultInspectorTool.
 						aButton phlow spawnObject: self ].
 			button viewModel
 				when: BlClickEvent
