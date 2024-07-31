@@ -202,6 +202,7 @@ AbstractFileReference >> gtEditorView [
 		as: #cancelButton.
 	pane addChild: editorPane.
 	pane addChild: toolbar as: #toolbar.
+	pane addAptitude: (BrGlamorousWithVerticalScrollbarAptitude new scrollableName: #editor).
 	^ pane
 ]
 
