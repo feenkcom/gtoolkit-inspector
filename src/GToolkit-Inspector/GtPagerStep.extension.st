@@ -6,7 +6,6 @@ GtPagerStep >> clickOnInspectorInspectButtonAtPage: anIndex [
 		label: ('Inspector at page no. {1}' format: { anIndex });
 		referenceSender;
 		clickOnInspectButton;
-		onParentStepTarget: self;
 		onThisOrBreadthFirstChildOfKind: GtPager;
 		// (GtPagerPageElementId indexed: anIndex)
 ]
@@ -17,7 +16,6 @@ GtPagerStep >> dragInspectorPlaygroundAtPage: anIndex verticallyBy: aNumber [
 		label: ('Inspector at page no. {1}' format: { anIndex });
 		referenceSender;
 		dragPlaygroundVerticallyBy: aNumber;
-		onParentStepTarget: self;
 		onThisOrBreadthFirstChildOfKind: GtPager;
 		// (GtPagerPageElementId indexed: anIndex)
 ]
