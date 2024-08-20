@@ -4,6 +4,18 @@ Class {
 	#category : #'GToolkit-Inspector-Scripter'
 }
 
+{ #category : #'steps - checks' }
+GtInspectorStep >> assertSelectedTabWithName: aName [
+	self assert
+		label: ('Assert selected tab is {1}' format: {aName});
+		satisfies: [ :aBrTabGroup | 
+				aBrTabGroup viewModel hasSelectedTab
+					and: [ aBrTabGroup viewModel selectedTab tabLabel text asString = aName asString ] ]
+			description: [ 'There must be a selected tab with name {1}' format: {aName} ];
+		onParentStepTarget: self;
+		// GtPhlowCompositeViewElementId
+]
+
 { #category : #'steps - interactions' }
 GtInspectorStep >> clickOnInspectButton [
 	^ self click

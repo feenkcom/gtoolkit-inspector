@@ -26,3 +26,12 @@ TBlDevScripterActionStep >> gtScripterActionStepsFor: aView [
 				action: [ :aButton | aButton phlow spawnObject: (self perform: eachMethod selector) referenceNothing ] ]
 			width: 50
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+TBlDevScripterActionStep >> inspectorStep [
+	^ self
+		addStep: (GtInspectorStep new
+				label: 'Inspector';
+				referenceSender;
+				onParentStepTarget: self)
+]
