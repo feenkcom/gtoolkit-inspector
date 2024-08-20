@@ -90,6 +90,15 @@ AbstractFileReference >> gtContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtDefaultInspectorTool [
+	^ (self exists and: [ self isDirectory ])
+		ifTrue: [ GtPhlowCompositeTool new
+				addTool: super gtDefaultInspectorTool;
+				addTool: (GtFileBrowserFolderTool forFolder: self) ]
+		ifFalse: [ super gtDefaultInspectorTool ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtDetails [
 	| details |
 	details := {
