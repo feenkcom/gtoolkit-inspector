@@ -11,7 +11,7 @@ GtInspectorSampleB >> gtOneFor: aView [
 		title: 'One';
 		priority: 1;
 		object: [ 
-			GtJustContextStackSignal emit.
+			GtInspectorSampleBOneForwardObjectSignal emit.
 			self ];
 		view: #gtTwoFor:
 ]
