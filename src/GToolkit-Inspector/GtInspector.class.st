@@ -226,6 +226,11 @@ GtInspector >> playgroundPageStrategy: aPlaygroundPageStrategy [
 	self updatePlaygroundPageStrategy.
 ]
 
+{ #category : #'as yet unclassified' }
+GtInspector >> removePlayground [
+	self removeChild: self playgroundElement
+]
+
 { #category : #selection }
 GtInspector >> selectTabWithIdentifier: aTabIdentifier [
 	aTabIdentifier applySelectionTo: self
