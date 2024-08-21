@@ -31,7 +31,18 @@ GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
 	aTabGroupElement viewModel tabs
 		detect: [ :aTabModel | 
 			self matchesTab: aTabModel ]
-		ifFound: [ :aTabModel | aTabModel select ]
+		ifFound: [ :aTabModel |
+			| aSignal |
+			aSignal := GtInspectorSelectTabSignal new
+				tabGroup: aTabGroupElement;
+				requestedTabModel: aTabModel;
+				selector: self;
+				emit.
+			
+		 	aTabModel select.
+		 	
+		 	aTabGroupElement viewModel selectedTabDo: [ :aTab |
+		 		aSignal selectedTabModel: aTabModel ] ]
 		ifNone: [ "do nothing" ]
 ]
 

@@ -25,6 +25,16 @@ GtInspectorStep >> clickOnInspectButton [
 ]
 
 { #category : #'steps - interactions' }
+GtInspectorStep >> clickOnTabWithName: aTabName [
+	^ self click
+		referenceSender;
+		label: ('Click on inspector tab named {1}' format: { aTabName });
+		// GtPhlowCompositeViewElementId;
+		// BrTab;
+		@ [ :aTab | aTab label asString = aTabName ]
+]
+
+{ #category : #'steps - interactions' }
 GtInspectorStep >> dragPlaygroundVerticallyBy: aNumber [
 	^ (self mouseDragBy: 0 @ aNumber)
 		label: ('Drag inspector playground by {1}' format: { aNumber });
