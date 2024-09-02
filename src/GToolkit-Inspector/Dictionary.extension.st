@@ -21,6 +21,8 @@ Dictionary >> gtItemsFor: aView [
 		contextItemLabel: 'Inspect association' action: [ :anElement :aTreeNode | 
 			anElement phlow spawnObject: aTreeNode value ];
 		send: [ :assoc | assoc value  ]
+		
+	"Implementation note: association sorting uses #collatedBy: to avoid a 'Symbol DNU value: value: error'"
 ]
 
 { #category : #'*GToolkit-Inspector' }
