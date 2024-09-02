@@ -6,10 +6,10 @@ Dictionary >> gtItemsFor: aView [
 	^ aView columnedTree
 		title: 'Items';
 		priority: 1;
-		items: [ self associations ];
+		items: [ self associations sort: (#key collatedBy: #asString) ];
 		children: [ :each | 
 			each value isDictionary
-				ifTrue: [ each value associations ]
+				ifTrue: [ each value associations sort: (#key collatedBy: #asString) ]
 				ifFalse: [ 
 					(each value isArray and: [ each value allSatisfy: #isDictionary ])
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
