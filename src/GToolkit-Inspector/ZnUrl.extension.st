@@ -7,7 +7,7 @@ ZnUrl >> gtActionWebBrowseFor: anAction [
         BrButton new
             aptitude: BrGlamorousButtonWithIconAptitude;
             action:  [ WebBrowser openOn: self ];
-            icon: BrGlamorousIcons go asElement;
+            icon: BrGlamorousVectorIcons link;
             label: 'Open in Web Browser' translated ]
 ]
 

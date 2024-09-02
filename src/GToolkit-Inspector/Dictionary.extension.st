@@ -6,10 +6,10 @@ Dictionary >> gtItemsFor: aView [
 	^ aView columnedTree
 		title: 'Items';
 		priority: 1;
-		items: [ self associations ];
+		items: [ self associations sort: (#key collatedBy: #asString) ];
 		children: [ :each | 
 			each value isDictionary
-				ifTrue: [ each value associations ]
+				ifTrue: [ each value associations sort: (#key collatedBy: #asString) ]
 				ifFalse: [ 
 					(each value isArray and: [ each value allSatisfy: #isDictionary ])
 						ifTrue: [ each value collectWithIndex: [ :x :i | i -> x ] ]
@@ -21,6 +21,8 @@ Dictionary >> gtItemsFor: aView [
 		contextItemLabel: 'Inspect association' action: [ :anElement :aTreeNode | 
 			anElement phlow spawnObject: aTreeNode value ];
 		send: [ :assoc | assoc value  ]
+		
+	"Implementation note: association sorting uses #collatedBy: to avoid a 'Symbol DNU value: value: error'"
 ]
 
 { #category : #'*GToolkit-Inspector' }
