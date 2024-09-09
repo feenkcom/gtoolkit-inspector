@@ -250,6 +250,19 @@ AbstractFileReference >> gtHexContentsFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtHtmlFor: aView [
+	<gtView>
+	(self isFile and: [ self extension = 'html' ]) ifFalse: [ ^ aView empty ].
+	^ aView explicit
+		title: 'HTML';
+		priority: 10;
+		stencil: [ GtWebViewElement new
+				url: 'file://' , self fullName;
+				margin: (BlInsets all: 20);
+				aptitude: BrShadowAptitude ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
 	| eventLoop |
