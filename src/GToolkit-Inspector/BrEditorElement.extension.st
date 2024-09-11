@@ -14,6 +14,7 @@ BrEditorElement >> gtEditorElementsFor: aView [
 	^ aView mondrian
 		title: 'Elements';
 		priority: 1;
+		actionUpdateButton;
 		painting: [ :mondrian | self paintEditorElementsWith: mondrian ]
 ]
 
