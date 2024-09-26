@@ -7,11 +7,16 @@ TGtVariablesBindings >> gtBindingsFor: aView [
 	^ aView columnedList
 		title: 'Bindings';
 		priority: 10;
-		items: [ self bindingNames collect: [ :eachName | 
-			GtVariableBindingsWithVariable new
-				bindings: self;
-				variable: (self bindingOf: eachName) ] ];
+		items: [ self gtBindingsWithVariable ];
 		column: 'Name' text: [ :each | each name ];
 		column: 'Value' text: [ :each | each value ];
 		send: #value
+]
+
+{ #category : #'*GToolkit-Inspector' }
+TGtVariablesBindings >> gtBindingsWithVariable [
+	^ self bindingNames sorted collect: [ :eachName | 
+			GtVariableBindingsWithVariable new
+				bindings: self;
+				variable: (self bindingOf: eachName) ] 
 ]
