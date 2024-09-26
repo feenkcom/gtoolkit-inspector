@@ -65,16 +65,8 @@ String >> gtLiveFor: aView [
 { #category : #'*GToolkit-Inspector' }
 String >> gtStringFor: aView [
 	<gtView>
-	^ aView explicit
+	^ aView textEditor
 		title: 'String';
 		priority: 9;
-		stencil: [
-			BrEditorElement new
-				margin: (BlInsets all: 10);
-				constraintsDo: [ :c | 
-					c vertical matchParent. 
-					c horizontal matchParent ];
-				editor: (BrTextEditorModel new
-					text: ( self asRopedText
-						glamorousRegularFontAndSize) ) ]
+		text: [ self ]
 ]
