@@ -34,6 +34,11 @@ GtInspectorObject >> assertViewSelectorImmutability [
 		description: [ 'Object holder is immutable. The view selector cannot be changed.' ].
 ]
 
+{ #category : #configuring }
+GtInspectorObject >> configurePageViewModel: aPageViewModel [
+	"Configuration to be applied to the page view model for the current object"
+]
+
 { #category : #defaults }
 GtInspectorObject >> defaultViewSelector [
 	^ #gtViewsFor:
@@ -67,13 +72,15 @@ GtInspectorObject >> printOn: aStream [
 
 { #category : #accessing }
 GtInspectorObject >> view [
-
 	"Answer the view for the receiver's object and view"
 
 	"Using #object:perform:withArguments:inClass: allows proxies that are a subclass of ProtoObject to be inspected. #perform:with: is defined in Object."
 
 	<return: #GtPhlowLabelledView>
-	^ GtPhlowView empty on: self object perform: self viewSelector
+	
+	^ GtPhlowView empty 
+		on: self object 
+		perform: self viewSelector
 ]
 
 { #category : #accessing }

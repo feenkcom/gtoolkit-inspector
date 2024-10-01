@@ -194,8 +194,8 @@ GtInspector >> object: anObject viewSelector: aSymbol [
 
 	| anObjectHolder |
 	anObjectHolder := GtInspectorObject new
-		                  object: anObject;
-		                  viewSelector: aSymbol.
+		 object: anObject;
+		 viewSelector: aSymbol.
 	self objectHolder: anObjectHolder
 ]
 
