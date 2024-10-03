@@ -226,7 +226,7 @@ GtInspector >> playgroundPageStrategy: aPlaygroundPageStrategy [
 	self updatePlaygroundPageStrategy.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'api - initialization' }
 GtInspector >> removePlayground [
 	self removeChild: self playgroundElement
 ]
