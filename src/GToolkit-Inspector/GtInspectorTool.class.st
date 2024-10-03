@@ -51,8 +51,8 @@ GtInspectorTool >> asElementDo: aOneArgBlock [
 		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
 	databasesRegistry ifNotNil: [ :aRegistry |
 		anInspector databasesRegistry: aRegistry ].
-	externalSnippetContext ifNotNil: [ :aRegistry |
-		anInspector externalSnippetContext: aRegistry ].
+	externalSnippetContext ifNotNil: [ :anExternalSnippetContext |
+		anInspector externalSnippetContext: anExternalSnippetContext ].
 		
 	anInspector objectHolder: self objectHolder.
 	
@@ -98,6 +98,7 @@ GtInspectorTool >> icon [
 { #category : #initialization }
 GtInspectorTool >> initialize [
 	super initialize.
+	
 	self initializeObjectHolder.
 ]
 
