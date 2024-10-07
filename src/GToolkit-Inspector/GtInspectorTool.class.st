@@ -142,6 +142,11 @@ GtInspectorTool >> playgroundPageStrategy: aPlaygroundPageStrategy [
 	playgroundPageStrategy := aPlaygroundPageStrategy
 ]
 
+{ #category : #accessing }
+GtInspectorTool >> prepareForReusedNavigation [
+	objectHolder clearCachedData
+]
+
 { #category : #'testing ' }
 GtInspectorTool >> supportsSelectionHandling [
 	"The inspector can extract and restore the selected tab"

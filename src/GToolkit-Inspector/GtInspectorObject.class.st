@@ -34,6 +34,11 @@ GtInspectorObject >> assertViewSelectorImmutability [
 		description: [ 'Object holder is immutable. The view selector cannot be changed.' ].
 ]
 
+{ #category : #actions }
+GtInspectorObject >> clearCachedData [
+	"Give subclasses a hook to clear any cached data when the holder is reused"
+]
+
 { #category : #configuring }
 GtInspectorObject >> configurePageViewModel: aPageViewModel [
 	"Configuration to be applied to the page view model for the current object"
