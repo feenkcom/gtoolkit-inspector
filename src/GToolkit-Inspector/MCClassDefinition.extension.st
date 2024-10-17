@@ -24,6 +24,7 @@ MCClassDefinition >> gtViewClassDefinitionFor: aView [
 		title: 'Definition';
 		priority: 20;
 		glamorousCodeFont;
+		styler: [ BrRBTextStyler new ];
 		text: [ self source ]
 ]
 

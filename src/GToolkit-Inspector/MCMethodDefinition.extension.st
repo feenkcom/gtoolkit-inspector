@@ -33,6 +33,6 @@ MCMethodDefinition >> gtViewDefinitionSourceFor: aView [
 		title: 'Definition';
 		priority: 20;
 		glamorousCodeFont;
-		styler: [ GtPharoParser gtStyler ];
+		styler: [ BrRBTextStyler new ];
 		text: [ self source ]
 ]
