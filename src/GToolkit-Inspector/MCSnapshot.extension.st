@@ -3,10 +3,12 @@ Extension { #name : #MCSnapshot }
 { #category : #'*GToolkit-Inspector' }
 MCSnapshot >> gtViewDefinitionsFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Definitions';
 		priority: 10;
-		items: [ self definitions ]
+		items: [ self definitions ];
+		column: 'Type' text: [ :each | each class name ] weight: 0.5;
+		column: 'Summary' text: [ :each | each gtSummary ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -20,6 +22,6 @@ MCSnapshot >> gtViewDefinitionsGroupedByTypeFor: aView [
 				groupedBy: [ :aDefinition |
 					aDefinition class ]) associations ];
 		column: 'Type' text: [ :assoc | assoc key ];
-		column: 'Count' text: [ :assoc | assoc value ];
+		column: 'Count' text: [ :assoc | assoc value size ];
 		send: [ :assoc | assoc value ] 
 ]
