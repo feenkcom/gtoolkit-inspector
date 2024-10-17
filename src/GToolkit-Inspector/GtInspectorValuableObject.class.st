@@ -50,6 +50,10 @@ GtInspectorValuableObject >> assertViewSelectorImmutability [
 		description: [ 'Object holder is immutable. The view selector cannot be changed.' ].
 ]
 
+{ #category : #configuring }
+GtInspectorValuableObject >> configurePageViewModel: aPageViewModel [
+]
+
 { #category : #defaults }
 GtInspectorValuableObject >> defaultViewSelector [
 	^ #gtViewsFor:
