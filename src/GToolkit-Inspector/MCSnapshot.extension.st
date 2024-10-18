@@ -54,6 +54,7 @@ MCSnapshot >> gtViewDefinitionsTreeFor: aView [
 	^ aView columnedTree
 		title: 'Tree';
 		priority: 15;
+		tooltip: 'Definitions grouped by package & class';
 		items: [ self gtDefinitionsTree ];
 		children: #value;
 		column: 'Type' text: [ :each | each key class name ] weight: 0.5;
