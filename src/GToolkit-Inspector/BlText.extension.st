@@ -11,7 +11,7 @@ BlText >> gtStringFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlText >> gtTextFor: aView [
 	<gtView>
-	^ aView text
+	^ aView textEditor
 		title: 'Text';
 		text: self;
 		priority: 10
