@@ -47,14 +47,10 @@ ProtoObject >> gtActionInspectFor: anAction [
 				do: [ :anEvent | 
 					| aTool |
 					aTool := self gtDefaultInspectorTool.
-					anEvent modifiers isPrimaryModifier
-						ifTrue: [ 
-							GtWorldUtility 
-								showSpaceWithTitle:  (GtPhlowTitleLabelBuilder longLabel: [
-									self gtInspectorTitleString ]) build
-								inPagerWith: [ 
-									self gtDefaultInspectorTool asElementDo: [ :e | e ] ] asStencil
-								from: anEvent target ] ].
+					anEvent modifiers isPrimaryModifier ifTrue: [ 
+						GtWorldUtility
+							showObject: self
+							from: anEvent target ] ].
 			button viewModel
 				when: BlMouseEnterEvent
 				do: [ :anEvent | 
