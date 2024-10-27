@@ -3,12 +3,12 @@ Extension { #name : #MCPatch }
 { #category : #'*GToolkit-Inspector' }
 MCPatch >> gtOperationsTree [
 	| classes classModifications |
-	classes := (self operations collect: [ :each | each definition className ]) asSet asArray sort: #yourself ascending.
+	classes := (self operations collect: [ :each | each definition className ]) asSet asArray sort: #yourself ascending undefinedFirst.
 	^ classes collect: [ :eachClass |
 		classModifications := self operations select: [ :each | each definition className = eachClass ].
 		classModifications := classModifications sort: [ :each | each definition sortKey ] ascending.
 		classModifications := classModifications collect: [ :each | each -> #() ].
-		eachClass -> classModifications ]
+		(eachClass ifNil: [ '(Organization)' ]) -> classModifications ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
