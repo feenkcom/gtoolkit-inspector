@@ -5,7 +5,8 @@ Class {
 		'viewSelector',
 		'cache',
 		'valuable',
-		'hasValuable'
+		'hasValuable',
+		'context'
 	],
 	#category : #'GToolkit-Inspector-Model'
 }
@@ -54,9 +55,20 @@ GtInspectorValuableObject >> assertViewSelectorImmutability [
 GtInspectorValuableObject >> configurePageViewModel: aPageViewModel [
 ]
 
+{ #category : #'private - computing' }
+GtInspectorValuableObject >> context [
+	<return: #GtPhlowContext>
+	^ context ifNil: [ context := GtPhlowContext new ]
+]
+
+{ #category : #accessing }
+GtInspectorValuableObject >> context: anObject [
+	context := anObject
+]
+
 { #category : #defaults }
 GtInspectorValuableObject >> defaultViewSelector [
-	^ #gtViewsFor:
+	^ #gtViewsFor:inContext:
 ]
 
 { #category : #'api - future' }
@@ -104,7 +116,10 @@ GtInspectorValuableObject >> viewFor: anObject [
 	"Answer the view for the receiver's object and view"
 
 	<return: #GtPhlowLabelledView>
-	^ GtPhlowView empty on: anObject perform: self viewSelector
+	^ GtPhlowView empty
+		on: anObject
+		perform: self viewSelector
+		withContext: self context
 ]
 
 { #category : #accessing }

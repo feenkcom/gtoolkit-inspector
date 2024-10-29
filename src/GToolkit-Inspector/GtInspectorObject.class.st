@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'object',
 		'hasObject',
-		'viewSelector'
+		'viewSelector',
+		'context'
 	],
 	#category : #'GToolkit-Inspector-Model'
 }
@@ -44,9 +45,20 @@ GtInspectorObject >> configurePageViewModel: aPageViewModel [
 	"Configuration to be applied to the page view model for the current object"
 ]
 
+{ #category : #accessing }
+GtInspectorObject >> context [
+	<return: #GtPhlowContext>
+	^ context ifNil: [ context := GtPhlowContext new ]
+]
+
+{ #category : #accessing }
+GtInspectorObject >> context: anObject [
+	context := anObject
+]
+
 { #category : #defaults }
 GtInspectorObject >> defaultViewSelector [
-	^ #gtViewsFor:
+	^ #gtViewsFor:inContext:
 ]
 
 { #category : #initialization }
@@ -86,6 +98,7 @@ GtInspectorObject >> view [
 	^ GtPhlowView empty 
 		on: self object 
 		perform: self viewSelector
+		withContext: self context.
 ]
 
 { #category : #accessing }

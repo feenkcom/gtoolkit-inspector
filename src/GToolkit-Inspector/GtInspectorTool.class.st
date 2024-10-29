@@ -70,6 +70,11 @@ GtInspectorTool >> asTabElement [
 	^ anInspector
 ]
 
+{ #category : #accessing }
+GtInspectorTool >> context: aPhlowContext [
+	self objectHolder context: aPhlowContext
+]
+
 { #category : #'api - accessing' }
 GtInspectorTool >> databasesRegistry: aDatabasesRegistry [
 	databasesRegistry := aDatabasesRegistry

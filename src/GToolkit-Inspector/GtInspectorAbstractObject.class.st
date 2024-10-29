@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : 'GToolkit-Inspector-Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #testing }
@@ -15,6 +15,13 @@ GtInspectorAbstractObject class >> isAbstract [
 GtInspectorAbstractObject >> asElementDo: aOneArgBlock [
 	"Create an element representing an object and execute the block"
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtInspectorAbstractObject >> context: aPhlowContext [
+	"Subclasses may use a given phlow context"
+
+	
 ]
 
 { #category : #notifying }
