@@ -162,6 +162,10 @@ GtInspector >> initialize [
 	self initializeListeners.
 	self matchParent.
 	self playgroundElement collapse.
+	self phlow 
+		accessTool: (GtPhlowToolClassType forClass: self class) 
+		viewModel: #objectHolder 
+		object: #object.
 ]
 
 { #category : #initialization }
