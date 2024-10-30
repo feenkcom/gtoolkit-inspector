@@ -75,6 +75,13 @@ GtInspectorTool >> context: aPhlowContext [
 	self objectHolder context: aPhlowContext
 ]
 
+{ #category : #accessing }
+GtInspectorTool >> contextWithNavigationContext: aNavigationContext [
+	"Tools may use phlow context with the given navigation context"
+
+	self context: (GtPhlowContext new navigationContext: aNavigationContext)
+]
+
 { #category : #'api - accessing' }
 GtInspectorTool >> databasesRegistry: aDatabasesRegistry [
 	databasesRegistry := aDatabasesRegistry
