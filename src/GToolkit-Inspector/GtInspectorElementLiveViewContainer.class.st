@@ -114,7 +114,7 @@ GtInspectorElementLiveViewContainer >> isReadyForLiveView [
 		Do not display it as live."
 		^ false ].
 
-	"The element am not displayed (used) anywhere, display it live."
+	"The element is not displayed (used) anywhere, display it live."
 	^ true
 ]
 
@@ -159,6 +159,16 @@ GtInspectorElementLiveViewContainer >> onAddedToSceneGraph [
 
 	self registerElementHandlers.
 	self updateElementLiveView
+]
+
+{ #category : #'hooks - children' }
+GtInspectorElementLiveViewContainer >> onChildAdded: anElement [
+	super onChildAdded: anElement.
+	
+	"In case someone uses code like `anElement parent replaceChild: anElement with: aNewElement`,
+	we establish the new provided child as a new inspected element."
+	(self childrenCount = 1 and: [ (anElement == self element) not ]) ifTrue: [
+		element := anElement ]
 ]
 
 { #category : #'private - event handling' }
