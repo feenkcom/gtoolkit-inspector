@@ -16,7 +16,7 @@ GtInspectorContextNamedTempNode class >> hostObject: aContext tempName: aString 
 		tempIndex: anInteger;
 		variableTag: ((aContext method argumentNames includes: aString)
 			ifTrue: [ 'parameter' ]
-			ifFalse: [ 'temp' ])
+			ifFalse: [ 'temporary' ])
 		yourself
 ]
 
@@ -62,7 +62,7 @@ GtInspectorContextNamedTempNode >> tempName: aString [
 
 { #category : #accessing }
 GtInspectorContextNamedTempNode >> variableTag [
-	^ tag ifNil: [ 'temp' ]
+	^ tag ifNil: [ 'temporary' ]
 ]
 
 { #category : #accessing }

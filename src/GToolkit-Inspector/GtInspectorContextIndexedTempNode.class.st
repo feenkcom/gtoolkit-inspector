@@ -36,5 +36,5 @@ GtInspectorContextIndexedTempNode >> tempIndex: anObject [
 
 { #category : #accessing }
 GtInspectorContextIndexedTempNode >> variableTag [
-	^  'temp' 
+	^  'temporary' 
 ]

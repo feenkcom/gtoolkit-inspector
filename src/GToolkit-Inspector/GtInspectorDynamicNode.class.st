@@ -17,6 +17,15 @@ GtInspectorDynamicNode class >> hostObject: anObject label: aString value: anoth
 		yourself
 ]
 
+{ #category : #'instance creation' }
+GtInspectorDynamicNode class >> hostObject: anObject label: aString value: anotherObject tag: aTag [
+	^ (self hostObject: anObject) 
+		label: aString;
+		rawValue: anotherObject;
+		variableTag: aTag;
+		yourself
+]
+
 { #category : #accessing }
 GtInspectorDynamicNode >> key [
 	^ label

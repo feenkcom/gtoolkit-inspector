@@ -46,5 +46,5 @@ GtInspectorIndexedNode >> save: aValue [
 
 { #category : #accessing }
 GtInspectorIndexedNode >> variableTag [
-	^ 'attribute'
+	^ 'slot'
 ]
