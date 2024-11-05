@@ -165,7 +165,11 @@ GtInspectorElementLiveViewContainer >> onAddedToSceneGraph [
 GtInspectorElementLiveViewContainer >> onChildAdded: anElement [
 	super onChildAdded: anElement.
 	
-	"In case someone uses code like `anElement parent replaceChild: anElement with: aNewElement`,
+	anElement id = GtInspectorElementPreviewContainerId asBlocElementId 
+		ifTrue: [ ^ self ].
+	
+	"In case someone uses code like 
+	`anElement parent replaceChild: anElement with: aNewElement`,
 	we establish the new provided child as a new inspected element."
 	(self childrenCount = 1 and: [ (anElement == self element) not ]) ifTrue: [
 		element := anElement ]
