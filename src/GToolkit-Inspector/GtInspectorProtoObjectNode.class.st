@@ -33,5 +33,5 @@ GtInspectorProtoObjectNode >> rawValue [
 
 { #category : #accessing }
 GtInspectorProtoObjectNode >> variableTag [
-	^ 'attribute'
+	^ 'slot'
 ]

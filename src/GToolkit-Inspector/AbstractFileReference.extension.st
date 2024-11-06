@@ -180,7 +180,8 @@ AbstractFileReference >> gtEditorView [
 		addShortcut: (BlShortcutWithAction new
 				combination: BlKeyCombination primaryS;
 				action: saveBlock).
-	editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+	editor editor text: (BlRunRopedText file: self).
+	editor aptitude: BrGlamorousEditorAptitude.
 	editorPane
 		addChild: (BlElement new
 					width: 5;
@@ -206,7 +207,7 @@ AbstractFileReference >> gtEditorView [
 				beSmallSize;
 				icon: BrGlamorousVectorIcons cancel;
 				label: 'Cancel';
-				action: [ editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+				action: [ editor editor text: (BlRunRopedText file: self).
 					changeBlock value ])
 		as: #cancelButton.
 	pane addChild: editorPane.
@@ -409,21 +410,23 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
-				action: [ 
-					| newContents | 
-					newContents := tab viewContentElement children first children first children first textualCoderViewModel styledText asString.
-					(self fullName, '.backup') asFileReference ensureDelete.
-					self copyTo: (self fullName, '.backup') asFileReference.
-					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
+				action: [ | newContents | 
+					newContents := tab viewContentElement children 
+						first children 
+						first children first 
+						textualCoderViewModel styledText asString.
+					self gtSaveContents: newContents ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtSaveContents: newContents [
-	(self fullName , '.backup') asFileReference ensureDelete.
-	self copyTo: (self fullName , '.backup') asFileReference.
-	^ self
-		ensureDelete;
-		writeStreamDo: [ :s | s nextPutAll: newContents ]
+	| newFile |
+	newFile := self , 'new'.
+	newFile ensureDelete.
+	newFile writeStreamDo: [ :stream | stream nextPutAll: newContents ].
+	self ensureDelete.
+	newFile renameTo: self basename.
+	^ newFile
 ]
 
 { #category : #'*GToolkit-Inspector' }
