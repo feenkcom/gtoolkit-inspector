@@ -180,7 +180,8 @@ AbstractFileReference >> gtEditorView [
 		addShortcut: (BlShortcutWithAction new
 				combination: BlKeyCombination primaryS;
 				action: saveBlock).
-	editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+	editor editor text: (BlRunRopedText file: self).
+	editor aptitude: BrGlamorousEditorAptitude.
 	editorPane
 		addChild: (BlElement new
 					width: 5;
@@ -206,7 +207,7 @@ AbstractFileReference >> gtEditorView [
 				beSmallSize;
 				icon: BrGlamorousVectorIcons cancel;
 				label: 'Cancel';
-				action: [ editor editor text: (BlRunRopedText file: self) glamorousRegularFont.
+				action: [ editor editor text: (BlRunRopedText file: self).
 					changeBlock value ])
 		as: #cancelButton.
 	pane addChild: editorPane.
