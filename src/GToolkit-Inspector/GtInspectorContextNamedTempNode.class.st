@@ -10,11 +10,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtInspectorContextNamedTempNode class >> hostObject: aContext tempName: aString tempIndex: anInteger [
+GtInspectorContextNamedTempNode class >> hostObject: aContext tempName: aTempName tempIndex: anInteger [
 	^ (self hostObject: aContext) 
-		tempName: aString;
+		tempName: aTempName;
 		tempIndex: anInteger;
-		variableTag: ((aContext method argumentNames includes: aString)
+		variableTag: ((aContext hasMethodOrBlockParameterNamed:  aTempName)
 			ifTrue: [ 'parameter' ]
 			ifFalse: [ 'temporary' ])
 		yourself
