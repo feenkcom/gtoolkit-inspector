@@ -409,12 +409,12 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
-				action: [ 
-					| newContents | 
-					newContents := tab viewContentElement children first children first children first textualCoderViewModel styledText asString.
-					(self fullName, '.backup') asFileReference ensureDelete.
-					self copyTo: (self fullName, '.backup') asFileReference.
-					self ensureDelete; writeStreamDo: [ :s | s nextPutAll: newContents ] ] ]
+				action: [ | newContents | 
+					newContents := tab viewContentElement children 
+						first children 
+						first children first 
+						textualCoderViewModel styledText asString.
+					self gtSaveContents: newContents ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
