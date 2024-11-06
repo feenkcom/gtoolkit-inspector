@@ -51,5 +51,5 @@ GtInspectorSlotNode >> slot: aSlot [
 
 { #category : #accessing }
 GtInspectorSlotNode >> variableTag [
-	^ 'attribute'
+	^ 'slot'
 ]
