@@ -85,7 +85,7 @@ MemoryLogger >> gtStartActionFor: anAction [
 MemoryLogger >> gtStopActionFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousVectorIcons cancel;
+		icon: BrGlamorousVectorIcons stop;
 		tooltip: 'Stop Logger';
 		priority: 2;
 		action: [ :aButton | self stop ]
