@@ -12,9 +12,9 @@ ProtoObject >> gtActionBrowseFor: anAction [
 					icon: BrGlamorousVectorIcons emphasizedBrowse;
 					action: [ :aButton :aModel :anEvent | 
 						aButton phlow
-							spawnTool: (GtPhlowValuableTool new
+							spawnTool: (GtPhlowExplicitTool new
 									name: self gtDisplayString;
-									valuable: [ GtCoderElement forObject: self ]) ].
+									stencil: [ GtCoderElement forObject: self ]) ].
 			button viewModel
 				when: BlClickEvent
 				do: [ :anEvent | anEvent modifiers isPrimaryModifier ifTrue: [ self gtBrowseFrom: button ] ].
