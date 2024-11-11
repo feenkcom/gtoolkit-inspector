@@ -181,6 +181,11 @@ GtInspectorTool >> valuable: aValuable [
 ]
 
 { #category : #configuring }
+GtInspectorTool >> withIconAptitude [
+	tabLook := BrGlamorousTabSwitcherWithIconAptitude
+]
+
+{ #category : #configuring }
 GtInspectorTool >> withLabelAndIconAptitude [
 	tabLook := BrGlamorousTabSwitcherWithLabelAndIconAptitude
 ]
