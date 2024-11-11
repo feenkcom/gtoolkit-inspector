@@ -14,7 +14,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 						aButton phlow
 							spawnTool: (GtPhlowExplicitTool new
 									name: self gtDisplayString;
-									valuable: [ GtCoderElement forObject: self ]) ].
+									stencil: [ GtCoderElement forObject: self ]) ].
 			button viewModel
 				when: BlClickEvent
 				do: [ :anEvent | anEvent modifiers isPrimaryModifier ifTrue: [ self gtBrowseFrom: button ] ].
