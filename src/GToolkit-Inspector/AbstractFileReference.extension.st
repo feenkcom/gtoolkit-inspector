@@ -257,7 +257,7 @@ AbstractFileReference >> gtHtmlFor: aView [
 	^ aView explicit
 		title: 'HTML';
 		priority: 10;
-		stencil: [ GtWebViewElement new
+		stencil: [ GtProtoWebViewElement new
 				url: 'file://' , self fullName;
 				margin: (BlInsets all: 20);
 				aptitude: BrShadowAptitude ]
