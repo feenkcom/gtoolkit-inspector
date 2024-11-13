@@ -169,30 +169,11 @@ ProtoObject >> gtRawFor: aView [
 		send: #value;
 		contextItemLabel: 'Create <gtView> method'
 			action: [ :anElement :each | 
-				| creator aptitude |
+				| creator |
 				creator := GtViewCreator
 						forCollection: each value key
 						in: each value hostObject.
-				anElement
-					enqueueTask: [ aptitude := BrGlamorousWithContextMenuAptitude
-								handle: [ BlElement new
-										size: 8 @ 8;
-										yourself ] asStencil
-								content: [ | element |
-									element := creator asElement.
-									element width: 450.
-									element
-										when: BlElementRemovedFromSceneGraphEvent
-										do: [ :event | anElement removeAptitude: aptitude ].
-									element when: BlElementAddedToSceneGraphEvent do: [ :event | element ].
-									element
-										childWithId: GtSourceCoderEditorId
-										ifFound: [ :editor | editor enqueueTask: [ editor requestFocus ] asBlTask ]
-										ifNone: [  ].
-									element ].
-						aptitude position: anElement boundsInSpace bottomCenter.
-						anElement addAptitude: aptitude.
-						aptitude show ] asBlTask ]
+				creator showOn: anElement ]
 			if: [ :each | each value rawValue isCollection and: [ each value rawValue isString not ] ];
 		actionUpdateButton
 ]

@@ -1,6 +1,18 @@
 Extension { #name : #Dictionary }
 
 { #category : #'*GToolkit-Inspector' }
+Dictionary >> gtCreateViewSource [
+	^ '<1s> aView
+	%<gtView%>
+	<2s> ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: ''<3s>'';
+		items: [ <2s> associations ];
+		column: ''Key'' text: [:each | each key gtDisplayString];
+		column: ''Value'' text: [:each | each value gtDisplayString]'
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Dictionary >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedTree

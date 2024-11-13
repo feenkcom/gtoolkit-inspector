@@ -9,6 +9,17 @@ Collection >> gtCollectionSizeThreshold [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Collection >> gtCreateViewSource [
+	^ '<1s> aView
+	%<gtView%>
+	<2s> ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: ''<3s>'';
+		items: [ <2s> ];
+		column: ''Value'' text: [:each | each gtDisplayString]'
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Collection >> gtDisplayOn: stream [
 	self printNameOn: stream.
 	stream

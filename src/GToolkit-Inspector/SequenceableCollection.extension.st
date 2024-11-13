@@ -49,6 +49,19 @@ SequenceableCollection >> gtBoxesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+SequenceableCollection >> gtCreateViewSource [
+	^ '<1s> aView
+	%<gtView%>
+	<2s> ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: ''<3s>'';
+		items: [ 1 to: <2s> size ];
+		column: ''#'' text: [:each | each gtDisplayString] width: 45;
+		column: ''Value'' text: [:each | (<2s> at: each) gtDisplayString];
+		send: [:each | <2s> at: each]'
+]
+
+{ #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedList

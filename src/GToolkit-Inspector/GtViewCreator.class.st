@@ -48,7 +48,7 @@ GtViewCreator >> behavior [
 	^ object class whichClassDefinesInstVar: variable
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #compiling }
 GtViewCreator >> compile [
 	| model |
 	model := RBNamespace new.
@@ -56,21 +56,12 @@ GtViewCreator >> compile [
 	model changes gtExecuteWithUndo
 ]
 
-{ #category : #'instance creation' }
+{ #category : #private }
 GtViewCreator >> createSourceForCollection [
-	source := String
-			streamContents: [ :stream | 
-				stream << self newSelector
-					<< ' aView
-	<gtView>
-	' << variable
-					<< ' ifNil: [ ^ aView empty ].
-	^ aView columnedList
-		title: ''' << variable capitalized
-					<< ''';
-		items: [ ' << variable
-					<< ' ];
-		column: ''Value'' text: [:each | each gtDisplayString]' ]
+	source := (object instVarNamed: variable) gtCreateViewSource
+			expandMacrosWith: self newSelector
+			with: variable
+			with: variable capitalized
 ]
 
 { #category : #accessing }
@@ -81,13 +72,13 @@ GtViewCreator >> gtDefaultInspectorTool [
 				stencil: [ self asElement ])
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtViewCreator >> gtDisplayOn: stream [
 	stream << 'Create gtView method on ' << variable << ' in '
 		<< self behavior name
 ]
 
-{ #category : #'instance creation' }
+{ #category : #private }
 GtViewCreator >> newSelector [
 	^ selector
 		ifNil: [ | part index indexString newSelector |
@@ -108,6 +99,31 @@ GtViewCreator >> object [
 { #category : #accessing }
 GtViewCreator >> object: anObject [
 	object := anObject
+]
+
+{ #category : #view }
+GtViewCreator >> showOn: anElement [
+	anElement
+		enqueueTask: [ | aptitude |
+			aptitude := BrGlamorousWithContextMenuAptitude
+					handle: [ BlElement new
+							size: 8 @ 8;
+							yourself ] asStencil
+					content: [ | element |
+						element := self asElement.
+						element width: 450.
+						element
+							when: BlElementRemovedFromSceneGraphEvent
+							do: [ :event | anElement removeAptitude: aptitude ].
+						element when: BlElementAddedToSceneGraphEvent do: [ :event | element ].
+						element
+							childWithId: GtSourceCoderEditorId
+							ifFound: [ :editor | editor enqueueTask: [ editor requestFocus ] asBlTask ]
+							ifNone: [  ].
+						element ].
+			aptitude position: anElement boundsInSpace bottomCenter.
+			anElement addAptitude: aptitude.
+			aptitude show ] asBlTask
 ]
 
 { #category : #accessing }
