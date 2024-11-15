@@ -49,16 +49,23 @@ SequenceableCollection >> gtBoxesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-SequenceableCollection >> gtCreateViewSource [
-	^ '<1s> aView
-	%<gtView%>
-	<2s> ifNil: [ ^ aView empty ].
-	^ aView columnedList
-		title: ''<3s>'';
-		items: [ 1 to: <2s> size ];
-		column: ''#'' text: [:each | each gtDisplayString] width: 45;
-		column: ''Value'' text: [:each | (<2s> at: each) gtDisplayString];
-		send: [:each | <2s> at: each]'
+SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	aGtViewCreator
+		source: (String
+				streamContents: [ :stream | 
+					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
+						<< String lf.
+					aGtViewCreator variable
+						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
+					stream
+						<< '	^ aView columnedList
+		title: ''' << aGtViewCreator title
+						<< ''';
+		items: [' << aGtViewCreator objectSource
+						<< '];
+		column: ''Index'' text: [ :each :index | index asRopedText foreground: Color gray ];
+		column: ''Value'' text: [:each | each gtDisplayString ]' ])
 ]
 
 { #category : #'*GToolkit-Inspector' }

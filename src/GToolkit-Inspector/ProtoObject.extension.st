@@ -167,14 +167,14 @@ ProtoObject >> gtRawFor: aView [
 					on: Error , Halt
 					do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value;
-		contextItemLabel: 'Create <gtView> method'
-			action: [ :anElement :each | 
-				| creator |
-				creator := GtViewCreator
-						forCollection: each value key
-						in: each value hostObject.
-				creator showOn: anElement ]
-			if: [ :each | each value rawValue isCollection and: [ each value rawValue isString not ] ];
+		dynamicContextItems: [ :each | 
+			each value isSlotNode
+				ifTrue: [ (GtViewCreator
+						viewCreatorsFor: each value rawValue
+						forSource: each value key
+						in: each value hostObject class)
+						collect: [ :creator | creator label -> [ :element | creator showOn: element ] ] ]
+				ifFalse: [ #() ] ];
 		actionUpdateButton
 ]
 

@@ -53,6 +53,11 @@ GtInspectorVariableNode >> hostObject: anObject [
 	hostObject := anObject
 ]
 
+{ #category : #testing }
+GtInspectorVariableNode >> isSlotNode [
+	^ false
+]
+
 { #category : #accessing }
 GtInspectorVariableNode >> key [
 	"Answer the key of this object variable (slot, indexed attribute, computed value)."
