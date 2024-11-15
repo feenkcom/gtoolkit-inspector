@@ -6,6 +6,16 @@ Class {
 	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
+{ #category : #printing }
+GtInspectorTabIdentifier >> description [
+	^ String streamContents: [ :aStream |
+		self descriptionOn:  aStream ]
+]
+
+{ #category : #printing }
+GtInspectorTabIdentifier >> descriptionOn: aStream [
+]
+
 { #category : #testing }
 GtInspectorTabIdentifier >> matchesTab: aTabModel [
 	<return: #Boolean>

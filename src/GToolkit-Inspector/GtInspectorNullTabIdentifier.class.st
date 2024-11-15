@@ -10,6 +10,11 @@ Class {
 GtInspectorNullTabIdentifier >> applySelectionTo: anInspectorElement [
 ]
 
+{ #category : #printing }
+GtInspectorNullTabIdentifier >> descriptionOn: aStream [
+	aStream nextPutAll: 'Null identifier'
+]
+
 { #category : #testing }
 GtInspectorNullTabIdentifier >> matchesTab: aTabModel [
 	^ false
@@ -17,5 +22,5 @@ GtInspectorNullTabIdentifier >> matchesTab: aTabModel [
 
 { #category : #printing }
 GtInspectorNullTabIdentifier >> printOn: aStream [
-	aStream nextPutAll: 'Null identifier'
+	self descriptionOn: aStream
 ]

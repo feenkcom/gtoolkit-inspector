@@ -13,7 +13,7 @@ Class {
 GtInspectorSelectedTabExtractor >> extractTabName [
 	<return: #GtInspectorTabName>
 	self inspectorElement phlow
-		firstChildWithCompositeViewDo: [ :tabGroup | 
+		firstChildWithCompositeViewContentDo: [ :tabGroup | 
 			^ tabGroup viewModel selectedTab widget
 				phlow entity 
 					ifNotNil: [ :aPhlow | 
