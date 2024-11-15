@@ -19,6 +19,11 @@ GtInspectorSlotNode >> errorMessage [
 	^ 'error obtaining attribute value'
 ]
 
+{ #category : #testing }
+GtInspectorSlotNode >> isSlotNode [
+	^ true
+]
+
 { #category : #accessing }
 GtInspectorSlotNode >> key [
 	^ self slot name

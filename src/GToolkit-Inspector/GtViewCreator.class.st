@@ -2,21 +2,62 @@ Class {
 	#name : #GtViewCreator,
 	#superclass : #Object,
 	#instVars : [
-		'variable',
-		'object',
 		'source',
-		'selector'
+		'selector',
+		'objectSource',
+		'behavior',
+		'title',
+		'label'
 	],
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
-{ #category : #'instance creation' }
-GtViewCreator class >> forCollection: varName in: anObject [
-	^ self new
-		variable: varName;
-		object: anObject;
-		createSourceForCollection;
-		yourself
+{ #category : #private }
+GtViewCreator class >> titleFor: aNode [
+	aNode
+		nodesDo: [ :each | 
+			(each isMessage and: [ each selector = #title: ])
+				ifTrue: [ (each arguments first isLiteralNode
+						and: [ each arguments first value isString ])
+						ifTrue: [ ^ each arguments first value ] ] ].
+	^ nil
+]
+
+{ #category : #accessing }
+GtViewCreator class >> viewCreatorsFor: anObject forSource: sourceString in: aBehavior [
+	| items |
+	items := OrderedCollection new.
+	((GtPhlowCollector new
+		fromObject: anObject;
+		pragmaName: #gtViewCreator;
+		collectAllPragmas) collectAsSet: [ :each | each method selector ])
+		do: [ :each | 
+			| creator |
+			creator := GtViewCreator new
+					objectSource: sourceString;
+					behavior: aBehavior.
+			anObject perform: each with: creator.
+			creator isValid ifTrue: [ items add: creator ] ].
+	items
+		addAll: ((((GtPhlowViewsCollector new from: anObject class) collectPragmas
+				collect: [ :pragma | 
+					{pragma method selector.
+						(self titleFor: pragma method ast) ifNil: [ pragma method selector ]} ])
+				asSortedCollection: [ :a :b | a second < b second ])
+				collect: [ :each | 
+					| creator |
+					creator := self new.
+					creator objectSource: sourceString.
+					creator behavior: aBehavior.
+					creator
+						title: (creator variable
+								ifNil: [ each second ]
+								ifNotNil: [ :v | v capitalized , ' ' , each second uncapitalized ]).
+					creator
+						label: ('Create <gtView> forward to ' , each second) asRopedText glamorousRegularFont.
+					creator createSourceForForwarder: each first.
+					creator ]).
+	^ items
 ]
 
 { #category : #accessing }
@@ -45,7 +86,12 @@ GtViewCreator >> asElement [
 
 { #category : #accessing }
 GtViewCreator >> behavior [
-	^ object class whichClassDefinesInstVar: variable
+	^ behavior
+]
+
+{ #category : #accessing }
+GtViewCreator >> behavior: anObject [
+	behavior := anObject
 ]
 
 { #category : #compiling }
@@ -57,11 +103,23 @@ GtViewCreator >> compile [
 ]
 
 { #category : #private }
-GtViewCreator >> createSourceForCollection [
-	source := (object instVarNamed: variable) gtCreateViewSource
-			expandMacrosWith: self newSelector
-			with: variable
-			with: variable capitalized
+GtViewCreator >> createSourceForForwarder: aSymbol [
+	source := String
+			streamContents: [ :stream | 
+				stream << self newSelector
+					<< ' aView
+	<gtView>
+	^ aView forward
+		title: ''' << self title
+					<< ''';
+		object: [ ' << objectSource
+					<< ' ];
+		view: #' << aSymbol ]
+]
+
+{ #category : #accessing }
+GtViewCreator >> empty [
+	source := nil
 ]
 
 { #category : #accessing }
@@ -74,31 +132,51 @@ GtViewCreator >> gtDefaultInspectorTool [
 
 { #category : #accessing }
 GtViewCreator >> gtDisplayOn: stream [
-	stream << 'Create gtView method on ' << variable << ' in '
-		<< self behavior name
+	stream << self label asString
+]
+
+{ #category : #'as yet unclassified' }
+GtViewCreator >> isValid [
+	^ source notNil
+]
+
+{ #category : #accessing }
+GtViewCreator >> label [
+	^ label
+		ifNil: [ title
+				ifNil: [ self variable
+						ifNil: [ 'Create <gtView>' ]
+						ifNotNil: [ :v | 'Create <gtView> for ' , v ] ]
+				ifNotNil: [ 'Create <gtView> ' , title ] ]
+]
+
+{ #category : #accessing }
+GtViewCreator >> label: anObject [
+	label := anObject
 ]
 
 { #category : #private }
 GtViewCreator >> newSelector [
 	^ selector
 		ifNil: [ | part index indexString newSelector |
-			part := 'gt' , variable capitalized.
+			part := 'gt' , (self variable ifNil: [ 'View' ]) capitalized.
 			index := 0.
 			indexString := ''.
-			[ object respondsTo: (newSelector := (part , indexString , 'For:') asSymbol) ]
+			[ behavior
+				canUnderstand: (newSelector := (part , indexString , 'For:') asSymbol) ]
 				whileTrue: [ index := index + 1.
 					indexString := index printString ].
 			selector := newSelector ]
 ]
 
 { #category : #accessing }
-GtViewCreator >> object [
-	^ object
+GtViewCreator >> objectSource [
+	^ objectSource
 ]
 
 { #category : #accessing }
-GtViewCreator >> object: anObject [
-	object := anObject
+GtViewCreator >> objectSource: anObject [
+	objectSource := anObject
 ]
 
 { #category : #view }
@@ -127,11 +205,34 @@ GtViewCreator >> showOn: anElement [
 ]
 
 { #category : #accessing }
-GtViewCreator >> variable [
-	^ variable
+GtViewCreator >> source [
+	^ source
 ]
 
 { #category : #accessing }
-GtViewCreator >> variable: anObject [
-	variable := anObject
+GtViewCreator >> source: anObject [
+	source := anObject
+]
+
+{ #category : #accessing }
+GtViewCreator >> title [
+	^ title
+		ifNil: [ self variable ifNotNil: [ :v | v capitalized ] ifNil: [ 'View' ] ]
+]
+
+{ #category : #accessing }
+GtViewCreator >> title: anObject [
+	title := anObject
+]
+
+{ #category : #accessing }
+GtViewCreator >> variable [
+	| ast |
+	ast := GtPharoParser
+			parseWithErrors: objectSource
+			startingAt: GtPharoParser startingStateForMethodSequence.
+	(ast isSequence and: [ ast statements size = 1 ])
+		ifTrue: [ ast := ast statements first ].
+	ast isVariable ifTrue: [ ^ ast variableName ].
+	^ nil
 ]

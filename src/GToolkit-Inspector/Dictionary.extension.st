@@ -1,15 +1,27 @@
 Extension { #name : #Dictionary }
 
 { #category : #'*GToolkit-Inspector' }
-Dictionary >> gtCreateViewSource [
-	^ '<1s> aView
-	%<gtView%>
-	<2s> ifNil: [ ^ aView empty ].
-	^ aView columnedList
-		title: ''<3s>'';
-		items: [ <2s> associations ];
-		column: ''Key'' text: [:each | each key gtDisplayString];
-		column: ''Value'' text: [:each | each value gtDisplayString]'
+Dictionary >> gtCreateViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	aGtViewCreator
+		source: (String
+				streamContents: [ :stream | 
+					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
+						<< String lf.
+					aGtViewCreator variable
+						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
+					stream
+						<< '	^ aView columnedList
+		title: ''' << aGtViewCreator title
+						<< ''';
+		items: [ '.
+					aGtViewCreator variable ifNil: [ stream << '[' ].
+					stream << aGtViewCreator objectSource.
+					aGtViewCreator variable ifNil: [ stream << '] value' ].
+					stream
+						<< ' associations sort: (#key collatedBy: #gtDisplayString)];
+		column: ''Key'' text: [ :each | each key gtDisplayString ];
+		column: ''Value'' text: [:each | each value gtDisplayString ]' ])
 ]
 
 { #category : #'*GToolkit-Inspector' }

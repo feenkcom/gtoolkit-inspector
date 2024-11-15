@@ -9,14 +9,22 @@ Collection >> gtCollectionSizeThreshold [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Collection >> gtCreateViewSource [
-	^ '<1s> aView
-	%<gtView%>
-	<2s> ifNil: [ ^ aView empty ].
-	^ aView columnedList
-		title: ''<3s>'';
-		items: [ <2s> ];
-		column: ''Value'' text: [:each | each gtDisplayString]'
+Collection >> gtCreateViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	aGtViewCreator
+		source: (String
+				streamContents: [ :stream | 
+					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
+						<< String lf.
+					aGtViewCreator variable
+						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
+					stream
+						<< '	^ aView columnedList
+		title: ''' << aGtViewCreator title
+						<< ''';
+		items: [' << aGtViewCreator objectSource
+						<< '];
+		column: ''Value'' text: [:each | each gtDisplayString ]' ])
 ]
 
 { #category : #'*GToolkit-Inspector' }
