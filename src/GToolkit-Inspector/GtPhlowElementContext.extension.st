@@ -60,8 +60,8 @@ GtPhlowElementContext >> gtOverview [
 			secureValue: [ self firstChildWithViewContent ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
 		GtPhlowOverviewItem new
-			name: 'First child with composite view';
-			secureValue: [ self firstChildWithCompositeView ];
+			name: 'First child with composite view content';
+			secureValue: [ self firstChildWithCompositeViewContent ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
 		GtPhlowOverviewItem new
 			name: 'View content';
