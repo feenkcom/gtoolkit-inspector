@@ -181,7 +181,7 @@ AbstractFileReference >> gtEditorView [
 				combination: BlKeyCombination primaryS;
 				action: saveBlock).
 	editor editor text: (BlRunRopedText file: self).
-	editor aptitude: BrGlamorousEditorAptitude.
+	editor aptitude: BrGlamorousCodeEditorAptitude.
 	editorPane
 		addChild: (BlElement new
 					width: 5;
