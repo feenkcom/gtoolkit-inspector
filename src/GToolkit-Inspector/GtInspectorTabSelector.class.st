@@ -48,6 +48,6 @@ GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
 
 { #category : #actions }
 GtInspectorTabSelector >> selectTabInInspectorElement: anInspectorElement on: anObject [
-	anInspectorElement phlow firstChildWithCompositeViewDo: [ :aTabGroupElement | 
+	anInspectorElement phlow firstChildWithCompositeViewContentDo: [ :aTabGroupElement | 
 		self selectTabInGroup: aTabGroupElement on: anObject ]
 ]

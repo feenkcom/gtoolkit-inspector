@@ -20,12 +20,6 @@ GtInspectorTabName >> applySelectionTo: anInspectorElement [
 ]
 
 { #category : #printing }
-GtInspectorTabName >> description [
-	^ String streamContents: [ :aStream |
-		self descriptionOn:  aStream ]
-]
-
-{ #category : #printing }
 GtInspectorTabName >> descriptionOn: aStream [
 
 	aStream 
