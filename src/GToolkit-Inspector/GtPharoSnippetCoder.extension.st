@@ -10,8 +10,8 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 				detect: [ :each | each class = GtPlaygroundEvaluatedCodeButtonAttribute ]
 				ifFound: [ :each | 
 					^ (GtViewCreator
-						viewCreatorsFor: each result
-						forSource: aCoderViewModel styledText asString
+						viewCreatorsForObject: each result
+						andSource: aCoderViewModel styledText asString
 						in: behavior)
 						do: [ :creator | 
 							self

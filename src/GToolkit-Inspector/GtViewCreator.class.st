@@ -13,36 +13,18 @@ Class {
 }
 
 { #category : #private }
-GtViewCreator class >> titleFor: aNode [
-	aNode
-		nodesDo: [ :each | 
-			(each isMessage and: [ each selector = #title: ])
-				ifTrue: [ (each arguments first isLiteralNode
-						and: [ each arguments first value isString ])
-						ifTrue: [ ^ each arguments first value ] ] ].
-	^ nil
-]
-
-{ #category : #accessing }
-GtViewCreator class >> viewCreatorsFor: anObject forSource: sourceString in: aBehavior [
-	| items |
-	items := OrderedCollection new.
-	((GtPhlowCollector new
-		fromObject: anObject;
-		pragmaName: #gtViewCreator;
-		collectAllPragmas) collectAsSet: [ :each | each method selector ])
-		do: [ :each | 
-			| creator |
-			creator := GtViewCreator new
-					objectSource: sourceString;
-					behavior: aBehavior.
-			anObject perform: each with: creator.
-			creator isValid ifTrue: [ items add: creator ] ].
-	items
-		addAll: ((((GtPhlowViewsCollector new from: anObject class) collectPragmas
-				collect: [ :pragma | 
-					{pragma method selector.
-						(self titleFor: pragma method ast) ifNil: [ pragma method selector ]} ])
+GtViewCreator class >> forwardViewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
+	| forwardItems ignoredSelectors selectors |
+	forwardItems := OrderedCollection new.
+	ignoredSelectors := self ignoredForwardSelectors.
+	selectors := (GtPhlowViewsCollector new from: anObject class) collectPragmas
+			collectAsSet: [ :each | each method selector ].
+	ignoredSelectors do: [ :each | selectors remove: each ifAbsent: [  ] ].
+	forwardItems
+		addAll: (((selectors
+				collect: [ :sel | 
+					{sel.
+						(self titleFor: (anObject class lookupSelector: sel) ast) ifNil: [ sel ]} ])
 				asSortedCollection: [ :a :b | a second < b second ])
 				collect: [ :each | 
 					| creator |
@@ -57,7 +39,55 @@ GtViewCreator class >> viewCreatorsFor: anObject forSource: sourceString in: aBe
 						label: ('Create <gtView> forward to ' , each second) asRopedText glamorousRegularFont.
 					creator createSourceForForwarder: each first.
 					creator ]).
+	^ forwardItems
+]
+
+{ #category : #private }
+GtViewCreator class >> ignoredForwardSelectors [
+	^ #(gtRawFor: gtPrintFor: gtMetaFor:)
+]
+
+{ #category : #private }
+GtViewCreator class >> localViewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
+	| items |
+	items := OrderedCollection new.
+	((GtPhlowCollector new
+		fromObject: anObject;
+		pragmaName: #gtViewCreator;
+		collectAllPragmas) collectAsSet: [ :each | each method selector ])
+		do: [ :each | 
+			| creator |
+			creator := GtViewCreator new
+					objectSource: sourceString;
+					behavior: aBehavior.
+			anObject perform: each with: creator.
+			creator isValid ifTrue: [ items add: creator ] ].
 	^ items
+]
+
+{ #category : #private }
+GtViewCreator class >> titleFor: aNode [
+	aNode
+		nodesDo: [ :each | 
+			(each isMessage and: [ each selector = #title: ])
+				ifTrue: [ (each arguments first isLiteralNode
+						and: [ each arguments first value isString ])
+						ifTrue: [ ^ each arguments first value ] ] ].
+	^ nil
+]
+
+{ #category : #accessing }
+GtViewCreator class >> viewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
+	| localItems forwardItems |
+	localItems := self
+			localViewCreatorsForObject: anObject
+			andSource: sourceString
+			in: aBehavior.
+	forwardItems := self
+			forwardViewCreatorsForObject: anObject
+			andSource: sourceString
+			in: aBehavior.
+	^ localItems , forwardItems
 ]
 
 { #category : #accessing }
