@@ -170,8 +170,8 @@ ProtoObject >> gtRawFor: aView [
 		dynamicContextItems: [ :each | 
 			each value isSlotNode
 				ifTrue: [ (GtViewCreator
-						viewCreatorsFor: each value rawValue
-						forSource: each value key
+						viewCreatorsForObject: each value rawValue
+						andSource: each value key
 						in: each value hostObject class)
 						collect: [ :creator | creator label -> [ :element | creator showOn: element ] ] ]
 				ifFalse: [ #() ] ];
