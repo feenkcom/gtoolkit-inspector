@@ -14,6 +14,24 @@ Class {
 }
 
 { #category : #private }
+GtViewCreator class >> addTemporariesTo: aString for: aBehavior [
+	| ast vars |
+	ast := RBParser parseExpression: aString.
+	ast isSequence ifFalse: [ ast := RBSequenceNode statements: {ast} ].
+	vars := Set new.
+	ast
+		nodesDo: [ :each | 
+			(each isVariable and: [ (each whoDefines: each name) isNil ])
+				ifTrue: [ vars add: each name asString ] ].
+	aBehavior allInstVarNames
+		do: [ :each | vars remove: each asString ifAbsent: [  ] ].
+	aBehavior allClassVarNames
+		do: [ :each | vars remove: each asString ifAbsent: [  ] ].
+	vars do: [ :each | ast addTemporaryNamed: each ].
+	^ ast formattedCode
+]
+
+{ #category : #private }
 GtViewCreator class >> forwardViewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
 	| forwardItems ignoredSelectors selectors |
 	forwardItems := OrderedCollection new.
@@ -80,8 +98,9 @@ GtViewCreator class >> titleFor: aNode [
 ]
 
 { #category : #accessing }
-GtViewCreator class >> viewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
-	| localItems forwardItems |
+GtViewCreator class >> viewCreatorsForObject: anObject andSource: aString in: aBehavior [
+	^ [ | localItems forwardItems sourceString |
+	sourceString := self addTemporariesTo: aString for: aBehavior.
 	localItems := self
 			localViewCreatorsForObject: anObject
 			andSource: sourceString
@@ -90,7 +109,7 @@ GtViewCreator class >> viewCreatorsForObject: anObject andSource: sourceString i
 			forwardViewCreatorsForObject: anObject
 			andSource: sourceString
 			in: aBehavior.
-	^ localItems , forwardItems
+	localItems , forwardItems ] on: Error do: [ :ex | ex return: #() ]
 ]
 
 { #category : #accessing }
@@ -137,17 +156,18 @@ GtViewCreator >> compile [
 
 { #category : #private }
 GtViewCreator >> createSourceForForwarder: aSymbol [
-	source := String
-			streamContents: [ :stream | 
-				stream << self newSelector
-					<< ' aView
+	self
+		source: (String
+				streamContents: [ :stream | 
+					stream << self newSelector
+						<< ' aView
 	<gtView>
 	^ aView forward
 		title: ''' << self title
-					<< ''';
+						<< ''';
 		object: [ ' << objectSource
-					<< ' ];
-		view: #' << aSymbol ]
+						<< ' ];
+		view: #' << aSymbol ])
 ]
 
 { #category : #accessing }
@@ -272,8 +292,9 @@ GtViewCreator >> source [
 ]
 
 { #category : #accessing }
-GtViewCreator >> source: anObject [
-	source := anObject
+GtViewCreator >> source: aString [
+	aString ifNil: [ ^ source := nil ].
+	source := (RBParser parseMethod: aString) formattedCode
 ]
 
 { #category : #accessing }
