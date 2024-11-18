@@ -7,7 +7,8 @@ Class {
 		'objectSource',
 		'behavior',
 		'title',
-		'label'
+		'label',
+		'object'
 	],
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
@@ -29,6 +30,7 @@ GtViewCreator class >> forwardViewCreatorsForObject: anObject andSource: sourceS
 				collect: [ :each | 
 					| creator |
 					creator := self new.
+					creator object: anObject.
 					creator objectSource: sourceString.
 					creator behavior: aBehavior.
 					creator
@@ -57,7 +59,8 @@ GtViewCreator class >> localViewCreatorsForObject: anObject andSource: sourceStr
 		collectAllPragmas) collectAsSet: [ :each | each method selector ])
 		do: [ :each | 
 			| creator |
-			creator := GtViewCreator new
+			creator := self new
+					object: anObject;
 					objectSource: sourceString;
 					behavior: aBehavior.
 			anObject perform: each with: creator.
@@ -92,16 +95,15 @@ GtViewCreator class >> viewCreatorsForObject: anObject andSource: sourceString i
 
 { #category : #accessing }
 GtViewCreator >> asElement [
-	| pane valueHolder newMethodElement |
+	| pane valueHolder newMethodElement coder |
 	pane := BrVerticalPane new.
 	pane padding: (BlInsets all: 10).
 	pane hMatchParent.
 	pane vFitContentLimited.
 	valueHolder := ValueHolder new.
-	valueHolder
-		contents: ((GtPharoMethodCoder forClass: self behavior source: source)
-				protocol: #views;
-				asCoderViewModel).
+	coder := GtPharoMethodCoder forClass: self behavior source: source.
+	coder protocol: #views.
+	valueHolder contents: coder asCoderViewModel.
 	valueHolder contents shouldHaveHeader: false.
 	newMethodElement := GtPharoNewMethodCoderElement new
 			hMatchParent;
@@ -110,6 +112,7 @@ GtViewCreator >> asElement [
 			methodCoderViewModelValueHolder: valueHolder;
 			onMethodCoderSaved: [ :event :viewModel | pane enqueueTask: [ pane fireEvent: BrContextMenuHideWish new ] asBlTask ];
 			when: GtPhlowObjectToSpawn do: [ :aSpawnEvent | aSpawnEvent consumed: true ].
+	pane userData at: #coder put: coder.
 	pane addChild: newMethodElement.
 	^ pane
 ]
@@ -150,6 +153,20 @@ GtViewCreator >> createSourceForForwarder: aSymbol [
 { #category : #accessing }
 GtViewCreator >> empty [
 	source := nil
+]
+
+{ #category : #private }
+GtViewCreator >> evaluateView: aString [
+	| ast rewriter method |
+	ast := RBParser parseMethod: aString.
+	rewriter := RBParseTreeRewriter new replace: objectSource with: 'self'.
+	(rewriter executeTree: ast) ifTrue: [ ast := rewriter tree ].
+	method := Smalltalk compiler
+			environment: behavior environment;
+			class: behavior;
+			source: ast formattedCode;
+			compile.
+	^ method valueWithReceiver: object arguments: {GtPhlowEmptyView new}
 ]
 
 { #category : #accessing }
@@ -200,6 +217,16 @@ GtViewCreator >> newSelector [
 ]
 
 { #category : #accessing }
+GtViewCreator >> object [
+	^ object
+]
+
+{ #category : #accessing }
+GtViewCreator >> object: anObject [
+	object := anObject
+]
+
+{ #category : #accessing }
 GtViewCreator >> objectSource [
 	^ objectSource
 ]
@@ -213,12 +240,17 @@ GtViewCreator >> objectSource: anObject [
 GtViewCreator >> showOn: anElement [
 	anElement
 		enqueueTask: [ | aptitude |
-			aptitude := BrGlamorousWithContextMenuAptitude
+			aptitude := BrGlamorousWithTooltipAptitude
 					handle: [ BlElement new
 							size: 8 @ 8;
 							yourself ] asStencil
-					content: [ | element |
+					content: [ | element coder |
 						element := self asElement.
+						coder := element userData at: #coder.
+						coder addOns
+							addContextAction: 'Inspect view' translated
+							icon: BrGlamorousVectorIcons playinspect
+							action: [ :aCoderUIModel :button | anElement phlow spawnObject: (self evaluateView: coder currentSourceString) ].
 						element width: 450.
 						element
 							when: BlElementRemovedFromSceneGraphEvent
@@ -229,7 +261,7 @@ GtViewCreator >> showOn: anElement [
 							ifFound: [ :editor | editor enqueueTask: [ editor requestFocus ] asBlTask ]
 							ifNone: [  ].
 						element ].
-			aptitude position: anElement boundsInSpace bottomCenter.
+			aptitude hideDelay: 300 years.
 			anElement addAptitude: aptitude.
 			aptitude show ] asBlTask
 ]
