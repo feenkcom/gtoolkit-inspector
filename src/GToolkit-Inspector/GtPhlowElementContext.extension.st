@@ -84,11 +84,15 @@ GtPhlowElementContext >> gtOverview [
 { #category : #'*GToolkit-Inspector' }
 GtPhlowElementContext >> gtOverviewFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Overview';
 		priority: 0;
 		items: [ self gtOverview ];
-		column: 'Name' text: #name;
+		children: [ :anOverview |
+			((anOverview value isKindOf: BlElement) and: [ anOverview value phlow entity isNotNil ])
+				ifTrue: [ anOverview value phlow gtOverview ]
+				ifFalse: [ #() ] ];
+		column: 'Name' text: #name weight: 1.5;
 		column: 'Description' text: #description;
 		send: #value
 ]
