@@ -44,8 +44,12 @@ GtPhlowElementContext >> gtOverview [
 			name: 'Tool view model';
 			value: self toolViewModel.
 		GtPhlowOverviewItem new
-			name: 'First parent with view';
-			secureValue: [ self firstParentWithView ];
+			name: 'First parent with view content';
+			secureValue: [ self firstParentWithViewContent ];
+			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
+		GtPhlowOverviewItem new
+			name: 'First parent with view content''s content (BrTabGroup>>#content)';
+			secureValue: [ self firstParentWithViewContent ifNotNil: #content ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
 		GtPhlowOverviewItem new
 			name: 'First child with view title';
@@ -84,11 +88,15 @@ GtPhlowElementContext >> gtOverview [
 { #category : #'*GToolkit-Inspector' }
 GtPhlowElementContext >> gtOverviewFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Overview';
 		priority: 0;
 		items: [ self gtOverview ];
-		column: 'Name' text: #name;
+		children: [ :anOverview |
+			(anOverview value isKindOf: BlElement)
+				ifTrue: [ anOverview value phlow gtOverview ]
+				ifFalse: [ #() ] ];
+		column: 'Name' text: #name weight: 1.5;
 		column: 'Description' text: #description;
 		send: #value
 ]
