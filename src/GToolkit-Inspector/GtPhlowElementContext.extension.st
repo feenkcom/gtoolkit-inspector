@@ -48,6 +48,10 @@ GtPhlowElementContext >> gtOverview [
 			secureValue: [ self firstParentWithViewContent ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
 		GtPhlowOverviewItem new
+			name: 'First parent with view content''s content (BrTabGroup>>#content)';
+			secureValue: [ self firstParentWithViewContent ifNotNil: #content ];
+			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
+		GtPhlowOverviewItem new
 			name: 'First child with view title';
 			secureValue: [ self firstChildWithViewTitle ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
@@ -89,7 +93,7 @@ GtPhlowElementContext >> gtOverviewFor: aView [
 		priority: 0;
 		items: [ self gtOverview ];
 		children: [ :anOverview |
-			((anOverview value isKindOf: BlElement) and: [ anOverview value phlow entity isNotNil ])
+			(anOverview value isKindOf: BlElement)
 				ifTrue: [ anOverview value phlow gtOverview ]
 				ifFalse: [ #() ] ];
 		column: 'Name' text: #name weight: 1.5;
