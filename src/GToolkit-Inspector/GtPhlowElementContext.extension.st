@@ -44,8 +44,8 @@ GtPhlowElementContext >> gtOverview [
 			name: 'Tool view model';
 			value: self toolViewModel.
 		GtPhlowOverviewItem new
-			name: 'First parent with view';
-			secureValue: [ self firstParentWithView ];
+			name: 'First parent with view content';
+			secureValue: [ self firstParentWithViewContent ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
 		GtPhlowOverviewItem new
 			name: 'First child with view title';
