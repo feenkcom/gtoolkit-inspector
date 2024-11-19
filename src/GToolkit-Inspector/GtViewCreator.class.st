@@ -281,7 +281,7 @@ GtViewCreator >> showOn: anElement [
 							ifFound: [ :editor | editor enqueueTask: [ editor requestFocus ] asBlTask ]
 							ifNone: [  ].
 						element ].
-			aptitude hideDelay: 300 years.
+			aptitude hideDelay: nil.
 			anElement addAptitude: aptitude.
 			aptitude show ] asBlTask
 ]
