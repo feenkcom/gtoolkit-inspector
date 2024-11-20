@@ -41,6 +41,9 @@ GtPhlowElementContext >> gtOverview [
 			name: 'Entity';
 			value: self entity.
 		GtPhlowOverviewItem new
+			name: 'Defining method';
+			value: self definingMethod.
+		GtPhlowOverviewItem new
 			name: 'Tool view model';
 			value: self toolViewModel.
 		GtPhlowOverviewItem new
