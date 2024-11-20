@@ -49,6 +49,29 @@ SequenceableCollection >> gtBoxesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	(self notEmpty and: [ self first isAssociation ])
+		ifFalse: [ ^ aGtViewCreator empty ].
+	aGtViewCreator
+		title: 'Details';
+		source: (String
+				streamContents: [ :stream | 
+					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
+						<< String lf.
+					aGtViewCreator variable
+						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
+					stream
+						<< '	^ aView columnedList
+		title: ''' << aGtViewCreator title
+						<< ''';
+		items: [' << aGtViewCreator objectSource
+						<< '];
+		column: ''Property'' text: [ :each | each key gtDisplayString asRopedText foreground: Color gray ];
+		column: ''Value'' text: [:each | each value gtDisplayString ]' ])
+]
+
+{ #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
 	aGtViewCreator
