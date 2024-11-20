@@ -410,11 +410,9 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				label: 'Save';
 				icon: BrGlamorousVectorIcons accept;
-				action: [ | newContents | 
-					newContents := tab viewContentElement children 
-						first children 
-						first children first 
-						textualCoderViewModel styledText asString.
+				action: [ | query newContents | 
+					query := tab viewContentElement query // GtSourceCoderEditorId.
+					newContents := query anyOne textualCoderViewModel styledText asString.
 					self gtSaveContents: newContents ] ]
 ]
 
