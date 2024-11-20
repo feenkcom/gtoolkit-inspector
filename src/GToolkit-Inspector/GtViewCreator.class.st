@@ -269,8 +269,9 @@ GtViewCreator >> showOn: anElement [
 						coder := element userData at: #coder.
 						coder addOns
 							addContextAction: 'Inspect view' translated
-							icon: BrGlamorousVectorIcons playinspect
-							action: [ :aCoderUIModel :button | anElement phlow spawnObject: (self evaluateView: coder currentSourceString) ].
+								icon: BrGlamorousVectorIcons playinspect
+								action: [ :aCoderUIModel :button | anElement phlow spawnObject: (self evaluateView: coder currentSourceString) ];
+							addStyler: (GtViewStyler new object: self object).
 						element width: 450.
 						element
 							when: BlElementRemovedFromSceneGraphEvent
