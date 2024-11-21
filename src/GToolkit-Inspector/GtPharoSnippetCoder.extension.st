@@ -11,7 +11,9 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 				ifFound: [ :each | 
 					^ (GtViewCreator
 						viewCreatorsForObject: each result
-						andSource: aCoderViewModel styledText asString
+						andSource: (each evaluationInterval
+								ifNil: [ aCoderViewModel styledText asString ]
+								ifNotNil: [ :interval | aCoderViewModel styledText asString copyFrom: interval first to: interval last ])
 						in: behavior)
 						do: [ :creator | 
 							self

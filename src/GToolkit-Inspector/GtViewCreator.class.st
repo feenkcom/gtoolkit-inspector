@@ -21,7 +21,9 @@ GtViewCreator class >> addTemporariesTo: aString for: aBehavior [
 	vars := Set new.
 	ast
 		nodesDo: [ :each | 
-			(each isVariable and: [ (each whoDefines: each name) isNil ])
+			(each isVariable
+				and: [ (each whoDefines: each name) isNil
+						and: [ each isSelfOrSuperVariable not and: [ each name first isLowercase ] ] ])
 				ifTrue: [ vars add: each name asString ] ].
 	aBehavior allInstVarNames
 		do: [ :each | vars remove: each asString ifAbsent: [  ] ].
