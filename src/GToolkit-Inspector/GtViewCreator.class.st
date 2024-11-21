@@ -7,10 +7,86 @@ Class {
 		'objectSource',
 		'behavior',
 		'title',
-		'label'
+		'label',
+		'object'
 	],
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
+
+{ #category : #private }
+GtViewCreator class >> addTemporariesTo: aString for: aBehavior [
+	| ast vars |
+	ast := RBParser parseExpression: aString.
+	ast isSequence ifFalse: [ ast := RBSequenceNode statements: {ast} ].
+	vars := Set new.
+	ast
+		nodesDo: [ :each | 
+			(each isVariable
+				and: [ (each whoDefines: each name) isNil
+						and: [ each isSelfOrSuperVariable not and: [ each name first isLowercase ] ] ])
+				ifTrue: [ vars add: each name asString ] ].
+	aBehavior allInstVarNames
+		do: [ :each | vars remove: each asString ifAbsent: [  ] ].
+	aBehavior allClassVarNames
+		do: [ :each | vars remove: each asString ifAbsent: [  ] ].
+	vars do: [ :each | ast addTemporaryNamed: each ].
+	^ ast formattedCode
+]
+
+{ #category : #private }
+GtViewCreator class >> forwardViewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
+	| forwardItems ignoredSelectors selectors |
+	forwardItems := OrderedCollection new.
+	ignoredSelectors := self ignoredForwardSelectors.
+	selectors := (GtPhlowViewsCollector new from: anObject class) collectPragmas
+			collectAsSet: [ :each | each method selector ].
+	ignoredSelectors do: [ :each | selectors remove: each ifAbsent: [  ] ].
+	forwardItems
+		addAll: (((selectors
+				collect: [ :sel | 
+					{sel.
+						(self titleFor: (anObject class lookupSelector: sel) ast) ifNil: [ sel ]} ])
+				asSortedCollection: [ :a :b | a second < b second ])
+				collect: [ :each | 
+					| creator |
+					creator := self new.
+					creator object: anObject.
+					creator objectSource: sourceString.
+					creator behavior: aBehavior.
+					creator
+						title: (creator variable
+								ifNil: [ each second ]
+								ifNotNil: [ :v | v capitalized , ' ' , each second uncapitalized ]).
+					creator
+						label: ('Create <gtView> forward to ' , each second) asRopedText glamorousRegularFont.
+					creator createSourceForForwarder: each first.
+					creator ]).
+	^ forwardItems
+]
+
+{ #category : #private }
+GtViewCreator class >> ignoredForwardSelectors [
+	^ #(gtRawFor: gtPrintFor: gtMetaFor:)
+]
+
+{ #category : #private }
+GtViewCreator class >> localViewCreatorsForObject: anObject andSource: sourceString in: aBehavior [
+	| items |
+	items := OrderedCollection new.
+	((GtPhlowCollector new
+		fromObject: anObject;
+		pragmaName: #gtViewCreator;
+		collectAllPragmas) collectAsSet: [ :each | each method selector ])
+		do: [ :each | 
+			| creator |
+			creator := self new
+					object: anObject;
+					objectSource: sourceString;
+					behavior: aBehavior.
+			anObject perform: each with: creator.
+			creator isValid ifTrue: [ items add: creator ] ].
+	^ items
+]
 
 { #category : #private }
 GtViewCreator class >> titleFor: aNode [
@@ -24,54 +100,31 @@ GtViewCreator class >> titleFor: aNode [
 ]
 
 { #category : #accessing }
-GtViewCreator class >> viewCreatorsFor: anObject forSource: sourceString in: aBehavior [
-	| items |
-	items := OrderedCollection new.
-	((GtPhlowCollector new
-		fromObject: anObject;
-		pragmaName: #gtViewCreator;
-		collectAllPragmas) collectAsSet: [ :each | each method selector ])
-		do: [ :each | 
-			| creator |
-			creator := GtViewCreator new
-					objectSource: sourceString;
-					behavior: aBehavior.
-			anObject perform: each with: creator.
-			creator isValid ifTrue: [ items add: creator ] ].
-	items
-		addAll: ((((GtPhlowViewsCollector new from: anObject class) collectPragmas
-				collect: [ :pragma | 
-					{pragma method selector.
-						(self titleFor: pragma method ast) ifNil: [ pragma method selector ]} ])
-				asSortedCollection: [ :a :b | a second < b second ])
-				collect: [ :each | 
-					| creator |
-					creator := self new.
-					creator objectSource: sourceString.
-					creator behavior: aBehavior.
-					creator
-						title: (creator variable
-								ifNil: [ each second ]
-								ifNotNil: [ :v | v capitalized , ' ' , each second uncapitalized ]).
-					creator
-						label: ('Create <gtView> forward to ' , each second) asRopedText glamorousRegularFont.
-					creator createSourceForForwarder: each first.
-					creator ]).
-	^ items
+GtViewCreator class >> viewCreatorsForObject: anObject andSource: aString in: aBehavior [
+	^ [ | localItems forwardItems sourceString |
+	sourceString := self addTemporariesTo: aString for: aBehavior.
+	localItems := self
+			localViewCreatorsForObject: anObject
+			andSource: sourceString
+			in: aBehavior.
+	forwardItems := self
+			forwardViewCreatorsForObject: anObject
+			andSource: sourceString
+			in: aBehavior.
+	localItems , forwardItems ] on: Error do: [ :ex | ex return: #() ]
 ]
 
 { #category : #accessing }
 GtViewCreator >> asElement [
-	| pane valueHolder newMethodElement |
+	| pane valueHolder newMethodElement coder |
 	pane := BrVerticalPane new.
 	pane padding: (BlInsets all: 10).
 	pane hMatchParent.
 	pane vFitContentLimited.
 	valueHolder := ValueHolder new.
-	valueHolder
-		contents: ((GtPharoMethodCoder forClass: self behavior source: source)
-				protocol: #views;
-				asCoderViewModel).
+	coder := GtPharoMethodCoder forClass: self behavior source: source.
+	coder protocol: #views.
+	valueHolder contents: coder asCoderViewModel.
 	valueHolder contents shouldHaveHeader: false.
 	newMethodElement := GtPharoNewMethodCoderElement new
 			hMatchParent;
@@ -80,6 +133,7 @@ GtViewCreator >> asElement [
 			methodCoderViewModelValueHolder: valueHolder;
 			onMethodCoderSaved: [ :event :viewModel | pane enqueueTask: [ pane fireEvent: BrContextMenuHideWish new ] asBlTask ];
 			when: GtPhlowObjectToSpawn do: [ :aSpawnEvent | aSpawnEvent consumed: true ].
+	pane userData at: #coder put: coder.
 	pane addChild: newMethodElement.
 	^ pane
 ]
@@ -104,22 +158,37 @@ GtViewCreator >> compile [
 
 { #category : #private }
 GtViewCreator >> createSourceForForwarder: aSymbol [
-	source := String
-			streamContents: [ :stream | 
-				stream << self newSelector
-					<< ' aView
+	self
+		source: (String
+				streamContents: [ :stream | 
+					stream << self newSelector
+						<< ' aView
 	<gtView>
 	^ aView forward
 		title: ''' << self title
-					<< ''';
+						<< ''';
 		object: [ ' << objectSource
-					<< ' ];
-		view: #' << aSymbol ]
+						<< ' ];
+		view: #' << aSymbol ])
 ]
 
 { #category : #accessing }
 GtViewCreator >> empty [
 	source := nil
+]
+
+{ #category : #private }
+GtViewCreator >> evaluateView: aString [
+	| ast rewriter method |
+	ast := RBParser parseMethod: aString.
+	rewriter := RBParseTreeRewriter new replace: objectSource with: 'self'.
+	(rewriter executeTree: ast) ifTrue: [ ast := rewriter tree ].
+	method := Smalltalk compiler
+			environment: behavior environment;
+			class: behavior;
+			source: ast formattedCode;
+			compile.
+	^ method valueWithReceiver: object arguments: {GtPhlowEmptyView new}
 ]
 
 { #category : #accessing }
@@ -170,6 +239,16 @@ GtViewCreator >> newSelector [
 ]
 
 { #category : #accessing }
+GtViewCreator >> object [
+	^ object
+]
+
+{ #category : #accessing }
+GtViewCreator >> object: anObject [
+	object := anObject
+]
+
+{ #category : #accessing }
 GtViewCreator >> objectSource [
 	^ objectSource
 ]
@@ -183,12 +262,18 @@ GtViewCreator >> objectSource: anObject [
 GtViewCreator >> showOn: anElement [
 	anElement
 		enqueueTask: [ | aptitude |
-			aptitude := BrGlamorousWithContextMenuAptitude
+			aptitude := BrGlamorousWithTooltipAptitude
 					handle: [ BlElement new
 							size: 8 @ 8;
 							yourself ] asStencil
-					content: [ | element |
+					content: [ | element coder |
 						element := self asElement.
+						coder := element userData at: #coder.
+						coder addOns
+							addContextAction: 'Inspect view' translated
+								icon: BrGlamorousVectorIcons playinspect
+								action: [ :aCoderUIModel :button | anElement phlow spawnObject: (self evaluateView: coder currentSourceString) ];
+							addStyler: (GtViewStyler new object: self object).
 						element width: 450.
 						element
 							when: BlElementRemovedFromSceneGraphEvent
@@ -199,7 +284,7 @@ GtViewCreator >> showOn: anElement [
 							ifFound: [ :editor | editor enqueueTask: [ editor requestFocus ] asBlTask ]
 							ifNone: [  ].
 						element ].
-			aptitude position: anElement boundsInSpace bottomCenter.
+			aptitude hideDelay: nil.
 			anElement addAptitude: aptitude.
 			aptitude show ] asBlTask
 ]
@@ -210,8 +295,9 @@ GtViewCreator >> source [
 ]
 
 { #category : #accessing }
-GtViewCreator >> source: anObject [
-	source := anObject
+GtViewCreator >> source: aString [
+	aString ifNil: [ ^ source := nil ].
+	source := (RBParser parseMethod: aString) formattedCode
 ]
 
 { #category : #accessing }
