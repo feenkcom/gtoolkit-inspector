@@ -3,63 +3,31 @@ Extension { #name : #ProtoObject }
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
-	^ anAction explicit
+	^ anAction button
 		priority: 70;
-		stencil: [ | button |
-			button := BrButton new
-					aptitude: BrGlamorousButtonWithIconAptitude;
-					label: 'Browse class for current object';
-					icon: BrGlamorousVectorIcons emphasizedBrowse;
-					action: [ :aButton :aModel :anEvent | 
-						aButton phlow
-							spawnTool: (GtPhlowExplicitTool new
-									name: self gtDisplayString;
-									stencil: [ GtCoderElement forObject: self ]) ].
-			button viewModel
-				when: BlClickEvent
-				do: [ :anEvent | anEvent modifiers isPrimaryModifier ifTrue: [ self gtBrowseFrom: button ] ].
-			button viewModel
-				when: BlMouseEnterEvent
-				do: [ :anEvent | 
-					anEvent consumed: true.
-					anEvent modifiers isPrimaryModifier
-						ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
-						ifFalse: [ anEvent target mouseCursor: nil ].
-					anEvent target requestFocus ].
-			button ]
+		tooltip: 'Browse class for current object';
+		icon: BrGlamorousVectorIcons emphasizedBrowse;
+		action: [ :aButton | 
+			aButton phlow
+				spawnTool: (GtPhlowExplicitTool new
+					name: self gtDisplayString;
+					stencil: [ GtCoderElement forObject: self ]) ];
+		primaryModifierAction: [ :aButton | self gtBrowseFrom: aButton ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
-	^ anAction explicit
-		priority: 75;
-		stencil: [ | button |
-			button := BrButton new
-					id: GtInspectorInspectButtonId;
-					aptitude: BrGlamorousButtonWithIconAptitude;
-					icon: BrGlamorousVectorIcons inspect;
-					label: 'Inspect current object';
-					action: [ :aButton :aModel :anEvent | 
-						aButton phlow spawnObject: self ].
-			button viewModel
-				when: BlClickEvent
-				do: [ :anEvent | 
-					| aTool |
-					aTool := self gtDefaultInspectorTool.
-					anEvent modifiers isPrimaryModifier ifTrue: [ 
-						GtWorldUtility
-							showObject: self
-							from: anEvent target ] ].
-			button viewModel
-				when: BlMouseEnterEvent
-				do: [ :anEvent | 
-					anEvent consumed: true.
-					anEvent modifiers isPrimaryModifier
-						ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
-						ifFalse: [ anEvent target mouseCursor: nil ].
-					anEvent target requestFocus ].
-			button ]
+	^ anAction button
+		priority: 76;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect current object';
+		action: [ :aButton |
+			aButton phlow spawnObject: self ];
+		primaryModifierAction: [ :aButton |
+				GtWorldUtility showObject: self from: aButton  ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #'*GToolkit-Inspector' }

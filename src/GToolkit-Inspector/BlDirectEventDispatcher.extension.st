@@ -26,6 +26,7 @@ BlDirectEventDispatcher >> gtHandlersFor: aView [
 BlDirectEventDispatcher >> gtOwnerElementFor: aView [
 	<gtView>
 	self owner ifNil: [ ^ aView empty ].
+	(self owner respondsTo: #gtPreviewFor:) ifFalse: [ ^ aView empty ].
 	^ aView forward 
 		title: 'Owner element';
 		priority: 55;
