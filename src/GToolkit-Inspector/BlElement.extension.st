@@ -24,6 +24,24 @@ BlElement >> gtChildrenFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtCreateViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	aGtViewCreator
+		title: 'explicit';
+		source: (String
+				streamContents: [ :stream | 
+					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
+						<< String lf.
+					aGtViewCreator variable
+						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
+					stream
+						<< '	^ aView explicit
+		title: ''' << aGtViewCreator title capitalized
+						<< ''';
+		stencil: [' << aGtViewCreator objectSource << ']' ])
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

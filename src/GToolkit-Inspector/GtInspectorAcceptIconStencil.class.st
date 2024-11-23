@@ -7,7 +7,7 @@ Class {
 		'angle',
 		'color'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #'instance creation' }
@@ -48,7 +48,7 @@ GtInspectorAcceptIconStencil >> create [
 	^ BlElement new
 		size: (aRadius + aRadius) @ (aRadius + aRadius);
 		geometry:
-			(BlPolygon
+			(BlPolygonGeometry
 				vertices:
 					{(0 @ 0).
 					((aThickness + aThickness) @ 0).

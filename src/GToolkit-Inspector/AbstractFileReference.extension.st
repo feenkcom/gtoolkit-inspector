@@ -327,6 +327,15 @@ AbstractFileReference >> gtJsonFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+AbstractFileReference >> gtMovieViewFor: aView [
+	<gtView>
+	(self extension = 'mp4') ifFalse: [ ^ aView empty ].
+	^ aView explicit
+		title: 'Movie';
+		stencil: [ GtProtoWebViewVideoFileElement new file: self ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPathFor: aView [
 	<gtView>
 	<gtContextView: #FileSystemError>
