@@ -23,6 +23,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 		priority: 76;
 		icon: BrGlamorousVectorIcons inspect;
 		tooltip: 'Inspect current object';
+		id: GtInspectorInspectButtonId;
 		action: [ :aButton |
 			aButton phlow spawnObject: self ];
 		primaryModifierAction: [ :aButton |
