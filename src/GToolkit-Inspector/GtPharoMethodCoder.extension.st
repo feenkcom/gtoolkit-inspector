@@ -3,7 +3,7 @@ Extension { #name : #GtPharoMethodCoder }
 { #category : #'*GToolkit-Inspector' }
 GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns: 220>
-	| node |
+	| node implementer objectCode lastValue |
 	anAst isMethod ifFalse: [ ^ self ].
 	(anAst pragmasNamed: #gtView) ifNil: [ ^ self ].
 	node := self nodeFrom: aCoderViewModel.
@@ -16,6 +16,35 @@ GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: a
 	node parent parent isCascade ifFalse: [ ^ self ].
 	node parent parent receiver isMessageSend ifFalse: [ ^ self ].
 	node parent parent receiver selector = #forward ifFalse: [ ^ self ].
+	node parent parent messages
+		detect: [ :each | each selector = #object: ]
+		ifFound: [ :each | each arguments first isBlock ifTrue: [ objectCode := each arguments first body ] ].
+	objectCode ifNil: [ ^ self ].
+	aCoderViewModel styledText
+		attributesDo: [ :attrs | 
+			attrs
+				detect: [ :each | each class = GtPlaygroundEvaluatedCodeButtonAttribute ]
+				ifFound: [ :each | 
+					each evaluationInterval
+						ifNotNil: [ :interval | 
+							(interval first <= objectCode startPosition
+								and: [ interval last >= objectCode stopPosition
+										and: [ interval first > objectCode parent startPosition
+												and: [ interval last < objectCode parent stopPosition ] ] ])
+								ifTrue: [ implementer := each result class ] ] ] ].
+	implementer
+		ifNil: [ lastValue := objectCode statements last.
+			lastValue isLiteral ifTrue: [ implementer := lastValue literalValue class ].
+			lastValue isVariable
+				ifTrue: [ lastValue isSelf ifTrue: [ implementer := self behavior ].
+					aCoderViewModel selfObject
+						ifNotNil: [ :obj | 
+							obj class
+								slotNamed: lastValue variableName
+								ifFound: [ :slot | implementer := (slot read: obj) class ]
+								ifNone: [  ] ] ] ].
+	implementer
+		ifNotNil: [ implementer := implementer whichClassIncludesSelector: node literalValue ].
 	coderAddOns
 		addContextMenuItem: (self
 				createLabel: 'Inline <gtView>'
@@ -24,7 +53,7 @@ GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: a
 		leave: self removeHighlightBlock
 		action: [ :aSourceCoderViewModel :element | 
 			(GtInlineForwardViewRefactoringController new
-				implementor: nil;
+				implementor: implementer;
 				node: node;
 				sourceCoderViewModel: aSourceCoderViewModel) executeIn: element ]
 		id: #'context-menu--inline-gtView'
