@@ -27,7 +27,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 		action: [ :aButton |
 			aButton phlow spawnObject: self ];
 		primaryModifierAction: [ :aButton |
-				GtWorldUtility showObject: self from: aButton  ]
+				aButton phlow showObject: self ]
 			mouseCursor: BlCopyCursor new
 ]
 
