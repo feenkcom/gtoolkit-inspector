@@ -1,6 +1,11 @@
 Extension { #name : #Boolean }
 
 { #category : #'*GToolkit-Inspector' }
+Boolean >> gtColoredText [
+	^ self printString asRopedText
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Boolean >> gtLiveBackground [
 	^ BlBackground transparent
 ]
