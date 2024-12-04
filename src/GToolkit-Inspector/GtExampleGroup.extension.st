@@ -100,7 +100,7 @@ GtExampleGroup >> paintMapWith: m [
 									asExpandedOnlyElement
 										vFitContentLimited;
 										when: GtPhlowObjectToSpawn
-											do: [:e | anElement phlow spawnTool: e tool ].
+											do: [:e | anElement phlow spawnPreviousEvent: e ].
 								aCoderElement properties fontSizeEm: 0.75.
 								aCoderElement ];
 								preferredExtent: 200@200;
