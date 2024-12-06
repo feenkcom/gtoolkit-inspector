@@ -196,7 +196,8 @@ GtViewCreator >> gtDefaultInspectorTool [
 	^ GtPhlowCompositeTool new
 		addTool: (GtPhlowExplicitTool new
 				name: self gtDisplayString;
-				stencil: [ self asElement ])
+				stencil: [ self asElement ]);
+		addTool: (super gtDefaultInspectorTool)
 ]
 
 { #category : #accessing }
