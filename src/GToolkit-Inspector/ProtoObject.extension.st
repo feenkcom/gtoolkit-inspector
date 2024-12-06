@@ -136,12 +136,12 @@ ProtoObject >> gtRawFor: aView [
 					on: Error , Halt
 					do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value;
-		dynamicContextItems: [ :each | 
-			each value isSlotNode
+		dynamicContextItems: [ :aTreeNode | 
+			aTreeNode value isSlotNode
 				ifTrue: [ (GtViewCreator
-						viewCreatorsForObject: each value rawValue
-						andSource: each value key
-						in: each value hostObject class)
+						viewCreatorsForObject: aTreeNode value rawValue
+						andSource: aTreeNode value key
+						in: aTreeNode value hostObject class)
 						collect: [ :creator | creator label -> [ :element | creator showOn: element ] ] ]
 				ifFalse: [ #() ] ];
 		actionUpdateButton
