@@ -142,7 +142,7 @@ ProtoObject >> gtRawFor: aView [
 						viewCreatorsForObject: aTreeNode value rawValue
 						andSource: aTreeNode value key
 						in: aTreeNode value hostObject class)
-						collect: [ :creator | creator label -> [ :element | creator showOn: element ] ] ]
+						collect: [ :creator | creator asMenuItem ] ]
 				ifFalse: [ #() ] ];
 		actionUpdateButton
 ]
