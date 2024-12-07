@@ -138,6 +138,22 @@ GtViewCreator >> asElement [
 	^ pane
 ]
 
+{ #category : #converting }
+GtViewCreator >> asMenuItem [
+	| coder menu |
+	coder := GtPharoMethodCoder forClass: self behavior source: source.
+	coder protocol: #views.
+	menu := GtPharoNewMethodCoderMenu new.
+	menu
+		coder: coder;
+		onMethodCoderSaved: [ :event :viewModel :element | ];
+		onObjectToSpawn: [ :aSpawnEvent | aSpawnEvent consumed: true ].
+	^ BrMenuSubmenuItem new
+		label: self label;
+		submenu: menu;
+		group: BrMenuItemGroupConfiguration refactoring
+]
+
 { #category : #accessing }
 GtViewCreator >> behavior [
 	^ behavior
