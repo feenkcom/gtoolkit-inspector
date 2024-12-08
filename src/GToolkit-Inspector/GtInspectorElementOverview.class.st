@@ -116,7 +116,7 @@ GtInspectorElementOverview >> buildLayoutProperties [
 
 { #category : #'private - properties' }
 GtInspectorElementOverview >> buildOtherProperties [
-	| theProperties |
+	| theProperties aContainer extraProperties |
 	
 	theProperties := { 
 		('User data ({1})' format: { self elementUserData size }) -> [ self spawnUserData ].
@@ -125,12 +125,28 @@ GtInspectorElementOverview >> buildOtherProperties [
 	
 	} sorted: [ :a :b | a key < b key ].
 	
-	^ self buildSectionContainer
+	aContainer := self buildSectionContainer
 		addChild: (self buildSectionLabelNamed: 'Other');
 		addChildren: (theProperties collect: [ :each |
 			self
 				buildPropertyButtonNamed: each key
-				spawn: each value ])
+				spawn: each value ]).
+				
+	"I build element specific properties that are computed dynamically
+	searching for methods with #gtInspectorElementOverview pragma."
+	extraProperties := self elementSpecificProperties.
+	extraProperties ifEmpty: [ ^ aContainer ].
+	aContainer addChildren: (extraProperties collect: [ :each |
+			| anElement |
+			anElement := self
+				buildPropertyButtonNamed: each label
+				spawn: each spawnActionBlock.
+			each definingMethod ifNotNil: [ :aMethod |
+				anElement addAptitude: (GtPhlowBrowseDefinitionAptitude new
+					definition: aMethod) ].
+			anElement ]).
+	
+	^ aContainer 
 ]
 
 { #category : #'private - instance creation' }
@@ -141,8 +157,9 @@ GtInspectorElementOverview >> buildPropertyButtonNamed: aName spawn: aSpawnBlock
 		alignCenter;
 		addAptitude: BrGlamorousLinkButtonExteriorAptitude;
 		when: BlClickEvent do: [ :anEvent |
-			anEvent consumed: true.
-			aSpawnBlock cull: anEvent currentTarget ];
+			(GtPhlowUtility isDefinitionRequested: anEvent) ifFalse: [
+				anEvent consumed: true.
+				aSpawnBlock cull: anEvent currentTarget ] ];
 		addChild: (BrEditor new
 			hFitContentLimited;
 			vFitContent;
@@ -479,6 +496,26 @@ GtInspectorElementOverview >> elementSpaceName [
 	^ self elementSpace printString
 ]
 
+{ #category : #'private - properties' }
+GtInspectorElementOverview >> elementSpecificProperties [
+	"Collect element overview properties."
+
+	<return: #Collection of: #GtInspectorElementOverviewProperty>
+	| allPragmas |
+	allPragmas := Pragma
+			allNamed: #gtInspectorElementOverview
+			from: inspectedElement class
+			to: BlElement.
+
+	^ allPragmas
+		collect: [ :eachPragma | 
+			| aProperty |
+			aProperty := inspectedElement perform: eachPragma methodSelector.
+			aProperty definingMethod: eachPragma method.
+			aProperty ]
+		thenReject: #isNil
+]
+
 { #category : #'element - visual' }
 GtInspectorElementOverview >> elementTransformation [
 	^ inspectedElement transformation
@@ -549,7 +586,7 @@ GtInspectorElementOverview >> initializeProperties [
 	properties addChild: self buildEventProperties.
 	properties addChild: self buildCompositionProperties.
 	properties addChild: self buildStatesProperties.
-	properties addChild: self buildOtherProperties
+	properties addChild: self buildOtherProperties.
 ]
 
 { #category : #private }
