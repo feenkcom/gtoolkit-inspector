@@ -501,19 +501,22 @@ GtInspectorElementOverview >> elementSpecificProperties [
 	"Collect element overview properties."
 
 	<return: #Collection of: #GtInspectorElementOverviewProperty>
-	| allPragmas |
+	| allPragmas allProperties |
 	allPragmas := Pragma
 			allNamed: #gtInspectorElementOverview
 			from: inspectedElement class
 			to: BlElement.
 
-	^ allPragmas
+	allProperties := allPragmas
 		collect: [ :eachPragma | 
 			| aProperty |
 			aProperty := inspectedElement perform: eachPragma methodSelector.
 			aProperty definingMethod: eachPragma method.
 			aProperty ]
-		thenReject: #isNil
+		thenReject: #isNil.
+		
+	allProperties sort: [ :a :b | a label < b label ].
+	^ allProperties
 ]
 
 { #category : #'element - visual' }
