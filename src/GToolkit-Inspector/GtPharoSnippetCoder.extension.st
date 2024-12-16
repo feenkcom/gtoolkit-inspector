@@ -21,6 +21,7 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 										name: creator label;
 										viewCreator: creator;
 										yourself)
+								group: BrMenuItemGroupConfiguration refactoring
 								withId: #'create-gtView'
 								to: coderAddOns ] ]
 				ifNone: [  ] ]
