@@ -149,6 +149,8 @@ GtViewCreator >> asMenuItem [
 		onMethodCoderSaved: [ :event :viewModel :element | ];
 		onObjectToSpawn: [ :aSpawnEvent | aSpawnEvent consumed: true ].
 	^ BrMenuSubmenuItem new
+		bePinSubmenuAction;
+		hideOnClick: true;
 		label: self label;
 		submenu: menu;
 		group: BrMenuItemGroupConfiguration refactoring
