@@ -1,6 +1,8 @@
 Class {
 	#name : #GtViewCreator,
 	#superclass : #Object,
+	#traits : 'TGtCoderWithSelfObjectHolder',
+	#classTraits : 'TGtCoderWithSelfObjectHolder classTrait',
 	#instVars : [
 		'source',
 		'selector',
@@ -129,6 +131,7 @@ GtViewCreator >> asElement [
 	newMethodElement := GtPharoNewMethodCoderElement new
 			hMatchParent;
 			vFitContentLimited;
+			selfObject: self object;
 			behavior: self behavior;
 			methodCoderViewModelValueHolder: valueHolder;
 			onMethodCoderSaved: [ :event :viewModel | pane enqueueTask: [ pane fireEvent: BrContextMenuHideWish new ] asBlTask ];
@@ -140,14 +143,15 @@ GtViewCreator >> asElement [
 
 { #category : #converting }
 GtViewCreator >> asMenuItem [
-	| coder menu |
+	| coder coderViewModel menu |
 	coder := GtPharoMethodCoder forClass: self behavior source: source.
 	coder protocol: #views.
-	menu := GtPharoNewMethodCoderMenu new.
-	menu
-		coder: coder;
+	coderViewModel := coder asCoderViewModel.
+	coderViewModel selfObjectHolder: self selfObjectHolder.
+	menu := GtPharoNewMethodCoderMenu new
+		coderViewModel: coderViewModel;
 		onMethodCoderSaved: [ :event :viewModel :element | ];
-		onObjectToSpawn: [ :aSpawnEvent | aSpawnEvent consumed: true ].
+		onObjectToSpawn: [ :aSpawnEvent | ].
 	^ BrMenuSubmenuItem new
 		bePinSubmenuAction;
 		hideOnClick: true;
