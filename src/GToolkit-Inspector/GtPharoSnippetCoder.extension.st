@@ -17,12 +17,9 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 						in: behavior)
 						do: [ :creator | 
 							self
-								addContextMenuItemWithNoShortcutFrom: (GtViewCreatorShortcut new
-										name: creator label;
-										viewCreator: creator;
-										yourself)
-								group: BrMenuItemGroupConfiguration refactoring
-								withId: #'create-gtView'
+								addExplicitContextMenu: creator label
+								block: [ :aCoderElement :aTextualCoderViewModel  :aCoderAction | 
+									creator asMenuItem id: #'create-gtView' ]
 								to: coderAddOns ] ]
 				ifNone: [  ] ]
 ]
