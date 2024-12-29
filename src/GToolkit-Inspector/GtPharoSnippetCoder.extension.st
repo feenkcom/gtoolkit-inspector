@@ -16,6 +16,7 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 								ifNotNil: [ :interval | aCoderViewModel styledText asString copyFrom: interval first to: interval last ])
 						in: behavior)
 						do: [ :creator | 
+							creator selfObjectHolder: aCoderViewModel selfObjectHolder.
 							self
 								addExplicitContextMenu: creator label
 								block: [ :aCoderElement :aTextualCoderViewModel  :aCoderAction | 
