@@ -68,7 +68,7 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.1534/src' ].
 		spec
 			baseline: 'Filewatcher' with: [
-				spec repository: 'github://feenkcom/filewatcher:v0.6.15/src' ].
+				spec repository: 'github://feenkcom/filewatcher:v0.6.16/src' ].
 		spec
 			baseline: 'GToolkitSpotter' with: [
 				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.1455/src' ].
