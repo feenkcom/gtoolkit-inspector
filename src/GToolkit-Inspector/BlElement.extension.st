@@ -159,6 +159,18 @@ BlElement >> gtPreviewElement [
 	aPreviewElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
+	aPreviewElement 
+		when: BlClickEvent 
+		do: [ :anEvent | 
+			self spaceDo: [ :anElementSpace |
+				anEvent currentTarget spaceDo: [ :aPreviewSpace | 
+					| aLocalPosition anElement |
+					anEvent consumed: true.
+					aLocalPosition := anElementSpace == aPreviewSpace
+						ifTrue: [ anEvent position - (anEvent currentTarget positionInSpace - self positionInSpace) ]
+						ifFalse: [ anEvent currentTarget globalPointToLocal: anEvent position ].
+					anElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
+					anEvent currentTarget phlow spawnObject: anElement ] ] ].
 	aPreviewElement enqueueTask: (BlTaskAction new action: [
 		| aScaleFactor shouldForcePulse |
 		
@@ -213,7 +225,36 @@ BlElement >> gtPreviewFor: aView [
 		priority: 2;
 		actionUpdateButton;
 		stencil: [
-			| aPreviewElement |
+			| aPreviewElement aLabel aCaptionText anAddedToSceneHandler aRemovedFromSceneHandler |
+			aCaptionText := [ 
+				'This is a statically rendered preview', 
+					(self isAttachedToSceneGraph 
+						ifTrue: [ ' (clickable preview)' ]
+						ifFalse: [ ' (not clickable preview)' ]) ].
+			aLabel := BrLabel new
+					alignCenter;
+					hMatchParent;
+					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
+					text: aCaptionText value.
+						
+			anAddedToSceneHandler := BlEventHandler
+				on: BlElementAddedToSceneGraphEvent 
+				do: [ :anEvent | aLabel text: aCaptionText value ].
+			aRemovedFromSceneHandler := BlEventHandler
+				on: BlElementRemovedFromSceneGraphEvent 
+				do: [ :anEvent | aLabel text: aCaptionText value ].
+			
+			aLabel 
+				when: BlElementAddedToSceneGraphEvent 
+					do: [ :anEvent | 
+						anEvent currentTarget text: aCaptionText value.
+						self addEventHandler: anAddedToSceneHandler.
+						self addEventHandler: aRemovedFromSceneHandler ];
+				when: BlElementRemovedFromSceneGraphEvent 
+					do: [ :anEvent | 
+						self removeEventHandler: anAddedToSceneHandler.
+						self removeEventHandler: aRemovedFromSceneHandler ].
+			
 			aPreviewElement := BrVerticalPane new.
 			aPreviewElement
 				matchParent;
@@ -233,11 +274,7 @@ BlElement >> gtPreviewFor: aView [
 						addChild: self gtPreviewElement);
 					addAptitude: BrGlamorousWithHorizontalScrollbarAptitude;
 					addAptitude: BrGlamorousWithVerticalScrollbarAptitude);
-				addChild: (BrLabel new
-					alignCenter;
-					hMatchParent;
-					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
-					text: 'This is a statically rendered preview').
+				addChild: aLabel.
 			aPreviewElement ]
 ]
 
