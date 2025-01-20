@@ -3,9 +3,9 @@
 		"github://feenkcom/filewatcher/src" : "v0.6.17",
 		"github://feenkcom/gtoolkit-examples/src" : "v0.8.100",
 		"github://feenkcom/pharo-unicode/src" : "7fc5a56cbf466cd9e2b3b332b08adc3fb67cc25e",
-		"github://feenkcom/gtoolkit-pager/src" : "v0.8.1538",
-		"github://feenkcom/gt4pharo/src" : "v0.6.1984",
-		"github://feenkcom/gtoolkit-spotter/src" : "v0.8.1459",
-		"github://feenkcom/gtoolkit-completer/src" : "v0.8.1456"
+		"github://feenkcom/gtoolkit-pager/src" : "v0.8.1539",
+		"github://feenkcom/gt4pharo/src" : "v0.6.1985",
+		"github://feenkcom/gtoolkit-spotter/src" : "v0.8.1460",
+		"github://feenkcom/gtoolkit-completer/src" : "v0.8.1457"
 	}
 }
