@@ -164,13 +164,40 @@ BlElement >> gtPreviewElement [
 		do: [ :anEvent | 
 			self spaceDo: [ :anElementSpace |
 				anEvent currentTarget spaceDo: [ :aPreviewSpace | 
-					| aLocalPosition anElement |
+					| aLocalPosition aPickedElement |
 					anEvent consumed: true.
 					aLocalPosition := anElementSpace == aPreviewSpace
 						ifTrue: [ anEvent position - (anEvent currentTarget positionInSpace - self positionInSpace) ]
 						ifFalse: [ anEvent currentTarget globalPointToLocal: anEvent position ].
-					anElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
-					anEvent currentTarget phlow spawnObject: anElement ] ] ].
+					aPickedElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
+					anEvent currentTarget phlow spawnObject: aPickedElement ] ] ].
+					
+	aPreviewElement
+		addAptitude: (BrWithExplicitContextMenuAptitude new 
+			withCenteredHandle;
+			stencil: [ :aContext | 
+				| aHandle hasMenuItems |
+				hasMenuItems := false.
+				aHandle := BrMenuExplicitHandle new  menu: ( 
+					BrMenuItems new
+						in: [ :aMenuItems |
+							self spaceDo: [ :anElementSpace |
+								aContext anchorElement spaceDo: [ :aPreviewSpace | 
+									| aLocalPosition aPickedElement |
+									aLocalPosition := anElementSpace == aPreviewSpace
+										ifTrue: [ aContext positionInSpace - (aContext anchorElement positionInSpace - self positionInSpace) ]
+										ifFalse: [ aContext anchorElement globalPointToLocal: aContext positionInSpace ].
+									aPickedElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
+									
+									aPickedElement withAllParentsDo: [ :eachElement | 
+										hasMenuItems := true.
+										aMenuItems 
+											addItemLabel: 'Inspect' 
+											preview: eachElement gtDisplayString 
+											action: [ :anElement | anElement phlow spawnObject: eachElement ] ] ] ] ];
+						yourself).
+				hasMenuItems ifTrue: [ aHandle ] ifFalse: [ nil ] ]).
+					
 	aPreviewElement enqueueTask: (BlTaskAction new action: [
 		| aScaleFactor shouldForcePulse |
 		
