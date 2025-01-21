@@ -54,33 +54,6 @@ BlElement >> gtLiveFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-BlElement >> gtMeasurementChainFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Measurement' translated;
-		priority: 15.1;
-		items: [
-			| withAllParents |
-			withAllParents := (Array streamContents: [ :aStream |
-				| currentElement |
-				currentElement := self.
-				aStream nextPut: currentElement.
-				[ currentElement hasParent ] whileTrue: [ 
-					currentElement := currentElement parent.
-					aStream nextPut: currentElement ] ]) reversed ];
-		column: 'Width spec' 
-			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #widthSpec ];
-		column: 'Height spec' 
-			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #heightSpec ];
-		column: 'Layout' text: [ :anElement :anIndex | anElement layout ];
-		column: 'Element' text: [ :anElement :anIndex | anElement ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtOpenInSpaceFor: anAction [
 	<gtAction>
 	self hasParent ifTrue: [ ^ anAction noAction].
@@ -363,14 +336,53 @@ BlElement >> gtResizersFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Resizers' translated;
+		tooltip: 'Resizers and measurements chain';
 		priority: 15;
 		items: [ self withAllParents reversed ];
 		column: 'Width'
 			text: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height'
 			text: [ :anElement | anElement constraints vertical resizer ];
-		column: 'Layout' text: [ :anElement | anElement layout ];
-		column: 'Element' text: [ :anElement | anElement ]
+		column: 'Width spec' 
+			text: [ :anElement :anIndex | 
+				anElement privatePreviousMeasurementSpec
+					ifNotNil: #widthSpec ];
+		column: 'Height spec' 
+			text: [ :anElement :anIndex | 
+				anElement privatePreviousMeasurementSpec
+					ifNotNil: #heightSpec ];
+		column: 'Layout' text: [ :anElement |
+			| aText aVisibilityText |
+			aText := anElement layout gtDisplayText.
+			aVisibilityText := anElement visibility shouldLayout
+				ifTrue: [ ' (should layout)' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ]
+				ifFalse: [ ' (do not layout)' ].
+			aText append: aVisibilityText asRopedText.
+			aText ];
+		column: 'Element' text: [ :anElement | anElement ];
+		contextItemLabel: 'Inspect horizontal resizer' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement constraints horizontal resizer ];
+		contextItemLabel: 'Inspect vertical resizer' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement constraints vertical resizer ];
+		contextItemLabel: 'Inspect previous measurement' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement privatePreviousMeasurementSpec ];
+		contextItemLabel: 'Inspect previous measurement width spec' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
+					ifNotNil: #widthSpec) ];
+		contextItemLabel: 'Inspect previous measurement height spec' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
+					ifNotNil: #heightSpec) ];
+		contextItemLabel: 'Inspect visibility' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement visibility ];
+		contextItemLabel: 'Inspect layout' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement layout ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
