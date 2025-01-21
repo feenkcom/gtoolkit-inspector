@@ -191,10 +191,25 @@ BlElement >> gtPreviewElement [
 									
 									aPickedElement withAllParentsDo: [ :eachElement | 
 										hasMenuItems := true.
-										aMenuItems 
-											addItemLabel: 'Inspect' 
-											preview: eachElement gtDisplayString 
-											action: [ :anElement | anElement phlow spawnObject: eachElement ] ] ] ] ];
+										eachElement hasChildren
+											ifFalse: [
+												aMenuItems 
+													addItemLabel: 'Inspect parent' 
+													preview: eachElement gtDisplayString 
+													action: [ :anElement | anElement phlow spawnObject: eachElement ] ]
+											ifTrue: [  
+												aMenuItems addItem: (BrMenuSubmenuItem new
+													label: 'Inspect parent' preview: eachElement gtDisplayString;
+													submenu: (BrMenuItems new 
+														in: [ :aSubMenuItems | 
+															eachElement children do: [ :eachChild | 
+																aSubMenuItems
+																	addItemLabel: 'Inspect child' 
+																	preview: eachChild gtDisplayString 
+																	action: [ :anElement | anElement phlow spawnObject: eachChild ] ] ];
+														yourself);
+													action: [ :anElement | anElement phlow spawnObject: eachElement ];
+													hideOnClick: true) ] ] ] ] ];
 						yourself).
 				hasMenuItems ifTrue: [ aHandle ] ifFalse: [ nil ] ]).
 					
