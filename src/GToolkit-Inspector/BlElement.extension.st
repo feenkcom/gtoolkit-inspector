@@ -163,16 +163,20 @@ BlElement >> gtPreviewElement [
 									aPickedElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
 									
 									aPickedElement withAllParentsDo: [ :eachElement | 
+										| aLabel |
+										aLabel := (eachElement == aPickedElement 
+											ifTrue: [ 'Inspect element' ] 
+											ifFalse: [ 'Inspect parent' ]).
 										hasMenuItems := true.
 										eachElement hasChildren
 											ifFalse: [
 												aMenuItems 
-													addItemLabel: 'Inspect parent' 
+													addItemLabel: aLabel
 													preview: eachElement gtDisplayString 
 													action: [ :anElement | anElement phlow spawnObject: eachElement ] ]
 											ifTrue: [  
 												aMenuItems addItem: (BrMenuSubmenuItem new
-													label: 'Inspect parent' preview: eachElement gtDisplayString;
+													label: aLabel preview: eachElement gtDisplayString;
 													submenu: (BrMenuItems new 
 														in: [ :aSubMenuItems | 
 															eachElement children do: [ :eachChild | 
