@@ -146,7 +146,7 @@ BlElement >> gtPreviewElement [
 					anEvent currentTarget phlow spawnObject: aPickedElement ] ] ].
 					
 	aPreviewElement
-		addAptitude: (BrWithExplicitContextMenuAptitude new 
+		addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new 
 			withCenteredHandle;
 			stencil: [ :aContext | 
 				| aHandle hasMenuItems |
