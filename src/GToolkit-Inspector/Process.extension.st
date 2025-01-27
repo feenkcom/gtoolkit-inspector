@@ -43,3 +43,10 @@ Process >> gtPSKeysFor: aView [
 						background: BlBackground transparent ] ]
 			width: 85
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Process >> gtShortName [
+	^ name 
+		ifNil: [ suspendedContext asString ] 
+		ifNotNil: [ :aName | aName asString ]
+]
