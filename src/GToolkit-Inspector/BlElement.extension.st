@@ -42,6 +42,53 @@ BlElement >> gtCreateViewSourceFor: aGtViewCreator [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+BlElement >> gtInspectorPaintModelAptitudeIn: aMondrianView [
+	| nodes |
+
+	nodes := { self }.
+	self viewModelDo: [ :aViewModel | nodes := nodes, aViewModel withAllChildren ].
+	self aptitudeDo: [ :aLook | nodes := nodes, aLook withAllChildren ].
+	nodes := nodes asSet asArray.
+	
+	aMondrianView nodes
+		stencil: [ :each |
+			BrHorizontalPane new
+				fitContent;
+				alignCenter;
+				padding: (BlInsets right: 5);
+				addChild: (BrHorizontalPane new 
+					background: Color veryLightGray;
+					geometry: BlCircleGeometry new;
+					padding: (BlInsets all: 5);
+					margin: (BlInsets right: 5);
+					fitContent;
+					addChild: (BrLabel new
+						aptitude: (BrGlamorousLabelAptitude new fontSize: 10);
+						text: (((each isKindOf: BlElement)
+							ifTrue: [ 'W' ]
+							ifFalse: [ (each isKindOf: BrAptitude)
+								ifTrue: [ 'A' ]
+								ifFalse: [ 'M' ] ]))));
+				addChild: (BrLabel new
+					aptitude: (BrGlamorousLabelAptitude new);
+					text: each class name )
+				 ];
+		with: nodes.
+	
+	aMondrianView edges 
+		stencil: [ :x | 
+			"BlSigmoidElement new 
+				beHorizontal;"
+			BlLineElement new
+				border: (BlBorder paint: (Color gray alpha: 0.5))];
+		fromRightCenter;
+		toLeftCenter;
+		connectToAll: #actors.
+	
+	aMondrianView layout horizontalTree nodeDistance: 20
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlElement >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -51,33 +98,6 @@ BlElement >> gtLiveFor: aView [
 			GtInspectorElementLiveViewContainer new 
 				element: self;
 				clipChildren: false  ].
-]
-
-{ #category : #'*GToolkit-Inspector' }
-BlElement >> gtMeasurementChainFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Measurement' translated;
-		priority: 15.1;
-		items: [
-			| withAllParents |
-			withAllParents := (Array streamContents: [ :aStream |
-				| currentElement |
-				currentElement := self.
-				aStream nextPut: currentElement.
-				[ currentElement hasParent ] whileTrue: [ 
-					currentElement := currentElement parent.
-					aStream nextPut: currentElement ] ]) reversed ];
-		column: 'Width spec' 
-			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #widthSpec ];
-		column: 'Height spec' 
-			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #heightSpec ];
-		column: 'Layout' text: [ :anElement :anIndex | anElement layout ];
-		column: 'Element' text: [ :anElement :anIndex | anElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -159,6 +179,64 @@ BlElement >> gtPreviewElement [
 	aPreviewElement constraintsDo: [ :c |
 		c horizontal matchParent.
 		c vertical matchParent ].
+	aPreviewElement 
+		when: BlClickEvent 
+		do: [ :anEvent | 
+			self spaceDo: [ :anElementSpace |
+				anEvent currentTarget spaceDo: [ :aPreviewSpace | 
+					| aLocalPosition aPickedElement |
+					anEvent consumed: true.
+					aLocalPosition := anElementSpace == aPreviewSpace
+						ifTrue: [ anEvent position - (anEvent currentTarget positionInSpace - self positionInSpace) ]
+						ifFalse: [ anEvent currentTarget globalPointToLocal: anEvent position ].
+					aPickedElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
+					anEvent currentTarget phlow spawnObject: aPickedElement ] ] ].
+					
+	aPreviewElement
+		addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new 
+			withCenteredHandle;
+			stencil: [ :aContext | 
+				| aHandle hasMenuItems |
+				hasMenuItems := false.
+				aHandle := BrMenuExplicitHandle new  menu: ( 
+					BrMenuItems new
+						in: [ :aMenuItems |
+							self spaceDo: [ :anElementSpace |
+								aContext anchorElement spaceDo: [ :aPreviewSpace | 
+									| aLocalPosition aPickedElement |
+									aLocalPosition := anElementSpace == aPreviewSpace
+										ifTrue: [ aContext positionInSpace - (aContext anchorElement positionInSpace - self positionInSpace) ]
+										ifFalse: [ aContext anchorElement globalPointToLocal: aContext positionInSpace ].
+									aPickedElement := anElementSpace mouseProcessor processPickingAt: aLocalPosition.
+									
+									aPickedElement withAllParentsDo: [ :eachElement | 
+										| aLabel |
+										aLabel := (eachElement == aPickedElement 
+											ifTrue: [ 'Inspect element' ] 
+											ifFalse: [ 'Inspect parent' ]).
+										hasMenuItems := true.
+										eachElement hasChildren
+											ifFalse: [
+												aMenuItems 
+													addItemLabel: aLabel
+													preview: eachElement gtDisplayString 
+													action: [ :anElement | anElement phlow spawnObject: eachElement ] ]
+											ifTrue: [  
+												aMenuItems addItem: (BrMenuSubmenuItem new
+													label: aLabel preview: eachElement gtDisplayString;
+													submenu: (BrMenuItems new 
+														in: [ :aSubMenuItems | 
+															eachElement children do: [ :eachChild | 
+																aSubMenuItems
+																	addItemLabel: 'Inspect child' 
+																	preview: eachChild gtDisplayString 
+																	action: [ :anElement | anElement phlow spawnObject: eachChild ] ] ];
+														yourself);
+													action: [ :anElement | anElement phlow spawnObject: eachElement ];
+													hideOnClick: true) ] ] ] ] ];
+						yourself).
+				hasMenuItems ifTrue: [ aHandle ] ifFalse: [ nil ] ]).
+					
 	aPreviewElement enqueueTask: (BlTaskAction new action: [
 		| aScaleFactor shouldForcePulse |
 		
@@ -213,7 +291,36 @@ BlElement >> gtPreviewFor: aView [
 		priority: 2;
 		actionUpdateButton;
 		stencil: [
-			| aPreviewElement |
+			| aPreviewElement aLabel aCaptionText anAddedToSceneHandler aRemovedFromSceneHandler |
+			aCaptionText := [ 
+				'This is a statically rendered preview', 
+					(self isAttachedToSceneGraph 
+						ifTrue: [ ' (clickable preview)' ]
+						ifFalse: [ ' (not clickable preview)' ]) ].
+			aLabel := BrLabel new
+					alignCenter;
+					hMatchParent;
+					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
+					text: aCaptionText value.
+						
+			anAddedToSceneHandler := BlEventHandler
+				on: BlElementAddedToSceneGraphEvent 
+				do: [ :anEvent | aLabel text: aCaptionText value ].
+			aRemovedFromSceneHandler := BlEventHandler
+				on: BlElementRemovedFromSceneGraphEvent 
+				do: [ :anEvent | aLabel text: aCaptionText value ].
+			
+			aLabel 
+				when: BlElementAddedToSceneGraphEvent 
+					do: [ :anEvent | 
+						anEvent currentTarget text: aCaptionText value.
+						self addEventHandler: anAddedToSceneHandler.
+						self addEventHandler: aRemovedFromSceneHandler ];
+				when: BlElementRemovedFromSceneGraphEvent 
+					do: [ :anEvent | 
+						self removeEventHandler: anAddedToSceneHandler.
+						self removeEventHandler: aRemovedFromSceneHandler ].
+			
 			aPreviewElement := BrVerticalPane new.
 			aPreviewElement
 				matchParent;
@@ -233,11 +340,7 @@ BlElement >> gtPreviewFor: aView [
 						addChild: self gtPreviewElement);
 					addAptitude: BrGlamorousWithHorizontalScrollbarAptitude;
 					addAptitude: BrGlamorousWithVerticalScrollbarAptitude);
-				addChild: (BrLabel new
-					alignCenter;
-					hMatchParent;
-					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray; glamorousRegularSmallSize);
-					text: 'This is a statically rendered preview').
+				addChild: aLabel.
 			aPreviewElement ]
 ]
 
@@ -284,14 +387,53 @@ BlElement >> gtResizersFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Resizers' translated;
+		tooltip: 'Resizers and measurements chain';
 		priority: 15;
 		items: [ self withAllParents reversed ];
 		column: 'Width'
 			text: [ :anElement | anElement constraints horizontal resizer ];
 		column: 'Height'
 			text: [ :anElement | anElement constraints vertical resizer ];
-		column: 'Layout' text: [ :anElement | anElement layout ];
-		column: 'Element' text: [ :anElement | anElement ]
+		column: 'Width spec' 
+			text: [ :anElement :anIndex | 
+				anElement privatePreviousMeasurementSpec
+					ifNotNil: #widthSpec ];
+		column: 'Height spec' 
+			text: [ :anElement :anIndex | 
+				anElement privatePreviousMeasurementSpec
+					ifNotNil: #heightSpec ];
+		column: 'Layout' text: [ :anElement |
+			| aText aVisibilityText |
+			aText := anElement layout gtDisplayText.
+			aVisibilityText := anElement visibility shouldLayout
+				ifTrue: [ ' (should layout)' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ]
+				ifFalse: [ ' (do not layout)' ].
+			aText append: aVisibilityText asRopedText.
+			aText ];
+		column: 'Element' text: [ :anElement | anElement ];
+		contextItemLabel: 'Inspect horizontal resizer' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement constraints horizontal resizer ];
+		contextItemLabel: 'Inspect vertical resizer' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement constraints vertical resizer ];
+		contextItemLabel: 'Inspect previous measurement' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement privatePreviousMeasurementSpec ];
+		contextItemLabel: 'Inspect previous measurement width spec' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
+					ifNotNil: #widthSpec) ];
+		contextItemLabel: 'Inspect previous measurement height spec' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
+					ifNotNil: #heightSpec) ];
+		contextItemLabel: 'Inspect visibility' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement visibility ];
+		contextItemLabel: 'Inspect layout' 
+			action: [ :aMenuElement :anElement | 
+				aMenuElement phlow spawnObject: anElement layout ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

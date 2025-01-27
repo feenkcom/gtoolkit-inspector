@@ -215,6 +215,8 @@ GtInspectorElementOverview >> buildVisualProperties [
 				-> [ self spawnBackground ].
 			('Border (width: {1})' format: {self elementBorder width})
 				-> [ self spawnBorder ].
+			('Outskirts ({1})' format: {self elementOutskirtsName})
+				-> [ self spawnOutskirts ].
 			('Geometry ({1})' format: {self elementGeometryName})
 				-> [ self spawnGeometry ].
 			('Transformation ({1})' format: {self elementTransformationName})
@@ -229,6 +231,8 @@ GtInspectorElementOverview >> buildVisualProperties [
 				-> [ self spawnFocus ].
 			('Elevation ({1})' format: {self elementElevationName})
 				-> [ self spawnElevation ].
+			('Effect ({1})' format: {self elementEffectName})
+				-> [ self spawnEffect ].
 			('Compositing mode ({1})' format: {self elementCompositingModeName})
 				-> [ self spawnCompositingMode ]}.
 
@@ -314,6 +318,16 @@ GtInspectorElementOverview >> elementCompositingModeName [
 		format: {wantsElement ifTrue: [ 'yes' ] ifFalse: [ 'no' ].
 				wantsName.
 				parentName}
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementEffect [
+	^ inspectedElement effect
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementEffectName [
+	^ self elementEffect gtDisplayString
 ]
 
 { #category : #'element - visual' }
@@ -462,6 +476,16 @@ GtInspectorElementOverview >> elementMargin [
 { #category : #'element - constraints' }
 GtInspectorElementOverview >> elementOtherConstraints [
 	^ inspectedElement constraints other
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementOutskirts [
+	^ inspectedElement outskirts
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> elementOutskirtsName [
+	^ self elementOutskirts class name
 ]
 
 { #category : #'element - layout' }
@@ -651,6 +675,11 @@ GtInspectorElementOverview >> spawnConstraints [
 	self phlow spawnObject: inspectedElement constraints
 ]
 
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnEffect [
+	self phlow spawnObject: self elementEffect
+]
+
 { #category : #'element - user data' }
 GtInspectorElementOverview >> spawnElementId [
 	self phlow spawnObject: self elementId
@@ -716,6 +745,11 @@ GtInspectorElementOverview >> spawnLayout [
 { #category : #'element - layout' }
 GtInspectorElementOverview >> spawnMargin [
 	self phlow spawnObject: self elementMargin
+]
+
+{ #category : #'element - visual' }
+GtInspectorElementOverview >> spawnOutskirts [
+	self phlow spawnObject: self elementOutskirts
 ]
 
 { #category : #'element - layout' }
