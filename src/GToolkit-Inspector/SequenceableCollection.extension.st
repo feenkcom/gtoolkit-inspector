@@ -38,8 +38,10 @@ SequenceableCollection >> gtBoxesFor: aView [
 											c vertical matchParent ];
 										layout: BlLinearLayout new alignCenter;
 										addChild: (BrLabel new
-												text: each gtDisplayString;
+												text: each printString;
 												aptitude: BrGlamorousLabelAptitude;
+												when: BlClickEvent 
+													do: [ :event | event target phlow spawnObject: each ];
 												constraintsDo: [ :c | 
 													c horizontal fitContent.
 													c vertical fitContent.
