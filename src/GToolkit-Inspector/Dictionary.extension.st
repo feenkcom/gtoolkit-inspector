@@ -42,9 +42,14 @@ Dictionary >> gtItemsFor: aView [
 		column: 'Value' text: [ :assoc | assoc value ] weight: 3;
 		contextItemLabel: 'Inspect key' action: [ :anElement :aTreeNode | 
 			anElement phlow spawnObject: aTreeNode value key ];
+		contextItemLabel: 'Inspect value' action: [ :anElement :aTreeNode | 
+			anElement phlow spawnObject: aTreeNode value value ];
 		contextItemLabel: 'Inspect association' action: [ :anElement :aTreeNode | 
 			anElement phlow spawnObject: aTreeNode value ];
-		send: [ :assoc | assoc value  ]
+		contextItemLabel: 'Remove key and value' action: [ :anElement :aTreeNode | 
+			self removeKey: aTreeNode value key ifAbsent: [ "ignore" ].
+			anElement phlow contextMenuUpdateViewContent ];
+		send: [ :assoc | assoc value  ].
 		
 	"Implementation note: association sorting uses #collatedBy: to avoid a 'Symbol DNU value: value: error'"
 ]

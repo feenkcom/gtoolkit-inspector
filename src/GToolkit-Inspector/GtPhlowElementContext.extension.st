@@ -85,6 +85,14 @@ GtPhlowElementContext >> gtOverview [
 		GtPhlowOverviewItem new
 			name: 'First child with action';
 			secureValue: [ self firstChildWithAction ];
+			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
+		GtPhlowOverviewItem new
+			name: 'Context menu anchor element';
+			secureValue: [ self contextMenuAnchorElement ];
+			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
+		GtPhlowOverviewItem new
+			name: 'Context menu anchor element''s first parent with view content';
+			secureValue: [ self contextMenuAnchorElementFirstParentWithViewContent ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ]. }
 ]
 
