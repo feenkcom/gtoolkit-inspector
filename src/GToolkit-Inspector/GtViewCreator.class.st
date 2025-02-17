@@ -79,13 +79,13 @@ GtViewCreator class >> localViewCreatorsForObject: anObject andSource: sourceStr
 		fromObject: anObject;
 		pragmaName: #gtViewCreator;
 		collectAllPragmas) collectAsSet: [ :each | each method selector ])
-		do: [ :each | 
+		do: [ :aViewSelector | 
 			| creator |
 			creator := self new
 					object: anObject;
 					objectSource: sourceString;
 					behavior: aBehavior.
-			anObject perform: each with: creator.
+			anObject perform: aViewSelector with: creator.
 			creator isValid ifTrue: [ items add: creator ] ].
 	^ items
 ]
@@ -217,7 +217,7 @@ GtViewCreator >> evaluateView: aString [
 GtViewCreator >> gtDefaultInspectorTool [
 	^ GtPhlowCompositeTool new
 		addTool: (GtPhlowExplicitTool new
-				name: self gtDisplayString;
+				name: 'View Source';
 				stencil: [ self asElement ]);
 		addTool: (super gtDefaultInspectorTool)
 ]
@@ -225,6 +225,18 @@ GtViewCreator >> gtDefaultInspectorTool [
 { #category : #accessing }
 GtViewCreator >> gtDisplayOn: stream [
 	stream << self label asString
+]
+
+{ #category : #views }
+GtViewCreator >> gtSourceFor: aView [
+	<gtView>
+	source ifNil: [ ^ aView empty ].
+	
+	^ aView textEditor
+		title: 'Source string';
+		styler: (BrRBTextStyler new
+			 classOrMetaClass: self behavior);
+		text: [ source ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -1,6 +1,44 @@
 Extension { #name : #OrderedDictionary }
 
 { #category : #'*GToolkit-Inspector' }
+OrderedDictionary >> gtCreateViewGroupingFor: aGtViewCreator [
+	<gtViewCreator>
+	
+	dictionary gtCreateViewGroupingFor: aGtViewCreator
+]
+
+{ #category : #'*GToolkit-Inspector' }
+OrderedDictionary >> gtCreateViewSourceFor: aGtViewCreator [
+	<gtViewCreator>
+	| template bindings |
+			
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView columnedList 
+		title: ''{viewTitle}'';
+		items: [ 
+			{objectComputation} associations ];
+		column: ''Key'' text: [ :each | each key gtDisplayString ];
+		column: ''Value'' text: [:each | each value gtDisplayString ];
+		send: [ :each | each value ]'.
+		
+	bindings := {
+		'viewSelector' -> aGtViewCreator newSelector.
+		'viewTitle' -> aGtViewCreator title.
+		'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+		'objectComputation' -> (aGtViewCreator variable 
+				ifNil: [ '[ ', aGtViewCreator objectSource, ' ] value' ]
+				ifNotNil: [ aGtViewCreator objectSource ])
+	} asDictionary.
+	 
+	aGtViewCreator
+		source: (template format: bindings)
+]
+
+{ #category : #'*GToolkit-Inspector' }
 OrderedDictionary >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedTree
