@@ -53,29 +53,40 @@ SequenceableCollection >> gtBoxesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
+	| template bindings |
 	(self notEmpty and: [ self first isAssociation ])
 		ifFalse: [ ^ aGtViewCreator empty ].
+	
 	aGtViewCreator
-		title: 'Details';
-		source: (String
-				streamContents: [ :stream | 
-					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
-						<< String lf.
-					aGtViewCreator variable
-						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
-					stream
-						<< '	^ aView columnedList
-		title: ''' << aGtViewCreator title
-						<< ''';
-		items: [' << aGtViewCreator objectSource
-						<< '];
+		title: 'Details'.
+		
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView columnedList 
+		title: ''{viewTitle}'';
+		items: [ {objectSource} ];
 		column: ''Property'' text: [ :each | each key gtDisplayString asRopedText foreground: Color gray ];
-		column: ''Value'' text: [:each | each value gtDisplayString ]' ])
+		column: ''Value'' text: [:each | each value gtDisplayString ];
+		send: [ :each | each value ]'.
+		
+	bindings := {
+		'viewSelector' -> aGtViewCreator newSelector.
+		'viewTitle' -> aGtViewCreator title.
+		'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+		'objectSource' -> aGtViewCreator objectSource
+	} asDictionary.
+	
+	aGtViewCreator
+		source: (template format: bindings)
 ]
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
+	
 	aGtViewCreator
 		source: (String
 				streamContents: [ :stream | 

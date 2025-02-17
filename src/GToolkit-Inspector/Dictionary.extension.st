@@ -1,27 +1,74 @@
 Extension { #name : #Dictionary }
 
 { #category : #'*GToolkit-Inspector' }
+Dictionary >> gtCreateViewGroupingFor: aGtViewCreator [
+	<gtViewCreator>
+	| template bindings |
+	
+	(self notEmpty and: [ (self associations takeFirst: 10)
+			allSatisfy: [ :assoc | assoc value isCollection ] ])
+		ifFalse: [ ^ aGtViewCreator empty ].
+		
+	aGtViewCreator
+		title: 'Grouping'.
+		
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView columnedList 
+		title: ''{viewTitle}'';
+		items: [ 
+			{objectComputation} associations
+				sort: [ :assoc | assoc value size ] ascending ];
+		column: ''Name'' text: [ :assoc | assoc key ];
+		column: ''Count'' text: [ :assoc | assoc value size ];
+		send: [ :assoc | assoc value ]'.
+		
+	bindings := {
+		'viewSelector' -> aGtViewCreator newSelector.
+		'viewTitle' -> aGtViewCreator title.
+		'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+		'objectComputation' -> (aGtViewCreator variable 
+				ifNil: [ '[ ', aGtViewCreator objectSource, ' ] value' ]
+				ifNotNil: [ aGtViewCreator objectSource ])
+	} asDictionary.
+	 
+	aGtViewCreator
+		source: (template format: bindings)
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Dictionary >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
-	aGtViewCreator
-		source: (String
-				streamContents: [ :stream | 
-					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
-						<< String lf.
-					aGtViewCreator variable
-						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
-					stream
-						<< '	^ aView columnedList
-		title: ''' << aGtViewCreator title
-						<< ''';
-		items: [ '.
-					aGtViewCreator variable ifNil: [ stream << '[' ].
-					stream << aGtViewCreator objectSource.
-					aGtViewCreator variable ifNil: [ stream << '] value' ].
-					stream
-						<< ' associations sort: (#key collatedBy: #gtDisplayString)];
+	| template bindings |
+			
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView columnedList 
+		title: ''{viewTitle}'';
+		items: [ 
+			{objectComputation} associations
+				sort: [ :assoc | assoc key gtDisplayString ] ascending ];
 		column: ''Key'' text: [ :each | each key gtDisplayString ];
-		column: ''Value'' text: [:each | each value gtDisplayString ]' ])
+		column: ''Value'' text: [:each | each value gtDisplayString ];
+		send: [ :each | each value ]'.
+		
+	bindings := {
+		'viewSelector' -> aGtViewCreator newSelector.
+		'viewTitle' -> aGtViewCreator title.
+		'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+		'objectComputation' -> (aGtViewCreator variable 
+				ifNil: [ '[ ', aGtViewCreator objectSource, ' ] value' ]
+				ifNotNil: [ aGtViewCreator objectSource ])
+	} asDictionary.
+	 
+	aGtViewCreator
+		source: (template format: bindings)
 ]
 
 { #category : #'*GToolkit-Inspector' }
