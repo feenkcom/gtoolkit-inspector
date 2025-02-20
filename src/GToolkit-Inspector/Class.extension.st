@@ -62,11 +62,10 @@ Class >> gtInstanceSlotsFor: aView [
 	^ aView columnedList
 		title: 'Instance slots';
 		priority: 5;
-		items: [ self class allInstVarNames sorted
-				collect: [ :each | each -> (self instVarNamed: each) ] ];
-		column: 'Variable' text: #key;
-		column: 'Value' text: #value;
-		send: #value
+		items: [ self instanceSide allSlots sorted: [:a :b | a name < b name ] ];
+		column: 'Slot' text: #name;
+		column: 'Type' text: [:each | each class name ];
+		column: 'Defining class' text: [:each | each definingClass name ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
