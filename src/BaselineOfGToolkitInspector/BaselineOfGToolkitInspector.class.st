@@ -65,22 +65,22 @@ BaselineOfGToolkitInspector >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitPager' with: [
-				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.1559/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-pager:v0.8.1560/src' ].
 		spec
 			baseline: 'Filewatcher' with: [
 				spec repository: 'github://feenkcom/filewatcher:v0.6.17/src' ].
 		spec
 			baseline: 'GToolkitSpotter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.1480/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-spotter:v0.8.1481/src' ].
 		spec
 			baseline: 'GToolkitCompleter' with: [
-				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.1476/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-completer:v0.8.1477/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.2020/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.2021/src' ].
 		spec
 			baseline: 'GToolkitExamples' with: [
-				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.101/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.102/src' ].
 		spec
 			baseline: 'Unicode' with: [
 				spec repository: 'github://feenkcom/pharo-unicode:7fc5a56cbf466cd9e2b3b332b08adc3fb67cc25e/src' ].
