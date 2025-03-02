@@ -1,6 +1,17 @@
 Extension { #name : #MetaLink }
 
 { #category : #'*GToolkit-Inspector' }
+MetaLink >> gtNodesFor: aView [
+	<gtView>
+	nodes ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Nodes';
+		items: [ nodes asOrderedCollection ];
+		column: 'Method' text: [ :each | each method ];
+		column: 'Node' text: [ :each | each gtDisplayString ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MetaLink >> gtOptionsFor: aView [
 	<gtView>
 	self options ifNil: [ ^ aView empty ].
