@@ -151,7 +151,7 @@ BlElement >> gtParentsFor: aView [
 						aptitude:
 							BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 								+
-									(BrGlamorousWithDropdownAptitude
+									(BrGlamorousWithExplicitDropdownAptitude
 										handle: [ BrButton new
 												aptitude:
 													BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
@@ -359,14 +359,14 @@ BlElement >> gtPreviewThumbnailFor: anElement [
 					addChild: form asElement asScalableElement);
 				label: 'Slides';
 				aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
-					+ (BrGlamorousWithDropdownAptitude
+					+ (BrGlamorousWithExplicitDropdownAptitude
 							handle: [ BrButton new
 								aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
 										- BrGlamorousButtonExteriorAptitude;
 								icon: (BlElement new
 										size: 50 @ 20;
 										addChild: form asElement asScalableElement) ]
-							content: [ form asElement ]) beNotResizable;
+							content: [ form asElement ]);
 				constraintsDo: [ :c | 
 					c linear horizontal alignRight ] ]
 ]
