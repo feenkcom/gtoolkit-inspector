@@ -136,14 +136,11 @@ MessageTally >> gtMessagesTreeIn: aView [
 								[ (BrLabel new)
 										aptitude: BrGlamorousLabelAptitude new;
 										addAptitude:
-												(BrGlamorousWithContextMenuAptitude
-														content:
-															[ (BrGlamorousSimpleContextMenuContent new)
-																items:
+												(BrGlamorousWithExplicitContextMenuAptitude
+														itemsWithAnchorActions: [
 																		{'Gather'
 																					->
-																						[ :e | e phlow spawnObject: (self applyFilter: (GtGatherMessageTallyFilter forMethod: (e userData at: #method))) ]};
-																yourself ]) ];
+																						[ :e | e phlow spawnObject: (self applyFilter: (GtGatherMessageTallyFilter forMethod: (e userData at: #method))) ]} ]) ];
 						dataBinder:
 								[ :eachLabel :each | 
 									eachLabel userData at: #method put: each method.
