@@ -15,8 +15,8 @@ BrStencilValuableExecutor >> gtBlockClosureVariablesFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BrStencilValuableExecutor >> gtSourceCodeFor: aView [
 	<gtView>
-	(self valuable isKindOf: BlockClosure) 
-		ifFalse: [ ^ aView empty ].
+	(self valuable respondsTo: #gtSourceCodeFor:) ifFalse: [ ^ aView empty ].
+	
 	^ aView forward
 		title: 'Source code';
 		priority: 1;
