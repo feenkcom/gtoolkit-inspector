@@ -44,7 +44,7 @@ GtViewCreatorExamples >> expectedSourceCode_sequenceableCollection_listView_slot
 		title: ''ListOfAssociations'';
 		items: [ listOfAssociations ];
 		column: ''Index''
-			text: [ :each :index | index asRopedText foreground: Color gray ]
+			text: [ :each :index | index gtDisplayString ]
 			width: 45;
 		column: ''Value'' text: [ :each | each gtDisplayString ]'
 ]
