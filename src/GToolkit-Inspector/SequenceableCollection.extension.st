@@ -85,7 +85,7 @@ SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
-	<gtViewCreator>
+		<gtViewCreator>
 	
 	aGtViewCreator
 		source: (String
