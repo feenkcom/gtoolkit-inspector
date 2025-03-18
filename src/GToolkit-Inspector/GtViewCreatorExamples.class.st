@@ -21,6 +21,24 @@ GtViewCreatorExamples >> associationsList_detailsView_slotData_sourceCodeGenerat
 	^ viewCreator
 ]
 
+{ #category : #examples }
+GtViewCreatorExamples >> elementObject_explicitView_slotData_sourceCodeGeneration [
+	<gtExample>
+	| viewCreator |
+	
+	viewCreator := self 
+		viewCreatorForSelector: #gtCreateViewSourceFor:
+		forSlot: #pluggableValue
+		inObject: (self targetObject
+			pluggableValue: BlElement new).
+		
+	self 
+		assert: viewCreator source 
+		equals: self expectedSourceCode_elementObject_explicitView_slotData.
+		
+	^ viewCreator
+]
+
 { #category : #'data - expected' }
 GtViewCreatorExamples >> expectedSourceCode_associationsList_detailsView_slotData [
 	^  'gtListOfAssociationsFor: aView
@@ -36,6 +54,16 @@ GtViewCreatorExamples >> expectedSourceCode_associationsList_detailsView_slotDat
 ]
 
 { #category : #'data - expected' }
+GtViewCreatorExamples >> expectedSourceCode_elementObject_explicitView_slotData [
+	^  'gtPluggableValueFor: aView
+	<gtView>
+	pluggableValue ifNil: [ ^ aView empty ].
+	^ aView explicit
+		title: ''PluggableValue'';
+		stencil: [ pluggableValue ]'
+]
+
+{ #category : #'data - expected' }
 GtViewCreatorExamples >> expectedSourceCode_sequenceableCollection_listView_slotData [
 	^  'gtListOfAssociationsFor: aView
 	<gtView>
@@ -43,9 +71,6 @@ GtViewCreatorExamples >> expectedSourceCode_sequenceableCollection_listView_slot
 	^ aView columnedList
 		title: ''ListOfAssociations'';
 		items: [ listOfAssociations ];
-		column: ''Index''
-			text: [ :each :index | index gtDisplayString ]
-			width: 45;
 		column: ''Value'' text: [ :each | each gtDisplayString ]'
 ]
 

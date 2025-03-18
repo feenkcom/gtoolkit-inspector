@@ -26,19 +26,26 @@ BlElement >> gtChildrenFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
+	| template bindings |
+	 
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView explicit
+		title: ''{viewTitle}'';
+		stencil: [ {objectSource} ]'.
+	
+	bindings := {
+			'viewSelector' -> aGtViewCreator newSelector.
+			'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+			'viewTitle' -> aGtViewCreator title.
+			'objectSource' -> aGtViewCreator objectSource
+		} asDictionary.
+		
 	aGtViewCreator
-		title: 'explicit';
-		source: (String
-				streamContents: [ :stream | 
-					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
-						<< String lf.
-					aGtViewCreator variable
-						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
-					stream
-						<< '	^ aView explicit
-		title: ''' << aGtViewCreator title capitalized
-						<< ''';
-		stencil: [' << aGtViewCreator objectSource << ']' ])
+		source: (template format: bindings)
 ]
 
 { #category : #'*GToolkit-Inspector' }
