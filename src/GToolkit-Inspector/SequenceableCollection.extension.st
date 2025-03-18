@@ -100,9 +100,6 @@ SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
 						<< ''';
 		items: [' << aGtViewCreator objectSource
 						<< '];
-		column: ''Index'' 
-			text: [ :each :index | index gtDisplayString ] 
-			width: 45;
 		column: ''Value'' text: [:each | each gtDisplayString ]' ])
 ]
 

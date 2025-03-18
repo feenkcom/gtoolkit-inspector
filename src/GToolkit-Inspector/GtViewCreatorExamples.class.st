@@ -71,9 +71,6 @@ GtViewCreatorExamples >> expectedSourceCode_sequenceableCollection_listView_slot
 	^ aView columnedList
 		title: ''ListOfAssociations'';
 		items: [ listOfAssociations ];
-		column: ''Index''
-			text: [ :each :index | index gtDisplayString ]
-			width: 45;
 		column: ''Value'' text: [ :each | each gtDisplayString ]'
 ]
 
