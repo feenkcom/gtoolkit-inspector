@@ -21,6 +21,24 @@ GtViewCreatorExamples >> associationsList_detailsView_slotData_sourceCodeGenerat
 	^ viewCreator
 ]
 
+{ #category : #examples }
+GtViewCreatorExamples >> elementObject_explicitView_slotData_sourceCodeGeneration [
+	<gtExample>
+	| viewCreator |
+	
+	viewCreator := self 
+		viewCreatorForSelector: #gtCreateViewSourceFor:
+		forSlot: #pluggableValue
+		inObject: (self targetObject
+			pluggableValue: BlElement new).
+		
+	self 
+		assert: viewCreator source 
+		equals: self expectedSourceCode_elementObject_explicitView_slotData.
+		
+	^ viewCreator
+]
+
 { #category : #'data - expected' }
 GtViewCreatorExamples >> expectedSourceCode_associationsList_detailsView_slotData [
 	^  'gtListOfAssociationsFor: aView
@@ -33,6 +51,16 @@ GtViewCreatorExamples >> expectedSourceCode_associationsList_detailsView_slotDat
 			text: [ :each | each key gtDisplayString asRopedText foreground: Color gray ];
 		column: ''Value'' text: [ :each | each value gtDisplayString ];
 		send: [ :each | each value ]'
+]
+
+{ #category : #'data - expected' }
+GtViewCreatorExamples >> expectedSourceCode_elementObject_explicitView_slotData [
+	^  'gtPluggableValueFor: aView
+	<gtView>
+	pluggableValue ifNil: [ ^ aView empty ].
+	^ aView explicit
+		title: ''PluggableValue'';
+		stencil: [ pluggableValue ]'
 ]
 
 { #category : #'data - expected' }
