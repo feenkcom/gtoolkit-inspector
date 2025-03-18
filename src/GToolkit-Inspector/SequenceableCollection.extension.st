@@ -85,22 +85,28 @@ SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
 
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateViewSourceFor: aGtViewCreator [
-		<gtViewCreator>
+	<gtViewCreator>
+	| template bindings |
+	 
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView columnedList
+		title: ''{viewTitle}'';
+		items: [ {objectSource} ];
+		column: ''Value'' text: [ :each | each gtDisplayString ]' .
 	
+	bindings := {
+			'viewSelector' -> aGtViewCreator newSelector.
+			'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+			'viewTitle' -> aGtViewCreator title.
+			'objectSource' -> aGtViewCreator objectSource
+		} asDictionary.
+		
 	aGtViewCreator
-		source: (String
-				streamContents: [ :stream | 
-					stream << aGtViewCreator newSelector << ' aView' << String lf << '	<gtView>'
-						<< String lf.
-					aGtViewCreator variable
-						ifNotNil: [ :v | stream << '	' << v << ' ifNil: [ ^aView empty ].' << String lf ].
-					stream
-						<< '	^ aView columnedList
-		title: ''' << aGtViewCreator title
-						<< ''';
-		items: [' << aGtViewCreator objectSource
-						<< '];
-		column: ''Value'' text: [:each | each gtDisplayString ]' ])
+		source: (template format: bindings)
 ]
 
 { #category : #'*GToolkit-Inspector' }
