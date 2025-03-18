@@ -19,7 +19,8 @@ Dictionary >> gtCreateViewGroupingFor: aGtViewCreator [
 		title: ''{viewTitle}'';
 		items: [ 
 			{objectComputation} associations
-				sort: [ :assoc | assoc value size ] ascending ];
+				sorted: [ :anAssoc :annotherAssoc | 
+					anAssoc value size < annotherAssoc value size ] ];
 		column: ''Name'' text: [ :assoc | assoc key ];
 		column: ''Count'' text: [ :assoc | assoc value size ];
 		send: [ :assoc | assoc value ]'.
@@ -50,8 +51,7 @@ Dictionary >> gtCreateViewSourceFor: aGtViewCreator [
 	^ aView columnedList 
 		title: ''{viewTitle}'';
 		items: [ 
-			{objectComputation} associations
-				sort: [ :assoc | assoc key gtDisplayString ] ascending ];
+			{objectComputation} associations ];
 		column: ''Key'' text: [ :each | each key gtDisplayString ];
 		column: ''Value'' text: [:each | each value gtDisplayString ];
 		send: [ :each | each value ]'.
