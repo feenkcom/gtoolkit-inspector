@@ -66,8 +66,8 @@ SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
 	^ aView columnedList 
 		title: ''{viewTitle}'';
 		items: [ {objectSource} ];
-		column: ''Property'' text: [ :each | each key gtDisplayString asRopedText foreground: Color gray ];
-		column: ''Value'' text: [:each | each value gtDisplayString ];
+		column: ''Property'' text: [ :each | each key ];
+		column: ''Value'' text: [:each | each value ];
 		send: [ :each | each value ]'.
 		
 	bindings := {
