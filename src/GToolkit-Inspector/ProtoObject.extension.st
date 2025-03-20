@@ -10,7 +10,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 		action: [ :aButton | 
 			aButton phlow
 				spawnTool: (GtPhlowExplicitTool new
-					name: self gtDisplayString;
+					name: self class name;
 					stencil: [ GtCoderElement forObject: self ]) ];
 		primaryModifierAction: [ :aButton | self gtBrowseFrom: aButton ]
 			mouseCursor: BlCopyCursor new
