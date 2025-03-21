@@ -8,5 +8,5 @@ BlEventDispatcherChain >> gtDispatchersFor: aView [
 		title: 'Dispatchers';
 		items: [ self withAllPrevious reversed select: #hasDispatcher thenCollect: #dispatcher ];
 		column: 'Dispatcher' text: #yourself;
-		column: 'Type' text: #type
+		column: 'Type' text: #type width: 100
 ]
