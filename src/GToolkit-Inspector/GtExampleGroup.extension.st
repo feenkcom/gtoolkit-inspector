@@ -56,64 +56,88 @@ GtExampleGroup >> gtMapFor: aView [
 GtExampleGroup >> paintMapWith: m [
 	| grouped all local |
 	local := self examples select: #isMethodDefined.
-	all := local 
-		withDeepCollect: [ :each | each directDependencies collect: [ :dep | 
-			dep example asCachedExampleWithResult ] ] 
-		as: Set.
-	grouped := (all asSortedCollection: [:a :b | a method name < b method name] )groupedBy: [:each | each providerClass ].
-	m nodes 
-		stencil: [:assoc | 
+	all := local
+			withDeepCollect: [ :each | 
+				each directDependencies
+					collect: [ :dep | dep example asCachedExampleWithResult ] ]
+			as: Set.
+	grouped := (all asSortedCollection: [ :a :b | a method name < b method name ])
+			groupedBy: [ :each | each providerClass ].
+	m nodes
+		stencil: [ :assoc | 
 			| pane default |
 			pane := BlElement new
-				constraintsDo: [:c | 
-					c horizontal fitContent.
-					c vertical fitContent ];
-				layout: BlLinearLayout vertical alignCenter;
-				background: Color white;
-				aptitude: BrShadowAptitude;
-				margin: (BlInsets all: 10);
-				padding: (BlInsets top: 0 left: 10 bottom: 10 right: 10).
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ];
+					layout: BlLinearLayout vertical alignCenter;
+					background: Color white;
+					aptitude: BrShadowAptitude;
+					margin: (BlInsets all: 10);
+					padding: (BlInsets
+							top: 0
+							left: 10
+							bottom: 10
+							right: 10).
 			default := BlElement new
-				constraintsDo: [:c | 
-					c horizontal fitContent.
-					c vertical fitContent ].
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ].
 			default graph beChildrenContainer: #default.
-			pane addChild: (BrLabel new text: assoc key name; aptitude: (BrGlamorousLabelAptitude new foreground: Color gray); margin: (BlInsets bottom: 10)).
+			pane
+				addChild: (BrLabel new
+						text: assoc key name;
+						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
+						margin: (BlInsets bottom: 10)).
 			pane addChild: default.
 			pane ];
 		with: grouped associations;
-		forEach: [:assoc | 
-			m nodes 
-				stencil: [ :anExample | | anElement aHandler |
+		forEach: [ :assoc | 
+			m nodes
+				stencil: [ :anExample | 
+					| anElement aHandler |
 					anElement := BlElement new.
 					anElement
 						geometry: BlEllipseGeometry new;
-						constraintsDo: [ :c | c horizontal fitContent. c vertical fitContent];
+						constraintsDo: [ :c | 
+							c horizontal fitContent.
+							c vertical fitContent ];
 						border: (BlBorder paint: Color black width: 2);
 						background: anExample color;
-						size: 20@20;
-						when: BlClickEvent do: [:anEvent | anEvent target phlow spawnObject: anExample];
-						aptitude: (BrGlamorousWithTooltipAptitude new 
-							contentStencil: [
-								| aCoderElement |
-								aCoderElement := ((GtPharoMethodCoder forExample: anExample) asCoderViewModel expanded: true) 
-									asExpandedOnlyElement
-										vFitContentLimited;
-										when: GtPhlowObjectToSpawn
-											do: [:e | anElement phlow spawnPreviousEvent: e ].
-								aCoderElement properties fontSizeEm: 0.75.
-								aCoderElement ];
-								preferredExtent: 200@200;
+						size: 20 @ 20;
+						when: BlClickEvent
+							do: [ :anEvent | anEvent target phlow spawnObject: anExample ];
+						aptitude: (BrGlamorousWithExplicitTooltipAptitude
+								content: [ | aCoderElement |
+									aCoderElement := ((GtPharoMethodCoder forExample: anExample)
+											asCoderViewModel expanded: true) asExpandedOnlyElement
+											vFitContentLimited;
+											when: GtPhlowObjectToSpawn
+												do: [ :e | anElement phlow spawnPreviousEvent: e ].
+									aCoderElement properties fontSizeEm: 0.75.
+									aCoderElement ];
+								preferredExtent: 200 @ 200;
 								showDelay: 100 milliSeconds;
-								hideDelay: 200 milliSeconds ).
-					aHandler := [ :anAnnouncement | anElement enqueueTask: (BlTaskAction new action: [ anElement background: anExample color ]) ].
-					anElement userData at: #exampleAnnouncementHandler_paintMapWith put: aHandler.
-					anExample announcer weak when: GtExampleExecuted send: #value: to: aHandler.
-					(local includes: anExample) ifFalse: [anElement border: (BlBorder paint: Color gray width: 2)].
+								hideDelay: 200 milliSeconds).
+					aHandler := [ :anAnnouncement | 
+						anElement
+							enqueueTask: (BlTaskAction new action: [ anElement background: anExample color ]) ].
+					anElement userData
+						at: #exampleAnnouncementHandler_paintMapWith
+						put: aHandler.
+					anExample announcer weak
+						when: GtExampleExecuted
+						send: #value:
+						to: aHandler.
+					(local includes: anExample)
+						ifFalse: [ anElement border: (BlBorder paint: Color gray width: 2) ].
 					anElement ];
-		with: assoc value. 
-	m layout horizontalDominanceTree nodeDistance: 2; treesDistance: 4; levelDistance: 10.].
-	m edges 
+				with: assoc value.
+			m layout horizontalDominanceTree
+				nodeDistance: 2;
+				treesDistance: 4;
+				levelDistance: 10 ].
+	m edges
 		fromNearestTightCircle;
 		toNearestTightCircle;
 		stencil: [ :each | 
@@ -122,10 +146,13 @@ GtExampleGroup >> paintMapWith: m [
 				preventMouseEvents;
 				border: (BlBorder paint: (Color gray alpha: 0.2) width: 2);
 				toHead: (BlArrowheadSimpleArrow new
-					border: (BlBorder builder paint: (Color gray alpha: 0.2); width: 2; build))];
+						border: (BlBorder builder
+								paint: (Color gray alpha: 0.2);
+								width: 2;
+								build)) ];
 		connect: all toAll: #directDependencies.
 	m layout rectanglePack.
-m
+	m
 ]
 
 { #category : #'*GToolkit-Inspector' }

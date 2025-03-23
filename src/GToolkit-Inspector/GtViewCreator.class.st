@@ -297,10 +297,7 @@ GtViewCreator >> objectSource: anObject [
 GtViewCreator >> showOn: anElement [
 	anElement
 		enqueueTask: [ | aptitude |
-			aptitude := BrGlamorousWithTooltipAptitude
-					handle: [ BlElement new
-							size: 8 @ 8;
-							yourself ] asStencil
+			aptitude := BrGlamorousWithExplicitTooltipAptitude
 					content: [ | element coder |
 						element := self asElement.
 						coder := element userData at: #coder.
