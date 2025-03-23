@@ -107,7 +107,7 @@ GtExampleGroup >> paintMapWith: m [
 						size: 20 @ 20;
 						when: BlClickEvent
 							do: [ :anEvent | anEvent target phlow spawnObject: anExample ];
-						aptitude: (BrGlamorousWithExplicitTooltipAptitude
+						aptitude: (BrGlamorousWithExplicitTooltipAptitude new
 								content: [ | aCoderElement |
 									aCoderElement := ((GtPharoMethodCoder forExample: anExample)
 											asCoderViewModel expanded: true) asExpandedOnlyElement
@@ -116,7 +116,6 @@ GtExampleGroup >> paintMapWith: m [
 												do: [ :e | anElement phlow spawnPreviousEvent: e ].
 									aCoderElement properties fontSizeEm: 0.75.
 									aCoderElement ];
-								preferredExtent: 200 @ 200;
 								showDelay: 100 milliSeconds;
 								hideDelay: 200 milliSeconds).
 					aHandler := [ :anAnnouncement | 
