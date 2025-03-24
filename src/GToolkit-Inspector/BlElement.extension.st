@@ -139,39 +139,39 @@ BlElement >> gtParentsFor: aView [
 		title: 'Parents';
 		priority: 36;
 		items: [ self withAllParents ];
-		column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 40;
 		column: 'Preview'
 			do: [ :aColumn | 
-			aColumn
-				width: 100;
-				stencil: [ :eachElement | 
-					| form |
-					form := eachElement asSpartaForm.
-					BrButton new
-						margin: (BlInsets all: 10);
-						icon:
-							(BlElement new
-								size: 50 @ 20;
-								"margin: (BlInsets top: 2 bottom: 2);"
+				aColumn
+					width: 100;
+					stencil: [ :eachElement | 
+						| form |
+						form := eachElement asSpartaForm.
+						BrButton new
+							margin: (BlInsets all: 10);
+							icon: (BlElement new
+									size: 50 @ 20;
 									addChild: form asElement asScalableElement);
-						label: 'Slides';
-						aptitude:
-							BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
-								+
-									(BrGlamorousWithExplicitDropdownAptitude
-										handle: [ BrButton new
-												aptitude:
-													BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
-														- BrGlamorousButtonExteriorAptitude;
-												icon:
-													(BlElement new
-														size: 50 @ 20;
-														"margin: (BlInsets top: 2 bottom: 2);"
-															addChild: form asElement asScalableElement) ]
-										content: [ form asElement ]);
-						constraintsDo: [ :c | "padding: (BlInsets all: 10) " c linear horizontal alignRight ] ] ];
+							label: 'Slides';
+							aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+									+ (BrGlamorousWithExplicitDropdownAptitude
+											handle: [ BrButton new
+													aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+															- BrGlamorousButtonExteriorAptitude;
+													icon: (BlElement new
+															size: 50 @ 20;
+															addChild: form asElement asScalableElement)	"margin: (BlInsets top: 2 bottom: 2);" ]
+											content: [ form asElement ]);
+							constraintsDo: [  "padding: (BlInsets all: 10) ":c | c linear horizontal alignRight ]	"margin: (BlInsets top: 2 bottom: 2);" ] ];
 		column: 'Type' text: [ :eachElement | eachElement class ];
-		column: 'Element' text: [ :anElement | (anElement containerName ifNil: [''] ifNotNil: [ :aContainerName | '#',aContainerName, ' ' ]), anElement asString ];
+		column: 'Element'
+			text: [ :anElement | 
+				(anElement containerName
+					ifNil: [ '' ]
+					ifNotNil: [ :aContainerName | '#' , aContainerName , ' ' ])
+					, anElement asString ];
 		column: 'Clip children'
 			text: [ :eachElement | eachElement clipChildren asString ]
 			width: 100
@@ -353,29 +353,27 @@ BlElement >> gtPreviewFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 BlElement >> gtPreviewThumbnailFor: anElement [
-	^ BrAsyncWidget new 
-		layout: BlFrameLayout new; 
+	^ BrAsyncWidget new
+		layout: BlFrameLayout new;
 		margin: (BlInsets all: 10);
 		size: 50 @ 20;
-		stencil: [
-			| form |
+		stencil: [ | form |
 			form := anElement asSpartaForm.
 			BrButton new
 				icon: (BlElement new
-					size: 50 @ 20;
-					addChild: form asElement asScalableElement);
+						size: 50 @ 20;
+						addChild: form asElement asScalableElement);
 				label: 'Slides';
-				aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
-					+ (BrGlamorousWithExplicitDropdownAptitude
-							handle: [ BrButton new
-								aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
-										- BrGlamorousButtonExteriorAptitude;
-								icon: (BlElement new
-										size: 50 @ 20;
-										addChild: form asElement asScalableElement) ]
-							content: [ form asElement ]);
-				constraintsDo: [ :c | 
-					c linear horizontal alignRight ] ]
+				aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+						+ (BrGlamorousWithExplicitDropdownAptitude
+								handle: [ BrButton new
+										aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+												- BrGlamorousButtonExteriorAptitude;
+										icon: (BlElement new
+												size: 50 @ 20;
+												addChild: form asElement asScalableElement) ]
+								content: [ form asElement ]);
+				constraintsDo: [ :c | c linear horizontal alignRight ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }

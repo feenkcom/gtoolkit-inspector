@@ -73,7 +73,7 @@ BlDevScripterStep >> gtStepsTreeFor: aView [
 				BrHorizontalPane new 
 					hMatchParent;
 					vExact: 8;
-					addAptitude: (BrGlamorousWithTooltipAptitude content: [ 
+					addAptitude: (BrGlamorousWithExplicitTooltipAptitude content: [ 
 						BrHorizontalGrid new 
 							fitContent;
 							padding: (BlInsets all: 5);

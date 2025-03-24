@@ -63,12 +63,16 @@ GtExample >> gtDependenciesGraphFor: aView [
 						geometry: BlEllipseGeometry new;
 						border: (BlBorder paint: Color black width: 2);
 						size: 20@20;
-						aptitude: (BrWithTooltipAptitude new
-							preferredExtent: 200@200;
+						aptitude: (BrGlamorousWithExplicitTooltipAptitude new
 							showDelay: 100 milliSeconds;
 							hideDelay: 100 milliSeconds;
-							stencil: [ 
-								BlElement new aptitude: (BrTooltipAptitude new content: ((GtPharoMethodCoder forExample: each) asCoderViewModel expanded: true) asElement)]).
+							preferredChildWeight: 1.0;
+							content: [ 
+								((GtPharoMethodCoder forExample: each) 
+									asCoderViewModel expanded: true) asElement
+										addAptitude: BrGlamorousMenuPinnableAptitude new;
+										addAptitude: BrGlamorousMenuResizableAptitude new;
+										hMatchParent ]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];
 				with: (self withDeepCollect: #directDependencies) asSet.
