@@ -108,14 +108,22 @@ GtExampleGroup >> paintMapWith: m [
 						when: BlClickEvent
 							do: [ :anEvent | anEvent target phlow spawnObject: anExample ];
 						aptitude: (BrGlamorousWithExplicitTooltipAptitude new
-								content: [ | aCoderElement |
+								preferredChildWeight: 0.5;
+								"withKeepAllCacheCleaner;"
+								content: [ :aMenuModel | 
+									| aCoderElement |
 									aCoderElement := ((GtPharoMethodCoder forExample: anExample)
 											asCoderViewModel expanded: true) asExpandedOnlyElement
 											vFitContentLimited;
 											when: GtPhlowObjectToSpawn
 												do: [ :e | anElement phlow spawnPreviousEvent: e ].
+									aCoderElement background: aCoderElement theme default contentBackgroundColor.
 									aCoderElement properties fontSizeEm: 0.75.
-									aCoderElement ];
+									aCoderElement exact: 500@400.
+									aCoderElement addAptitude: (BrGlamorousMenuPinnableAptitude new
+										menuModel: aMenuModel;
+										withResizers;
+										withAllPinActions) ];
 								showDelay: 100 milliSeconds;
 								hideDelay: 200 milliSeconds).
 					aHandler := [ :anAnnouncement | 
