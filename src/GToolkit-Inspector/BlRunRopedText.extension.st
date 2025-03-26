@@ -13,11 +13,20 @@ BlRunRopedText >> gtLiveFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BlRunRopedText >> gtStoreStringFor: aView [
 	<gtView>
-	
 	^ aView explicit
-		title: 'Serialized';
+		title: 'Store on';
 		priority: 30;
-		stencil: [ (GtPharoSnippetCoder new forSource: self storeString) asElement matchParent ]
+		stencil: [ (GtPharoSnippetCoder new
+				forSource: self storeString;
+				format;
+				subscribeToSystem;
+				asExpandedOnlyElement) vFitContentLimited ];
+		actionButtonIcon: BrGlamorousVectorIcons playinspect
+			tooltip: 'Do it and go'
+			action: [ :button | 
+				button phlow
+					spawnObject: (Smalltalk compiler evaluate: (String streamContents: [ :s | self storeOn: s ])) ];
+		actionUpdateButton
 ]
 
 { #category : #'*GToolkit-Inspector' }
