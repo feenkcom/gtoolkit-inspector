@@ -39,9 +39,8 @@ AbstractFileReference >> gtActionMaterializeXdFileFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtActionWebBrowseFor: anAction [
-
 	<gtAction>
-	self exists ifFalse: [ ^ anAction noAction ].
+	(self exists or: [ self path isNetworkPath not ]) ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
 		  icon: BrGlamorousIcons go;
@@ -91,7 +90,7 @@ AbstractFileReference >> gtContentsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtDefaultInspectorTool [
-	^ (self exists and: [ self isDirectory ])
+	^ (self exists and: [ self isDirectory and: [ self path isNetworkPath not ] ])
 		ifTrue: [ GtPhlowCompositeTool new
 				addTool: super gtDefaultInspectorTool;
 				addTool: (GtFileBrowserFolderTool forFolder: self) ]
@@ -267,9 +266,10 @@ AbstractFileReference >> gtHtmlFor: aView [
 AbstractFileReference >> gtItemsFor: aView [
 	<gtView>
 	| eventLoop |
-	self isDirectory
-		ifFalse: [ ^ aView empty ].
-		
+	(self isDirectory not or: 
+		[ self path isNetworkPath and: [ self path isRoot ] ])
+			ifTrue: [ ^ aView empty ].
+
 	eventLoop := self watcher startLoop.
 
 	^ aView columnedList
@@ -452,8 +452,8 @@ AbstractFileReference >> gtSvgFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtTreeFor: aView [
 	<gtView>
-	self isDirectory
-		ifFalse: [ ^ aView empty ].
+	(self isDirectory not or: [ self path isNetworkPath ])
+		ifTrue: [ ^ aView empty ].
 	^ aView columnedTree
 		title: 'Tree' translated;
 		priority: 1;
