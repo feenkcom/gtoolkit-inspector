@@ -20,5 +20,5 @@ FileSystemError >> gtFileReferencePathFor: aView [
 	^ aView forward
 		title: 'Path';
 		object: [ self reference ];
-		view: #gtFileReferencePathFor:
+		view: #gtPathFor:
 ]
