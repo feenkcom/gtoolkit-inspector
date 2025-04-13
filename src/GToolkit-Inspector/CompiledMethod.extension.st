@@ -24,10 +24,15 @@ CompiledMethod >> gtSourceCodeFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 5;
-		actionButtonIcon: BrGlamorousVectorIcons browse
+		actionButtonIcon: BrGlamorousVectorIcons browse 
 			tooltip: 'Browse method'
-			action: [ self gtBrowse ];
-		stencil: [ (GtPharoMethodCoder forMethod: self) asExpandedOnlyElement vFitContentLimited ]
+			action: [ :aButton | aButton phlow spawnTool: 
+				(GtMethodCoderTool compiledMethod: self method) ];
+		stencil: [ 
+			 (((GtPharoMethodCoder forMethod: self) asCoderViewModel)
+					withHeader;
+					expanded: true;
+					asElement) vFitContentLimited ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
