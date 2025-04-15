@@ -7,7 +7,7 @@ GtSharedVariablesBindings >> gtBindingsFor: aView [
 		title: 'Bindings';
 		priority: 10;
 		items: [ self gtBindingsWithVariable ];
-		column: 'Name' text: [ :each | each name ];
+		column: 'Name' text: [ :each | each name allButFirst ];
 		column: 'Value' text: [ :each | each value ];
 		column: 'Actions'
 			stencil: [ :each | 
@@ -15,12 +15,6 @@ GtSharedVariablesBindings >> gtBindingsFor: aView [
 				element := BrToolbar new
 						aptitude: (BrGlamorousToolbarAptitude new spacing: 5);
 						fitContent;
-						addItem: (BrButton new
-								aptitude: BrGlamorousButtonWithIconAptitude;
-								icon: BrGlamorousVectorIcons inspect;
-								label: 'Inspect binding';
-								beTinySize;
-								action: [ element phlow spawnObject: each ]);
 						addItem: (BrButton new
 								aptitude: BrGlamorousButtonWithIconAptitude;
 								icon: BrGlamorousVectorIcons remove;
