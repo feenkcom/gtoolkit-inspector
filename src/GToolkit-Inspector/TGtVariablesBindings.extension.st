@@ -8,7 +8,7 @@ TGtVariablesBindings >> gtBindingsFor: aView [
 		title: 'Bindings';
 		priority: 10;
 		items: [ self gtBindingsWithVariable ];
-		column: 'Name' text: [ :each | each name ];
+		column: 'Name' text: [ :each | each name allButFirst ];
 		column: 'Value' text: [ :each | each value ];
 		send: #value
 ]
