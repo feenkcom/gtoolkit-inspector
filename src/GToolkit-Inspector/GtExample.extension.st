@@ -70,8 +70,8 @@ GtExample >> gtDependenciesGraphFor: aView [
 							content: [ 
 								((GtPharoMethodCoder forExample: each) 
 									asCoderViewModel expanded: true) asElement
-										addAptitude: BrGlamorousMenuPinnableAptitude new;
-										addAptitude: BrGlamorousMenuResizableAptitude new;
+										addAptitude: BrGlamorousPopoverPinnableAptitude new;
+										addAptitude: BrGlamorousPopoverResizableAptitude new;
 										hMatchParent ]).
 					each = self ifTrue: [element background: (BrGlamorousColors primaryBorderColor)].
 					element ];

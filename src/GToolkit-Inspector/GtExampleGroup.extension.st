@@ -120,7 +120,7 @@ GtExampleGroup >> paintMapWith: m [
 									aCoderElement background: aCoderElement theme default contentBackgroundColor.
 									aCoderElement properties fontSizeEm: 0.75.
 									aCoderElement exact: 500@400.
-									aCoderElement addAptitude: (BrGlamorousMenuPinnableAptitude new
+									aCoderElement addAptitude: (BrGlamorousPopoverPinnableAptitude new
 										menuModel: aMenuModel;
 										withResizers;
 										withAllPinActions) ];
