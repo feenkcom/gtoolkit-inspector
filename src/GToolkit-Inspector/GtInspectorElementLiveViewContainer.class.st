@@ -220,7 +220,10 @@ GtInspectorElementLiveViewContainer >> updateAsElementPreviewView [
 
 	self layout: BlLinearLayout vertical.
 
-	preview := element asSpartaForm asElement.
+	preview := [ element asSpartaForm asElement ]
+		on: Error
+		do: [ :anException | 
+			anException asDebuggableElement ].
 	scaledPreview := preview asScalableElement maxScale: 1.0.
 
 	preview
