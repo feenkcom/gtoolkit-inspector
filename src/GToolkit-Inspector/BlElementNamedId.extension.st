@@ -4,7 +4,8 @@ Extension { #name : #BlElementNamedId }
 BlElementNamedId >> gtReferencesFor: aView [
 	<gtView>
 	self identifier ifNil: [ ^ aView empty ].
-	^ aView explicit
+	^ aView forward
 		title: 'References';
-		stencil: [ self asSymbol gtSenders ]
+		object: [ self asSymbol gtSenders ];
+		view: #gtItemsFor:
 ]
