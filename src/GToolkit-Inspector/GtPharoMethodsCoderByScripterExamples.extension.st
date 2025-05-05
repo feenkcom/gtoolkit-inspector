@@ -3,6 +3,7 @@ Extension { #name : #GtPharoMethodsCoderByScripterExamples }
 { #category : #'*GToolkit-Inspector' }
 GtPharoMethodsCoderByScripterExamples >> clickClassTagInBlElementIdReferences [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self
 			scripterForBlock: [ GtPager

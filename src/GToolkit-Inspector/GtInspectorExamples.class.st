@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - ui - content' }
 GtInspectorExamples >> basicContentElement [
 	<gtExample>
+	<return: #GtInspectorContentElement>
 	| anElement |
 	anElement := GtInspectorContentElement new.
 	anElement matchParent.
@@ -17,6 +18,7 @@ GtInspectorExamples >> basicContentElement [
 { #category : #'examples - inspector' }
 GtInspectorExamples >> basicInspector [
 	<gtExample>
+	<return: #GtInspector>
 	| anInspector |
 	anInspector := self basicInspectorClass new.
 	self configureInspector: anInspector.
@@ -26,12 +28,14 @@ GtInspectorExamples >> basicInspector [
 { #category : #'examples - inspector' }
 GtInspectorExamples >> basicInspectorClass [
 	<gtExample>
+	<return: #'GtInspector class'>
 	^ GtInspector
 ]
 
 { #category : #'examples - ui - tool' }
 GtInspectorExamples >> basicInspectorElement [
 	<gtExample>
+	<return: #GtInspector>
 	| anElement |
 	anElement := GtInspector new.
 	anElement matchParent.
@@ -42,6 +46,7 @@ GtInspectorExamples >> basicInspectorElement [
 { #category : #'examples - object holder' }
 GtInspectorExamples >> basicObjectHolder [
 	<gtExample>
+	<return: #GtInspectorObject>
 	| anInspector |
 	anInspector := self basicObjectHolderClass new.
 	^ anInspector
@@ -50,16 +55,18 @@ GtInspectorExamples >> basicObjectHolder [
 { #category : #'examples - object holder' }
 GtInspectorExamples >> basicObjectHolderClass [
 	<gtExample>
+	<return: #'GtInspectorObject class'>
 	^ GtInspectorObject
 ]
 
 { #category : #'examples - ui - playground' }
 GtInspectorExamples >> basicPlaygroundElement [
 	<gtExample>
+	<return: #LeInspectorPlaygroundElement>
 	| anElement |
-	anElement := (self class environment 
-		at: GtInspector embeddedPlaygroundName) new.
-	
+	anElement := (self class environment at: GtInspector embeddedPlaygroundName)
+			new.
+
 	anElement matchParent.
 	self assert: anElement objectHolder equals: GtInspectorObject null.
 	^ anElement
@@ -79,6 +86,7 @@ GtInspectorExamples >> configureInspector: anInspector [
 { #category : #'examples - ui - content' }
 GtInspectorExamples >> contentElement [
 	<gtExample>
+	<return: #GtInspectorContentElement>
 	| anElement |
 	anElement := self basicContentElement.
 	anElement object: 42.
@@ -89,18 +97,21 @@ GtInspectorExamples >> contentElement [
 { #category : #'examples - inspected objects' }
 GtInspectorExamples >> inspectedObject [
 	<gtExample>
-	^ self inspectedObjectClass new 
+	<return: #GtInspectorExampleObject>
+	^ self inspectedObjectClass new
 ]
 
 { #category : #'examples - inspected objects' }
 GtInspectorExamples >> inspectedObjectClass [
 	<gtExample>
+	<return: #'GtInspectorExampleObject class'>
 	^ GtInspectorExampleObject
 ]
 
 { #category : #'examples - ui - tool' }
 GtInspectorExamples >> inspectorElement [
 	<gtExample>
+	<return: #GtInspector>
 	| anElement |
 	anElement := self basicInspectorElement.
 	anElement object: 42.
@@ -111,6 +122,7 @@ GtInspectorExamples >> inspectorElement [
 { #category : #'examples - inspector in pager' }
 GtInspectorExamples >> inspectorInPagerWithExampleObject [
 	<gtExample>
+	<return: #GtPager>
 	| aPager anObject |
 	anObject := self inspectedObject.
 	aPager := self basicInspectorClass createOn: anObject.
@@ -121,6 +133,7 @@ GtInspectorExamples >> inspectorInPagerWithExampleObject [
 { #category : #'examples - inspector' }
 GtInspectorExamples >> inspectorWithExampleObject [
 	<gtExample>
+	<return: #GtInspector>
 	| anInspector anObject |
 	anInspector := self basicInspector.
 	anObject := self inspectedObject.
@@ -132,6 +145,7 @@ GtInspectorExamples >> inspectorWithExampleObject [
 { #category : #'examples - object holder' }
 GtInspectorExamples >> objectHolderWithExampleObject [
 	<gtExample>
+	<return: #GtInspectorObject>
 	| aModel anObject |
 	aModel := self basicObjectHolder.
 	anObject := self inspectedObject.
@@ -143,6 +157,7 @@ GtInspectorExamples >> objectHolderWithExampleObject [
 { #category : #'examples - ui - playground' }
 GtInspectorExamples >> playgroundElement [
 	<gtExample>
+	<return: #LeInspectorPlaygroundElement>
 	| anElement |
 	anElement := self basicPlaygroundElement.
 	anElement object: 42.

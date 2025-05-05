@@ -144,12 +144,14 @@ GtInspectorElementWithSlowViews >> gtSomeProgressFor: aView [
 { #category : #examples }
 GtInspectorElementWithSlowViews >> itself [
 	<gtExample>
+	<return: #GtInspectorElementWithSlowViews>
 	^ self
 ]
 
 { #category : #examples }
 GtInspectorElementWithSlowViews >> views [
 	<gtExample>
+	<return: #GtPhlowLabelledView>
 	| aView |
 	aView := self gtViewsFor: GtPhlowView empty.
 	self assert: aView originalView views size > 8.

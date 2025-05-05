@@ -7,15 +7,18 @@ Class {
 { #category : #accessing }
 GtTraceStylerExamples >> newStyler [
 	<gtExample>
+	<return: #GtTraceStyler>
 	^ GtTraceStyler new
 ]
 
 { #category : #accessing }
 GtTraceStylerExamples >> styledTrace [
 	<gtExample>
+	<return: #BlRunRopedText>
 	| styler |
 	styler := self newStyler.
-	^ styler style: 'GtRrWorkerTaskContext>>value
+	^ styler
+		style: 'GtRrWorkerTaskContext>>value
 [ result := aTaskContext value ] in GtRrInImageWorker>>taskRun:
 FullBlockClosure(BlockClosure)>>on:do:
 GtRrInImageWorker>>taskRun:
