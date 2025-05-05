@@ -9,6 +9,7 @@ Class {
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFirstPagerPage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self clickOnOverviewInTheFirstPagerPage.
 
@@ -47,6 +48,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFir
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFirstPagerPage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self elementInSecondPagerPage.
 
@@ -85,6 +87,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFir
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecondPagerPage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self clickBackOnLiveInTheFirstPagerPage.
 
@@ -123,6 +126,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecon
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> elementInPager [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			scripterWithModel: [ BlElement new
@@ -145,6 +149,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInPager [
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self elementInPager.
 
@@ -180,6 +185,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPag
 { #category : #examples }
 GtInspectorElementLiveViewContainerByScripterExamples >> twoPagerPagesWithInspectedElement [
 	<gtExample>
+	<return: #GtPager>
 	| aScripter |
 	aScripter := self clickBackOnLiveInTheFirstPagerPage.
 

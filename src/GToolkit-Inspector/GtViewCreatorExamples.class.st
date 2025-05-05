@@ -7,85 +7,78 @@ Class {
 { #category : #examples }
 GtViewCreatorExamples >> collectionObject_itemsView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #listOfAssociations
-		inObject: self targetObject.
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #listOfAssociations
+			inObject: self targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_collectionObject_itemsView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> dictionaryObject_editorView_slotData_sourceCodeGeneration [
 	<gtExample>
-	| targetObject viewCreator  |
-	
+	<return: #GtViewCreator>
+	| targetObject viewCreator |
 	targetObject := self targetObject.
-	targetObject dictionaryOfCollections: (Dictionary 
-		withAll: self targetObject 
-			dictionaryOfCollections).
-	self 
-		assert: targetObject dictionaryOfCollections class 
-		equals: Dictionary.
-				
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #dictionaryOfCollections
-		inObject: targetObject.
-		
-	self 
-		assert: viewCreator source 
+	targetObject
+		dictionaryOfCollections: (Dictionary withAll: self targetObject dictionaryOfCollections).
+	self assert: targetObject dictionaryOfCollections class equals: Dictionary.
+
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #dictionaryOfCollections
+			inObject: targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_dictionaryObject_associationsView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> dictionaryObject_groupingView_slotData_sourceCodeGeneration [
 	<gtExample>
-	| targetObject viewCreator  |
-	
+	<return: #GtViewCreator>
+	| targetObject viewCreator |
 	targetObject := self targetObject.
-	targetObject dictionaryOfCollections: (Dictionary 
-		withAll: self targetObject 
-			dictionaryOfCollections).
-	self 
-		assert: targetObject dictionaryOfCollections class 
-		equals: Dictionary.
-				
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewGroupingFor:
-		forSlot: #dictionaryOfCollections
-		inObject: targetObject.
-		
-	self 
-		assert: viewCreator source 
+	targetObject
+		dictionaryOfCollections: (Dictionary withAll: self targetObject dictionaryOfCollections).
+	self assert: targetObject dictionaryOfCollections class equals: Dictionary.
+
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewGroupingFor:
+			forSlot: #dictionaryOfCollections
+			inObject: targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_dictionaryObject_groupingView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> elementObject_explicitView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #pluggableValue
-		inObject: (self targetObject
-			pluggableValue: BlElement new).
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #pluggableValue
+			inObject: (self targetObject pluggableValue: BlElement new).
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_elementObject_explicitView_slotData.
-		
+
 	^ viewCreator
 ]
 
@@ -184,112 +177,110 @@ GtViewCreatorExamples >> expectedSourceCode_stringObject_webViewView_slotData [
 { #category : #examples }
 GtViewCreatorExamples >> orderedDictionaryObject_editorView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	self 
-		assert: self targetObject dictionaryOfCollections class 
+	self
+		assert: self targetObject dictionaryOfCollections class
 		equals: OrderedDictionary.
-		
-	viewCreator := self  
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #dictionaryOfCollections
-		inObject: self targetObject.
-	
-	self 
-		assert: viewCreator source 
+
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #dictionaryOfCollections
+			inObject: self targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_dictionaryObject_associationsView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> orderedDictionaryObject_groupingView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	self 
-		assert: self targetObject dictionaryOfCollections class 
+	self
+		assert: self targetObject dictionaryOfCollections class
 		equals: OrderedDictionary.
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewGroupingFor:
-		forSlot: #dictionaryOfCollections
-		inObject: self targetObject.
-		
-	self 
-		assert: viewCreator source 
+
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewGroupingFor:
+			forSlot: #dictionaryOfCollections
+			inObject: self targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_dictionaryObject_groupingView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> sequenceableCollection_associationsDetailsView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateDetailsViewSourceFor:
-		forSlot: #listOfAssociations
-		inObject: self targetObject.
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateDetailsViewSourceFor:
+			forSlot: #listOfAssociations
+			inObject: self targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_associationsDetailsView_detailsView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> setObject_itemsView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #pluggableValue
-		inObject: (self targetObject
-			pluggableValue: (Set with: 1 with: 2)).
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #pluggableValue
+			inObject: (self targetObject pluggableValue: (Set with: 1 with: 2)).
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_setObject_itemsView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> stringObject_editorView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateViewSourceFor:
-		forSlot: #stringValue
-		inObject: self targetObject.
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateViewSourceFor:
+			forSlot: #stringValue
+			inObject: self targetObject.
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_stringObject_editorView_slotData.
-		
+
 	^ viewCreator
 ]
 
 { #category : #examples }
 GtViewCreatorExamples >> stringObject_webViewView_slotData_sourceCodeGeneration [
 	<gtExample>
+	<return: #GtViewCreator>
 	| viewCreator |
-	
-	viewCreator := self 
-		viewCreatorForSelector: #gtCreateHtmlWebViewViewSourceFor:
-		forSlot: #pluggableValue
-		inObject: (self targetObject
-			pluggableValue: 'http://www.example.com').
-		
-	self 
-		assert: viewCreator source 
+	viewCreator := self
+			viewCreatorForSelector: #gtCreateHtmlWebViewViewSourceFor:
+			forSlot: #pluggableValue
+			inObject: (self targetObject pluggableValue: 'http://www.example.com').
+
+	self
+		assert: viewCreator source
 		equals: self expectedSourceCode_stringObject_webViewView_slotData.
-		
+
 	^ viewCreator
 ]
 
