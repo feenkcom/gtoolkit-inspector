@@ -177,6 +177,8 @@ GtInspector >> initializeContentElement [
 GtInspector >> initializeListeners [
 	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
 		self onUpdateWish: anEvent ].
+	self when: GtPhlowViewUpdateWish do: [ :anEvent | 
+		self onUpdateViewWish: anEvent ].
 	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
@@ -209,6 +211,15 @@ GtInspector >> onObjectHolderChanged [
 	
 	self contentElement objectHolder: self objectHolder.
 	self playgroundElement objectHolder: self objectHolder.
+]
+
+{ #category : #'private - event handling' }
+GtInspector >> onUpdateViewWish: anEvent [
+	"For now, we simply update the whole inspector.
+	Later we could find the Phlow view and request just its update."
+
+	anEvent consumed: true.
+	self updateElement
 ]
 
 { #category : #'private - event handling' }
