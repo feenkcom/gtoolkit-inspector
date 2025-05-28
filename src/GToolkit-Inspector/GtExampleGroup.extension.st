@@ -117,7 +117,7 @@ GtExampleGroup >> paintMapWith: m [
 											vFitContentLimited;
 											when: GtPhlowObjectToSpawn
 												do: [ :e | anElement phlow spawnPreviousEvent: e ].
-									aCoderElement background: aCoderElement theme default contentBackgroundColor.
+									aCoderElement background: aCoderElement theme default contentBackground.
 									aCoderElement properties fontSizeEm: 0.75.
 									aCoderElement exact: 500@400.
 									aCoderElement addAptitude: (BrGlamorousPopoverPinnableAptitude new
