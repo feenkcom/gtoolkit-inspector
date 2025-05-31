@@ -61,8 +61,7 @@ GtInspectorElementLiveViewContainer >> initialize [
 			self onElementRemovedFromSceneGraphEvent: anEvent ].
 
 	self
-		margin: (BlInsets all: 10);
-		padding: (BlInsets all: 10);
+		background: self theme default contentBackground;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical matchParent ].
@@ -202,7 +201,6 @@ GtInspectorElementLiveViewContainer >> unregisterElementHandlers [
 { #category : #'private - updating' }
 GtInspectorElementLiveViewContainer >> updateAsElementLiveView [
 	self removeChildren.
-	self margin: (BlInsets all: 20).
 	
 	"Please don't change the layout of the container to anything except the default layout,
 	otherwise `relocate:` will not longer work as expected and element will always be in the top left corner."
