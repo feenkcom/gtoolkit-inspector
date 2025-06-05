@@ -32,7 +32,7 @@ CompiledMethod >> gtSourceCodeFor: aView [
 			 (((GtPharoMethodCoder forMethod: self) asCoderViewModel)
 					withHeader;
 					expanded: true;
-					asElement) vFitContentLimited ].
+					asExpandedOnlyElement) vFitContentLimited ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
