@@ -10,7 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 GtReferencePath >> gtDisplayOn: aStream [
 	objects
-		do: [ :o | aStream print: o class ]
+		do: [ :o | aStream print: o object class ]
 		separatedBy: [ aStream
 				space;
 				nextPut: $>;
@@ -24,6 +24,12 @@ GtReferencePath >> gtObjectsFor: aView [
 	^ aView columnedList
 		title: 'Objects';
 		items: [ objects ];
+		column: 'Type'
+			text: [ :each | 
+				each referenceTypeName asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 100;
 		column: 'Value'
 			textDo: [ :aColumn | 
 				aColumn
@@ -35,16 +41,17 @@ GtReferencePath >> gtObjectsFor: aView [
 							ifFalse: [ Color transparent ] ] ];
 		column: 'Class'
 			text: [ :each | 
-				each class name asRopedText
+				each object class name asRopedText
 					glamorousRegularSmallSize;
 					foreground: Color gray ]
 			width: 100;
 		column: 'Package'
 			text: [ :each | 
-				each class package name asRopedText
+				each object class package name asRopedText
 					glamorousRegularSmallSize;
 					foreground: Color gray ]
-			width: 100
+			width: 100;
+		send: [ :each | each object ]
 ]
 
 { #category : #accessing }
