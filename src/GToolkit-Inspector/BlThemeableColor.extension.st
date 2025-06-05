@@ -44,3 +44,26 @@ BlThemeableColor >> gtThemeableColorComputationFor: aView [
 
 			container ]
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BlThemeableColor >> gtThemeableColorReferencesFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'References';
+		priority: 4;
+		object: [
+			| nameSenders localThemeMatches globalThemeMatches |
+			
+			nameSenders := (GtBlocThemeableColorProperty computePropertyNameSourceBlock: themeableColorComputation) gtSenders.
+
+			localThemeMatches := (GtBlocThemeableProperty
+				computePropertyAccessApiFromSourceBlock: themeableColorComputation
+				useGlobalTheme: false) gtRBPatternMatches.
+			
+			globalThemeMatches := (GtBlocThemeableProperty
+				computePropertyAccessApiFromSourceBlock: themeableColorComputation
+				useGlobalTheme: true) gtRBPatternMatches.
+			
+			nameSenders & (localThemeMatches | globalThemeMatches) ];
+		view: #gtItemsFor:
+]
