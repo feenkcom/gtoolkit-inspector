@@ -9,7 +9,7 @@ Class {
 { #category : #accessing }
 GtReferencePaths class >> to: anObject [
 	| paths |
-	paths := (GtReferenceFinder findAllPathsTo: GtWorld allInstances anyOne) collect: [ :each | GtReferencePath new objects: each ].
+	paths := (GtReferenceFinder findAllPathsTo: anObject) collect: [ :each | GtReferencePath new objects: each ].
 	^ self withAll: paths
 ]
 
