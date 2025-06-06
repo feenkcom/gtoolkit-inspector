@@ -2,15 +2,30 @@ Class {
 	#name : #GtReferencePath,
 	#superclass : #Object,
 	#instVars : [
-		'objects'
+		'items'
 	],
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Reference Path'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
+GtReferencePath class >> items: aCollectionOfReferencePathItem [
+	^ self new items: aCollectionOfReferencePathItem
+]
+
+{ #category : #'instance creation' }
+GtReferencePath class >> objects: aCollectionOfObjects [
+	^ self items: (GtReferencePathObjectItem objects: aCollectionOfObjects)
+]
+
+{ #category : #'instance creation' }
+GtReferencePath class >> simplify: aCollectionOfObjects [
+	^ self items: (GtReferencePathSimplifiedItemsBuilder new objects: aCollectionOfObjects; build)
+]
+
+{ #category : #printing }
 GtReferencePath >> gtDisplayOn: aStream [
-	objects
-		do: [ :o | aStream print: o class ]
+	items
+		do: [ :o | aStream nextPutAll: o name asString ]
 		separatedBy: [ aStream
 				space;
 				nextPut: $>;
@@ -20,10 +35,10 @@ GtReferencePath >> gtDisplayOn: aStream [
 { #category : #views }
 GtReferencePath >> gtObjectsFor: aView [
 	<gtView>
-	objects ifNil: [ ^ aView empty ].
+	items ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Objects';
-		items: [ objects ];
+		items: [ items ];
 		column: 'Value'
 			textDo: [ :aColumn | 
 				aColumn
@@ -35,34 +50,44 @@ GtReferencePath >> gtObjectsFor: aView [
 							ifFalse: [ Color transparent ] ] ];
 		column: 'Class'
 			text: [ :each | 
-				each class name asRopedText
+				each object class name asRopedText
 					glamorousRegularSmallSize;
 					foreground: Color gray ]
 			width: 100;
 		column: 'Package'
 			text: [ :each | 
-				each class package name asRopedText
+				each object class package name asRopedText
 					glamorousRegularSmallSize;
 					foreground: Color gray ]
-			width: 100
+			width: 100;
+		send: #object;
+		contextItemLabel: 'Spawn object'
+			action: [ :element :item | element phlow spawnObject: item object ];
+		contextItemLabel: 'Spawn reference path item'
+			action: [ :element :item | element phlow spawnObject: item ]
 ]
 
 { #category : #accessing }
-GtReferencePath >> objects: aCollection [
-	objects := aCollection
+GtReferencePath >> items [
+	^ items
+]
+
+{ #category : #accessing }
+GtReferencePath >> items: aCollection [
+	items := aCollection
 ]
 
 { #category : #'as yet unclassified' }
 GtReferencePath >> size [ 
-	^ objects size
+	^ items size
 ]
 
 { #category : #'as yet unclassified' }
 GtReferencePath >> startObject [
-	^ objects first
+	^ items first
 ]
 
 { #category : #'as yet unclassified' }
 GtReferencePath >> targetObject [
-	^ objects last
+	^ items last
 ]

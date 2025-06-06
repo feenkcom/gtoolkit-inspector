@@ -3,13 +3,13 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtGroupWithItems',
 	#classTraits : 'TGtGroupWithItems classTrait',
-	#category : #'GToolkit-Inspector'
+	#category : #'GToolkit-Inspector-Reference Path'
 }
 
 { #category : #accessing }
 GtReferencePaths class >> to: anObject [
 	| paths |
-	paths := (GtReferenceFinder findAllPathsTo: anObject) collect: [ :each | GtReferencePath new objects: each ].
+	paths := (GtReferenceFinder findAllPathsTo: anObject) collect: [ :each | GtReferencePath simplify: each ].
 	^ self withAll: paths
 ]
 
