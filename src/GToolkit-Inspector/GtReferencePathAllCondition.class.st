@@ -12,11 +12,13 @@ Class {
 
 { #category : #'api - patterns' }
 GtReferencePathAllCondition >> allFollowing: aBlock [
+	"Include none or some following objects that satisfy the condition."
+
 	| result |
 	shift := shift + 1.
 	result := self computeCurrent: aBlock.
 	result 
-		ifFalse: [ shift := shift - 1 ]
+		ifFalse: [ shift := shift - 1 ] 
 		ifTrue: [ self allFollowing: aBlock ]
 ]
 
@@ -92,6 +94,15 @@ GtReferencePathAllCondition >> item: aBlock [
 	The all are all covered referenced objects."
 
 	item := aBlock
+]
+
+{ #category : #'api - patterns' }
+GtReferencePathAllCondition >> peek: aBlock [
+	"Check the following object condition, 
+	but do not include the object in the result"
+
+	self following: aBlock.
+	shift := shift - 1
 ]
 
 { #category : #'api - accessing' }

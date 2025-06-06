@@ -95,6 +95,22 @@ GtReferencePathSimplifiedItemsBuilder >> currentReferencedObject [
 ]
 
 { #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> dictionaryWithArray [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isDictionary ];
+				following: [ :object | object isKindOf: Array ];
+				following: [ :object | object isKindOf: Association ] ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1}' format: {current object});
+				referencedObject: current;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
 GtReferencePathSimplifiedItemsBuilder >> doubleLinkList [
 	<referencePathPattern>
 	^ GtReferencePathPattern new
@@ -103,6 +119,23 @@ GtReferencePathSimplifiedItemsBuilder >> doubleLinkList [
 				current: [ :object | object isKindOf: DoubleLinkedList ];
 				following: [ :object | object isKindOf: DoubleLink ];
 				allFollowing: [ :object | object isKindOf: DoubleLink ] ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1}' format: {current object});
+				referencedObject: current;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> elementChild [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isKindOf: BlElement ];
+				following: [ :object | object isKindOf: BlChildrenCollection ];
+				following: [ :object | object isCollection ];
+				peek: [ :object | object isKindOf: BlElement ] ];
 		item: [ :builder :current :all | 
 			GtReferencePathShortItem new
 				name: ('{1}' format: {current object});

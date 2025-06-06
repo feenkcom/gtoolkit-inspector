@@ -47,11 +47,65 @@ GtReferencePath >> gtObjectsFor: aView [
 	items ifNil: [ ^ aView empty ].
 	^ aView columnedTree
 		title: 'Objects';
+		priority: 25;
 		items: [ items ];
 		children: [ :each | 
 			(each isKindOf: GtReferencePathItem)
 				ifTrue: [ each allReferencedObjects ]
 				ifFalse: [ #() ] ];
+		column: 'Type'
+			text: [ :each | 
+				each referenceTypeName asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 100;
+		column: 'Value'
+			textDo: [ :aColumn | 
+				aColumn
+					item: [ :each | each ];
+					format: [ :each | each gtDisplayString ];
+					background: [ :each | 
+						each object = self targetObject object
+							ifTrue: [ BrGlamorousColors successBackgroundColor ]
+							ifFalse: [ Color transparent ] ] ];
+		column: 'Class'
+			text: [ :each | 
+				each object class name asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 100;
+		column: 'Package'
+			text: [ :each | 
+				each object class package name asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 100;
+		send: #object;
+		contextItemLabel: 'Spawn object'
+			action: [ :element :node | element phlow spawnObject: node value object ];
+		contextItemLabel: 'Spawn reference path item'
+			action: [ :element :node | element phlow spawnObject: node value ]
+]
+
+{ #category : #views }
+GtReferencePath >> gtRawObjectsFor: aView [
+	<gtView>
+	items ifNil: [ ^ aView empty ].
+	^ aView columnedTree
+		title: 'Whole path';
+		items: [ Array
+				new: items size
+				streamContents: [ :aStream | items do: [ :each | aStream nextPutAll: each allReferencedObjects ] ] ];
+		children: [ :each | 
+			(each isKindOf: GtReferencePathItem)
+				ifTrue: [ each allReferencedObjects ]
+				ifFalse: [ #() ] ];
+		column: 'Index'
+			text: [ :each :index | 
+				index asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 40;
 		column: 'Type'
 			text: [ :each | 
 				each referenceTypeName asRopedText
