@@ -2,7 +2,7 @@ Class {
 	#name : #GtReferencePathItem,
 	#superclass : #Object,
 	#instVars : [
-		'object'
+		'referencedObject'
 	],
 	#category : #'GToolkit-Inspector-Reference Path'
 }
@@ -14,7 +14,7 @@ GtReferencePathItem class >> cleanOut [
 
 { #category : #'api - cleaning' }
 GtReferencePathItem >> cleanOut [
-	object := nil
+	referencedObject := nil
 ]
 
 { #category : #'api - accessing' }
@@ -23,12 +23,23 @@ GtReferencePathItem >> name [
 	^ self object className
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 GtReferencePathItem >> object [
-	^ object
+	^ referencedObject object
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathItem >> referenceTypeName [
+	^ referencedObject referenceTypeName
 ]
 
 { #category : #accessing }
-GtReferencePathItem >> object: anObject [
-	object := anObject
+GtReferencePathItem >> referencedObject [
+	<return: #GtReferencedObject>
+	^ referencedObject
+]
+
+{ #category : #accessing }
+GtReferencePathItem >> referencedObject: aReferencedObject [
+	referencedObject := aReferencedObject
 ]

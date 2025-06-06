@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-GtReferencePathObjectItem class >> objects: aCollectionOfObjects [
-	^ aCollectionOfObjects collect: [ :each | self new object: each ]
+GtReferencePathObjectItem class >> referencedObjects: aCollectionOfObjects [
+	^ aCollectionOfObjects collect: [ :each | self new referencedObject: each ]
 ]
 
 { #category : #printing }
