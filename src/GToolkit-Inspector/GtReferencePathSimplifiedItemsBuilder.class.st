@@ -139,14 +139,12 @@ GtReferencePathSimplifiedItemsBuilder >> elementActor [
 						is: [ :previous | (previous isKindOf: BlElement) and: [ previous userData == object ] ] ];
 				following: [ :object | object isKindOf: Array ];
 				following: [ :object | object isKindOf: Association ];
-				following: [ :object :condition | object == condition previousObject value ];
+				following: [ :object :condition | (object == condition previousObject key) not ];
 				current: [ :object | object isKindOf: BrActor ];
 				allFollowingSequences: {
-					[ :object :condition | condition previousObject actors == object ].
+					[ :object :condition | object isCollection ].
 					[ :object | object isKindOf: BrActor ]} ];
 		item: [ :builder :current :all | 
-			| assoc |
-			assoc := (all detect: [ :each | each object isKindOf: Association ]) object.
 			GtReferencePathShortItem new
 				name: ('{1}' format: {all last object});
 				referencedObject: all last;
@@ -182,14 +180,14 @@ GtReferencePathSimplifiedItemsBuilder >> elementUserDataValue [
 						(previous isKindOf: BlElement) and: [ previous userData == object ] ] ];
 				following: [ :object | object isKindOf: Array ];
 				following: [ :object | object isKindOf: Association ];
-				following: [ :object :condition | object == condition previousObject value ] ];
+				following: [ :object :condition | (object == condition previousObject key) not ] ];
 		item: [ :builder :current :all | 
-			| assoc |
-			assoc := (all detect: [ :each | each object isKindOf: Association ]) object.
+			| key |
+			key := (all detect: [ :each | each object isKindOf: Association ]) object key.
 			GtReferencePathShortItem new
 				name: ('User data at {1}: {2}'
-						format: {assoc key.
-								assoc value});
+						format: {key.
+								all last value});
 				referencedObject: all last;
 				all: all ]
 ]
