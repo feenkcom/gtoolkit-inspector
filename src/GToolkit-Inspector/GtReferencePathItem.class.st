@@ -15,7 +15,7 @@ GtReferencePathItem class >> cleanOut [
 { #category : #'api - accessing' }
 GtReferencePathItem >> allReferencedObjects [
 	<return: #Collection of: #GtReferencedObject>
-	^ #()
+	^ Array with: self referencedObject
 ]
 
 { #category : #cleaning }

@@ -25,6 +25,13 @@ GtReferencePath class >> simplify: aCollectionOfReferencedObjects [
 				build)
 ]
 
+{ #category : #views }
+GtReferencePath >> allReferencedObjects [
+	^ Array
+		new: items size
+		streamContents: [ :aStream | items do: [ :each | aStream nextPutAll: each allReferencedObjects ] ]
+]
+
 { #category : #cleaning }
 GtReferencePath >> cleanOut [
 	self items do: #cleanOut.
@@ -50,9 +57,10 @@ GtReferencePath >> gtObjectsFor: aView [
 		priority: 25;
 		items: [ items ];
 		children: [ :each | 
-			(each isKindOf: GtReferencePathItem)
-				ifTrue: [ each allReferencedObjects ]
-				ifFalse: [ #() ] ];
+			| children |
+			children := each allReferencedObjects
+					collect: [ :object | GtReferencePathObjectItem new referencedObject: object ].
+			children size = 1 ifTrue: [ #() ] ifFalse: [ children ] ];
 		column: 'Type'
 			text: [ :each | 
 				each referenceTypeName asRopedText
@@ -91,15 +99,10 @@ GtReferencePath >> gtObjectsFor: aView [
 GtReferencePath >> gtRawObjectsFor: aView [
 	<gtView>
 	items ifNil: [ ^ aView empty ].
-	^ aView columnedTree
+	^ aView columnedList
 		title: 'Whole path';
-		items: [ Array
-				new: items size
-				streamContents: [ :aStream | items do: [ :each | aStream nextPutAll: each allReferencedObjects ] ] ];
-		children: [ :each | 
-			(each isKindOf: GtReferencePathItem)
-				ifTrue: [ each allReferencedObjects ]
-				ifFalse: [ #() ] ];
+		items: [ self allReferencedObjects
+				collect: [ :each | GtReferencePathObjectItem new referencedObject: each ] ];
 		column: 'Index'
 			text: [ :each :index | 
 				index asRopedText
@@ -150,17 +153,19 @@ GtReferencePath >> items: aCollection [
 	items := aCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtReferencePath >> size [ 
 	^ items size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtReferencePath >> startObject [
+	<return: #GtReferencePathItem>
 	^ items first
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtReferencePath >> targetObject [
+	<return: #GtReferencePathItem>
 	^ items last
 ]

@@ -32,3 +32,9 @@ GtReferencePaths >> gtPathsFor: aView [
 { #category : #accessing }
 GtReferencePaths >> paths [
 ]
+
+{ #category : #accessing }
+GtReferencePaths >> targetObject [
+	<return: #GtReferencePathItem>
+	^ items anyOne targetObject
+]
