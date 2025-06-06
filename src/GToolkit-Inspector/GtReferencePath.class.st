@@ -39,6 +39,12 @@ GtReferencePath >> gtObjectsFor: aView [
 	^ aView columnedList
 		title: 'Objects';
 		items: [ items ];
+		column: 'Type'
+			text: [ :each | 
+				each referenceTypeName asRopedText
+					glamorousRegularSmallSize;
+					foreground: Color gray ]
+			width: 100;
 		column: 'Value'
 			textDo: [ :aColumn | 
 				aColumn
