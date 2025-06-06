@@ -25,6 +25,12 @@ GtReferencePath class >> simplify: aCollectionOfReferencedObjects [
 				build)
 ]
 
+{ #category : #cleaning }
+GtReferencePath >> cleanOut [
+	self items do: #cleanOut.
+	self items: #()
+]
+
 { #category : #printing }
 GtReferencePath >> gtDisplayOn: aStream [
 	items
@@ -39,9 +45,13 @@ GtReferencePath >> gtDisplayOn: aStream [
 GtReferencePath >> gtObjectsFor: aView [
 	<gtView>
 	items ifNil: [ ^ aView empty ].
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Objects';
 		items: [ items ];
+		children: [ :each | 
+			(each isKindOf: GtReferencePathItem)
+				ifTrue: [ each allReferencedObjects ]
+				ifFalse: [ #() ] ];
 		column: 'Type'
 			text: [ :each | 
 				each referenceTypeName asRopedText
@@ -71,9 +81,9 @@ GtReferencePath >> gtObjectsFor: aView [
 			width: 100;
 		send: #object;
 		contextItemLabel: 'Spawn object'
-			action: [ :element :item | element phlow spawnObject: item object ];
+			action: [ :element :node | element phlow spawnObject: node value object ];
 		contextItemLabel: 'Spawn reference path item'
-			action: [ :element :item | element phlow spawnObject: item ]
+			action: [ :element :node | element phlow spawnObject: node value ]
 ]
 
 { #category : #accessing }

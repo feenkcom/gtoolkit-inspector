@@ -7,13 +7,20 @@ Class {
 	#category : #'GToolkit-Inspector-Reference Path'
 }
 
-{ #category : #accessing }
+{ #category : #cleaning }
 GtReferencePathItem class >> cleanOut [
 	GtReferencePathItem allSubInstancesDo: #cleanOut
 ]
 
-{ #category : #'api - cleaning' }
+{ #category : #'api - accessing' }
+GtReferencePathItem >> allReferencedObjects [
+	<return: #Collection of: #GtReferencedObject>
+	^ #()
+]
+
+{ #category : #cleaning }
 GtReferencePathItem >> cleanOut [
+	referencedObject ifNotNil: [ :anObject | anObject object: nil ].
 	referencedObject := nil
 ]
 
