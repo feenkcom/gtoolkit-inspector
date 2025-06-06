@@ -21,6 +21,15 @@ GtReferencePathShortItem >> gtDisplayOn: stream [
 		ifNil: [ self object gtDisplayOn: stream ]
 ]
 
+{ #category : #views }
+GtReferencePathShortItem >> gtSkippedFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Skipped items';
+		object: [ skipped ];
+		view: #gtItemsFor:
+]
+
 { #category : #accessing }
 GtReferencePathShortItem >> name [
 	^ name ifNil: [ self object className ]
@@ -33,6 +42,7 @@ GtReferencePathShortItem >> name: anObject [
 
 { #category : #accessing }
 GtReferencePathShortItem >> skipped [
+	<return: #Collection of: #GtReferencedObject>
 	^ skipped
 ]
 

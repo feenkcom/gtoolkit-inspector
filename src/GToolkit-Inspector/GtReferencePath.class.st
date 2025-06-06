@@ -18,8 +18,11 @@ GtReferencePath class >> objects: aCollectionOfObjects [
 ]
 
 { #category : #'instance creation' }
-GtReferencePath class >> simplify: aCollectionOfObjects [
-	^ self items: (GtReferencePathSimplifiedItemsBuilder new objects: aCollectionOfObjects; build)
+GtReferencePath class >> simplify: aCollectionOfReferencedObjects [
+	^ self
+		items: (GtReferencePathSimplifiedItemsBuilder new
+				referencedObjects: aCollectionOfReferencedObjects;
+				build)
 ]
 
 { #category : #printing }
@@ -51,7 +54,7 @@ GtReferencePath >> gtObjectsFor: aView [
 					item: [ :each | each ];
 					format: [ :each | each gtDisplayString ];
 					background: [ :each | 
-						each = self targetObject
+						each object = self targetObject object
 							ifTrue: [ BrGlamorousColors successBackgroundColor ]
 							ifFalse: [ Color transparent ] ] ];
 		column: 'Class'

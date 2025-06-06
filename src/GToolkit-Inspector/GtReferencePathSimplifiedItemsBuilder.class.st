@@ -2,9 +2,9 @@ Class {
 	#name : #GtReferencePathSimplifiedItemsBuilder,
 	#superclass : #Object,
 	#instVars : [
-		'objects',
 		'currentIndex',
-		'currentObject'
+		'referencedObjects',
+		'currentReferencedObject'
 	],
 	#category : #'GToolkit-Inspector-Reference Path'
 }
@@ -12,27 +12,27 @@ Class {
 { #category : #building }
 GtReferencePathSimplifiedItemsBuilder >> build [
 	| canditates canditate skip rest items |
-	self objects ifNil: [ ^ #() ].
-	self objects ifEmpty: [ ^ #() ].
+	self referencedObjects ifNil: [ ^ #() ].
+	self referencedObjects ifEmpty: [ ^ #() ].
 	items := OrderedCollection new.
 
 	currentIndex := 1.
-	[ currentIndex <= self objects size ]
-		whileTrue: [ currentObject := self objects at: currentIndex.
+	[ currentIndex <= self referencedObjects size ]
+		whileTrue: [ currentReferencedObject := self referencedObjects at: currentIndex.
 
 			canditates := self patterns
 					select: [ :each | 
-						currentIndex + (each skip value: self) - 1 <= self objects size
+						currentIndex + (each skip value: self) - 1 <= self referencedObjects size
 							and: [ each condition value: self ] ].
 			canditate := canditates detectMax: [ :each | each skip value: self ].
 			skip := canditate skip value: self.
 			rest := skip = 1
 					ifTrue: [ #() ]
-					ifFalse: [ self objects copyFrom: currentIndex + 1 to: currentIndex + skip - 1 ].
+					ifFalse: [ self referencedObjects copyFrom: currentIndex + 1 to: currentIndex + skip - 1 ].
 			items
 				add: (canditate item
 						value: self
-						value: currentObject
+						value: currentReferencedObject
 						value: rest).
 			currentIndex := currentIndex + skip ].
 
@@ -41,7 +41,13 @@ GtReferencePathSimplifiedItemsBuilder >> build [
 
 { #category : #'api - accessing' }
 GtReferencePathSimplifiedItemsBuilder >> currentObject [
-	^ currentObject
+	^ currentReferencedObject object
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> currentReferencedObject [
+	<return: #GtReferencedObject>
+	^ currentReferencedObject
 ]
 
 { #category : #'api - accessing' }
@@ -49,9 +55,19 @@ GtReferencePathSimplifiedItemsBuilder >> followingObject [
 	^ self followingObject: 1
 ]
 
-{ #category : #'as yet unclassified' }
-GtReferencePathSimplifiedItemsBuilder >> followingObject: anInteger [ 
-	^ self objects at: currentIndex + anInteger
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> followingObject: anInteger [
+	^ (self followingReferencedObject: anInteger) object
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> followingReferencedObject [
+	^ self followingReferencedObject: 1
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> followingReferencedObject: anInteger [ 
+	^ self referencedObjects at: currentIndex + anInteger
 ]
 
 { #category : #patterns }
@@ -67,28 +83,9 @@ GtReferencePathSimplifiedItemsBuilder >> globalVariables [
 		skip: [ :builder | 5 ];
 		item: [ :builder :current :rest | 
 			GtReferencePathShortItem new
-				name: ('{1}''s {2} class variable' format: {rest first. rest last name});
-				object: rest first;
+				name: ('{1}''s {2} class variable' format: {rest first object. rest last object name});
+				referencedObject: rest first;
 				skipped: (Array with: current withAll: rest allButFirst) ]
-]
-
-{ #category : #patterns }
-GtReferencePathSimplifiedItemsBuilder >> normalObject [
-	<referencePathPattern>
-	^ GtReferencePathPattern new
-		condition: [ :pattern | true ];
-		skip: [ :pattern | 1 ];
-		item: [ :pattern :current :rest | GtReferencePathObjectItem new object: current ]
-]
-
-{ #category : #accessing }
-GtReferencePathSimplifiedItemsBuilder >> objects [
-	^ objects
-]
-
-{ #category : #accessing }
-GtReferencePathSimplifiedItemsBuilder >> objects: aCollectionOfObjects [
-	objects := aCollectionOfObjects
 ]
 
 { #category : #patterns }
@@ -102,6 +99,26 @@ GtReferencePathSimplifiedItemsBuilder >> patterns [
 	^ pragmas collect: [ :each | self perform: each methodSelector ]
 ]
 
+{ #category : #accessing }
+GtReferencePathSimplifiedItemsBuilder >> referencedObjects [
+	<return: #Collection of: #GtReferencedObject>
+	^ referencedObjects
+]
+
+{ #category : #accessing }
+GtReferencePathSimplifiedItemsBuilder >> referencedObjects: aCollectionOfReferencedObjects [
+	referencedObjects := aCollectionOfReferencedObjects
+]
+
+{ #category : #patterns }
+GtReferencePathSimplifiedItemsBuilder >> singleObject [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | true ];
+		skip: [ :builder | 1 ];
+		item: [ :builder :current :rest | GtReferencePathObjectItem new referencedObject: current ]
+]
+
 { #category : #patterns }
 GtReferencePathSimplifiedItemsBuilder >> smalltalkGlobals [
 	<referencePathPattern>
@@ -113,7 +130,7 @@ GtReferencePathSimplifiedItemsBuilder >> smalltalkGlobals [
 		skip: [ :builder | 3 ];
 		item: [ :builder :current :rest | 
 			GtReferencePathShortItem new
-				name: ('{1} globals' format: {current});
-				object: current;
+				name: ('{1} globals' format: {current object});
+				referencedObject: current;
 				skipped: rest ]
 ]

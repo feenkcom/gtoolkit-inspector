@@ -15,8 +15,12 @@ GtReferencePathPattern >> condition [
 ]
 
 { #category : #accessing }
-GtReferencePathPattern >> condition: anObject [
-	condition := anObject
+GtReferencePathPattern >> condition: aBlock [
+	"Set a block that returns a boolean. 
+	The block has one argument: [ :builder | true ].
+	The return value indicates whether this pattern covers current path (from a current index)."
+
+	condition := aBlock
 ]
 
 { #category : #accessing }
@@ -25,8 +29,13 @@ GtReferencePathPattern >> item [
 ]
 
 { #category : #accessing }
-GtReferencePathPattern >> item: anObject [
-	item := anObject
+GtReferencePathPattern >> item: aBlock [
+	"Set a block that returns a GtReferencePathItem instance. 
+	The block has three arguments: [ :builder :current :rest | ... ].
+	The current is a current referenced object (GtReferencedObject kind of instance).
+	The rest are other skipped referenced objects."
+
+	item := aBlock
 ]
 
 { #category : #accessing }
