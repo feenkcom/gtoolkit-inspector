@@ -13,6 +13,12 @@ GtReferencePaths class >> to: anObject [
 	^ self withAll: paths
 ]
 
+{ #category : #cleaning }
+GtReferencePaths >> cleanOut [
+	self items do: #cleanOut.
+	items := nil
+]
+
 { #category : #views }
 GtReferencePaths >> gtPathsFor: aView [
 	<gtView>

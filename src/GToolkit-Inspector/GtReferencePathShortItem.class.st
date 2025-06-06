@@ -2,16 +2,36 @@ Class {
 	#name : #GtReferencePathShortItem,
 	#superclass : #GtReferencePathItem,
 	#instVars : [
-		'skipped',
-		'name'
+		'name',
+		'all'
 	],
 	#category : #'GToolkit-Inspector-Reference Path'
 }
 
-{ #category : #'api - cleaning' }
+{ #category : #accessing }
+GtReferencePathShortItem >> all [
+	"Return all referenced objects that are covered by this item"
+
+	<return: #Collection of: #GtReferencedObject>
+	^ all
+]
+
+{ #category : #accessing }
+GtReferencePathShortItem >> all: aCollectionOfGtReferencedObject [
+	"Set all referenced objects that are covered by this item"
+
+	all := aCollectionOfGtReferencedObject
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathShortItem >> allReferencedObjects [
+	^ self all
+]
+
+{ #category : #cleaning }
 GtReferencePathShortItem >> cleanOut [
 	super cleanOut.
-	skipped := nil
+	all := nil
 ]
 
 { #category : #printing }
@@ -24,10 +44,16 @@ GtReferencePathShortItem >> gtDisplayOn: stream [
 { #category : #views }
 GtReferencePathShortItem >> gtSkippedFor: aView [
 	<gtView>
-	^ aView forward
-		title: 'Skipped items';
-		object: [ skipped ];
-		view: #gtItemsFor:
+	^ aView columnedList
+		title: 'All objects';
+		items: [ all ifNil: [ #() ] ];
+		column: 'Referenced object'
+			text: [ :each | each object == self object ifTrue: [ each gtDisplayText bold ] ifFalse: [ each ] ];
+		send: #object;
+		contextItemLabel: 'Spawn object'
+			action: [ :element :item | element phlow spawnObject: item object ];
+		contextItemLabel: 'Spawn reference path item'
+			action: [ :element :item | element phlow spawnObject: item ]
 ]
 
 { #category : #accessing }
@@ -38,15 +64,4 @@ GtReferencePathShortItem >> name [
 { #category : #accessing }
 GtReferencePathShortItem >> name: anObject [
 	name := anObject
-]
-
-{ #category : #accessing }
-GtReferencePathShortItem >> skipped [
-	<return: #Collection of: #GtReferencedObject>
-	^ skipped
-]
-
-{ #category : #accessing }
-GtReferencePathShortItem >> skipped: anObject [
-	skipped := anObject
 ]
