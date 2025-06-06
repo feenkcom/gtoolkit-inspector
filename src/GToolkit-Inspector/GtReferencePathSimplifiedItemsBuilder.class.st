@@ -127,6 +127,33 @@ GtReferencePathSimplifiedItemsBuilder >> doubleLinkList [
 ]
 
 { #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> elementActor [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isDictionary ];
+				current: [ :object :condition | 
+					condition
+						previousObject: 1
+						is: [ :previous | (previous isKindOf: BlElement) and: [ previous userData == object ] ] ];
+				following: [ :object | object isKindOf: Array ];
+				following: [ :object | object isKindOf: Association ];
+				following: [ :object :condition | object == condition previousObject value ];
+				current: [ :object | object isKindOf: BrActor ];
+				allFollowingSequences: {
+					[ :object :condition | condition previousObject actors == object ].
+					[ :object | object isKindOf: BrActor ]} ];
+		item: [ :builder :current :all | 
+			| assoc |
+			assoc := (all detect: [ :each | each object isKindOf: Association ]) object.
+			GtReferencePathShortItem new
+				name: ('{1}' format: {all last object});
+				referencedObject: all last;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
 GtReferencePathSimplifiedItemsBuilder >> elementChild [
 	<referencePathPattern>
 	^ GtReferencePathPattern new
@@ -140,6 +167,30 @@ GtReferencePathSimplifiedItemsBuilder >> elementChild [
 			GtReferencePathShortItem new
 				name: ('{1}' format: {current object});
 				referencedObject: current;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> elementUserDataValue [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isDictionary ];
+				current: [ :object :condition | 
+					condition previousObjectIs: [ :previous | 
+						(previous isKindOf: BlElement) and: [ previous userData == object ] ] ];
+				following: [ :object | object isKindOf: Array ];
+				following: [ :object | object isKindOf: Association ];
+				following: [ :object :condition | object == condition previousObject value ] ];
+		item: [ :builder :current :all | 
+			| assoc |
+			assoc := (all detect: [ :each | each object isKindOf: Association ]) object.
+			GtReferencePathShortItem new
+				name: ('User data at {1}: {2}'
+						format: {assoc key.
+								assoc value});
+				referencedObject: all last;
 				all: all ]
 ]
 
@@ -232,6 +283,33 @@ GtReferencePathSimplifiedItemsBuilder >> gtObjectsFor: aView [
 			action: [ :element :node | element phlow spawnObject: node value ]
 ]
 
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> parallelUniverseSpaceManager [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object == Smalltalk ];
+				following: [ :object | object == Smalltalk globals ];
+				following: [ :object | object == Smalltalk globals array ];
+				following: [ :object | object isKindOf: GlobalVariable ];
+				following: [ :object | object isClassOrTrait ];
+				current: [ :object | object = BlParallelUniverse ];
+				following: [ :object | object isDictionary ];
+				following: [ :object | object class = Array ];
+				following: [ :object | object isKindOf: ClassVariable ];
+				following: [ :object | object isKindOf: Array ];
+				following: [ :object | object isKindOf: BlParallelUniverse ];
+				following: [ :object | object isKindOf: BlSpaceManager ];
+				following: [ :object | object isKindOf: Array ] ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1} space manager'
+						format: {(all detect: [ :item | item object isKindOf: BlParallelUniverse ]) object});
+				referencedObject: (all detect: [ :item | item object isKindOf: BlSpaceManager ]);
+				all: all ]
+]
+
 { #category : #'api - patterns' }
 GtReferencePathSimplifiedItemsBuilder >> patterns [
 	| pragmas |
@@ -278,6 +356,16 @@ GtReferencePathSimplifiedItemsBuilder >> smalltalkGlobals [
 				name: ('{1} globals' format: {current object});
 				referencedObject: current;
 				all: all ]
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> specificObject: anInteger [
+	^ (self specificReferencedObject: anInteger) object
+]
+
+{ #category : #'api - accessing' }
+GtReferencePathSimplifiedItemsBuilder >> specificReferencedObject: anInteger [
+	^ self referencedObjects at: anInteger
 ]
 
 { #category : #'api - accessing' }

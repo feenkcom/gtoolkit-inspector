@@ -33,6 +33,13 @@ GtReferencePaths >> gtPathsFor: aView [
 GtReferencePaths >> paths [
 ]
 
+{ #category : #updating }
+GtReferencePaths >> simplify [
+	"Recomputes simplified paths"
+
+	^ self items do: #simplify
+]
+
 { #category : #accessing }
 GtReferencePaths >> targetObject [
 	<return: #GtReferencePathItem>
