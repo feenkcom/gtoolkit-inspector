@@ -153,6 +153,16 @@ GtReferencePath >> items: aCollection [
 	items := aCollection
 ]
 
+{ #category : #updating }
+GtReferencePath >> simplify [
+	"Recomputes simplified path items"
+
+	self
+		items: (GtReferencePathSimplifiedItemsBuilder new
+				referencedObjects: self allReferencedObjects;
+				build)
+]
+
 { #category : #accessing }
 GtReferencePath >> size [ 
 	^ items size
