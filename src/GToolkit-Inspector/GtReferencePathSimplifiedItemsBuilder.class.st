@@ -282,7 +282,7 @@ GtReferencePathSimplifiedItemsBuilder >> gtObjectsFor: aView [
 ]
 
 { #category : #'pattern definitions' }
-GtReferencePathSimplifiedItemsBuilder >> parallelUniverseSpaceManager [
+GtReferencePathSimplifiedItemsBuilder >> parallelUniverseSpace [
 	<referencePathPattern>
 	^ GtReferencePathPattern new
 		condition: [ :builder | 
@@ -299,12 +299,13 @@ GtReferencePathSimplifiedItemsBuilder >> parallelUniverseSpaceManager [
 				following: [ :object | object isKindOf: Array ];
 				following: [ :object | object isKindOf: BlParallelUniverse ];
 				following: [ :object | object isKindOf: BlSpaceManager ];
-				following: [ :object | object isKindOf: Array ] ];
+				following: [ :object | object isKindOf: Array ];
+				following: [ :object | object isKindOf: BlSpace ] ];
 		item: [ :builder :current :all | 
 			GtReferencePathShortItem new
-				name: ('{1} space manager'
-						format: {(all detect: [ :item | item object isKindOf: BlParallelUniverse ]) object});
-				referencedObject: (all detect: [ :item | item object isKindOf: BlSpaceManager ]);
+				name: ('Universe''s {1}'
+						format: {all last object});
+				referencedObject: (all last);
 				all: all ]
 ]
 
