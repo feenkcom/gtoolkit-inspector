@@ -306,7 +306,7 @@ GtReferencePathSimplifiedItemsBuilder >> link [
 		ifTrue: [ ^ self ].
 
 	self
-		referencedObjects: (GtReferencePathLinkedObject linkPaths: self referencedObjects)
+		referencedObjects: (GtReferencePathLinkedObject linkPath: self referencedObjects)
 ]
 
 { #category : #'pattern definitions' }

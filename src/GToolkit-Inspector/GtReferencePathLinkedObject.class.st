@@ -84,6 +84,11 @@ GtReferencePathLinkedObject >> object [
 ]
 
 { #category : #accessing }
+GtReferencePathLinkedObject >> object: anObject [ 
+	self referencedObject object: anObject
+]
+
+{ #category : #accessing }
 GtReferencePathLinkedObject >> predecessor [
 	^ predecessor
 ]
