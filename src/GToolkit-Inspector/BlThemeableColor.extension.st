@@ -9,3 +9,10 @@ BlThemeableColor >> gtColorComputationFor: aView [
 		object: [ colorComputation ];
 		view: #gtSourceCodeFor:
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+BlThemeableColor >> iconOrThumbnailOfSize: aNumberOrPoint [
+	"Answer an appropiate form to represent the receiver"
+
+	^ color iconOrThumbnailOfSize: aNumberOrPoint
+]
