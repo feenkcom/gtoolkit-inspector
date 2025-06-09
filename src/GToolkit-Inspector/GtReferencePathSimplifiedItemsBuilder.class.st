@@ -298,6 +298,17 @@ GtReferencePathSimplifiedItemsBuilder >> gtObjectsFor: aView [
 			action: [ :element :node | element phlow spawnObject: node value ]
 ]
 
+{ #category : #building }
+GtReferencePathSimplifiedItemsBuilder >> link [
+	self referencedObjects size > 1 ifFalse: [ ^ self ].
+	(self referencedObjects
+		anySatisfy: [ :each | each isKindOf: GtReferencePathLinkedObject ])
+		ifTrue: [ ^ self ].
+
+	self
+		referencedObjects: (GtReferencePathLinkedObject linkPaths: self referencedObjects)
+]
+
 { #category : #'pattern definitions' }
 GtReferencePathSimplifiedItemsBuilder >> parallelUniverseSpace [
 	<referencePathPattern>
