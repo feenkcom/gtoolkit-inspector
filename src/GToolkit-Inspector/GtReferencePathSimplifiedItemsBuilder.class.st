@@ -9,6 +9,23 @@ Class {
 	#category : #'GToolkit-Inspector-Reference Path'
 }
 
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> actors [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isKindOf: BrActor ];
+				allFollowingSequences: {
+					[ :object :condition | object isCollection ].
+					[ :object | object isKindOf: BrActor ]} ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1}' format: {all last object});
+				referencedObject: all last;
+				all: all ]
+]
+
 { #category : #'api - patterns' }
 GtReferencePathSimplifiedItemsBuilder >> all [
 	^ GtReferencePathAllCondition new builder: self
