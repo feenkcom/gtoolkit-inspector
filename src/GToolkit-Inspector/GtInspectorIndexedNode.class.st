@@ -29,6 +29,11 @@ GtInspectorIndexedNode >> index: anInteger [
 	index := anInteger
 ]
 
+{ #category : #testing }
+GtInspectorIndexedNode >> isWeakReferenceNode [
+	^ self hostObject class isWeak
+]
+
 { #category : #accessing }
 GtInspectorIndexedNode >> key [
 	^ self index

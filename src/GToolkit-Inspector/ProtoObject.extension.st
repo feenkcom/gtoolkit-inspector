@@ -115,7 +115,8 @@ ProtoObject >> gtRawFor: aView [
 							vFitContent;
 							alignCenter ];
 					dataBinder: [ :itemElement :aNode | 
-						| nodeIcon |
+						| nodeIcon extraInfo |
+						extraInfo := false.
 						nodeIcon := [ aNode rawValue gtInspectorIcon
 								ifNil: [ aNode rawValue class iconNamed: aNode rawValue class systemIconName ] ]
 								on: Error
@@ -123,13 +124,67 @@ ProtoObject >> gtRawFor: aView [
 
 						itemElement
 							removeChildren;
-							addChild: nodeIcon asElement;
+							addChild: nodeIcon asElement.
+
+
+						itemElement
 							addChild: (BrLabel new
 									aptitude: BrGlamorousListLabelAptitude;
 									text: aNode label;
 									alignCenterLeft;
-									hMatchParent;
-									vFitContent) ] ];
+									fitContent).
+
+						aNode isWeakClassNode
+							ifTrue: [ extraInfo := true.
+								itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beMiniSize;
+											text: 'weak class';
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ].
+
+						aNode isEphemeronClassNode
+							ifTrue: [ extraInfo := true.
+								itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beMiniSize;
+											text: 'ephemeron class';
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ].
+
+						aNode isWeakReferenceNode
+							ifTrue: [ extraInfo := true.
+								itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beMiniSize;
+											text: 'weak reference';
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ].
+
+						aNode isEphemeronReferenceNode
+							ifTrue: [ extraInfo := true.
+								itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beMiniSize;
+											text: 'ephemeron reference';
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ].
+
+						extraInfo ifFalse: [ itemElement children last hMatchParent ].
+
+						itemElement ] ];
 		column: 'Value'
 			text: [ :aNode | 
 				[ aNode rawValue gtDisplayText ]

@@ -20,6 +20,11 @@ GtInspectorSlotNode >> errorMessage [
 ]
 
 { #category : #testing }
+GtInspectorSlotNode >> isEphemeronReferenceNode [
+	^ self hostObject class isEphemeronClass and: [ self slot index = 1 ]
+]
+
+{ #category : #testing }
 GtInspectorSlotNode >> isSlotNode [
 	^ true
 ]

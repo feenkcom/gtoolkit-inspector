@@ -54,7 +54,27 @@ GtInspectorVariableNode >> hostObject: anObject [
 ]
 
 { #category : #testing }
+GtInspectorVariableNode >> isEphemeronClassNode [
+	^ self rawValue class isEphemeronClass
+]
+
+{ #category : #testing }
+GtInspectorVariableNode >> isEphemeronReferenceNode [
+	^ false
+]
+
+{ #category : #testing }
 GtInspectorVariableNode >> isSlotNode [
+	^ false
+]
+
+{ #category : #testing }
+GtInspectorVariableNode >> isWeakClassNode [
+	^ self rawValue class isWeak
+]
+
+{ #category : #testing }
+GtInspectorVariableNode >> isWeakReferenceNode [
 	^ false
 ]
 
