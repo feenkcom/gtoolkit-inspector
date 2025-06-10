@@ -22,6 +22,7 @@ GtReferencePath class >> simplify: aCollectionOfReferencedObjects [
 	^ self
 		items: (GtReferencePathSimplifiedItemsBuilder new
 				referencedObjects: aCollectionOfReferencedObjects;
+				link;
 				build)
 ]
 
@@ -91,6 +92,8 @@ GtReferencePath >> gtObjectsFor: aView [
 		send: #object;
 		contextItemLabel: 'Spawn object'
 			action: [ :element :node | element phlow spawnObject: node value object ];
+		contextItemLabel: 'Spawn referenced object'
+			action: [ :element :node | element phlow spawnObject: node value referencedObject ];
 		contextItemLabel: 'Spawn reference path item'
 			action: [ :element :node | element phlow spawnObject: node value ]
 ]
