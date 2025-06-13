@@ -2,7 +2,8 @@ Class {
 	#name : #GtReferencePathItem,
 	#superclass : #Object,
 	#instVars : [
-		'referencedObject'
+		'referencedObject',
+		'referenceTypeName'
 	],
 	#category : #'GToolkit-Inspector-Reference Path'
 }
@@ -37,7 +38,15 @@ GtReferencePathItem >> object [
 
 { #category : #'api - accessing' }
 GtReferencePathItem >> referenceTypeName [
-	^ referencedObject referenceTypeName
+	<return: #String>
+	^ referenceTypeName
+		ifNil: [ referencedObject referenceTypeName ]
+		ifNotNil: [ referenceTypeName value asString ]
+]
+
+{ #category : #accessing }
+GtReferencePathItem >> referenceTypeName: aStringOrBlock [
+	referenceTypeName := aStringOrBlock
 ]
 
 { #category : #accessing }

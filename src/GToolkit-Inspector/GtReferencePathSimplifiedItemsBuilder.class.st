@@ -174,14 +174,14 @@ GtReferencePathSimplifiedItemsBuilder >> elementChild [
 	^ GtReferencePathPattern new
 		condition: [ :builder | 
 			builder all
-				current: [ :object | object isKindOf: BlElement ];
-				following: [ :object | object isKindOf: BlChildrenCollection ];
+				current: [ :object | object isKindOf: BlChildrenCollection ];
 				following: [ :object | object isCollection ];
-				peek: [ :object | object isKindOf: BlElement ] ];
+				following: [ :object | object isKindOf: BlElement ] ];
 		item: [ :builder :current :all | 
 			GtReferencePathShortItem new
-				name: ('{1}' format: {current object});
-				referencedObject: current;
+				name: ('{1}' format: {all last object});
+				referencedObject: all last;
+				referenceTypeName: [ current referenceTypeName ];
 				all: all ]
 ]
 
@@ -230,7 +230,23 @@ GtReferencePathSimplifiedItemsBuilder >> followingReferencedObject: anInteger [
 ]
 
 { #category : #'pattern definitions' }
-GtReferencePathSimplifiedItemsBuilder >> globalVariables [
+GtReferencePathSimplifiedItemsBuilder >> globalClassSideSlot [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object isKindOf: GlobalVariable ];
+				following: [ :object | object isClassOrTrait ];
+				following: [ :object | true ] ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1}' format: {all last object});
+				referencedObject: all last;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> globalClassVariables [
 	<referencePathPattern>
 	^ GtReferencePathPattern new
 		condition: [ :builder | 
@@ -382,6 +398,25 @@ GtReferencePathSimplifiedItemsBuilder >> smalltalkGlobals [
 			GtReferencePathShortItem new
 				name: ('{1} globals' format: {current object});
 				referencedObject: current;
+				all: all ]
+]
+
+{ #category : #'pattern definitions' }
+GtReferencePathSimplifiedItemsBuilder >> smalltalkGlobalsClassSideSlot [
+	<referencePathPattern>
+	^ GtReferencePathPattern new
+		condition: [ :builder | 
+			builder all
+				current: [ :object | object == Smalltalk ];
+				following: [ :object | object == Smalltalk globals ];
+				following: [ :object | object == Smalltalk globals array ];
+				following: [ :object | object isKindOf: GlobalVariable ];
+				following: [ :object | object isClassOrTrait ];
+				following: [ :object | true ] ];
+		item: [ :builder :current :all | 
+			GtReferencePathShortItem new
+				name: ('{1}' format: {all last object});
+				referencedObject: all last;
 				all: all ]
 ]
 
