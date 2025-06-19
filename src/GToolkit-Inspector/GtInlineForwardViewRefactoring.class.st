@@ -57,6 +57,16 @@ GtInlineForwardViewRefactoring >> addCascadesToReturn: aReturn [
 ]
 
 { #category : #transforming }
+GtInlineForwardViewRefactoring >> basicTransform [
+	self extractMethod.
+	self convertToDirectCall.
+	self inlineGtViewMethod.
+	self updateCascadedMessages.
+	self inlineExtractedMethod.
+	self gtCleanupChanges
+]
+
+{ #category : #transforming }
 GtInlineForwardViewRefactoring >> convertToDirectCall [
 	| method ast newAst objectBody |
 	method := class methodFor: extractedMethodSelector.
@@ -181,6 +191,11 @@ GtInlineForwardViewRefactoring >> preconditions [
 					true ])
 ]
 
+{ #category : #transforming }
+GtInlineForwardViewRefactoring >> privateTranform [
+	self basicTransform
+]
+
 { #category : #accessing }
 GtInlineForwardViewRefactoring >> selector [
 	^ selector
@@ -193,12 +208,7 @@ GtInlineForwardViewRefactoring >> selector: anObject [
 
 { #category : #transforming }
 GtInlineForwardViewRefactoring >> transform [
-	self extractMethod.
-	self convertToDirectCall.
-	self inlineGtViewMethod.
-	self updateCascadedMessages.
-	self inlineExtractedMethod.
-	self gtCleanupChanges
+	self basicTransform
 ]
 
 { #category : #transforming }
