@@ -192,7 +192,7 @@ GtInlineForwardViewRefactoring >> preconditions [
 ]
 
 { #category : #transforming }
-GtInlineForwardViewRefactoring >> privateTranform [
+GtInlineForwardViewRefactoring >> privateTransform [
 	self basicTransform
 ]
 
