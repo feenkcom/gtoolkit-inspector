@@ -11,6 +11,7 @@ RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 			changesElement := GtChangesElement new.
 			changesElement changes: self.
 			pane addChild: changesElement.
+			pane addAptitude: (BrLayoutResizerAptitude new inherit: changesElement).
 			progress := BrProgress new.
 			progress aptitude: BrGlamorousProgressBarAptitude.
 			progress
