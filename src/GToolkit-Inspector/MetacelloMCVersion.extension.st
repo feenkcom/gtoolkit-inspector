@@ -5,7 +5,10 @@ MetacelloMCVersion >> = aMetacelloVersion [
 	<gtPharoPatch: #Pharo>
 	"needed because the super implementation only checks the version number,
 	and we also need to ensure that we have the same configuration class"	
-	^ (super = aMetacelloVersion) and: [ 
+	
+	aMetacelloVersion species = self species ifFalse: [ ^false ].
+
+	^ (self versionNumber = aMetacelloVersion versionNumber) and: [ 
 		self spec project configuration class = aMetacelloVersion spec project configuration class ]
 ]
 
@@ -30,5 +33,8 @@ MetacelloMCVersion >> hash [
 	"needed because the super implementation only checks the version number,
 	and we also need to ensure that we have the same configuration class"
 
-	^ super hash bitXor: self spec project configuration class hash
+	^ (self 
+		forPharo12: [ self identityHash] 
+		forPharo11AndPharo10: [ super hash]) 
+			bitXor: self spec project configuration class hash
 ]
