@@ -94,6 +94,131 @@ GtInspectorExamples >> contentElement [
 	^ anElement
 ]
 
+{ #category : #'examples - updating' }
+GtInspectorExamples >> fireToolUpdateWishFromContextMenu [
+	"See https://github.com/feenkcom/gtoolkit/issues/4606"
+
+	<gtExample>
+	| aPager anObject aScripter someEvents |
+	anObject := self inspectedObject.
+	aPager := self basicInspectorClass createOn: anObject.
+	self assert: aPager pages size equals: 1.
+	self assert: anObject collection size equals: 10.
+	self assert: (anObject collection includes: 7).
+
+	aScripter := BlScripter new element: aPager.
+
+	aScripter click
+		label: 'Display tab Three';
+		// BrTab;
+		@ [ :aTab | aTab label asString = 'Three' ];
+		play.
+
+	aScripter assert
+		label: 'Assert 10 items in the columned list';
+		value: [ :anInfiniteList | anInfiniteList childrenCount ] equals: 10;
+		// GtPhlowColumnedListId;
+		/ #scrollable;
+		play.
+
+	aScripter menuStep
+		openContextMenu;
+		// GtPhlowColumnedListId;
+		// GtPhlowCellElement;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+
+	aScripter menuStep
+		clickMenuItemWithId: [ :anElement | 
+			(anElement isKindOf: BrLabel)
+				and: [ anElement text asString = 'Remove item (tool update wish)' ] ];
+		onMenuContainer;
+		play.
+
+	aScripter click
+		label: 'Display tab Three';
+		// BrTab;
+		@ [ :aTab | aTab label asString = 'Three' ];
+		play.
+
+	aScripter assert
+		label: 'Assert 9 items in the columned list';
+		value: [ :anInfiniteList | anInfiniteList childrenCount ] equals: 9;
+		// GtPhlowColumnedListId;
+		/ #scrollable;
+		play.
+
+	self assert: anObject collection size equals: 9.
+	self assert: (anObject collection includes: 7) not.
+
+	someEvents := aScripter events
+			select: [ :each | each isKindOf: BrPhlowToolUpdateWish ].
+	self assert: someEvents size equals: 2.
+	self
+		assert: (someEvents allSatisfy: #isConsumed)
+		description: [ 'Event must be consumed' ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - updating' }
+GtInspectorExamples >> fireViewUpdateWishFromContextMenu [
+	"See https://github.com/feenkcom/gtoolkit/issues/4606"
+
+	<gtExample>
+	| aPager anObject aScripter someEvents |
+	anObject := self inspectedObject.
+	aPager := self basicInspectorClass createOn: anObject.
+	self assert: aPager pages size equals: 1.
+	self assert: anObject collection size equals: 10.
+	self assert: (anObject collection includes: 7).
+
+	aScripter := BlScripter new element: aPager.
+
+	aScripter click
+		label: 'Display tab Three';
+		// BrTab;
+		@ [ :aTab | aTab label asString = 'Three' ];
+		play.
+
+	aScripter assert
+		label: 'Assert 10 items in the columned list';
+		value: [ :anInfiniteList | anInfiniteList childrenCount ] equals: 10;
+		// GtPhlowColumnedListId;
+		/ #scrollable;
+		play.
+
+	aScripter menuStep
+		openContextMenu;
+		// GtPhlowColumnedListId;
+		// GtPhlowCellElement;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = '7' ];
+		@ 1;
+		play.
+
+	aScripter menuStep
+		clickMenuItemWithId: [ :anElement | 
+			(anElement isKindOf: BrLabel)
+				and: [ anElement text asString = 'Remove item (view update wish)' ] ];
+		onMenuContainer;
+		play.
+
+	self assert: anObject collection size equals: 9.
+	self assert: (anObject collection includes: 7) not.
+
+	someEvents := aScripter events
+			select: [ :each | each isKindOf: GtPhlowViewUpdateWish ].
+	self assert: someEvents size equals: 2.
+	self
+		assert: (someEvents allSatisfy: #isConsumed)
+		description: [ 'Event must be consumed' ].
+
+	^ aScripter
+]
+
 { #category : #'examples - inspected objects' }
 GtInspectorExamples >> inspectedObject [
 	<gtExample>
