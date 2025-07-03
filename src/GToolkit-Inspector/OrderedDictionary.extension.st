@@ -8,6 +8,13 @@ OrderedDictionary >> gtCreateViewGroupingFor: aGtViewCreator [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+OrderedDictionary >> gtCreateViewGroupingHorizontalBarChartFor: aGtViewCreator [
+	<gtViewCreator>
+	
+	dictionary gtCreateViewGroupingHorizontalBarChartFor: aGtViewCreator
+]
+
+{ #category : #'*GToolkit-Inspector' }
 OrderedDictionary >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
 	| template bindings |

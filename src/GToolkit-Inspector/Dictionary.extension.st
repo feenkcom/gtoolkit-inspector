@@ -41,6 +41,72 @@ Dictionary >> gtCreateViewGroupingFor: aGtViewCreator [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Dictionary >> gtCreateViewGroupingHorizontalBarChartFor: aGtViewCreator [
+	<gtViewCreator>
+	| template bindings |
+	
+	(self notEmpty and: [ (self associations takeFirst: 10)
+			allSatisfy: [ :assoc | assoc value isCollection ] ])
+		ifFalse: [ ^ aGtViewCreator empty ].
+		
+	aGtViewCreator
+		title: 'Grouping (bar chart)'.
+		
+	template := '{viewSelector} aView
+	<gtView>
+	{optionalNilCheck}
+	^ aView explicit 
+		title: ''{viewTitle}'';
+		stencil: [ 
+			| groupedData theData maxLines aBarWidthScale barChart |
+			
+			groupedData := {objectComputation} associations.
+			theData := GtPlotterDataGroup new values: groupedData.
+			theData := theData sorted: [ :a :b | a value size > b value size ].
+			theData := theData
+				labelled: [ :each | 
+					each key gtDisplayString  ].
+			theData := theData background: [ :each | Color blue alpha: 0.5 ].
+
+			maxLines := theData
+				inject: 0
+				intoValues: [ :anAmount :eachValue | 
+					anAmount max: eachValue value size ].
+			aBarWidthScale := GtPlotterLinearScale new 
+				domainFrom: 0 to: maxLines.
+
+			barChart := GtPlotterHorizontalBarChart new.
+			barChart
+				barElement: [ :aGtPlotterContext | 
+					BlElement new
+						aptitude: ((BrGlamorousWithExplicitTooltipAptitude
+								text: aGtPlotterContext originalValue value size)
+								hideDelay: 0;
+								showDelay: 0) ].
+			barChart barLabelSpacing: 160.
+			barChart barWidthScale: aBarWidthScale.
+			barChart barWidthData: [ :eachValue | eachValue value size ].
+			barChart amountOfTicks: 4.
+			barChart with: theData.
+
+			barChart ]'.
+		
+	bindings := {
+		'viewSelector' -> aGtViewCreator newSelector.
+		'viewTitle' -> aGtViewCreator title.
+		'optionalNilCheck' -> (aGtViewCreator variable
+				ifNil: [ '' ]
+				ifNotNil: [ :aVariable | aVariable, ' ifNil: [ ^aView empty ].'] ).
+		'objectComputation' -> (aGtViewCreator variable 
+				ifNil: [ '[ ', aGtViewCreator objectSource, ' ] value' ]
+				ifNotNil: [ aGtViewCreator objectSource ])
+	} asDictionary.
+	 
+	aGtViewCreator
+		source: (template format: bindings)
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Dictionary >> gtCreateViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
 	| template bindings |
