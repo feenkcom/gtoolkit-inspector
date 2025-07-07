@@ -3,19 +3,33 @@ Extension { #name : #ByteString }
 { #category : #'*GToolkit-Inspector' }
 ByteString >> gtDirectoryFor: aView [
 	<gtView>
-	(self asFileReference exists and: [self asFileReference isDirectory]) ifFalse: [ ^ aView empty ].
+	| fileReference |
+	[ fileReference := self asFileReference ]
+		on: FileException
+		do: [ ^ aView empty ].
+
+	[ (fileReference exists and: [ fileReference isDirectory ])
+		ifFalse: [ ^ aView empty ] ] on: FileException do: [ ^ aView empty ].
+
 	^ aView forward
 		title: 'Directory';
-		object: [ self asFileReference ];
+		object: [ fileReference ];
 		view: #gtTreeFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }
 ByteString >> gtFileContentsFor: aView [
 	<gtView>
-	(self asFileReference exists and: [self asFileReference isDirectory not]) ifFalse: [ ^ aView empty ].
+	| fileReference |
+	[ fileReference := self asFileReference ]
+		on: FileException
+		do: [ ^ aView empty ].
+
+	[ (fileReference exists and: [ fileReference isDirectory not ])
+		ifFalse: [ ^ aView empty ] ] on: FileException do: [ ^ aView empty ].
+
 	^ aView forward
 		title: 'File contents';
-		object: [ self asFileReference ];
+		object: [ fileReference ];
 		view: #gtContentsFor:
 ]
