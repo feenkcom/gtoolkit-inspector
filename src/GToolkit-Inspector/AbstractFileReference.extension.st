@@ -79,12 +79,12 @@ AbstractFileReference >> gtContentsFor: aView [
 		on: ZnInvalidUTF8
 		do: [ ^ aView empty ].
 
-	eventLoop := self watcher startLoop.
+	"eventLoop := self watcher startLoop."
 
 	^ aView explicit
 		title: 'Contents' translated;
 		priority: 50;
-		updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;
+		"updateWhen: GtFileWatcherModificationAnnouncement in: eventLoop announcer;"
 		stencil: [ self gtEditorView ]
 ]
 
@@ -270,12 +270,12 @@ AbstractFileReference >> gtItemsFor: aView [
 		[ self path isNetworkPath and: [ self path isRoot ] ])
 			ifTrue: [ ^ aView empty ].
 
-	eventLoop := self watcher startLoop.
+	"eventLoop := self watcher startLoop."
 
 	^ aView columnedList
 		title: 'Items' translated;
 		priority: 10;
-		updateWhen: GtFileWatcherChangeAnnouncement in: eventLoop announcer;
+		"updateWhen: GtFileWatcherChangeAnnouncement in: eventLoop announcer;"
 		items: [ self gtChildrenWithParent ];
 		column: 'Icon' translated 
 			icon: [ :each | 
