@@ -22,8 +22,8 @@ MetacelloMCVersion >> gtRPackages [
 	| gtRPackages |
 	gtRPackages := OrderedCollection new.
 	self packages do: [:each | 
-		(RPackageOrganizer default includesPackageNamed: each name) ifTrue: [
-			gtRPackages add: (RPackageOrganizer default packageNamed: each name)] ].
+		(self packageOrganizer includesPackageNamed: each name) ifTrue: [
+			gtRPackages add: (self packageOrganizer packageNamed: each name)] ].
 	^ gtRPackages
 ]
 
