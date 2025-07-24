@@ -50,9 +50,10 @@ Class >> gtClassVariablesFor: aView [
 Class >> gtDefinitionFor: aView [
 
 	<gtView>
+	<gtClassView>
 	^ aView explicit 
 		title: 'Definition';
-		priority: 1;
+		priority: 20;
 		stencil: [ (GtPharoSnippetCoder forSource: self definitionString) asExpandedOnlyElement vFitContentLimited ]
 ]
 
