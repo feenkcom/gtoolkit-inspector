@@ -8,7 +8,7 @@ ProtocolOrganizer >> gtSpecificSizeInMemory [
 			ifNil: [ 0 ] 
 			ifNotNil: [ :anObject | anObject gtSpecificSizeInMemory ])
 		+ protocols gtSpecificSizeInMemory
-		+ (protocols sum: [ :aProtocol |
+		+ (protocols sumNumbers: [ :aProtocol |
 			aProtocol sizeInMemory 
 				+ aProtocol methodSelectors gtSpecificSizeInMemory ])
 ]

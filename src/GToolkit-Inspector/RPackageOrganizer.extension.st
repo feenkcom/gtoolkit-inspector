@@ -15,8 +15,8 @@ RPackageOrganizer >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ classPackageMapping gtSpecificSizeInMemory
 		+ packages gtSpecificSizeInMemory
-		+ (packages sum: #gtSpecificSizeInMemory)
+		+ (packages sumNumbers: #gtSpecificSizeInMemory)
 		+ classExtendingPackagesMapping gtSpecificSizeInMemory
-		+ (classExtendingPackagesMapping sum: #gtSpecificSizeInMemory)
+		+ (classExtendingPackagesMapping sumNumbers: #gtSpecificSizeInMemory)
 		+ packageNames gtSpecificSizeInMemory
 ]
