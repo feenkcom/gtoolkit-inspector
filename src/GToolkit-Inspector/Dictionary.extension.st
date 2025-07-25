@@ -179,6 +179,6 @@ Dictionary >> gtKeysFor: aView [
 { #category : #'*GToolkit-Inspector' }
 Dictionary >> gtSpecificSizeInMemory [
 	^ super gtSpecificSizeInMemory 
-		+ (self associations sum: [ :assoc | 
+		+ (self associations sumNumbers: [ :assoc | 
 			assoc sizeInMemory ])
 ]

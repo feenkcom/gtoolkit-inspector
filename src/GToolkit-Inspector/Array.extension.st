@@ -2,7 +2,7 @@ Extension { #name : #Array }
 
 { #category : #'*GToolkit-Inspector' }
 Array >> gtLiteralArraySizeInMemory [
-	^ self sizeInMemory + (self sum: [ :anObject |
+	^ self sizeInMemory + (self sumNumbers: [ :anObject |
 		| objectSize |
 		objectSize := 0.
 		anObject class = Array ifTrue: [

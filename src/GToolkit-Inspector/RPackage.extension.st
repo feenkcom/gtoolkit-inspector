@@ -22,16 +22,16 @@ RPackage >> gtDisplayOn: stream [
 RPackage >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ classDefinedSelectors gtSpecificSizeInMemory
-		+ (classDefinedSelectors sum: #gtSpecificSizeInMemory)
+		+ (classDefinedSelectors sumNumbers: #gtSpecificSizeInMemory)
 		+ metaclassDefinedSelectors gtSpecificSizeInMemory
-		+ (metaclassDefinedSelectors sum: #gtSpecificSizeInMemory)
+		+ (metaclassDefinedSelectors sumNumbers: #gtSpecificSizeInMemory)
 		+ metaclassExtensionSelectors gtSpecificSizeInMemory
-		+ (metaclassExtensionSelectors sum: #gtSpecificSizeInMemory)
+		+ (metaclassExtensionSelectors sumNumbers: #gtSpecificSizeInMemory)
 		+ classExtensionSelectors gtSpecificSizeInMemory
-		+ (classExtensionSelectors sum: #gtSpecificSizeInMemory)
+		+ (classExtensionSelectors sumNumbers: #gtSpecificSizeInMemory)
 		+ classes gtSpecificSizeInMemory
 		+ classTags gtSpecificSizeInMemory
-		+ (classTags sum: #gtSpecificSizeInMemory)
+		+ (classTags sumNumbers: #gtSpecificSizeInMemory)
 ]
 
 { #category : #'*GToolkit-Inspector' }
