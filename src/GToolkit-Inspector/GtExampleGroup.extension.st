@@ -4,22 +4,22 @@ Extension { #name : #GtExampleGroup }
 GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
 	| buttonDescriptions |
 	aButtonsContainer removeChildren.
-	buttonDescriptions := #(
-		#(numberOfExamples examples examples)
-		#(numberOfResults executed executedExamples)
-		#(numberOfSuccesses successes successfulExamples)
-		#(numberOfFailures failures failedExamples)
-		#(numberOfErrors errors erroredExamples)
-		#(numberOfSkips skipped skippedExamples)).
+	buttonDescriptions := {
+		{[self numberOfExamples]. 'examples'. [self examples]}.
+		{[self numberOfResults]. 'executed'. [self executedExamples]}.
+		{[self numberOfSuccesses]. 'successes'. [self successfulExamples]}.
+		{[self numberOfFailures]. 'failures'. [self failedExamples]}.
+		{[self numberOfErrors]. 'errors'. [self erroredExamples]}.
+		{[self numberOfSkips]. 'skipped'. [self skippedExamples]}}.
 	buttonDescriptions do: [ :buttonDescription |
 		aButtonsContainer
 			addChild: (BrButton new
 					aptitude: BrGlamorousButtonWithLabelAptitude;
 					beSmallSize;
-					label: (self perform: buttonDescription first) asString , 
+					label: (buttonDescription first value) asString , 
 						' ', buttonDescription second, ' ';
 				action: [ anElement children second
-						items: ((self perform: buttonDescription third) sorted: GtMethodsSortFunction new) ])]
+						items: ((buttonDescription third value) sorted: GtMethodsSortFunction new) ])].
 ]
 
 { #category : #'*GToolkit-Inspector' }
