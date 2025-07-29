@@ -27,10 +27,10 @@ GtInspectorTool class >> forObject: anObject viewSelector: aSymbol [
 GtInspectorTool class >> openWrappedOn: anObject title: aString from: sourceElement [
 	"Open the supplied object as a tab in GtWorld with the supplied title"
 
-	GtPager
-		openWrappedOn: (self forObject: anObject) asElement
-		title: aString
-		from: sourceElement
+	BlSpace new
+		inPager: (self forObject: anObject);
+		title: aString;
+		showFrom: sourceElement
 ]
 
 { #category : #accessing }
