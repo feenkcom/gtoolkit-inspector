@@ -2,31 +2,24 @@ Extension { #name : #GtExampleGroup }
 
 { #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement [
+	| buttonDescriptions |
 	aButtonsContainer removeChildren.
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: self numberOfExamples asString, ' examples ';
-		action: [ anElement children second items: (self examples sorted: GtMethodsSortFunction new) ]).
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: self numberOfResults asString, ' executed ';
-		action: [ anElement children second items: (self executedExamples sorted: GtMethodsSortFunction new) ]).
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: self numberOfSuccesses asString, ' successes ';
-		action: [ anElement children second items: (self successfulExamples sorted: GtMethodsSortFunction new) ]).
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: self numberOfFailures asString, ' failures ';
-		action: [ anElement children second items: (self failedExamples sorted: GtMethodsSortFunction new) ]).
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: self numberOfErrors asString, ' errors ';
-		action: [ anElement children second items: (self erroredExamples sorted: GtMethodsSortFunction new) ]).
-	aButtonsContainer addChild: (BrButton new 
-		aptitude: BrGlamorousButtonWithLabelAptitude; beSmallSize; 
-		label: (self numberOfExamples - self numberOfResults) asString, ' skipped ';
-		action: [ anElement children second items: (self skippedExamples sorted: GtMethodsSortFunction new) ]).
+	buttonDescriptions := {
+		{[self numberOfExamples]. 'examples'. [self examples]}.
+		{[self numberOfResults]. 'executed'. [self executedExamples]}.
+		{[self numberOfSuccesses]. 'successes'. [self successfulExamples]}.
+		{[self numberOfFailures]. 'failures'. [self failedExamples]}.
+		{[self numberOfErrors]. 'errors'. [self erroredExamples]}.
+		{[self numberOfSkips]. 'skipped'. [self skippedExamples]}}.
+	buttonDescriptions do: [ :buttonDescription |
+		aButtonsContainer
+			addChild: (BrButton new
+					aptitude: BrGlamorousButtonWithLabelAptitude;
+					beSmallSize;
+					label: (buttonDescription first value) asString , 
+						' ', buttonDescription second, ' ';
+				action: [ anElement children second
+						items: ((buttonDescription third value) sorted: GtMethodsSortFunction new) ])].
 ]
 
 { #category : #'*GToolkit-Inspector' }
