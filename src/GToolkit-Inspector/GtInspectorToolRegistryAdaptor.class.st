@@ -5,19 +5,15 @@ Class {
 }
 
 { #category : #actions }
-GtInspectorToolRegistryAdaptor class >> inspect: anObject [ 
-	| pager |
-	pager := GtPager createOn: (GtPagerWrapperElement new
-		tool: anObject gtDefaultInspectorTool;
-		embellisher: (GtPagerPageEmbellisher new 
-			extension: GtPagerPageEmbellisherExtension null)).
-	
-	GtPager 
-		openSpaceWith: pager
-		title: anObject gtInspectorTitleString.
-	
+GtInspectorToolRegistryAdaptor class >> inspect: anObject [
+	| pager newSpace |
+	newSpace := BlSpace new
+			inPager: anObject gtDefaultInspectorTool;
+			title: anObject gtInspectorTitleString;
+			show.
+	pager := newSpace root childAt: 1.
+
 	^ pager
-		maximized
 ]
 
 { #category : #testing }

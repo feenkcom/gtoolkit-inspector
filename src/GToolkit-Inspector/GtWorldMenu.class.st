@@ -85,9 +85,10 @@ GtWorldMenu class >> openGToolkitRepositoriesExplorer [
 
 { #category : #'api - actions' }
 GtWorldMenu class >> openTour [
-	GtPager 
-		openWrappedOn: (LeCoderCommentElement coderElementFor: #BaselineOfGToolkit) 
-		title: 'GToolkit Tour'
+	BlSpace new
+		inPager: (LeCoderCommentElement coderElementFor: #BaselineOfGToolkit);
+		title: 'GToolkit Tour';
+		show
 ]
 
 { #category : #'api - actions' }
