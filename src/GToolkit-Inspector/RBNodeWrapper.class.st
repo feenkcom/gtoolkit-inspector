@@ -11,7 +11,7 @@ Class {
 		'node',
 		'factory'
 	],
-	#category : 'GToolkit-Inspector-Convenience and Utilities'
+	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
 { #category : #comparing }

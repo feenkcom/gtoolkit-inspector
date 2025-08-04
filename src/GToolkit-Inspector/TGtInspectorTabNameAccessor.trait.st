@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'tabName'
 	],
-	#category : 'GToolkit-Inspector-Tab Selector'
+	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
 { #category : #defaults }

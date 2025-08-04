@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'objectHolder'
 	],
-	#category : 'GToolkit-Inspector-Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #defaults }

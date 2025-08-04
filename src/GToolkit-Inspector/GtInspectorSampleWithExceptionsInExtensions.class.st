@@ -6,7 +6,7 @@ GtInspector openOn: self new
 Class {
 	#name : #GtInspectorSampleWithExceptionsInExtensions,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Example Samples'
+	#category : #'GToolkit-Inspector-Example Samples'
 }
 
 { #category : #ui }
