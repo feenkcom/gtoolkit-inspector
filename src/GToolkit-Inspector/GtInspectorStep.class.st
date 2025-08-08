@@ -17,10 +17,18 @@ GtInspectorStep >> assertSelectedTabWithName: aName [
 ]
 
 { #category : #'steps - interactions' }
+GtInspectorStep >> clickOnBrowseButton [
+	^ self click
+		referenceSender;
+		label: 'Click on browse button';
+		// GtInspectorBrowseButtonId
+]
+
+{ #category : #'steps - interactions' }
 GtInspectorStep >> clickOnInspectButton [
 	^ self click
 		referenceSender;
-		label: 'Click on play and inspect button';
+		label: 'Click on inspect button';
 		// GtInspectorInspectButtonId
 ]
 
