@@ -5,6 +5,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
 		priority: 70;
+		id: GtInspectorBrowseButtonId;
 		tooltip: 'Browse class for current object';
 		icon: BrGlamorousVectorIcons emphasizedBrowse;
 		action: [ :aButton | 
