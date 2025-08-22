@@ -30,9 +30,14 @@ GtInspectorContentElement >> updateContentWith: aContentElement [
 	"Create and configure an inspector page for a given object and corresponding content element.
 	My job is to set up the pager page decorator and configure the neccesary event listeners"
 
-	self 
+	| toRemoveChildren |
+	toRemoveChildren := self children asArray.
+	self
 		removeChildren;
-		addChild: aContentElement
+		addChild: aContentElement.
+
+	toRemoveChildren do: [ :eachChild | 
+		BrWidgetPermanentlyRemovedEvent notifyWithAllChildren: eachChild ]
 ]
 
 { #category : #'private - updating' }
