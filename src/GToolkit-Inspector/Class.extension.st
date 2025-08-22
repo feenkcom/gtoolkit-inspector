@@ -26,8 +26,8 @@ Class >> gtClassSlotsFor: aView [
 	^ aView columnedList
 		title: 'Class slots';
 		priority: 7;
-		items: [ self class class allInstVarNames sorted
-				collect: [ :each | each -> (self class instVarNamed: each) ] ];
+		items: [ self class allInstVarNames sorted
+				collect: [ :each | each -> (self instVarNamed: each) ] ];
 		column: 'Variable' text: #key;
 		column: 'Value' text: #value;
 		send: #value
@@ -35,15 +35,15 @@ Class >> gtClassSlotsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 Class >> gtClassVariablesFor: aView [
+	"protocol: *GToolkit-Inspector"
+
 	<gtView>
 	^ aView columnedList
 		title: 'Class variables';
 		priority: 6;
-		items: [ self allClassVarNames sorted
-				collect: [ :each | each -> (self bindingOf: each) ] ];
-		column: 'Variable' text: #key;
-		column: 'Value' text: #value;
-		send: #value
+		items: [ self allClassVarNames sorted collect: [ :each | self bindingOf: each ] ];
+		column: 'Variable' text: #name;
+		column: 'Value' text: #value
 ]
 
 { #category : #'*GToolkit-Inspector' }
