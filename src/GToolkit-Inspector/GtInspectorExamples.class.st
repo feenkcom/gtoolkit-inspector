@@ -154,7 +154,7 @@ GtInspectorExamples >> fireToolUpdateWishFromContextMenu [
 	self assert: (anObject collection includes: 7) not.
 
 	someEvents := aScripter events
-			select: [ :each | each isKindOf: BrPhlowToolUpdateWish ].
+			select: [ :each | each isKindOf: GtPhlowToolUpdateWish ].
 	self assert: someEvents size equals: 2.
 	self
 		assert: (someEvents allSatisfy: #isConsumed)

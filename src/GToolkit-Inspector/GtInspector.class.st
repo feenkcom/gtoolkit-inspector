@@ -175,8 +175,8 @@ GtInspector >> initializeContentElement [
 
 { #category : #initialization }
 GtInspector >> initializeListeners [
-	self when: BrPhlowToolUpdateWish do: [ :anEvent | 
-		self onUpdateWish: anEvent ].
+	self addEventHandler: (GtPhlowToolUpdateEventHandler new
+		onUpdateSend: #onUpdateWish: to: self).
 	self when: GtPhlowViewUpdateWish do: [ :anEvent | 
 		self onUpdateViewWish: anEvent ].
 	self when: BlClickEvent do: [ self requestFocus ].
