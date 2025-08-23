@@ -17,6 +17,16 @@ RGMethodDefinition >> gtActionInspectCompiledMethodFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> gtMethodCodersFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Method coders';
+		priority: 20;
+		object: [ self compiledMethod ];
+		view: #gtMethodCodersFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSourceFor: aView [
 	<gtView>
 	^ aView explicit
