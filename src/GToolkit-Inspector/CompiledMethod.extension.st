@@ -1,6 +1,25 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtMethodCodersFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Method coders';
+		priority: 20;
+		items: [ ((GtPhlowCollector new
+				fromObject: self;
+				pragmaName: #gtMethodCoder:;
+				collectAllPragmas)
+				sorted: [ :a :b | a arguments first > b arguments first ])
+				collect: [ :each | each -> (self perform: each methodSelector) ] ];
+		column: 'Definition' text: [ :each | each key methodSelector ];
+		column: 'Priority' text: [ :each | each key arguments first ];
+		column: 'Active' text: [ :each | each value notNil ];
+		column: 'Coder type' text: [ :each | each value ifNil: [ '' ] ifNotNil: [:class | class name ] ];
+		send: #key
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtPropertiesFor: aView [ 
 	<gtView>
 	self hasProperties ifFalse: [^ aView empty ].
