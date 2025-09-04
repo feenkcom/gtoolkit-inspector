@@ -1,6 +1,23 @@
 Extension { #name : #MetacelloVersion }
 
 { #category : #'*GToolkit-Inspector' }
+MetacelloVersion >> = aMetacelloVersion [
+	<gtPharoPatch: #Pharo>
+	"needed because the super implementation only checks the version number,
+	and we also need to ensure that we have the same configuration class"	
+	
+	aMetacelloVersion species = self species ifFalse: [ ^false ].
+
+	^ (self versionNumber = aMetacelloVersion versionNumber) and: [ 
+		self spec project configuration class = aMetacelloVersion spec project configuration class ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MetacelloVersion >> gtDisplayOn: stream [
+	stream nextPutAll: self spec project configuration class name
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MetacelloVersion >> gtPackagesFor: aView [
 	<gtView>
 	^ aView list
@@ -60,4 +77,26 @@ MetacelloVersion >> gtProjectsFor: aView [
 				on: Error
 				do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #version
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MetacelloVersion >> gtRPackages [
+	| gtRPackages |
+	gtRPackages := OrderedCollection new.
+	self packages do: [:each | 
+		(self packageOrganizer includesPackageNamed: each name) ifTrue: [
+			gtRPackages add: (self packageOrganizer packageNamed: each name)] ].
+	^ gtRPackages
+]
+
+{ #category : #'*GToolkit-Inspector' }
+MetacelloVersion >> hash [
+	<gtPharoPatch: #Pharo>
+	"needed because the super implementation only checks the version number,
+	and we also need to ensure that we have the same configuration class"
+
+	^ (self 
+		forPharo12: [ self identityHash] 
+		forPharo11AndPharo10: [ self versionNumber hash]) 
+			bitXor: self spec project configuration class hash
 ]
