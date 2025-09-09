@@ -6,7 +6,7 @@ RBProgramNode >> gtPropertiesFor: aView [
 	properties ifNil: [ ^ aView empty ].
 	^ aView columnedList
 		title: 'Properties';
-		priority: 10;
+		priority: 15;
 		items: [ properties 
 			ifNil: #() 
 			ifNotNil: [ :aDictionary |
@@ -23,6 +23,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 	self methodNode ifNil: [ ^ aView empty ].
 	^ aView explicit
 		title: 'Source code';
+		priority: 10;
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ :aButton | self methodNode compiledMethod gtBrowseFrom: aButton ];
