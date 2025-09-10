@@ -18,7 +18,7 @@ UUID >> gtUUIDDetailsFor: aView [
 UUID >> gtUuidDataFor: aView [
 	<gtView>
 	
-	self forPharo12: [] forPharo11AndPharo10: [ ^ aView empty ].
+	self forPharo12AndNewer: [] forPharo11: [ ^ aView empty ].
 
 	^ aView forward
 		title: 'Hex dump';
