@@ -96,7 +96,7 @@ MetacelloVersion >> hash [
 	and we also need to ensure that we have the same configuration class"
 
 	^ (self 
-		forPharo12: [ self identityHash] 
-		forPharo11AndPharo10: [ self versionNumber hash]) 
+		forPharo12AndNewer: [ self identityHash] 
+		forPharo11: [ self versionNumber hash]) 
 			bitXor: self spec project configuration class hash
 ]
