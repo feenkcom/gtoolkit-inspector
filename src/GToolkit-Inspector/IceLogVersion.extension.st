@@ -11,6 +11,18 @@ IceLogVersion >> gtCommentFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+IceLogVersion >> gtDisplayOn: aStream [ 
+	super gtDisplayOn: aStream.
+	
+	aStream parenthesize: [
+		aStream 
+			<< 'Commit ';
+			print: commit shortId;
+			<< '; ';
+			print: definition ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 IceLogVersion >> gtSourceFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -32,7 +44,7 @@ IceLogVersion >> gtSummaryFor: aView [
 				'Definition' -> self definition.
 				'Author' -> self author.
 				'Commit' -> self commit} ];
-		column: 'Property' text: #key;
+		column: 'Property' text: [ :each | each key] width: 150;
 		column: 'Value' text: [:each | each value gtDisplayString];
 		send: #value
 ]
