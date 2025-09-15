@@ -8,7 +8,8 @@ UUID >> gtUUIDDetailsFor: aView [
 		  priority: 10;
 		  items: [ { 
 			('string' -> self printString).
-			('string36' -> self asString36). } ];
+			('string36' -> self asString36).
+			'base64' -> self base64Encoded. } ];
 		  column: 'Key' text: #key;
 		  column: 'Value' text: #value weight: 5;
 		  send: #value
