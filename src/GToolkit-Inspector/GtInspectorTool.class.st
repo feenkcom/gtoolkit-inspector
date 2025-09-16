@@ -155,6 +155,13 @@ GtInspectorTool >> playgroundPageStrategy: aPlaygroundPageStrategy [
 ]
 
 { #category : #accessing }
+GtInspectorTool >> postSimilarToolCopy [
+	super postSimilarToolCopy.
+
+	self objectHolder context removeNavigationContext
+]
+
+{ #category : #accessing }
 GtInspectorTool >> prepareForReusedNavigation [
 	objectHolder clearCachedData
 ]
