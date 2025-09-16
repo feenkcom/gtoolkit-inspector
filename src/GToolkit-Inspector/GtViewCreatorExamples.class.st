@@ -217,6 +217,21 @@ GtViewCreatorExamples >> orderedDictionaryObject_groupingView_slotData_sourceCod
 ]
 
 { #category : #examples }
+GtViewCreatorExamples >> selfDoesNotCreateTemp [
+	<gtExample>
+	| viewCreators |
+	viewCreators := GtViewCreator
+			viewCreatorsForObject: Object new
+			andSource: 'self yourself'
+			in: Object.
+	self assert: viewCreators notEmpty.
+	viewCreators
+		do: [ :each | self assert: each objectSource equals: 'self yourself' ].
+
+	^ viewCreators
+]
+
+{ #category : #examples }
 GtViewCreatorExamples >> sequenceableCollection_associationsDetailsView_slotData_sourceCodeGeneration [
 	<gtExample>
 	<return: #GtViewCreator>
