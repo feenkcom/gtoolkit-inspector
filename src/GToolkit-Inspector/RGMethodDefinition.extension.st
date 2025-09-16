@@ -1,6 +1,17 @@
 Extension { #name : #RGMethodDefinition }
 
 { #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> asGtPharoMethodCoder [
+	|methodCoder|
+	
+	methodCoder := GtPharoMethodCoder forMethod: self method.
+	self hasGtHighlighter ifTrue: [	
+		methodCoder highlighter: self gtHighlighter ].
+						
+	^ methodCoder 
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtActionInspectCompiledMethodFor: anAction [
 	<gtAction>
 	
@@ -41,15 +52,11 @@ RGMethodDefinition >> gtSourceFor: aView [
 						text: ((self method sourceCode first: 10000) , '...') ]
 				ifFalse: [ 
 					|methodCoder|
-					methodCoder := GtPharoMethodCoder forMethod: self method.
-					
-					self hasGtHighlighter ifTrue: [	
-						methodCoder highlighter: self gtHighlighter ].
-						
+					methodCoder := self asGtPharoMethodCoder.
 					(methodCoder asCoderViewModel
-							withHeader;
-							expanded: true;
-							asElement) vFitContentLimited ] ];
+						withHeader;
+						expanded: true;
+						asElement) vFitContentLimited ] ];
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ]
