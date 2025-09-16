@@ -32,18 +32,27 @@ RGMethodDefinition >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 5;
-		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse method'
-			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ];
-		stencil: [ self method isBigMethod
-				ifTrue: [ BrEditor new
+		stencil: [ 
+			self method isBigMethod
+				ifTrue: [ 
+					BrEditor new
 						aptitude: BrGlamorousCodeEditorAptitude new;
 						beReadOnlyWithSelection;
 						text: ((self method sourceCode first: 10000) , '...') ]
-				ifFalse: [ ((GtPharoMethodCoder forMethod: self method) asCoderViewModel
-						withHeader;
-						expanded: true;
-						asElement) vFitContentLimited ] ]
+				ifFalse: [ 
+					|methodCoder|
+					methodCoder := GtPharoMethodCoder forMethod: self method.
+					
+					self hasGtHighlighter ifTrue: [	
+						methodCoder highlighter: self gtHighlighter ].
+						
+					(methodCoder asCoderViewModel
+							withHeader;
+							expanded: true;
+							asElement) vFitContentLimited ] ];
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
