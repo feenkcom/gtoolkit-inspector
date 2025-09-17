@@ -1,6 +1,17 @@
 Extension { #name : #RGMethodDefinition }
 
 { #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> asGtPharoMethodCoder [
+	|methodCoder|
+	
+	methodCoder := GtPharoMethodCoder forMethod: self method.
+	self hasGtHighlighter ifTrue: [	
+		methodCoder highlighter: self gtHighlighter ].
+						
+	^ methodCoder 
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtActionInspectCompiledMethodFor: anAction [
 	<gtAction>
 	
@@ -32,18 +43,23 @@ RGMethodDefinition >> gtSourceFor: aView [
 	^ aView explicit
 		title: 'Source';
 		priority: 5;
-		actionButtonIcon: BrGlamorousVectorIcons browse
-			tooltip: 'Browse method'
-			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ];
-		stencil: [ self method isBigMethod
-				ifTrue: [ BrEditor new
+		stencil: [ 
+			self method isBigMethod
+				ifTrue: [ 
+					BrEditor new
 						aptitude: BrGlamorousCodeEditorAptitude new;
 						beReadOnlyWithSelection;
 						text: ((self method sourceCode first: 10000) , '...') ]
-				ifFalse: [ ((GtPharoMethodCoder forMethod: self method) asCoderViewModel
+				ifFalse: [ 
+					|methodCoder|
+					methodCoder := self asGtPharoMethodCoder.
+					(methodCoder asCoderViewModel
 						withHeader;
 						expanded: true;
-						asElement) vFitContentLimited ] ]
+						asElement) vFitContentLimited ] ];
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
