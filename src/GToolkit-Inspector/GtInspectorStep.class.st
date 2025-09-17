@@ -5,6 +5,47 @@ Class {
 }
 
 { #category : #'steps - checks' }
+GtInspectorStep >> assertInspectedObjectOfType: aClass [
+	self assert
+		label: ('Assert inspected object has type {1}' format: {aClass name});
+		value: [ :anInspector | anInspector object class ]
+			equals: aClass;
+		onParentStepTarget: self;
+		// GtInspector
+]
+
+{ #category : #'steps - checks' }
+GtInspectorStep >> assertInspectedObjectSatisfies: aBlockClosure description: aStringOrBlockCosure [
+	self 
+		assertInspectedObjectSatisfies: aBlockClosure 
+		description: aStringOrBlockCosure 
+		label: 'Assert inspected object matches condition'
+]
+
+{ #category : #'steps - checks' }
+GtInspectorStep >> assertInspectedObjectSatisfies: aBlockClosure description: aStringOrBlockCosure label: aLabel [
+	self assert
+		label: aLabel;
+		satisfies: [ :anInspectedObject | 
+				aBlockClosure value: anInspectedObject  ]
+			description: aStringOrBlockCosure;
+		onParentStepTarget: self;
+		// GtInspector;
+		onChildFromMessage: #object
+]
+
+{ #category : #'steps - checks' }
+GtInspectorStep >> assertInspectedObjectValueFor: aBlockClosure equals: aValue [
+	self assert
+		label: ('Assert inspected object comoutatio equals value');
+		value: [ :anInspectedObject | aBlockClosure value: anInspectedObject ]
+			equals: aValue;
+		onParentStepTarget: self;
+		// GtInspector;
+		onChildFromMessage: #object
+]
+
+{ #category : #'steps - checks' }
 GtInspectorStep >> assertSelectedTabWithName: aName [
 	self assert
 		label: ('Assert selected tab is {1}' format: {aName});
