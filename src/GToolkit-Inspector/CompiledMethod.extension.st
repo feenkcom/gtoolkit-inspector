@@ -48,10 +48,18 @@ CompiledMethod >> gtSourceCodeFor: aView [
 			action: [ :aButton | aButton phlow spawnTool: 
 				(GtMethodCoderTool compiledMethod: self method) ];
 		stencil: [ 
-			 (((GtPharoMethodCoder forMethod: self) asCoderViewModel)
-					withHeader;
-					expanded: true;
-					asExpandedOnlyElement) vFitContentLimited ].
+			self isBigMethod
+				ifTrue: [ 
+					BrEditor new
+						aptitude: BrGlamorousCodeEditorAptitude new;
+						beReadOnlyWithSelection;
+						text: ((self sourceCode first: 10000) , '...') ]
+				ifFalse: [
+
+					(((GtPharoMethodCoder forMethod: self) asCoderViewModel)
+						withHeader;
+						expanded: true;
+						asExpandedOnlyElement) vFitContentLimited ] ].
 ]
 
 { #category : #'*GToolkit-Inspector' }
