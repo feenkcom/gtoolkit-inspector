@@ -17,10 +17,11 @@ GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from:
 						in: behavior)
 						do: [ :creator | 
 							creator selfObjectHolder: aCoderViewModel selfObjectHolder.
-							self
+							(self
 								addExplicitContextMenu: creator label
 								block: [ :aCoderElement :aTextualCoderViewModel  :aCoderAction | 
 									creator asMenuItem id: #'create-gtView' ]
-								to: coderAddOns ] ]
+								to: coderAddOns)
+									ifNotNil: [ :anAction | anAction priority: 90 ] ] ]
 				ifNone: [  ] ]
 ]
