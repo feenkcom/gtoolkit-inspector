@@ -2,7 +2,6 @@ Extension { #name : #GtPharoSnippetCoder }
 
 { #category : #'*GToolkit-Inspector' }
 GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from: aCoderViewModel [
-	<gtCoderContextMenuAddOns: 90>
 	<gtCoderContextMenuAddOns>
 	behavior = nil class ifTrue: [ ^ self ].
 	aCoderViewModel styledText
