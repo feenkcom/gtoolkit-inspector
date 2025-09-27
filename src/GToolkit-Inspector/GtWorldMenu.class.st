@@ -251,7 +251,7 @@ GtWorldMenu class >> rootMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtoolkit)
 		label: 'GToolkit';
-		icon: BrGlamorousIcons gt;
+		icon: BrGlamorousVectorIcons gt;
 		order: 0.1
 ]
 

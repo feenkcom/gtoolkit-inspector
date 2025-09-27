@@ -9,7 +9,7 @@ GtExample >> gtActionDebugFor: anAction [
 		button
 			aptitude: BrGlamorousButtonWithIconAptitude;
 			action:  [ [ self debug ] fork ];
-			icon: BrGlamorousIcons spawn asElement;
+			icon: BrGlamorousVectorIcons spawn asElement;
 			label: 'Debug example' translated.
 	]
 ]

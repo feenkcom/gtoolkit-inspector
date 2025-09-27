@@ -65,7 +65,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 MemoryLogger >> gtResetActionFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons trash;
+		icon: BrGlamorousVectorIcons bin;
 		tooltip: 'Reset Logger';
 		priority: 3;
 		action: [ :aButton | self reset ]

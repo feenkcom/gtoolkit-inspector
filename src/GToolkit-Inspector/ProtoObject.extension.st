@@ -64,7 +64,7 @@ ProtoObject >> gtDisplayText [
 
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtIcon [
-	^ BrGlamorousIcons empty
+	^ BrGlamorousVectorIcons empty
 ]
 
 { #category : #'*GToolkit-Inspector' }

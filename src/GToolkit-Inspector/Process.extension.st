@@ -37,7 +37,7 @@ Process >> gtPSKeysFor: aView [
 		column: 'Inheritable' 
 			icon: [ :aVariable | 
 				(InheritablePSKeys includes: aVariable index) 
-					ifTrue: [ BrGlamorousIcons greencircle ]
+					ifTrue: [ BrGlamorousVectorIcons greencircle ]
 					ifFalse: [ BlElement new
 						size: 16@16;
 						background: BlBackground transparent ] ]

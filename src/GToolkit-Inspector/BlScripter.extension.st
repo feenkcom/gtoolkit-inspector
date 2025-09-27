@@ -86,7 +86,7 @@ BlScripter >> gtSpaceFor: aView [
 		actionButtonLabel: 'Open space'
 			tooltip: 'Open scripter space in a real window'
 			action: [ self showSpace ];
-		actionButtonIcon: BrGlamorousIcons inspect 
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			label: 'Element'
 			tooltip: 'Inspect element (remove it from the Scripter space)'
 			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]
@@ -129,7 +129,7 @@ BlScripter >> gtSpaceSimplePreviewFor: aView [
 		actionButtonLabel: 'Open space'
 			tooltip: 'Open scripter space in a real window'
 			action: [ self showSpace ];
-		actionButtonIcon: BrGlamorousIcons inspect 
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			label: 'Element'
 			tooltip: 'Inspect element (remove it from the Scripter space)'
 			action: [ :anElement | anElement phlow spawnObject: self elementWithoutParent ]

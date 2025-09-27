@@ -7,7 +7,7 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 		title: 'Connections';
 		items: [ self connections ];
 		actionUpdateButtonTooltip: 'Update connection list';
-		actionButtonIcon: BrGlamorousIcons trash 
+		actionButtonIcon: BrGlamorousVectorIcons bin 
 			tooltip: 'Close all connections' 
 			action: [ :aButton :aTab | self closeConnections ]
 ]

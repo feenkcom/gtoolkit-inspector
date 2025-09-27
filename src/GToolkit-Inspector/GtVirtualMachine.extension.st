@@ -29,7 +29,7 @@ GtVirtualMachine >> gtVirtualMachineInfoJsonFor: aView [
 	^ aView textEditor
 		title: 'VM info json';
 		priority: 3;
-		actionButtonIcon: BrGlamorousIcons tree 
+		actionButtonIcon: BrGlamorousVectorIcons tree 
 			action: [ :aButton | 
 				aButton phlow spawnObject: (GtVirtualMachineSource fromJSONString: self primitiveVirtualMachineInfo) ];
 		aptitude: [ BrGlamorousCodeEditorAptitude ];
