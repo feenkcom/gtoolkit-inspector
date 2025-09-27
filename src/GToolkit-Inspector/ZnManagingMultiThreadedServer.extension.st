@@ -16,8 +16,8 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 ZnManagingMultiThreadedServer >> gtOpenLocalUrlFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons go asElement;
-		tooltip: 'Open in Web Browser';
+		icon: BrGlamorousVectorIcons web;
+		tooltip: 'Open in browser';
 		priority: 12;
 		action: [ WebBrowser openOn: self localUrl]
 ]

@@ -43,8 +43,8 @@ AbstractFileReference >> gtActionWebBrowseFor: anAction [
 	(self exists or: [ self path isNetworkPath not ]) ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
-		  icon: BrGlamorousIcons go;
-		  tooltip: 'Open in OS';
+		  icon: BrGlamorousVectorIcons link;
+		  tooltip: 'Open in operating system';
 		  action: [ WebBrowser openOn: self fullName ]
 ]
 
