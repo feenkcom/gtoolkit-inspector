@@ -10,7 +10,7 @@ BlParallelUniverse >> gtSpacesFor: aView [
 		items: [ self spaces ];
 		column: 'Index' text: [ :eachSpace :anIndex | anIndex ] width: 50;
 		column: 'Name' text: [ :eachSpace | eachSpace ifNotNil: #title ifNil: 'nil' ];
-		actionButtonIcon: BrGlamorousIcons trash 
+		actionButtonIcon: BrGlamorousVectorIcons bin 
 			action: [
 				self spaces do: #close.
 				self tryToRunDeferredActions.

@@ -250,8 +250,8 @@ GtWorldMenu class >> repositoriesExplorerMenuOn: aBuilder [
 GtWorldMenu class >> rootMenuOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #gtoolkit)
-		label: 'GToolkit';
-		icon: BrGlamorousIcons gt;
+		label: 'Glamorous Toolkit';
+		"icon: BrGlamorousIcons gt;"
 		order: 0.1
 ]
 

@@ -28,7 +28,7 @@ ZipFileMember >> gtJsonFor: aView [
 	^ aView explicit
 		title: 'JSON';
 		priority: 1;
-		actionButtonIcon: BrGlamorousIcons tree asElement 
+		actionButtonIcon: BrGlamorousVectorIcons tree asElement 
 			action: [ :aButton | aButton phlow spawnObject: (STONJSON fromString: self gtContents) ];
 		stencil: [ | editorElement textEditor text |
 			textEditor := BrTextEditorModel new.

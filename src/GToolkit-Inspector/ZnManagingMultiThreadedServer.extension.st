@@ -7,7 +7,7 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 		title: 'Connections';
 		items: [ self connections ];
 		actionUpdateButtonTooltip: 'Update connection list';
-		actionButtonIcon: BrGlamorousIcons trash 
+		actionButtonIcon: BrGlamorousVectorIcons bin 
 			tooltip: 'Close all connections' 
 			action: [ :aButton :aTab | self closeConnections ]
 ]
@@ -16,8 +16,8 @@ ZnManagingMultiThreadedServer >> gtClientConnectionsFor: aView [
 ZnManagingMultiThreadedServer >> gtOpenLocalUrlFor: anAction [
 	<gtAction>
 	^ anAction button
-		icon: BrGlamorousIcons go asElement;
-		tooltip: 'Open in Web Browser';
+		icon: BrGlamorousVectorIcons web;
+		tooltip: 'Open in browser';
 		priority: 12;
 		action: [ WebBrowser openOn: self localUrl]
 ]

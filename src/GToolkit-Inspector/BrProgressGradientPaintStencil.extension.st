@@ -22,7 +22,7 @@ BrProgressGradientPaintStencil >> gtNextGradientsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 BrProgressGradientPaintStencil >> gtPreviewFor: aView [
 	^ (super gtPreviewFor: aView)
-		actionButtonIcon: BrGlamorousIcons refresh 
+		actionButtonIcon: BrGlamorousVectorIcons refresh 
 		action: [ :aBrButton :aTab | 
 			aTab viewContentElement phlow update ]
 ]

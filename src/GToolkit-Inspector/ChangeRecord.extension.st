@@ -13,7 +13,7 @@ ChangeRecord >> gtActionLoadVersionFor: anAction [
 	
 	^ anAction button 
 		label: 'Load';
-		icon: BrGlamorousIcons accept;
+		icon: BrGlamorousVectorIcons accept;
 		tooltip: 'Load this change in the image';
 		priority: 10;
 		action: [ self asMCMethodDefinition load ]

@@ -9,7 +9,7 @@ TKTCommonQueueWorkerPool >> gtFailedTasksFor: aView [
 		title: 'Failed tasks';
 		items: [ self failedTasks ];
 		itemText: [ :anExecution | anExecution name ];
-		actionButtonIcon: BrGlamorousIcons trash
+		actionButtonIcon: BrGlamorousVectorIcons bin
 			tooltip: 'Remove failed tasks'
 			action: [ :aButton :aTab | 
 				failedTasks := OrderedCollection new.

@@ -13,7 +13,7 @@ CompiledBlock >> gtSourceFor: aView [
 		priority: 1;
 		object: [ self sourceNode ];
 		view: #gtSourceCodeFor:;
-		actionButtonIcon: BrGlamorousIcons inspect 
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			tooltip: 'Inspect Block' 
 			action: [ :aButton | 
 				aButton phlow spawnObject: self ]

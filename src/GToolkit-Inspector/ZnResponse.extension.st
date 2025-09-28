@@ -9,7 +9,7 @@ ZnResponse >> gtJsonFor: aView [
 	^ aView explicit
 		title: 'JSON';
 		priority: 10;
-		actionButtonIcon: BrGlamorousIcons tree asElement 
+		actionButtonIcon: BrGlamorousVectorIcons tree asElement 
 			action: [ :aButton | aButton phlow spawnObject: (STONJSON fromString: self contents) ];
 		stencil: [ | editorElement textEditor text |
 			textEditor := BrTextEditorModel new.

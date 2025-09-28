@@ -43,8 +43,8 @@ AbstractFileReference >> gtActionWebBrowseFor: anAction [
 	(self exists or: [ self path isNetworkPath not ]) ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
-		  icon: BrGlamorousIcons go;
-		  tooltip: 'Open in OS';
+		  icon: BrGlamorousVectorIcons link;
+		  tooltip: 'Open in operating system';
 		  action: [ WebBrowser openOn: self fullName ]
 ]
 
@@ -280,8 +280,8 @@ AbstractFileReference >> gtItemsFor: aView [
 		column: 'Icon' translated 
 			icon: [ :each | 
 				each isDirectory
-					ifTrue: [ BrGlamorousIcons folder ]
-					ifFalse: [ BrGlamorousIcons file ] ];
+					ifTrue: [ BrGlamorousVectorIcons folder ]
+					ifFalse: [ BrGlamorousVectorIcons file ] ];
 		column: 'Name' translated text: [ :each | 
 			(self isChildOf: each)
 				ifTrue: [ '..' ]
@@ -315,7 +315,7 @@ AbstractFileReference >> gtJsonFor: aView [
 	^ aView textEditor
 		title: 'JSON';
 		priority: 1;
-		actionButtonIcon: BrGlamorousIcons tree 
+		actionButtonIcon: BrGlamorousVectorIcons tree 
 			tooltip: 'Inspect parsed JSON'
 			action: [ :aButton | 
 				aButton phlow spawnObject: (
@@ -380,7 +380,7 @@ AbstractFileReference >> gtPathFor: aView [
 													fitContent;
 													aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
 													margin: (BlInsets right: 5);
-													icon: BrGlamorousIcons add;
+													icon: BrGlamorousVectorIcons add;
 													label: 'Make directory';
 													action: [ :aButton | 
 														aFileReference ensureCreateDirectory.
@@ -390,7 +390,7 @@ AbstractFileReference >> gtPathFor: aView [
 													addChild: (BrButton new
 															fitContent;
 															aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
-															icon: BrGlamorousIcons add;
+															icon: BrGlamorousVectorIcons add;
 															label: 'Make empty file';
 															action: [ :aButton | 
 																aFileReference binaryWriteStreamDo: [ :aStream |  ].
@@ -463,8 +463,8 @@ AbstractFileReference >> gtTreeFor: aView [
 			icon: [ :each | 
 				| anIcon aName aContainer |
 				anIcon := each isDirectory
-					ifTrue: [ BrGlamorousIcons folder asElement ]
-					ifFalse: [ BrGlamorousIcons file asElement ].
+					ifTrue: [ BrGlamorousVectorIcons folder asElement ]
+					ifFalse: [ BrGlamorousVectorIcons file asElement ].
 				
 				aName := GtPhlowUtility newItemLabel.
 				aName text: each basename asString.
@@ -516,8 +516,8 @@ AbstractFileReference >> gtZipItemsFor: aView [
 						yourself ] ];
 		column: 'Icon' icon: [ :each | 
 					each isDirectory
-						ifTrue: [ BrGlamorousIcons folder asElement ]
-						ifFalse: [ BrGlamorousIcons file asElement ]];
+						ifTrue: [ BrGlamorousVectorIcons folder asElement ]
+						ifFalse: [ BrGlamorousVectorIcons file asElement ]];
 		column: 'Name'
 			text: [ :each | 
 				(self isChildOf: each)
