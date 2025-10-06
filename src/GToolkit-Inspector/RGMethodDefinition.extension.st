@@ -51,12 +51,7 @@ RGMethodDefinition >> gtSourceFor: aView [
 						beReadOnlyWithSelection;
 						text: ((self method sourceCode first: 10000) , '...') ]
 				ifFalse: [ 
-					|methodCoder|
-					methodCoder := self asGtPharoMethodCoder.
-					(methodCoder asCoderViewModel
-						withHeader;
-						expanded: true;
-						asElement) vFitContentLimited ] ];
+					self asGtPharoMethodCoder asExpandedOnlyElement vFitContentLimited ] ];
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ]
