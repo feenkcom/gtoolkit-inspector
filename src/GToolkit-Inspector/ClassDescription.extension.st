@@ -4,5 +4,13 @@ Extension { #name : #ClassDescription }
 ClassDescription >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ self methodDict gtSpecificSizeInMemory
-		+ ((organization ifNil: [ 0 ] ifNotNil: [ organization gtSpecificSizeInMemory ]))
+		+ (self 
+			forPharo12AndNewer: [
+				self protocols gtSpecificSizeInMemory
+					+ (self protocols sumNumbers: [ :aProtocol |
+						aProtocol gtSpecificSizeInMemory ])] 
+			forPharo11: [
+				(self basicOrganization 
+					ifNil: [ 0 ] 
+					ifNotNil: [ self basicOrganization gtSpecificSizeInMemory ])])
 ]
