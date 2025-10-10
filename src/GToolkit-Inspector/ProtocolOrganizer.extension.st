@@ -4,9 +4,6 @@ Extension { #name : #ProtocolOrganizer }
 ProtocolOrganizer >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ allProtocol sizeInMemory 
-		+ ((allProtocol instVarNamed: #methodSelectors) 
-			ifNil: [ 0 ] 
-			ifNotNil: [ :anObject | anObject gtSpecificSizeInMemory ])
 		+ protocols gtSpecificSizeInMemory
 		+ (protocols sumNumbers: [ :aProtocol |
 			aProtocol sizeInMemory 
