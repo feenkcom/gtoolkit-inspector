@@ -24,5 +24,6 @@ PackageTag >> gtExamplesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 PackageTag >> gtSpecificSizeInMemory [
-	^ self shouldBeImplemented
+	^ self sizeInMemory 
+		+ classes gtSpecificSizeInMemory
 ]

@@ -183,17 +183,31 @@ ProtoObject >> gtRawFor: aView [
 											hMatchParent;
 											vFitContent) ].
 
+						"(aNode isSlotNode and: [aNode slot definingClass ~= self class]) ifTrue: [ extraInfo := true.
+								itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beTinySize;
+											text: aNode slot definingClass name;
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ]."
+											
 						extraInfo ifFalse: [ itemElement children last hMatchParent ].
 
-						itemElement ] ];
+						itemElement ] ] ;
 		column: 'Value'
 			text: [ :aNode | 
 				[ aNode rawValue gtDisplayText ]
 					on: Error , Halt
-					do: [ aNode errorMessage asRopedText foreground: Color red ] ];
+					do: [ aNode errorMessage asRopedText foreground: Color red ] ] "weight: 2";
 		send: #value;
 		contextItemLabel: 'Browse references'
 			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot gtReferences ]
+			if: [ :aTreeNode | aTreeNode value isSlotNode ];
+		contextItemLabel: 'Browse defining class'
+			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot definingClass ]
 			if: [ :aTreeNode | aTreeNode value isSlotNode ];
 		dynamicContextItems: [ :aTreeNode | 
 			aTreeNode value isSlotNode
