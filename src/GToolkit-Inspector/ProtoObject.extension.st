@@ -111,10 +111,6 @@ ProtoObject >> gtRawFor: aView [
 		column: 'Variable'
 			do: [ :aColumn | 
 				aColumn
-					cellStencil: [ BrHorizontalPane new
-							hMatchParent;
-							vFitContent;
-							alignCenter ];
 					dataBinder: [ :itemElement :aNode | 
 						| nodeIcon extraInfo |
 						extraInfo := false.
@@ -127,13 +123,18 @@ ProtoObject >> gtRawFor: aView [
 							removeChildren;
 							addChild: nodeIcon asElement.
 
-
 						itemElement
 							addChild: (BrLabel new
 									aptitude: BrGlamorousListLabelAptitude;
 									text: aNode label;
 									alignCenterLeft;
 									fitContent).
+									
+						"(aNode isSlotNode
+							and: [ (aNode isDefinedInADifferentClassThanHost) ])
+							ifTrue: [
+								itemElement
+									addChild: (BrVerticalPane new fitContent; addChild: BrGlamorousVectorIcons upwards asElement) ]."
 
 						aNode isWeakClassNode
 							ifTrue: [ extraInfo := true.
@@ -183,25 +184,19 @@ ProtoObject >> gtRawFor: aView [
 											hMatchParent;
 											vFitContent) ].
 
-						"(aNode isSlotNode and: [aNode slot definingClass ~= self class]) ifTrue: [ extraInfo := true.
-								itemElement
-									addChild: (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beTinySize;
-											text: aNode slot definingClass name;
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ]."
-											
 						extraInfo ifFalse: [ itemElement children last hMatchParent ].
 
-						itemElement ] ] ;
+						itemElement ];
+					cellStencil: [ BrHorizontalPane new
+							hMatchParent;
+							vFitContent;
+							alignCenter ] ];
 		column: 'Value'
 			text: [ :aNode | 
 				[ aNode rawValue gtDisplayText ]
 					on: Error , Halt
-					do: [ aNode errorMessage asRopedText foreground: Color red ] ] "weight: 2";
+					do: [ aNode errorMessage asRopedText foreground: Color red ] ]
+			weight: 2;
 		send: #value;
 		contextItemLabel: 'Browse references'
 			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot gtReferences ]
