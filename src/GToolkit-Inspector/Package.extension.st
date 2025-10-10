@@ -20,7 +20,11 @@ Package >> gtDisplayOn: stream [
 
 { #category : #'*GToolkit-Inspector' }
 Package >> gtSpecificSizeInMemory [
-	^ self shouldBeImplemented
+	^ self sizeInMemory 
+		+ extensionSelectors gtSpecificSizeInMemory
+		+ (extensionSelectors sumNumbers: [:each | each gtSpecificSizeInMemory])
+		+ tags gtSpecificSizeInMemory
+		+ (tags sumNumbers: [:each | each gtSpecificSizeInMemory])
 ]
 
 { #category : #'*GToolkit-Inspector' }
