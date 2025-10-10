@@ -19,6 +19,11 @@ GtInspectorSlotNode >> errorMessage [
 	^ 'error obtaining attribute value'
 ]
 
+{ #category : #accessing }
+GtInspectorSlotNode >> isDefinedInADifferentClassThanHost [
+	^ hostObject class ~= slot definingClass
+]
+
 { #category : #testing }
 GtInspectorSlotNode >> isEphemeronReferenceNode [
 	^ self hostObject class isEphemeronClass and: [ self slot index = 1 ]
