@@ -30,10 +30,10 @@ ZnResponse >> gtJsonFor: aView [
 { #category : #'*GToolkit-Inspector' }
 ZnResponse >> gtResponseFor: aView [
 	<gtView>
-	^ self statusLine 
-		ifNotNil: [ :aStatusLine | 
-			(aStatusLine gtHttpFor: aView)
-				title: 'Response';
-				priority: 25 ] 
-		ifNil: [ aView empty ]
+	statusLine ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Response';
+		priority: 25;
+		object: [ statusLine ];
+		view: #gtHttpFor:
 ]
