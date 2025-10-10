@@ -12,5 +12,7 @@ PackageOrganizer >> gtPackagesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 PackageOrganizer >> gtSpecificSizeInMemory [
-	^ self shouldBeImplemented
+	^ self sizeInMemory 
+		+ packages gtSpecificSizeInMemory
+		+ (packages sumNumbers: [:each | each gtSpecificSizeInMemory])
 ]

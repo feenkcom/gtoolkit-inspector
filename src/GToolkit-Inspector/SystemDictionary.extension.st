@@ -6,5 +6,9 @@ SystemDictionary >> gtSpecificSizeInMemory [
 		+ cachedClassNames gtSpecificSizeInMemory 
 		+ cachedNonClassNames gtSpecificSizeInMemory
 		+ cachedBehaviors gtSpecificSizeInMemory
-		+ reservedVariables gtSpecificSizeInMemory
+		+ (self 
+			forPharo12AndNewer: [
+				self pseudoVariables gtSpecificSizeInMemory ] 
+			forPharo11: [
+				self reservedVariables gtSpecificSizeInMemory])
 ]
