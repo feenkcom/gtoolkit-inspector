@@ -192,6 +192,9 @@ ProtoObject >> gtRawFor: aView [
 					on: Error , Halt
 					do: [ aNode errorMessage asRopedText foreground: Color red ] ];
 		send: #value;
+		contextItemLabel: 'Browse references'
+			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot gtReferences ]
+			if: [ :aTreeNode | aTreeNode value isSlotNode ];
 		dynamicContextItems: [ :aTreeNode | 
 			aTreeNode value isSlotNode
 				ifTrue: [ (GtViewCreator
