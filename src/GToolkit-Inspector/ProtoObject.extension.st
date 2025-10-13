@@ -99,6 +99,11 @@ ProtoObject >> gtInspectorVariableNodesIn: aCollection [
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtRawFor: aView [
 	<gtView>
+	| aPhlowContext |
+	aPhlowContext := GtPhlowContext new.
+	aPhlowContext selfObject: self.
+	aPhlowContext behavior: self class.
+
 	^ aView columnedTree
 		title: 'Raw';
 		priority: 100;
@@ -128,9 +133,7 @@ ProtoObject >> gtRawFor: aView [
 									aptitude: BrGlamorousListLabelAptitude;
 									text: aNode label;
 									alignCenterLeft;
-									fitContent).
-									
-						"(aNode isSlotNode
+									fitContent).	"(aNode isSlotNode
 							and: [ (aNode isDefinedInADifferentClassThanHost) ])
 							ifTrue: [
 								itemElement
@@ -198,12 +201,6 @@ ProtoObject >> gtRawFor: aView [
 					do: [ aNode errorMessage asRopedText foreground: Color red ] ]
 			weight: 2;
 		send: #value;
-		contextItemLabel: 'Browse references'
-			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot gtReferences ]
-			if: [ :aTreeNode | aTreeNode value isSlotNode ];
-		contextItemLabel: 'Browse defining class'
-			action: [ :anElement :aTreeNode | anElement phlow spawnObject: aTreeNode value slot definingClass ]
-			if: [ :aTreeNode | aTreeNode value isSlotNode ];
 		dynamicContextItems: [ :aTreeNode | 
 			aTreeNode value isSlotNode
 				ifTrue: [ (GtViewCreator
@@ -214,6 +211,15 @@ ProtoObject >> gtRawFor: aView [
 							creator selfObject: self.
 							creator asMenuItem ] ]
 				ifFalse: [ #() ] ];
+		dynamicContextItems: [ :aTreeNode | 
+			Array
+				streamContents: [ :aStream | 
+					aTreeNode value isSlotNode
+						ifTrue: [ GtCoderVariableTarget
+								menuItemsForObject: aTreeNode value slot
+								inContext: aPhlowContext
+								hostElement: nil
+								do: [ :aMenuItem | aStream nextPut: aMenuItem ] ] ] ];
 		actionUpdateButton
 ]
 
