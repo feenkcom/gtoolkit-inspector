@@ -54,7 +54,12 @@ Class >> gtDefinitionFor: aView [
 	^ aView explicit 
 		title: 'Definition';
 		priority: 20;
-		stencil: [ (GtPharoSnippetCoder forSource: self definitionString) asExpandedOnlyElement vFitContentLimited ]
+		stencil: [
+			| aCoder anElement |
+			aCoder := GtPharoBehaviorDefinitionSnippetCoder forBehavior: self.
+			aCoder subscribeToSystem.
+			anElement := aCoder asExpandedOnlyElement vFitContentLimited.
+			anElement ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
