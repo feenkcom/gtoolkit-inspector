@@ -8,6 +8,11 @@ Class {
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
 }
 
+{ #category : #constants }
+GtInspectorElementOverview class >> inspectorElementOverviewPragmaName [
+	^ #gtInspectorElementOverview
+]
+
 { #category : #'private - properties' }
 GtInspectorElementOverview >> buildBoundsProperties [
 	| theProperties |	
@@ -527,7 +532,7 @@ GtInspectorElementOverview >> elementSpecificProperties [
 	<return: #Collection of: #GtInspectorElementOverviewProperty>
 	| allPragmas allProperties |
 	allPragmas := Pragma
-			allNamed: #gtInspectorElementOverview
+			allNamed: self class inspectorElementOverviewPragmaName
 			from: inspectedElement class
 			to: BlElement.
 
