@@ -16,11 +16,10 @@ BrStencil class >> gtLiveFor: aView [
 BrStencil >> gtLiveFor: aView [
 	<gtView>
 	self class isAbstract ifTrue: [ ^ aView empty ].
-	^ aView forward
+	^ aView explicit
 		title: 'Live';
 		priority: 0;
-		object: [ self asElement ];
-		view: #gtLiveFor:;
+		stencil: [ self ];
 		actionButtonIcon: BrGlamorousVectorIcons inspect action: [ :aBrButton | 
 			aBrButton phlow spawnObject: self asElement ]
 ]
