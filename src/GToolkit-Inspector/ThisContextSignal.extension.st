@@ -22,7 +22,7 @@ ThisContextSignal >> gtStackFor: aView [
 				ifFalse: [ anItem name asRopedText
 						append: ' := ' asRopedText;
 						foreground: BrGlamorousColors disabledButtonTextColor;
-						append: anItem description ] ];
+						append: anItem asString asRopedText ] ];
 		send: [ :anItem | anItem isContext ifTrue: [ anItem ] ifFalse: [ anItem value ] ]
 ]
 
