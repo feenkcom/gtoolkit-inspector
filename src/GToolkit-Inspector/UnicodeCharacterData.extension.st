@@ -1,6 +1,34 @@
 Extension { #name : #UnicodeCharacterData }
 
 { #category : #'*GToolkit-Inspector' }
+UnicodeCharacterData >> asTextWithUtf8EncodedBinary [
+	| out |
+	out := BlTextStream new glamorousCodeFont.
+	self character asString utf8Encoded
+		do: [ :byte | 
+			| string prefix |
+			string := String
+					streamContents: [ :s | 
+						byte
+							printOn: s
+							base: 2
+							nDigits: 8 ].
+			(string beginsWith: '0') ifTrue: [ prefix := 1 ].
+			(string beginsWith: '10') ifTrue: [ prefix := 2 ].
+			(string beginsWith: '11') ifTrue: [  
+				prefix := string findString: '0' startingAt: 1. ].
+			out next 
+				foreground: Color veryLightGray;
+				putAll: (string first: prefix).
+			out next
+				highlight: (Color veryVeryLightGray alpha: 0.5);
+				putAll: (string last: string size - prefix).
+				 ]
+		separatedBy: [ out space ].
+	^ out contents
+]
+
+{ #category : #'*GToolkit-Inspector' }
 UnicodeCharacterData >> gtCodePointHexString [
 	^ String
 		streamContents: [ :stream | 
@@ -97,15 +125,7 @@ UnicodeCharacterData >> gtViewDetailsIn: composite [
 										nDigits: 2 ]
 								separatedBy: [ out space ] ]}.
 				{'utf-8 encoded binary'.
-					String
-						streamContents: [ :out | 
-							self character asString utf8Encoded
-								do: [ :byte | 
-									byte
-										printOn: out
-										base: 2
-										nDigits: 8 ]
-								separatedBy: [ out space ] ]}} ];
+					self asTextWithUtf8EncodedBinary}} ];
 		column: 'Key' text: #first;
 		column: 'Value' text: #second;
 		send: #last
