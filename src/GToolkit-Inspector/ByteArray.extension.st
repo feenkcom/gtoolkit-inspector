@@ -39,7 +39,7 @@ ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 	('binary bytes string'
 		->
 			(String streamContents: [ :out | 
-	self do: [ :each | each printOn: out base: 2 ] separatedBy: [ out space ] ])).
+	self do: [ :each | each printOn: out base: 2 nDigits: 8] separatedBy: [ out space ] ])).
 	}
 ]
 
