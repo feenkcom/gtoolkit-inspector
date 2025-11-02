@@ -30,7 +30,17 @@ ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
 				do: [ :exception | exception ])).
 	('utf8 lossy' -> (ZnLossyUTF8Encoder new decodeBytesSingleReplacement: aDisplayedBytes)).
 	('integer' -> aDisplayedBytes asInteger).
-	('integer reversed' -> aDisplayedBytes reversed asInteger)}
+	('integer reversed' -> aDisplayedBytes reversed asInteger).
+	('binary string'
+		->
+			(String
+				streamContents:
+					[ :out | aDisplayedBytes do: [ :each | each printOn: out base: 2 ] ])).
+	('binary bytes string'
+		->
+			(String streamContents: [ :out | 
+	self do: [ :each | each printOn: out base: 2 ] separatedBy: [ out space ] ])).
+	}
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -40,11 +50,20 @@ ByteArray >> gtBytesFor: aView [
 		title: 'Bytes';
 		items: [ | aDisplayedBytes |
 			aDisplayedBytes := self size <= 2048
-				ifTrue: [ self ]
-				ifFalse: [ self copyFrom: 1 to: 2048 ].
+					ifTrue: [ self ]
+					ifFalse: [ self copyFrom: 1 to: 2048 ].
 			self gtByteAssociationsFor: aDisplayedBytes ];
-		column: 'Key' text: #key width: 128;
-		column: 'Value' text: #value;
+		column: 'Key'
+			text: #key
+			width: 128;
+		column: 'Value'
+			stencil: [ :each | 
+				BrEditor new
+					aptitude: BrGlamorousRegularEditorAptitude new;
+					hMatchParent;
+					padding: (BlInsets left: 5);
+					vExact: 20;
+					text: (each value asString copyReplaceAll: String cr with: String space) ];
 		send: #value
 ]
 

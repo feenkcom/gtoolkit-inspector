@@ -10,14 +10,15 @@ Integer >> gtPreviewFor: aView [
 			thousandsGroups := $| split: (String streamContents: [ :out |
 				self printSeparatedBy: $| every: 3 signed: false on: out ]).
 			container := BlElement new
-				layout: (BlLinearLayout horizontal cellSpacing: 1);
+				layout: (BlFlowLayout horizontal);
 				margin: (BlInsets all: 4);
 				constraintsDo: [ :c | 
-					c horizontal fitContent.
+					c horizontal matchParent.
 					c vertical fitContent ].
 			thousandsGroups do: [ :each | | thousandsContainer |
 				thousandsContainer := BlElement new
 					layout: BlLinearLayout vertical;
+					margin: (BlInsets all: 1);
 					constraintsDo: [ :c | 
 						c horizontal fitContent.
 						c vertical fitContent ].
