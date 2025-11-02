@@ -61,30 +61,33 @@ UnicodeCharacterData >> gtPreviewFor: aView [
 		stencil: [ BrHorizontalPane new
 				padding: (BlInsets all: 10);
 				cellSpacing: 10;
-				fitContent;
+				matchParent;
 				addChild: (BrEditor new
 						fitContent;
 						aptitude: (BrGlamorousCodeEditorAptitude new fontSize: 64);
 						text: self character asString);
 				addChild: (BrVerticalPane new
-						fitContent;
+						matchParent;
 						addChild: (BrEditor new
-								fitContent;
+								vFitContent;
+								hMatchParent;
 								aptitude: (BrGlamorousRegularEditorAptitude new fontSize: 20; bold);
 								text: self name asLowercase capitalized);
 						addChild: (BrEditor new
-								fitContent;
+								vFitContent;
+								hMatchParent;
 								aptitude: BrGlamorousCodeEditorAptitude new;
 								text: self gtCodePointHexString);
 						addChild: (BrEditor new
-								fitContent;
+								vFitContent;
+								hMatchParent;
 								aptitude: BrGlamorousCodeEditorAptitude new;
 								text: 'UTF-8 hex: ' , self asStringWithUtf8EncodedHex);
 						addChild: (BrEditorElement new
 								margin: (BlInsets all: 5);
 								constraintsDo: [ :c | 
 									c vertical fitContent.
-									c horizontal fitContent ];
+									c horizontal matchParent ];
 								editor: (BrTextEditorModel new
 										text: 'UTF-8 binary: ' asRopedText , self asTextWithUtf8EncodedBinary asRopedText))) ]
 ]
