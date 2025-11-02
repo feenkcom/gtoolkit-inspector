@@ -79,7 +79,10 @@ UnicodeCharacterData >> gtViewDetailsIn: composite [
 					self numericValue}.
 				{'decomposition'.
 					self decompositionDescription.
-					self decompositionAsUCDs}} ];
+					self decompositionAsUCDs}.
+				{'utf-8 encoded' .
+					'#[', (String space join: (self character asString utf8Encoded collect: #asString as: Array)), ']'.
+					self character asString utf8Encoded }} ];
 		column: 'Key' text: #first;
 		column: 'Value' text: #second;
 		send: #last
