@@ -59,11 +59,8 @@ UnicodeCharacterData >> gtPreviewFor: aView [
 		title: 'Preview';
 		priority: 10;
 		stencil: [ BrHorizontalPane new
-				margin: (BlInsets all: 10);
 				padding: (BlInsets all: 10);
 				cellSpacing: 10;
-				background: Color white;
-				aptitude: BrShadowAptitude;
 				fitContent;
 				addChild: (BrEditor new
 						fitContent;
