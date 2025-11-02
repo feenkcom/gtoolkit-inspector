@@ -1,6 +1,17 @@
 Extension { #name : #UnicodeCharacterData }
 
 { #category : #'*GToolkit-Inspector' }
+UnicodeCharacterData >> gtCodePointHexString [
+	^ String
+		streamContents: [ :stream | 
+			stream << 'U+'.
+			self codePoint
+				printOn: stream
+				base: 16
+				nDigits: 4 ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 UnicodeCharacterData >> gtPreviewFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -27,33 +38,48 @@ UnicodeCharacterData >> gtViewDetailsIn: composite [
 	<gtView>
 	^ composite columnedList
 		title: 'Details';
-		items: [ {
-			{ 'codepoint'. self codePoint }.
-			{ 'codepoint hex'. 
-					String streamContents: [ :stream | 
-						stream << 'U+'.
-						self codePoint printOn: stream base: 16 nDigits: 4 ].
-					self codePoint }.
-			{ 'character'. self character printString. self character }.
-			{ 'name'. self name }.
-			{ 'old name'. self oldName ifNil: [ '' ]. self oldName }.
-			{ 'general category'. self generalCategory }.
-			{ 'canonical combining class'. self canonicalCombiningClass }.
-			{ 'bidirectional category'. self bidirectionalCategory }.
-			{ 'mirrored'. self mirrored }.
-			{ 'uppercase'. 
-					self uppercase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ]. 
-					self class forCodePoint: self uppercase ifAbsent: [] }.
-			{ 'lowercase'. 
-					self lowercase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ]. 
-					self class forCodePoint: self lowercase ifAbsent: [] }.
-			{ 'titlecase'. 
-					self titlecase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ]. 
-					self class forCodePoint: self titlecase ifAbsent: [] }.
-			{ 'decimal digit value'. self decimalDigitValue ifNil: [ '' ]. self decimalDigitValue }.
-			{ 'digit value'. self digitValue ifNil: [ '' ]. self digitValue }.
-			{ 'numeric value'. self numericValue ifNil: [ '' ]. self numericValue }.
-			{ 'decomposition'. self decompositionDescription. self decompositionAsUCDs } } ];
+		items: [ {{'codepoint'.
+					self codePoint}.
+				{'codepoint hex'.
+					self gtCodePointHexString.
+					self codePoint}.
+				{'character'.
+					self character printString.
+					self character}.
+				{'name'.
+					self name}.
+				{'old name'.
+					self oldName ifNil: [ '' ].
+					self oldName}.
+				{'general category'.
+					self generalCategory}.
+				{'canonical combining class'.
+					self canonicalCombiningClass}.
+				{'bidirectional category'.
+					self bidirectionalCategory}.
+				{'mirrored'.
+					self mirrored}.
+				{'uppercase'.
+					self uppercase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ].
+					self class forCodePoint: self uppercase ifAbsent: [  ]}.
+				{'lowercase'.
+					self lowercase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ].
+					self class forCodePoint: self lowercase ifAbsent: [  ]}.
+				{'titlecase'.
+					self titlecase ifNotNil: [ :n | Character codePoint: n ] ifNil: [ '' ].
+					self class forCodePoint: self titlecase ifAbsent: [  ]}.
+				{'decimal digit value'.
+					self decimalDigitValue ifNil: [ '' ].
+					self decimalDigitValue}.
+				{'digit value'.
+					self digitValue ifNil: [ '' ].
+					self digitValue}.
+				{'numeric value'.
+					self numericValue ifNil: [ '' ].
+					self numericValue}.
+				{'decomposition'.
+					self decompositionDescription.
+					self decompositionAsUCDs}} ];
 		column: 'Key' text: #first;
 		column: 'Value' text: #second;
 		send: #last
