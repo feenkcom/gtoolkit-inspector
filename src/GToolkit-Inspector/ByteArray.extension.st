@@ -2,45 +2,51 @@ Extension { #name : #ByteArray }
 
 { #category : #'*GToolkit-Inspector' }
 ByteArray >> gtByteAssociationsFor: aDisplayedBytes [
-	^ {('hex string'
-		->
-			(String
-				streamContents:
-					[ :out | aDisplayedBytes do: [ :each | each printOn: out base: 16 nDigits: 2 ] ])).
-	('hex lines'
-		->
-			(String
-				streamContents: [ :out | 
-					aDisplayedBytes
-						withIndexDo: [ :each :index | 
-							index = 1
-								ifFalse: [ (index - 1) \\ 8 = 0
-										ifTrue: [ out cr ]
-										ifFalse: [ out space ] ].
-							each printOn: out base: 16 nDigits: 2 ] ])).
-	('latin1'
-		->
-			([ ZnCharacterEncoder latin1 decodeBytes: aDisplayedBytes ]
-				on: ZnCharacterEncodingError
-				do: [ :exception | exception ])).
-	('utf8'
-		->
-			([ ZnUTF8Encoder new decodeBytes: aDisplayedBytes ]
-				on: ZnCharacterEncodingError
-				do: [ :exception | exception ])).
-	('utf8 lossy' -> (ZnLossyUTF8Encoder new decodeBytesSingleReplacement: aDisplayedBytes)).
-	('integer' -> aDisplayedBytes asInteger).
-	('integer reversed' -> aDisplayedBytes reversed asInteger).
-	('binary string'
-		->
-			(String
-				streamContents:
-					[ :out | aDisplayedBytes do: [ :each | each printOn: out base: 2 ] ])).
-	('binary bytes string'
-		->
-			(String streamContents: [ :out | 
-	self do: [ :each | each printOn: out base: 2 nDigits: 8] separatedBy: [ out space ] ])).
-	}
+	^ {'hex string'
+			-> (String
+					streamContents: [ :out | 
+						aDisplayedBytes
+							do: [ :each | 
+								each
+									printOn: out
+									base: 16
+									nDigits: 2 ] ]).
+		'hex lines'
+			-> (String
+					streamContents: [ :out | 
+						aDisplayedBytes
+							withIndexDo: [ :each :index | 
+								index = 1
+									ifFalse: [ (index - 1) \\ 8 = 0 ifTrue: [ out cr ] ifFalse: [ out space ] ].
+								each
+									printOn: out
+									base: 16
+									nDigits: 2 ] ]).
+		'latin1'
+			-> ([ ZnCharacterEncoder latin1 decodeBytes: aDisplayedBytes ]
+					on: ZnCharacterEncodingError
+					do: [ :exception | exception ]).
+		'utf8'
+			-> ([ ZnUTF8Encoder new decodeBytes: aDisplayedBytes ]
+					on: ZnCharacterEncodingError
+					do: [ :exception | exception ]).
+		'utf8 lossy'
+			-> (ZnLossyUTF8Encoder new decodeBytesSingleReplacement: aDisplayedBytes).
+		'integer' -> aDisplayedBytes asInteger.
+		'integer reversed' -> aDisplayedBytes reversed asInteger.
+		'binary string'
+			-> (String
+					streamContents: [ :out | aDisplayedBytes do: [ :each | each printOn: out base: 2 ] ]).
+		'binary bytes string'
+			-> (String
+					streamContents: [ :out | 
+						self
+							do: [ :each | 
+								each
+									printOn: out
+									base: 2
+									nDigits: 8 ]
+							separatedBy: [ out space ] ])}
 ]
 
 { #category : #'*GToolkit-Inspector' }
