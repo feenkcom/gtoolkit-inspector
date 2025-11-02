@@ -1,6 +1,19 @@
 Extension { #name : #UnicodeCharacterData }
 
 { #category : #'*GToolkit-Inspector' }
+UnicodeCharacterData >> asStringWithUtf8EncodedHex [
+	^ String
+		streamContents: [ :out | 
+			self character asString utf8Encoded
+				do: [ :byte | 
+					byte
+						printOn: out
+						base: 16
+						nDigits: 2 ]
+				separatedBy: [ out space ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 UnicodeCharacterData >> asTextWithUtf8EncodedBinary [
 	| out |
 	out := BlTextStream new glamorousCodeFont.
@@ -42,12 +55,41 @@ UnicodeCharacterData >> gtCodePointHexString [
 { #category : #'*GToolkit-Inspector' }
 UnicodeCharacterData >> gtPreviewFor: aView [
 	<gtView>
-	^ aView textEditor
+	^ aView explicit
 		title: 'Preview';
 		priority: 10;
-		glamorousCodeFontAndSize;
-		fontSize: 64;
-		text: [ self character ]
+		stencil: [ BrHorizontalPane new
+				margin: (BlInsets all: 10);
+				padding: (BlInsets all: 10);
+				cellSpacing: 10;
+				background: Color white;
+				aptitude: BrShadowAptitude;
+				fitContent;
+				addChild: (BrEditor new
+						fitContent;
+						aptitude: (BrGlamorousCodeEditorAptitude new fontSize: 64);
+						text: self character asString);
+				addChild: (BrVerticalPane new
+						fitContent;
+						addChild: (BrEditor new
+								fitContent;
+								aptitude: (BrGlamorousRegularEditorAptitude new fontSize: 20; bold);
+								text: self name asLowercase capitalized);
+						addChild: (BrEditor new
+								fitContent;
+								aptitude: BrGlamorousCodeEditorAptitude new;
+								text: self gtCodePointHexString);
+						addChild: (BrEditor new
+								fitContent;
+								aptitude: BrGlamorousCodeEditorAptitude new;
+								text: 'UTF-8 hex: ' , self asStringWithUtf8EncodedHex);
+						addChild: (BrEditorElement new
+								margin: (BlInsets all: 5);
+								constraintsDo: [ :c | 
+									c vertical fitContent.
+									c horizontal fitContent ];
+								editor: (BrTextEditorModel new
+										text: 'UTF-8 binary: ' asRopedText , self asTextWithUtf8EncodedBinary asRopedText))) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
@@ -115,15 +157,7 @@ UnicodeCharacterData >> gtViewDetailsIn: composite [
 						, ']'.
 					self character asString utf8Encoded}.
 				{'utf-8 encoded hex'.
-					String
-						streamContents: [ :out | 
-							self character asString utf8Encoded
-								do: [ :byte | 
-									byte
-										printOn: out
-										base: 16
-										nDigits: 2 ]
-								separatedBy: [ out space ] ]}.
+					self asStringWithUtf8EncodedHex}.
 				{'utf-8 encoded binary'.
 					self asTextWithUtf8EncodedBinary}} ];
 		column: 'Key' text: #first;
