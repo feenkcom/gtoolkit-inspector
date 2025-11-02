@@ -80,9 +80,32 @@ UnicodeCharacterData >> gtViewDetailsIn: composite [
 				{'decomposition'.
 					self decompositionDescription.
 					self decompositionAsUCDs}.
-				{'utf-8 encoded' .
-					'#[', (String space join: (self character asString utf8Encoded collect: #asString as: Array)), ']'.
-					self character asString utf8Encoded }} ];
+				{'utf-8 encoded'.
+					'#['
+						, (String space
+								join: (self character asString utf8Encoded collect: #asString as: Array))
+						, ']'.
+					self character asString utf8Encoded}.
+				{'utf-8 encoded hex'.
+					String
+						streamContents: [ :out | 
+							self character asString utf8Encoded
+								do: [ :byte | 
+									byte
+										printOn: out
+										base: 16
+										nDigits: 2 ]
+								separatedBy: [ out space ] ]}.
+				{'utf-8 encoded binary'.
+					String
+						streamContents: [ :out | 
+							self character asString utf8Encoded
+								do: [ :byte | 
+									byte
+										printOn: out
+										base: 2
+										nDigits: 8 ]
+								separatedBy: [ out space ] ]}} ];
 		column: 'Key' text: #first;
 		column: 'Value' text: #second;
 		send: #last
