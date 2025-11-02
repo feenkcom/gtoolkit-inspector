@@ -37,5 +37,6 @@ Character >> gtViewUnicodeCharacterDetailsIn: composite [
 	^ composite forward
 		title: 'Unicode';
 		object: [ unicodeCharacterData ];
-		view: #gtViewDetailsIn:
+		view: #gtViewDetailsIn:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect action: [ :b | b phlow spawnObject: unicodeCharacterData ]
 ]
