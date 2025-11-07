@@ -106,6 +106,7 @@ ProtoObject >> gtRawFor: aView [
 
 	^ aView columnedTree
 		title: 'Raw';
+		importantFutureExecutionConfiguration;
 		priority: 100;
 		items: [ | variableNodes |
 			variableNodes := OrderedCollection new: self class allSlots size.
