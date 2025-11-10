@@ -29,6 +29,7 @@ Process >> gtPSKeysFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'PSKeys';
+		importantFutureExecutionConfiguration;
 		priority: 5;
 		items: [ PSKeys ifNil: #() ];
 		column: 'Index' text: #index width: 50;
