@@ -203,11 +203,11 @@ ProtoObject >> gtRawFor: aView [
 			weight: 2;
 		send: #value;
 		dynamicContextItems: [ :aTreeNode | 
-			aTreeNode value isSlotNode
+			aTreeNode isSlotNode
 				ifTrue: [ (GtViewCreator
-						viewCreatorsForObject: aTreeNode value rawValue
-						andSource: aTreeNode value key
-						in: aTreeNode value hostObject class)
+						viewCreatorsForObject: aTreeNode rawValue
+						andSource: aTreeNode key
+						in: aTreeNode hostObject class)
 						collect: [ :creator | 
 							creator selfObject: self.
 							creator asMenuItem ] ]
@@ -215,9 +215,9 @@ ProtoObject >> gtRawFor: aView [
 		dynamicContextItems: [ :aTreeNode | 
 			Array
 				streamContents: [ :aStream | 
-					aTreeNode value isSlotNode
+					aTreeNode isSlotNode
 						ifTrue: [ GtCoderVariableTarget
-								menuItemsForObject: aTreeNode value slot
+								menuItemsForObject: aTreeNode slot
 								inContext: aPhlowContext
 								hostElement: nil
 								do: [ :aMenuItem | aStream nextPut: aMenuItem ] ] ] ];
