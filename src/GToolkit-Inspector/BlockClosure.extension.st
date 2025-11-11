@@ -3,15 +3,26 @@ Extension { #name : #BlockClosure }
 { #category : #'*GToolkit-Inspector' }
 BlockClosure >> gtSourceCodeFor: aView [
 	<gtView>
-	^ aView forward
+	self sourceNode ifNil: [ ^ aView empty ].
+	self sourceNode methodNode ifNil: [ ^ aView empty ].
+
+	^ aView explicit
 		title: 'Source code';
 		priority: 1;
-		object: [ self sourceNode ];
-		view: #gtSourceCodeFor:;
-		actionButtonIcon: BrGlamorousVectorIcons inspect 
-			tooltip: 'Inspect Block' 
-			action: [ :aButton | 
-				aButton phlow spawnObject: self ]
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			tooltip: 'Inspect Block'
+			action: [ :aButton | aButton phlow spawnObject: self ];
+		actionButtonIcon: BrGlamorousVectorIcons browse
+			tooltip: 'Browse method'
+			action: [ :aButton | self sourceNode methodNode compiledMethod gtBrowseFrom: aButton ];
+		stencil: [ ((self sourceNode methodNode compilationContext
+				ifNil: [ (GtPharoMethodCoder forNewMethod: Object)
+						sourceCode: (GtCoderExplicitTextSource new text: self sourceNode methodNode formattedCode) ]
+				ifNotNil: [ (GtPharoMethodCoder
+						forMethod: self sourceNode methodNode compiledMethod) asCoderViewModel
+						selfObject: self receiver ])
+				highlighter: (GtRBPatternHighlighter new ast: self sourceNode);
+				asExpandedOnlyElement) vFitContentLimited ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
