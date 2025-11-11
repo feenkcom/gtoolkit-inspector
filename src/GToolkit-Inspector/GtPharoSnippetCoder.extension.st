@@ -1,6 +1,29 @@
 Extension { #name : #GtPharoSnippetCoder }
 
 { #category : #'*GToolkit-Inspector' }
+GtPharoSnippetCoder >> addCreateGtActionMenuAddOnsAst: anAst to: coderAddOns from: aCoderViewModel [
+	<gtCoderContextMenuAddOns>
+	behavior = nil class ifTrue: [ ^ self ].
+	aCoderViewModel styledText
+		attributesDo: [ :attrs | 
+			attrs
+				detect: [ :each | each class = GtPlaygroundEvaluatedCodeButtonAttribute ]
+				ifFound: [ :each | 
+					| creator |
+					creator := GtActionCreator
+							actionCreatorForSource: (each evaluationInterval
+									ifNil: [ aCoderViewModel styledText asString ]
+									ifNotNil: [ :interval | aCoderViewModel styledText asString copyFrom: interval first to: interval last ])
+							in: behavior.
+					(self
+						addExplicitContextMenu: 'Create <gtAction>'
+						block: [ :aCoderElement :aTextualCoderViewModel :aCoderAction | creator asMenuItem id: #'create-gtAction' ]
+						to: coderAddOns) ifNotNil: [ :anAction | anAction priority: 91 ].
+					^ self ]
+				ifNone: [  ] ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns>
 	behavior = nil class ifTrue: [ ^ self ].

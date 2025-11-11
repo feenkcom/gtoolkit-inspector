@@ -10,5 +10,9 @@ Pragma >> gtDisplayOn: stream [
 { #category : #'*GToolkit-Inspector' }
 Pragma >> gtSourceFor: aView [
 	<gtView> 
-	^ self method gtSourceFor: aView
+	^ aView forward
+		title: 'Source';
+		priority: 0;
+		object: [ self method ];
+		view: #gtSourceCodeFor:
 ]
