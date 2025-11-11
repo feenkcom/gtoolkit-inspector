@@ -1,15 +1,8 @@
 Class {
 	#name : #GtViewCreator,
-	#superclass : #Object,
-	#traits : 'TGtPhlowWithSelfObjectHolder',
-	#classTraits : 'TGtPhlowWithSelfObjectHolder classTrait',
+	#superclass : #GtCreator,
 	#instVars : [
-		'source',
-		'selector',
 		'objectSource',
-		'behavior',
-		'title',
-		'label',
 		'object'
 	],
 	#category : #'GToolkit-Inspector-Convenience and Utilities'
@@ -119,68 +112,6 @@ GtViewCreator class >> viewCreatorsForObject: anObject andSource: aString in: aB
 	localItems , forwardItems ] on: Error do: [ :ex | ex return: #() ]
 ]
 
-{ #category : #accessing }
-GtViewCreator >> asElement [
-	| pane valueHolder newMethodElement coder |
-	pane := BrVerticalPane new.
-	pane padding: (BlInsets all: 10).
-	pane hMatchParent.
-	pane vFitContentLimited.
-	valueHolder := ValueHolder new.
-	coder := GtPharoMethodCoder forClass: self behavior source: source.
-	coder protocol: #views.
-	valueHolder contents: coder asCoderViewModel.
-	valueHolder contents shouldHaveHeader: false.
-	newMethodElement := GtPharoNewMethodCoderElement new
-			hMatchParent;
-			vFitContentLimited;
-			selfObject: self object;
-			behavior: self behavior;
-			methodCoderViewModelValueHolder: valueHolder;
-			onMethodCoderSaved: [ :event :viewModel | pane enqueueTask: [ pane fireEvent: BrContextMenuHideWish new ] asBlTask ];
-			when: GtPhlowObjectToSpawn do: [ :aSpawnEvent | aSpawnEvent consumed: true ].
-	pane userData at: #coder put: coder.
-	pane addChild: newMethodElement.
-	^ pane
-]
-
-{ #category : #converting }
-GtViewCreator >> asMenuItem [
-	| coder coderViewModel menu |
-	coder := GtPharoMethodCoder forClass: self behavior source: source.
-	coder protocol: #views.
-	coderViewModel := coder asCoderViewModel.
-	coderViewModel selfObjectHolder: self selfObjectHolder.
-	menu := GtPharoNewMethodCoderMenu new
-		coderViewModel: coderViewModel;
-		onMethodCoderSaved: [ :event :viewModel :element | ];
-		onObjectToSpawn: [ :aSpawnEvent | ].
-	^ BrMenuSubmenuItem new
-		bePinSubmenuAction;
-		hideOnClick: true;
-		label: self label;
-		submenu: menu;
-		group: BrMenuItemGroupConfiguration refactoring
-]
-
-{ #category : #accessing }
-GtViewCreator >> behavior [
-	^ behavior
-]
-
-{ #category : #accessing }
-GtViewCreator >> behavior: anObject [
-	behavior := anObject
-]
-
-{ #category : #compiling }
-GtViewCreator >> compile [
-	| model |
-	model := RBNamespace new.
-	(model classFor: self behavior) compile: source classified: #views.
-	model changes gtExecuteWithUndo
-]
-
 { #category : #private }
 GtViewCreator >> createSourceForForwarder: aSymbol [
 	self
@@ -197,9 +128,13 @@ GtViewCreator >> createSourceForForwarder: aSymbol [
 		view: #' << aSymbol ])
 ]
 
-{ #category : #accessing }
-GtViewCreator >> empty [
-	source := nil
+{ #category : #private }
+GtViewCreator >> defaultLabel [
+	^ title
+		ifNil: [ self variable
+				ifNil: [ 'Create <gtView>' ]
+				ifNotNil: [ :v | 'Create <gtView> for ' , v ] ]
+		ifNotNil: [ 'Create <gtView> ' , title ]
 ]
 
 { #category : #private }
@@ -214,66 +149,6 @@ GtViewCreator >> evaluateView: aString [
 			source: ast formattedCode;
 			compile.
 	^ method valueWithReceiver: object arguments: {GtPhlowEmptyView new}
-]
-
-{ #category : #accessing }
-GtViewCreator >> gtDefaultInspectorTool [
-	^ GtPhlowCompositeTool new
-		addTool: (GtPhlowExplicitTool new
-				name: 'View Source';
-				stencil: [ self asElement ]);
-		addTool: (super gtDefaultInspectorTool)
-]
-
-{ #category : #accessing }
-GtViewCreator >> gtDisplayOn: stream [
-	stream << self label asString
-]
-
-{ #category : #views }
-GtViewCreator >> gtSourceFor: aView [
-	<gtView>
-	source ifNil: [ ^ aView empty ].
-	
-	^ aView textEditor
-		title: 'Source string';
-		styler: (BrRBTextStyler new
-			 classOrMetaClass: self behavior);
-		text: [ source ]
-]
-
-{ #category : #'as yet unclassified' }
-GtViewCreator >> isValid [
-	^ source notNil
-]
-
-{ #category : #accessing }
-GtViewCreator >> label [
-	^ label
-		ifNil: [ title
-				ifNil: [ self variable
-						ifNil: [ 'Create <gtView>' ]
-						ifNotNil: [ :v | 'Create <gtView> for ' , v ] ]
-				ifNotNil: [ 'Create <gtView> ' , title ] ]
-]
-
-{ #category : #accessing }
-GtViewCreator >> label: anObject [
-	label := anObject
-]
-
-{ #category : #private }
-GtViewCreator >> newSelector [
-	^ selector
-		ifNil: [ | part index indexString newSelector |
-			part := 'gt' , (self variable ifNil: [ 'View' ]) capitalized.
-			index := 0.
-			indexString := ''.
-			[ behavior
-				canUnderstand: (newSelector := (part , indexString , 'For:') asSymbol) ]
-				whileTrue: [ index := index + 1.
-					indexString := index printString ].
-			selector := newSelector ]
 ]
 
 { #category : #accessing }
@@ -294,6 +169,16 @@ GtViewCreator >> objectSource [
 { #category : #accessing }
 GtViewCreator >> objectSource: anObject [
 	objectSource := anObject
+]
+
+{ #category : #compiling }
+GtViewCreator >> protocol [
+	^ #views
+]
+
+{ #category : #private }
+GtViewCreator >> selectorBase [
+	^ (self variable ifNil: [ 'View' ]) capitalized
 ]
 
 { #category : #view }
@@ -322,28 +207,6 @@ GtViewCreator >> showOn: anElement [
 			aptitude hideDelay: nil.
 			anElement addAptitude: aptitude.
 			aptitude show ] asBlTask
-]
-
-{ #category : #accessing }
-GtViewCreator >> source [
-	^ source
-]
-
-{ #category : #accessing }
-GtViewCreator >> source: aString [
-	aString ifNil: [ ^ source := nil ].
-	source := (RBParser parseMethod: aString) formattedCode
-]
-
-{ #category : #accessing }
-GtViewCreator >> title [
-	^ title
-		ifNil: [ self variable ifNotNil: [ :v | v capitalized ] ifNil: [ 'View' ] ]
-]
-
-{ #category : #accessing }
-GtViewCreator >> title: anObject [
-	title := anObject
 ]
 
 { #category : #accessing }
