@@ -76,12 +76,6 @@ CompiledMethod >> gtSpecificSizeInMemory [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-CompiledMethod >> gtTreeFor: aView [
-	<gtView>
-	^ self parseTree gtTreeFor: aView
-]
-
-{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtViewNodesExplanationWithLinksFor: aView [
 	<gtView>
 	

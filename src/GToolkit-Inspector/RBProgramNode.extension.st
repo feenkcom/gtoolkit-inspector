@@ -38,42 +38,15 @@ RBProgramNode >> gtSourceCodeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
 	<gtView> 
-	^ aView tree
+	^ aView columnedTree
 		title: 'Tree';
 		priority: 60;
 		items: [ { self } ];
 		children: #children;
-		expandAll
-]
-
-{ #category : #'*GToolkit-Inspector' }
-RBProgramNode >> gtVisualTreeFor: aView [
-	<gtView>
-	
-	| wrapperFactory |
-	wrapperFactory := RBNodeWrapperFactory new.
-	^ (aView mondrian)
-		title: 'Map';
-		priority: 60;
-		painting:
-				[ :view | 
-					(view nodes)
-						shape:
-								[ :each | 
-									| textElement text |
-									text := (each printString truncateTo: 30) asRopedText.
-									textElement := BlTextElement new.
-									textElement text: text.
-									textElement
-										when: BlClickEvent
-										do:
-											[ :e | 
-											textElement phlow spawnObject: each node.
-											e consumed: true ].
-									textElement ];
-						with: ((self withDeepCollect: #children) collect: [ :each | wrapperFactory wrapperFor: each ]).
-					view edges connectFrom: #parent.
-					view layout tree ]
+		expandAll;
+		column: 'Node' text: [ :each | each class name ];
+		column: 'Interval' text: [ :each | each sourceInterval first asString, '-', each sourceInterval stop asString ] width: 100;
+		column: 'Source' text: [ :each | each formattedCode asRopedText glamorousCodeFontAndSmallSize ] width: 400
 ]
 
 { #category : #'*GToolkit-Inspector' }

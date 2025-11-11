@@ -64,7 +64,7 @@ RGMethodDefinition >> gtTreeFor: aView [
 	self isDefined ifFalse: [ ^aView empty].
 	
 	^aView forward 
-		title: 'Tree';
+		title: 'RB tree';
 		priority: 60;
 		object: [ self method ];
 		view: #gtTreeFor:
