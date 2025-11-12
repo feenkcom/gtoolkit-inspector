@@ -37,16 +37,28 @@ RBProgramNode >> gtSourceCodeFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 RBProgramNode >> gtTreeFor: aView [
-	<gtView> 
+	<gtView>
 	^ aView columnedTree
 		title: 'Tree';
 		priority: 60;
-		items: [ { self } ];
+		items: [ {self} ];
 		children: #children;
 		expandAll;
-		column: 'Node' text: [ :each | each class name ];
-		column: 'Interval' text: [ :each | each sourceInterval first asString, '-', each sourceInterval stop asString ] width: 100;
-		column: 'Source' text: [ :each | each formattedCode asRopedText glamorousCodeFontAndSmallSize ] width: 400
+		column: 'Node'
+			text: [ :each | 
+				| text |
+				text := each class name asRopedText.
+				(each class name beginsWith: 'RB')
+					ifTrue: [ (text from: 1 to: 2) foreground: Color lightGray ].
+				(each class name endsWith: 'Node')
+					ifTrue: [ (text from: each class name size - 3 to: each class name size) foreground: Color veryLightGray ].
+				text ];
+		column: 'Interval'
+			text: [ :each | each sourceInterval first asString , '-' , each sourceInterval stop asString ]
+			width: 100;
+		column: 'Source'
+			text: [ :each | each formattedCode asRopedText glamorousCodeFontAndSmallSize ]
+			width: 400
 ]
 
 { #category : #'*GToolkit-Inspector' }
