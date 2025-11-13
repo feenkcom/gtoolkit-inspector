@@ -20,7 +20,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFir
 				clickStep: [ :s | 
 					s
 						label: 'Select Live tab';
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspector;
 						// GtPhlowCompositeViewElementId;
 						// #tabbar;
@@ -31,7 +31,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFir
 					s
 						label: 'Assert pane one live view';
 						satisfies: [ :aContainer | aContainer isElementPreviewView ];
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspectorElementLiveViewContainer ].
 
 			aStep
@@ -39,7 +39,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickBackOnLiveInTheFir
 					s
 						label: 'Assert pane two live view';
 						satisfies: [ :aContainer | aContainer isElementLiveView ];
-						// (GtPagerPageElementId indexed: 2);
+						onPagerPaneWithIndex: 2;
 						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
@@ -59,7 +59,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFir
 				clickStep: [ :s | 
 					s
 						label: 'Select Verview tab';
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspector;
 						// GtPhlowCompositeViewElementId;
 						// #tabbar;
@@ -70,7 +70,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFir
 					s
 						label: 'Assert pane one live view';
 						notExists;
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspectorElementLiveViewContainer ].
 
 			aStep
@@ -78,7 +78,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOnOverviewInTheFir
 					s
 						label: 'Assert pane two live view';
 						satisfies: [ :aContainer | aContainer isElementLiveView ];
-						// (GtPagerPageElementId indexed: 2);
+						onPagerPaneWithIndex: 2;
 						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
@@ -98,7 +98,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecon
 				clickStep: [ :s | 
 					s
 						label: 'Select Live tab';
-						// (GtPagerPageElementId indexed: 2);
+						onPagerPaneWithIndex: 2;
 						// GtInspector;
 						// GtPhlowCompositeViewElementId;
 						// #tabbar;
@@ -109,7 +109,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecon
 					s
 						label: 'Assert pane one live view';
 						satisfies: [ :aContainer | aContainer isElementLiveView ];
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspectorElementLiveViewContainer ].
 
 			aStep
@@ -117,7 +117,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> clickOverviewInTheSecon
 					s
 						label: 'Assert pane two live view';
 						notExists;
-						// (GtPagerPageElementId indexed: 2);
+						onPagerPaneWithIndex: 2;
 						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
@@ -133,14 +133,16 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInPager [
 					size: 50 @ 100;
 					background: (Color blue alpha: 0.5);
 					relocate: 100 @ 100 ]
-			element: [ :anElementToPreview | GtPager createWrappedOn: (GtInspector forObject: anElementToPreview) ].
+			element: [ :anElementToPreview | 
+				GtPagerSettings usedPager
+					createWrappedOn: (GtInspector forObject: anElementToPreview) ].
 
 	aScripter
 		assertStep: [ :s | 
 			s
 				label: 'Assert live view';
 				satisfies: [ :aContainer | aContainer isElementLiveView ];
-				// (GtPagerPageElementId indexed: 1);
+				onPagerPaneWithIndex: 1;
 				// GtInspectorElementLiveViewContainer ].
 
 	^ aScripter
@@ -168,7 +170,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPag
 					s
 						label: 'Assert pane one live view';
 						satisfies: [ :aContainer | aContainer isElementLiveView ];
-						// (GtPagerPageElementId indexed: 1);
+						onPagerPaneWithIndex: 1;
 						// GtInspectorElementLiveViewContainer ].
 
 			aStep
@@ -176,7 +178,7 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPag
 					s
 						label: 'Assert pane two live view';
 						satisfies: [ :aContainer | aContainer isElementPreviewView ];
-						// (GtPagerPageElementId indexed: 2);
+						onPagerPaneWithIndex: 2;
 						// GtInspectorElementLiveViewContainer ] ].
 
 	^ aScripter
