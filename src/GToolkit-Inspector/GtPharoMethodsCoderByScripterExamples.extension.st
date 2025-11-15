@@ -6,8 +6,8 @@ GtPharoMethodsCoderByScripterExamples >> clickClassTagInBlElementIdReferences [
 	<return: #BlScripter>
 	| scripter |
 	scripter := self
-			scripterForBlock: [ GtPager
-					createWrappedOn: ((BlElementId named: #toggle) gtReferencesFor: GtPhlowView empty) asElement ].
+			scripterForBlock: [ GtPagerSettings usedPager
+					createWrappedOn: ((BlElementId named: #toggle) gtReferencesFor: GtPhlowView empty)  ].
 	scripter
 		clickStep: [ :s | 
 			s
