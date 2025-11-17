@@ -202,7 +202,7 @@ ProtoObject >> gtRawFor: aView [
 					do: [ aNode errorMessage asRopedText foreground: Color red ] ]
 			weight: 2;
 		send: #value;
-		dynamicContextItems: [ :aTreeNode | 
+		dynamicContextItems: [ :anElement :aTreeNode | 
 			aTreeNode isSlotNode
 				ifTrue: [ (GtViewCreator
 						viewCreatorsForObject: aTreeNode rawValue
@@ -212,7 +212,7 @@ ProtoObject >> gtRawFor: aView [
 							creator selfObject: self.
 							creator asMenuItem ] ]
 				ifFalse: [ #() ] ];
-		dynamicContextItems: [ :aTreeNode | 
+		dynamicContextItems: [ :anElement :aTreeNode | 
 			Array
 				streamContents: [ :aStream | 
 					aTreeNode isSlotNode
