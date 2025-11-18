@@ -1,7 +1,7 @@
 Class {
 	#name : #GtPlaygroundToolRegistryAdaptor,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-World Menu'
+	#category : #'GToolkit-Inspector-World Menu'
 }
 
 { #category : #testing }

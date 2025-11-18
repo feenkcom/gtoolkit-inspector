@@ -1,7 +1,7 @@
 Class {
 	#name : #GtInspectorWithViews,
 	#superclass : #Object,
-	#category : 'GToolkit-Inspector-Examples'
+	#category : #'GToolkit-Inspector-Examples'
 }
 
 { #category : #accessing }

@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtInspectorAbstractObject,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'GToolkit-Inspector-Model'
+	#category : #'GToolkit-Inspector-Model'
 }
 
 { #category : #converting }

@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'objectHolder'
 	],
-	#category : 'GToolkit-Inspector-UI'
+	#category : #'GToolkit-Inspector-UI'
 }
 
 { #category : #defaults }
