@@ -99,11 +99,6 @@ ProtoObject >> gtInspectorVariableNodesIn: aCollection [
 { #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtRawFor: aView [
 	<gtView>
-	| aPhlowContext |
-	aPhlowContext := GtPhlowContext new.
-	aPhlowContext selfObject: self.
-	aPhlowContext behavior: self class.
-
 	^ aView columnedTree
 		title: 'Raw';
 		importantFutureExecutionConfiguration;
@@ -216,7 +211,13 @@ ProtoObject >> gtRawFor: aView [
 			Array
 				streamContents: [ :aStream | 
 					aTreeNode isSlotNode
-						ifTrue: [ GtCoderVariableTarget
+						ifTrue: [ 
+							| aPhlowContext |
+							aPhlowContext := GtPhlowContext new.
+							aPhlowContext selfObject: aTreeNode hostObject.
+							aPhlowContext behavior: aTreeNode hostObject class.
+						
+							GtCoderVariableTarget
 								menuItemsForObject: aTreeNode slot
 								inContext: aPhlowContext
 								hostElement: nil
