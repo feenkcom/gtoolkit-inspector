@@ -108,15 +108,15 @@ ProtoObject >> gtRawFor: aView [
 			variableNodes add: (GtInspectorSelfNode hostObject: self).
 			self gtInspectorVariableNodesIn: variableNodes.
 			variableNodes ];
-		children: [ :aNode | aNode childrenNodes ];
+		children: [ :anInspectorNode | anInspectorNode childrenNodes ];
 		column: 'Variable'
 			do: [ :aColumn | 
 				aColumn
-					dataBinder: [ :itemElement :aNode | 
+					dataBinder: [ :itemElement :anInspectorNode | 
 						| nodeIcon extraInfo |
 						extraInfo := false.
-						nodeIcon := [ aNode rawValue gtInspectorIcon
-								ifNil: [ aNode rawValue class iconNamed: aNode rawValue class systemIconName ] ]
+						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
+								ifNil: [ anInspectorNode rawValue class iconNamed: anInspectorNode rawValue class systemIconName ] ]
 								on: Error
 								do: [ :error | Smalltalk ui icons iconNamed: #smallWarningIcon ].
 
@@ -127,15 +127,17 @@ ProtoObject >> gtRawFor: aView [
 						itemElement
 							addChild: (BrLabel new
 									aptitude: BrGlamorousListLabelAptitude;
-									text: aNode label;
+									text: anInspectorNode label;
 									alignCenterLeft;
-									fitContent).	"(aNode isSlotNode
-							and: [ (aNode isDefinedInADifferentClassThanHost) ])
+									fitContent).
+									
+						"(anInspectorNode isSlotNode
+							and: [ (anInspectorNode isDefinedInADifferentClassThanHost) ])
 							ifTrue: [
 								itemElement
 									addChild: (BrVerticalPane new fitContent; addChild: BrGlamorousVectorIcons upwards asElement) ]."
 
-						aNode isWeakClassNode
+						anInspectorNode isWeakClassNode
 							ifTrue: [ extraInfo := true.
 								itemElement
 									addChild: (BrLabel new
@@ -147,7 +149,7 @@ ProtoObject >> gtRawFor: aView [
 											hMatchParent;
 											vFitContent) ].
 
-						aNode isEphemeronClassNode
+						anInspectorNode isEphemeronClassNode
 							ifTrue: [ extraInfo := true.
 								itemElement
 									addChild: (BrLabel new
@@ -159,7 +161,7 @@ ProtoObject >> gtRawFor: aView [
 											hMatchParent;
 											vFitContent) ].
 
-						aNode isWeakReferenceNode
+						anInspectorNode isWeakReferenceNode
 							ifTrue: [ extraInfo := true.
 								itemElement
 									addChild: (BrLabel new
@@ -171,7 +173,7 @@ ProtoObject >> gtRawFor: aView [
 											hMatchParent;
 											vFitContent) ].
 
-						aNode isEphemeronReferenceNode
+						anInspectorNode isEphemeronReferenceNode
 							ifTrue: [ extraInfo := true.
 								itemElement
 									addChild: (BrLabel new
@@ -191,34 +193,34 @@ ProtoObject >> gtRawFor: aView [
 							vFitContent;
 							alignCenter ] ];
 		column: 'Value'
-			text: [ :aNode | 
-				[ aNode rawValue gtDisplayText ]
+			text: [ :anInspectorNode | 
+				[ anInspectorNode rawValue gtDisplayText ]
 					on: Error , Halt
-					do: [ aNode errorMessage asRopedText foreground: Color red ] ]
+					do: [ anInspectorNode errorMessage asRopedText foreground: Color red ] ]
 			weight: 2;
 		send: #value;
-		dynamicContextItems: [ :anElement :aTreeNode | 
-			aTreeNode isSlotNode
+		dynamicContextItems: [ :anElement :anInspectorNode | 
+			anInspectorNode isSlotNode
 				ifTrue: [ (GtViewCreator
-						viewCreatorsForObject: aTreeNode rawValue
-						andSource: aTreeNode key
-						in: aTreeNode hostObject class)
+						viewCreatorsForObject: anInspectorNode rawValue
+						andSource: anInspectorNode key
+						in: anInspectorNode hostObject class)
 						collect: [ :creator | 
 							creator selfObject: self.
 							creator asMenuItem ] ]
 				ifFalse: [ #() ] ];
-		dynamicContextItems: [ :anElement :aTreeNode | 
+		dynamicContextItems: [ :anElement :anInspectorNode | 
 			Array
 				streamContents: [ :aStream | 
-					aTreeNode isSlotNode
+					anInspectorNode isSlotNode
 						ifTrue: [ 
 							| aPhlowContext |
 							aPhlowContext := GtPhlowContext new.
-							aPhlowContext selfObject: aTreeNode hostObject.
-							aPhlowContext behavior: aTreeNode hostObject class.
+							aPhlowContext selfObject: anInspectorNode hostObject.
+							aPhlowContext behavior: anInspectorNode hostObject class.
 						
 							GtCoderVariableTarget
-								menuItemsForObject: aTreeNode slot
+								menuItemsForObject: anInspectorNode slot
 								inContext: aPhlowContext
 								hostElement: nil
 								do: [ :aMenuItem | aStream nextPut: aMenuItem ] ] ] ];
