@@ -28,5 +28,7 @@ Trait >> gtUsersFor: aView [
 						columnedList selectOne: (columnedList viewModel indexOf: userClass).
 						theButton phlow spawnObject: userClass ];
 					asElement ]
-			tooltip: 'Search Trait Users'
+			tooltip: 'Search Trait Users';
+		dynamicContextItems: [ :anElement :anItem | 
+			GtCoderClassTarget menuItemsForObject: anItem hostElement: anElement ]
 ]
