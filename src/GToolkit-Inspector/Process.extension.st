@@ -32,17 +32,29 @@ Process >> gtPSKeysFor: aView [
 		importantFutureExecutionConfiguration;
 		priority: 5;
 		items: [ PSKeys ifNil: #() ];
-		column: 'Index' text: #index width: 50;
-		column: 'Variable' text: #yourself weight: 3;
-		column: 'Value' text: [ :aVariable | (self psValueAt: aVariable index) ifNil: [ aVariable default ] ] weight: 2;
-		column: 'Inheritable' 
+		column: 'Index'
+			text: #index
+			width: 50;
+		column: 'Variable'
+			text: #yourself
+			weight: 3;
+		column: 'Value'
+			text: [ :aVariable | (self psValueAt: aVariable index) ifNil: [ aVariable default ] ]
+			weight: 2;
+		column: 'Inheritable'
 			icon: [ :aVariable | 
-				(InheritablePSKeys includes: aVariable index) 
+				(InheritablePSKeys includes: aVariable index)
 					ifTrue: [ BrGlamorousVectorIcons greencircle ]
 					ifFalse: [ BlElement new
-						size: 16@16;
-						background: BlBackground transparent ] ]
-			width: 85
+							size: 16 @ 16;
+							background: BlBackground transparent ] ]
+			width: 85;
+		contextItemLabel: 'Inspect variable'
+			action: [ :anElement :aVariable | anElement phlow spawnObject: aVariable ];
+		contextItemLabel: 'Inspect variable value'
+			action: [ :anElement :aVariable | 
+				anElement phlow
+					spawnObject: ((self psValueAt: aVariable index) ifNil: [ aVariable default ]) ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
