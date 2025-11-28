@@ -32,7 +32,7 @@ CompiledMethod >> gtPropertiesFor: aView [
 		contextItemLabel: 'Remove property'
 			action: [ :aWidget :anAssoc | 
 				self removeProperty: anAssoc key.
-				aWidget phlow firstParentWithViewContent phlow update ];
+				aWidget phlow fireViewUpdateWish ];
 		send: #value;
 		actionUpdateButton
 ]
