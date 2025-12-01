@@ -54,7 +54,11 @@ Process >> gtPSKeysFor: aView [
 		contextItemLabel: 'Inspect variable value'
 			action: [ :anElement :aVariable | 
 				anElement phlow
-					spawnObject: ((self psValueAt: aVariable index) ifNil: [ aVariable default ]) ]
+					spawnObject: ((self psValueAt: aVariable index) ifNil: [ aVariable default ]) ];
+		contextItemLabel: 'Remove variable value'
+			action: [ :anElement :aVariable | 
+				self psValueAt: aVariable index put: nil.
+				anElement phlow fireViewUpdateWish ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
