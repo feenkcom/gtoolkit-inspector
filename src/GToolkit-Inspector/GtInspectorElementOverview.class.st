@@ -13,6 +13,34 @@ GtInspectorElementOverview class >> inspectorElementOverviewPragmaName [
 	^ #gtInspectorElementOverview
 ]
 
+{ #category : #'api - factory' }
+GtInspectorElementOverview class >> overviewPropertiesForElement: anElement [
+	"Collect element overview properties."
+
+	<return: #Collection of: #GtInspectorElementOverviewProperty>
+	| allPragmas allProperties |
+	allPragmas := Pragma
+			allNamed: self inspectorElementOverviewPragmaName
+			from: anElement class
+			to: BlElement.
+
+	allProperties := allPragmas
+			collect: [ :eachPragma | 
+				[ | aProperty |
+				aProperty := anElement perform: eachPragma methodSelector.
+				aProperty definingMethod: eachPragma method.
+				aProperty ]
+					onErrorDo: [ :anException | 
+						anException
+							return: (GtInspectorElementOverviewProperty new
+									exception: anException;
+									definingMethod: eachPragma method) ] ]
+			thenReject: #isNil.
+
+	allProperties sort: [ :a :b | a label < b label ].
+	^ allProperties
+]
+
 { #category : #'private - properties' }
 GtInspectorElementOverview >> buildBoundsProperties [
 	| theProperties |	
@@ -530,22 +558,7 @@ GtInspectorElementOverview >> elementSpecificProperties [
 	"Collect element overview properties."
 
 	<return: #Collection of: #GtInspectorElementOverviewProperty>
-	| allPragmas allProperties |
-	allPragmas := Pragma
-			allNamed: self class inspectorElementOverviewPragmaName
-			from: inspectedElement class
-			to: BlElement.
-
-	allProperties := allPragmas
-		collect: [ :eachPragma | 
-			| aProperty |
-			aProperty := inspectedElement perform: eachPragma methodSelector.
-			aProperty definingMethod: eachPragma method.
-			aProperty ]
-		thenReject: #isNil.
-		
-	allProperties sort: [ :a :b | a label < b label ].
-	^ allProperties
+	^ self class overviewPropertiesForElement: inspectedElement
 ]
 
 { #category : #'element - visual' }
