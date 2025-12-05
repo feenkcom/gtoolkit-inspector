@@ -19,3 +19,18 @@ Array >> gtLiteralArraySizeInMemory [
 Array >> gtSpecificSizeInMemory [
 	^ self sizeInMemory
 ]
+
+{ #category : #'*GToolkit-Inspector' }
+Array >> gtStringLiteralsOnlySizeInMemory [
+	^ (self sumNumbers: [ :anObject |
+		| objectSize |
+		objectSize := 0.
+		anObject class = Array ifTrue: [
+			objectSize := anObject gtStringLiteralsOnlySizeInMemory ].
+	
+		(anObject class = ByteString or: [
+			anObject class = WideString ]) 
+				ifTrue: [
+					objectSize := anObject sizeInMemory ].
+		objectSize ])
+]
