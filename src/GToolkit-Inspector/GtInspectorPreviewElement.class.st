@@ -15,7 +15,7 @@ Class {
 
 { #category : #'private - updating' }
 GtInspectorPreviewElement >> addMenuItemsForParent: aParentElement of: aPickedElement position: aPositionInPreviewedSpace in: aMenuItems [
-	| aLabel aSubMenuItems |
+	| aLabel aSubMenuItems anElementGroup |
 	aLabel := aParentElement == aPickedElement
 			ifTrue: [ 'Inspect element' ]
 			ifFalse: [ 'Inspect parent' ].
@@ -25,37 +25,72 @@ GtInspectorPreviewElement >> addMenuItemsForParent: aParentElement of: aPickedEl
 				submenu: (aSubMenuItems := BrMenuItems new);
 				action: [ :anElement | anElement phlow spawnObject: aParentElement ];
 				hideOnClick: true).
+	anElementGroup := BrMenuItemGroupConfiguration new
+			name: #Element;
+			priority: 40.
+
+	aParentElement == aPickedElement
+		ifTrue: [ aSubMenuItems
+				addItem: (BrMenuActionItem new
+						icon: BrGlamorousVectorIcons clipboard
+							label: 'Copy picked position in previewed space'
+							preview: [ self displayedPoint: aPositionInPreviewedSpace ];
+						action: [ :aButton | Clipboard default clipboardText: aPositionInPreviewedSpace asString ];
+						group: anElementGroup) ].
 
 	aSubMenuItems
-		addItemLabel: 'Copy picked local position'
-		preview: [ self
-				displayedPoint: (aParentElement globalPointToLocal: aPositionInPreviewedSpace) ]
-		action: [ :aButton | 
-			Clipboard default
-				clipboardText: (aParentElement globalPointToLocal: aPositionInPreviewedSpace) asString ].
+		addItem: (BrMenuActionItem new
+				icon: BrGlamorousVectorIcons clipboard
+					label: 'Copy picked local position'
+					preview: [ self
+							displayedPoint: (aParentElement globalPointToLocal: aPositionInPreviewedSpace) ];
+				action: [ :aButton | 
+					Clipboard default
+						clipboardText: (aParentElement globalPointToLocal: aPositionInPreviewedSpace) asString ];
+				group: anElementGroup).
 
 	aParentElement id = BlElementId noId
 		ifFalse: [ aSubMenuItems
-				addItemLabel: 'Copy element id'
-				preview: [ aParentElement id asSymbol ]
-				action: [ :aButton | 
-					Clipboard default clipboardText: aParentElement id asBlocElementCode asString ].
+				addItem: (BrMenuActionItem new
+						icon: BrGlamorousVectorIcons clipboard
+							label: 'Copy element id'
+							preview: [ aParentElement id asSymbol ];
+						action: [ :aButton | Clipboard default clipboardText: aParentElement id asBlocElementCode asString ];
+						group: anElementGroup).
 			aSubMenuItems
-				addItemLabel: 'Inspect element id'
-				preview: [ aParentElement id asSymbol ]
-				action: [ :aButton | aButton phlow spawnObject: aParentElement id ] ].
+				addItem: (BrMenuActionItem new
+						icon: BrGlamorousVectorIcons inspect
+							label: 'Inspect element id'
+							preview: [ aParentElement id asSymbol ];
+						action: [ :aButton | aButton phlow spawnObject: aParentElement id ];
+						group: anElementGroup) ].
+
+	(GtInspectorElementOverview overviewPropertiesForElement: aParentElement)
+		do: [ :eachProperty | 
+			aSubMenuItems
+				addItem: (BrMenuActionItem new
+						icon: BrGlamorousVectorIcons inspect label: eachProperty label;
+						action: [ :aButton | eachProperty spawnActionBlock cull: self ];
+						group: (BrMenuItemGroupConfiguration new
+								name: #Properties;
+								priority: 60)) ].
 
 	aParentElement children
 		do: [ :eachChild | 
 			aSubMenuItems
-				addItemLabel: 'Inspect child'
-				preview: eachChild gtDisplayString
-				action: [ :anElement | anElement phlow spawnObject: eachChild ] ]
+				addItem: (BrMenuActionItem new
+						icon: BrGlamorousVectorIcons inspect
+							label: 'Inspect child'
+							preview: eachChild gtDisplayString;
+						action: [ :anElement | anElement phlow spawnObject: eachChild ];
+						group: (BrMenuItemGroupConfiguration new
+								name: #Children;
+								priority: 70)) ]
 ]
 
 { #category : #'private - event handling' }
 GtInspectorPreviewElement >> createContextMenuWithContext: aContext [
-	| aMenuItems aPositionInPreviewedSpace aPickedElement aLocalPosition |
+	| aMenuItems aPositionInPreviewedSpace aPickedElement |
 	self previewedElement ifNil: [ ^ nil ].
 
 	aPickedElement := self pickedElementInPreviewedSpace: aContext positionInSpace.
@@ -64,13 +99,6 @@ GtInspectorPreviewElement >> createContextMenuWithContext: aContext [
 			positionInPreviewedSpace: aContext positionInSpace.
 
 	aMenuItems := BrMenuItems new.
-
-	aLocalPosition := aPickedElement globalPointToLocal: aPositionInPreviewedSpace.
-
-	aMenuItems
-		addItemLabel: 'Copy picked position in previewed space'
-		preview: [ self displayedPoint: aPositionInPreviewedSpace ]
-		action: [ :aButton | Clipboard default clipboardText: aPositionInPreviewedSpace asString ].
 
 	aPickedElement
 		withAllParentsDo: [ :eachElement | 
