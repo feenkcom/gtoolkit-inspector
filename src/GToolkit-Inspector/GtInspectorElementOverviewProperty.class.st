@@ -25,6 +25,15 @@ GtInspectorElementOverviewProperty >> definingMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
+GtInspectorElementOverviewProperty >> exception: anException [
+	| aCopy |
+	aCopy := GtSystemUtility freeze: anException.
+	self
+		label: (String streamContents: [ :aStream | aStream print: aCopy ] limitedTo: 40).
+	self spawnActionBlock: [ :anElement | anElement phlow spawnObject: aCopy ]
+]
+
+{ #category : #accessing }
 GtInspectorElementOverviewProperty >> label [
 	^ label
 ]
