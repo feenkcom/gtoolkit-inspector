@@ -79,6 +79,34 @@ CompiledCode >> gtSpecificSizeInMemory [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtSpecificSizeInMemoryStringLiteralsOnly [
+	| computedSize |
+	
+	computedSize := 0.
+	self innerCompiledBlocksDo: [ :aCompiledBlock | 
+		computedSize := computedSize 
+			+ aCompiledBlock gtSpecificSizeInMemoryStringLiteralsOnly ].
+		
+	^ computedSize + self gtStringLiteralsOnlySizeInMemory.
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode >> gtStringLiteralsOnlySizeInMemory [
+	| literalsSize |
+	
+	literalsSize := 0.
+	self literalsDo: [ :aLiteral |
+		aLiteral class = Array ifTrue: [
+			literalsSize := literalsSize + aLiteral gtStringLiteralsOnlySizeInMemory ].
+		
+		(aLiteral class = ByteString or: [
+			aLiteral class = WideString ]) 
+				ifTrue: [
+					literalsSize := literalsSize + aLiteral sizeInMemory ] ].
+	^ literalsSize
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtTreeFor: aView context: aContext [
 	^ aView empty
 ]
