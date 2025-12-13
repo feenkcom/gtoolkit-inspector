@@ -29,10 +29,10 @@ ZnUrl >> gtPreviewFor: aView [
 		priority: 10;
 		stencil: [ | container |
 			container := BlElement new
-					layout: BlLinearLayout horizontal;
-					padding: (BlInsets all: 5);
+					layout: BlFlowLayout new;
+					padding: (BlInsets left: 10);
 					constraintsDo: [ :c | 
-						c horizontal fitContent.
+						c horizontal matchParent.
 						c vertical fitContent ].
 			self hasScheme ifTrue: [
 				container addChild: (self 
@@ -178,6 +178,7 @@ ZnUrl >> newLabel: label withLegend: legend primary: primary [
 	| container largeLabel smallLabel center |
 	container := BlElement new
 			layout: BlLinearLayout vertical;
+			margin: (BlInsets top: 10);
 			constraintsDo: [ :c | 
 				c horizontal fitContent.
 				c vertical fitContent ].
@@ -185,13 +186,13 @@ ZnUrl >> newLabel: label withLegend: legend primary: primary [
 			aptitude: (BrGlamorousLabelAptitude new
 					perform: (primary ifTrue: #yourself ifFalse: #thin);
 					foreground: (primary ifTrue: [ Color black ] ifFalse: [ Color gray ]);
-					fontSize: 32);
+					fontSize: 24);
 			text: label.
 	container addChild: largeLabel.
 	legend
 		ifNotNil: [ smallLabel := BrLabel new
-					aptitude: (BrGlamorousLabelAptitude new thin
-							foreground: Color gray;
+					aptitude: (BrGlamorousLabelAptitude new 
+							foreground: Color black;
 							fontSize: 10);
 					text: legend;
 					constraintsDo: [ :c | 
@@ -201,6 +202,8 @@ ZnUrl >> newLabel: label withLegend: legend primary: primary [
 					constraintsDo: [ :c | 
 						c horizontal matchParent.
 						c vertical matchParent ];
+					background: Color veryVeryLightGray lighter;
+					border: (BlBorder paint: Color transparent width: 2);
 					layout: BlLinearLayout new alignCenter.
 			center addChild: smallLabel.
 			container addChild: center ].
