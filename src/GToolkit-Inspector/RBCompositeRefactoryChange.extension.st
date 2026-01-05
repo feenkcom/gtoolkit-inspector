@@ -89,7 +89,7 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtChildren [
-	^ self changes
+	^ self changes flatCollect: #gtInterestingChanges
 ]
 
 { #category : #'*GToolkit-Inspector' }
