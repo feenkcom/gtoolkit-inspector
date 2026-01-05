@@ -23,6 +23,11 @@ RBRefactoryChange >> gtInspectorLabel [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RBRefactoryChange >> gtInterestingChanges [
+	^ {self}
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBRefactoryChange >> gtLabel [
 	^ self name asRopedText
 ]
