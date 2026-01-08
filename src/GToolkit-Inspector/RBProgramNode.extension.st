@@ -27,7 +27,8 @@ RBProgramNode >> gtSourceCodeFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse'
 			action: [ :aButton | self methodNode compiledMethod gtBrowseFrom: aButton ];
-		stencil: [ ((self methodNode compilationContext
+		stencil: [ (((self methodNode compilationContext
+				ifNotNil: [ self methodNode compiledMethod ])
 				ifNil: [ (GtPharoMethodCoder forNewMethod: Object)
 						sourceCode: (GtCoderExplicitTextSource new text: self methodNode formattedCode) ]
 				ifNotNil: [ GtPharoMethodCoder forMethod: self methodNode compiledMethod ])
