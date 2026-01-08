@@ -47,19 +47,11 @@ CompiledMethod >> gtSourceCodeFor: aView [
 			tooltip: 'Browse method'
 			action: [ :aButton | aButton phlow spawnTool: 
 				(GtMethodCoderTool compiledMethod: self method) ];
-		stencil: [ 
-			self isBigMethod
-				ifTrue: [ 
-					BrEditor new
-						aptitude: BrGlamorousCodeEditorAptitude new;
-						beReadOnlyWithSelection;
-						text: ((self sourceCode first: 10000) , '...') ]
-				ifFalse: [
-
-					(((GtPharoMethodCoder forMethod: self) asCoderViewModel)
+		stencil: [
+			(((GtPharoMethodCoder forMethod: self) asCoderViewModel)
 						withHeader;
 						expanded: true;
-						asExpandedOnlyElement) vFitContentLimited ] ].
+						asExpandedOnlyElement) vFitContentLimited ].
 ]
 
 { #category : #'*GToolkit-Inspector' }

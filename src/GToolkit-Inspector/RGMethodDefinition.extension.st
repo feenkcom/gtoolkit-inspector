@@ -44,14 +44,7 @@ RGMethodDefinition >> gtSourceFor: aView [
 		title: 'Source';
 		priority: 5;
 		stencil: [ 
-			self method isBigMethod
-				ifTrue: [ 
-					BrEditor new
-						aptitude: BrGlamorousCodeEditorAptitude new;
-						beReadOnlyWithSelection;
-						text: ((self method sourceCode first: 10000) , '...') ]
-				ifFalse: [ 
-					self asGtPharoMethodCoder asExpandedOnlyElement vFitContentLimited ] ];
+			self asGtPharoMethodCoder asExpandedOnlyElement vFitContentLimited ];
 		actionButtonIcon: BrGlamorousVectorIcons browse
 			tooltip: 'Browse method'
 			action: [ :aButton | aButton phlow spawnTool: (GtMethodCoderTool compiledMethod: self method) ]
