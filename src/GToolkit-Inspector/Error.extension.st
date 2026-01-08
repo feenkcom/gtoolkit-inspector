@@ -1,12 +1,9 @@
-Extension { #name : #AssertionFailure }
+Extension { #name : #Error }
 
 { #category : #'*GToolkit-Inspector' }
-AssertionFailure >> gtScripter [
+Error >> gtScripter [
 	| assertionContext scripterValue |
 	
-	BlDevScripterStepExecutionIndicator 
-		ifScripter: [ :aScripter | ^ aScripter ] 
-		ifNone: [ ].
 	self gtHasStack ifFalse: [ ^ nil ].
 
 	assertionContext := self signalerContext
