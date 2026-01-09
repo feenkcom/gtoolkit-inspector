@@ -14,6 +14,9 @@ GtInspectorSelectedTabExtractor >> extractTabName [
 	<return: #GtInspectorTabName>
 	self inspectorElement phlow
 		firstChildWithCompositeViewContentDo: [ :tabGroup | 
+			tabGroup viewModel hasSelectedTab 
+				ifFalse: [ ^ GtInspectorTabName null ].
+		
 			^ tabGroup viewModel selectedTab widget
 				phlow entity 
 					ifNotNil: [ :aPhlow | 
