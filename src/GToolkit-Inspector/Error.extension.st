@@ -1,8 +1,9 @@
-Extension { #name : #AssertionFailure }
+Extension { #name : #Error }
 
 { #category : #'*GToolkit-Inspector' }
-AssertionFailure >> gtScripter [
+Error >> gtScripter [
 	| assertionContext scripterValue |
+	
 	self gtHasStack ifFalse: [ ^ nil ].
 
 	assertionContext := self signalerContext
