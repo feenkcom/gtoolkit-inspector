@@ -49,6 +49,14 @@ GtInspectorPreviewElement >> addMenuItemsForParent: aParentElement of: aPickedEl
 						clipboardText: (aParentElement globalPointToLocal: aPositionInPreviewedSpace) asString ];
 				group: anElementGroup).
 
+	aSubMenuItems
+			addItem: (BrMenuActionItem new
+					icon: BrGlamorousVectorIcons clipboard
+						label: 'Copy element class name'
+						preview: [ aParentElement className asString ];
+					action: [ :aButton | Clipboard default clipboardText: aParentElement className asString ];
+					group: anElementGroup).
+				
 	aParentElement id = BlElementId noId
 		ifFalse: [ aSubMenuItems
 				addItem: (BrMenuActionItem new
