@@ -36,6 +36,26 @@ RBNamespace >> gtChangesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RBNamespace >> gtClassesViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'By classes';
+		priority: 35;
+		object: [ changes ];
+		view: #gtClassesViewFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RBNamespace >> gtMethodsViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'By methods';
+		priority: 36;
+		object: [ changes ];
+		view: #gtMethodsViewFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBNamespace >> gtRemovedClassesFor: aView [
 	<gtView>
 	removedClasses ifNil: [ ^ aView empty ].

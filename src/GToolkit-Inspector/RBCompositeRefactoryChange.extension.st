@@ -8,7 +8,7 @@ RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 		stencil: [ | pane changesElement applyButton progress |
 			pane := BrVerticalPane new.
 			pane matchParent.
-			changesElement := GtChangesElement new.
+			changesElement := GtFilteredChangesElement new.
 			changesElement changes: self.
 			pane addChild: changesElement.
 			pane addAptitude: (BrLayoutResizerAptitude new inherit: changesElement).
@@ -50,7 +50,7 @@ RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 				addChild: (BrHorizontalPane new
 						vFitContent;
 						hMatchParent;
-						addChild: applyButton;
+						addChild: applyButton as: #applyButton;
 						addChild: progress).
 			pane ]
 ]
@@ -93,8 +93,28 @@ RBCompositeRefactoryChange >> gtChildren [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RBCompositeRefactoryChange >> gtClassesViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'By classes';
+		priority: 35;
+		object: [ GtRBClassChangeGroup buildFrom: self ];
+		view: #gtItemsFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RBCompositeRefactoryChange >> gtLabel [
 	^ self changes
 		ifNotNil: [ self name, ':', self changes size asString, ' changes' ] 
 		ifNil: [ '0 changes' ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RBCompositeRefactoryChange >> gtMethodsViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'By methods';
+		priority: 36;
+		object: [ GtRBMethodChangeGroup buildFrom: self ];
+		view: #gtItemsFor:
 ]
