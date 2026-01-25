@@ -8,7 +8,7 @@ RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 		stencil: [ | pane changesElement applyButton progress |
 			pane := BrVerticalPane new.
 			pane matchParent.
-			changesElement := GtChangesElement new.
+			changesElement := GtFilteredChangesElement new.
 			changesElement changes: self.
 			pane addChild: changesElement.
 			pane addAptitude: (BrLayoutResizerAptitude new inherit: changesElement).
