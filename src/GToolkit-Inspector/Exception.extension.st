@@ -11,6 +11,16 @@ Exception >> gtDebugActionFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Exception >> gtDescriptionFor: aView [
+	<gtView>
+	
+	^ aView text
+		title: 'Description';
+		priority: 30;
+		text: [ self description ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Exception >> gtHasStack [
 	^ signalContext isNotNil and: [ self signalerContext isNotNil ]
 ]
