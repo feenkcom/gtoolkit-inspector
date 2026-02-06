@@ -57,10 +57,10 @@ RGMethodDefinition >> gtTreeFor: aView [
 	self isDefined ifFalse: [ ^aView empty].
 	
 	^aView forward 
-		title: 'RB tree';
-		priority: 60;
+		title: 'AST';
+		priority: 27;
 		object: [ self method ];
-		view: #gtTreeFor:
+		view: #gtASTTreeFor:
 ]
 
 { #category : #'*GToolkit-Inspector' }

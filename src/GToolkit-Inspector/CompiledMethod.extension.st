@@ -1,6 +1,16 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtASTTreeFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'AST';
+		priority: 24;
+		object: [ self ast ];
+		view: #gtTreeFor:
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtMethodCodersFor: aView [
 	<gtView>
 	^ aView columnedList
