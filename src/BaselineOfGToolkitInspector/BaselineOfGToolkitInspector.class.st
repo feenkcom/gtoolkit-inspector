@@ -77,7 +77,7 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-completer:v0.9.40/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.7.82/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.7.83/src' ].
 		spec
 			baseline: 'GToolkitExamples' with: [
 				spec repository: 'github://feenkcom/gtoolkit-examples:v0.8.128/src' ].
