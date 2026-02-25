@@ -58,7 +58,13 @@ MemoryLogger >> gtRecordingsFor: aView [
 		column: 'Type' translated text: [ :each | each name ] weight: 2;
 		column: 'Contents' translated 
 			text: [ :each | String streamContents: [ :s | each printOneLineContentsOn: s ] ] weight: 2;
-		actionUpdateButton
+		actionUpdateButton;
+		"This view is forwarded to quite a lot, 
+		but the underlying MemoryLogger (which can display grouped messages) is probably not accessible.
+		Provide an inspection button to view the MemoryLogger."
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			tooltip: 'Inspect MemoryLogger' 
+			action: [ :aButton | aButton phlow spawnObject: self ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
