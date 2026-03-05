@@ -5,9 +5,12 @@ ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
 		priority: 70;
+		target: GtPhlowObjectActionTarget + GtPhlowObjectContextMenuTarget;
 		id: GtInspectorBrowseButtonId;
 		tooltip: 'Browse class for current object';
 		icon: BrGlamorousVectorIcons emphasizedBrowse;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: self class instanceSide name;
 		action: [ :aButton | 
 			aButton phlow
 				spawnTool: (GtPhlowExplicitTool new
@@ -18,17 +21,51 @@ ProtoObject >> gtActionBrowseFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtActionCopyClassNameInspectFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 80;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons clipboard;
+		tooltip: 'Copy class name';
+		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemPreview: self class instanceSide name;
+		action: [ :aButton |
+			Clipboard clipboardText: self class instanceSide name ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtActionCopyDisplayTextInspectFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 85;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons clipboard;
+		tooltip: 'Copy display text';
+		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemPreview: [ self gtDisplayText ];
+		action: [ :aButton |
+			Clipboard clipboardText: self gtDisplayText ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
 		priority: 76;
+		target: GtPhlowObjectActionTarget + GtPhlowObjectContextMenuTarget;
 		icon: BrGlamorousVectorIcons inspect;
 		tooltip: 'Inspect current object';
 		id: GtInspectorInspectButtonId;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: self gtDisplayText;
 		action: [ :aButton |
 			aButton phlow spawnObject: self ];
 		primaryModifierAction: [ :aButton |
-				aButton phlow showObject: self ]
+			BlSpace new
+				withCommonSettings;
+				objectInPager: self;
+				showFrom: aButton ]
 			mouseCursor: BlCopyCursor new
 ]
 
