@@ -5,7 +5,7 @@ ProtoObject >> gtActionBrowseFor: anAction [
 	<gtAction>
 	^ anAction button
 		priority: 70;
-		target: GtPhlowObjectActionTarget + GtPhlowObjectContextMenuTarget;
+		target: GtPhlowObjectContextMenuTarget;
 		id: GtInspectorBrowseButtonId;
 		tooltip: 'Browse class for current object';
 		icon: BrGlamorousVectorIcons emphasizedBrowse;
@@ -53,7 +53,7 @@ ProtoObject >> gtActionInspectFor: anAction [
 	<gtAction>
 	^ anAction button
 		priority: 76;
-		target: GtPhlowObjectActionTarget + GtPhlowObjectContextMenuTarget;
+		target: GtPhlowObjectContextMenuTarget;
 		icon: BrGlamorousVectorIcons inspect;
 		tooltip: 'Inspect current object';
 		id: GtInspectorInspectButtonId;
