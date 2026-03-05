@@ -59,18 +59,34 @@ GtInspectorStep >> assertSelectedTabWithName: aName [
 
 { #category : #'steps - interactions' }
 GtInspectorStep >> clickOnBrowseButton [
-	^ self click
-		referenceSender;
-		label: 'Click on browse button';
-		// GtInspectorBrowseButtonId
+	^ self
+		substeps2: 'Click on browse button'
+		do: [ :aStep | 
+			aStep menuStep
+				onParentStepTarget: aStep;
+				// GtPhlowLabelledViewElementId;
+				/ #header;
+				openContextMenu.
+
+			aStep menuStep
+				clickMenuItemWithId: GtInspectorBrowseButtonId;
+				onPopover ]
 ]
 
 { #category : #'steps - interactions' }
 GtInspectorStep >> clickOnInspectButton [
-	^ self click
-		referenceSender;
-		label: 'Click on inspect button';
-		// GtInspectorInspectButtonId
+	^ self
+		substeps2: 'Click on inspect button'
+		do: [ :aStep | 
+			aStep menuStep
+				onParentStepTarget: self;
+				// GtPhlowLabelledViewElementId;
+				/ #header;
+				openContextMenu.
+
+			aStep menuStep
+				clickMenuItemWithId: GtInspectorInspectButtonId;
+				onPopover ]
 ]
 
 { #category : #'steps - interactions' }
