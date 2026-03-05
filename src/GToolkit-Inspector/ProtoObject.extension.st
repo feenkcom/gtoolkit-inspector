@@ -70,6 +70,18 @@ ProtoObject >> gtActionInspectFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+ProtoObject >> gtActionObjectDropdownFor: anAction [
+	<gtAction>
+	^ anAction dropdown
+		priority: 120;
+		target: GtPhlowObjectActionTarget;
+		id: GtInspectorDropdownButtonId;
+		tooltip: 'Display object related actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		menuItemsForObject: self fromTarget: GtPhlowObjectContextMenuTarget
+]
+
+{ #category : #'*GToolkit-Inspector' }
 ProtoObject >> gtActions [
 	"This collects all view actions for the current object in a new context"
 	<return: #Array of: #GtPhlowAction>
