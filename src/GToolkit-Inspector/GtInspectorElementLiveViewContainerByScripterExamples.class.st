@@ -159,12 +159,10 @@ GtInspectorElementLiveViewContainerByScripterExamples >> elementInSecondPagerPag
 	aScripter
 		substeps: 'Element in the second pane'
 		do: [ :aStep | 
-			aStep
-				clickStep: [ :s | 
-					s
-						label: 'Spawn the second inspector';
-						// GtInspectorInspectButtonId ].
-
+			aScripter inspectorStep
+				clickOnInspectButton;
+				play.
+		
 			aStep
 				assertStep: [ :s | 
 					s

@@ -11,6 +11,12 @@ RBCompositeRefactoryChange >> gtApplyingChangesFor: aView [
 			changesElement := GtFilteredChangesElement new.
 			changesElement vFitContentLimited.
 			changesElement changes: self.
+			changesElement
+				margin: (BlInsets
+						top: 5
+						left: 10
+						bottom: 5
+						right: 10).
 			pane addChild: changesElement.
 			pane addAptitude: (BrLayoutResizerAptitude new inherit: changesElement).
 			progress := BrProgress new.
