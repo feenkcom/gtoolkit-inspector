@@ -39,6 +39,16 @@ GtRefactoryChangeExamples >> applyEmptyFilterChanges [
 ]
 
 { #category : #examples }
+GtRefactoryChangeExamples >> applyRenameMethodChangesView [
+	<gtExample>
+	| scripter |
+	scripter := BlScripter new
+			element: (self createRenameMethodChanges gtApplyingChangesFor: GtPhlowEmptyView new)
+					asElement.
+	^ scripter
+]
+
+{ #category : #examples }
 GtRefactoryChangeExamples >> applyWithAllDisabled [
 	<gtExample>
 	| scripter |
@@ -124,33 +134,48 @@ GtRefactoryChangeExamples >> clickHeaderExpandsDiff [
 
 { #category : #examples }
 GtRefactoryChangeExamples >> createChanges [
-	| namespaces refactorings |
-	namespaces := GtRBNamespace new.
+	| namespace refactorings |
+	namespace := GtRBNamespace new.
 	refactorings := {GtRBAddClassWithVarsRefactoring
-				model: namespaces
+				model: namespace
 				addClass: #Asdf1234
 				superclass: #Object
 				subclasses: #()
 				category: #Asdf1234.
 			GtRBAddClassWithVarsRefactoring
-				model: namespaces
+				model: namespace
 				addClass: #Fdsa4321
 				superclass: #Asdf1234
 				subclasses: #()
 				category: #Asdf1234.
 			GtRBAddMethodRefactoring
-				model: namespaces
+				model: namespace
 				sourceCode: 'asdf ^ 42'
 				in: #Asdf1234
 				withProtocol: #access.
 			GtRBPushDownMethodRefactoring
-				model: namespaces
+				model: namespace
 				pushDown: #(#asdf)
 				from: #Asdf1234}.
 	(GtRBCompositeTransformation new
-		model: namespaces;
+		model: namespace;
 		refactorings: refactorings) primitiveExecute.
-	^ namespaces changes
+	^ namespace changes
+]
+
+{ #category : #examples }
+GtRefactoryChangeExamples >> createRenameMethodChanges [
+	| refactoring |
+	refactoring := GtRBRenameMethodRefactoring
+			renameMethod: #addLast:
+			in: OrderedCollection
+			to: #addLast123:
+			permutation: #(1).
+	refactoring primitiveExecute.
+	refactoring model changes
+		attributeNamed: #defaultClassFilterName
+		put: #OrderedCollection.
+	^ refactoring model changes
 ]
 
 { #category : #examples }
@@ -192,4 +217,42 @@ GtRefactoryChangeExamples >> filterChanges [
 	(scripter keyPress: BlKeyboardKey return) play.
 	self assert: (self changesIn: scripter) size equals: 3.
 	^ scripter
+]
+
+{ #category : #examples }
+GtRefactoryChangeExamples >> filterHierarchyChanges [
+	<gtExample>
+	| scripter |
+	scripter := self applyRenameMethodChangesView.
+	scripter clickStep: [ :s | s // GtFiltersAddId ].
+	scripter
+		clickStep: [ :s | 
+			s
+				onSpaceRoot;
+				// BrLabel;
+				@ [ :each | each text asString = 'In hierarchy' ] ].
+	scripter clickStep: [ :s | s // GtFilterSettingsId ].
+	(self changesIn: scripter)
+		do: [ :change | 
+			self
+				assert: (change change isBasicChange not
+						or: [ (change change changeClass includesBehavior: OrderedCollection)
+								or: [ OrderedCollection includesBehavior: change change changeClass ] ]) ].
+	self assert: (self hasChangeFromOwnClassIn: scripter) not.
+	scripter shortcut
+		combination: BlKeyCombination primaryA;
+		id: #editor;
+		play.
+	(scripter type: self class name) play.
+	(scripter keyPress: BlKeyboardKey return) play.
+	self assert: (self hasChangeFromOwnClassIn: scripter).
+	^ scripter
+]
+
+{ #category : #examples }
+GtRefactoryChangeExamples >> hasChangeFromOwnClassIn: scripter [
+	^ (self changesIn: scripter)
+		anySatisfy: [ :each | 
+			(each change isKindOf: RBAddMethodChange)
+				and: [ each change changeClass = self class ] ]
 ]
