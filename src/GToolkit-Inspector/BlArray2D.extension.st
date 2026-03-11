@@ -1,7 +1,7 @@
-Extension { #name : #Array2D }
+Extension { #name : #BlArray2D }
 
 { #category : #'*GToolkit-Inspector' }
-Array2D >> gtTableFor: aView [
+BlArray2D >> gtTableFor: aView [
 	<gtView>
 	| view |
 
@@ -16,7 +16,7 @@ Array2D >> gtTableFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Array2D >> rowsCollect: aBlock [ 
+BlArray2D >> rowsCollect: aBlock [ 
 	"Collect the result of evaluating aBlock with each row of the receiver"
 
 	^ Array streamContents: [ :stream |
@@ -25,7 +25,7 @@ Array2D >> rowsCollect: aBlock [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-Array2D >> rowsDo: aBlock [ 
+BlArray2D >> rowsDo: aBlock [ 
 	"Evaluate aBlock with each row of the receiver"
 
 	1 to: numberOfRows do: [ :row |
