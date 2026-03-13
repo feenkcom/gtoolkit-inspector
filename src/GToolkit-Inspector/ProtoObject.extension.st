@@ -167,7 +167,7 @@ ProtoObject >> gtRawFor: aView [
 						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
 								ifNil: [ anInspectorNode rawValue class iconNamed: anInspectorNode rawValue class systemIconName ] ]
 								on: Error
-								do: [ :error | Smalltalk ui icons iconNamed: #smallWarningIcon ].
+								do: [ :error | Smalltalk ui icons iconNamed: #smallWarning ].
 
 						itemElement
 							removeChildren;
