@@ -290,16 +290,24 @@ BlElement >> gtResizersFor: aView [
 		items: [ self withAllParents reversed ];
 		column: 'Width'
 			text: [ :anElement | anElement constraints horizontal resizer ];
-		column: 'Height'
-			text: [ :anElement | anElement constraints vertical resizer ];
 		column: 'Width spec' 
 			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #widthSpec ];
+				| aText |
+				aText := (anElement privatePreviousMeasurementSpec
+					ifNotNil: #widthSpec) gtDisplayText.
+				aText append: ((' (', (anElement width printShowingDecimalPlaces: 1), ')' ) 
+					gtDisplayText foreground: BrGlamorousColors disabledButtonTextColor).
+				aText ];
+		column: 'Height'
+			text: [ :anElement | anElement constraints vertical resizer ];
 		column: 'Height spec' 
 			text: [ :anElement :anIndex | 
-				anElement privatePreviousMeasurementSpec
-					ifNotNil: #heightSpec ];
+				| aText |
+				aText := (anElement privatePreviousMeasurementSpec
+					ifNotNil: #heightSpec) gtDisplayText.
+				aText append: ((' (', (anElement height printShowingDecimalPlaces: 1), ')' ) 
+					gtDisplayText foreground: BrGlamorousColors disabledButtonTextColor).
+				aText ];
 		column: 'Layout' text: [ :anElement |
 			| aText aVisibilityText |
 			aText := anElement layout gtDisplayText.
