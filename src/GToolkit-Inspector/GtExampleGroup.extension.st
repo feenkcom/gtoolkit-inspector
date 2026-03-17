@@ -30,19 +30,6 @@ GtExampleGroup >> buildButtonsContainer: aButtonsContainer listWidget: anElement
 ]
 
 { #category : #'*GToolkit-Inspector' }
-GtExampleGroup >> gtExpandableExamplesFor: aView [
-	<gtView>
-	^ aView explicit
-		title: 'Methods';
-		priority: 1;
-		stencil: [
-			GtExampleGroupCoder new forItems: (self examples sorted: GtMethodsSortFunction new) ];
-		actionButtonIcon: BrGlamorousVectorIcons play 
-			tooltip: 'Run all examples'
-			action: [ :aButton | self runAll ]
-]
-
-{ #category : #'*GToolkit-Inspector' }
 GtExampleGroup >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
