@@ -14,15 +14,6 @@ PackageTag >> gtDefinedClassesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
-PackageTag >> gtExamplesFor: aView [
-	<gtView>
-	<gtPackageTagView>
-	
-	^ (GtExampleGroup withAll: self gtExamplesAllContained)
-			gtExamplesFor: aView
-]
-
-{ #category : #'*GToolkit-Inspector' }
 PackageTag >> gtSpecificSizeInMemory [
 	^ self sizeInMemory 
 		+ classes gtSpecificSizeInMemory
