@@ -165,7 +165,8 @@ ProtoObject >> gtRawFor: aView [
 						| nodeIcon extraInfo |
 						extraInfo := false.
 						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
-								ifNil: [ anInspectorNode rawValue class iconNamed: anInspectorNode rawValue class systemIconName ] ]
+								ifNil: [ anInspectorNode rawValue class
+										iconNamed: anInspectorNode rawValue class systemIconName ] ]
 								on: Error
 								do: [ :error | Smalltalk ui icons iconNamed: #smallWarning ].
 
@@ -179,12 +180,17 @@ ProtoObject >> gtRawFor: aView [
 									text: anInspectorNode label;
 									alignCenterLeft;
 									fitContent).
-									
-						"(anInspectorNode isSlotNode
-							and: [ (anInspectorNode isDefinedInADifferentClassThanHost) ])
-							ifTrue: [
-								itemElement
-									addChild: (BrVerticalPane new fitContent; addChild: BrGlamorousVectorIcons upwards asElement) ]."
+
+						(anInspectorNode isSlotNode )
+							ifTrue: [ itemElement
+									addChild: (BrLabel new
+											aptitude: (BrGlamorousListLabelAptitude new
+													foreground: itemElement theme button disabledTextColor);
+											beSmallSize;
+											text: anInspectorNode value class name;
+											alignCenterLeft;
+											hMatchParent;
+											vFitContent) ].
 
 						anInspectorNode isWeakClassNode
 							ifTrue: [ extraInfo := true.
@@ -262,12 +268,11 @@ ProtoObject >> gtRawFor: aView [
 			Array
 				streamContents: [ :aStream | 
 					anInspectorNode isSlotNode
-						ifTrue: [ 
-							| aPhlowContext |
+						ifTrue: [ | aPhlowContext |
 							aPhlowContext := GtPhlowContext new.
 							aPhlowContext selfObject: anInspectorNode hostObject.
 							aPhlowContext behavior: anInspectorNode hostObject class.
-						
+
 							GtCoderVariableTarget
 								menuItemsForObject: anInspectorNode slot
 								inContext: aPhlowContext
