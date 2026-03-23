@@ -162,8 +162,7 @@ ProtoObject >> gtRawFor: aView [
 			do: [ :aColumn | 
 				aColumn
 					dataBinder: [ :itemElement :anInspectorNode | 
-						| nodeIcon extraInfo |
-						extraInfo := false.
+						| nodeIcon variableLabel classNameLabel extraInfoLabel |
 						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
 								ifNil: [ anInspectorNode rawValue class
 										iconNamed: anInspectorNode rawValue class systemIconName ] ]
@@ -173,17 +172,15 @@ ProtoObject >> gtRawFor: aView [
 						itemElement
 							removeChildren;
 							addChild: nodeIcon asElement.
-
-						itemElement
-							addChild: (BrLabel new
-									aptitude: BrGlamorousListLabelAptitude;
-									text: anInspectorNode label;
-									alignCenterLeft;
-									fitContent).
+							
+						variableLabel := (BrLabel new
+								aptitude: BrGlamorousListLabelAptitude;
+								text: anInspectorNode label;
+								alignCenterLeft;
+								fitContent).
 
 						(anInspectorNode isSlotNode )
-							ifTrue: [ itemElement
-									addChild: (BrLabel new
+							ifTrue: [ classNameLabel := (BrLabel new
 											aptitude: (BrGlamorousListLabelAptitude new
 													foreground: itemElement theme button disabledTextColor);
 											beSmallSize;
@@ -193,9 +190,8 @@ ProtoObject >> gtRawFor: aView [
 											vFitContent) ].
 
 						anInspectorNode isWeakClassNode
-							ifTrue: [ extraInfo := true.
-								itemElement
-									addChild: (BrLabel new
+							ifTrue: [ 
+								extraInfoLabel := (BrLabel new
 											aptitude: (BrGlamorousListLabelAptitude new
 													foreground: itemElement theme button disabledTextColor);
 											beMiniSize;
@@ -205,9 +201,7 @@ ProtoObject >> gtRawFor: aView [
 											vFitContent) ].
 
 						anInspectorNode isEphemeronClassNode
-							ifTrue: [ extraInfo := true.
-								itemElement
-									addChild: (BrLabel new
+							ifTrue: [ extraInfoLabel := (BrLabel new
 											aptitude: (BrGlamorousListLabelAptitude new
 													foreground: itemElement theme button disabledTextColor);
 											beMiniSize;
@@ -217,9 +211,7 @@ ProtoObject >> gtRawFor: aView [
 											vFitContent) ].
 
 						anInspectorNode isWeakReferenceNode
-							ifTrue: [ extraInfo := true.
-								itemElement
-									addChild: (BrLabel new
+							ifTrue: [ extraInfoLabel := (BrLabel new
 											aptitude: (BrGlamorousListLabelAptitude new
 													foreground: itemElement theme button disabledTextColor);
 											beMiniSize;
@@ -229,9 +221,7 @@ ProtoObject >> gtRawFor: aView [
 											vFitContent) ].
 
 						anInspectorNode isEphemeronReferenceNode
-							ifTrue: [ extraInfo := true.
-								itemElement
-									addChild: (BrLabel new
+							ifTrue: [ extraInfoLabel := (BrLabel new
 											aptitude: (BrGlamorousListLabelAptitude new
 													foreground: itemElement theme button disabledTextColor);
 											beMiniSize;
@@ -239,14 +229,32 @@ ProtoObject >> gtRawFor: aView [
 											alignCenterLeft;
 											hMatchParent;
 											vFitContent) ].
+											
+						(classNameLabel isNotNil or: [ extraInfoLabel isNotNil ])
+							ifTrue: [
+								| labelsContainer |
+								labelsContainer := BlElement new
+									layout: BrEditorTextFlowLayout new ;
+									constraintsDo: [ :c |
+										c horizontal fitContent.
+										c vertical fitContent ].
+										
+								labelsContainer addChild: variableLabel.
+								classNameLabel ifNotNil: [ labelsContainer addChild: classNameLabel ].
+								extraInfoLabel ifNotNil: [ labelsContainer addChild: extraInfoLabel ].
+								
+								itemElement addChild: labelsContainer
+							
+							]
+							ifFalse: [ itemElement addChild: variableLabel ].
 
-						extraInfo ifFalse: [ itemElement children last hMatchParent ].
+						"extraInfo ifFalse: [ itemElement children last hMatchParent ]."
 
 						itemElement ];
 					cellStencil: [ BrHorizontalPane new
 							hMatchParent;
 							vFitContent;
-							alignCenter ] ];
+							alignCenterLeft  ] ];
 		column: 'Value'
 			text: [ :anInspectorNode | 
 				[ anInspectorNode rawValue gtDisplayText ]
