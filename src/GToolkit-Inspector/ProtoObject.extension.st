@@ -171,90 +171,90 @@ ProtoObject >> gtRawFor: aView [
 
 						itemElement
 							removeChildren;
-							addChild: nodeIcon asElement.
-							
-						variableLabel := (BrLabel new
+							addChild: (nodeIcon asElement margin: (BlInsets right: 5)).
+
+						variableLabel := BrLabel new
 								aptitude: BrGlamorousListLabelAptitude;
 								text: anInspectorNode label;
 								alignCenterLeft;
-								fitContent).
+								fitContent.
 
-						(anInspectorNode isSlotNode )
-							ifTrue: [ classNameLabel := (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beSmallSize;
-											text: anInspectorNode value class name;
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ].
+						anInspectorNode isSlotNode
+							ifTrue: [ classNameLabel := BrLabel new
+										aptitude: (BrGlamorousListLabelAptitude new
+												foreground: itemElement theme button disabledTextColor);
+										beSmallSize;
+										text: anInspectorNode value class name;
+										alignCenterLeft;
+										hMatchParent;
+										vFitContent ].
 
 						anInspectorNode isWeakClassNode
-							ifTrue: [ 
-								extraInfoLabel := (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beMiniSize;
-											text: 'weak class';
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ].
+							ifTrue: [ extraInfoLabel := BrLabel new
+										aptitude: (BrGlamorousListLabelAptitude new
+												foreground: itemElement theme button disabledTextColor);
+										beMiniSize;
+										text: 'weak class';
+										alignCenterLeft;
+										hMatchParent;
+										vFitContent ].
 
 						anInspectorNode isEphemeronClassNode
-							ifTrue: [ extraInfoLabel := (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beMiniSize;
-											text: 'ephemeron class';
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ].
+							ifTrue: [ extraInfoLabel := BrLabel new
+										aptitude: (BrGlamorousListLabelAptitude new
+												foreground: itemElement theme button disabledTextColor);
+										beMiniSize;
+										text: 'ephemeron class';
+										alignCenterLeft;
+										hMatchParent;
+										vFitContent ].
 
 						anInspectorNode isWeakReferenceNode
-							ifTrue: [ extraInfoLabel := (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beMiniSize;
-											text: 'weak reference';
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ].
+							ifTrue: [ extraInfoLabel := BrLabel new
+										aptitude: (BrGlamorousListLabelAptitude new
+												foreground: itemElement theme button disabledTextColor);
+										beMiniSize;
+										text: 'weak reference';
+										alignCenterLeft;
+										hMatchParent;
+										vFitContent ].
 
 						anInspectorNode isEphemeronReferenceNode
-							ifTrue: [ extraInfoLabel := (BrLabel new
-											aptitude: (BrGlamorousListLabelAptitude new
-													foreground: itemElement theme button disabledTextColor);
-											beMiniSize;
-											text: 'ephemeron reference';
-											alignCenterLeft;
-											hMatchParent;
-											vFitContent) ].
-											
-						(classNameLabel isNotNil or: [ extraInfoLabel isNotNil ])
-							ifTrue: [
-								| labelsContainer |
-								labelsContainer := BlElement new
-									layout: BrEditorTextFlowLayout new ;
-									constraintsDo: [ :c |
-										c horizontal fitContent.
-										c vertical fitContent ].
-										
-								labelsContainer addChild: variableLabel.
-								classNameLabel ifNotNil: [ labelsContainer addChild: classNameLabel ].
-								extraInfoLabel ifNotNil: [ labelsContainer addChild: extraInfoLabel ].
-								
-								itemElement addChild: labelsContainer
-							
-							]
-							ifFalse: [ itemElement addChild: variableLabel ].
+							ifTrue: [ extraInfoLabel := BrLabel new
+										aptitude: (BrGlamorousListLabelAptitude new
+												foreground: itemElement theme button disabledTextColor);
+										beMiniSize;
+										text: 'ephemeron reference';
+										alignCenterLeft;
+										hMatchParent;
+										vFitContent ].
 
-						"extraInfo ifFalse: [ itemElement children last hMatchParent ]."
+						(classNameLabel isNotNil or: [ extraInfoLabel isNotNil ])
+							ifTrue: [ | labelsContainer |
+								labelsContainer := BlElement new
+										layout: BrEditorTextFlowLayout new;
+										constraintsDo: [ :c | 
+											c horizontal fitContent.
+											c vertical fitContent ].
+
+								labelsContainer addChild: variableLabel.
+								classNameLabel
+									ifNotNil: [ itemElement
+											addAptitude: (BrLazyStyleCommonAptitude new
+													@ classNameLabel;
+													default: [ :style | style gone ];
+													hovered: [ :style | style visible ]).
+										labelsContainer addChild: classNameLabel ].
+								extraInfoLabel ifNotNil: [ labelsContainer addChild: extraInfoLabel ].
+
+								itemElement addChild: labelsContainer ]
+							ifFalse: [ itemElement addChild: variableLabel ].	"extraInfo ifFalse: [ itemElement children last hMatchParent ]."
 
 						itemElement ];
 					cellStencil: [ BrHorizontalPane new
 							hMatchParent;
 							vFitContent;
-							alignCenterLeft  ] ];
+							alignCenterLeft ] ];
 		column: 'Value'
 			text: [ :anInspectorNode | 
 				[ anInspectorNode rawValue gtDisplayText ]
