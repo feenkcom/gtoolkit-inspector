@@ -4,7 +4,7 @@
 		"github://feenkcom/gtoolkit-examples/src" : "v0.8.130",
 		"github://feenkcom/pharo-unicode/src" : "6009624954a01d2febc984c854581e02834c2d2b",
 		"github://feenkcom/gtoolkit-pager/src" : "v0.9.81",
-		"github://feenkcom/gt4pharo/src" : "v0.7.137",
+		"github://feenkcom/gt4pharo/src" : "v0.7.138",
 		"github://feenkcom/gtoolkit-spotter/src" : "v0.9.75",
 		"github://feenkcom/gtoolkit-completer/src" : "v0.9.76"
 	}
