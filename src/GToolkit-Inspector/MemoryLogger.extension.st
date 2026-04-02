@@ -47,6 +47,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 	^ aView columnedList
 		title: 'Recordings' translated;
 		priority: 50;
+		withMultipleSelection;
 		items: [ | aCollection | 
 			aCollection := self recordings reverse.
 			aCollectionSize := aCollection size.
