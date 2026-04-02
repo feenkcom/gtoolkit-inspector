@@ -47,6 +47,7 @@ MemoryLogger >> gtRecordingsFor: aView [
 	^ aView columnedList
 		title: 'Recordings' translated;
 		priority: 50;
+		withMultipleSelection;
 		items: [ | aCollection | 
 			aCollection := self recordings reverse.
 			aCollectionSize := aCollection size.
@@ -64,7 +65,10 @@ MemoryLogger >> gtRecordingsFor: aView [
 		Provide an inspection button to view the MemoryLogger."
 		actionButtonIcon: BrGlamorousVectorIcons inspect
 			tooltip: 'Inspect MemoryLogger' 
-			action: [ :aButton | aButton phlow spawnObject: self ]
+			action: [ :aButton | aButton phlow spawnObject: self ];
+		send: [ :aValue | aValue isCollection 
+			ifTrue: [ self class withRecordings: aValue  ] 
+			ifFalse: [ aValue ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
