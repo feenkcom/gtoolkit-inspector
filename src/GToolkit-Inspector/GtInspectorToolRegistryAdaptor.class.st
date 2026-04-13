@@ -19,7 +19,7 @@ GtInspectorToolRegistryAdaptor class >> inspect: anObject [
 { #category : #testing }
 GtInspectorToolRegistryAdaptor class >> isRegistered [
 	<return: #Boolean>
-	^ Smalltalk tools inspector = self 
+	^ (Smalltalk tools toolNamed: #inspector) = self 
 
 ]
 
