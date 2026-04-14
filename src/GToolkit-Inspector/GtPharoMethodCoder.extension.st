@@ -3,7 +3,8 @@ Extension { #name : #GtPharoMethodCoder }
 { #category : #'*GToolkit-Inspector' }
 GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns>
-	| node implementer objectCode lastValue |
+	| node implementer objectCode lastValue aDocumentId |
+	aDocumentId := aCoderViewModel documentId.
 	anAst isMethod ifFalse: [ ^ self ].
 	(anAst pragmasNamed: #gtView) ifNil: [ ^ self ].
 	node := self nodeFrom: aCoderViewModel.

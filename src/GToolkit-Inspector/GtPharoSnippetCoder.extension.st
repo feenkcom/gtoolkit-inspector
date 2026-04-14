@@ -3,6 +3,8 @@ Extension { #name : #GtPharoSnippetCoder }
 { #category : #'*GToolkit-Inspector' }
 GtPharoSnippetCoder >> addCreateGtActionMenuAddOnsAst: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns>
+	| aDocumentId |
+	aDocumentId := aCoderViewModel documentId.
 	behavior = nil class ifTrue: [ ^ self ].
 	aCoderViewModel styledText
 		attributesDo: [ :attrs | 
@@ -26,6 +28,8 @@ GtPharoSnippetCoder >> addCreateGtActionMenuAddOnsAst: anAst to: coderAddOns fro
 { #category : #'*GToolkit-Inspector' }
 GtPharoSnippetCoder >> addCreateGtViewMenuAddOnsAst: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns>
+	| aDocumentId |
+	aDocumentId := aCoderViewModel documentId.
 	behavior = nil class ifTrue: [ ^ self ].
 	aCoderViewModel styledText
 		attributesDo: [ :attrs | 
