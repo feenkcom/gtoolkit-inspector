@@ -51,8 +51,8 @@ GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: a
 				createLabel: 'Inline <gtView>'
 				description: node literalValue)
 		group: BrMenuItemGroupConfiguration refactoring
-		hover: (self highlightNodeBlock: node)
-		leave: self removeHighlightBlock
+		hover: (self highlightNodeBlock: node documentId: aDocumentId)
+		leave: self removeHighlightsBlock
 		action: [ :aSourceCoderViewModel :element | 
 			(GtInlineForwardViewRefactoringController new
 				implementor: implementer;
