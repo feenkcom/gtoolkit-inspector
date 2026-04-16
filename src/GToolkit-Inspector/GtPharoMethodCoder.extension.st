@@ -3,7 +3,8 @@ Extension { #name : #GtPharoMethodCoder }
 { #category : #'*GToolkit-Inspector' }
 GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: aCoderViewModel [
 	<gtCoderContextMenuAddOns>
-	| node implementer objectCode lastValue |
+	| node implementer objectCode lastValue aDocumentId |
+	aDocumentId := aCoderViewModel documentId.
 	anAst isMethod ifFalse: [ ^ self ].
 	(anAst pragmasNamed: #gtView) ifNil: [ ^ self ].
 	node := self nodeFrom: aCoderViewModel.
@@ -50,8 +51,8 @@ GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: a
 				createLabel: 'Inline <gtView>'
 				description: node literalValue)
 		group: BrMenuItemGroupConfiguration refactoring
-		hover: (self highlightNodeBlock: node)
-		leave: self removeHighlightBlock
+		hover: (self highlightNodeBlock: node documentId: aDocumentId)
+		leave: self removeHighlightsBlock
 		action: [ :aSourceCoderViewModel :element | 
 			(GtInlineForwardViewRefactoringController new
 				implementor: implementer;
