@@ -1,10 +1,10 @@
-Extension { #name : #SystemDictionary }
+Extension { #name : #SystemEnvironment }
 
 { #category : #'*GToolkit-Inspector' }
-SystemDictionary >> gtSpecificSizeInMemory [
+SystemEnvironment >> gtSpecificSizeInMemory [
 	^ super gtSpecificSizeInMemory 
 		+ cachedClassNames gtSpecificSizeInMemory 
 		+ cachedNonClassNames gtSpecificSizeInMemory
 		+ cachedBehaviors gtSpecificSizeInMemory
-		+ self pseudoVariables gtSpecificSizeInMemory 
+		+ self pseudoVariables gtSpecificSizeInMemory
 ]
