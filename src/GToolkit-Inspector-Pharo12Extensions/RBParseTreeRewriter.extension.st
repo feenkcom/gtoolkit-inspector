@@ -1,6 +1,6 @@
 Extension { #name : #RBParseTreeRewriter }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 RBParseTreeRewriter >> gtTreeSourceCodeFor: aView [
 	<gtView>
 	tree ifNil: [ ^ aView empty ].

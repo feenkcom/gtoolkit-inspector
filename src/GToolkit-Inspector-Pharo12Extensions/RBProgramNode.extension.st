@@ -1,6 +1,6 @@
 Extension { #name : #RBProgramNode }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 RBProgramNode >> gtPropertiesFor: aView [
 	<gtView>
 	properties ifNil: [ ^ aView empty ].
@@ -17,7 +17,7 @@ RBProgramNode >> gtPropertiesFor: aView [
 		send: #value
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 RBProgramNode >> gtSourceCodeFor: aView [
 	<gtView>
 	self methodNode ifNil: [ ^ aView empty ].
@@ -36,7 +36,7 @@ RBProgramNode >> gtSourceCodeFor: aView [
 				asExpandedOnlyElement) vFitContentLimited ]
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 RBProgramNode >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
@@ -62,7 +62,7 @@ RBProgramNode >> gtTreeFor: aView [
 			width: 400
 ]
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 RBProgramNode >> gtWithAllChildren [
 	| children |
 	children := OrderedCollection with: self.

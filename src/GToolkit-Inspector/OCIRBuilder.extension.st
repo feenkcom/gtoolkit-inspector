@@ -1,7 +1,7 @@
-Extension { #name : #IRBuilder }
+Extension { #name : #OCIRBuilder }
 
 { #category : #'*GToolkit-Inspector' }
-IRBuilder >> gtBytecodeFor: aView [
+OCIRBuilder >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Bytecode';
@@ -10,8 +10,8 @@ IRBuilder >> gtBytecodeFor: aView [
 		view: #gtBytecodeFor:
 ]
 
-{ #category : #'*Gtoolkit-Inspector' }
-IRBuilder >> gtSourceCodeFor: aView [
+{ #category : #'*GToolkit-Inspector' }
+OCIRBuilder >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Source code';
