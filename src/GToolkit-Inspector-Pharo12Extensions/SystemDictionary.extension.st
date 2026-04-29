@@ -1,6 +1,6 @@
 Extension { #name : #SystemDictionary }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 SystemDictionary >> gtSpecificSizeInMemory [
 	^ super gtSpecificSizeInMemory 
 		+ cachedClassNames gtSpecificSizeInMemory 

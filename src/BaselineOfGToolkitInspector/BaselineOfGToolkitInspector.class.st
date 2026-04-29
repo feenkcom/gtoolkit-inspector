@@ -85,5 +85,12 @@ BaselineOfGToolkitInspector >> baseline: spec [
 				with: [ spec
 						requires: #(
 							'Filewatcher' 'GToolkitPager' 'GToolkitSpotter' 'GToolkitCompleter'
-							'GToolkit4Pharo' 'GToolkitExamples' 'Unicode') ] ]
+							'GToolkit4Pharo' 'GToolkitExamples' 'Unicode') ].
+			self 
+				forPharo13AndNewer: [] 
+				forOlder: [
+					spec package: 'GToolkit-Inspector-Pharo12Extensions' with: [ 
+						spec requires: #('GToolkit-Inspector') ] ]
+							
+	 ]
 ]

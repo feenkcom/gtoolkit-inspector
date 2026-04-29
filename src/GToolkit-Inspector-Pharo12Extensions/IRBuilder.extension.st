@@ -1,6 +1,6 @@
 Extension { #name : #IRBuilder }
 
-{ #category : #'*GToolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 IRBuilder >> gtBytecodeFor: aView [
 	<gtView>
 	^ aView forward
@@ -10,7 +10,7 @@ IRBuilder >> gtBytecodeFor: aView [
 		view: #gtBytecodeFor:
 ]
 
-{ #category : #'*Gtoolkit-Inspector' }
+{ #category : #'*GToolkit-Inspector-Pharo12Extensions' }
 IRBuilder >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView forward
