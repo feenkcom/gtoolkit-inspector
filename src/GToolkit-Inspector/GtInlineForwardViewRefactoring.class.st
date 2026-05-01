@@ -56,6 +56,22 @@ GtInlineForwardViewRefactoring >> addCascadesToReturn: aReturn [
 						ifFalse: [ RBCascadeNode messages: newMessages ]) ]
 ]
 
+{ #category : #preconditions }
+GtInlineForwardViewRefactoring >> applicabilityPreconditions [
+	| conds |
+	conds := OrderedCollection new.
+	conds add: (RBCondition definesSelector: selector in: self methodClass).
+	conds
+		add: (RBCondition
+				withBlock: [ | node |
+					node := self literalNode.
+					node ifNil: [ self refactoringError: 'Cannot find node to inline' ].
+					true ]).
+	^ self
+		forPharo13AndNewer: [ conds ]
+		forOlder: [ conds inject: RBCondition true into: [ :sum :each | sum & each ] ]
+]
+
 { #category : #transforming }
 GtInlineForwardViewRefactoring >> basicTransform [
 	self extractMethod.
@@ -179,16 +195,6 @@ GtInlineForwardViewRefactoring >> literalNode [
 { #category : #accessing }
 GtInlineForwardViewRefactoring >> methodClass: aClass [
 	class := model classFor: aClass
-]
-
-{ #category : #preconditions }
-GtInlineForwardViewRefactoring >> preconditions [
-	^ (RBCondition definesSelector: selector in: self methodClass)
-		& (RBCondition
-				withBlock: [ | node |
-					node := self literalNode.
-					node ifNil: [ self refactoringError: 'Cannot find node to inline' ].
-					true ])
 ]
 
 { #category : #transforming }
