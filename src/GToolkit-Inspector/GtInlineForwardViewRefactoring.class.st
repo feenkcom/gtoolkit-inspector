@@ -67,9 +67,7 @@ GtInlineForwardViewRefactoring >> applicabilityPreconditions [
 					node := self literalNode.
 					node ifNil: [ self refactoringError: 'Cannot find node to inline' ].
 					true ]).
-	^ self
-		forPharo13AndNewer: [ conds ]
-		forOlder: [ conds inject: RBCondition true into: [ :sum :each | sum & each ] ]
+	^ self applicabilityPreconditionsFor: conds
 ]
 
 { #category : #transforming }
