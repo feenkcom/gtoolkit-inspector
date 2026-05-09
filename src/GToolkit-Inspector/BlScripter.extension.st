@@ -1,6 +1,50 @@
 Extension { #name : #BlScripter }
 
 { #category : #'*GToolkit-Inspector' }
+BlScripter >> gtActionInspectElementFor: anAction [
+	<gtAction>
+	self model ifNil: [ ^ anAction noAction ].
+	
+	^ anAction button
+		priority: 79;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect element';
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [ self element gtDisplayText ];
+		action: [ :aButton |
+			aButton phlow spawnObject: self element ];
+		primaryModifierAction: [ :aButton |
+			BlSpace new
+				withCommonSettings;
+				objectInPager: self element;
+				showFrom: aButton ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #'*GToolkit-Inspector' }
+BlScripter >> gtActionInspectModelFor: anAction [
+	<gtAction>
+	self model ifNil: [ ^ anAction noAction ].
+	
+	^ anAction button
+		priority: 80;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect model';
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [ self model gtDisplayText ];
+		action: [ :aButton |
+			aButton phlow spawnObject: self model ];
+		primaryModifierAction: [ :aButton |
+			BlSpace new
+				withCommonSettings;
+				objectInPager: self model;
+				showFrom: aButton ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #'*GToolkit-Inspector' }
 BlScripter >> gtElementsFor: aView [
 	<gtView>
 	space ifNil: [ ^ aView empty ].
