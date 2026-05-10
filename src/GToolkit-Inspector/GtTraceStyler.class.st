@@ -27,10 +27,8 @@ GtTraceStyler >> privateStyle: aText [
 				aCompiledMethod := aClass >> tokens fourth value asSymbol.
 				(aText from: tokens second first start to: tokens fourth stop)
 					foreground: Color black;
-					attribute: (BrGlamorousTriangleExpanderTextAttribute new
-							attributesCreatingBlock: [ BrTextAdornmentDynamicAttribute new
-									beAppend;
-									stencil: [ | editorElement coder |
+					attribute: (BrGlamorousTriangleExpanderTextAttributeV2 new
+							stencil: [ | editorElement coder |
 										coder := GtPharoMethodCoder forMethod: aCompiledMethod.
 										coder subscribeToSystem.
 										editorElement := (coder asCoderViewModel expanded: true) asElement.
@@ -40,7 +38,7 @@ GtTraceStyler >> privateStyle: aText [
 													top: 3
 													right: 10
 													bottom: 10
-													left: 10) ] ]) ] on: Error do: [ :e |  ] ].
+													left: 10) ] ) ] on: Error do: [ :e |  ] ].
 	aParser sea star optimize parse: aString.
 	^ aText
 ]
