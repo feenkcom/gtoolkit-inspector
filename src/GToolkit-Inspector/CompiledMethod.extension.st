@@ -11,6 +11,12 @@ CompiledMethod >> gtASTTreeFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtActionCompareObjectsFor: anAction [
+	"comparing the items of a compiled method is not useful"
+	^ anAction noAction
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtMethodCodersFor: aView [
 	<gtView>
 	^ aView columnedList

@@ -1,6 +1,20 @@
 Extension { #name : #SequenceableCollection }
 
 { #category : #'*GToolkit-Inspector' }
+SequenceableCollection >> gtActionCompareObjectsFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 100;
+		target: GtPhlowObjectContextMenuTarget;
+		id: GtInspectorCompareObjectsId;
+		tooltip: 'Compare the objects';
+		icon: BrGlamorousVectorIcons empty;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: self gtDisplayText;
+		action: [ :aButton | aButton phlow spawnObject: (GtObjectComparer compareAll: self) ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtCreateDetailsViewSourceFor: aGtViewCreator [
 	<gtViewCreator>
 	| template bindings |
@@ -66,11 +80,20 @@ SequenceableCollection >> gtItemsFor: aView [
 		title: 'Items';
 		priority: 50;
 		items: [ self ];
+		withMultipleSelection;
 		actionUpdateButtonTooltip: 'Update item list';
 		column: 'Index' 
 			text: [ :eachItem :eachIndex | 
 				eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Item' 
-			text: [ :eachItem | eachItem gtDisplayText ].
+			text: [ :eachItem | eachItem gtDisplayText ];
+		dynamicContextItems: [ :anElement :aCollection | 
+			aCollection size = 1
+				ifTrue: [ GtPhlowObjectContextMenuTarget
+						menuItemsForObject: aCollection first
+						hostElement: anElement ]
+				ifFalse: [ GtPhlowObjectContextMenuTarget
+						menuItemsForObject: aCollection
+						hostElement: anElement ] ]
 ]
