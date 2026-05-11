@@ -3,6 +3,7 @@ Extension { #name : #SequenceableCollection }
 { #category : #'*GToolkit-Inspector' }
 SequenceableCollection >> gtActionCompareObjectsFor: anAction [
 	<gtAction>
+	(self size < 2 or: [ self size > 5 ]) ifTrue: [ ^ anAction empty ].
 	^ anAction button
 		priority: 100;
 		target: GtPhlowObjectContextMenuTarget;
