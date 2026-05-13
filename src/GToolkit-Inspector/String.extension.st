@@ -65,5 +65,5 @@ String >> gtStringFor: aView [
 	^ aView textEditor
 		title: 'String';
 		priority: 9;
-		text: [ self ]
+		text: [ self takeFirst: 1000000 ]
 ]
