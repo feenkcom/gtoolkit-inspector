@@ -4,6 +4,7 @@ Extension { #name : #ByteString }
 ByteString >> gtDirectoryFor: aView [
 	<gtView>
 	| fileReference |
+	self size > 1024 ifTrue: [ ^ aView empty ].
 	[ fileReference := self asFileReference ]
 		on: FileException
 		do: [ ^ aView empty ].
@@ -21,6 +22,7 @@ ByteString >> gtDirectoryFor: aView [
 ByteString >> gtFileContentsFor: aView [
 	<gtView>
 	| fileReference |
+	self size > 1024 ifTrue: [ ^ aView empty ].
 	[ fileReference := self asFileReference ]
 		on: FileException
 		do: [ ^ aView empty ].
