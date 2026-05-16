@@ -64,7 +64,7 @@ CompiledMethod >> gtSourceCodeFor: aView [
 			action: [ :aButton | aButton phlow spawnTool: 
 				(GtMethodCoderTool compiledMethod: self method) ];
 		stencil: [
-			(((GtPharoMethodCoder forMethod: self) asCoderViewModel)
+			(((GtPharoMethodCoder forSmallMethod: self) asCoderViewModel)
 						withHeader;
 						expanded: true;
 						asExpandedOnlyElement) vFitContentLimited ].
