@@ -2,9 +2,10 @@ Extension { #name : #RGMethodDefinition }
 
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> asGtPharoMethodCoder [
+	"It is assumed that users wants to see the actual method in all cases."
 	|methodCoder|
 	
-	methodCoder := GtPharoMethodCoder forMethod: self method.
+	methodCoder := GtPharoMethodCoder forSmallMethod: self method.
 	self hasGtHighlighter ifTrue: [	
 		methodCoder highlighter: self gtHighlighter ].
 						
