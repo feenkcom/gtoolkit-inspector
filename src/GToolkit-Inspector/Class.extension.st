@@ -78,9 +78,17 @@ Class >> gtInstanceSlotsFor: aView [
 Class >> gtMethodsFor: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Methods' translated;
+		title: 'Methods';
 		priority: 2;
-		stencil: [ (GtClassMethodsCoder forClass: self) asElement ]
+		stencil: [ 
+			| methodsCoder methodsCoderViewModel |
+			methodsCoder := GtPharoStreamingMethodsCoder forBehavior: self.
+			methodsCoderViewModel := GtPharoStreamingMethodsCoderViewModel new
+				streamingCodersModel: methodsCoder;
+				shouldExpandByDefault: false;
+				shouldHaveHeaderByDefault: true.
+			GtPharoStreamingMethodsCoderElement new
+				streamingCodersViewModel: methodsCoderViewModel ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
