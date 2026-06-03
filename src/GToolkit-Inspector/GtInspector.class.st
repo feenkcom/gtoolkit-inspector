@@ -18,7 +18,8 @@ Class {
 		'titleNotifier',
 		'playgroundPageStrategy',
 		'databasesRegistry',
-		'externalSnippetContext'
+		'externalSnippetContext',
+		'explicitIcon'
 	],
 	#classVars : [
 		'IndexableDisplayLimit'
@@ -128,6 +129,16 @@ GtInspector >> databasesRegistry: aDatabaseRegistry [
 	self updatePlaygroundDatabasesRegistry.
 ]
 
+{ #category : #initialization }
+GtInspector >> defaultIcon [
+	^ BrGlamorousVectorIcons inspect
+]
+
+{ #category : #accessing }
+GtInspector >> explicitIcon: anIconStencil [
+	explicitIcon := anIconStencil asStencil
+]
+
 { #category : #accessing }
 GtInspector >> externalSnippetContext: anExternalSnippetContext [
 	externalSnippetContext := anExternalSnippetContext.
@@ -190,8 +201,8 @@ GtInspector >> initializePlaygroundElement [
 { #category : #initialization }
 GtInspector >> initializeTitleNotifier [
 	titleNotifier := GtPhlowTitleIconAndLabelNotifier new
-		longLabel: [ self object gtInspectorTitleString ];
-		icon: BrGlamorousVectorIcons inspect.
+		longLabel: [ self objectHolder inspectorTitleStringForWrappedObject ];
+		icon: [ explicitIcon ifNil: [ self defaultIcon ] ].
 	self addEventHandler: titleNotifier.
 ]
 

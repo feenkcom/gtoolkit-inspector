@@ -43,18 +43,9 @@ GtInspectorTool class >> priority [
 GtInspectorTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block"
 	| anInspector |
-	anInspector := GtInspector new.
+	anInspector := self createInspectorElement.
 	
-	"We first configure the inspector before setting up the holder,
-	as when the holder is updated the inspector updates its state."
-	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
-		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
-	databasesRegistry ifNotNil: [ :aRegistry |
-		anInspector databasesRegistry: aRegistry ].
-	externalSnippetContext ifNotNil: [ :anExternalSnippetContext |
-		anInspector externalSnippetContext: anExternalSnippetContext ].
-		
-	anInspector objectHolder: self objectHolder.
+	self configureInspectorElement: anInspector.
 	
 	^ aOneArgBlock cull: anInspector cull: self.
 ]
@@ -70,6 +61,20 @@ GtInspectorTool >> asTabElement [
 	^ anInspector
 ]
 
+{ #category : #utils }
+GtInspectorTool >> configureInspectorElement: anInspector [ 
+	"We first configure the inspector before setting up the holder,
+	as when the holder is updated the inspector updates its state."
+	playgroundPageStrategy ifNotNil: [ :aPlaygroundPageStrategy |
+		anInspector playgroundPageStrategy: aPlaygroundPageStrategy ].
+	databasesRegistry ifNotNil: [ :aRegistry |
+		anInspector databasesRegistry: aRegistry ].
+	externalSnippetContext ifNotNil: [ :anExternalSnippetContext |
+		anInspector externalSnippetContext: anExternalSnippetContext ].
+		
+	anInspector objectHolder: self objectHolder.
+]
+
 { #category : #accessing }
 GtInspectorTool >> context: aPhlowContext [
 	self objectHolder context: aPhlowContext
@@ -80,6 +85,11 @@ GtInspectorTool >> contextWithNavigationContext: aNavigationContext [
 	"Tools may use phlow context with the given navigation context"
 
 	self context: (GtPhlowContext new navigationContext: aNavigationContext)
+]
+
+{ #category : #utils }
+GtInspectorTool >> createInspectorElement [
+	^ GtInspector new
 ]
 
 { #category : #'api - accessing' }

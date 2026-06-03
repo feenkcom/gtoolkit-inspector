@@ -69,6 +69,11 @@ GtInspectorObject >> initialize [
 ]
 
 { #category : #accessing }
+GtInspectorObject >> inspectorTitleStringForWrappedObject [
+	^ self object gtInspectorTitleString
+]
+
+{ #category : #accessing }
 GtInspectorObject >> object [
 	^ object
 ]
