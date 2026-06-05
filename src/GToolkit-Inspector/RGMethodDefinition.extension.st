@@ -19,8 +19,10 @@ RGMethodDefinition >> gtActionInspectCompiledMethodFor: anAction [
 	^ anAction button
 		priority: 75;
 		icon: BrGlamorousVectorIcons inspect;
-		label: 'CM';
-		tooltip: 'Inspect compiled method';
+		label: 'Inspect compiled method';
+		target: GtPhlowObjectContextMenuTarget;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [self gtDisplayText];
 		action: [ :aButton |
 			aButton phlow spawnObject: self method ];
 		primaryModifierAction: [ :aButton |
