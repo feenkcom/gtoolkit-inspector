@@ -29,11 +29,29 @@ RGMethodDefinition >> gtActionInspectCompiledMethodFor: anAction [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> gtActionObjectDropdownFor: anAction [
+	<gtAction>
+	<gtToolAction>
+	
+	^ super gtActionObjectDropdownFor: anAction
+]
+
+{ #category : #'*GToolkit-Inspector' }
+RGMethodDefinition >> gtDefaultInspectorTool [
+	^ super gtDefaultInspectorTool
+	"^ GtPhlowCompositeTool new
+		addTool: (GtMethodDefinitionPhlowTool forMethodDefinition: self);
+		addTool: super gtDefaultInspectorTool"
+]
+
+{ #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtMethodCodersFor: aView [
 	<gtView>
+	<gtToolView>
+	
 	^ aView forward
 		title: 'Method coders';
-		priority: 20;
+		priority: 25;
 		object: [ self compiledMethod ];
 		view: #gtMethodCodersFor:
 ]
@@ -41,6 +59,8 @@ RGMethodDefinition >> gtMethodCodersFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtSourceFor: aView [
 	<gtView>
+	<gtToolView>
+	
 	^ aView explicit
 		title: 'Source';
 		priority: 5;
@@ -54,12 +74,13 @@ RGMethodDefinition >> gtSourceFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtTreeFor: aView [
 	<gtView>
+	<gtToolView>
 	
 	self isDefined ifFalse: [ ^aView empty].
 	
 	^aView forward 
 		title: 'AST';
-		priority: 27;
+		priority: 41;
 		object: [ self method ];
 		view: #gtASTTreeFor:
 ]
@@ -67,12 +88,13 @@ RGMethodDefinition >> gtTreeFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtViewNodesExplanationWithLinksFor: aView [
 	<gtView>
+	<gtToolView>
 	
 	self isDefined ifFalse: [ ^aView empty].
 	
 	^aView forward 
 		title: 'Syntax explanation';
-		priority: 35;
+		priority: 50;
 		object: [ self method ];
 		view: #gtViewNodesExplanationWithLinksFor:
 ]
@@ -80,12 +102,13 @@ RGMethodDefinition >> gtViewNodesExplanationWithLinksFor: aView [
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtViewPragmasFor: aView [
 	<gtView>
+	<gtToolView>
 	
 	self isDefined ifFalse: [ ^aView empty].
 	
 	^aView forward 
 		title: 'Pragmas';
-		priority: 31;
+		priority: 45;
 		object: [ self method ];
 		view: #gtViewPragmasFor: 
 ]
