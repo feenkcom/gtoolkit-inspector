@@ -72,6 +72,35 @@ GtInspectorExamples >> basicPlaygroundElement [
 	^ anElement
 ]
 
+{ #category : #'examples - ui - content' }
+GtInspectorExamples >> clickCleanBlockClassInInspector [
+	<gtExample>
+	<return: #GtInspectorContentElement>
+	| scripter inspector |
+	scripter := BlScripter new.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Set space extent';
+				block: [ :aSpace | aSpace extent: 650 @ 500 ];
+				onSpace ].
+	inspector := self basicContentElement.
+	inspector object: [ 42 ].
+	scripter element: (GtPagerSettings usedPager createWrappedOn: inspector).
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Click on header provider behavior';
+				referenceSender;
+				// GtPharoHeaderProviderBehaviorId ].
+	scripter
+		assertStep: [ :s | 
+			s
+				id: GtBehaviorCoderBehaviorNameId;
+				value: [ :each | each text asString ] equals: self class name ].
+	^ scripter
+]
+
 { #category : #configuration }
 GtInspectorExamples >> configureInspector: anInspector [
 	<gtExample>

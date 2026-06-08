@@ -18,9 +18,11 @@ BlockClosure >> gtSourceCodeFor: aView [
 		stencil: [ ((self sourceNode methodNode compilationContext
 				ifNil: [ (GtPharoMethodCoder forNewMethod: Object)
 						sourceCode: (GtCoderExplicitTextSource new text: self sourceNode methodNode formattedCode) ]
-				ifNotNil: [ (GtPharoMethodCoder
-						forMethod: self sourceNode methodNode compiledMethod) asCoderViewModel
-						selfObject: self receiver ])
+				ifNotNil: [ | viewModel |
+					viewModel := (GtPharoMethodCoder
+							forMethod: self sourceNode methodNode compiledMethod) asCoderViewModel.
+					self isClean ifFalse: [ viewModel selfObject: self receiver ].
+					viewModel ])
 				highlighter: (GtRBPatternHighlighter new ast: self sourceNode);
 				asExpandedOnlyElement) vFitContentLimited ]
 ]

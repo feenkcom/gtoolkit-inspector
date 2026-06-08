@@ -29,6 +29,7 @@ TBlDevScripterActionStep >> gtScripterActionStepsFor: aView [
 
 { #category : #'*GToolkit-Inspector' }
 TBlDevScripterActionStep >> inspectorStep [
+	<scripterActionStep>
 	^ self
 		addStep: (GtInspectorStep new
 				label: 'Inspector';
