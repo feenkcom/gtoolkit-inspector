@@ -40,10 +40,9 @@ RGMethodDefinition >> gtActionObjectDropdownFor: anAction [
 
 { #category : #'*GToolkit-Inspector' }
 RGMethodDefinition >> gtDefaultInspectorTool [
-	^ super gtDefaultInspectorTool
-	"^ GtPhlowCompositeTool new
+	^ GtPhlowCompositeTool new
 		addTool: (GtMethodDefinitionPhlowTool forMethodDefinition: self);
-		addTool: super gtDefaultInspectorTool"
+		addTool: super gtDefaultInspectorTool
 ]
 
 { #category : #'*GToolkit-Inspector' }
