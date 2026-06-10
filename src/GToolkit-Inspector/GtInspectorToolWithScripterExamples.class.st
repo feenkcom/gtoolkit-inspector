@@ -265,6 +265,37 @@ GtInspectorToolWithScripterExamples >> explicitCompositeToolWithObject_fireToolU
 ]
 
 { #category : #'examples - updating' }
+GtInspectorToolWithScripterExamples >> inspectorInWorldTabWithContentIcon [
+	<gtExample>
+	<return: #BlScripter>
+	| scripter  |
+	
+	scripter := BlScripter new.
+	scripter element: GtWorldElement new.
+
+	scripter worldStep
+		label: 'Open object in tab';
+		showInNewTabObject: GtInspectorExampleObjectWithTabContentIcon new;
+		assertTabAtIndex: 2 hasLabel: 'a GtInspecto...abContentIcon';
+		play.
+		
+	scripter click
+		label: 'Select self in the Raw view';
+		// BrColumnedTree;
+		// BrLabel;
+		@ [ :aLabel | aLabel text asString = 'self' ];
+		play.
+		
+	scripter worldStep
+		label: 'Check tab has icons';
+		assertTabAtIndex: 2 hasLabel: 'a GtInspecto...abContentIcon';
+		assertTabHasToolAndContentIconAtIndex: 2;
+		play.
+
+	^ scripter
+]
+
+{ #category : #'examples - updating' }
 GtInspectorToolWithScripterExamples >> inspectorToolWithObject [
 	<gtExample>
 	| aTool aScripter |

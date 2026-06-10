@@ -199,10 +199,11 @@ GtInspector >> initializePlaygroundElement [
 ]
 
 { #category : #initialization }
-GtInspector >> initializeTitleNotifier [
-	titleNotifier := GtPhlowTitleIconAndLabelNotifier new
+GtInspector >> initializeTitleNotifier [ 
+	titleNotifier := GtPhlowTitleToolContentIconsAndLabelNotifier new
 		longLabel: [ self objectHolder inspectorTitleStringForWrappedObject ];
-		icon: [ explicitIcon ifNil: [ self defaultIcon ] ].
+		toolIcon: [ explicitIcon ifNil: [ self defaultIcon ] ];
+		contentIcon: [ self objectHolder inspectorIconForWrappedObject  ].
 	self addEventHandler: titleNotifier.
 ]
 
