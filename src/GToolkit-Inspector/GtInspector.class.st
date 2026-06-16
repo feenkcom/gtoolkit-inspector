@@ -260,7 +260,8 @@ GtInspector >> removePlayground [
 
 { #category : #selection }
 GtInspector >> selectTabWithIdentifier: aTabIdentifier [
-	aTabIdentifier applySelectionTo: self
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ aTabIdentifier applySelectionTo: self
 ]
 
 { #category : #'private - accessing' }

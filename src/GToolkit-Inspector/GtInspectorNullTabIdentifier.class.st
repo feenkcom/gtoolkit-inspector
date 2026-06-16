@@ -8,6 +8,8 @@ Class {
 
 { #category : #accessing }
 GtInspectorNullTabIdentifier >> applySelectionTo: anInspectorElement [
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ GtPhlowToolSelectionStateResponse notApplied
 ]
 
 { #category : #printing }
