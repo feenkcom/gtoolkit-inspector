@@ -6,6 +6,13 @@ Trait {
 	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
+{ #category : #testing }
+TGtInspectorTabNameAccessor classSide >> isDeprecated [
+	"Use TGtPhlowTabNameAccessor instead."
+
+	^ true
+]
+
 { #category : #defaults }
 TGtInspectorTabNameAccessor >> defaultTabName [
 	^ GtInspectorTabName null

@@ -6,6 +6,13 @@ Class {
 	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
+{ #category : #testing }
+GtInspectorTabIdentifier class >> isDeprecated [
+	"Use GtPhlowTabIdentifier instead."
+
+	^ true
+]
+
 { #category : #printing }
 GtInspectorTabIdentifier >> description [
 	^ String streamContents: [ :aStream |
