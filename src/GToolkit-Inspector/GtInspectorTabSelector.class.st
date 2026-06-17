@@ -21,6 +21,13 @@ GtInspectorTabSelector class >> isAbstract [
 	^ self name = #GtInspectorTabSelector 
 ]
 
+{ #category : #testing }
+GtInspectorTabSelector class >> isDeprecated [
+	"Use GtPhlowTabSelector subclasses instead."
+
+	^ true
+]
+
 { #category : #actions }
 GtInspectorTabSelector >> matchesTab: aTabGroup [ 
 	self subclassResponsibility
@@ -34,7 +41,7 @@ GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
 			self matchesTab: aTabModel ]
 		ifFound: [ :aTabModel |
 			| aSignal |
-			aSignal := GtInspectorSelectTabSignal new
+			aSignal := GtPhlowSelectTabSignal new
 				tabGroup: aTabGroupElement;
 				requestedTabModel: aTabModel;
 				selector: self;

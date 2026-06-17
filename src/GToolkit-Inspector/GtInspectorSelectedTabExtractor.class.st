@@ -9,6 +9,13 @@ Class {
 	#category : #'GToolkit-Inspector-Tab Selector'
 }
 
+{ #category : #testing }
+GtInspectorSelectedTabExtractor class >> isDeprecated [
+	"Use GtPhlowSelectedTabExtractor instead."
+
+	^ true
+]
+
 { #category : #'api - actions' }
 GtInspectorSelectedTabExtractor >> extractTabName [
 	<return: #GtInspectorTabName>

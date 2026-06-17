@@ -18,6 +18,13 @@ GtInspectorSelectTabSignal class >> gtNormalOperationSignal [
 	^ true.
 ]
 
+{ #category : #testing }
+GtInspectorSelectTabSignal class >> isDeprecated [
+	"Use GtPhlowSelectTabSignal instead."
+
+	^ true
+]
+
 { #category : #'gt - extensions' }
 GtInspectorSelectTabSignal >> gtOverview [
 	^ {GtPhlowOverviewItem new

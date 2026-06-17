@@ -15,7 +15,7 @@ GtInspectorTabName class >> null [
 { #category : #actions }
 GtInspectorTabName >> applySelectionTo: anInspectorElement [
 	<return: #GtPhlowToolSelectionStateResponse>
-	^ (GtInspectorTabSelector byViewName tabName: self)
+	^ (GtPhlowTabSelector byViewName tabName: self)
 		selectTabInInspectorElement: anInspectorElement
 		on: nil
 ]

@@ -148,7 +148,7 @@ GtInspector >> externalSnippetContext: anExternalSnippetContext [
 
 { #category : #'private - event handling' }
 GtInspector >> extractSelectedTabIdentifier [
-	^ (GtInspectorSelectedTabExtractor new 
+	^ (GtPhlowSelectedTabExtractor new 
 		inspectorElement: self) extractTabName
 ]
 
