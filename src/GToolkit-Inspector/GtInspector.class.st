@@ -148,7 +148,7 @@ GtInspector >> externalSnippetContext: anExternalSnippetContext [
 
 { #category : #'private - event handling' }
 GtInspector >> extractSelectedTabIdentifier [
-	^ (GtInspectorSelectedTabExtractor new 
+	^ (GtPhlowSelectedTabExtractor new 
 		inspectorElement: self) extractTabName
 ]
 
@@ -260,7 +260,8 @@ GtInspector >> removePlayground [
 
 { #category : #selection }
 GtInspector >> selectTabWithIdentifier: aTabIdentifier [
-	aTabIdentifier applySelectionTo: self
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ aTabIdentifier applySelectionTo: self
 ]
 
 { #category : #'private - accessing' }

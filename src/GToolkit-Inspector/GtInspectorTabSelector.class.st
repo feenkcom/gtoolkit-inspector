@@ -21,6 +21,13 @@ GtInspectorTabSelector class >> isAbstract [
 	^ self name = #GtInspectorTabSelector 
 ]
 
+{ #category : #testing }
+GtInspectorTabSelector class >> isDeprecated [
+	"Use GtPhlowTabSelector subclasses instead."
+
+	^ true
+]
+
 { #category : #actions }
 GtInspectorTabSelector >> matchesTab: aTabGroup [ 
 	self subclassResponsibility
@@ -28,12 +35,13 @@ GtInspectorTabSelector >> matchesTab: aTabGroup [
 
 { #category : #actions }
 GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
-	aTabGroupElement viewModel tabs
+	<return: #GtPhlowToolSelectionStateResponse>
+	^ aTabGroupElement viewModel tabs
 		detect: [ :aTabModel | 
 			self matchesTab: aTabModel ]
 		ifFound: [ :aTabModel |
 			| aSignal |
-			aSignal := GtInspectorSelectTabSignal new
+			aSignal := GtPhlowSelectTabSignal new
 				tabGroup: aTabGroupElement;
 				requestedTabModel: aTabModel;
 				selector: self;
@@ -42,12 +50,18 @@ GtInspectorTabSelector >> selectTabInGroup: aTabGroupElement on: anObject [
 		 	aTabModel select.
 		 	
 		 	aTabGroupElement viewModel selectedTabDo: [ :aTab |
-		 		aSignal selectedTabModel: aTabModel ] ]
-		ifNone: [ "do nothing" ]
+		 		aSignal selectedTabModel: aTabModel ].
+		 		
+		 	GtPhlowToolSelectionStateResponse applied ]
+		ifNone: [ GtPhlowToolSelectionStateResponse notApplied ]
 ]
 
 { #category : #actions }
 GtInspectorTabSelector >> selectTabInInspectorElement: anInspectorElement on: anObject [
-	anInspectorElement phlow firstChildWithCompositeViewContentDo: [ :aTabGroupElement | 
-		self selectTabInGroup: aTabGroupElement on: anObject ]
+	<return: #GtPhlowToolSelectionStateResponse>
+	anInspectorElement phlow
+		firstChildWithCompositeViewContentDo: [ :aTabGroupElement | 
+			^ self selectTabInGroup: aTabGroupElement on: anObject ].
+			
+	^ GtPhlowToolSelectionStateResponse notApplied
 ]
