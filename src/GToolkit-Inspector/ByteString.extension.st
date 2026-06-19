@@ -5,7 +5,7 @@ ByteString >> gtBase64EncodedPngFor: aView [
 	<gtView>
 	| prefix |
 	prefix := 'data:image/png;base64,'.
-	self beginsWith: prefix.
+	(self beginsWith: prefix) ifFalse: [ ^ aView empty ].
 	^ aView forward
 		title: 'PNG';
 		object: [ | form bytes base64 |
