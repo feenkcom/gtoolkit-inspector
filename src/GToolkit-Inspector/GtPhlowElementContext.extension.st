@@ -54,7 +54,11 @@ GtPhlowElementContext >> gtOverview [
 			name: 'First parent with view content''s content (BrTabGroup>>#content)';
 			secureValue: [ self firstParentWithViewContent ifNotNil: #content ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
-		GtPhlowOverviewItem new
+	GtPhlowOverviewItem new
+			name: 'First child with tool';
+			secureValue: [ self firstChildWithTool ];
+			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].		
+	GtPhlowOverviewItem new
 			name: 'First child with view title';
 			secureValue: [ self firstChildWithViewTitle ];
 			ifExceptionValueDescription: [ :anException | 'Not found' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ].
