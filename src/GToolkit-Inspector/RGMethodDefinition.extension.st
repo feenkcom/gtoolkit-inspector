@@ -5,7 +5,8 @@ RGMethodDefinition >> asGtPharoMethodCoder [
 	"It is assumed that users wants to see the actual method in all cases."
 	|methodCoder|
 	
-	methodCoder := GtPharoMethodCoder forSmallMethod: self method.
+	methodCoder := GtPharoMethodCoder forSmallMethod: 
+		(self method ifNil: [ self ]).
 	self hasGtHighlighter ifTrue: [	
 		methodCoder highlighter: self gtHighlighter ].
 						
