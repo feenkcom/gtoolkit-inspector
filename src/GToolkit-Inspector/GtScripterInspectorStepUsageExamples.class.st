@@ -7,7 +7,7 @@ Access it via `scripter inspectorStep`.
 
 ## Example
 
-{{gtExample:BlScripterInspectorStepUsageExamples>>#inspectorOnNumberAssertType|previewExpanded=true|previewHeight=300}}
+{{gtExample:GtScripterInspectorStepUsageExamples>>#inspectorOnNumberAssertType|previewExpanded=true|previewHeight=300}}
 "
 Class {
 	#name : #GtScripterInspectorStepUsageExamples,
