@@ -51,7 +51,6 @@ GtInspectorStep >> clickOnBrowseButton [
 		substeps2: 'Click on browse button'
 		do: [ :aStep | 
 			aStep menuStep
-				onParentStepTarget: aStep;
 				// GtPhlowLabelledViewElementId;
 				/ #header;
 				openContextMenu.
