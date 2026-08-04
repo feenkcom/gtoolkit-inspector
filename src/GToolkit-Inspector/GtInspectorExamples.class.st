@@ -92,7 +92,7 @@ GtInspectorExamples >> clickCleanBlockClassInInspector [
 			s
 				label: 'Click on header provider behavior';
 				referenceSender;
-				// GtPharoHeaderProviderBehaviorId ].
+				// GtPharoHeaderReceiverBehaviorId ].
 	scripter
 		assertStep: [ :s | 
 			s
