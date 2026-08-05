@@ -12,7 +12,7 @@ GtPharoMethodsCoderByScripterExamples >> clickClassTagInBlElementIdReferences [
 		clickStep: [ :s | 
 			s
 				label: 'Click a class tag';
-				id: GtPharoHeaderReceiverBehaviorId;
+				id: GtPharoHeaderMethodReceiverBehaviorId;
 				onChildAt: 1 ].
 	scripter
 		checkStep: [ :s | 
