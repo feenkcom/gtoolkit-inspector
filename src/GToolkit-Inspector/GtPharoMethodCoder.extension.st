@@ -57,7 +57,8 @@ GtPharoMethodCoder >> addInlineGtViewForwarderFor: anAst to: coderAddOns from: a
 			(GtInlineForwardViewRefactoringController new
 				implementor: implementer;
 				node: node;
-				sourceCoderViewModel: aSourceCoderViewModel) executeIn: element ]
+				sourceCoderViewModel: aSourceCoderViewModel;
+				documentId: aDocumentId) executeIn: element ]
 		id: #'context-menu--inline-gtView')
 		ifNotNil: [ :anAction | anAction priority: 220 ]
 ]

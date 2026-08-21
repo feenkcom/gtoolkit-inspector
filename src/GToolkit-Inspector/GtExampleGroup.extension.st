@@ -49,7 +49,7 @@ GtExampleGroup >> paintMapWith: m [
 					collect: [ :dep | dep example asCachedExampleWithResult ] ]
 			as: Set.
 	grouped := (all asSortedCollection: [ :a :b | a method name < b method name ])
-			groupedBy: [ :each | each providerClass ].
+			groupedBy: [ :each | each receiverClass ].
 	m nodes
 		stencil: [ :assoc | 
 			| pane default |

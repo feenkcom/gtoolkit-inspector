@@ -116,5 +116,5 @@ MemoryLogger class >> saveBlocGlobalLogger [
 	semaphore signal ]
 		forkAt: Processor userSchedulingPriority + 5 named: 'Bloc Global Logger'.
 	semaphore wait.
-	self instance saveStonFile: 'bloclog.stgz' asFileReference
+	MemoryLoggerFileWriter save: self instance stonFile: 'bloclog.stgz' asFileReference
 ]
