@@ -402,7 +402,25 @@ AbstractFileReference >> gtPathFor: aView [
 { #category : #'*GToolkit-Inspector' }
 AbstractFileReference >> gtPharoScriptFor: aView [
 	<gtView>
+	
+	| parseableTonelTester tonelDefinitionGetter action |
+	
 	(self isFile and: [ self extension = 'st' or: [self extension = 'ph'] ]) ifFalse: [ ^ aView empty ].
+	
+	tonelDefinitionGetter := [ 
+		self readStreamDo: [ :stream |
+			TonelParser parseStream: stream ] ].
+			
+	parseableTonelTester := [
+		[ tonelDefinitionGetter value notEmpty ]
+			on: Error
+			do: [ :error | false ] ].
+			
+	action := [
+		parseableTonelTester value
+			ifTrue: [ tonelDefinitionGetter value do: [ :each | each load ] ]
+			ifFalse: [ self asFileReference fileIn ] ].
+	
 	^ aView explicit
 		title: 'Script';
 		priority: 1;
@@ -412,8 +430,8 @@ AbstractFileReference >> gtPharoScriptFor: aView [
 				subscribeToSystem;
 				asExpandedOnlyElement) 
 					vFitContentLimited ];
-		actionButtonLabel: 'File In' 
-			action: [ :aButton :aTab | self asFileReference fileIn ];
+		actionButtonLabel: 'Run' 
+			action: action;
 		actionStencil: [ :tab | 
 			BrButton new 
 				aptitude: BrGlamorousButtonWithIconAptitude;
