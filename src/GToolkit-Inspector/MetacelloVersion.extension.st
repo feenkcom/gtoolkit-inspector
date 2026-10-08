@@ -95,8 +95,6 @@ MetacelloVersion >> hash [
 	"needed because the super implementation only checks the version number,
 	and we also need to ensure that we have the same configuration class"
 
-	^ (self 
-		forPharo12AndNewer: [ self identityHash] 
-		forPharo11: [ self versionNumber hash]) 
+	^ self identityHash 
 			bitXor: self spec project configuration class hash
 ]
