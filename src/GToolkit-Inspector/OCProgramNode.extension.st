@@ -49,10 +49,11 @@ OCProgramNode >> gtTreeFor: aView [
 			text: [ :each | 
 				| text |
 				text := each class name asRopedText.
-				(each class name beginsWith: 'RB')
+				((each class name beginsWith: 'RB') or: [ each class name beginsWith: 'OC' ])
 					ifTrue: [ (text from: 1 to: 2) foreground: Color lightGray ].
 				(each class name endsWith: 'Node')
-					ifTrue: [ (text from: each class name size - 3 to: each class name size) foreground: Color veryLightGray ].
+					ifTrue: [ (text from: each class name size - 3 to: each class name size)
+							foreground: Color veryLightGray ].
 				text ];
 		column: 'Interval'
 			text: [ :each | each sourceInterval first asString , '-' , each sourceInterval stop asString ]
