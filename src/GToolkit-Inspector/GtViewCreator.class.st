@@ -13,9 +13,9 @@ GtViewCreator class >> addTemporariesTo: aString for: aBehavior [
 	| ast vars |
 	ast := RBParser parseExpression: aString.
 	ast isSequence ifFalse: [ ast := RBSequenceNode statements: {ast} ].
-	self
-		forPharo12AndNewer: [ (RBMethodNode selector: #_ body: ast) doSemanticAnalysisIn: aBehavior ]
-		forPharo11: [  ].
+	
+	(RBMethodNode selector: #_ body: ast) doSemanticAnalysisIn: aBehavior.
+	
 	vars := Set new.
 	ast
 		nodesDo: [ :each | 
