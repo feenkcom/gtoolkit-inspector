@@ -18,8 +18,6 @@ UUID >> gtUUIDDetailsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 UUID >> gtUuidDataFor: aView [
 	<gtView>
-	
-	self forPharo12AndNewer: [] forPharo11: [ ^ aView empty ].
 
 	^ aView forward
 		title: 'Hex dump';
