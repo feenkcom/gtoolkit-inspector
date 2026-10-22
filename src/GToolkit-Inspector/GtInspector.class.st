@@ -240,6 +240,12 @@ GtInspector >> onUpdateWish: anEvent [
 	self updateElement.
 ]
 
+{ #category : #opening }
+GtInspector >> pagerWindowTitle [
+	<return: #String>
+	^ self titleNotifier label asString
+]
+
 { #category : #'private - accessing' }
 GtInspector >> playgroundElement [
 	<return: #GtInspectorObjectElement>

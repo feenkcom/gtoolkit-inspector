@@ -284,6 +284,22 @@ GtInspectorExamples >> inspectorInPagerWithExampleObject [
 	^ aPager
 ]
 
+{ #category : #'examples - title' }
+GtInspectorExamples >> inspectorToolTitleUsesObjectHolder [
+	<gtExample>
+	<return: #GtInspectorTool>
+	| aTool |
+
+	aTool := GtInspectorTool forObject: Smalltalk.
+
+	self
+		assert: aTool title asString
+		equals: aTool objectHolder inspectorTitleStringForWrappedObject asString.
+	self assert: aTool title asString equals: 'a SmalltalkImage (Smalltalk)'.
+
+	^ aTool
+]
+
 { #category : #'examples - inspector' }
 GtInspectorExamples >> inspectorWithExampleObject [
 	<gtExample>
