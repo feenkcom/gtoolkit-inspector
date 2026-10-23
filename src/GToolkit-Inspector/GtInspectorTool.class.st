@@ -189,6 +189,11 @@ GtInspectorTool >> tabLook [
 ]
 
 { #category : #'api - accessing' }
+GtInspectorTool >> title [
+	^ self objectHolder inspectorTitleStringForWrappedObject
+]
+
+{ #category : #'api - accessing' }
 GtInspectorTool >> valuable: aValuable [
 	"Store a valuable that will be later computed 
 	to obtain an object that is going to be inspected"
