@@ -16,7 +16,24 @@ ChangeRecord >> gtActionLoadVersionFor: anAction [
 		icon: BrGlamorousVectorIcons accept;
 		tooltip: 'Load this change in the image';
 		priority: 10;
-		action: [ self asMCMethodDefinition load ]
+		action: [ self gtLoadWithUndo ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
+ChangeRecord >> gtLoadWithUndo [
+	"Load the method of this change record through a recorded change,
+	so that it can be undone and keeps the undo history.
+	If its class is not in the image, load it as Monticello does"
+
+	| aClass |
+	self type == #method ifFalse: [ ^ self ].
+	aClass := self methodClass ifNil: [ ^ self asMCMethodDefinition load ].
+	
+	GtRefactoryChangeManager instance
+		performChange: (RBAddMethodChange
+				compile: self sourceCode
+				in: aClass
+				classified: self protocol)
 ]
 
 { #category : #'*GToolkit-Inspector' }
