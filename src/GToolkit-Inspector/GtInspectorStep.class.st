@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #'steps - checks' }
+GtInspectorStep >> assertInspectedObject: anObject [
+	"Assert that the inspector shows anObject (identity)"
+
+	self
+		assertInspectedObjectSatisfies: [ :anInspectedObject | anInspectedObject == anObject ]
+		description: [ 'Expected to inspect {1}' format: {anObject printString} ]
+		label: ('Assert inspected object is the {1}' format: {anObject class name})
+]
+
+{ #category : #'steps - checks' }
 GtInspectorStep >> assertInspectedObjectOfType: aClass [
 	self assert
 		label: ('Assert inspected object has type {1}' format: {aClass name});
