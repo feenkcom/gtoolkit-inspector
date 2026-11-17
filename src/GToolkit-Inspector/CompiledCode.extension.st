@@ -54,17 +54,23 @@ CompiledCode >> gtItemsFor: aView [
 { #category : #'*GToolkit-Inspector' }
 CompiledCode >> gtLiteralsSizeInMemory [
 	| literalsSize |
-	
 	literalsSize := 0.
-	self literalsDo: [ :aLiteral |
-		aLiteral class = Array ifTrue: [
-			literalsSize := literalsSize + aLiteral gtLiteralArraySizeInMemory ].
-		
-		(aLiteral class = ByteString or: [
-			aLiteral class = WideString ]) 
-				ifTrue: [
-					literalsSize := literalsSize + aLiteral sizeInMemory ] ].
+	self
+		literalsDo: [ :aLiteral | literalsSize := literalsSize + (CompiledCode gtSizeInMemoryOfLiteral: aLiteral) ].
 	^ literalsSize
+]
+
+{ #category : #'*GToolkit-Inspector' }
+CompiledCode class >> gtSizeInMemoryOfLiteral: aLiteral [
+	"Answer the size of a literal that is owned by the compiled code.
+	We count literal arrays and objects without pointers (strings, byte arrays, large integers, boxed floats).
+	Symbols are counted separately, variable bindings are shared and embedded blocks are counted by the method."
+
+	aLiteral class == Array ifTrue: [ ^ aLiteral gtLiteralArraySizeInMemory ].
+	(aLiteral class isBits
+		and: [ aLiteral isSymbol not and: [ aLiteral isEmbeddedBlock not ] ])
+		ifTrue: [ ^ aLiteral sizeInMemory ].
+	^ 0
 ]
 
 { #category : #'*GToolkit-Inspector' }
