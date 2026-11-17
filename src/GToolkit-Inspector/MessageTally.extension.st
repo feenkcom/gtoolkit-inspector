@@ -185,13 +185,18 @@ MessageTally >> gtSourceFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+MessageTally >> gtTextReport [
+	^ String streamContents: [ :stream | self report: stream ]
+]
+
+{ #category : #'*GToolkit-Inspector' }
 MessageTally >> gtTextReportFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'Text report';
 		aptitude: BrGlamorousCodeEditorAptitude;
 		priority: 60;
-		text: [ String streamContents: [:s | self report: s ] ]
+		text: [ self gtTextReport ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
