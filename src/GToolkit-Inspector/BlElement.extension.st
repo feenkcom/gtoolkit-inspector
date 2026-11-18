@@ -290,56 +290,55 @@ BlElement >> gtResizersFor: aView [
 		items: [ self withAllParents reversed ];
 		column: 'Width'
 			text: [ :anElement | anElement constraints horizontal resizer ];
-		column: 'Width spec' 
+		column: 'Width spec'
 			text: [ :anElement :anIndex | 
 				| aText |
 				aText := (anElement privatePreviousMeasurementSpec
-					ifNotNil: #widthSpec) gtDisplayText.
-				aText append: ((' (', (anElement width printShowingDecimalPlaces: 1), ')' ) 
-					gtDisplayText foreground: BrGlamorousColors disabledButtonTextColor).
+						ifNotNil: [ :v | v widthSpec ]) gtDisplayText.
+				aText
+					append: ((' (' , (anElement width printShowingDecimalPlaces: 1) , ')') gtDisplayText
+							foreground: BrGlamorousColors disabledButtonTextColor).
 				aText ];
 		column: 'Height'
 			text: [ :anElement | anElement constraints vertical resizer ];
-		column: 'Height spec' 
+		column: 'Height spec'
 			text: [ :anElement :anIndex | 
 				| aText |
 				aText := (anElement privatePreviousMeasurementSpec
-					ifNotNil: #heightSpec) gtDisplayText.
-				aText append: ((' (', (anElement height printShowingDecimalPlaces: 1), ')' ) 
-					gtDisplayText foreground: BrGlamorousColors disabledButtonTextColor).
+						ifNotNil: [ :v | v heightSpec ]) gtDisplayText.
+				aText
+					append: ((' (' , (anElement height printShowingDecimalPlaces: 1) , ')') gtDisplayText
+							foreground: BrGlamorousColors disabledButtonTextColor).
 				aText ];
-		column: 'Layout' text: [ :anElement |
-			| aText aVisibilityText |
-			aText := anElement layout gtDisplayText.
-			aVisibilityText := anElement visibility shouldLayout
-				ifTrue: [ ' (should layout)' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ]
-				ifFalse: [ ' (do not layout)' ].
-			aText append: aVisibilityText asRopedText.
-			aText ];
+		column: 'Layout'
+			text: [ :anElement | 
+				| aText aVisibilityText |
+				aText := anElement layout gtDisplayText.
+				aVisibilityText := anElement visibility shouldLayout
+						ifTrue: [ ' (should layout)' asRopedText
+								foreground: BrGlamorousColors disabledButtonTextColor ]
+						ifFalse: [ ' (do not layout)' ].
+				aText append: aVisibilityText asRopedText.
+				aText ];
 		column: 'Element' text: [ :anElement | anElement ];
-		contextItemLabel: 'Inspect horizontal resizer' 
+		contextItemLabel: 'Inspect horizontal resizer'
+			action: [ :aMenuElement :anElement | aMenuElement phlow spawnObject: anElement constraints horizontal resizer ];
+		contextItemLabel: 'Inspect vertical resizer'
+			action: [ :aMenuElement :anElement | aMenuElement phlow spawnObject: anElement constraints vertical resizer ];
+		contextItemLabel: 'Inspect previous measurement'
+			action: [ :aMenuElement :anElement | aMenuElement phlow spawnObject: anElement privatePreviousMeasurementSpec ];
+		contextItemLabel: 'Inspect previous measurement width spec'
 			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: anElement constraints horizontal resizer ];
-		contextItemLabel: 'Inspect vertical resizer' 
+				aMenuElement phlow
+					spawnObject: (anElement privatePreviousMeasurementSpec ifNotNil: [ :v | v widthSpec ]) ];
+		contextItemLabel: 'Inspect previous measurement height spec'
 			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: anElement constraints vertical resizer ];
-		contextItemLabel: 'Inspect previous measurement' 
-			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: anElement privatePreviousMeasurementSpec ];
-		contextItemLabel: 'Inspect previous measurement width spec' 
-			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
-					ifNotNil: #widthSpec) ];
-		contextItemLabel: 'Inspect previous measurement height spec' 
-			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: (anElement privatePreviousMeasurementSpec
-					ifNotNil: #heightSpec) ];
-		contextItemLabel: 'Inspect visibility' 
-			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: anElement visibility ];
-		contextItemLabel: 'Inspect layout' 
-			action: [ :aMenuElement :anElement | 
-				aMenuElement phlow spawnObject: anElement layout ]
+				aMenuElement phlow
+					spawnObject: (anElement privatePreviousMeasurementSpec ifNotNil: [ :v | v heightSpec ]) ];
+		contextItemLabel: 'Inspect visibility'
+			action: [ :aMenuElement :anElement | aMenuElement phlow spawnObject: anElement visibility ];
+		contextItemLabel: 'Inspect layout'
+			action: [ :aMenuElement :anElement | aMenuElement phlow spawnObject: anElement layout ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
