@@ -15,12 +15,11 @@ Process >> gtInvocatedByElementPreviewFor: aView [
 Process >> gtName [
 	<return: #BlRope>
 	| aText |
-	aText := (name 
-		ifNil: [ '' ] 
-		ifNotNil: #asString) asRopedText.
+	aText := (name ifNil: [ '' ] ifNotNil: [ :v | v asString ]) asRopedText.
 	aText append: ' ' asRopedText.
-	aText append: ((suspendedContext asString asRopedText 
-		foreground: BrGlamorousColors disabledButtonTextColor)).
+	aText
+		append: (suspendedContext asString asRopedText
+				foreground: BrGlamorousColors disabledButtonTextColor).
 	^ aText
 ]
 

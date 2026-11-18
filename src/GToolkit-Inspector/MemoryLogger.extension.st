@@ -28,12 +28,14 @@ MemoryLogger >> gtGroupedFor: aView [
 MemoryLogger >> gtInterestingAnnouncementsFor: aView [
 	<gtView>
 	interestingAnnouncements ifNil: [ ^ aView empty ].
-	
+
 	^ aView columnedList
 		title: 'Interesting announcements' translated;
 		priority: 60;
-		items: [ interestingAnnouncements ifNil: [ #() ] ifNotNil: #asArray ];
-		column: '#' text: [ :_ :anIndex | anIndex ] width: 40;
+		items: [ interestingAnnouncements ifNil: [ #() ] ifNotNil: [ :v | v asArray ] ];
+		column: '#'
+			text: [ :_ :anIndex | anIndex ]
+			width: 40;
 		column: 'Name' translated text: [ :each | each yourself ];
 		actionUpdateButton
 ]

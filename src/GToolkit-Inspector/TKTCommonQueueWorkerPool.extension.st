@@ -25,8 +25,8 @@ TKTCommonQueueWorkerPool >> gtQueueFor: aView [
 		priority: 90;
 		items: [ self taskQueue itemArray reject: #isZombie thenCollect: #object ];
 		itemText: [ :eachExecution | 
-			[ eachExecution ifNotNil: #name ]
+			[ eachExecution ifNotNil: [ :v | v name ] ]
 				on: Error
 				do: [ :ex | '(unknown name)' ] ];
-		send: [ :eachExecution | eachExecution ifNotNil: #task ]
+		send: [ :eachExecution | eachExecution ifNotNil: [ :v | v task ] ]
 ]
