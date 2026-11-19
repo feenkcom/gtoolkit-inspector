@@ -161,6 +161,7 @@ ProtoObject >> gtRawFor: aView [
 		column: 'Variable'
 			do: [ :aColumn | 
 				aColumn
+					sortBy: [:a :b | a key < b key ];
 					dataBinder: [ :itemElement :anInspectorNode | 
 						| nodeIcon variableLabel classNameLabel extraInfoLabel |
 						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
