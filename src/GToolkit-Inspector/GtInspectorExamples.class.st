@@ -97,7 +97,7 @@ GtInspectorExamples >> clickCleanBlockClassInInspector [
 		assertStep: [ :s | 
 			s
 				id: GtBehaviorCoderBehaviorNameId;
-				value: [ :each | each text asString ] equals: self class name ].
+				value: [ :each | each text asString ] equals: self class name asString ].
 	^ scripter
 ]
 
