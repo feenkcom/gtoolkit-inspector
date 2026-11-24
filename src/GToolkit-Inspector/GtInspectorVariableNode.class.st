@@ -32,6 +32,26 @@ GtInspectorVariableNode >> errorMessage [
 	^ 'error obtaining value'
 ]
 
+{ #category : #private }
+GtInspectorVariableNode >> fallbackIconForClass: aClass [
+	| anIconName aGlyph |
+	anIconName := aClass systemIconName.
+	aGlyph := anIconName
+			caseOf: {[ #string ] -> [ '¶' ].
+					[ #magnitude ] -> [ 'Σ' ]}
+			otherwise: [ ^ aClass iconNamed: anIconName ].
+	^ [ | aLabel |
+	aLabel := BrLabel new.
+	aLabel
+		id: #'inspector--raw-value-icon';
+		aptitude: (BrGlamorousLabelAptitude new
+				foreground: aLabel theme label metadataTextForeground;
+				fontSize: 12);
+		text: aGlyph;
+		alignCenter;
+		exact: 16 @ 16 ] asStencil
+]
+
 { #category : #accessing }
 GtInspectorVariableNode >> hostObject [
 	^ hostObject
@@ -94,6 +114,13 @@ GtInspectorVariableNode >> label [
 GtInspectorVariableNode >> rawValue [
 	"Answer the object value of this object variable (slot, indexed attribute, computed value)."
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtInspectorVariableNode >> rawValueIcon [
+	| anObject |
+	anObject := self rawValue.
+	^ anObject gtInspectorIcon ifNil: [ self fallbackIconForClass: anObject class ]
 ]
 
 { #category : #actions }
