@@ -54,6 +54,15 @@ CompiledMethod >> gtPropertiesFor: aView [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+CompiledMethod >> gtSizeInMemoryCountingLiteralsOnceIn: aSetOfLiterals [
+	^ (super gtSizeInMemoryCountingLiteralsOnceIn: aSetOfLiterals)
+		+ (self penultimateLiteral isMethodProperties
+				ifTrue: [ self penultimateLiteral gtSpecificSizeInMemory ]
+				ifFalse: [ 0 ])
+
+]
+
+{ #category : #'*GToolkit-Inspector' }
 CompiledMethod >> gtSourceCodeFor: aView [
 	<gtView>
 	^ aView explicit
