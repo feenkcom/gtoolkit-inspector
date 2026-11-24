@@ -34,22 +34,11 @@ GtInspectorVariableNode >> errorMessage [
 
 { #category : #private }
 GtInspectorVariableNode >> fallbackIconForClass: aClass [
-	| anIconName aGlyph |
+	| anIconName |
 	anIconName := aClass systemIconName.
-	aGlyph := anIconName
-			caseOf: {[ #string ] -> [ '¶' ].
-					[ #magnitude ] -> [ 'Σ' ]}
-			otherwise: [ ^ aClass iconNamed: anIconName ].
-	^ [ | aLabel |
-	aLabel := BrLabel new.
-	aLabel
-		id: #'inspector--raw-value-icon';
-		aptitude: (BrGlamorousLabelAptitude new
-				foreground: aLabel theme label metadataTextForeground;
-				fontSize: 12);
-		text: aGlyph;
-		alignCenter;
-		exact: 16 @ 16 ] asStencil
+	^ (aClass gtThemedClassIconNamed: anIconName)
+		ifNil: [ aClass iconNamed: anIconName ]
+		ifNotNil: [ :anIcon | anIcon id: #'inspector--raw-value-icon' ]
 ]
 
 { #category : #accessing }
