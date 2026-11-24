@@ -7,6 +7,13 @@ Array >> gtLiteralArraySizeInMemory [
 ]
 
 { #category : #'*GToolkit-Inspector' }
+Array >> gtLiteralArraySizeInMemoryCountingOnceIn: aSetOfLiterals [
+	^ self sizeInMemory
+		+ (self sumNumbers: [ :anObject | CompiledCode gtSizeInMemoryOfLiteral: anObject countingOnceIn: aSetOfLiterals ])
+
+]
+
+{ #category : #'*GToolkit-Inspector' }
 Array >> gtSpecificSizeInMemory [
 	^ self sizeInMemory
 ]
