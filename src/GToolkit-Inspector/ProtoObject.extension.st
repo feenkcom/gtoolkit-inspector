@@ -161,12 +161,10 @@ ProtoObject >> gtRawFor: aView [
 		column: 'Variable'
 			do: [ :aColumn | 
 				aColumn
-					sortBy: [:a :b | a key < b key ];
+					sortBy: [ :a :b | a key < b key ];
 					dataBinder: [ :itemElement :anInspectorNode | 
 						| nodeIcon variableLabel classNameLabel extraInfoLabel |
-						nodeIcon := [ anInspectorNode rawValue gtInspectorIcon
-								ifNil: [ anInspectorNode rawValue class
-										iconNamed: anInspectorNode rawValue class systemIconName ] ]
+						nodeIcon := [ anInspectorNode rawValueIcon ]
 								on: Error
 								do: [ :error | Smalltalk ui icons iconNamed: #smallWarning ].
 
