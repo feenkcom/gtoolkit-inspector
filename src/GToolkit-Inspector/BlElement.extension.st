@@ -224,11 +224,11 @@ BlElement >> gtPreviewFor: aView [
 			aPreviewElement := BrVerticalPane new.
 			aPreviewElement
 				matchParent;
-				background: aPreviewElement theme status neutralBackgroundColor;
+				background: aPreviewElement theme default appBackground;
 				padding: (BlInsets top: 10 left: 10 bottom: 5 right: 10);
 				addChild: (BrFrame new
 					matchParent;
-					background: Color white;
+					background: aPreviewElement theme default backdropBackground;
 					addAptitude: BrShadowAptitude;
 					padding: (BlInsets all: 10);
 					margin: (BlInsets top: 5 left: 10 bottom: 5 right: 10);
