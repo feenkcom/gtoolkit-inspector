@@ -74,8 +74,7 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 			| element executeButton |
 			element := BrHorizontalPane new vFitContent hMatchParent.
 			element
-				addChild:
-					(BrLabel new
+				addChild: (BrLabel new
 						aptitude: BrGlamorousListLabelAptitude;
 						text: '').
 			executeButton := BrButton new.
@@ -89,9 +88,10 @@ RBCompositeRefactoryChange >> gtChangesFor: aView [
 					c margin: c margin + (BlInsets left: 5) ].
 			element addChild: executeButton.
 			element ];
-		itemDataBinder: [ :aPaneElement :anItemObject :aTreeNode |
+		itemDataBinder: [ :aPaneElement :anItemObject :aTreeNode | 
 			(aPaneElement childAt: 1) text: anItemObject gtLabel.
-			(aPaneElement childAt: 2) action: [ anItemObject gtExecuteWithNotification ] ]
+			(aPaneElement childAt: 2)
+				action: [ :aButton | anItemObject gtExecuteWithNotificationIn: aButton ] ]
 ]
 
 { #category : #'*GToolkit-Inspector' }
