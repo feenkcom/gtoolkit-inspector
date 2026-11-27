@@ -5,26 +5,30 @@ UndefinedObject >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Live';
-		stencil: [ 
-			BlElement new
+		stencil: [ | container |
+			container := BlElement new.
+			container
 				layout: BlFrameLayout new;
-				constraintsDo: [ :c |
+				constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ];
-				addChild: (
-					BlElement new
+				addChild: (BlElement new
 						aptitude: BrShadowAptitude new;
-						background: Color white;
-						constraintsDo: [ :c |
+						background: container theme default contentBackground;
+						constraintsDo: [ :c | 
 							c frame horizontal alignCenter.
 							c frame vertical alignCenter.
 							c horizontal fitContent.
 							c vertical fitContent ];
 						layout: BlLinearLayout horizontal;
-						addChild: (BlElement new background: BrGlamorousColors disabledButtonTextColor; constraintsDo: [:c | c vertical matchParent. c horizontal exact: 30 ]);
+						addChild: (BlElement new
+								background: container theme status neutralBackgroundColor;
+								constraintsDo: [ :c | 
+									c vertical matchParent.
+									c horizontal exact: 30 ]);
 						addChild: (BrLabel new
-							text: self asString;
-							aptitude: BrGlamorousLabelAptitude;
-							layout: BlLinearLayout vertical alignCenter;
-							padding: (BlInsets all: 10))) ]
+								text: self asString;
+								aptitude: BrGlamorousLabelAptitude;
+								layout: BlLinearLayout vertical alignCenter;
+								padding: (BlInsets all: 10))) ]
 ]
