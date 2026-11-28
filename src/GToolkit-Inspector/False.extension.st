@@ -4,8 +4,3 @@ Extension { #name : #False }
 False >> gtColoredText [
 	^ 'false' asRopedText foreground: BrGlamorousColors errorBorderColor
 ]
-
-{ #category : #'*GToolkit-Inspector' }
-False >> gtLiveBackground [
-	^ BrGlamorousColors errorBackgroundColor
-]
